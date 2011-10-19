@@ -1,0 +1,18 @@
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.Factory\bin\Release\DB.Factory.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.Factory\bin\Release\DB.Factory.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.Factory\bin\Release\DB.Interface.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.Factory\bin\Release\DB.Interface.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.Factory\obj\Release\ResolveAssemblyReference.cache
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.Factory\obj\Release\DB.Factory.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.Factory\obj\Release\DB.Factory.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.Factory\bin\Release\DB.Interface.xml
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.Factory\bin\Release\DB.Factory.XML
+D:\BSUIR\Other\Projects_new\DDDModel\DB.Factory\bin\Release\DB.Factory.dll
+D:\BSUIR\Other\Projects_new\DDDModel\DB.Factory\bin\Release\DB.Factory.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\DB.Factory\bin\Release\DB.Interface.dll
+D:\BSUIR\Other\Projects_new\DDDModel\DB.Factory\bin\Release\DB.Interface.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\DB.Factory\bin\Release\DB.Interface.xml
+D:\BSUIR\Other\Projects_new\DDDModel\DB.Factory\obj\Release\ResolveAssemblyReference.cache
+D:\BSUIR\Other\Projects_new\DDDModel\DB.Factory\obj\Release\DB.Factory.dll
+D:\BSUIR\Other\Projects_new\DDDModel\DB.Factory\obj\Release\DB.Factory.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\DB.Factory\bin\Release\DB.Factory.XML

@@ -1,0 +1,30 @@
+﻿body
+{
+    font-family:Tahoma;
+    font-size:11px;
+}
+
+#contentTableWrapper{
+    border: none;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    overflow:hidden;
+}
+
+#contentTable
+{
+    width:100%;
+    display:none;    
+}
+
+.document-icon
+{
+    background: url(icons/32x32/page_down.png);
+    width:32px;
+    height:32px;
+    border:none;
+    margin:4px;
+    margin-right:0px;
+    cursor: pointer;
+}

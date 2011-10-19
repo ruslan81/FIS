@@ -1,0 +1,36 @@
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.XML\bin\Release\DB.XML.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.XML\bin\Release\DB.XML.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.XML\bin\Release\CardUnit.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.XML\bin\Release\DDDClass.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.XML\bin\Release\PLFUnit.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.XML\bin\Release\VehichleUnit.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.XML\bin\Release\VehichleUnit.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.XML\bin\Release\CardUnit.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.XML\bin\Release\PLFUnit.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.XML\bin\Release\DDDClass.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.XML\obj\Release\ResolveAssemblyReference.cache
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.XML\obj\Release\DB.XML.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.XML\obj\Release\DB.XML.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.XML\bin\Release\VehichleUnit.xml
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.XML\bin\Release\CardUnit.xml
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.XML\bin\Release\PLFUnit.xml
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.XML\bin\Release\DDDClass.xml
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.XML\bin\Release\DB.XML.XML
+D:\BSUIR\Other\Projects_new\DDDModel\DB.XML\bin\Release\DB.XML.dll
+D:\BSUIR\Other\Projects_new\DDDModel\DB.XML\bin\Release\DB.XML.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\DB.XML\bin\Release\CardUnit.dll
+D:\BSUIR\Other\Projects_new\DDDModel\DB.XML\bin\Release\DDDClass.dll
+D:\BSUIR\Other\Projects_new\DDDModel\DB.XML\bin\Release\PLFUnit.dll
+D:\BSUIR\Other\Projects_new\DDDModel\DB.XML\bin\Release\VehichleUnit.dll
+D:\BSUIR\Other\Projects_new\DDDModel\DB.XML\bin\Release\VehichleUnit.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\DB.XML\bin\Release\VehichleUnit.xml
+D:\BSUIR\Other\Projects_new\DDDModel\DB.XML\bin\Release\CardUnit.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\DB.XML\bin\Release\CardUnit.xml
+D:\BSUIR\Other\Projects_new\DDDModel\DB.XML\bin\Release\PLFUnit.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\DB.XML\bin\Release\PLFUnit.xml
+D:\BSUIR\Other\Projects_new\DDDModel\DB.XML\bin\Release\DDDClass.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\DB.XML\bin\Release\DDDClass.xml
+D:\BSUIR\Other\Projects_new\DDDModel\DB.XML\obj\Release\ResolveAssemblyReference.cache
+D:\BSUIR\Other\Projects_new\DDDModel\DB.XML\obj\Release\DB.XML.dll
+D:\BSUIR\Other\Projects_new\DDDModel\DB.XML\obj\Release\DB.XML.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\DB.XML\bin\Release\DB.XML.XML

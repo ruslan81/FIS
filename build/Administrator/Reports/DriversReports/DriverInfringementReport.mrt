@@ -1,0 +1,1620 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.0" application="StiReport">
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="0" />
+    <DataSources isList="true" count="2">
+      <PlfHeader_1 Ref="2" type="DataTableSource" isKey="true">
+        <Alias>PlfHeader_1</Alias>
+        <Columns isList="true" count="7">
+          <value>С,System.String</value>
+          <value>По,System.String</value>
+          <value>Регистрационный_x0020_номер,System.String</value>
+          <value>Имя_x0020_пользователя,System.String</value>
+          <value>Номер_x0020_водителя,System.String</value>
+          <value>Имя_x0020_водителя,System.String</value>
+          <value>Название_x0020_организации,System.String</value>
+        </Columns>
+        <Dictionary isRef="1" />
+        <Name>PlfHeader_1</Name>
+        <NameInSource>PlfHeader_1</NameInSource>
+      </PlfHeader_1>
+      <DriversWeeklyData Ref="3" type="DataTableSource" isKey="true">
+        <Alias>DriversWeeklyData</Alias>
+        <Columns isList="true" count="13">
+          <value>Дата,System.DateTime</value>
+          <value>Время_x0020_начала,System.TimeSpan</value>
+          <value>Всего,System.TimeSpan</value>
+          <value>Время_x0020_вождения,System.TimeSpan</value>
+          <value>Время_x0020_работы,System.TimeSpan</value>
+          <value>Время_x0020_свободное,System.TimeSpan</value>
+          <value>Время_x0020_В_x002B_Р_x002B_С,System.TimeSpan</value>
+          <value>Время_x0020_отдыха,System.TimeSpan</value>
+          <value>ТС,System.String</value>
+          <value>Пробег,System.String</value>
+          <value>Средняя_x0020_скорость,System.Int32</value>
+          <value>Номер_x0020_недели,System.Int32</value>
+          <value>Время_x0020_окончания,System.TimeSpan</value>
+        </Columns>
+        <Dictionary isRef="1" />
+        <Name>DriversWeeklyData</Name>
+        <NameInSource>DriversWeeklyData</NameInSource>
+      </DriversWeeklyData>
+    </DataSources>
+    <Relations isList="true" count="0" />
+    <Report isRef="0" />
+    <Variables isList="true" count="0" />
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="1">
+    <Page1 Ref="4" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="8">
+        <PageHeaderBand1 Ref="5" type="PageHeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,0.4,19,0.8</ClientRectangle>
+          <Components isList="true" count="2">
+            <Text17 Ref="6" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0.4,0,12.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,12</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text17</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>Название организации: {PlfHeader_1.Название_организации}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text17>
+            <Text18 Ref="7" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>12.8,0,6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,12</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text18</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>Дата {Time}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text18>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>PageHeaderBand1</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </PageHeaderBand1>
+        <PageFooterBand1 Ref="8" type="PageFooterBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,26.9,19,0.8</ClientRectangle>
+          <Components isList="true" count="1">
+            <Text16 Ref="9" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>16.8,0,1.8,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text16</Name>
+              <Page isRef="4" />
+              <Parent isRef="8" />
+              <Text>{PageNofMThrough}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>SystemVariables</Type>
+            </Text16>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>PageFooterBand1</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </PageFooterBand1>
+        <ReportTitleBand1 Ref="10" type="ReportTitleBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,2,19,3.6</ClientRectangle>
+          <Components isList="true" count="1">
+            <Panel1 Ref="11" type="Stimulsoft.Report.Components.StiPanel" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,0,19,2.8</ClientRectangle>
+              <Components isList="true" count="5">
+                <Text1 Ref="12" type="Text" isKey="true">
+                  <Brush>EmptyBrush</Brush>
+                  <CanGrow>True</CanGrow>
+                  <ClientRectangle>0,0,19,1</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,22,Bold</Font>
+                  <GrowToHeight>True</GrowToHeight>
+                  <HorAlignment>Center</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text1</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="11" />
+                  <Text>Еженедельный протокол активности</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text1>
+                <Text19 Ref="13" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>0.2,1.2,8.4,0.6</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10</Font>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text19</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="11" />
+                  <Text>Период с {PlfHeader_1.С} по {PlfHeader_1.По}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text19>
+                <Text21 Ref="14" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>0.2,2,8.4,0.6</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10</Font>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text21</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="11" />
+                  <Text>Имя водителя: {PlfHeader_1.Имя_водителя}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text21>
+                <Text22 Ref="15" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>9.4,1.2,9.4,0.6</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10</Font>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text22</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="11" />
+                  <Text>Отчет сформирован сотрудником: {PlfHeader_1.Имя_пользователя}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text22>
+                <Text2 Ref="16" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>9.4,2,9.4,0.6</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10</Font>
+                  <Guid>f57bdc206f904a9fb3c678368d069370</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text2</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="11" />
+                  <Text>Номер водителя: {PlfHeader_1.Номер_водителя}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text2>
+              </Components>
+              <Conditions isList="true" count="0" />
+              <Name>Panel1</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+            </Panel1>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>ReportTitleBand1</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </ReportTitleBand1>
+        <GroupHeaderBand1 Ref="17" type="GroupHeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,6.4,19,0.2</ClientRectangle>
+          <Components isList="true" count="0" />
+          <Condition>{DriversWeeklyData.Номер_недели}</Condition>
+          <Conditions isList="true" count="0" />
+          <Name>GroupHeaderBand1</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </GroupHeaderBand1>
+        <HeaderBand1 Ref="18" type="HeaderBand" isKey="true">
+          <Border>All;Black;1;Solid;False;4;Black</Border>
+          <Brush>DarkGray</Brush>
+          <ClientRectangle>0,7.4,19,0.8</ClientRectangle>
+          <Components isList="true" count="12">
+            <Text4 Ref="19" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,0,2.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text4</Name>
+              <Page isRef="4" />
+              <Parent isRef="18" />
+              <Text>Дата</Text>
+              <TextBrush>Black</TextBrush>
+            </Text4>
+            <Text6 Ref="20" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>2.6,0,1.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text6</Name>
+              <Page isRef="4" />
+              <Parent isRef="18" />
+              <Text>Время начала</Text>
+              <TextBrush>Black</TextBrush>
+            </Text6>
+            <Text8 Ref="21" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>3.8,0,1.4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text8</Name>
+              <Page isRef="4" />
+              <Parent isRef="18" />
+              <Text>Время окончания</Text>
+              <TextBrush>Black</TextBrush>
+            </Text8>
+            <Text10 Ref="22" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>5.2,0,1.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text10</Name>
+              <Page isRef="4" />
+              <Parent isRef="18" />
+              <Text>Всего</Text>
+              <TextBrush>Black</TextBrush>
+            </Text10>
+            <Text12 Ref="23" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>6.4,0,1.4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text12</Name>
+              <Page isRef="4" />
+              <Parent isRef="18" />
+              <Text>Время вождения</Text>
+              <TextBrush>Black</TextBrush>
+            </Text12>
+            <Text14 Ref="24" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>7.8,0,1.4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text14</Name>
+              <Page isRef="4" />
+              <Parent isRef="18" />
+              <Text>Время работы</Text>
+              <TextBrush>Black</TextBrush>
+            </Text14>
+            <Text23 Ref="25" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>9.2,0,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text23</Name>
+              <Page isRef="4" />
+              <Parent isRef="18" />
+              <Text>Время свободное</Text>
+              <TextBrush>Black</TextBrush>
+            </Text23>
+            <Text25 Ref="26" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>10.8,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text25</Name>
+              <Page isRef="4" />
+              <Parent isRef="18" />
+              <Text>Время В+Р+С</Text>
+              <TextBrush>Black</TextBrush>
+            </Text25>
+            <Text27 Ref="27" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>12,0,1.4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text27</Name>
+              <Page isRef="4" />
+              <Parent isRef="18" />
+              <Text>Время отдыха</Text>
+              <TextBrush>Black</TextBrush>
+            </Text27>
+            <Text29 Ref="28" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>13.4,0,3.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text29</Name>
+              <Page isRef="4" />
+              <Parent isRef="18" />
+              <Text>Транспортное средство</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text29>
+            <Text31 Ref="29" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>16.6,0,1.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text31</Name>
+              <Page isRef="4" />
+              <Parent isRef="18" />
+              <Text>Пробег</Text>
+              <TextBrush>Black</TextBrush>
+            </Text31>
+            <Text33 Ref="30" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>17.8,0,1.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text33</Name>
+              <Page isRef="4" />
+              <Parent isRef="18" />
+              <Text>Средняя скорость</Text>
+              <TextBrush>Black</TextBrush>
+            </Text33>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>HeaderBand1</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </HeaderBand1>
+        <DataBand1 Ref="31" type="DataBand" isKey="true">
+          <Border>Left, Right, Bottom;Black;1;Solid;False;4;Black</Border>
+          <Brush>Transparent</Brush>
+          <BusinessObjectGuid isNull="true" />
+          <ClientRectangle>0,9,19,0.6</ClientRectangle>
+          <Components isList="true" count="13">
+            <Text3 Ref="32" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0.8,0,1.8,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text3</Name>
+              <Page isRef="4" />
+              <Parent isRef="31" />
+              <Text>{Format("{0:dd.MM}", DriversWeeklyData.Дата)}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="33" type="DateFormat" isKey="true">
+                <StringFormat>D</StringFormat>
+              </TextFormat>
+              <Type>Expression</Type>
+            </Text3>
+            <Text5 Ref="34" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>2.6,0,1.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text5</Name>
+              <Page isRef="4" />
+              <Parent isRef="31" />
+              <Text>{DriversWeeklyData.Дата}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="35" type="TimeFormat" isKey="true">
+                <StringFormat>t</StringFormat>
+              </TextFormat>
+              <Type>DataColumn</Type>
+            </Text5>
+            <Text7 Ref="36" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>3.8,0,1.4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text7</Name>
+              <Page isRef="4" />
+              <Parent isRef="31" />
+              <Text>{DriversWeeklyData.Время_окончания}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="37" type="TimeFormat" isKey="true">
+                <StringFormat>t</StringFormat>
+              </TextFormat>
+              <Type>Expression</Type>
+            </Text7>
+            <Text9 Ref="38" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>5.2,0,1.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text9</Name>
+              <Page isRef="4" />
+              <Parent isRef="31" />
+              <Text>{DriversWeeklyData.Всего}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="39" type="TimeFormat" isKey="true">
+                <StringFormat>t</StringFormat>
+              </TextFormat>
+              <Type>DataColumn</Type>
+            </Text9>
+            <Text11 Ref="40" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>6.4,0,1.4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text11</Name>
+              <Page isRef="4" />
+              <Parent isRef="31" />
+              <Text>{DriversWeeklyData.Время_вождения}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="41" type="TimeFormat" isKey="true">
+                <StringFormat>t</StringFormat>
+              </TextFormat>
+              <Type>DataColumn</Type>
+            </Text11>
+            <Text13 Ref="42" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>7.8,0,1.4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text13</Name>
+              <Page isRef="4" />
+              <Parent isRef="31" />
+              <Text>{DriversWeeklyData.Время_работы}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="43" type="TimeFormat" isKey="true">
+                <StringFormat>t</StringFormat>
+              </TextFormat>
+              <Type>DataColumn</Type>
+            </Text13>
+            <Text15 Ref="44" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>9.2,0,1.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text15</Name>
+              <Page isRef="4" />
+              <Parent isRef="31" />
+              <Text>{DriversWeeklyData.Время_свободное}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="45" type="TimeFormat" isKey="true">
+                <StringFormat>t</StringFormat>
+              </TextFormat>
+              <Type>DataColumn</Type>
+            </Text15>
+            <Text24 Ref="46" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>10.8,0,1,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text24</Name>
+              <Page isRef="4" />
+              <Parent isRef="31" />
+              <Text>{DriversWeeklyData.Время_В_Р_С}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="47" type="TimeFormat" isKey="true">
+                <StringFormat>t</StringFormat>
+              </TextFormat>
+              <Type>DataColumn</Type>
+            </Text24>
+            <Text26 Ref="48" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>12,0,1.4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text26</Name>
+              <Page isRef="4" />
+              <Parent isRef="31" />
+              <Text>{DriversWeeklyData.Время_отдыха}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="49" type="TimeFormat" isKey="true">
+                <StringFormat>t</StringFormat>
+              </TextFormat>
+              <Type>DataColumn</Type>
+            </Text26>
+            <Text28 Ref="50" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>13.4,0,3.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text28</Name>
+              <Page isRef="4" />
+              <Parent isRef="31" />
+              <Text>{DriversWeeklyData.ТС}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+            </Text28>
+            <Text30 Ref="51" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>16.6,0,1.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text30</Name>
+              <Page isRef="4" />
+              <Parent isRef="31" />
+              <Text>{DriversWeeklyData.Пробег}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text30>
+            <Text32 Ref="52" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>17.8,0,1.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text32</Name>
+              <Page isRef="4" />
+              <Parent isRef="31" />
+              <Text>{Format("{0:N2}", DriversWeeklyData.Средняя_скорость)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text32>
+            <Text92 Ref="53" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,0,0.8,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text92</Name>
+              <Page isRef="4" />
+              <Parent isRef="31" />
+              <Text>{Substring(DayOfWeek(DriversWeeklyData.Дата, true), 0, 3)} </Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text92>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <DataRelationName isNull="true" />
+          <DataSourceName>DriversWeeklyData</DataSourceName>
+          <EvenStyle>Стиль1</EvenStyle>
+          <Filters isList="true" count="0" />
+          <Name>DataBand1</Name>
+          <OddStyle>Стиль2</OddStyle>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+          <Sort isList="true" count="2">
+            <value>ASC</value>
+            <value>Дата</value>
+          </Sort>
+        </DataBand1>
+        <GroupFooterBand1 Ref="54" type="GroupFooterBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,10.4,19,0.8</ClientRectangle>
+          <Components isList="true" count="1">
+            <Panel2 Ref="55" type="Stimulsoft.Report.Components.StiPanel" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>DarkGray</Brush>
+              <ClientRectangle>0,0,19,0.8</ClientRectangle>
+              <Components isList="true" count="18">
+                <Text20 Ref="56" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>0,0,1.6,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9,Bold</Font>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text20</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="55" />
+                  <Text>Всего</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text20>
+                <Text34 Ref="57" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>0,0.4,3.2,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9,Bold</Font>
+                  <Guid>4b18a6a5f3804401a48736dd9995ee24</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text34</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="55" />
+                  <Text>Среднее за неделю</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text34>
+                <Text36 Ref="58" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>5.2,0,1.2,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,8,Bold</Font>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text36</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="55" />
+                  <Text>{Floor(SumTime(DriversWeeklyData.Всего).TotalHours)}:{Format("{0:00}", SumTime(DriversWeeklyData.Всего).Minutes)}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text36>
+                <Text37 Ref="59" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>6.4,0,1.4,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,8,Bold</Font>
+                  <Guid>004ae8fb466e468d9130c1ad845e32ed</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text37</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="55" />
+                  <Text>{Floor(SumTime(DriversWeeklyData.Время_вождения).TotalHours)}:{Format("{0:00}", SumTime(DriversWeeklyData.Время_вождения).Minutes)}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text37>
+                <Text78 Ref="60" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>7.8,0,1.4,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,8,Bold</Font>
+                  <Guid>f196f9fb9ccc47568df4577cdc8b70cc</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text78</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="55" />
+                  <Text>{Floor(SumTime(DriversWeeklyData.Время_работы).TotalHours)}:{Format("{0:00}", SumTime(DriversWeeklyData.Время_работы).Minutes)}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text78>
+                <Text79 Ref="61" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>9.2,0,1.6,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,8,Bold</Font>
+                  <Guid>1ea29bb837b6406ca4589e8e5c308947</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text79</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="55" />
+                  <Text>{Floor(SumTime(DriversWeeklyData.Время_свободное).TotalHours)}:{Format("{0:00}", SumTime(DriversWeeklyData.Время_свободное).Minutes)}
+</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text79>
+                <Text80 Ref="62" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>10.8,0,1.2,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,8,Bold</Font>
+                  <Guid>db12f4e683794d939e17849a09f9774c</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text80</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="55" />
+                  <Text>{Floor(SumTime(DriversWeeklyData.Время_В_Р_С).TotalHours)}:{Format("{0:00}", SumTime(DriversWeeklyData.Время_В_Р_С).Minutes)}
+</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text80>
+                <Text81 Ref="63" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>12,0,1.4,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,8,Bold</Font>
+                  <Guid>1c9e23125f8f4e7ca1e57ab3f8bee7ff</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text81</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="55" />
+                  <Text>{Floor(SumTime(DriversWeeklyData.Время_отдыха).TotalHours)}:{Format("{0:00}", SumTime(DriversWeeklyData.Время_отдыха).Minutes)}
+</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text81>
+                <Text82 Ref="64" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>16.6,0,1.4,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,8,Bold</Font>
+                  <Guid>1570765f5473498db1067785939f8ac2</Guid>
+                  <HorAlignment>Center</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text82</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="55" />
+                  <Text>{Sum(DriversWeeklyData.Пробег)}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text82>
+                <Text83 Ref="65" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>2.8,0,1.2,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,8,Bold</Font>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text83</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="55" />
+                  <Text>{CountDistinct(DriversWeeklyData.Дата)} дней</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text83>
+                <Text84 Ref="66" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>5.2,0.4,1.2,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,8,Bold</Font>
+                  <Guid>17935c3c4cbb42dea2284b443cd91a5b</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text84</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="55" />
+                  <Text>{AvgTime(DriversWeeklyData.Всего)}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextFormat Ref="67" type="TimeFormat" isKey="true">
+                    <StringFormat>t</StringFormat>
+                  </TextFormat>
+                  <Type>Expression</Type>
+                </Text84>
+                <Text85 Ref="68" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>6.4,0.4,1.4,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,8,Bold</Font>
+                  <Guid>b2e9c6ff070642ee8b4ae98b71a0032b</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text85</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="55" />
+                  <Text>{AvgTime(DriversWeeklyData.Время_вождения)}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextFormat Ref="69" type="TimeFormat" isKey="true">
+                    <StringFormat>t</StringFormat>
+                  </TextFormat>
+                  <Type>Expression</Type>
+                </Text85>
+                <Text86 Ref="70" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>7.8,0.4,1.4,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,8,Bold</Font>
+                  <Guid>524ea28c949e4fdf873335c2e1213f08</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text86</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="55" />
+                  <Text>{AvgTime(DriversWeeklyData.Время_работы)}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextFormat Ref="71" type="TimeFormat" isKey="true">
+                    <StringFormat>t</StringFormat>
+                  </TextFormat>
+                  <Type>Expression</Type>
+                </Text86>
+                <Text87 Ref="72" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>9.2,0.4,1.6,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,8,Bold</Font>
+                  <Guid>b43a308643b64fafb6e89fe9134f3e04</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text87</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="55" />
+                  <Text>{AvgTime(DriversWeeklyData.Время_свободное)}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextFormat Ref="73" type="TimeFormat" isKey="true">
+                    <StringFormat>t</StringFormat>
+                  </TextFormat>
+                  <Type>Expression</Type>
+                </Text87>
+                <Text88 Ref="74" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>10.8,0.4,1.2,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,8,Bold</Font>
+                  <Guid>a2ebd516cea64c8dbd05bc1377de6110</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text88</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="55" />
+                  <Text>{AvgTime(DriversWeeklyData.Время_В_Р_С)}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextFormat Ref="75" type="TimeFormat" isKey="true">
+                    <StringFormat>t</StringFormat>
+                  </TextFormat>
+                  <Type>Expression</Type>
+                </Text88>
+                <Text89 Ref="76" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>12,0.4,1.4,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,8,Bold</Font>
+                  <Guid>67c91babc2744df4b0f86588561f8467</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text89</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="55" />
+                  <Text>{AvgTime(DriversWeeklyData.Время_отдыха)}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextFormat Ref="77" type="TimeFormat" isKey="true">
+                    <StringFormat>t</StringFormat>
+                  </TextFormat>
+                  <Type>Expression</Type>
+                </Text89>
+                <Text90 Ref="78" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>16.6,0.4,1.4,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,8,Bold</Font>
+                  <Guid>0e315928219943069d452cc42f6eadc5</Guid>
+                  <HorAlignment>Center</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text90</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="55" />
+                  <Text>{Avg(DriversWeeklyData.Пробег)}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextFormat Ref="79" type="NumberFormat" isKey="true">
+                    <DecimalDigits>0</DecimalDigits>
+                    <DecimalSeparator>,</DecimalSeparator>
+                    <GroupSeparator> </GroupSeparator>
+                    <NegativePattern>1</NegativePattern>
+                    <UseLocalSetting>False</UseLocalSetting>
+                  </TextFormat>
+                  <Type>Expression</Type>
+                </Text90>
+                <Text91 Ref="80" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>18,0.4,1,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,8,Bold</Font>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text91</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="55" />
+                  <Text>{Format("{0:N2}", Avg(DriversWeeklyData.Средняя_скорость))}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text91>
+              </Components>
+              <Conditions isList="true" count="0" />
+              <Name>Panel2</Name>
+              <Page isRef="4" />
+              <Parent isRef="54" />
+            </Panel2>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>GroupFooterBand1</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </GroupFooterBand1>
+        <FooterBand1 Ref="81" type="FooterBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,12,19,5.2</ClientRectangle>
+          <Components isList="true" count="1">
+            <Panel3 Ref="82" type="Stimulsoft.Report.Components.StiPanel" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,0.4,19,6.4</ClientRectangle>
+              <Components isList="true" count="41">
+                <Text35 Ref="83" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>0,0,10.4,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9,Bold</Font>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text35</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>Общий итог за период с {PlfHeader_1.С} по {PlfHeader_1.По}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text35>
+                <Text38 Ref="84" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>0.4,1,2.8,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text38</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>Общий пробег</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text38>
+                <Text39 Ref="85" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>0.4,2,2.8,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text39</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>Количество дней</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text39>
+                <Text40 Ref="86" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>0.4,1.4,2.8,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text40</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>Средняя скорость</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text40>
+                <Text41 Ref="87" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>0.4,0.6,2.8,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text41</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>Общее время</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text41>
+                <Text42 Ref="88" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>6.6,0.6,2.6,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text42</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>{Floor(SumTime(DriversWeeklyData.Всего).TotalHours)}:{Format("{0:00}", SumTime(DriversWeeklyData.Всего).Minutes)}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text42>
+                <Text43 Ref="89" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>6.6,2,2.6,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text43</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>{CountDistinct(DriversWeeklyData.Дата)}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text43>
+                <Text44 Ref="90" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>6.6,1,2.6,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Guid>17404f34a6df4f27b996e3cbc525abb4</Guid>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text44</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>{Sum(DriversWeeklyData.Пробег)} км</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text44>
+                <Text45 Ref="91" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>6.6,1.4,2.6,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Guid>4d4348b519a3491aaff02c9b7ca2c558</Guid>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text45</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>{Avg(DriversWeeklyData.Средняя_скорость)} км/ч</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text45>
+                <Text46 Ref="92" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>0.4,3.4,2.8,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text46</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>Время вождения</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text46>
+                <Text47 Ref="93" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>6.6,3.4,2.6,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text47</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>{Floor(SumTime(DriversWeeklyData.Время_вождения).TotalHours)}:{Format("{0:00}", SumTime(DriversWeeklyData.Время_вождения).Minutes)}
+</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text47>
+                <Text48 Ref="94" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>0.4,3.8,5,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text48</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>Среднее время вождения в день</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text48>
+                <Text49 Ref="95" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>6.6,3.8,2.6,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text49</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>{AvgTime(DriversWeeklyData.Время_вождения)}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextFormat Ref="96" type="TimeFormat" isKey="true">
+                    <StringFormat>t</StringFormat>
+                  </TextFormat>
+                  <Type>Expression</Type>
+                </Text49>
+                <Text50 Ref="97" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>0.4,4.2,5.6,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text50</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>Процент вождения от всего времени</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text50>
+                <Text51 Ref="98" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>6.6,4.2,2.6,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text51</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>{Format("{0:N2}", SumTime(DriversWeeklyData.Время_вождения).TotalMinutes/SumTime(DriversWeeklyData.Всего).TotalMinutes*100)}%</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text51>
+                <Text52 Ref="99" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>6.6,2.4,2.6,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text52</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>{Floor(AvgTime(DriversWeeklyData.Всего).TotalHours)}:{Format("{0:00}", AvgTime(DriversWeeklyData.Всего).Minutes)}
+</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text52>
+                <Text53 Ref="100" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>0.4,2.4,3.6,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text53</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>Среднее время за день</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text53>
+                <Text54 Ref="101" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>9.8,0.6,2.2,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text54</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>Время работы</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text54>
+                <Text55 Ref="102" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>15.6,0.6,3.2,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Guid>950f54ea3d1347a3b86328ccce1f2807</Guid>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text55</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>{Floor(SumTime(DriversWeeklyData.Время_работы).TotalHours)}:{Format("{0:00}", SumTime(DriversWeeklyData.Время_работы).Minutes)}
+</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text55>
+                <Text56 Ref="103" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>9.8,1,5,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Guid>1b88e791e08b4045bdb5303ef3ca5a81</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text56</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>Среднее время работы в день</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text56>
+                <Text57 Ref="104" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>15.6,1,3.2,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Guid>c54c66a4b13d45f5b475bc7c8d7b26a1</Guid>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text57</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>{AvgTime(DriversWeeklyData.Время_работы)}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextFormat Ref="105" type="TimeFormat" isKey="true">
+                    <StringFormat>t</StringFormat>
+                  </TextFormat>
+                  <Type>Expression</Type>
+                </Text57>
+                <Text58 Ref="106" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>9.8,1.4,5.2,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Guid>98d3377fa40b4969bebce6efd0b05eeb</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text58</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>Процент работы от всего времени</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text58>
+                <Text59 Ref="107" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>15.6,1.4,3.2,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Guid>99f5886963a145adb0110326fee09df6</Guid>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text59</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>{Format("{0:N2}", SumTime(DriversWeeklyData.Время_работы).TotalMinutes/SumTime(DriversWeeklyData.Всего).TotalMinutes*100)}%</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text59>
+                <Text60 Ref="108" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>9.8,2,2.8,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Guid>3ec7787f6fdd49d39e04be938beabec0</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text60</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>Свободное время</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text60>
+                <Text61 Ref="109" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>15.6,2,3.2,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Guid>0699a0cd83f845e8bed53b82a9d1c20c</Guid>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text61</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>{Floor(SumTime(DriversWeeklyData.Время_свободное).TotalHours)}:{Format("{0:00}", SumTime(DriversWeeklyData.Время_свободное).Minutes)}
+</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text61>
+                <Text62 Ref="110" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>9.8,2.4,5,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Guid>14fb45543e6740e1bcf8657bec78e127</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text62</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>Среднее свободное время в день</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text62>
+                <Text63 Ref="111" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>15.6,2.4,3.2,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Guid>5d300fdb923b44c9aa37a19a0dc26200</Guid>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text63</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>{AvgTime(DriversWeeklyData.Время_свободное)}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextFormat Ref="112" type="TimeFormat" isKey="true">
+                    <StringFormat>t</StringFormat>
+                  </TextFormat>
+                  <Type>Expression</Type>
+                </Text63>
+                <Text64 Ref="113" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>9.8,2.8,5.6,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Guid>f7c438d24fd9460b890979b8b968974b</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text64</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>Процент свободного времени от всего</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text64>
+                <Text65 Ref="114" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>15.6,2.8,3.2,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Guid>05fe42a14cea4f8ab3e61f27cbe3e054</Guid>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text65</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>{Format("{0:N2}", SumTime(DriversWeeklyData.Время_свободное).TotalMinutes/SumTime(DriversWeeklyData.Всего).TotalMinutes*100)}%</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text65>
+                <Text66 Ref="115" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>9.8,3.4,2.8,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Guid>7697b36ddc7c4e25b53d646e11d86c3b</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text66</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>Время отдыха</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text66>
+                <Text67 Ref="116" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>15.6,3.4,3.2,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Guid>3498f2c64fd14146b9e3ecd078ce1151</Guid>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text67</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>{Floor(SumTime(DriversWeeklyData.Время_отдыха).TotalHours)}:{Format("{0:00}", SumTime(DriversWeeklyData.Время_отдыха).Minutes)}
+</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text67>
+                <Text68 Ref="117" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>9.8,3.8,5,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Guid>b35cbcfa5db246f59b1ca8b89c14036b</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text68</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>Среднее время отдыха в день</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text68>
+                <Text69 Ref="118" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>15.6,3.8,3.2,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Guid>945ac3f5a0284cb59a23b689174e9f96</Guid>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text69</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>{AvgTime(DriversWeeklyData.Время_отдыха)}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextFormat Ref="119" type="TimeFormat" isKey="true">
+                    <StringFormat>t</StringFormat>
+                  </TextFormat>
+                  <Type>Expression</Type>
+                </Text69>
+                <Text70 Ref="120" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>9.8,4.2,5.6,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Guid>8b83050429004c6bbd285dd1ce9e6cee</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text70</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>Процент времени отдыха от всего</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text70>
+                <Text71 Ref="121" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>15.6,4.2,3.2,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Guid>b1d9a0cfc2a247bf884807febe8c26b7</Guid>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text71</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>{Format("{0:N2}", SumTime(DriversWeeklyData.Время_отдыха).TotalMinutes/SumTime(DriversWeeklyData.Всего).TotalMinutes*100)}%</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text71>
+                <Text72 Ref="122" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>0.4,4.8,3.4,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Guid>9a787d909e52402faeaac276c262b242</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text72</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>Время без вождения</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text72>
+                <Text73 Ref="123" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>6.6,4.8,2.6,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Guid>dbee72a50965467e8bcaee9bddb1cc0a</Guid>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text73</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>{Floor(SumTime(DriversWeeklyData.Всего).TotalHours - SumTime(DriversWeeklyData.Время_вождения).TotalHours)}:{Format("{0:00}", 0)}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text73>
+                <Text74 Ref="124" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>0.4,5.2,5.6,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Guid>21434092a16647b09aa99098dd6dc0b0</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text74</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>Среднее время без вождения в день</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text74>
+                <Text75 Ref="125" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>6.6,5.2,2.6,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Guid>4b1b5e416610446192429378cfd28b3f</Guid>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text75</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>{AvgTime(DriversWeeklyData.Всего) - AvgTime(DriversWeeklyData.Время_вождения)}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextFormat Ref="126" type="TimeFormat" isKey="true">
+                    <StringFormat>t</StringFormat>
+                  </TextFormat>
+                  <Type>Expression</Type>
+                </Text75>
+                <Text76 Ref="127" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>0.4,5.6,6,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Guid>471d2628659b42fa8caace229be8beff</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text76</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>Процент без вождения от всего времени</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text76>
+                <Text77 Ref="128" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>6.6,5.6,2.8,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,9</Font>
+                  <Guid>20618e7994544275b767f4cfda6127f0</Guid>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text77</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="82" />
+                  <Text>{Format("{0:N2}",(SumTime(DriversWeeklyData.Всего).TotalMinutes - SumTime(DriversWeeklyData.Время_вождения).TotalMinutes)/SumTime(DriversWeeklyData.Всего).TotalMinutes*100)}%</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text77>
+              </Components>
+              <Conditions isList="true" count="0" />
+              <Name>Panel3</Name>
+              <Page isRef="4" />
+              <Parent isRef="81" />
+            </Panel3>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>FooterBand1</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </FooterBand1>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>c4b25eeb8ebe4447a5bb56014ab2c3dc</Guid>
+      <Margins>1,1,1,1</Margins>
+      <Name>Page1</Name>
+      <PageHeight>29.7</PageHeight>
+      <PageWidth>21</PageWidth>
+      <Report isRef="0" />
+      <Watermark Ref="129" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </Page1>
+  </Pages>
+  <PrinterSettings Ref="130" type="Stimulsoft.Report.Print.StiPrinterSettings" isKey="true" />
+  <ReferencedAssemblies isList="true" count="8">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>1/14/2011 2:22:41 PM</ReportChanged>
+  <ReportCreated>12/10/2010 4:08:16 PM</ReportCreated>
+  <ReportFile>C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDWebSite\Administrator\Reports\WeeklyDriverActivityProtocol.mrt</ReportFile>
+  <ReportGuid>06c66e5b76a84b998e38f352a796e582</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2010.3.900</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+
+namespace Reports
+{
+    public class Report : Stimulsoft.Report.StiReport
+    {
+        public Report()
+        {
+            this.InitializeComponent();
+        }
+
+        #region StiReport Designer generated code - do not modify
+        #endregion StiReport Designer generated code - do not modify
+    }
+}
+</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="4">
+    <Стиль1 Ref="131" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <Brush>LightCyan</Brush>
+      <Font>Arial,8</Font>
+      <Name>Стиль1</Name>
+      <StyleCode>None</StyleCode>
+      <TextBrush>Black</TextBrush>
+    </Стиль1>
+    <Стиль2 Ref="132" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <Brush>WhiteSmoke</Brush>
+      <Font>Arial,8</Font>
+      <Name>Стиль2</Name>
+      <StyleCode>None</StyleCode>
+      <TextBrush>Black</TextBrush>
+    </Стиль2>
+    <Стиль3 Ref="133" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <Border>Top, Left, Right;Black;1;Solid;False;4;Black</Border>
+      <Brush>LightSalmon</Brush>
+      <Font>Arial,8</Font>
+      <Name>Стиль3</Name>
+      <StyleCode>None</StyleCode>
+      <TextBrush>Black</TextBrush>
+    </Стиль3>
+    <Стиль4 Ref="134" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <Border>Left, Right, Bottom;Black;1;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Font>Arial,8</Font>
+      <Name>Стиль4</Name>
+      <StyleCode>None</StyleCode>
+      <TextBrush>Black</TextBrush>
+    </Стиль4>
+  </Styles>
+</StiSerializer>

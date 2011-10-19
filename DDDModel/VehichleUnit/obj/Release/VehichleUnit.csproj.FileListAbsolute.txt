@@ -1,0 +1,18 @@
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\VehichleUnit\bin\Release\VehichleUnit.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\VehichleUnit\bin\Release\VehichleUnit.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\VehichleUnit\bin\Release\DDDClass.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\VehichleUnit\bin\Release\DDDClass.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\VehichleUnit\obj\Release\ResolveAssemblyReference.cache
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\VehichleUnit\obj\Release\VehichleUnit.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\VehichleUnit\obj\Release\VehichleUnit.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\VehichleUnit\bin\Release\DDDClass.xml
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\VehichleUnit\bin\Release\VehichleUnit.XML
+D:\BSUIR\Other\Projects_new\DDDModel\VehichleUnit\bin\Release\VehichleUnit.dll
+D:\BSUIR\Other\Projects_new\DDDModel\VehichleUnit\bin\Release\VehichleUnit.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\VehichleUnit\bin\Release\DDDClass.dll
+D:\BSUIR\Other\Projects_new\DDDModel\VehichleUnit\bin\Release\DDDClass.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\VehichleUnit\bin\Release\DDDClass.xml
+D:\BSUIR\Other\Projects_new\DDDModel\VehichleUnit\obj\Release\ResolveAssemblyReference.cache
+D:\BSUIR\Other\Projects_new\DDDModel\VehichleUnit\obj\Release\VehichleUnit.dll
+D:\BSUIR\Other\Projects_new\DDDModel\VehichleUnit\obj\Release\VehichleUnit.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\VehichleUnit\bin\Release\VehichleUnit.XML

@@ -1,0 +1,10 @@
+C:\Users\STAK\Documents\Visual Studio 2008\Projects\DDDModel\CRC32\bin\Debug\CRC32.dll
+C:\Users\STAK\Documents\Visual Studio 2008\Projects\DDDModel\CRC32\bin\Debug\CRC32.pdb
+C:\Users\STAK\Documents\Visual Studio 2008\Projects\DDDModel\CRC32\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\STAK\Documents\Visual Studio 2008\Projects\DDDModel\CRC32\obj\Debug\CRC32.dll
+C:\Users\STAK\Documents\Visual Studio 2008\Projects\DDDModel\CRC32\obj\Debug\CRC32.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\CRC32\bin\Debug\CRC32.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\CRC32\bin\Debug\CRC32.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\CRC32\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\CRC32\obj\Debug\CRC32.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\CRC32\obj\Debug\CRC32.pdb

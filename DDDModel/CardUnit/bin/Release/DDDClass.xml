@@ -1,0 +1,577 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DDDClass</name>
+    </assembly>
+    <members>
+        <member name="M:DDDClass.EntryTypeDailyWorkPeriod.ToString">
+            <summary>
+            перегруженная строка соответственно документации
+            </summary>
+            <returns>строка по документам</returns>
+        </member>
+        <member name="M:DDDClass.CardFaultData.ToString">
+            <summary>
+            ToString перегружен. Возвращает строки в соотвествии с документацией.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:DDDClass.ActivityBase">
+            <summary>
+            Класс предок для активностей водителя или ТС
+            </summary>
+        </member>
+        <member name="M:DDDClass.ActivityBase.getActivityDuration(System.Int32)">
+            <summary>
+            Получает длительность некоторой выбранной активности
+            </summary>
+            <param name="index">номер активности в activityChangeInfo</param>
+            <returns>длительность активности</returns>
+        </member>
+        <member name="M:DDDClass.ActivityBase.getActivityStartTime(System.Int32)">
+            <summary>
+             Получает время начала 
+             некоторой выбранной активности
+            </summary>
+            <param name="index">номер активности в activityChangeInfo</param>
+            <returns>время начала выбранной активности</returns>
+        </member>
+        <member name="M:DDDClass.ActivityBase.getActivityEndTime(System.Int32)">
+            <summary>
+             Получает время окончания 
+             некоторой выбранной активности
+            </summary>
+            <param name="index">номер активности в activityChangeInfo</param>
+            <returns>время окончания выбранной активности</returns>
+        </member>
+        <member name="P:DDDClass.ActivityBase.activityChangeInfo">
+            <summary>
+            список всех активностей
+            </summary>
+        </member>
+        <member name="T:DDDClass.VuActivityDailyData">
+            <summary>
+            класс описывает активность Транспортного средства за один день
+            </summary>
+        </member>
+        <member name="M:DDDClass.VuActivityDailyData.Get_TotalTimeSpan">
+            <summary>
+            Получить длительность активностей за день
+            </summary>
+            <returns>TimeSpan</returns>
+        </member>
+        <member name="P:DDDClass.VuActivityDailyData.noOfActivityChanges">
+            <summary>
+            количество смен активности за день
+            </summary>
+        </member>
+        <member name="T:DDDClass.ManufacturerCode">
+            <summary>
+            описывает производителя БУ.
+            Все кодируется числом, в перегруженном методе ToString возвращается название предприятия производителя БУ.
+            
+            </summary>
+        </member>
+        <member name="M:DDDClass.ManufacturerCode.ToString">
+            <summary>
+            перегруженная строка соответственно документации
+            </summary>
+            <returns>строка по документам</returns>
+        </member>
+        <member name="T:DDDClass.TimeReal">
+            <summary>
+            описывает время. Время в карте хранится как количество минут с 00:00 1.1.1970.
+            Так и тут хранится. Класс имеет методы для перевода такого представления времени в DateTime и строки
+            </summary>
+        </member>
+        <member name="M:DDDClass.TimeReal.getTimeRealDate">
+            <summary>
+            Переводит время из внутреннего типа в DateTime
+            </summary>
+            <returns>Возвращает DateTime</returns>
+        </member>
+        <member name="M:DDDClass.TimeReal.GetTime">
+            <summary>
+            Возвращает только время в виде строки в формате "HH:mm"
+            </summary>
+            <returns>строка с временем в формате "HH:mm"</returns>
+        </member>
+        <member name="M:DDDClass.TimeReal.GetDate">
+            <summary>
+            Возвращает только дату в виде строки в формате "dd/MM/yyyy"
+            </summary>
+            <returns>строка с датой в формате "dd/MM/yyyy"</returns>
+        </member>
+        <member name="M:DDDClass.TimeReal.ToString">
+            <summary>
+            перегруженный метод ToString()
+            </summary>
+            <returns>строка с датой и временем в формате "dd/MM/yyyy HH:mm"</returns>
+        </member>
+        <member name="T:DDDClass.VuDetailedSpeedBlock">
+            <summary>
+            скоростной блок. Описывает скорость за одну минуту(60 секунд)
+            </summary>
+        </member>
+        <member name="P:DDDClass.VuDetailedSpeedBlock.speedBlockBeginDate">
+            <summary>
+            дата и время начада скоростного блока. 
+            После этой даты каждую секунду идет запись в этот блок(в переменную Speed[] speedsPerSecond)
+            скорости(всего 60 записей)
+            </summary>
+        </member>
+        <member name="P:DDDClass.VuDetailedSpeedBlock.speedsPerSecond">
+            <summary>
+            массив из 60 записей со скоростью(за каждую секунду)
+            </summary>
+        </member>
+        <member name="T:DDDClass.ConvertionClass">
+            <summary>
+            класс конвертирует байты и байтовые массивы в различные типы. Используется много где в данном пространстве имен.
+            </summary>
+        </member>
+        <member name="M:DDDClass.ConvertionClass.arrayCopy(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            копирует часть массива байт
+            </summary>
+            <param name="value">исходный массив байт</param>
+            <param name="from">номер индекса, откуда начать копирование</param>
+            <param name="length">колличество байт, которые надо скопировать</param>
+            <returns>номый массив, полученный копированием части старого</returns>
+        </member>
+        <member name="M:DDDClass.ConvertionClass.convertIntoUnsigned1ByteInt(System.Byte)">
+            <summary>
+             byte to short. 
+            </summary>
+            <param name="b">byte</param>
+            <returns>short</returns> 
+        </member>
+        <member name="M:DDDClass.ConvertionClass.convertIntoUnsigned1ByteInt(System.Byte[])">
+            <summary>
+            byte[0] to short.
+            </summary>
+            <param name="b">byte[]</param>
+            <returns>short</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:DDDClass.ConvertionClass.convertIntoUnsigned2ByteInt(System.Byte[])" -->
+        <!-- Badly formed XML comment ignored for member "M:DDDClass.ConvertionClass.convertIntoUnsigned3ByteInt(System.Byte[])" -->
+        <!-- Badly formed XML comment ignored for member "M:DDDClass.ConvertionClass.convertIntoUnsigned4ByteInt(System.Byte[])" -->
+        <member name="M:DDDClass.ConvertionClass.convertBCDStringIntoString(System.Byte[])">
+            <summary>
+            BCD string to String
+            </summary>
+            <param name="b">byte[]</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:DDDClass.ConvertionClass.ConvertBytesToBCDString(System.Boolean,System.Byte[])">
+            <summary>
+            byte[] to BCD string
+            </summary>
+            <param name="isLittleEndian">isLittleEndian</param>
+            <param name="bytes">byte[]</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:DDDClass.ConvertionClass.ConvertBCDStringToBytes(System.Boolean,System.String)">
+            <summary>
+            BCD to byte[]
+            </summary>
+            <param name="isLittleEndian"></param>
+            <param name="bcdString">bcdString</param>
+            <returns>isLittleEndian</returns>
+        </member>
+        <member name="M:DDDClass.ConvertionClass.CompareByteArrays(System.Byte[],System.Byte[])">
+            <summary>
+            Compares one byte[] to another byte[].
+            </summary>
+            <param name="array1">byte[] array1</param>
+            <param name="array2">byte[] array2</param>
+            <returns>bool</returns>
+        </member>
+        <member name="M:DDDClass.ConvertionClass.convertIntoString(System.Byte[])">
+            <summary>
+            конвертируем byte[] в строку
+            </summary>
+            <param name="b">byte[]</param>
+            <returns>строка</returns>
+        </member>
+        <member name="M:DDDClass.ConvertionClass.convertIntoString(System.Byte)">
+            <summary>
+            конвертируем один байт в строку
+            </summary>
+            <param name="b">byte</param>
+            <returns>string</returns>
+        </member>
+        <member name="T:DDDClass.CurrentDateTime">
+            <summary>
+            класс представляет текущую дату. Образован от класса TimeReal(как и все классы описывающие время)
+            </summary>
+        </member>
+        <member name="T:DDDClass.ExtendedSerialNumber">
+            <summary>
+            расширенный серийный номер
+            </summary>
+        </member>
+        <member name="M:DDDClass.CardSlotsStatus.getCoDriverCardSlotsStatus">
+            <summary>
+            возвращает статус(тип) карты в слоте для карты второго водителя
+            </summary>
+            <returns>один байт</returns>
+        </member>
+        <member name="M:DDDClass.CardSlotsStatus.getDriverCardSlotsStatus">
+            <summary>
+            возвращает статус(тип) карты в слоте для карты водителя
+            </summary>
+            <returns>один байт</returns>
+        </member>
+        <member name="M:DDDClass.CardSlotsStatus.getDriverCardSlotsStatus_toString">
+            <summary>
+            возвращает статус(тип) карты в слоте для карты водителя
+            </summary>
+            <returns>DRIVER CARD, WORKSHOP CARD, CONTROL CARD, COMPANY CARD, UNKNOWN CARD</returns>
+        </member>
+        <member name="M:DDDClass.CardSlotsStatus.getCoDriverCardSlotsStatus_toString">
+            <summary>
+            возвращает статус(тип) карты в слоте для карты второго водителя
+            </summary>
+            <returns>DRIVER CARD, WORKSHOP CARD, CONTROL CARD, COMPANY CARD, UNKNOWN CARD</returns>
+        </member>
+        <member name="M:DDDClass.CardSlotsStatus.ToString">
+            <summary>
+            перегруженный метод. В основном использовался для дебага и разработки.
+            </summary>
+            <returns>возращает строку со всеми данными сразу</returns>
+        </member>
+        <member name="T:DDDClass.VuDetailedSpeedData">
+            <summary>
+            Вся скорость ТС, записанная на карточку(каждую секунду)
+            </summary>
+        </member>
+        <member name="P:DDDClass.VuDetailedSpeedData.noOfSpeedBlocks">
+            <summary>
+            количество скоростных блоков
+            </summary>
+        </member>
+        <member name="P:DDDClass.VuDetailedSpeedData.vuDetailedSpeedBlocks">
+            <summary>
+            массив скоростных блоков
+            </summary>
+        </member>
+        <member name="M:DDDClass.CardSlotNumber.ToString">
+            <summary>
+            перегруженный метод ToString()
+            возвращает какой слот в данный используется
+            </summary>
+            <returns>какой слот используется в данный момент Driver slot или Co-driver slot</returns>
+        </member>
+        <member name="T:DDDClass.NationNumeric">
+            <summary>
+            список стран. Кодируется одним байтом, в методе ToString() расшифровывается и возвращается название.
+            </summary>
+        </member>
+        <member name="M:DDDClass.EventFaultType.ToString">
+            <summary>
+            перегруженная строка соответственно документации
+            </summary>
+            <returns>строка по документам</returns>
+        </member>
+        <member name="T:DDDClass.VuDownloadablePeriod">
+            <summary>
+            описывает с какой даты и по какую имеется информация на карте
+            </summary>
+        </member>
+        <member name="P:DDDClass.VuDownloadablePeriod.minDownloadableTime">
+            <summary>
+            с какого числа и времени имеется информация на карте
+            </summary>
+        </member>
+        <member name="P:DDDClass.VuDownloadablePeriod.maxDownloadableTime">
+            <summary>
+            по какое число и время имеется информация на карте
+            </summary>
+        </member>
+        <member name="T:DDDClass.EquipmentType">
+            <summary>
+            Тип оборудования. Описывает тип карты, либо ТС
+            </summary>
+        </member>
+        <member name="M:DDDClass.EquipmentType.ToString">
+            <summary>
+            перегруженная строка соответственно документации
+            </summary>
+            <returns>строка по документам</returns>
+        </member>
+        <member name="T:DDDClass.RegionNumeric">
+            <summary>
+            кодирует регион. Регионы не все кажется. Добавить при необходимости!
+            </summary>
+        </member>
+        <member name="M:DDDClass.EventFaultRecordPurpose.ToString">
+            <summary>
+            перегруженная строка соответственно документации
+            </summary>
+            <returns>строка по документам</returns>
+        </member>
+        <member name="M:DDDClass.CardEventData.ToString">
+            <summary>
+            ToString перегружен. Возвращает строки в соотвествии с документацией.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:DDDClass.CardDriverActivity">
+            <summary>
+            все активности водителя
+            </summary>
+        </member>
+        <member name="M:DDDClass.CardDriverActivity.GetTotalTime">
+            <summary>
+            получаем все время, сколько длятся все активности
+            </summary>
+            <returns>длительность всех активностей типа TimeSpan</returns>
+        </member>
+        <member name="M:DDDClass.CardDriverActivity.GetTotalDrivingTime">
+            <summary>
+            получаем все время, сколько длятся активности типа Driving
+            </summary>
+            <returns>длительность всех активностей типа TimeSpan</returns>
+        </member>
+        <member name="M:DDDClass.CardDriverActivity.GetTotalWorkingTime">
+            <summary>
+            получаем все время, сколько длятся активности типа Working
+            </summary>
+            <returns>длительность всех активностей типа TimeSpan</returns>
+        </member>
+        <member name="M:DDDClass.CardDriverActivity.GetTotalAvailabilityTime">
+            <summary>
+            получаем все время, сколько длятся активности типа Availability
+            </summary>
+            <returns>длительность всех активностей типа TimeSpan</returns>
+        </member>
+        <member name="M:DDDClass.CardDriverActivity.GetTotalBreakTime">
+            <summary>
+            получаем все время, сколько длятся активности типа Break
+            </summary>
+            <returns>длительность всех активностей типа TimeSpan</returns>
+        </member>
+        <member name="M:DDDClass.CardDriverActivity.GetTotalDistance">
+            <summary>
+            Получает дистанцию, пройденную транспортным средством под управлением водителя за все время.
+            </summary>
+            <returns>дистанция в километрах</returns>
+        </member>
+        <member name="M:DDDClass.CardDriverActivity.addTwoTimes(System.String,System.String,System.String)">
+            <summary>
+            нигде не используется, незнаю что это такое, какой-то хвост. Думаю можно удалить.
+            </summary>
+            <param name="first"></param>
+            <param name="second"></param>
+            <param name="separator"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DDDClass.CardDriverActivity.GetTotalTimeSpan">
+            <summary>
+            Дублирование функции GetTotalTime
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DDDClass.CardDriverActivity.GetTotalDrivingTimeSpan">
+            <summary>
+            Дублирование функции GetTotalDrivingTime
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DDDClass.CardDriverActivity.GetTotalWorkingTimeSpan">
+            <summary>
+            Дублирование функции GetTotalWorkingTime
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DDDClass.CardDriverActivity.GetTotalAvailabilityTimeSpan">
+            <summary>
+            Дублирование функции GetTotalAvailabilityTime
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DDDClass.CardDriverActivity.GetTotalBreakTimeSpan">
+            <summary>
+            Дублирование функции  GetTotalBreakTime
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:DDDClass.CardDriverActivity.activityPointerOldestDayRecord">
+            <summary>
+            номер самой старой активности
+            </summary>
+        </member>
+        <member name="P:DDDClass.CardDriverActivity.activityPointerNewestRecord">
+            <summary>
+            номер самой новой активности
+            </summary>
+        </member>
+        <member name="P:DDDClass.CardDriverActivity.activityDailyRecords">
+            <summary>
+            лист CardActivityDailyRecord(этот тип описывает активности за один день)
+            </summary>
+        </member>
+        <member name="T:DDDClass.CardNumber">
+            <summary>
+            класс описывает номер карты
+            </summary>
+        </member>
+        <member name="F:DDDClass.CardNumber.cardType">
+            <summary>
+            типа карты - водитель, тс, предприятие либо мастерская
+            </summary>
+        </member>
+        <member name="M:DDDClass.CardNumber.driverIdentificationNumber">
+            <summary>
+            возвращает номер карты водителя. Использовать, когда есть уверенность, что это карта водителя,
+            иначе использовать метод ownerIdentificationNumber();
+            </summary>
+            <returns>строка с полным номером водителя</returns>
+        </member>
+        <member name="M:DDDClass.CardNumber.ownerIdentificationNumber">
+            <summary>
+            Возвращает номер владельца карты, если это не водитель.
+            Если водитель - использовать метод driverIdentificationNumber();
+            </summary>
+            <returns>строка с полным номером владельца карты</returns>
+        </member>
+        <member name="M:DDDClass.CardNumber.ToString">
+            <summary>
+            перегруженный метод ToString сам определяет тип карты и возвращает строку с номером карты.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:DDDClass.CardActivityDailyRecord">
+            <summary>
+            класс описывает активность за один день в карточке
+            </summary>
+        </member>
+        <member name="M:DDDClass.CardActivityDailyRecord.Get_TotalTimeSpan">
+            <summary>
+            расчитывает сколько всего длились все активности
+            </summary>
+            <returns>время в TimeSpan</returns>
+        </member>
+        <member name="M:DDDClass.CardActivityDailyRecord.Get_TotalDrivingTimeSpan">
+            <summary>
+            расчитывает сколько всего длились все активности типа driving
+            </summary>
+            <returns>время в TimeSpan</returns>
+        </member>
+        <member name="M:DDDClass.CardActivityDailyRecord.Get_TotalWorkingTimeSpan">
+            <summary>
+            расчитывает сколько всего длились все активности типа working
+            </summary>
+            <returns>время в TimeSpan</returns>
+        </member>
+        <member name="M:DDDClass.CardActivityDailyRecord.Get_TotalBreakTimeSpan">
+            <summary>
+            расчитывает сколько всего длились все активности типа break
+            </summary>
+            <returns>время в TimeSpan</returns>
+        </member>
+        <member name="M:DDDClass.CardActivityDailyRecord.Get_TotalAvailabilityTimeSpan">
+            <summary>
+            расчитывает сколько всего длились все активности типа availability
+            </summary>
+            <returns>время в TimeSpan</returns>
+        </member>
+        <member name="P:DDDClass.CardActivityDailyRecord.activityPreviousRecordLength">
+            <summary>
+            длина предыдущей записи
+            </summary>
+        </member>
+        <member name="P:DDDClass.CardActivityDailyRecord.activityRecordLength">
+            <summary>
+            длина этой записи
+            </summary>
+        </member>
+        <member name="P:DDDClass.CardActivityDailyRecord.activityRecordDate">
+            <summary>
+            дата дня
+            </summary>
+        </member>
+        <member name="P:DDDClass.CardActivityDailyRecord.activityDailyPresenceCounter">
+            <summary>
+            номер дня, записанного в карточке
+            </summary>
+        </member>
+        <member name="P:DDDClass.CardActivityDailyRecord.activityDayDistance">
+            <summary>
+            сколько проехано за этот день
+            </summary>
+        </member>
+        <member name="T:DDDClass.ActivityChangeInfo">
+            <summary>
+            структура из 2х байт. описывает одну активность ТС или водителя
+            </summary>
+        </member>
+        <member name="M:DDDClass.ActivityChangeInfo.ToString">
+            <summary>
+            Возвращает название активности
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DDDClass.ActivityChangeInfo.getDrivingTime">
+            <summary>
+            возращает длительность активности, если тип активности вождение, иначе пустую строку
+            </summary>
+            <returns>строка, с длительностью активности</returns>
+        </member>
+        <member name="M:DDDClass.ActivityChangeInfo.getBreakTime">
+            <summary>
+            возращает длительность активности, если тип активности отдых, иначе пустую строку
+            </summary>
+            <returns>строка, с длительностью активности</returns>
+        </member>
+        <member name="M:DDDClass.ActivityChangeInfo.getAvailabilityTime">
+            <summary>
+            возращает длительность активности, если тип активности available, иначе пустую строку
+            </summary>
+            <returns>строка, с длительностью активности</returns>
+        </member>
+        <member name="M:DDDClass.ActivityChangeInfo.getWorkTime">
+            <summary>
+            возращает длительность активности, если тип активности work, иначе пустую строку
+            </summary>
+            <returns>строка, с длительностью активности</returns>
+        </member>
+        <member name="M:DDDClass.ActivityChangeInfo.getSlotStatus">
+            <summary>
+            Возвращает статус слота для карты, карта там водителя или помошника водителя(это тоже записывается у водителя на карте)
+            </summary>
+            <returns>строка driver или co-driver</returns>
+        </member>
+        <member name="M:DDDClass.ActivityChangeInfo.getDrivingStatus">
+            <summary>
+            возвращает строку single или crew. То есть едет ли водитель один или с напарником.
+            </summary>
+            <returns>строка single, crew </returns>
+        </member>
+        <member name="M:DDDClass.ActivityChangeInfo.getActivityStatus">
+            <summary>
+            показывает известен ли статус активности
+            </summary>
+            <returns>строка unknown или known</returns>
+        </member>
+        <member name="M:DDDClass.ActivityChangeInfo.getCardStatus">
+            <summary>
+            показывает вставлена ли карточка вообще
+            </summary>
+            <returns>значение inserted или not inserted</returns>
+        </member>
+        <member name="M:DDDClass.ActivityChangeInfo.getActivityTime">
+            <summary>
+            Возвращает время активности
+            </summary>
+            <returns>строка в формате HH:mm</returns>
+        </member>
+        <member name="M:DDDClass.ActivityChangeInfo.getActivityTimeMinutes">
+            <summary>
+            возвращает время активности просто в минутах.
+            </summary>
+            <returns>кол-во минут</returns>
+        </member>
+    </members>
+</doc>

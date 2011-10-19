@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DDDModel</name>
+    </assembly>
+    <members>
+        <member name="M:DDDModel.Program.DataBaseInit(System.String)">
+            <summary>
+            Иннициализирует базу данных стартовыми значениями.
+            Это нужно для того, чтобы сразу с разворачивания базы данных можно было начать работать в веб интерфейсе.
+            </summary>
+            <param name="password">пароль нужен просто, чтобы из консоли нечайно не тыкнуть. пароль = qqq</param>
+        </member>
+    </members>
+</doc>

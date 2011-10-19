@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DB.SQL</name>
+    </assembly>
+    <members>
+        <member name="T:DB.SQL.SQLDB_Records">
+            <summary>
+            Дополнительные методы работы с БД
+            в этом классе описаны методы для выборки параметров для отчетов из БД
+            </summary>
+        </member>
+        <member name="T:DB.SQL.SQLDB">
+            <summary>
+            Клаас образованный от интерфейса DBI, описывает почти все взаимодействие с БД
+            </summary>
+        </member>
+        <member name="M:DB.SQL.SQLDB.EditAnySTRIDValue(System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.Int32)">
+            <summary>
+            Этот метод для таблиц - расширенная информация пользователе(или тс). Все таблицы с составным первичным ключем(айди пользователя и айди параметра например).
+            </summary>
+        </member>
+        <member name="M:DB.SQL.SQLDB.AddHistoryRecord(System.Int32,System.Int32,System.Int32,System.Int32,System.DateTime,System.String)">
+            <summary>
+            Добавляет запись в таблицы журнала
+            </summary>
+            <param name="tableId"></param>
+            <param name="TABLE_KEYFIELD_VALUE"></param>
+            <param name="userId"></param>
+            <param name="actionId"></param>
+            <param name="actionDate"></param>
+            <param name="Note"></param>
+            <returns>Возвращает время действия. если действие происходит несколько раз в секунду, нужно увеличить на одну секунду actionDate</returns>
+        </member>
+        <member name="M:DB.SQL.SQLDB.GetEmailScheduleTimes(System.Collections.Generic.List{System.Int32})">
+            <summary>
+            Получает список дат последней отправки и период для каждого ID
+            </summary>
+            <param name="emailScheduleId">список ID записей отправки отчета на почту</param>
+            <returns>список пар значений - Последняя дата отправки/(тип периода/период отправки)</returns>
+        </member>
+        <member name="M:DB.SQL.SQLDB.GetAllEmailScheduleTable(System.Int32)">
+            <summary>
+            Получает все поля в таблице emailSchedule
+            </summary>
+            <param name="scheduleId">ID записи отправки отчета на почту</param>
+            <returns>
+            Возвращает список объектов, которые надо привести к нужному типу по очереди(смотреть класс SingleEmailSchedule в пространстве имен BLL)
+            Если ничего не поменялось, то список такой:
+            int EMAIL_SCHEDULE_ID;
+            int ORG_ID;
+            int USER_ID;
+            int REPORT_ID;
+            int CARD_ID;
+            int PERIOD;
+            int PERIOD_TYPE;
+            DateTime LAST_SEND_DATE;(использовать для приведения DateTime.Parse(object.toString()) для правильного приведения;
+            string EMAIL_ADDRESS;
+            </returns>
+        </member>
+        <member name="M:DB.SQL.SQLDB.GetOneParameter(System.Int32,System.String,System.Int32,System.String,System.String,System.String)">
+            <summary>
+            метод для получения записи из таблицы с составным ключем или другим условием.
+            </summary>
+        </member>
+    </members>
+</doc>

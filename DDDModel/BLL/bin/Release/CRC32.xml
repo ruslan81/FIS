@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CRC32</name>
+    </assembly>
+    <members>
+        <member name="T:Compressor.Compressor">
+            <summary>
+            сжимает битовый массив в ZIP. Для экономии места при помещении на храниие файлов данных в базу.
+            </summary>
+        </member>
+        <member name="M:Compressor.Compressor.Compress(System.Byte[])">
+            <summary>
+            Сжимает в ZIP битовый массив
+            </summary>
+            <param name="buffer">распакованый битовый массив</param>
+            <returns>упакованный битовый массив</returns>
+        </member>
+        <member name="M:Compressor.Compressor.Decompress(System.Byte[])">
+            <summary>
+            Разжимает из ZIP битовый массив
+            </summary>
+            <param name="buffer">упакованный битовый массив</param>
+            <returns>распакованный битовый массив</returns>
+        </member>
+        <member name="T:CRC32.Crc32">
+            <summary>
+            Используется для получения контрольной суммы загружаемых файлов
+            (чтобы исключить дублирование файлов). 
+            </summary>
+        </member>
+    </members>
+</doc>

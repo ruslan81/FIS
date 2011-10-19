@@ -1,0 +1,190 @@
+/* CSS Document */
+
+html {margin:0; padding:0;} 
+body {margin:0; padding:0; color:#333;
+		background:#FFF url(../images/back2.png) left top no-repeat; overflow:hidden;}
+
+#all {
+    margin: 0 auto;
+}
+
+#top { height:80px; padding:10px;}
+
+#logo {height:100px; width:300px; float:left; text-align:center;}
+
+#client-banner-sinfo {height:100px;margin-left:300px; padding-left:20px;}
+
+#client-banner {}
+
+#client {float:left; background:#eee;
+		padding:10px;
+		border: 1px #448dae solid;
+		border-radius: 10px;
+		-moz-border-radius: 10px;
+		-webkit-border-radius: 10px;
+		box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);}
+
+#banner {}
+
+#systeminfo { height:50px;}
+
+.horizontal-menu {background:#eee url(../images/hormenu_back.png) repeat-x; 
+				  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+				  border: 1px #ccc solid;
+				  padding:8px 10px 12px; 
+				  height:25px;
+				  border-radius: 10px;
+				  -moz-border-radius: 10px;
+				  -webkit-border-radius: 10px;
+				  }
+
+#content {padding:10px; }
+
+#vertical-menu 
+{
+		width:300px;
+		margin-top:10px;
+		float:left;
+		border-radius: 10px;
+		-moz-border-radius: 10px;
+		-webkit-border-radius: 10px;
+		box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+#main-content {margin-left:320px;}
+
+.output, #main-conditions, .add-conditions, .accordionPanel 
+{
+		padding:10px;
+		margin-top:10px;
+		background:#eee;
+		box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+		border-radius: 10px; height:100%; 
+		-moz-border-radius: 10px;
+		-webkit-border-radius: 10px;
+}
+
+.output{margin-bottom:0px;}	
+	
+#decision {margin-top:6px;}
+
+#pictures { height:100px; width:20%; margin: 0 0 0 auto;}
+
+#bottom 
+{	
+	margin-bottom:-4px;	
+    width: 100%;
+	background: url("../images/corner.png") repeat-x scroll 0 0 transparent;
+    border: 1px solid #CCCCCC;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    clear: left;
+    height: 39px;
+}
+
+/***************************button*/
+#enterbutton {
+	font-style:none; 
+	}
+	
+#enterbutton a 
+{
+	text-align:center;
+	border: 0px solid #448dae; 
+	background: #2d479a url(../images/EnterForm/button.png) 50% 50% repeat-x; 
+	font-weight: normal; 
+	text-decoration:none;
+	color: #ffffff; 
+	display:block;
+        border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	padding:5px 0;
+}
+	
+#enterbutton a:hover {
+	border: 0px solid #448dae; 
+    background: #4b7fe3 url(../images/EnterForm/button_hover.png) 50% 50% repeat-x; 
+    font-weight: normal; 
+    text-decoration:none;
+    color: #ffffff;
+	display:block;
+    border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	padding:5px 0;
+}
+
+/***********          ****modal popup
+************   ,    */
+.modalPopup
+{
+	background-color: White;
+	border-color:Gray;
+	border-style:solid;
+	border-width:3px;
+	padding:3px;
+	width:250px;
+}
+.modalBackgroung
+{
+	background-color:#eee;
+	filter: alpha(opacity=70);
+	opacity:0.7;
+}
+
+.popupControl
+{
+	background-color: #eee;
+	position:absolute;
+	visibility:hidden;
+	border-style:solid;
+	border-color:Black;
+	border-width:2px;	
+}
+/*******************************************accordion***
+	     Outlook
+*/
+.accordionHeader
+{    
+    color: #2d479a;
+    background-color: #eee;
+   	font-family: Tahoma,Arial, Sans-Serif;
+	font-size: 11px;
+	font-weight: bold;
+	text-align:left;
+    padding: 10px;
+    cursor: pointer;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+.accordionContent
+{
+    background-color: #FFF;
+    color: Black;
+    border: 1px dashed #448dae;
+    border-top: none;
+    padding: 5px;
+    padding-top: 10px;
+}
+
+.accordionLink
+{
+ background-color: #D3DEEF;
+ color: white;
+}
+/*******************************reportDropdownSearch*/
+.ListSearchExtenderPrompt
+{
+	font-style:italic;
+	color:Gray;
+}
+
+/*Validators*/
+.validatorCalloutHighlight 
+{
+    background-color: #FFDAB9; 
+}
+
+/*********************************************************************/

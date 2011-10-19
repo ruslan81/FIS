@@ -1,0 +1,18 @@
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.SQL\bin\Release\DB.SQL.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.SQL\bin\Release\DB.SQL.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.SQL\bin\Release\DB.Interface.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.SQL\bin\Release\DB.Interface.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.SQL\obj\Release\ResolveAssemblyReference.cache
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.SQL\obj\Release\DB.SQL.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.SQL\obj\Release\DB.SQL.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.SQL\bin\Release\DB.Interface.xml
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.SQL\bin\Release\DB.SQL.XML
+D:\BSUIR\Other\Projects_new\DDDModel\DB.SQL\bin\Release\DB.SQL.dll
+D:\BSUIR\Other\Projects_new\DDDModel\DB.SQL\bin\Release\DB.SQL.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\DB.SQL\bin\Release\DB.Interface.dll
+D:\BSUIR\Other\Projects_new\DDDModel\DB.SQL\bin\Release\DB.Interface.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\DB.SQL\bin\Release\DB.Interface.xml
+D:\BSUIR\Other\Projects_new\DDDModel\DB.SQL\obj\Release\ResolveAssemblyReference.cache
+D:\BSUIR\Other\Projects_new\DDDModel\DB.SQL\obj\Release\DB.SQL.dll
+D:\BSUIR\Other\Projects_new\DDDModel\DB.SQL\obj\Release\DB.SQL.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\DB.SQL\bin\Release\DB.SQL.XML

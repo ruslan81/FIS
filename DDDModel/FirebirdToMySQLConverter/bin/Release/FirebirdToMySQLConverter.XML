@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FirebirdToMySQLConverter</name>
+    </assembly>
+    <members>
+        <member name="T:FirebirdToMySQLConverter.FirebirdSQLClass">
+            <summary>
+            Конвертирует базу из FireBird в MySQL
+            </summary>
+        </member>
+        <member name="P:FirebirdToMySQLConverter.READCYCLE.readcycle.orgid">
+            <summary>
+            SET Manually ONLY!
+            </summary>
+        </member>
+    </members>
+</doc>

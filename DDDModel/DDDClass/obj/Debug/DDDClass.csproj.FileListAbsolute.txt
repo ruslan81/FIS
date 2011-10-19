@@ -1,0 +1,15 @@
+D:\Program Files (x86)\Microsoft Visual Studio 9.0\Projects\DDDXmlView\DDDClass\bin\Debug\DDDClass.dll
+D:\Program Files (x86)\Microsoft Visual Studio 9.0\Projects\DDDXmlView\DDDClass\bin\Debug\DDDClass.pdb
+D:\Program Files (x86)\Microsoft Visual Studio 9.0\Projects\DDDXmlView\DDDClass\obj\Debug\ResolveAssemblyReference.cache
+D:\Program Files (x86)\Microsoft Visual Studio 9.0\Projects\DDDXmlView\DDDClass\obj\Debug\DDDClass.dll
+D:\Program Files (x86)\Microsoft Visual Studio 9.0\Projects\DDDXmlView\DDDClass\obj\Debug\DDDClass.pdb
+C:\Users\STAK\Documents\Visual Studio 2008\Projects\DDDModel\DDDClass\bin\Debug\DDDClass.dll
+C:\Users\STAK\Documents\Visual Studio 2008\Projects\DDDModel\DDDClass\bin\Debug\DDDClass.pdb
+C:\Users\STAK\Documents\Visual Studio 2008\Projects\DDDModel\DDDClass\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\STAK\Documents\Visual Studio 2008\Projects\DDDModel\DDDClass\obj\Debug\DDDClass.dll
+C:\Users\STAK\Documents\Visual Studio 2008\Projects\DDDModel\DDDClass\obj\Debug\DDDClass.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDClass\bin\Debug\DDDClass.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDClass\bin\Debug\DDDClass.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDClass\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDClass\obj\Debug\DDDClass.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDClass\obj\Debug\DDDClass.pdb

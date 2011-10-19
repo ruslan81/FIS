@@ -1,0 +1,87 @@
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\DDDModel.exe
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\DDDModel.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\BLL.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\CardUnit.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\DB.Interface.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\DB.SQL.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\DDDClass.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\FirebirdToMySQLConverter.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\TotalsClasses.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\FirebirdSql.Data.FirebirdClient.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\CRC32.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\DB.Factory.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\DB.XML.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\VehichleUnit.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\PLFUnit.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\FirebirdSql.Data.FirebirdClient.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\BLL.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\BLL.xml
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\CRC32.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\CardUnit.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\DB.Factory.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\DB.XML.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\TotalsClasses.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\DB.Interface.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\FirebirdToMySQLConverter.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\DB.SQL.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\VehichleUnit.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\PLFUnit.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\DDDClass.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\obj\Release\ResolveAssemblyReference.cache
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\obj\Release\DDDModel.exe
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\obj\Release\DDDModel.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\DDDModel.XML
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\CRC32.xml
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\CardUnit.xml
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\DB.Factory.xml
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\DB.XML.xml
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\TotalsClasses.xml
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\DB.Interface.xml
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\FirebirdToMySQLConverter.xml
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\DB.SQL.xml
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\VehichleUnit.xml
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\PLFUnit.xml
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Release\DDDClass.xml
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\obj\Release\DDDModel.exe
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\obj\Release\DDDModel.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\DDDModel.exe
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\DDDModel.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\BLL.dll
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\CardUnit.dll
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\DB.Interface.dll
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\DB.SQL.dll
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\DDDClass.dll
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\FirebirdToMySQLConverter.dll
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\TotalsClasses.dll
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\FirebirdSql.Data.FirebirdClient.dll
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\CRC32.dll
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\DB.Factory.dll
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\DB.XML.dll
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\VehichleUnit.dll
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\PLFUnit.dll
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\BLL.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\BLL.xml
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\CRC32.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\CRC32.xml
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\CardUnit.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\CardUnit.xml
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\DB.Factory.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\DB.Factory.xml
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\DB.XML.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\DB.XML.xml
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\TotalsClasses.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\TotalsClasses.xml
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\DB.Interface.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\DB.Interface.xml
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\FirebirdToMySQLConverter.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\FirebirdToMySQLConverter.xml
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\DB.SQL.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\DB.SQL.xml
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\VehichleUnit.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\VehichleUnit.xml
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\PLFUnit.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\PLFUnit.xml
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\DDDClass.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\DDDClass.xml
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\obj\Release\ResolveAssemblyReference.cache
+D:\BSUIR\Other\Projects_new\DDDModel\DDDModel\bin\Release\DDDModel.XML

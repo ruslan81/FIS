@@ -1,0 +1,10 @@
+C:\Users\STAK\Documents\Visual Studio 2008\Projects\DDDModel\DB.Interface\bin\Debug\DB.Interface.dll
+C:\Users\STAK\Documents\Visual Studio 2008\Projects\DDDModel\DB.Interface\bin\Debug\DB.Interface.pdb
+C:\Users\STAK\Documents\Visual Studio 2008\Projects\DDDModel\DB.Interface\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\STAK\Documents\Visual Studio 2008\Projects\DDDModel\DB.Interface\obj\Debug\DB.Interface.dll
+C:\Users\STAK\Documents\Visual Studio 2008\Projects\DDDModel\DB.Interface\obj\Debug\DB.Interface.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.Interface\bin\Debug\DB.Interface.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.Interface\bin\Debug\DB.Interface.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.Interface\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.Interface\obj\Debug\DB.Interface.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.Interface\obj\Debug\DB.Interface.pdb

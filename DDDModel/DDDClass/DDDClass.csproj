@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FA4CC3E5-7F93-4A06-B83C-E53F3E99386A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DDDClass</RootNamespace>
+    <AssemblyName>DDDClass</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\DDDClass.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActivityBase.cs" />
+    <Compile Include="ActivityChangeInfo.cs" />
+    <Compile Include="Address.cs" />
+    <Compile Include="CalibrationPurpose.cs" />
+    <Compile Include="CardActivityDailyRecord.cs" />
+    <Compile Include="CardActivityLengthRange.cs" />
+    <Compile Include="CardApprovalNumber.cs" />
+    <Compile Include="CardCertificate.cs" />
+    <Compile Include="CardChipIdentification.cs" />
+    <Compile Include="CardConsecutiveIndex.cs" />
+    <Compile Include="CardControlActivityDataRecord.cs" />
+    <Compile Include="CardCurrentUse.cs" />
+    <Compile Include="CardDriverActivity.cs" />
+    <Compile Include="CardDrivingLicenceInformation.cs" />
+    <Compile Include="CardEventData.cs" />
+    <Compile Include="CardEventRecord.cs" />
+    <Compile Include="CardFaultData.cs" />
+    <Compile Include="CardFaultRecord.cs" />
+    <Compile Include="CardIccIdentification.cs" />
+    <Compile Include="CardIdentification.cs" />
+    <Compile Include="CardNumber.cs" />
+    <Compile Include="CardPlaceDailyWorkPeriod.cs" />
+    <Compile Include="CardPrivateKey.cs" />
+    <Compile Include="CardPublicKey.cs" />
+    <Compile Include="CardRenewalIndex.cs" />
+    <Compile Include="CardReplacementIndex.cs" />
+    <Compile Include="CardSlotNumber.cs" />
+    <Compile Include="CardSlotsStatus.cs" />
+    <Compile Include="CardStructureVersion.cs" />
+    <Compile Include="CardVehicleRecord.cs" />
+    <Compile Include="CardVehiclesUsed.cs" />
+    <Compile Include="Certificate.cs" />
+    <Compile Include="CertificateContent.cs" />
+    <Compile Include="CertificateHolderAuthorisation.cs" />
+    <Compile Include="CertificateRequestID.cs" />
+    <Compile Include="CertificationAuthorityKID.cs" />
+    <Compile Include="CompanyActivityData.cs" />
+    <Compile Include="CompanyActivityRecord.cs" />
+    <Compile Include="CompanyActivityType.cs" />
+    <Compile Include="CompanyCardApplicationIdentification.cs" />
+    <Compile Include="CompanyCardHolderIdentification.cs" />
+    <Compile Include="KeyIdentifier.cs" />
+    <Compile Include="K_ConstantOfRecordingEquipment.cs" />
+    <Compile Include="ControlCardApplicationIdentification.cs" />
+    <Compile Include="ControlCardControlActivityData.cs" />
+    <Compile Include="ControlCardHolderIdentification.cs" />
+    <Compile Include="ControlType.cs" />
+    <Compile Include="CurrentDateTime.cs" />
+    <Compile Include="DailyPresenceCounter.cs" />
+    <Compile Include="Datef.cs" />
+    <Compile Include="DDDTypesClass.cs" />
+    <Compile Include="ConvertionClass.cs" />
+    <Compile Include="Distance.cs" />
+    <Compile Include="DriverCardApplicationIdentification.cs" />
+    <Compile Include="DriverCardHolderIdentification.cs" />
+    <Compile Include="EntryTypeDailyWorkPeriod.cs" />
+    <Compile Include="EquipmentType.cs" />
+    <Compile Include="EuropeanPublicKey.cs" />
+    <Compile Include="EventFaultRecordPurpose.cs" />
+    <Compile Include="EventFaultType.cs" />
+    <Compile Include="ExtendedSerialNumber.cs" />
+    <Compile Include="FullCardNumber.cs" />
+    <Compile Include="HolderName.cs" />
+    <Compile Include="Language.cs" />
+    <Compile Include="LastCardDownload.cs" />
+    <Compile Include="ManualInputFlag.cs" />
+    <Compile Include="ManufacturerCode.cs" />
+    <Compile Include="MemberStateCertificate.cs" />
+    <Compile Include="MemberStatePublicKey.cs" />
+    <Compile Include="Name.cs" />
+    <Compile Include="NationAlpha.cs" />
+    <Compile Include="NationNumeric.cs" />
+    <Compile Include="NoOfCalibrationRecords.cs" />
+    <Compile Include="NoOfCalibrationsSinceDownload.cs" />
+    <Compile Include="NoOfCardPlaceRecords.cs" />
+    <Compile Include="NoOfCardVehicleRecords.cs" />
+    <Compile Include="NoOfCompanyActivityRecords.cs" />
+    <Compile Include="NoOfControlActivityRecords.cs" />
+    <Compile Include="NoOfEventsPerType.cs" />
+    <Compile Include="NoOfFaultsPerType.cs" />
+    <Compile Include="OdometerShort.cs" />
+    <Compile Include="OdometerValueMidnight.cs" />
+    <Compile Include="OverspeedNumber.cs" />
+    <Compile Include="PlaceRecord.cs" />
+    <Compile Include="PreviousVehicleInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PublicKey.cs" />
+    <Compile Include="RegionAlpha.cs" />
+    <Compile Include="RegionNumeric.cs" />
+    <Compile Include="RSAKeyModulus.cs" />
+    <Compile Include="RSAKeyPrivateExponent.cs" />
+    <Compile Include="RSAKeyPublicExponent.cs" />
+    <Compile Include="SensorApprovalNumber.cs" />
+    <Compile Include="SensorInstallationSecData.cs" />
+    <Compile Include="SensorPaired.cs" />
+    <Compile Include="SensorPairingDate.cs" />
+    <Compile Include="SensorSerialNumber.cs" />
+    <Compile Include="Signature.cs" />
+    <Compile Include="SimilarEventsNumber.cs" />
+    <Compile Include="SpecificConditionRecord.cs" />
+    <Compile Include="SpecificConditionType.cs" />
+    <Compile Include="Speed.cs" />
+    <Compile Include="SpeedAuthorised.cs" />
+    <Compile Include="SpeedAverage.cs" />
+    <Compile Include="SpeedMax.cs" />
+    <Compile Include="TDesSessionKey.cs" />
+    <Compile Include="TimeReal.cs" />
+    <Compile Include="L_TyreCircumference.cs" />
+    <Compile Include="TyreSize.cs" />
+    <Compile Include="WorkshopCardApplicationIdentification.cs" />
+    <Compile Include="WorkshopCardCalibrationData.cs" />
+    <Compile Include="WorkshopCardCalibrationRecord.cs" />
+    <Compile Include="WorkshopCardHolderIdentification.cs" />
+    <Compile Include="W_VehicleCharacteristicConstant.cs" />
+    <Compile Include="VehicleIdentificationNumber.cs" />
+    <Compile Include="VehicleRegistrationIdentification.cs" />
+    <Compile Include="VehicleRegistrationNumber.cs" />
+    <Compile Include="VuActivityDailyData.cs" />
+    <Compile Include="VuApprovalNumber.cs" />
+    <Compile Include="VuCalibrationData.cs" />
+    <Compile Include="VuCalibrationRecord.cs" />
+    <Compile Include="VuCardIWData.cs" />
+    <Compile Include="VuCardIWRecord.cs" />
+    <Compile Include="VuCertificate.cs" />
+    <Compile Include="VuCompanyLocksData.cs" />
+    <Compile Include="VuCompanyLocksRecord.cs" />
+    <Compile Include="VuControlActivityData.cs" />
+    <Compile Include="VuControlActivityRecord.cs" />
+    <Compile Include="VuDataBlockCounter.cs" />
+    <Compile Include="VuDetailedSpeedBlock.cs" />
+    <Compile Include="VuDetailedSpeedData.cs" />
+    <Compile Include="VuDownloadablePeriod.cs" />
+    <Compile Include="VuDownloadActivityData.cs" />
+    <Compile Include="VuEventData.cs" />
+    <Compile Include="VuEventRecord.cs" />
+    <Compile Include="VuFaultData.cs" />
+    <Compile Include="VuFaultRecord.cs" />
+    <Compile Include="VuIdentification.cs" />
+    <Compile Include="VuManufacturerAddress.cs" />
+    <Compile Include="VuManufacturerName.cs" />
+    <Compile Include="VuManufacturingDate.cs" />
+    <Compile Include="VuOverSpeedingControlData.cs" />
+    <Compile Include="VuOverSpeedingEventData.cs" />
+    <Compile Include="VuOverSpeedingEventRecord.cs" />
+    <Compile Include="VuPartNumber.cs" />
+    <Compile Include="VuPlaceDailyWorkPeriodData.cs" />
+    <Compile Include="VuPlaceDailyWorkPeriodRecord.cs" />
+    <Compile Include="VuPrivateKey.cs" />
+    <Compile Include="VuPublicKey.cs" />
+    <Compile Include="VuSerialNumber.cs" />
+    <Compile Include="VuSoftInstallationDate.cs" />
+    <Compile Include="VuSoftwareIdentification.cs" />
+    <Compile Include="VuSoftwareVersion.cs" />
+    <Compile Include="VuSpecificConditionData.cs" />
+    <Compile Include="VuTimeAdjustmentData.cs" />
+    <Compile Include="VuTimeAdjustmentRecord.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,7 @@
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\TotalsClasses\bin\Debug\TotalsClasses.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\TotalsClasses\bin\Debug\TotalsClasses.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\TotalsClasses\bin\Debug\DDDClass.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\TotalsClasses\bin\Debug\DDDClass.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\TotalsClasses\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\TotalsClasses\obj\Debug\TotalsClasses.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\TotalsClasses\obj\Debug\TotalsClasses.pdb

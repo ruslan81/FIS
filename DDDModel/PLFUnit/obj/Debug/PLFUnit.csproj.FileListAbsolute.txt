@@ -1,0 +1,10 @@
+C:\Users\STAK\Documents\Visual Studio 2008\Projects\DDDModel\PLFUnit\bin\Debug\PLFUnit.dll
+C:\Users\STAK\Documents\Visual Studio 2008\Projects\DDDModel\PLFUnit\bin\Debug\PLFUnit.pdb
+C:\Users\STAK\Documents\Visual Studio 2008\Projects\DDDModel\PLFUnit\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\STAK\Documents\Visual Studio 2008\Projects\DDDModel\PLFUnit\obj\Debug\PLFUnit.dll
+C:\Users\STAK\Documents\Visual Studio 2008\Projects\DDDModel\PLFUnit\obj\Debug\PLFUnit.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\PLFUnit\bin\Debug\PLFUnit.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\PLFUnit\bin\Debug\PLFUnit.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\PLFUnit\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\PLFUnit\obj\Debug\PLFUnit.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\PLFUnit\obj\Debug\PLFUnit.pdb

@@ -1,0 +1,18 @@
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\TotalsClasses\bin\Release\TotalsClasses.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\TotalsClasses\bin\Release\TotalsClasses.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\TotalsClasses\bin\Release\DDDClass.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\TotalsClasses\bin\Release\DDDClass.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\TotalsClasses\obj\Release\ResolveAssemblyReference.cache
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\TotalsClasses\obj\Release\TotalsClasses.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\TotalsClasses\obj\Release\TotalsClasses.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\TotalsClasses\bin\Release\DDDClass.xml
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\TotalsClasses\bin\Release\TotalsClasses.XML
+D:\BSUIR\Other\Projects_new\DDDModel\TotalsClasses\bin\Release\TotalsClasses.dll
+D:\BSUIR\Other\Projects_new\DDDModel\TotalsClasses\bin\Release\TotalsClasses.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\TotalsClasses\bin\Release\DDDClass.dll
+D:\BSUIR\Other\Projects_new\DDDModel\TotalsClasses\bin\Release\DDDClass.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\TotalsClasses\bin\Release\DDDClass.xml
+D:\BSUIR\Other\Projects_new\DDDModel\TotalsClasses\obj\Release\ResolveAssemblyReference.cache
+D:\BSUIR\Other\Projects_new\DDDModel\TotalsClasses\obj\Release\TotalsClasses.dll
+D:\BSUIR\Other\Projects_new\DDDModel\TotalsClasses\obj\Release\TotalsClasses.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\TotalsClasses\bin\Release\TotalsClasses.XML

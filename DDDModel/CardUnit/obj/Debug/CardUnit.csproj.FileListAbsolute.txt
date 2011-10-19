@@ -1,0 +1,21 @@
+D:\Program Files (x86)\Microsoft Visual Studio 9.0\Projects\DDDXmlView\CardUnit\bin\Debug\CardUnit.dll
+D:\Program Files (x86)\Microsoft Visual Studio 9.0\Projects\DDDXmlView\CardUnit\bin\Debug\CardUnit.pdb
+D:\Program Files (x86)\Microsoft Visual Studio 9.0\Projects\DDDXmlView\CardUnit\obj\Debug\ResolveAssemblyReference.cache
+D:\Program Files (x86)\Microsoft Visual Studio 9.0\Projects\DDDXmlView\CardUnit\obj\Debug\CardUnit.dll
+D:\Program Files (x86)\Microsoft Visual Studio 9.0\Projects\DDDXmlView\CardUnit\obj\Debug\CardUnit.pdb
+D:\Program Files (x86)\Microsoft Visual Studio 9.0\Projects\DDDXmlView\CardUnit\bin\Debug\DDDClass.dll
+D:\Program Files (x86)\Microsoft Visual Studio 9.0\Projects\DDDXmlView\CardUnit\bin\Debug\DDDClass.pdb
+C:\Users\STAK\Documents\Visual Studio 2008\Projects\DDDModel\CardUnit\bin\Debug\CardUnit.dll
+C:\Users\STAK\Documents\Visual Studio 2008\Projects\DDDModel\CardUnit\bin\Debug\CardUnit.pdb
+C:\Users\STAK\Documents\Visual Studio 2008\Projects\DDDModel\CardUnit\bin\Debug\DDDClass.dll
+C:\Users\STAK\Documents\Visual Studio 2008\Projects\DDDModel\CardUnit\bin\Debug\DDDClass.pdb
+C:\Users\STAK\Documents\Visual Studio 2008\Projects\DDDModel\CardUnit\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\STAK\Documents\Visual Studio 2008\Projects\DDDModel\CardUnit\obj\Debug\CardUnit.dll
+C:\Users\STAK\Documents\Visual Studio 2008\Projects\DDDModel\CardUnit\obj\Debug\CardUnit.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\CardUnit\bin\Debug\CardUnit.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\CardUnit\bin\Debug\CardUnit.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\CardUnit\bin\Debug\DDDClass.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\CardUnit\bin\Debug\DDDClass.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\CardUnit\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\CardUnit\obj\Debug\CardUnit.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\CardUnit\obj\Debug\CardUnit.pdb

@@ -1,0 +1,12 @@
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.Interface\bin\Release\DB.Interface.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.Interface\bin\Release\DB.Interface.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.Interface\obj\Release\ResolveAssemblyReference.cache
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.Interface\obj\Release\DB.Interface.dll
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.Interface\obj\Release\DB.Interface.pdb
+C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.Interface\bin\Release\DB.Interface.XML
+D:\BSUIR\Other\Projects_new\DDDModel\DB.Interface\bin\Release\DB.Interface.dll
+D:\BSUIR\Other\Projects_new\DDDModel\DB.Interface\bin\Release\DB.Interface.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\DB.Interface\obj\Release\ResolveAssemblyReference.cache
+D:\BSUIR\Other\Projects_new\DDDModel\DB.Interface\obj\Release\DB.Interface.dll
+D:\BSUIR\Other\Projects_new\DDDModel\DB.Interface\obj\Release\DB.Interface.pdb
+D:\BSUIR\Other\Projects_new\DDDModel\DB.Interface\bin\Release\DB.Interface.XML

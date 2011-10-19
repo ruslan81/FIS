@@ -1,0 +1,979 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.0" application="StiReport">
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="0" />
+    <DataSources isList="true" count="2">
+      <PlfReport_ByDays_Data Ref="2" type="DataTableSource" isKey="true">
+        <Alias>PlfReport_ByDays_Data</Alias>
+        <Columns isList="true" count="8">
+          <value>Дата,System.DateTime</value>
+          <value>Начало,System.TimeSpan</value>
+          <value>Окончание,System.TimeSpan</value>
+          <value>Движение,System.TimeSpan</value>
+          <value>Стоянка,System.TimeSpan</value>
+          <value>Путь,System.Double</value>
+          <value>Одометр,System.Int32</value>
+          <value>Топливо,System.Double</value>
+        </Columns>
+        <Dictionary isRef="1" />
+        <Name>PlfReport_ByDays_Data</Name>
+        <NameInSource>PlfReport_ByDays_Data</NameInSource>
+      </PlfReport_ByDays_Data>
+      <PlfHeader_1 Ref="3" type="DataTableSource" isKey="true">
+        <Alias>PlfHeader_1</Alias>
+        <Columns isList="true" count="9">
+          <value>С,System.String</value>
+          <value>По,System.String</value>
+          <value>Регистрационный_x0020_номер,System.String</value>
+          <value>Имя_x0020_пользователя,System.String</value>
+          <value>Номер_x0020_водителя,System.String</value>
+          <value>Имя_x0020_водителя,System.String</value>
+          <value>Название_x0020_организации,System.String</value>
+          <value>Путь_x0020_к_x0020_фото,System.String</value>
+          <value>Номер_x0020_бортового_x0020_устройства,System.String</value>
+        </Columns>
+        <Dictionary isRef="1" />
+        <Name>PlfHeader_1</Name>
+        <NameInSource>PlfHeader_1</NameInSource>
+      </PlfHeader_1>
+    </DataSources>
+    <Relations isList="true" count="0" />
+    <Report isRef="0" />
+    <Variables isList="true" count="0" />
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="1">
+    <Page1 Ref="4" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="5">
+        <PageHeaderBand1 Ref="5" type="PageHeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,0.4,19,6.2</ClientRectangle>
+          <Components isList="true" count="4">
+            <Image1 Ref="6" type="Image" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0.2,0.2,6.4,1.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Image>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</Image>
+              <Name>Image1</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+            </Image1>
+            <Text1 Ref="7" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,1.8,19,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,20</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text1</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>Эффективность использования ТС по дням</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text1>
+            <Panel4 Ref="8" type="Stimulsoft.Report.Components.StiPanel" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,3,19,3</ClientRectangle>
+              <Components isList="true" count="10">
+                <Text17 Ref="9" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <CanGrow>True</CanGrow>
+                  <ClientRectangle>0,0,2.8,0.6</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,11</Font>
+                  <GrowToHeight>True</GrowToHeight>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text17</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="8" />
+                  <Text>Организация:</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text17>
+                <Text48 Ref="10" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <CanGrow>True</CanGrow>
+                  <ClientRectangle>0,0.6,2,0.6</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,11</Font>
+                  <GrowToHeight>True</GrowToHeight>
+                  <Guid>99c02ddf6d8744929729bfdfa76d5356</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text48</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="8" />
+                  <Text>Автопарк:</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text48>
+                <Text49 Ref="11" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>3.4,0.6,8.2,0.6</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,11</Font>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text49</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="8" />
+                  <Text>{PlfHeader_1.Название_организации}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text49>
+                <Text50 Ref="12" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>3.4,0,8.2,0.6</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,11</Font>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text50</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="8" />
+                  <Text>{PlfHeader_1.Название_организации}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text50>
+                <Text51 Ref="13" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>0,1.2,2,0.6</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,11</Font>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text51</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="8" />
+                  <Text>ТС:</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text51>
+                <Text52 Ref="14" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>3.4,1.2,8.2,0.6</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,11</Font>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text52</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="8" />
+                  <Text>{PlfHeader_1.Регистрационный_номер}, {PlfHeader_1.Номер_бортового_устройства}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text52>
+                <Text53 Ref="15" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>0,1.8,3,0.6</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,11</Font>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text53</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="8" />
+                  <Text>Имя водителя:</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text53>
+                <Text54 Ref="16" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>3.4,1.8,8.2,0.6</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,11</Font>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text54</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="8" />
+                  <Text>{PlfHeader_1.Имя_водителя}({PlfHeader_1.Номер_водителя})</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text54>
+                <Text19 Ref="17" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>0,2.4,11.6,0.6</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,11</Font>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text19</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="8" />
+                  <Text>Выбранный период с {PlfHeader_1.С} по {PlfHeader_1.По}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text19>
+                <Image2 Ref="18" type="Image" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>11.8,0,7,2.8</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <ImageURL>http://www.toptruck.ru/zadmin_data/userfiles/image/daf/3.jpg</ImageURL>
+                  <Name>Image2</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="8" />
+                </Image2>
+              </Components>
+              <Conditions isList="true" count="0" />
+              <Name>Panel4</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+            </Panel4>
+            <HorizontalLinePrimitive1 Ref="19" type="HorizontalLinePrimitive" isKey="true">
+              <ClientRectangle>0,2.8,19,0.0254</ClientRectangle>
+              <Color>DarkGray</Color>
+              <EndCap Ref="20" type="Cap" isKey="true">
+                <Color>Black</Color>
+              </EndCap>
+              <Name>HorizontalLinePrimitive1</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Size>3</Size>
+              <StartCap Ref="21" type="Cap" isKey="true">
+                <Color>Black</Color>
+              </StartCap>
+            </HorizontalLinePrimitive1>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>PageHeaderBand1</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </PageHeaderBand1>
+        <PageFooterBand1 Ref="22" type="PageFooterBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,26.1,19,1.6</ClientRectangle>
+          <Components isList="true" count="5">
+            <Text38 Ref="23" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>15.6,0.9,3,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Guid>8b90dd8bbfed45d49d8c28f4ce17db0c</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text38</Name>
+              <Page isRef="4" />
+              <Parent isRef="22" />
+              <Text>{PageNofMThrough}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>SystemVariables</Type>
+            </Text38>
+            <Text39 Ref="24" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>14.2,0.1,1,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Guid>df1400d2e3d546edaf06199393d9e336</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text39</Name>
+              <Page isRef="4" />
+              <Parent isRef="22" />
+              <Text>Дата:</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text39>
+            <Text40 Ref="25" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0.2,0.1,5,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Guid>269e140cc75d48cc9f523c2dc457b67a</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text40</Name>
+              <Page isRef="4" />
+              <Parent isRef="22" />
+              <Text>Проанализировано SmartFis.ru</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text40>
+            <Text41 Ref="26" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0.2,0.7,9.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Guid>a5cb6d645b1b4e36be5048069779cda7</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text41</Name>
+              <Page isRef="4" />
+              <Parent isRef="22" />
+              <Text>Отчет сформирован сотрудником: {PlfHeader_1.Имя_пользователя}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text41>
+            <Text2 Ref="27" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>15.6,0.1,3,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text2</Name>
+              <Page isRef="4" />
+              <Parent isRef="22" />
+              <Text>{Time}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text2>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>PageFooterBand1</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </PageFooterBand1>
+        <HeaderBand1 Ref="28" type="HeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,7.4,19,0.8</ClientRectangle>
+          <Components isList="true" count="1">
+            <Panel3 Ref="29" type="Stimulsoft.Report.Components.StiPanel" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>DarkGray</Brush>
+              <ClientRectangle>0,0,19,0.8</ClientRectangle>
+              <Components isList="true" count="10">
+                <Text13 Ref="30" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>0,0,2,0.8</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10</Font>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text13</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="29" />
+                  <Text> Дата</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text13>
+                <Text14 Ref="31" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>2,0,2,0.8</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10</Font>
+                  <Guid>660a4b81adcf4195b7e3cc68c4881f16</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text14</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="29" />
+                  <Text>День</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text14>
+                <Text15 Ref="32" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>4,0,1.4,0.8</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10</Font>
+                  <Guid>e640d8a6f48d4bcc992974df126affc5</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text15</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="29" />
+                  <Text>Начало</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text15>
+                <Text23 Ref="33" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <CanGrow>True</CanGrow>
+                  <CanShrink>True</CanShrink>
+                  <ClientRectangle>5.4,0,1.8,0.8</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10</Font>
+                  <GrowToHeight>True</GrowToHeight>
+                  <Guid>9b3e95afb3eb4111a9b25e5bd81220e1</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text23</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="29" />
+                  <Text>Окончание</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text23>
+                <Text24 Ref="34" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <CanGrow>True</CanGrow>
+                  <CanShrink>True</CanShrink>
+                  <ClientRectangle>7.4,0,2.4,0.8</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10</Font>
+                  <GrowToHeight>True</GrowToHeight>
+                  <Guid>01d7917c6ca14dfa9358a7dc9ed09d55</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text24</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="29" />
+                  <Text>Длительность</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text24>
+                <Text25 Ref="35" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <CanGrow>True</CanGrow>
+                  <CanShrink>True</CanShrink>
+                  <ClientRectangle>9.8,0,1.8,0.8</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10</Font>
+                  <GrowToHeight>True</GrowToHeight>
+                  <Guid>a2d2a7d257f2498f9cf5b7d5e6138e2f</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text25</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="29" />
+                  <Text>Движение</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text25>
+                <Text26 Ref="36" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>11.6,0,1.8,0.8</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10</Font>
+                  <Guid>626f9b8c45bb4e40849c600ca3f1eee7</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text26</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="29" />
+                  <Text>Стоянка</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text26>
+                <Text27 Ref="37" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>13.6,0,1.6,0.8</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10</Font>
+                  <Guid>c4ac3c55545c430daa8e1748b87e5ab5</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text27</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="29" />
+                  <Text>Путь</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text27>
+                <Text28 Ref="38" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <CanGrow>True</CanGrow>
+                  <CanShrink>True</CanShrink>
+                  <ClientRectangle>15.2,0,2,0.8</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10</Font>
+                  <GrowToHeight>True</GrowToHeight>
+                  <Guid>531e0fc71e33417f9448a307c52375d7</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text28</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="29" />
+                  <Text>Одометр</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text28>
+                <Text29 Ref="39" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>17.2,0,1.8,0.8</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10</Font>
+                  <Guid>87059b8d41ff47f8b7be2f7c4efbc3a6</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text29</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="29" />
+                  <Text>Топливо</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text29>
+              </Components>
+              <Conditions isList="true" count="0" />
+              <Name>Panel3</Name>
+              <Page isRef="4" />
+              <Parent isRef="28" />
+            </Panel3>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>HeaderBand1</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </HeaderBand1>
+        <DataBand1 Ref="40" type="DataBand" isKey="true">
+          <Border>Left, Right;Black;1;Solid;False;4;Black</Border>
+          <Brush>Transparent</Brush>
+          <BusinessObjectGuid isNull="true" />
+          <ClientRectangle>0,9,19,0.6</ClientRectangle>
+          <Components isList="true" count="10">
+            <Text3 Ref="41" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,0,2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text3</Name>
+              <Page isRef="4" />
+              <Parent isRef="40" />
+              <Text>{Format("{0:dd.MM.yyyy}", PlfReport_ByDays_Data.Дата)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text3>
+            <Text4 Ref="42" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>2,0,2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Guid>b9b6017565174c00b8e9b3d38c804623</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text4</Name>
+              <Page isRef="4" />
+              <Parent isRef="40" />
+              <Text>{DayOfWeek(PlfReport_ByDays_Data.Дата, true)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text4>
+            <Text5 Ref="43" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>4,0,1,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Guid>676ab971ab704bb8a14d7ee009fb2093</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text5</Name>
+              <Page isRef="4" />
+              <Parent isRef="40" />
+              <Text>{PlfReport_ByDays_Data.Начало}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="44" type="TimeFormat" isKey="true">
+                <StringFormat>t</StringFormat>
+              </TextFormat>
+              <Type>Expression</Type>
+            </Text5>
+            <Text6 Ref="45" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>5.4,0,1.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Guid>3d96f3cde3704e23ae5ea294efeeda06</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text6</Name>
+              <Page isRef="4" />
+              <Parent isRef="40" />
+              <Text>{PlfReport_ByDays_Data.Окончание}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="46" type="TimeFormat" isKey="true">
+                <StringFormat>t</StringFormat>
+              </TextFormat>
+              <Type>Expression</Type>
+            </Text6>
+            <Text7 Ref="47" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>7.4,0,1.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Guid>172febea4fd842e2bd16e3c3eb3c5971</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text7</Name>
+              <Page isRef="4" />
+              <Parent isRef="40" />
+              <Text>{PlfReport_ByDays_Data.Окончание.Subtract(PlfReport_ByDays_Data.Начало)}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="48" type="TimeFormat" isKey="true">
+                <StringFormat>t</StringFormat>
+              </TextFormat>
+              <Type>Expression</Type>
+            </Text7>
+            <Text8 Ref="49" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>9.8,0,1.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Guid>95920ada5870402ebe80fc01b2a7adbc</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text8</Name>
+              <Page isRef="4" />
+              <Parent isRef="40" />
+              <Text>{PlfReport_ByDays_Data.Движение}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="50" type="TimeFormat" isKey="true">
+                <StringFormat>t</StringFormat>
+              </TextFormat>
+              <Type>Expression</Type>
+            </Text8>
+            <Text9 Ref="51" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>11.6,0,1.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Guid>deebad148b92467593a2abdd8f2eee29</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text9</Name>
+              <Page isRef="4" />
+              <Parent isRef="40" />
+              <Text>{PlfReport_ByDays_Data.Стоянка}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="52" type="TimeFormat" isKey="true">
+                <StringFormat>t</StringFormat>
+              </TextFormat>
+              <Type>Expression</Type>
+            </Text9>
+            <Text10 Ref="53" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>13.8,0,1.4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Guid>5c9d18b82416473faa315856be414719</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text10</Name>
+              <Page isRef="4" />
+              <Parent isRef="40" />
+              <Text>{Format("{0:N1}", PlfReport_ByDays_Data.Путь)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text10>
+            <Text11 Ref="54" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>15.2,0,1.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Guid>d11f8c2f96334512b6db1f710fc90df7</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text11</Name>
+              <Page isRef="4" />
+              <Parent isRef="40" />
+              <Text>{PlfReport_ByDays_Data.Одометр}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+            </Text11>
+            <Text12 Ref="55" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>17.4,0,1.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Guid>685a51148fb74094b8ff32770531f4e2</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text12</Name>
+              <Page isRef="4" />
+              <Parent isRef="40" />
+              <Text>{Format("{0:N2}", PlfReport_ByDays_Data.Топливо)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text12>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <DataRelationName isNull="true" />
+          <DataSourceName>PlfReport_ByDays_Data</DataSourceName>
+          <EvenStyle>Стиль1</EvenStyle>
+          <Filters isList="true" count="0" />
+          <Name>DataBand1</Name>
+          <OddStyle>Стиль2</OddStyle>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+          <Sort isList="true" count="0" />
+        </DataBand1>
+        <FooterBand1 Ref="56" type="FooterBand" isKey="true">
+          <Border>Left, Right, Bottom;Black;1;Solid;False;4;Black</Border>
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,10.4,19,0.8</ClientRectangle>
+          <Components isList="true" count="1">
+            <Panel2 Ref="57" type="Stimulsoft.Report.Components.StiPanel" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>DarkGray</Brush>
+              <ClientRectangle>0,0,19,1</ClientRectangle>
+              <Components isList="true" count="15">
+                <Text30 Ref="58" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>7.4,0,1.6,0.6</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10,Bold</Font>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text30</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="57" />
+                  <Text>{Floor(SumTime(PlfReport_ByDays_Data.Окончание.Subtract(PlfReport_ByDays_Data.Начало)).TotalHours)}:{Format("{0:00}", SumTime(PlfReport_ByDays_Data.Окончание.Subtract(PlfReport_ByDays_Data.Начало)).Minutes)}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text30>
+                <Text31 Ref="59" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>0,0,1.2,0.6</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10,Bold</Font>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text31</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="57" />
+                  <Text>Всего</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text31>
+                <Text32 Ref="60" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>1.8,0,1.8,0.6</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10,Bold</Font>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text32</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="57" />
+                  <Text>Дней - {CountDistinct(PlfReport_ByDays_Data.Дата)}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text32>
+                <Text33 Ref="61" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>9.8,0,1.2,0.6</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10,Bold</Font>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text33</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="57" />
+                  <Text>{Floor(SumTime(PlfReport_ByDays_Data.Движение).TotalHours)}:{Format("{0:00}", SumTime(PlfReport_ByDays_Data.Движение).Minutes)}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text33>
+                <Text34 Ref="62" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>11.6,0,1.2,0.6</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10,Bold</Font>
+                  <Guid>11ef2712dc2b4d308c4f263835320db1</Guid>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text34</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="57" />
+                  <Text>{Floor(SumTime(PlfReport_ByDays_Data.Стоянка).TotalHours)}:{Format("{0:00}", SumTime(PlfReport_ByDays_Data.Стоянка).Minutes)}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text34>
+                <Text35 Ref="63" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>13.8,0,1.4,0.6</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10,Bold</Font>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text35</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="57" />
+                  <Text>{Format("{0:N1}", SumD(PlfReport_ByDays_Data.Путь))}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text35>
+                <Text36 Ref="64" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>15.2,0,1.2,0.6</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10,Bold</Font>
+                  <Guid>a31c45b563064a8f88828b7a89322baa</Guid>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text36</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="57" />
+                  <Text>{Sum(PlfReport_ByDays_Data.Одометр)}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text36>
+                <Text37 Ref="65" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>17.4,0,1.6,0.6</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10,Bold</Font>
+                  <Guid>c2bdce6074a84a77a39566266a92a174</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text37</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="57" />
+                  <Text>{Format("{0:N1}", SumD(PlfReport_ByDays_Data.Топливо))}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text37>
+                <Text16 Ref="66" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>0,0.6,1.6,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10,Bold</Font>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text16</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="57" />
+                  <Text>Среднее</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text16>
+                <Text42 Ref="67" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>7.4,0.6,1.6,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10,Bold</Font>
+                  <Guid>1de6ae1c8e504c1eb5ede5d47d8dd222</Guid>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text42</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="57" />
+                  <Text>{Floor(AvgTime(PlfReport_ByDays_Data.Окончание.Subtract(PlfReport_ByDays_Data.Начало)).TotalHours)}:{Format("{0:00}", AvgTime(PlfReport_ByDays_Data.Окончание.Subtract(PlfReport_ByDays_Data.Начало)).Minutes)}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text42>
+                <Text43 Ref="68" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>9.8,0.6,1.2,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10,Bold</Font>
+                  <Guid>34087c33132a4e7dbc5d8014f0ae2886</Guid>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text43</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="57" />
+                  <Text>{Floor(AvgTime(PlfReport_ByDays_Data.Движение).TotalHours)}:{Format("{0:00}", AvgTime(PlfReport_ByDays_Data.Движение).Minutes)}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text43>
+                <Text44 Ref="69" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>11.6,0.6,1.2,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10,Bold</Font>
+                  <Guid>31df8d9a551a435cab4ae765069568d7</Guid>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text44</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="57" />
+                  <Text>{Floor(AvgTime(PlfReport_ByDays_Data.Стоянка).TotalHours)}:{Format("{0:00}", AvgTime(PlfReport_ByDays_Data.Стоянка).Minutes)}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text44>
+                <Text45 Ref="70" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>13.8,0.6,1.4,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10,Bold</Font>
+                  <Guid>2bc6c39d2dae4c438a81a8346434624f</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text45</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="57" />
+                  <Text>{Format("{0:N1}", AvgD(PlfReport_ByDays_Data.Путь))}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text45>
+                <Text46 Ref="71" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>15.2,0.6,1.2,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10,Bold</Font>
+                  <Guid>0f266c5a47294c828f4509c6cc153466</Guid>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text46</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="57" />
+                  <Text>{Avg(PlfReport_ByDays_Data.Одометр)}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text46>
+                <Text47 Ref="72" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <ClientRectangle>17.4,0.6,1.6,0.4</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,10,Bold</Font>
+                  <Guid>283ba475ec1c46bca0d1975df80f5e4c</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text47</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="57" />
+                  <Text>{Format("{0:N1}", AvgD(PlfReport_ByDays_Data.Топливо))}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </Text47>
+              </Components>
+              <Conditions isList="true" count="0" />
+              <Name>Panel2</Name>
+              <Page isRef="4" />
+              <Parent isRef="56" />
+            </Panel2>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>FooterBand1</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </FooterBand1>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>c4b25eeb8ebe4447a5bb56014ab2c3dc</Guid>
+      <Margins>1,1,1,1</Margins>
+      <Name>Page1</Name>
+      <PageHeight>29.7</PageHeight>
+      <PageWidth>21</PageWidth>
+      <Report isRef="0" />
+      <Watermark Ref="73" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </Page1>
+  </Pages>
+  <PrinterSettings Ref="74" type="Stimulsoft.Report.Print.StiPrinterSettings" isKey="true" />
+  <ReferencedAssemblies isList="true" count="8">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>5/28/2011 2:18:36 PM</ReportChanged>
+  <ReportCreated>12/10/2010 4:08:16 PM</ReportCreated>
+  <ReportFile>C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDWebSite\Administrator\Reports\PLFReports\PlfUnitsByDays.mrt</ReportFile>
+  <ReportGuid>78d9f61bfae1470ab9731da05096e73b</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2010.3.900</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+
+namespace Reports
+{
+    public class Report : Stimulsoft.Report.StiReport
+    {
+        public Report()
+        {
+            this.InitializeComponent();
+        }
+
+        #region StiReport Designer generated code - do not modify
+        #endregion StiReport Designer generated code - do not modify
+    }
+}
+</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="2">
+    <Стиль1 Ref="75" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <Brush>LightCyan</Brush>
+      <Font>Arial,8</Font>
+      <Name>Стиль1</Name>
+      <StyleCode>None</StyleCode>
+      <TextBrush>Black</TextBrush>
+    </Стиль1>
+    <Стиль2 Ref="76" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <Brush>WhiteSmoke</Brush>
+      <Font>Arial,8</Font>
+      <Name>Стиль2</Name>
+      <StyleCode>None</StyleCode>
+      <TextBrush>Black</TextBrush>
+    </Стиль2>
+  </Styles>
+</StiSerializer>
