@@ -51,19 +51,19 @@
                     <div id="form">
                         <div id="profiles">
                             <p>Профиль</p>
-                            <asp:TextBox ID="ProfilesTextBox" runat="server" CssClass="searchBox"/>
+                            <asp:TextBox ID="ProfilesTextBox" runat="server" CssClass="searchBox" TabIndex="1"/>
                             &nbsp;&nbsp;   
                         </div>                     
                         <div id="username">                           
                             <p>Пользователь</p>
-                            <asp:TextBox ID="UserNameTextBox" runat="server" CssClass="searchBox"/>
+                            <asp:TextBox ID="UserNameTextBox" runat="server" CssClass="searchBox" TabIndex="2"/>
                             &nbsp;&nbsp;
                             <asp:LinkButton ID="LinkButton2" Text="Регистрация" runat="server" CausesValidation="false"
                                 href="http://smartfis.info/ru/contacts.html" target="_blank"/>
                         </div>
                         <div id="password">
                             <p>Пароль</p>
-                            <asp:TextBox ID="PasswordTextBox" TextMode="Password" runat="server" CssClass="searchBox"/>
+                            <asp:TextBox ID="PasswordTextBox" TextMode="Password" runat="server" CssClass="searchBox" TabIndex="3"/>
                             &nbsp;&nbsp;
                             <asp:LinkButton ID="forgetPassButton" Text="Забыли пароль?" runat="server" CausesValidation="false"
                                 OnClientClick="$('#dialog').dialog({autoOpen: true, draggable: false, resizable: false, modal:true});"/>

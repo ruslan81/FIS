@@ -36,6 +36,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
                 BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_EN");
                 dataBlock.OpenConnection();
                 int userId = dataBlock.usersTable.Get_UserID_byName(User.Identity.Name);
+
                 //ORG NAME сверху
                 string curOrgName = "";
                 curOrgName = dataBlock.usersTable.Get_UserOrgName(userId);
@@ -47,6 +48,10 @@ public partial class Administrator_Settings : System.Web.UI.Page
 
                 int orgId = dataBlock.usersTable.Get_UserOrgId(userId);
                 Session["CURRENT_ORG_ID"] = orgId;
+
+                //выставляем кук, чтобы можно было передать его в метод, вызываемый ч/з ajax
+                Response.Cookies["CURRENT_ORG_ID"].Value = Convert.ToString(orgId);
+
                 ///////////////////////////
                 dataBlock.CloseConnection();
                 ((Panel)Master.FindControl("AdditionalConditionsPanel")).Visible = false;
@@ -64,6 +69,52 @@ public partial class Administrator_Settings : System.Web.UI.Page
             StatusUpdatePanel.Update();
         }
     }
+
+    //AJAX BEGIN
+
+    /// <summary>
+    ///Получить элементы дерева Водителей в разделе "Восстановить у пользователя"
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static List<MapItem> GetGeneralSettings(String OrgID)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+
+        try
+        {
+            int orgId = Convert.ToInt32(OrgID);
+
+            dataBlock.organizationTable.OpenConnection();
+            List<KeyValuePair<string, int>> orgInfo = new List<KeyValuePair<string, int>>();
+            orgInfo = dataBlock.organizationTable.GetAllOrgInfos();
+            List<MapItem> generalSettings = new List<MapItem>();
+
+            generalSettings.Add(new MapItem("Наименование организации", dataBlock.organizationTable.GetOrganizationName(orgId)));
+            generalSettings.Add(new MapItem("Страна", dataBlock.organizationTable.GetOrgCountryName(orgId)));
+            generalSettings.Add(new MapItem("Регион", dataBlock.organizationTable.GetOrgRegionName(orgId)));
+
+            foreach (KeyValuePair<string, int> pair in orgInfo)
+            {
+                String value=dataBlock.organizationTable.GetAdditionalOrgInfo(orgId, pair.Value);
+                generalSettings.Add(new MapItem(pair.Key,value));
+            }
+
+            return generalSettings;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+        finally
+        {
+            dataBlock.organizationTable.CloseConnection();
+            dataBlock.CloseConnection();
+        }
+    }
+
+    //AJAX END
 
     private void TreeViews_LoadList()
     {

@@ -21,7 +21,7 @@ public partial class loginPage : System.Web.UI.Page
             UserNameTextBox.Attributes.Add("onKeyPress", "javascript:if (event.keyCode == 13) __doPostBack('" + LinkButton1.ClientID + "','')");
             PasswordTextBox.Attributes.Add("onKeyPress", "javascript:if (event.keyCode == 13) __doPostBack('" + LinkButton1.ClientID + "','')");
 
-            UserNameTextBox.Focus();
+            ProfilesTextBox.Focus();
             LastUpdate.Text = "Последнее обновление 19.10.2011 01:00";
         }
         PassRecoverStatus.Text = "";

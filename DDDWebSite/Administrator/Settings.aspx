@@ -14,75 +14,146 @@
 <asp:Content ID="AccordionContent" ContentPlaceHolderID="VerticalOutlookMenu_PlaceHolder"
     runat="server">
     
-    <asp:HiddenField ID="AccordionSelectedPane" Visible="true" runat="server" Value="0" /> 
-    
-     <script type="text/javascript" language="javascript">
-         function acordionIndexSwitch(accIndex) {
-             document.getElementById("<% =AccordionSelectedPane.ClientID %>").value = accIndex;
-         }
+    <script src="../js/custom/Settings.js" type="text/javascript"></script>
 
-         $(window).resize(function() {
-             resizeAllMaster();
-             $("#accordion").accordion("resize");
-         });
-    </script>   
+    <asp:HiddenField ID="AccordionSelectedPane" Visible="true" runat="server" Value="0" />
+
+    <script type="text/javascript" language="javascript">
+
+        //run on page load
+        $(function () {
+            //builds a tree
+            $("#tree").wijtree();
+            //and select General Settings
+            $("#general").wijtreenode({ selected: true });
+            loadGeneralSettings();
+
+            $("#accordion").accordion({
+                change: function (event, ui) {
+                    if ($("a", ui.newHeader).text() == "Организация") {
+                        loadGeneralSettings();
+                    };
+                    if ($("a", ui.newHeader).text() == "Просмотреть(Водитель)") {
+                        loadOverlookDriver();
+                    }
+                    if ($("a", ui.newHeader).text() == "Просмотреть(ТС)") {
+                        loadOverlookVehicle();
+                    }
+                }
+            });
+        }); 
+
+        $(window).resize(function () {
+            resizeAllMaster();
+            $("#accordion").accordion("resize");
+        });
+    </script>  
+    
+    <script id="tmplGeneralSettings" type="text/x-jquery-tmpl">
+        
+        <tr>
+            <td style="font-size:12px;">
+                ${Key}
+            </td>
+            <td style="padding-left:50px;">
+                <input value="${Value}" class="inputField-readonly" readonly="readonly"/>
+            </tr>
+        </tr>
+            
+    </script> 
+
+    <script id="userControlsGeneral" type="text/x-jquery-tmpl">
+        <button id="edit">Редактировать</button>
+        <div style="float:right">
+            <button id="save">Сохранить</button>
+            <button id="cancel">Отмена</button>
+        </div>
+    </script>
     
     <div id="accordion" style="width: 5">
-        <h3><asp:LinkButton ID="AccordionHeader1_Users" CausesValidation="false" runat="server" OnClientClick="acordionIndexSwitch(0);" PostBackUrl="#" Text="Предприятие" /></h3>
-            <div >
-                <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Always">
-                        <ContentTemplate>
-                            <asp:Panel ID="Panel1" style="border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px;" 
-                                runat="server" BorderWidth="1px" BorderColor="LightGray">
-                                <asp:TreeView ID="UsersTreeView" ShowCheckBoxes="None" runat="server" Width="100%"
-                                    SelectedNodeStyle-ForeColor="Firebrick" ForeColor="Black" Font-Bold="true"
-                                    ImageSet="News" OnSelectedNodeChanged="UsersTreeView_NodeChanged" />
-                            </asp:Panel>
-                        </ContentTemplate>
-                        <Triggers>
-                            <asp:AsyncPostBackTrigger ControlID="UsersTreeView" EventName="SelectedNodeChanged"/>
-                        </Triggers>
-                    </asp:UpdatePanel>
+        <h3><asp:LinkButton CausesValidation="false" runat="server" PostBackUrl="#" Text="Организация"/></h3>
+        <div>
+            <!--<asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Always">
+                <ContentTemplate>
+                    <asp:Panel ID="Panel1" Style="border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px;"
+                        runat="server" BorderWidth="1px" BorderColor="LightGray">
+                        <asp:TreeView ID="UsersTreeView" ShowCheckBoxes="None" runat="server" Width="100%"
+                            SelectedNodeStyle-ForeColor="Firebrick" ForeColor="Black" Font-Bold="true" ImageSet="News"
+                            OnSelectedNodeChanged="UsersTreeView_NodeChanged" />
+                    </asp:Panel>
+                </ContentTemplate>
+                <Triggers>
+                    <asp:AsyncPostBackTrigger ControlID="UsersTreeView" EventName="SelectedNodeChanged" />
+                </Triggers>
+            </asp:UpdatePanel>-->
+            <!--Дерево-->
+            <div>
+                <ul id="tree">
+                    <li class="folder" id="general"><a><span key="General">Общие</span></a>
+                    </li>
+                    <li class="folder"><a><span key="Groups">Группы</span></a>
+                    </li>
+                    <li class="folder"><a><span key="Drivers">Водители</span></a>
+                    </li>
+                    <li class="folder"><a><span key="Transport">ТС</span></a>
+                    </li>
+                    <li class="folder"><a><span key="Default">Установки по умолчанию</span></a>
+                    </li>
+                </ul>
             </div>
-        <h3><asp:LinkButton ID="AccordionHeader2_Reminders" CausesValidation="false" runat="server" OnClientClick="acordionIndexSwitch(1);" PostBackUrl="#" Text="Напоминания" /></h3>
-            <div>
-                <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Always">
-                    <ContentTemplate>
-                        <asp:Panel ID="Panel2" style="border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px;" 
-                            runat="server" BorderWidth="1px" BorderColor="LightGray">
-                            <asp:TreeView ID="ReminderTreeView" ShowCheckBoxes="None" runat="server" Width="100%"
-                                SelectedNodeStyle-ForeColor="Firebrick" ForeColor="Black" Font-Bold="true"
-                                ImageSet="News" OnSelectedNodeChanged="ReminderTreeView_NodeChanged" />
-                        </asp:Panel>
-                    </ContentTemplate>
-                </asp:UpdatePanel>
-            </div>    
-            <h3><asp:LinkButton ID="AccordionHeader3_Additional" CausesValidation="false" runat="server" OnClientClick="acordionIndexSwitch(2);" PostBackUrl="#" Text="Дополнительно" /></h3>
-            <div>
-              <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Always">
-                    <ContentTemplate>
-                        <asp:Panel ID="Panel3" style="border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px;" 
-                            runat="server" BorderWidth="1px" BorderColor="LightGray">
-                            <asp:TreeView ID="AdditionalTreeView" ShowCheckBoxes="None" runat="server" Width="100%"
-                                SelectedNodeStyle-ForeColor="Firebrick" ForeColor="Black" Font-Bold="true"
-                                ImageSet="News" OnSelectedNodeChanged="AdditionalTreeView_NodeChanged" />
-                        </asp:Panel>
-                    </ContentTemplate>
-                </asp:UpdatePanel>
-            </div>    
-    </div> 
-    
-</asp:Content>    
+
+        </div>
+        <h3>
+            <asp:LinkButton ID="AccordionHeader2_Reminders" CausesValidation="false" runat="server"
+                OnClientClick="acordionIndexSwitch(1);" PostBackUrl="#" Text="Напоминания" /></h3>
+        <div>
+            <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Always">
+                <ContentTemplate>
+                    <asp:Panel ID="Panel2" Style="border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px;"
+                        runat="server" BorderWidth="1px" BorderColor="LightGray">
+                        <asp:TreeView ID="ReminderTreeView" ShowCheckBoxes="None" runat="server" Width="100%"
+                            SelectedNodeStyle-ForeColor="Firebrick" ForeColor="Black" Font-Bold="true" ImageSet="News"
+                            OnSelectedNodeChanged="ReminderTreeView_NodeChanged" />
+                    </asp:Panel>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+        <h3>
+            <asp:LinkButton ID="AccordionHeader3_Additional" CausesValidation="false" runat="server"
+                OnClientClick="acordionIndexSwitch(2);" PostBackUrl="#" Text="Дополнительно" /></h3>
+        <div>
+            <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Always">
+                <ContentTemplate>
+                    <asp:Panel ID="Panel3" Style="border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px;"
+                        runat="server" BorderWidth="1px" BorderColor="LightGray">
+                        <asp:TreeView ID="AdditionalTreeView" ShowCheckBoxes="None" runat="server" Width="100%"
+                            SelectedNodeStyle-ForeColor="Firebrick" ForeColor="Black" Font-Bold="true" ImageSet="News"
+                            OnSelectedNodeChanged="AdditionalTreeView_NodeChanged" />
+                    </asp:Panel>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+    </div>
+</asp:Content>
 <asp:Content ID="ChoisesContent" ContentPlaceHolderID="MainConditions_PlaceHolder" runat="server">
-    <asp:UpdatePanel ID="ChoisesContentUpdatePanel" runat="server" UpdateMode="Always">
+    <div id="headerSettings">
+        Общие настройки
+    </div>
+    <!--<asp:UpdatePanel ID="ChoisesContentUpdatePanel" runat="server" UpdateMode="Always">
         <ContentTemplate>
             <h1>
             <asp:Label ID="SettingName" runat="server" /></h1>
         </ContentTemplate>
-    </asp:UpdatePanel>    
+    </asp:UpdatePanel>-->
 </asp:Content>
 <asp:Content ID="DataContent" ContentPlaceHolderID="Reports_PlaceHolder" runat="server">
-<asp:UpdatePanel ID="DataContentUpdatePanel" runat="server" UpdateMode="Always">
+    <div>
+        <table cellpadding="5" style="margin-left:30px">
+            <tbody id="contentSettings">
+            </tbody>
+        </table>
+    </div>
+    <!--<asp:UpdatePanel ID="DataContentUpdatePanel" runat="server" UpdateMode="Always">
     <ContentTemplate>
         <asp:Panel id="DataContentPanel" runat="server" ScrollBars="Auto">
             <uc1:GeneralTab ID="GeneralTab1" runat="server" Visible="false" />
@@ -111,10 +182,12 @@
                 }
             }
 
-    </script>
+    </script>-->
 </asp:Content>
 <asp:Content ID="DecisionContent1" ContentPlaceHolderID="Decision_PlaceHolder" runat="server">
-<asp:UpdatePanel ID="DecisionUpdatePanel" runat="server" UpdateMode="Always">
+    <div id="userControls">
+    </div>
+<!--<asp:UpdatePanel ID="DecisionUpdatePanel" runat="server" UpdateMode="Always">
     <ContentTemplate>
         <asp:Table runat="server"  ID="resultActionButtonsTable" CellPadding="3" GridLines="None" Width="100%">
             <asp:TableRow>
@@ -138,7 +211,7 @@
             </asp:TableRow>
         </asp:Table>
     </ContentTemplate>
-</asp:UpdatePanel>
+</asp:UpdatePanel>-->
 </asp:Content>
 
 <asp:Content ID="BottomContent1" ContentPlaceHolderID="Bottom_PlaceHolder" runat="server">
