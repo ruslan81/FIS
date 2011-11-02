@@ -34,10 +34,11 @@ namespace DDDModel
             {
                 string grName = dataBlock.cardsTable.GetGroupNameById(groupIds[i]);
                 System.Console.WriteLine("GROUP=" + groupIds[i]);
-                List<string> values = dataBlock.cardsTable.GetAllCardHolderNamesByGroupId(orgId, dataBlock.cardsTable.driversCardTypeId, groupIds[i]);
+                List<int> values = dataBlock.cardsTable.GetAllCardIdsByGroupId(orgId, dataBlock.cardsTable.driversCardTypeId, groupIds[i]);
                 for (int j = 0; j < values.Count; j++)
                 {
-                    System.Console.WriteLine("   NAME=" + values[j]);
+                    String name = dataBlock.cardsTable.GetCardHolderNameByCardId(values[j]);
+                    System.Console.WriteLine("   NAME=" + name);
                 }
             }
             dataBlock.CloseConnection();

@@ -2818,7 +2818,7 @@ namespace DB.SQL
             MySqlDataReader sdr = cmd.ExecuteReader();
             if (sdr.Read())
             {
-                string s=sdr.GetString(0);
+                string s = sdr.GetString(0);
                 sdr.Close();
                 return s;
             }
@@ -2827,12 +2827,25 @@ namespace DB.SQL
                 sdr.Close();
                 return null;
             }
-            
+
         }
-        public List<string> GetAllCardHolderNamesByGroupId(int orgId, int cardTypeId, int groupId)
+        public String GetCardHolderNameByCardId(int cardId) {
+            String name = "";
+            string sql = "SELECT CARD_HOLDER_NAME FROM fn_card WHERE CARD_ID=@CARD_ID";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@CARD_ID", cardId);
+            MySqlDataReader sdr = cmd.ExecuteReader();
+            if (sdr.Read())
+            {
+                name = sdr.GetString(0);
+            }
+            sdr.Close();
+            return name;
+        }
+        public List<int> GetAllCardIdsByGroupId(int orgId, int cardTypeId, int groupId)
         {
-            List<string> gettedNames = new List<string>();
-            string sql = "SELECT CARD_HOLDER_NAME FROM fn_card WHERE CARD_TYPE_ID=@CARD_TYPE_ID AND ORG_ID=@ORG_ID AND GROUP_ID=@GR_ID ORDER BY CARD_HOLDER_NAME";
+            List<int> gettedIds = new List<int>();
+            string sql = "SELECT CARD_ID FROM fn_card WHERE CARD_TYPE_ID=@CARD_TYPE_ID AND ORG_ID=@ORG_ID AND GROUP_ID=@GR_ID ORDER BY CARD_HOLDER_NAME";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@CARD_TYPE_ID", cardTypeId);
             cmd.Parameters.AddWithValue("@ORG_ID", orgId);
@@ -2840,14 +2853,11 @@ namespace DB.SQL
             MySqlDataReader sdr = cmd.ExecuteReader();
             while (sdr.Read())
             {
-                string s = sdr.GetString(0);
-                if (!gettedNames.Contains(s))
-                {
-                    gettedNames.Add(s);
-                }
+                int d = sdr.GetInt32(0);
+                gettedIds.Add(d);
             }
             sdr.Close();
-            return gettedNames;
+            return gettedIds;
         }
         public string GetCardName(int cardId)
         {

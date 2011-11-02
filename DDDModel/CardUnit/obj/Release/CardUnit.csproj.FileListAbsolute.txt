@@ -16,3 +16,11 @@ D:\BSUIR\Other\Projects_new\DDDModel\CardUnit\obj\Release\ResolveAssemblyReferen
 D:\BSUIR\Other\Projects_new\DDDModel\CardUnit\obj\Release\CardUnit.dll
 D:\BSUIR\Other\Projects_new\DDDModel\CardUnit\obj\Release\CardUnit.pdb
 D:\BSUIR\Other\Projects_new\DDDModel\CardUnit\bin\Release\CardUnit.XML
+D:\BSUIR\Other\UnitedProject\DDDModel\CardUnit\bin\Release\CardUnit.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\CardUnit\bin\Release\CardUnit.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\CardUnit\bin\Release\DDDClass.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\CardUnit\bin\Release\DDDClass.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\CardUnit\bin\Release\DDDClass.xml
+D:\BSUIR\Other\UnitedProject\DDDModel\CardUnit\obj\Release\ResolveAssemblyReference.cache
+D:\BSUIR\Other\UnitedProject\DDDModel\CardUnit\obj\Release\CardUnit.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\CardUnit\obj\Release\CardUnit.pdb

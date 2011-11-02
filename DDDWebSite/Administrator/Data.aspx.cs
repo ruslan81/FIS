@@ -270,10 +270,12 @@ public partial class Administrator_Data : System.Web.UI.Page
                 TreeGroup gr = new TreeGroup();
                 string grName = dataBlock.cardsTable.GetGroupNameById(groupIds[i]);
                 gr.GroupName = grName;
-                List<string> values = dataBlock.cardsTable.GetAllCardHolderNamesByGroupId(orgId, dataBlock.cardsTable.driversCardTypeId, groupIds[i]);
+                List<int> values = dataBlock.cardsTable.GetAllCardIdsByGroupId(orgId, dataBlock.cardsTable.driversCardTypeId, groupIds[i]);
+
                 for (int j = 0; j < values.Count; j++)
                 {
-                    gr.addValue(values[j]);
+                    String dr_name = dataBlock.cardsTable.GetCardHolderNameByCardId(values[j]);
+                    gr.addValue(values[j].ToString(),dr_name);
                 }
                 drivTree.addGroup(gr);
             }
@@ -312,10 +314,12 @@ public partial class Administrator_Data : System.Web.UI.Page
                 TreeGroup gr = new TreeGroup();
                 string grName = dataBlock.cardsTable.GetGroupNameById(groupIds[i]);
                 gr.GroupName = grName;
-                List<string> values = dataBlock.cardsTable.GetAllCardHolderNamesByGroupId(orgId, dataBlock.cardsTable.vehicleCardTypeId, groupIds[i]);
+                List<int> values = dataBlock.cardsTable.GetAllCardIdsByGroupId(orgId, dataBlock.cardsTable.vehicleCardTypeId, groupIds[i]);
+
                 for (int j = 0; j < values.Count; j++)
                 {
-                    gr.addValue(values[j]);
+                    String veh_name = dataBlock.cardsTable.GetCardHolderNameByCardId(values[j]);
+                    gr.addValue(values[j].ToString(), veh_name);
                 }
                 vehTree.addGroup(gr);
             }
@@ -326,6 +330,41 @@ public partial class Administrator_Data : System.Web.UI.Page
             return null;
         }
         return vehTree;
+    }
+
+    /// <summary>
+    ///Получить значения в таблице "Просмотреть(Водитель)"
+    /// </summary>
+    /// <returns>String</returns>
+    [System.Web.Services.WebMethod]
+    public static List<YearData> GetOverlookDriverNodeData(String CardID, String OrgID)
+    {
+        List<YearData> years = new List<YearData>();
+        try
+        {
+            string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+            DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+            int orgId = Convert.ToInt32(OrgID);
+            dataBlock.OpenConnection();
+
+            YearData d = new YearData();
+            d.YearName = CardID;
+            d.MonthName = "November";
+            d.DayName = "1";
+            d.Percent = "37";
+            years.Add(d);
+            d = new YearData();
+            d.DayName = "2";
+            d.Percent = "46";
+            years.Add(d);
+
+            dataBlock.CloseConnection();
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+        return years;
     }
 
     

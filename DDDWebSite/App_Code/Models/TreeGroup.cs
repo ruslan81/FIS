@@ -9,15 +9,16 @@ using System.Web;
 public class TreeGroup
 {
     public String GroupName { get; set; }
-    public List<StringValue> values { get; set; }
+    //public String GroupKey { get; set; }
+    public List<MapItem> values { get; set; }
 
     public TreeGroup()
     {
-        values = new List<StringValue>();
+        values = new List<MapItem>();
     }
 
-    public void addValue(String value)
+    public void addValue(String key, String value)
     {
-        values.Add(new StringValue(value));
+        values.Add(new MapItem(key, value));
     }
 }

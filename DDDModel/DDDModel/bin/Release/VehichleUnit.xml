@@ -4,42 +4,5 @@
         <name>VehichleUnit</name>
     </assembly>
     <members>
-        <member name="T:VehichleUnit.Vehicle_Detailed_Speed">
-            <summary>
-            Детальная скорость ТС
-            </summary>
-        </member>
-        <member name="T:VehichleUnit.Vehicle_Activities">
-            <summary>
-            Описывает активность ТС
-            </summary>
-        </member>
-        <member name="T:VehichleUnit.VehicleUnitClass">
-            <summary>
-            Этот класс содержит в себе все остальные классы в данном
-            пространстве имен и полностью описывает стрктуру ДДД файла транспортного средства
-            </summary>
-        </member>
-        <member name="M:VehichleUnit.VehicleUnitClass.GetTotalVehicleActivitiesTime">
-            <summary>
-            Получает все время активности Транспортного средства
-            </summary>
-            <returns>тип TimeSpan</returns>
-        </member>
-        <member name="T:VehichleUnit.Vehicle_Technical_Data">
-            <summary>
-            Техническиая информация о ТС
-            </summary>
-        </member>
-        <member name="T:VehichleUnit.Vehicle_Events_And_Faults">
-            <summary>
-            События и Нарушения ТС
-            </summary>
-        </member>
-        <member name="T:VehichleUnit.Vehicle_Overview">
-            <summary>
-            Общие сведения о транспортном средстве
-            </summary>
-        </member>
     </members>
 </doc>

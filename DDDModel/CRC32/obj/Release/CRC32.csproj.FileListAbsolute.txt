@@ -10,3 +10,8 @@ D:\BSUIR\Other\Projects_new\DDDModel\CRC32\obj\Release\ResolveAssemblyReference.
 D:\BSUIR\Other\Projects_new\DDDModel\CRC32\obj\Release\CRC32.dll
 D:\BSUIR\Other\Projects_new\DDDModel\CRC32\obj\Release\CRC32.pdb
 D:\BSUIR\Other\Projects_new\DDDModel\CRC32\bin\Release\CRC32.XML
+D:\BSUIR\Other\UnitedProject\DDDModel\CRC32\bin\Release\CRC32.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\CRC32\bin\Release\CRC32.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\CRC32\obj\Release\ResolveAssemblyReference.cache
+D:\BSUIR\Other\UnitedProject\DDDModel\CRC32\obj\Release\CRC32.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\CRC32\obj\Release\CRC32.pdb

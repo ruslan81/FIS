@@ -10,3 +10,8 @@ D:\BSUIR\Other\Projects_new\DDDModel\DDDClass\obj\Release\ResolveAssemblyReferen
 D:\BSUIR\Other\Projects_new\DDDModel\DDDClass\obj\Release\DDDClass.dll
 D:\BSUIR\Other\Projects_new\DDDModel\DDDClass\obj\Release\DDDClass.pdb
 D:\BSUIR\Other\Projects_new\DDDModel\DDDClass\bin\Release\DDDClass.XML
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDClass\bin\Release\DDDClass.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDClass\bin\Release\DDDClass.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDClass\obj\Release\ResolveAssemblyReference.cache
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDClass\obj\Release\DDDClass.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDClass\obj\Release\DDDClass.pdb

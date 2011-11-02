@@ -16,3 +16,11 @@ D:\BSUIR\Other\Projects_new\DDDModel\VehichleUnit\obj\Release\ResolveAssemblyRef
 D:\BSUIR\Other\Projects_new\DDDModel\VehichleUnit\obj\Release\VehichleUnit.dll
 D:\BSUIR\Other\Projects_new\DDDModel\VehichleUnit\obj\Release\VehichleUnit.pdb
 D:\BSUIR\Other\Projects_new\DDDModel\VehichleUnit\bin\Release\VehichleUnit.XML
+D:\BSUIR\Other\UnitedProject\DDDModel\VehichleUnit\bin\Release\VehichleUnit.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\VehichleUnit\bin\Release\VehichleUnit.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\VehichleUnit\bin\Release\DDDClass.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\VehichleUnit\bin\Release\DDDClass.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\VehichleUnit\bin\Release\DDDClass.xml
+D:\BSUIR\Other\UnitedProject\DDDModel\VehichleUnit\obj\Release\ResolveAssemblyReference.cache
+D:\BSUIR\Other\UnitedProject\DDDModel\VehichleUnit\obj\Release\VehichleUnit.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\VehichleUnit\obj\Release\VehichleUnit.pdb

@@ -16,3 +16,11 @@ D:\BSUIR\Other\Projects_new\DDDModel\TotalsClasses\obj\Release\ResolveAssemblyRe
 D:\BSUIR\Other\Projects_new\DDDModel\TotalsClasses\obj\Release\TotalsClasses.dll
 D:\BSUIR\Other\Projects_new\DDDModel\TotalsClasses\obj\Release\TotalsClasses.pdb
 D:\BSUIR\Other\Projects_new\DDDModel\TotalsClasses\bin\Release\TotalsClasses.XML
+D:\BSUIR\Other\UnitedProject\DDDModel\TotalsClasses\bin\Release\TotalsClasses.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\TotalsClasses\bin\Release\TotalsClasses.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\TotalsClasses\bin\Release\DDDClass.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\TotalsClasses\bin\Release\DDDClass.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\TotalsClasses\bin\Release\DDDClass.xml
+D:\BSUIR\Other\UnitedProject\DDDModel\TotalsClasses\obj\Release\ResolveAssemblyReference.cache
+D:\BSUIR\Other\UnitedProject\DDDModel\TotalsClasses\obj\Release\TotalsClasses.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\TotalsClasses\obj\Release\TotalsClasses.pdb
