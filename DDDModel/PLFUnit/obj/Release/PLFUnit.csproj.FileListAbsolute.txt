@@ -10,3 +10,8 @@ D:\BSUIR\Other\Projects_new\DDDModel\PLFUnit\obj\Release\ResolveAssemblyReferenc
 D:\BSUIR\Other\Projects_new\DDDModel\PLFUnit\obj\Release\PLFUnit.dll
 D:\BSUIR\Other\Projects_new\DDDModel\PLFUnit\obj\Release\PLFUnit.pdb
 D:\BSUIR\Other\Projects_new\DDDModel\PLFUnit\bin\Release\PLFUnit.XML
+D:\BSUIR\Other\UnitedProject\DDDModel\PLFUnit\bin\Release\PLFUnit.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\PLFUnit\bin\Release\PLFUnit.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\PLFUnit\obj\Release\ResolveAssemblyReference.cache
+D:\BSUIR\Other\UnitedProject\DDDModel\PLFUnit\obj\Release\PLFUnit.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\PLFUnit\obj\Release\PLFUnit.pdb

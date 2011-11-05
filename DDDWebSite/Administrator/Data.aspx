@@ -60,13 +60,13 @@
         });       
     </script>
     <script id="tmplGroupTree" type="text/x-jquery-tmpl">
-        <li class="folder"><a><span>${OrgName}</span></a>
+        <li class="folder"><a><span key="">${OrgName}</span></a>
         <ul>
             {{each groups}}
-            <li class="file"><a><span>${GroupName}</span></a>
+            <li class="file"><a><span key="">${GroupName}</span></a>
                 <ul>
                     {{each values}}
-                    <li class="file"><a><span>${Value}</span></a></li>
+                    <li class="file"><a><span key=${Key}>${Value}</span></a></li>
                     {{/each}}
                 </ul>
                 </li>
@@ -141,8 +141,34 @@
                 </div>
             </td>                      
         </tr>
-
     </script>
+    <script id="tmplOverlookTable" type="text/x-jquery-tmpl">
+        <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow">
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell" style="margin-left:5px;">
+                    {{html YearName}}
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    {{html MonthName}}
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    {{html DayName}}
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <center>
+                        {{html Percent}}
+                    </center>
+                </div>
+            </td>                      
+        </tr>
+    </script>
+
     <script id="tmplHeadColumn" type="text/x-jquery-tmpl">
         <th class="ui-widget wijmo-c1basefield ui-state-default wijmo-c1field" style="{{html style}}">
             <div class="wijmo-wijgrid-innercell">

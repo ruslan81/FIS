@@ -180,10 +180,20 @@ namespace BLL
         /// <param name="cardTypeId">ID типа карты(описанные тут же как проперти)</param>
         /// <param name="groupName">Имя группы</param>
         /// <returns>Лист имен владельцев карт</returns>
-        public List<string> GetAllCardHolderNamesByGroupId(int OrgId, int cardTypeId, int groupId)
+        public List<int> GetAllCardIdsByGroupId(int OrgId, int cardTypeId, int groupId)
         {
-            return sqlDb.GetAllCardHolderNamesByGroupId(OrgId,cardTypeId,groupId);
+            return sqlDb.GetAllCardIdsByGroupId(OrgId,cardTypeId,groupId);
         }
+        /// <summary>
+        /// Получаем имя владельца карты с указанным ID
+        /// </summary>
+        /// <param name="OrgId">ID карты</param>
+        /// <returns>Имя владельца карт</returns>
+        public String GetCardHolderNameByCardId(int cardId)
+        {
+            return sqlDb.GetCardHolderNameByCardId(cardId);
+        }
+        
         /// <summary>
         /// Получаем имя группы по ID
         /// </summary>

@@ -4,6 +4,171 @@
         <name>BLL</name>
     </assembly>
     <members>
+        <member name="T:BLL.VehiclesTable">
+            <summary>
+            работа с таблицами Транспортного средства.
+            </summary>
+        </member>
+        <member name="T:BLL.InvoiceTable">
+            <summary>
+            Работа с таблицами счетов.
+            </summary>
+        </member>
+        <member name="F:BLL.InvoiceTable.CurrentLanguage">
+            <summary>
+            Текущия язык
+            </summary>
+        </member>
+        <member name="F:BLL.InvoiceTable.connectionString">
+            <summary>
+            Строка подключения(в большинстве не нужна)
+            </summary>
+        </member>
+        <member name="F:BLL.InvoiceTable.sqlDBR">
+            <summary>
+            Подключение к базе данных
+            </summary>
+        </member>
+        <member name="M:BLL.InvoiceTable.#ctor(System.String,System.String,DB.SQL.SQLDB)">
+            <summary>
+            Конструктор
+            </summary>
+            <param name="connectionsStringTMP">строка подключение(необязательно ее указывать)</param>
+            <param name="Current_Language">Язык</param>
+            <param name="sql">обьект SQLDB</param>
+        </member>
+        <member name="M:BLL.InvoiceTable.PayABill(System.Int32)">
+            <summary>
+            Перводит счет из состояния неоплаченный в оплаченный
+            </summary>
+            <param name="invoiceId">ID счета</param>
+        </member>
+        <member name="M:BLL.InvoiceTable.UnPayABill(System.Int32)">
+            <summary>
+            Перводит счет из состояния оплаченный в неоплаченный
+            </summary>
+            <param name="invoiceId">ID счета</param>
+        </member>
+        <member name="M:BLL.InvoiceTable.GetAllInvoices(System.Int32)">
+            <summary>
+            Получить все счета
+            </summary>
+            <param name="orgId">ID организации</param>
+            <returns>Массив ID счетов</returns>
+        </member>
+        <member name="M:BLL.InvoiceTable.AddInvoice(System.Int32,System.Int32,System.Int32,System.String,System.DateTime,System.DateTime,System.DateTime)">
+            <summary>
+            Выставить новый счет
+            </summary>
+            <param name="invoiceTypeId">ID типа счета</param>
+            <param name="invoiceStatusId">ID статуса счета</param>
+            <param name="orgId">ID организации</param>
+            <param name="BillName">Название счета</param>
+            <param name="dateInvoice">Дата выставления счета</param>
+            <param name="datePaymentTerm">Оплатить до...</param>
+            <param name="datePayment">Дата оплаты(new DateTime() если еще не оплачено)</param>
+            <returns>ID счета</returns>
+        </member>
+        <member name="M:BLL.InvoiceTable.GetInvoiceName(System.Int32)">
+            <summary>
+            Получить имя счета
+            </summary>
+            <param name="invoiceId">ID счета</param>
+            <returns>Имя счета</returns>
+        </member>
+        <member name="M:BLL.InvoiceTable.GetDateInvoice(System.Int32)">
+            <summary>
+            Получить дату выставления счета
+            </summary>
+            <param name="invoiceId">ID счета</param>
+            <returns>Дата выставления счета</returns>
+        </member>
+        <member name="M:BLL.InvoiceTable.GetDatePaymentTerm(System.Int32)">
+            <summary>
+            Получить дату, до которой оплатить счет.
+            </summary>
+            <param name="invoiceId">ID счета</param>
+            <returns>Дата, до которой оплатить счет.</returns>
+        </member>
+        <member name="M:BLL.InvoiceTable.GetDatePayment(System.Int32)">
+            <summary>
+            Получить дату оплаты счета
+            </summary>
+            <param name="invoiceId">ID счета</param>
+            <returns>Тут возвращается строка, потому что даты оплаты может не быть.
+            Тогда Делаем обработку If(date=="") то пишем НЕ ОПЛАЧЕНО или типа того.
+            Можно переделать на Nullable DateTime (DateTime?), тогда можно будет возвращать Null если ничего нет.
+            </returns>
+        </member>
+        <member name="M:BLL.InvoiceTable.GetInvoiceType(System.Int32)">
+            <summary>
+            Получить тип счета
+            </summary>
+            <param name="invoiceId">ID счета</param>
+            <returns>Название типа счета</returns>
+        </member>
+        <member name="M:BLL.InvoiceTable.GetInvoiceStatus(System.Int32)">
+            <summary>
+            Получить статус счета
+            </summary>
+            <param name="invoiceId">ID счета</param>
+            <returns>Статус счета</returns>
+        </member>
+        <member name="M:BLL.InvoiceTable.AddOrGetInvoiceStatusId(System.String)">
+            <summary>
+            Добавляет либо получает ID существуещего статуса счета, с языком по-умолчанию(английский)
+            </summary>
+            <param name="statusString">Название статуса счета</param>
+            <returns>ID статуса счета</returns>
+        </member>
+        <member name="M:BLL.InvoiceTable.AddOrGetInvoiceStatusId(System.String,System.String)">
+            <summary>
+            Добавляет либо получает ID существуещего статуса счета
+            </summary>
+            <param name="statusString">Название статуса счета</param>
+            <param name="Language">Язык</param>
+            <returns>ID статуса счета</returns>
+        </member>
+        <member name="M:BLL.InvoiceTable.AddOrGetInvoiceTypeId(System.String)">
+            <summary>
+            Добавить или получить существующий тип счета с языком по-умолчанию(английский).
+            </summary>
+            <param name="typeString">Название типа счета</param>
+            <returns>ID типа счета</returns>
+        </member>
+        <member name="M:BLL.InvoiceTable.AddOrGetInvoiceTypeId(System.String,System.String)">
+            <summary>
+            Добавить или получить существующий тип счета.
+            </summary>
+            <param name="typeString">Название типа счета</param>
+            <param name="Language">Язык</param>
+            <returns>ID типа счета</returns>
+        </member>
+        <member name="P:BLL.InvoiceTable.Status_Paid">
+            <summary>
+            Статус платежа - оплачено
+            </summary>
+        </member>
+        <member name="P:BLL.InvoiceTable.Status_NotPaid">
+            <summary>
+            Статус платежа - не оплачено
+            </summary>
+        </member>
+        <member name="P:BLL.InvoiceTable.InvoiceType_addReportInvoice">
+            <summary>
+            ДОбавление допольнительного типа отчета
+            </summary>
+        </member>
+        <member name="P:BLL.InvoiceTable.InvoiceType_moreUsers">
+            <summary>
+            Добавление дополнительного пользователя в систему
+            </summary>
+        </member>
+        <member name="P:BLL.InvoiceTable.InvoiceType_licenseFee">
+            <summary>
+            Абонентская плата
+            </summary>
+        </member>
         <member name="T:BLL.EmailScheduleTable">
             <summary>
             Класс отвечает за работу с отправкой почты по расписанию.
@@ -161,86 +326,393 @@
             Адрес получателя
             </summary>
         </member>
-        <member name="T:BLL.UsersTables">
+        <member name="T:BLL.VehicleUnitInfo">
             <summary>
-            работа с таблицами пользователей.
+            выгрузка ДДД данных для транспортного средства.
             </summary>
         </member>
-        <member name="T:BLL.UserFromTable">
+        <member name="T:BLL.HistoryTable">
             <summary>
-            Класс описывает одного пользователя
+            работа с логированием действий пользователя.
             </summary>
         </member>
-        <member name="M:BLL.UserFromTable.FillWithInfo(System.Int32,BLL.UsersTables)">
+        <member name="F:BLL.HistoryTable.CurrentLanguage">
             <summary>
-            Заполнить поля информацией
-            </summary>
-            <param name="UserId">ID пользователя</param>
-            <param name="tables">обьект класса UsersTables с открытым подключением</param>
-            <returns>this</returns>
-        </member>
-        <member name="P:BLL.UserFromTable.id">
-            <summary>
-            ID пользователя
+            Текущия язык
             </summary>
         </member>
-        <member name="P:BLL.UserFromTable.name">
+        <member name="F:BLL.HistoryTable.connectionString">
             <summary>
-            имя
+            Строка подключения(в большинстве не нужна)
             </summary>
         </member>
-        <member name="P:BLL.UserFromTable.pass">
+        <member name="F:BLL.HistoryTable.sqlDb">
             <summary>
-            пароль
+            Подключение к базе данных
             </summary>
         </member>
-        <member name="P:BLL.UserFromTable.userType">
+        <member name="M:BLL.HistoryTable.#ctor(System.String,System.String,DB.SQL.SQLDB)">
             <summary>
-            тип пользователя
+            Конструктор
+            </summary>
+            <param name="connectionsStringTMP">Строка подключения. МОжет быть любой</param>
+            <param name="Current_Language">Язык</param>
+            <param name="sql">обьект SQLDB</param>
+        </member>
+        <member name="M:BLL.HistoryTable.AddHistoryRecord(System.String,System.String,System.Int32,System.Int32,System.Int32,System.DateTime,System.String,DB.SQL.SQLDB)">
+            <summary>
+            Добавить запись к логу
+            </summary>
+            <param name="tableName">Название измененной таблицы в БД</param>
+            <param name="tableKeyFieldName">Название измененного поля в таблице в БД</param>
+            <param name="TABLE_KEYFIELD_VALUE">Измененное значение</param>
+            <param name="userId">ID пользователя, который произвел действие</param>
+            <param name="actionId">ID действия</param>
+            <param name="actionDate">Дата действия</param>
+            <param name="Note">Комментарий</param>
+            <param name="SQLForAdding">SQL подключение с открытым подключением(созданное внешне)</param>
+            <returns>Дата записи в логе</returns>
+        </member>
+        <member name="M:BLL.HistoryTable.AddHistoryRecord(System.String,System.String,System.Int32,System.Int32,System.Int32,System.String,DB.SQL.SQLDB)">
+            <summary>
+            Добавить запись к логу
+            </summary>
+            <param name="tableName">Название измененной таблицы в БД</param>
+            <param name="tableKeyFieldName">Название измененного поля в таблице в БД</param>
+            <param name="TABLE_KEYFIELD_VALUE">Измененное значение</param>
+            <param name="userId">ID пользователя, который произвел действие</param>
+            <param name="actionId">ID действия</param>
+            <param name="Note">Комментарий</param>
+            <param name="SQLForAdding">SQL подключение с открытым подключением(созданное внешне)</param>
+            <returns>Дата записи в логе</returns>
+        </member>
+        <member name="M:BLL.HistoryTable.GetAllHistorysForUsers(System.Int32)">
+            <summary>
+            Получает всю исторю для выбранного пользователя
+            </summary>
+            <param name="usersId">ID пользователя</param>
+            <returns>DataTable, который можно напрямую использовать как источник данных.</returns>
+        </member>
+        <member name="M:BLL.HistoryTable.GetAllHistorysForUsers(System.Collections.Generic.List{System.Int32})">
+            <summary>
+            Получает всю исторю для группы выбранных пользователей
+            </summary>
+            <param name="usersIds">Массив ID пользователей</param>
+            <returns>DataTable, который можно напрямую использовать как источник данных.</returns>
+        </member>
+        <member name="M:BLL.HistoryTable.GetAllHistorysForUsers(System.Collections.Generic.List{System.Int32},System.DateTime,System.DateTime,System.Int32,System.String)">
+            <summary>
+            Получает всю исторю для группы выбранных пользователей с выполнением некоторых условий
+            </summary>
+            <param name="usersIds">Массив ID пользователей</param>
+            <param name="from">Дата с</param>
+            <param name="to">Дата по</param>
+            <param name="actionIdIns">ID типа действия</param>
+            <param name="searchString">Строка, которая должна встречаться в логе</param>
+            <returns>DataTable, который можно напрямую использовать как источник данных.</returns>
+        </member>
+        <member name="M:BLL.HistoryTable.GetHistoryDate(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Получает дату записи в логе
+            </summary>
+            <param name="userId">ID пользователя</param>
+            <param name="actionId">ID типа действия</param>
+            <param name="tableId">ID таблицы</param>
+            <returns>Дата записи в логе</returns>
+        </member>
+        <member name="M:BLL.HistoryTable.GetHistoryNote(System.Int32,System.Int32,System.Int32,System.DateTime)">
+            <summary>
+            Получить комментарий к записи в логе
+            </summary>
+            <param name="userId">ID пользователя</param>
+            <param name="actionId">ID типа действия</param>
+            <param name="tableId">ID таблицы</param>
+            <param name="historyDate">Дата записи</param>
+            <returns>Комментарий к записи в логе</returns>
+        </member>
+        <member name="M:BLL.HistoryTable.Get_TableId(System.String,DB.SQL.SQLDB)">
+            <summary>
+            Получить ID таблицы в БД таблице FD_TABLE
+            </summary>
+            <param name="tableName">Название таблицы</param>
+            <param name="SQLForAdding">sql подключение с открытым подключением</param>
+            <returns>ID таблицы в БД таблице FD_TABLE</returns>
+        </member>
+        <member name="M:BLL.HistoryTable.Get_TableId(System.String)">
+            <summary>
+            Получить ID таблицы в БД таблице FD_TABLE
+            </summary>
+            <param name="tableName">Название таблицы</param>
+            <returns>ID таблицы в БД таблице FD_TABLE</returns>
+        </member>
+        <member name="M:BLL.HistoryTable.GetOrAddTable(System.String,System.String,DB.SQL.SQLDB)">
+            <summary>
+            Добавляет Новую таблицу, или возвращает ID существующей таблицы
+            </summary>
+            <param name="tableName">Имя таблицы</param>
+            <param name="tableKeyFieldName">Имя primary key в таблице</param>
+            <param name="SQLForAdding">sql подключение с открытым подключением</param>
+            <returns>ID таблицы</returns>
+        </member>
+        <member name="M:BLL.HistoryTable.GetOrAddTable(System.String,System.String)">
+            <summary>
+            Добавляет Новую таблицу, или возвращает ID существующей таблицы
+            </summary>
+            <param name="tableName">Имя таблицы</param>
+            <param name="tableKeyFieldName">Имя primary key в таблице</param>
+            <returns>ID таблицы</returns>
+        </member>
+        <member name="M:BLL.HistoryTable.Get_TableName(System.Int32)">
+            <summary>
+            Получить название таблицы
+            </summary>
+            <param name="tableId">ID таблицы</param>
+            <returns>Название таблицы</returns>
+        </member>
+        <member name="M:BLL.HistoryTable.Get_TableKeyFieldName(System.Int32)">
+            <summary>
+            ПОлучить название primary key
+            </summary>
+            <param name="tableId">ID таблицы</param>
+            <returns>название primary key</returns>
+        </member>
+        <member name="M:BLL.HistoryTable.Get_TableNote(System.Int32)">
+            <summary>
+            Получить комментарий к таблице
+            </summary>
+            <param name="tableId">ID таблицы</param>
+            <returns>Комментарий к таблице</returns>
+        </member>
+        <member name="M:BLL.HistoryTable.GetAllActions">
+            <summary>
+            Получить все возможные действия для лога
+            </summary>
+            <returns>Массив пар (название действия, ID действия) </returns>
+        </member>
+        <member name="M:BLL.HistoryTable.GetActionString(System.Int32)">
+            <summary>
+            получить название действия
+            </summary>
+            <param name="actionId">ID действия</param>
+            <returns>название действия</returns>
+        </member>
+        <member name="M:BLL.HistoryTable.GetActionString_BySTRID(System.Int32)">
+            <summary>
+            Получить ID действия по ID строки с названием этого действия
+            </summary>
+            <param name="actionStrId">ID строки с названием этого действия</param>
+            <returns>ID действия</returns>
+        </member>
+        <member name="M:BLL.HistoryTable.AddOrGetAction(System.String)">
+            <summary>
+            Добавить или получить(если уже есть такое) действие, с языком по умолчинию(английский).
+            </summary>
+            <param name="actionString">Название действия</param>
+            <returns>ID действия</returns>
+        </member>
+        <member name="M:BLL.HistoryTable.AddOrGetAction(System.String,System.String)">
+            <summary>
+            Добавить или получить(если уже есть такое) действие
+            </summary>
+            <param name="actionString">Название действия</param>
+            <param name="Language">Язык названия действия</param>
+            <returns>ID действия</returns>
+        </member>
+        <member name="P:BLL.HistoryTable.driversRegDataChanged">
+            <summary>
+            Изменение учетных данных пользователя/водителя
             </summary>
         </member>
-        <member name="P:BLL.UserFromTable.userRole">
+        <member name="P:BLL.HistoryTable.vehiclesRegDataChanged">
             <summary>
-            роль пользователя
+            Изменение учетных данных БУ ТС
             </summary>
         </member>
-        <member name="P:BLL.UserFromTable.timeConnection">
+        <member name="P:BLL.HistoryTable.PLFDataBlockLoaded">
             <summary>
-            время подключения
+            Загружен блок данных PLF
             </summary>
         </member>
-        <member name="P:BLL.UserFromTable.orgName">
+        <member name="P:BLL.HistoryTable.DDDDriversDataBlockLoaded">
             <summary>
-            название организации
+            Загружен блок данных карты
             </summary>
         </member>
-        <member name="T:BLL.HistoryWriter">
+        <member name="P:BLL.HistoryTable.DDDVehiclesDataBlockLoaded">
             <summary>
-            Добавляет запись в историю
+            Загружен блок данных бортового устройства
             </summary>
         </member>
-        <member name="T:BLL.Singleton`1">
+        <member name="P:BLL.HistoryTable.newUserRegistered">
             <summary>
-            generic Singleton (потокобезопасный с использованием generic-класса и с отложенной инициализацией)
-            </summary>
-            <typeparam name="T">Singleton class</typeparam>
-        </member>
-        <member name="M:BLL.Singleton`1.#ctor">
-            <summary>
-             Защищенный конструктор по умолчанию необходим для того, чтобы
-             предотвратить создание экземпляра класса Singleton
+            Регистрация нового пользователя в системе
             </summary>
         </member>
-        <member name="T:BLL.Singleton`1.SingletonCreator`1">
+        <member name="P:BLL.HistoryTable.newDriverRegistered">
             <summary>
-            Фабрика используется для отложенной инициализации экземпляра класса
+            Регистрация нового водителя
             </summary>
-            <typeparam name="S"></typeparam>
         </member>
-        <member name="F:BLL.Singleton`1.SingletonCreator`1.instance">
+        <member name="P:BLL.HistoryTable.newVehicleRegistered">
             <summary>
-            Используется Reflection для создания экземпляра класса без публичного конструктора
+            Регистрация нового транспортного средства
             </summary>
+        </member>
+        <member name="P:BLL.HistoryTable.setReportUserRoles">
+            <summary>
+            Изменение прав доступа к отчету для ролей пользователей
+            </summary>
+        </member>
+        <member name="P:BLL.HistoryTable.setReportUserOrg">
+            <summary>
+            Добавление отчета для организации
+            </summary>
+        </member>
+        <member name="P:BLL.HistoryTable.invoicePaid">
+            <summary>
+            Оплата счета
+            </summary>
+        </member>
+        <member name="T:BLL.DeviceTable">
+            <summary>
+            работа с таблицами, описывающими установленное бортовое оборудование
+            </summary>
+        </member>
+        <member name="F:BLL.DeviceTable.CurrentLanguage">
+            <summary>
+            Текущия язык
+            </summary>
+        </member>
+        <member name="F:BLL.DeviceTable.connectionString">
+            <summary>
+            Строка подключения(в большинстве не нужна)
+            </summary>
+        </member>
+        <member name="F:BLL.DeviceTable.sqlDB">
+            <summary>
+            Подключение к базе данных
+            </summary>
+        </member>
+        <member name="M:BLL.DeviceTable.OpenConnection">
+            <summary>
+            открывает подключение(лучше не использовать, а пользовать в DataBlock)
+            </summary>
+        </member>
+        <member name="M:BLL.DeviceTable.CloseConnection">
+            <summary>
+            Закрывает подключение
+            </summary>
+        </member>
+        <member name="M:BLL.DeviceTable.GetAllDeviceTypes">
+            <summary>
+            Получает все типы устройств
+            </summary>
+            <returns>Массив пар (название типа устройств, ID типа устройств)</returns>
+        </member>
+        <member name="M:BLL.DeviceTable.GetDeviceTypeName(System.Int32)">
+            <summary>
+            Получить название типа устройств
+            </summary>
+            <param name="deviceTypeId">ID типа устройств</param>
+            <returns>Имя типа устройств</returns>
+        </member>
+        <member name="M:BLL.DeviceTable.AddNewDeviceType(System.String)">
+            <summary>
+            Добавить новый тип устройств
+            </summary>
+            <param name="DeviceName">Имя нового типа устройств</param>
+            <returns>ID типа устройств</returns>
+        </member>
+        <member name="M:BLL.DeviceTable.DeleteDeviceType(System.Int32)">
+            <summary>
+            Удалить тип устройств
+            </summary>
+            <param name="deviceTypeId">ID типа устройств</param>
+        </member>
+        <member name="M:BLL.DeviceTable.GetDeviceType(System.Int32)">
+            <summary>
+            Получить ID типа устройства
+            </summary>
+            <param name="deviceId">ID устройства</param>
+            <returns>ID типа устройств</returns>
+        </member>
+        <member name="M:BLL.DeviceTable.GetDeviceName(System.Int32)">
+            <summary>
+            Получить имя устройства
+            </summary>
+            <param name="deviceId">ID устройства</param>
+            <returns>Имя устройства</returns>
+        </member>
+        <member name="M:BLL.DeviceTable.GetDeviceNum(System.Int32)">
+            <summary>
+            Получить номер устройства
+            </summary>
+            <param name="deviceId">ID устройства</param>
+            <returns>Номер устройства</returns>
+        </member>
+        <member name="M:BLL.DeviceTable.GetDeviceDateProduction(System.Int32)">
+            <summary>
+            Получить дату изготовления устройства
+            </summary>
+            <param name="deviceId">ID устройства</param>
+            <returns>Дата изготовления устройства</returns>
+        </member>
+        <member name="M:BLL.DeviceTable.GetDeviceFirmwareId(System.Int32)">
+            <summary>
+            Получить ID ПО(прошивки) устройства
+            </summary>
+            <param name="deviceId">ID устройства</param>
+            <returns>ID ПО(прошивки) устройства</returns>
+        </member>
+        <member name="M:BLL.DeviceTable.GetDevicePhoneNumSim(System.Int32)">
+            <summary>
+            Получить номер сим-карты в устройстве
+            </summary>
+            <param name="deviceId">ID устройства</param>
+            <returns>Номер сим-карты в устройстве</returns>
+        </member>
+        <member name="M:BLL.DeviceTable.AddNewDevice(System.Int32,System.String,System.String,System.DateTime,System.Int32,System.Int32)">
+            <summary>
+            Добавить новое устройство
+            </summary>
+            <param name="deviceTypeId">ID типа устройств</param>
+            <param name="deviceName">Имя устройства</param>
+            <param name="deviceNum">Номер устройства</param>
+            <param name="dateProduction">Дата изготовления устройства</param>
+            <param name="firmwareId">ID ПО(прошивки) устройства</param>
+            <param name="phoneNumSim">Номер сим-карты в устройстве</param>
+            <returns>ID устройства</returns>
+        </member>
+        <member name="M:BLL.DeviceTable.AddNewFirmware(System.String,System.DateTime,System.String,System.Byte[])">
+            <summary>
+            Добавить новую версию ПО(прошивки) для устройства
+            </summary>
+            <param name="deviceModel">Модель устройства</param>
+            <param name="productionDate">Дата</param>
+            <param name="version">Версия</param>
+            <param name="firmWare">Битовый массив самой прошивки(он тоже сохраняется в базе данных)</param>
+            <returns>ID ПО(прошивки)</returns>
+        </member>
+        <member name="M:BLL.DeviceTable.GetDeviceFirmware_deviceModel(System.Int32)">
+            <summary>
+            Получить модель устройства
+            </summary>
+            <param name="firmwareId"></param>
+            <returns>Модель устройства</returns>
+        </member>
+        <member name="M:BLL.DeviceTable.GetDeviceFirmware_dateProduction(System.Int32)">
+            <summary>
+            Получить Дату производства прошивки
+            </summary>
+            <param name="firmwareId">ID ПО(прошивки)</param>
+            <returns>Дата</returns>
+        </member>
+        <member name="M:BLL.DeviceTable.GetDeviceFirmware_version(System.Int32)">
+            <summary>
+            Версия ПО(прошивки)
+            </summary>
+            <param name="firmwareId">ID ПО(прошивки)</param>
+            <returns>Версия ПО(прошивки)</returns>
         </member>
         <member name="T:BLL.DataBlock">
             <summary>
@@ -613,332 +1085,347 @@
             недоделано
             </summary>
         </member>
-        <member name="T:BLL.DeviceTable">
+        <member name="T:BLL.CriteriaTable">
             <summary>
-            работа с таблицами, описывающими установленное бортовое оборудование
+            Класс организует работу с таблицами критериев fd_key.
             </summary>
         </member>
-        <member name="F:BLL.DeviceTable.CurrentLanguage">
-            <summary>
-            Текущия язык
-            </summary>
-        </member>
-        <member name="F:BLL.DeviceTable.connectionString">
-            <summary>
-            Строка подключения(в большинстве не нужна)
-            </summary>
-        </member>
-        <member name="F:BLL.DeviceTable.sqlDB">
-            <summary>
-            Подключение к базе данных
-            </summary>
-        </member>
-        <member name="M:BLL.DeviceTable.OpenConnection">
-            <summary>
-            открывает подключение(лучше не использовать, а пользовать в DataBlock)
-            </summary>
-        </member>
-        <member name="M:BLL.DeviceTable.CloseConnection">
-            <summary>
-            Закрывает подключение
-            </summary>
-        </member>
-        <member name="M:BLL.DeviceTable.GetAllDeviceTypes">
-            <summary>
-            Получает все типы устройств
-            </summary>
-            <returns>Массив пар (название типа устройств, ID типа устройств)</returns>
-        </member>
-        <member name="M:BLL.DeviceTable.GetDeviceTypeName(System.Int32)">
-            <summary>
-            Получить название типа устройств
-            </summary>
-            <param name="deviceTypeId">ID типа устройств</param>
-            <returns>Имя типа устройств</returns>
-        </member>
-        <member name="M:BLL.DeviceTable.AddNewDeviceType(System.String)">
-            <summary>
-            Добавить новый тип устройств
-            </summary>
-            <param name="DeviceName">Имя нового типа устройств</param>
-            <returns>ID типа устройств</returns>
-        </member>
-        <member name="M:BLL.DeviceTable.DeleteDeviceType(System.Int32)">
-            <summary>
-            Удалить тип устройств
-            </summary>
-            <param name="deviceTypeId">ID типа устройств</param>
-        </member>
-        <member name="M:BLL.DeviceTable.GetDeviceType(System.Int32)">
-            <summary>
-            Получить ID типа устройства
-            </summary>
-            <param name="deviceId">ID устройства</param>
-            <returns>ID типа устройств</returns>
-        </member>
-        <member name="M:BLL.DeviceTable.GetDeviceName(System.Int32)">
-            <summary>
-            Получить имя устройства
-            </summary>
-            <param name="deviceId">ID устройства</param>
-            <returns>Имя устройства</returns>
-        </member>
-        <member name="M:BLL.DeviceTable.GetDeviceNum(System.Int32)">
-            <summary>
-            Получить номер устройства
-            </summary>
-            <param name="deviceId">ID устройства</param>
-            <returns>Номер устройства</returns>
-        </member>
-        <member name="M:BLL.DeviceTable.GetDeviceDateProduction(System.Int32)">
-            <summary>
-            Получить дату изготовления устройства
-            </summary>
-            <param name="deviceId">ID устройства</param>
-            <returns>Дата изготовления устройства</returns>
-        </member>
-        <member name="M:BLL.DeviceTable.GetDeviceFirmwareId(System.Int32)">
-            <summary>
-            Получить ID ПО(прошивки) устройства
-            </summary>
-            <param name="deviceId">ID устройства</param>
-            <returns>ID ПО(прошивки) устройства</returns>
-        </member>
-        <member name="M:BLL.DeviceTable.GetDevicePhoneNumSim(System.Int32)">
-            <summary>
-            Получить номер сим-карты в устройстве
-            </summary>
-            <param name="deviceId">ID устройства</param>
-            <returns>Номер сим-карты в устройстве</returns>
-        </member>
-        <member name="M:BLL.DeviceTable.AddNewDevice(System.Int32,System.String,System.String,System.DateTime,System.Int32,System.Int32)">
-            <summary>
-            Добавить новое устройство
-            </summary>
-            <param name="deviceTypeId">ID типа устройств</param>
-            <param name="deviceName">Имя устройства</param>
-            <param name="deviceNum">Номер устройства</param>
-            <param name="dateProduction">Дата изготовления устройства</param>
-            <param name="firmwareId">ID ПО(прошивки) устройства</param>
-            <param name="phoneNumSim">Номер сим-карты в устройстве</param>
-            <returns>ID устройства</returns>
-        </member>
-        <member name="M:BLL.DeviceTable.AddNewFirmware(System.String,System.DateTime,System.String,System.Byte[])">
-            <summary>
-            Добавить новую версию ПО(прошивки) для устройства
-            </summary>
-            <param name="deviceModel">Модель устройства</param>
-            <param name="productionDate">Дата</param>
-            <param name="version">Версия</param>
-            <param name="firmWare">Битовый массив самой прошивки(он тоже сохраняется в базе данных)</param>
-            <returns>ID ПО(прошивки)</returns>
-        </member>
-        <member name="M:BLL.DeviceTable.GetDeviceFirmware_deviceModel(System.Int32)">
-            <summary>
-            Получить модель устройства
-            </summary>
-            <param name="firmwareId"></param>
-            <returns>Модель устройства</returns>
-        </member>
-        <member name="M:BLL.DeviceTable.GetDeviceFirmware_dateProduction(System.Int32)">
-            <summary>
-            Получить Дату производства прошивки
-            </summary>
-            <param name="firmwareId">ID ПО(прошивки)</param>
-            <returns>Дата</returns>
-        </member>
-        <member name="M:BLL.DeviceTable.GetDeviceFirmware_version(System.Int32)">
-            <summary>
-            Версия ПО(прошивки)
-            </summary>
-            <param name="firmwareId">ID ПО(прошивки)</param>
-            <returns>Версия ПО(прошивки)</returns>
-        </member>
-        <member name="T:BLL.CardsTable">
-            <summary>
-            Работа с таблицами Карт и БД. Карты создаются для Водителей и транспортных средств.
-            </summary>
-        </member>
-        <member name="F:BLL.CardsTable.CurrentLanguage">
+        <member name="F:BLL.CriteriaTable.CurrentLanguage">
             <summary>
             Текущий язык
             </summary>
         </member>
-        <member name="F:BLL.CardsTable.connectionString">
+        <member name="F:BLL.CriteriaTable.connectionString">
             <summary>
             Строка подключения
             </summary>
         </member>
-        <member name="F:BLL.CardsTable.sqlDb">
+        <member name="F:BLL.CriteriaTable.sqlDB">
             <summary>
             Обьект подключения к базе данных
             </summary>
         </member>
-        <member name="M:BLL.CardsTable.#ctor(System.String,System.String,DB.SQL.SQLDB)">
+        <member name="M:BLL.CriteriaTable.OpenConnection">
             <summary>
-            Конструктор 
+            желательно не использовать, если пользуемся через dataBlock, а вызывать в dataBlock
             </summary>
-            <param name="connectionsStringTMP">Строка подключения к базе данных(не обязательна, так как передается подключение</param>
-            <param name="Current_Language">Текущий язык</param>
-            <param name="sql">Обьект подключения к базе данных</param>
         </member>
-        <member name="M:BLL.CardsTable.CreateNewCard(System.String,System.String,System.Int32,System.Int32,System.String,System.Int32)">
+        <member name="M:BLL.CriteriaTable.CloseConnection">
             <summary>
-            Создать новую карту
+            желательно не использовать, если пользуемся через dataBlock, а вызывать в dataBlock
             </summary>
-            <param name="cardHolderName">Имя владельца карты</param>
-            <param name="cardNumber">Номер карты</param>
-            <param name="cardTypeId">Тип карты</param>
-            <param name="orgId">Идентификатор организации</param>
-            <param name="CardNote">Комментарий к карту</param>
-            <param name="curUserId">Текущий пользователь, создающий карты(для лога)</param>
-            <returns>Id новой карты</returns>
         </member>
-        <member name="M:BLL.CardsTable.GetCardId(System.String,System.String,System.Int32)">
+        <member name="M:BLL.CriteriaTable.LoadCriteria(System.Int32)">
             <summary>
-            Получаем ID карты
+            Загружает значения критерия в текущий экзмемпляр класса, а также возвращает его.
             </summary>
-            <param name="cardHolderName">Имя держателя карты</param>
-            <param name="cardNumber">Номер карты</param>
-            <param name="cardTypeId">Тип карты</param>
-            <returns>ID карты</returns>
-        </member>
-        <member name="M:BLL.CardsTable.GetCardId(System.String,System.Int32)">
-            <summary>
-            Получаем ID карты
-            </summary>
-            <param name="cardHolderName_Serial">имя держателя карты+серийный номер через пробел( устаревший метод, не стоит им пользоватся)</param>
-            <param name="cardTypeId">тип карты</param>
-            <returns>ID карты</returns>
-        </member>
-        <member name="M:BLL.CardsTable.GetCardUserId(System.Int32)">
-            <summary>
-            получаем ID пользователя, связанного с картой(для каждой карты создается пользователь, кроме ТС)
-            </summary>
-            <param name="cardId">ID карты</param>
-            <returns>ID пользователя</returns>
-        </member>
-        <member name="M:BLL.CardsTable.GetAllCardIds(System.Int32,System.Int32)">
-            <summary>
-            Получаем все ID карт
-            </summary>
-            <param name="OrgId">ID организации</param>
-            <param name="cardTypeId">ID типа карты(описанные тут же как проперти)</param>
-            <returns>Лист ID карт</returns>
-        </member>
-        <member name="M:BLL.CardsTable.GetAllGroupIds(System.Int32,System.Int32)">
-            <summary>
-            Получаем все названия групп
-            </summary>
-            <param name="OrgId">ID организации</param>
-            <param name="cardTypeId">ID типа карты(описанные тут же как проперти)</param>
-            <returns>Лист имен групп</returns>
-        </member>
-        <member name="M:BLL.CardsTable.GetAllCardHolderNamesByGroupId(System.Int32,System.Int32,System.Int32)">
-            <summary>
-            Получаем все имена владельцев карт принадлежащих какой-либо группе
-            </summary>
-            <param name="OrgId">ID организации</param>
-            <param name="cardTypeId">ID типа карты(описанные тут же как проперти)</param>
-            <param name="groupName">Имя группы</param>
-            <returns>Лист имен владельцев карт</returns>
-        </member>
-        <member name="M:BLL.CardsTable.GetGroupNameById(System.Int32)">
-            <summary>
-            Получаем имя группы по ID
-            </summary>
-            <param name="groupName">ID группы</param>
-            <returns>Имя группы</returns>
-        </member>
-        <member name="M:BLL.CardsTable.GetCardNames(System.Collections.Generic.List{System.Int32})">
-            <summary>
-            получаем все имена карты
-            </summary>
-            <param name="cardIds">Лист ID карт(можно получить например GetAllCardIds, либо выбрать как-то еще)</param>
-            <returns>Лист строк имен. длина массива имен равна длине массива ID карт</returns>
-        </member>
-        <member name="M:BLL.CardsTable.GetCardName(System.Int32)">
-            <summary>
-            Получаем имя для карты ID
-            </summary>
-            <param name="cardId">ID карты</param>
-            <returns>Имя карты</returns>
-        </member>
-        <member name="M:BLL.CardsTable.GetCardNumbers(System.Collections.Generic.List{System.Int32})">
-            <summary>
-            получаем все номера карт
-            </summary>
-            <param name="cardIds">Лист ID карт(можно получить например GetAllCardIds, либо выбрать как-то еще)</param>
-            <returns>Лист строк номеров карт. длина массива номеров равна длине массива ID карт</returns>
-        </member>
-        <member name="M:BLL.CardsTable.GetCardNumber(System.Int32)">
-            <summary>
-            Получает номер карты по ID карты
-            </summary>
-            <param name="cardId">ID карты</param>
-            <returns>Номер карты</returns>
-        </member>
-        <member name="M:BLL.CardsTable.GetCardNote(System.Int32)">
-            <summary>
-            Получает комментарий к карте
-            </summary>
-            <param name="cardId">ID карты</param>
-            <returns>Коментарий</returns>
-        </member>
-        <member name="M:BLL.CardsTable.SetCardNote(System.Int32,System.String)">
-            <summary>
-            Присваеваем комментарий к карте
-            </summary>
-            <param name="cardId">ID карты</param>
-            <param name="Note">строка комментария</param>
-        </member>
-        <member name="M:BLL.CardsTable.ChangeCardName(System.String,System.Int32)">
-            <summary>
-            Изменяет имя карты
-            </summary>
-            <param name="cardHolderName">Новое имя карты</param>
-            <param name="cardId">ID карты</param>
-        </member>
-        <member name="M:BLL.CardsTable.ChangeCardNumber(System.String,System.Int32,System.Int32)">
-            <summary>
-            Изменяет номер карты
-            </summary>
-            <param name="cardNumber">Новый номер карты</param>
-            <param name="cardId">ID карты</param>
-            <param name="curUserId">ID пользователя выполяющего действие</param>
-        </member>
-        <member name="M:BLL.CardsTable.DeleteCardAndAllFiles(System.Int32)">
-            <summary>
-            Удаляет карту и все связанные с ней файлы и блоки данных
-            </summary>
-            <param name="CardId">ID карты</param>
-        </member>
-        <member name="M:BLL.CardsTable.GetAllDataBlockIds_byCardId(System.Int32)">
-            <summary>
-            Получает все блоки данных, связанные с картой
-            </summary>
-            <param name="cardId">ID карты</param>
+            <param name="keyId">ID критерия</param>
             <returns></returns>
         </member>
-        <member name="P:BLL.CardsTable.driversCardTypeId">
+        <member name="M:BLL.CriteriaTable.AddNewCriteria(System.Int32,System.String,System.String,System.Int32,System.Int32)">
             <summary>
-            Переменная. Идентификатор водительского типа карты 
+            Создает новый критерий
+            </summary>
+            <param name="MeasureId">ID единицы измерения</param>
+            <param name="Name">Имя критерия</param>
+            <param name="Note">Комментарий к критерию</param>
+            <param name="minValue">Минимальное значение</param>
+            <param name="maxValue">Максимальное значение</param>
+            <returns>ID критерия</returns>
+        </member>
+        <member name="M:BLL.CriteriaTable.DeleteCriteria(System.Int32)">
+            <summary>
+            Удалить критерий
+            </summary>
+            <param name="criteriaId">ID критерия</param>
+        </member>
+        <member name="M:BLL.CriteriaTable.EditCriteria(System.Int32,System.Int32,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Редактировать критерий
+            </summary>
+            <param name="keyId">ID критерия</param>
+            <param name="MeasureId">ID единицы измерения</param>
+            <param name="Name">Имя критерия</param>
+            <param name="Note">Комментарий</param>
+            <param name="minValue">Минимальное значение</param>
+            <param name="maxValue">Максимальное значение</param>
+        </member>
+        <member name="M:BLL.CriteriaTable.EditCriteria(System.Int32,System.String,System.Int32,System.Int32)">
+            <summary>
+            Редактировать критерий
+            </summary>
+            <param name="keyId">ID критерия</param>
+            <param name="Note">Комментарий</param>
+            <param name="minValue">Минимальное значение</param>
+            <param name="maxValue">Максимальное значение</param>
+        </member>
+        <member name="M:BLL.CriteriaTable.GetAllCriteria_Name_n_Id">
+            <summary>
+            Получает все критерии
+            </summary>
+            <returns>Массив пар (Имя критерия, Id критерия)</returns>
+        </member>
+        <member name="M:BLL.CriteriaTable.GetCriteriaName(System.Int32)">
+            <summary>
+            Получает имя критерия
+            </summary>
+            <param name="keyId">ID критерия</param>
+            <returns>Имя критерия</returns>
+        </member>
+        <member name="M:BLL.CriteriaTable.GetCriteriaId_byNameAndMeasureId(System.String,System.Int32)">
+            <summary>
+            Получает ID критерия
+            </summary>
+            <param name="keyName">Название критерия</param>
+            <param name="MeasureId">ID единицы измерения</param>
+            <returns>ID критерия</returns>
+        </member>
+        <member name="M:BLL.CriteriaTable.GetCriteriaId_byName(System.String)">
+            <summary>
+            Получает ID критерия
+            </summary>
+            <param name="keyName">Название критерия</param>
+            <returns>ID критерия</returns>
+        </member>
+        <member name="M:BLL.CriteriaTable.AddNewMeasure(System.String,System.String)">
+            <summary>
+            Добавляет единицу измерения
+            </summary>
+            <param name="shortName">Короткое название</param>
+            <param name="fullName">Полное название</param>
+            <returns>ID единицы измерения</returns>
+        </member>
+        <member name="M:BLL.CriteriaTable.GetMeasureShortName(System.Int32)">
+            <summary>
+            Получает короткое название единицы измерения
+            </summary>
+            <param name="MeasureId">ID единицы измерения</param>
+            <returns>Короткое название единицы измерения</returns>
+        </member>
+        <member name="M:BLL.CriteriaTable.GetMeasureFullName(System.Int32)">
+            <summary>
+            Получает полное название единицы измерения
+            </summary>
+            <param name="MeasureId">ID единицы измерения</param>
+            <returns>Полное название единицы измерения</returns>
+        </member>
+        <member name="M:BLL.CriteriaTable.GetAllMeasuresIds">
+            <summary>
+            Получает все ID единиц измерения
+            </summary>
+            <returns>Массив ID единиц измерения</returns>
+        </member>
+        <member name="M:BLL.CriteriaTable.EditMeasure(System.Int32,System.String,System.String)">
+            <summary>
+            Редактировать едницу измерения
+            </summary>
+            <param name="MeasureId">ID единицы измерения</param>
+            <param name="shortName">Короткое название единицы измерения</param>
+            <param name="fullName">Полное название единицы измерения</param>
+        </member>
+        <member name="M:BLL.CriteriaTable.DeleteMeasure(System.Int32)">
+            <summary>
+            Удалить единицу измерения
+            </summary>
+            <param name="measureId">ID единицы измерения</param>
+        </member>
+        <member name="M:BLL.CriteriaTable.GetMeasure_byKeyID(System.Int32)">
+            <summary>
+            Получить единицу измерения по ID критерия.
+            </summary>
+            <param name="keyId">ID критерия</param>
+            <returns>ID единицы измерения</returns>
+        </member>
+        <member name="P:BLL.CriteriaTable.KeyId">
+            <summary>
+            Идентификатор критерия(первичный ключ из базы данных)
             </summary>
         </member>
-        <member name="P:BLL.CardsTable.vehicleCardTypeId">
+        <member name="P:BLL.CriteriaTable.CriteriaName">
             <summary>
-            Переменная. Идентификатор типа карты транспортного средства
+            Название критерия
             </summary>
         </member>
-        <member name="P:BLL.CardsTable.orgInitCardTypeId">
+        <member name="P:BLL.CriteriaTable.CriteriaNote">
             <summary>
-            Переменная. Идентификатор типа карты организации
+            Комментарий к критерию
             </summary>
         </member>
-        <member name="T:BLL.VehiclesTable">
+        <member name="P:BLL.CriteriaTable.MinValue">
             <summary>
-            работа с таблицами Транспортного средства.
+            Минимальное значение критерия
             </summary>
+        </member>
+        <member name="P:BLL.CriteriaTable.MaxValue">
+            <summary>
+            Максимальное значение критерия
+            </summary>
+        </member>
+        <member name="P:BLL.CriteriaTable.MeasureId">
+            <summary>
+            ID единицы измерения
+            </summary>
+        </member>
+        <member name="P:BLL.CriteriaTable.MeasureName">
+            <summary>
+            Название единицы измерения
+            </summary>
+        </member>
+        <member name="T:BLL.ReflectionClass">
+            <summary>
+            – используется в процессе добавления разобранных данных в базу данных. 
+            Представляет собой одну запись для добавления.
+            </summary>
+        </member>
+        <member name="M:BLL.ReflectionClass.GetParentParamName">
+            <summary>
+            получает имя параметра предка
+            </summary>
+            <returns>имя параметра предка</returns>
+        </member>
+        <member name="P:BLL.ReflectionClass.name">
+            <summary>
+            имя параметра
+            </summary>
+        </member>
+        <member name="P:BLL.ReflectionClass.paramStructure">
+            <summary>
+            структура параметра
+            </summary>
+        </member>
+        <member name="P:BLL.ReflectionClass.PARAM_ID">
+            <summary>
+            ID параметра
+            </summary>
+        </member>
+        <member name="P:BLL.ReflectionClass.PARENT_PARAM_ID">
+            <summary>
+            ID параметра предка
+            </summary>
+        </member>
+        <member name="P:BLL.ReflectionClass.value">
+            <summary>
+            Значение
+            </summary>
+        </member>
+        <member name="T:BLL.CardUnitInfo">
+            <summary>
+            Класс отвечает за выборку информации по ДДД картам.
+            </summary>
+        </member>
+        <member name="F:BLL.CardUnitInfo.CurrentLanguage">
+            <summary>
+            Текущий язык
+            </summary>
+        </member>
+        <member name="F:BLL.CardUnitInfo.connectionString">
+            <summary>
+            Строка подключения
+            </summary>
+        </member>
+        <member name="M:BLL.CardUnitInfo.#ctor(System.String,System.String,DB.SQL.SQLDB)">
+            <summary>
+            Конструктор
+            </summary>
+            <param name="connectionsStringTMP">Строка подключения</param>
+            <param name="Current_Language">Текущий язык</param>
+            <param name="sqlTemp">Обьект подключения к базе данных</param>
+        </member>
+        <member name="M:BLL.CardUnitInfo.Statistics_GetDayStatistics(System.DateTime,System.Int32)">
+            <summary>
+            Получает проценты информации в карточке относительно минут в дне
+            </summary>
+            <param name="date">дата(год, месяц, день)</param>
+            <param name="datablockId">ID файла, для которого нужно подсчитать</param>
+            <returns>double - проценты</returns>
+        </member>
+        <member name="M:BLL.CardUnitInfo.Statistics_GetMonthStatistics(System.DateTime,System.Int32)">
+            <summary>
+            Получает проценты информации в карточке относительно дней в месяце
+            </summary>
+            <param name="date">дата(год, месяц)</param>
+            <param name="datablockId">ID файла, для которого нужно подсчитать</param>
+            <returns>double - проценты</returns>
+        </member>
+        <member name="M:BLL.CardUnitInfo.Statistics_GetYearStatistics(System.DateTime,System.Int32)">
+            <summary>
+            Получает проценты информации в карточке относительно дней в году
+            </summary>
+            <param name="date">Дата(год)</param>
+            <param name="datablockId">ID файла, для которого нужно подсчитать</param>
+            <returns>double - проценты</returns>
+        </member>
+        <member name="M:BLL.CardUnitInfo.GetDaysInAYear(System.Int32)">
+            <summary>
+            получает сколько дней в году
+            </summary>
+            <param name="year">номер года(2007, 2008 и тд..)</param>
+            <returns>количество дней в году</returns>
+        </member>
+        <member name="P:BLL.CardUnitInfo.sqlDB">
+            <summary>
+            Обьект подключения к базе данных
+            </summary>
+        </member>
+        <member name="T:BLL.ReportsTable">
+            <summary>
+            работа с таблицами отчетов.
+            </summary>
+        </member>
+        <member name="M:BLL.ReportsTable.GetReportTypeName(System.Int32,System.Int32)">
+            <summary>
+            Берем название типа отчета.  NameType:
+            0 - STRID_REPORT_NAME
+            1 - STRID_REPORT_SHORT_NAME
+            2 - STRID_REPORT_FULL_NAME
+            3 - STRID_REPORT_PRINT_NAME
+            </summary>
+            <param name="reportUserId">ID отчета</param>
+            <param name="nameType">
+            0 - STRID_REPORT_NAME
+            1 - STRID_REPORT_SHORT_NAME
+            2 - STRID_REPORT_FULL_NAME
+            3 - STRID_REPORT_PRINT_NAME
+            </param>
+            <returns>имя типа отчета</returns>
+        </member>
+        <member name="M:BLL.ReportsTable.GetReportType_ReportName(System.Int32,System.Int32)">
+            <summary>
+            Берем название типа отчета.  NameType:
+            0 - STRID_REPORT_NAME
+            1 - STRID_REPORT_SHORT_NAME
+            2 - STRID_REPORT_FULL_NAME
+            3 - STRID_REPORT_PRINT_NAME
+            </summary>
+            <param name="reportTypeId"></param>
+            <param name="nameType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BLL.ReflectObjectToTableClass">
+            <summary>
+            Содержит список типа ReflectionClass, и имеет методы для работы с этим списком.
+            </summary>
+        </member>
+        <member name="T:BLL.StringTable">
+            <summary>
+            работа с таблицей строк.
+            </summary>
+        </member>
+        <member name="M:BLL.StringTable.UpdateString(System.Int32,System.String,System.String)">
+            <summary>
+            Использовать аккуратно - можно запороть базу со строками, можно использовать другие методы в SQLDB
+            </summary>
+            <param name="stringId">Id строки</param>
+            <param name="newValue">Значение строки</param>
+            <param name="Language">Язык</param>
+        </member>
+        <member name="M:BLL.StringTable.GetStringId(System.String,System.String)">
+            <summary>
+            Получает ID строки
+            </summary>
+            <param name="stringValue">Значение строки</param>
+            <param name="Language">Язык</param>
+            <returns>ID строки</returns>
         </member>
         <member name="T:BLL.OrganizationTable">
             <summary>
@@ -1200,667 +1687,6 @@
             <param name="tables">экземпляр класса OrganizationTable</param>
             <returns>this</returns>
         </member>
-        <member name="T:BLL.VehicleUnitInfo">
-            <summary>
-            выгрузка ДДД данных для транспортного средства.
-            </summary>
-        </member>
-        <member name="T:BLL.CriteriaTable">
-            <summary>
-            Класс организует работу с таблицами критериев fd_key.
-            </summary>
-        </member>
-        <member name="F:BLL.CriteriaTable.CurrentLanguage">
-            <summary>
-            Текущий язык
-            </summary>
-        </member>
-        <member name="F:BLL.CriteriaTable.connectionString">
-            <summary>
-            Строка подключения
-            </summary>
-        </member>
-        <member name="F:BLL.CriteriaTable.sqlDB">
-            <summary>
-            Обьект подключения к базе данных
-            </summary>
-        </member>
-        <member name="M:BLL.CriteriaTable.OpenConnection">
-            <summary>
-            желательно не использовать, если пользуемся через dataBlock, а вызывать в dataBlock
-            </summary>
-        </member>
-        <member name="M:BLL.CriteriaTable.CloseConnection">
-            <summary>
-            желательно не использовать, если пользуемся через dataBlock, а вызывать в dataBlock
-            </summary>
-        </member>
-        <member name="M:BLL.CriteriaTable.LoadCriteria(System.Int32)">
-            <summary>
-            Загружает значения критерия в текущий экзмемпляр класса, а также возвращает его.
-            </summary>
-            <param name="keyId">ID критерия</param>
-            <returns></returns>
-        </member>
-        <member name="M:BLL.CriteriaTable.AddNewCriteria(System.Int32,System.String,System.String,System.Int32,System.Int32)">
-            <summary>
-            Создает новый критерий
-            </summary>
-            <param name="MeasureId">ID единицы измерения</param>
-            <param name="Name">Имя критерия</param>
-            <param name="Note">Комментарий к критерию</param>
-            <param name="minValue">Минимальное значение</param>
-            <param name="maxValue">Максимальное значение</param>
-            <returns>ID критерия</returns>
-        </member>
-        <member name="M:BLL.CriteriaTable.DeleteCriteria(System.Int32)">
-            <summary>
-            Удалить критерий
-            </summary>
-            <param name="criteriaId">ID критерия</param>
-        </member>
-        <member name="M:BLL.CriteriaTable.EditCriteria(System.Int32,System.Int32,System.String,System.String,System.Int32,System.Int32)">
-            <summary>
-            Редактировать критерий
-            </summary>
-            <param name="keyId">ID критерия</param>
-            <param name="MeasureId">ID единицы измерения</param>
-            <param name="Name">Имя критерия</param>
-            <param name="Note">Комментарий</param>
-            <param name="minValue">Минимальное значение</param>
-            <param name="maxValue">Максимальное значение</param>
-        </member>
-        <member name="M:BLL.CriteriaTable.EditCriteria(System.Int32,System.String,System.Int32,System.Int32)">
-            <summary>
-            Редактировать критерий
-            </summary>
-            <param name="keyId">ID критерия</param>
-            <param name="Note">Комментарий</param>
-            <param name="minValue">Минимальное значение</param>
-            <param name="maxValue">Максимальное значение</param>
-        </member>
-        <member name="M:BLL.CriteriaTable.GetAllCriteria_Name_n_Id">
-            <summary>
-            Получает все критерии
-            </summary>
-            <returns>Массив пар (Имя критерия, Id критерия)</returns>
-        </member>
-        <member name="M:BLL.CriteriaTable.GetCriteriaName(System.Int32)">
-            <summary>
-            Получает имя критерия
-            </summary>
-            <param name="keyId">ID критерия</param>
-            <returns>Имя критерия</returns>
-        </member>
-        <member name="M:BLL.CriteriaTable.GetCriteriaId_byNameAndMeasureId(System.String,System.Int32)">
-            <summary>
-            Получает ID критерия
-            </summary>
-            <param name="keyName">Название критерия</param>
-            <param name="MeasureId">ID единицы измерения</param>
-            <returns>ID критерия</returns>
-        </member>
-        <member name="M:BLL.CriteriaTable.GetCriteriaId_byName(System.String)">
-            <summary>
-            Получает ID критерия
-            </summary>
-            <param name="keyName">Название критерия</param>
-            <returns>ID критерия</returns>
-        </member>
-        <member name="M:BLL.CriteriaTable.AddNewMeasure(System.String,System.String)">
-            <summary>
-            Добавляет единицу измерения
-            </summary>
-            <param name="shortName">Короткое название</param>
-            <param name="fullName">Полное название</param>
-            <returns>ID единицы измерения</returns>
-        </member>
-        <member name="M:BLL.CriteriaTable.GetMeasureShortName(System.Int32)">
-            <summary>
-            Получает короткое название единицы измерения
-            </summary>
-            <param name="MeasureId">ID единицы измерения</param>
-            <returns>Короткое название единицы измерения</returns>
-        </member>
-        <member name="M:BLL.CriteriaTable.GetMeasureFullName(System.Int32)">
-            <summary>
-            Получает полное название единицы измерения
-            </summary>
-            <param name="MeasureId">ID единицы измерения</param>
-            <returns>Полное название единицы измерения</returns>
-        </member>
-        <member name="M:BLL.CriteriaTable.GetAllMeasuresIds">
-            <summary>
-            Получает все ID единиц измерения
-            </summary>
-            <returns>Массив ID единиц измерения</returns>
-        </member>
-        <member name="M:BLL.CriteriaTable.EditMeasure(System.Int32,System.String,System.String)">
-            <summary>
-            Редактировать едницу измерения
-            </summary>
-            <param name="MeasureId">ID единицы измерения</param>
-            <param name="shortName">Короткое название единицы измерения</param>
-            <param name="fullName">Полное название единицы измерения</param>
-        </member>
-        <member name="M:BLL.CriteriaTable.DeleteMeasure(System.Int32)">
-            <summary>
-            Удалить единицу измерения
-            </summary>
-            <param name="measureId">ID единицы измерения</param>
-        </member>
-        <member name="M:BLL.CriteriaTable.GetMeasure_byKeyID(System.Int32)">
-            <summary>
-            Получить единицу измерения по ID критерия.
-            </summary>
-            <param name="keyId">ID критерия</param>
-            <returns>ID единицы измерения</returns>
-        </member>
-        <member name="P:BLL.CriteriaTable.KeyId">
-            <summary>
-            Идентификатор критерия(первичный ключ из базы данных)
-            </summary>
-        </member>
-        <member name="P:BLL.CriteriaTable.CriteriaName">
-            <summary>
-            Название критерия
-            </summary>
-        </member>
-        <member name="P:BLL.CriteriaTable.CriteriaNote">
-            <summary>
-            Комментарий к критерию
-            </summary>
-        </member>
-        <member name="P:BLL.CriteriaTable.MinValue">
-            <summary>
-            Минимальное значение критерия
-            </summary>
-        </member>
-        <member name="P:BLL.CriteriaTable.MaxValue">
-            <summary>
-            Максимальное значение критерия
-            </summary>
-        </member>
-        <member name="P:BLL.CriteriaTable.MeasureId">
-            <summary>
-            ID единицы измерения
-            </summary>
-        </member>
-        <member name="P:BLL.CriteriaTable.MeasureName">
-            <summary>
-            Название единицы измерения
-            </summary>
-        </member>
-        <member name="T:BLL.StringTable">
-            <summary>
-            работа с таблицей строк.
-            </summary>
-        </member>
-        <member name="M:BLL.StringTable.UpdateString(System.Int32,System.String,System.String)">
-            <summary>
-            Использовать аккуратно - можно запороть базу со строками, можно использовать другие методы в SQLDB
-            </summary>
-            <param name="stringId">Id строки</param>
-            <param name="newValue">Значение строки</param>
-            <param name="Language">Язык</param>
-        </member>
-        <member name="M:BLL.StringTable.GetStringId(System.String,System.String)">
-            <summary>
-            Получает ID строки
-            </summary>
-            <param name="stringValue">Значение строки</param>
-            <param name="Language">Язык</param>
-            <returns>ID строки</returns>
-        </member>
-        <member name="T:BLL.ReflectObjectToTableClass">
-            <summary>
-            Содержит список типа ReflectionClass, и имеет методы для работы с этим списком.
-            </summary>
-        </member>
-        <member name="T:BLL.InvoiceTable">
-            <summary>
-            Работа с таблицами счетов.
-            </summary>
-        </member>
-        <member name="F:BLL.InvoiceTable.CurrentLanguage">
-            <summary>
-            Текущия язык
-            </summary>
-        </member>
-        <member name="F:BLL.InvoiceTable.connectionString">
-            <summary>
-            Строка подключения(в большинстве не нужна)
-            </summary>
-        </member>
-        <member name="F:BLL.InvoiceTable.sqlDBR">
-            <summary>
-            Подключение к базе данных
-            </summary>
-        </member>
-        <member name="M:BLL.InvoiceTable.#ctor(System.String,System.String,DB.SQL.SQLDB)">
-            <summary>
-            Конструктор
-            </summary>
-            <param name="connectionsStringTMP">строка подключение(необязательно ее указывать)</param>
-            <param name="Current_Language">Язык</param>
-            <param name="sql">обьект SQLDB</param>
-        </member>
-        <member name="M:BLL.InvoiceTable.PayABill(System.Int32)">
-            <summary>
-            Перводит счет из состояния неоплаченный в оплаченный
-            </summary>
-            <param name="invoiceId">ID счета</param>
-        </member>
-        <member name="M:BLL.InvoiceTable.UnPayABill(System.Int32)">
-            <summary>
-            Перводит счет из состояния оплаченный в неоплаченный
-            </summary>
-            <param name="invoiceId">ID счета</param>
-        </member>
-        <member name="M:BLL.InvoiceTable.GetAllInvoices(System.Int32)">
-            <summary>
-            Получить все счета
-            </summary>
-            <param name="orgId">ID организации</param>
-            <returns>Массив ID счетов</returns>
-        </member>
-        <member name="M:BLL.InvoiceTable.AddInvoice(System.Int32,System.Int32,System.Int32,System.String,System.DateTime,System.DateTime,System.DateTime)">
-            <summary>
-            Выставить новый счет
-            </summary>
-            <param name="invoiceTypeId">ID типа счета</param>
-            <param name="invoiceStatusId">ID статуса счета</param>
-            <param name="orgId">ID организации</param>
-            <param name="BillName">Название счета</param>
-            <param name="dateInvoice">Дата выставления счета</param>
-            <param name="datePaymentTerm">Оплатить до...</param>
-            <param name="datePayment">Дата оплаты(new DateTime() если еще не оплачено)</param>
-            <returns>ID счета</returns>
-        </member>
-        <member name="M:BLL.InvoiceTable.GetInvoiceName(System.Int32)">
-            <summary>
-            Получить имя счета
-            </summary>
-            <param name="invoiceId">ID счета</param>
-            <returns>Имя счета</returns>
-        </member>
-        <member name="M:BLL.InvoiceTable.GetDateInvoice(System.Int32)">
-            <summary>
-            Получить дату выставления счета
-            </summary>
-            <param name="invoiceId">ID счета</param>
-            <returns>Дата выставления счета</returns>
-        </member>
-        <member name="M:BLL.InvoiceTable.GetDatePaymentTerm(System.Int32)">
-            <summary>
-            Получить дату, до которой оплатить счет.
-            </summary>
-            <param name="invoiceId">ID счета</param>
-            <returns>Дата, до которой оплатить счет.</returns>
-        </member>
-        <member name="M:BLL.InvoiceTable.GetDatePayment(System.Int32)">
-            <summary>
-            Получить дату оплаты счета
-            </summary>
-            <param name="invoiceId">ID счета</param>
-            <returns>Тут возвращается строка, потому что даты оплаты может не быть.
-            Тогда Делаем обработку If(date=="") то пишем НЕ ОПЛАЧЕНО или типа того.
-            Можно переделать на Nullable DateTime (DateTime?), тогда можно будет возвращать Null если ничего нет.
-            </returns>
-        </member>
-        <member name="M:BLL.InvoiceTable.GetInvoiceType(System.Int32)">
-            <summary>
-            Получить тип счета
-            </summary>
-            <param name="invoiceId">ID счета</param>
-            <returns>Название типа счета</returns>
-        </member>
-        <member name="M:BLL.InvoiceTable.GetInvoiceStatus(System.Int32)">
-            <summary>
-            Получить статус счета
-            </summary>
-            <param name="invoiceId">ID счета</param>
-            <returns>Статус счета</returns>
-        </member>
-        <member name="M:BLL.InvoiceTable.AddOrGetInvoiceStatusId(System.String)">
-            <summary>
-            Добавляет либо получает ID существуещего статуса счета, с языком по-умолчанию(английский)
-            </summary>
-            <param name="statusString">Название статуса счета</param>
-            <returns>ID статуса счета</returns>
-        </member>
-        <member name="M:BLL.InvoiceTable.AddOrGetInvoiceStatusId(System.String,System.String)">
-            <summary>
-            Добавляет либо получает ID существуещего статуса счета
-            </summary>
-            <param name="statusString">Название статуса счета</param>
-            <param name="Language">Язык</param>
-            <returns>ID статуса счета</returns>
-        </member>
-        <member name="M:BLL.InvoiceTable.AddOrGetInvoiceTypeId(System.String)">
-            <summary>
-            Добавить или получить существующий тип счета с языком по-умолчанию(английский).
-            </summary>
-            <param name="typeString">Название типа счета</param>
-            <returns>ID типа счета</returns>
-        </member>
-        <member name="M:BLL.InvoiceTable.AddOrGetInvoiceTypeId(System.String,System.String)">
-            <summary>
-            Добавить или получить существующий тип счета.
-            </summary>
-            <param name="typeString">Название типа счета</param>
-            <param name="Language">Язык</param>
-            <returns>ID типа счета</returns>
-        </member>
-        <member name="P:BLL.InvoiceTable.Status_Paid">
-            <summary>
-            Статус платежа - оплачено
-            </summary>
-        </member>
-        <member name="P:BLL.InvoiceTable.Status_NotPaid">
-            <summary>
-            Статус платежа - не оплачено
-            </summary>
-        </member>
-        <member name="P:BLL.InvoiceTable.InvoiceType_addReportInvoice">
-            <summary>
-            ДОбавление допольнительного типа отчета
-            </summary>
-        </member>
-        <member name="P:BLL.InvoiceTable.InvoiceType_moreUsers">
-            <summary>
-            Добавление дополнительного пользователя в систему
-            </summary>
-        </member>
-        <member name="P:BLL.InvoiceTable.InvoiceType_licenseFee">
-            <summary>
-            Абонентская плата
-            </summary>
-        </member>
-        <member name="T:BLL.DataBaseReference">
-            <summary>
-            Статический класс, в котором содержатся названия дополнительных параметров для различных таблиц.
-            </summary>
-        </member>
-        <member name="T:BLL.ReflectionClass">
-            <summary>
-            – используется в процессе добавления разобранных данных в базу данных. 
-            Представляет собой одну запись для добавления.
-            </summary>
-        </member>
-        <member name="M:BLL.ReflectionClass.GetParentParamName">
-            <summary>
-            получает имя параметра предка
-            </summary>
-            <returns>имя параметра предка</returns>
-        </member>
-        <member name="P:BLL.ReflectionClass.name">
-            <summary>
-            имя параметра
-            </summary>
-        </member>
-        <member name="P:BLL.ReflectionClass.paramStructure">
-            <summary>
-            структура параметра
-            </summary>
-        </member>
-        <member name="P:BLL.ReflectionClass.PARAM_ID">
-            <summary>
-            ID параметра
-            </summary>
-        </member>
-        <member name="P:BLL.ReflectionClass.PARENT_PARAM_ID">
-            <summary>
-            ID параметра предка
-            </summary>
-        </member>
-        <member name="P:BLL.ReflectionClass.value">
-            <summary>
-            Значение
-            </summary>
-        </member>
-        <member name="T:BLL.HistoryTable">
-            <summary>
-            работа с логированием действий пользователя.
-            </summary>
-        </member>
-        <member name="F:BLL.HistoryTable.CurrentLanguage">
-            <summary>
-            Текущия язык
-            </summary>
-        </member>
-        <member name="F:BLL.HistoryTable.connectionString">
-            <summary>
-            Строка подключения(в большинстве не нужна)
-            </summary>
-        </member>
-        <member name="F:BLL.HistoryTable.sqlDb">
-            <summary>
-            Подключение к базе данных
-            </summary>
-        </member>
-        <member name="M:BLL.HistoryTable.#ctor(System.String,System.String,DB.SQL.SQLDB)">
-            <summary>
-            Конструктор
-            </summary>
-            <param name="connectionsStringTMP">Строка подключения. МОжет быть любой</param>
-            <param name="Current_Language">Язык</param>
-            <param name="sql">обьект SQLDB</param>
-        </member>
-        <member name="M:BLL.HistoryTable.AddHistoryRecord(System.String,System.String,System.Int32,System.Int32,System.Int32,System.DateTime,System.String,DB.SQL.SQLDB)">
-            <summary>
-            Добавить запись к логу
-            </summary>
-            <param name="tableName">Название измененной таблицы в БД</param>
-            <param name="tableKeyFieldName">Название измененного поля в таблице в БД</param>
-            <param name="TABLE_KEYFIELD_VALUE">Измененное значение</param>
-            <param name="userId">ID пользователя, который произвел действие</param>
-            <param name="actionId">ID действия</param>
-            <param name="actionDate">Дата действия</param>
-            <param name="Note">Комментарий</param>
-            <param name="SQLForAdding">SQL подключение с открытым подключением(созданное внешне)</param>
-            <returns>Дата записи в логе</returns>
-        </member>
-        <member name="M:BLL.HistoryTable.AddHistoryRecord(System.String,System.String,System.Int32,System.Int32,System.Int32,System.String,DB.SQL.SQLDB)">
-            <summary>
-            Добавить запись к логу
-            </summary>
-            <param name="tableName">Название измененной таблицы в БД</param>
-            <param name="tableKeyFieldName">Название измененного поля в таблице в БД</param>
-            <param name="TABLE_KEYFIELD_VALUE">Измененное значение</param>
-            <param name="userId">ID пользователя, который произвел действие</param>
-            <param name="actionId">ID действия</param>
-            <param name="Note">Комментарий</param>
-            <param name="SQLForAdding">SQL подключение с открытым подключением(созданное внешне)</param>
-            <returns>Дата записи в логе</returns>
-        </member>
-        <member name="M:BLL.HistoryTable.GetAllHistorysForUsers(System.Int32)">
-            <summary>
-            Получает всю исторю для выбранного пользователя
-            </summary>
-            <param name="usersId">ID пользователя</param>
-            <returns>DataTable, который можно напрямую использовать как источник данных.</returns>
-        </member>
-        <member name="M:BLL.HistoryTable.GetAllHistorysForUsers(System.Collections.Generic.List{System.Int32})">
-            <summary>
-            Получает всю исторю для группы выбранных пользователей
-            </summary>
-            <param name="usersIds">Массив ID пользователей</param>
-            <returns>DataTable, который можно напрямую использовать как источник данных.</returns>
-        </member>
-        <member name="M:BLL.HistoryTable.GetAllHistorysForUsers(System.Collections.Generic.List{System.Int32},System.DateTime,System.DateTime,System.Int32,System.String)">
-            <summary>
-            Получает всю исторю для группы выбранных пользователей с выполнением некоторых условий
-            </summary>
-            <param name="usersIds">Массив ID пользователей</param>
-            <param name="from">Дата с</param>
-            <param name="to">Дата по</param>
-            <param name="actionIdIns">ID типа действия</param>
-            <param name="searchString">Строка, которая должна встречаться в логе</param>
-            <returns>DataTable, который можно напрямую использовать как источник данных.</returns>
-        </member>
-        <member name="M:BLL.HistoryTable.GetHistoryDate(System.Int32,System.Int32,System.Int32)">
-            <summary>
-            Получает дату записи в логе
-            </summary>
-            <param name="userId">ID пользователя</param>
-            <param name="actionId">ID типа действия</param>
-            <param name="tableId">ID таблицы</param>
-            <returns>Дата записи в логе</returns>
-        </member>
-        <member name="M:BLL.HistoryTable.GetHistoryNote(System.Int32,System.Int32,System.Int32,System.DateTime)">
-            <summary>
-            Получить комментарий к записи в логе
-            </summary>
-            <param name="userId">ID пользователя</param>
-            <param name="actionId">ID типа действия</param>
-            <param name="tableId">ID таблицы</param>
-            <param name="historyDate">Дата записи</param>
-            <returns>Комментарий к записи в логе</returns>
-        </member>
-        <member name="M:BLL.HistoryTable.Get_TableId(System.String,DB.SQL.SQLDB)">
-            <summary>
-            Получить ID таблицы в БД таблице FD_TABLE
-            </summary>
-            <param name="tableName">Название таблицы</param>
-            <param name="SQLForAdding">sql подключение с открытым подключением</param>
-            <returns>ID таблицы в БД таблице FD_TABLE</returns>
-        </member>
-        <member name="M:BLL.HistoryTable.Get_TableId(System.String)">
-            <summary>
-            Получить ID таблицы в БД таблице FD_TABLE
-            </summary>
-            <param name="tableName">Название таблицы</param>
-            <returns>ID таблицы в БД таблице FD_TABLE</returns>
-        </member>
-        <member name="M:BLL.HistoryTable.GetOrAddTable(System.String,System.String,DB.SQL.SQLDB)">
-            <summary>
-            Добавляет Новую таблицу, или возвращает ID существующей таблицы
-            </summary>
-            <param name="tableName">Имя таблицы</param>
-            <param name="tableKeyFieldName">Имя primary key в таблице</param>
-            <param name="SQLForAdding">sql подключение с открытым подключением</param>
-            <returns>ID таблицы</returns>
-        </member>
-        <member name="M:BLL.HistoryTable.GetOrAddTable(System.String,System.String)">
-            <summary>
-            Добавляет Новую таблицу, или возвращает ID существующей таблицы
-            </summary>
-            <param name="tableName">Имя таблицы</param>
-            <param name="tableKeyFieldName">Имя primary key в таблице</param>
-            <returns>ID таблицы</returns>
-        </member>
-        <member name="M:BLL.HistoryTable.Get_TableName(System.Int32)">
-            <summary>
-            Получить название таблицы
-            </summary>
-            <param name="tableId">ID таблицы</param>
-            <returns>Название таблицы</returns>
-        </member>
-        <member name="M:BLL.HistoryTable.Get_TableKeyFieldName(System.Int32)">
-            <summary>
-            ПОлучить название primary key
-            </summary>
-            <param name="tableId">ID таблицы</param>
-            <returns>название primary key</returns>
-        </member>
-        <member name="M:BLL.HistoryTable.Get_TableNote(System.Int32)">
-            <summary>
-            Получить комментарий к таблице
-            </summary>
-            <param name="tableId">ID таблицы</param>
-            <returns>Комментарий к таблице</returns>
-        </member>
-        <member name="M:BLL.HistoryTable.GetAllActions">
-            <summary>
-            Получить все возможные действия для лога
-            </summary>
-            <returns>Массив пар (название действия, ID действия) </returns>
-        </member>
-        <member name="M:BLL.HistoryTable.GetActionString(System.Int32)">
-            <summary>
-            получить название действия
-            </summary>
-            <param name="actionId">ID действия</param>
-            <returns>название действия</returns>
-        </member>
-        <member name="M:BLL.HistoryTable.GetActionString_BySTRID(System.Int32)">
-            <summary>
-            Получить ID действия по ID строки с названием этого действия
-            </summary>
-            <param name="actionStrId">ID строки с названием этого действия</param>
-            <returns>ID действия</returns>
-        </member>
-        <member name="M:BLL.HistoryTable.AddOrGetAction(System.String)">
-            <summary>
-            Добавить или получить(если уже есть такое) действие, с языком по умолчинию(английский).
-            </summary>
-            <param name="actionString">Название действия</param>
-            <returns>ID действия</returns>
-        </member>
-        <member name="M:BLL.HistoryTable.AddOrGetAction(System.String,System.String)">
-            <summary>
-            Добавить или получить(если уже есть такое) действие
-            </summary>
-            <param name="actionString">Название действия</param>
-            <param name="Language">Язык названия действия</param>
-            <returns>ID действия</returns>
-        </member>
-        <member name="P:BLL.HistoryTable.driversRegDataChanged">
-            <summary>
-            Изменение учетных данных пользователя/водителя
-            </summary>
-        </member>
-        <member name="P:BLL.HistoryTable.vehiclesRegDataChanged">
-            <summary>
-            Изменение учетных данных БУ ТС
-            </summary>
-        </member>
-        <member name="P:BLL.HistoryTable.PLFDataBlockLoaded">
-            <summary>
-            Загружен блок данных PLF
-            </summary>
-        </member>
-        <member name="P:BLL.HistoryTable.DDDDriversDataBlockLoaded">
-            <summary>
-            Загружен блок данных карты
-            </summary>
-        </member>
-        <member name="P:BLL.HistoryTable.DDDVehiclesDataBlockLoaded">
-            <summary>
-            Загружен блок данных бортового устройства
-            </summary>
-        </member>
-        <member name="P:BLL.HistoryTable.newUserRegistered">
-            <summary>
-            Регистрация нового пользователя в системе
-            </summary>
-        </member>
-        <member name="P:BLL.HistoryTable.newDriverRegistered">
-            <summary>
-            Регистрация нового водителя
-            </summary>
-        </member>
-        <member name="P:BLL.HistoryTable.newVehicleRegistered">
-            <summary>
-            Регистрация нового транспортного средства
-            </summary>
-        </member>
-        <member name="P:BLL.HistoryTable.setReportUserRoles">
-            <summary>
-            Изменение прав доступа к отчету для ролей пользователей
-            </summary>
-        </member>
-        <member name="P:BLL.HistoryTable.setReportUserOrg">
-            <summary>
-            Добавление отчета для организации
-            </summary>
-        </member>
-        <member name="P:BLL.HistoryTable.invoicePaid">
-            <summary>
-            Оплата счета
-            </summary>
-        </member>
         <member name="T:BLL.PLFUnitInfo">
             <summary>
             Класс отвечает за выборку информации по ДДД файлам.
@@ -1912,98 +1738,279 @@
             Обьект подключения к базе данных
             </summary>
         </member>
-        <member name="T:BLL.CardUnitInfo">
+        <member name="T:BLL.CardsTable">
             <summary>
-            Класс отвечает за выборку информации по ДДД картам.
+            Работа с таблицами Карт и БД. Карты создаются для Водителей и транспортных средств.
             </summary>
         </member>
-        <member name="F:BLL.CardUnitInfo.CurrentLanguage">
+        <member name="F:BLL.CardsTable.CurrentLanguage">
             <summary>
             Текущий язык
             </summary>
         </member>
-        <member name="F:BLL.CardUnitInfo.connectionString">
+        <member name="F:BLL.CardsTable.connectionString">
             <summary>
             Строка подключения
             </summary>
         </member>
-        <member name="M:BLL.CardUnitInfo.#ctor(System.String,System.String,DB.SQL.SQLDB)">
-            <summary>
-            Конструктор
-            </summary>
-            <param name="connectionsStringTMP">Строка подключения</param>
-            <param name="Current_Language">Текущий язык</param>
-            <param name="sqlTemp">Обьект подключения к базе данных</param>
-        </member>
-        <member name="M:BLL.CardUnitInfo.Statistics_GetDayStatistics(System.DateTime,System.Int32)">
-            <summary>
-            Получает проценты информации в карточке относительно минут в дне
-            </summary>
-            <param name="date">дата(год, месяц, день)</param>
-            <param name="datablockId">ID файла, для которого нужно подсчитать</param>
-            <returns>double - проценты</returns>
-        </member>
-        <member name="M:BLL.CardUnitInfo.Statistics_GetMonthStatistics(System.DateTime,System.Int32)">
-            <summary>
-            Получает проценты информации в карточке относительно дней в месяце
-            </summary>
-            <param name="date">дата(год, месяц)</param>
-            <param name="datablockId">ID файла, для которого нужно подсчитать</param>
-            <returns>double - проценты</returns>
-        </member>
-        <member name="M:BLL.CardUnitInfo.Statistics_GetYearStatistics(System.DateTime,System.Int32)">
-            <summary>
-            Получает проценты информации в карточке относительно дней в году
-            </summary>
-            <param name="date">Дата(год)</param>
-            <param name="datablockId">ID файла, для которого нужно подсчитать</param>
-            <returns>double - проценты</returns>
-        </member>
-        <member name="M:BLL.CardUnitInfo.GetDaysInAYear(System.Int32)">
-            <summary>
-            получает сколько дней в году
-            </summary>
-            <param name="year">номер года(2007, 2008 и тд..)</param>
-            <returns>количество дней в году</returns>
-        </member>
-        <member name="P:BLL.CardUnitInfo.sqlDB">
+        <member name="F:BLL.CardsTable.sqlDb">
             <summary>
             Обьект подключения к базе данных
             </summary>
         </member>
-        <member name="T:BLL.ReportsTable">
+        <member name="M:BLL.CardsTable.#ctor(System.String,System.String,DB.SQL.SQLDB)">
             <summary>
-            работа с таблицами отчетов.
+            Конструктор 
             </summary>
+            <param name="connectionsStringTMP">Строка подключения к базе данных(не обязательна, так как передается подключение</param>
+            <param name="Current_Language">Текущий язык</param>
+            <param name="sql">Обьект подключения к базе данных</param>
         </member>
-        <member name="M:BLL.ReportsTable.GetReportTypeName(System.Int32,System.Int32)">
+        <member name="M:BLL.CardsTable.CreateNewCard(System.String,System.String,System.Int32,System.Int32,System.String,System.Int32)">
             <summary>
-            Берем название типа отчета.  NameType:
-            0 - STRID_REPORT_NAME
-            1 - STRID_REPORT_SHORT_NAME
-            2 - STRID_REPORT_FULL_NAME
-            3 - STRID_REPORT_PRINT_NAME
+            Создать новую карту
             </summary>
-            <param name="reportUserId">ID отчета</param>
-            <param name="nameType">
-            0 - STRID_REPORT_NAME
-            1 - STRID_REPORT_SHORT_NAME
-            2 - STRID_REPORT_FULL_NAME
-            3 - STRID_REPORT_PRINT_NAME
-            </param>
-            <returns>имя типа отчета</returns>
+            <param name="cardHolderName">Имя владельца карты</param>
+            <param name="cardNumber">Номер карты</param>
+            <param name="cardTypeId">Тип карты</param>
+            <param name="orgId">Идентификатор организации</param>
+            <param name="CardNote">Комментарий к карту</param>
+            <param name="curUserId">Текущий пользователь, создающий карты(для лога)</param>
+            <returns>Id новой карты</returns>
         </member>
-        <member name="M:BLL.ReportsTable.GetReportType_ReportName(System.Int32,System.Int32)">
+        <member name="M:BLL.CardsTable.GetCardId(System.String,System.String,System.Int32)">
             <summary>
-            Берем название типа отчета.  NameType:
-            0 - STRID_REPORT_NAME
-            1 - STRID_REPORT_SHORT_NAME
-            2 - STRID_REPORT_FULL_NAME
-            3 - STRID_REPORT_PRINT_NAME
+            Получаем ID карты
             </summary>
-            <param name="reportTypeId"></param>
-            <param name="nameType"></param>
+            <param name="cardHolderName">Имя держателя карты</param>
+            <param name="cardNumber">Номер карты</param>
+            <param name="cardTypeId">Тип карты</param>
+            <returns>ID карты</returns>
+        </member>
+        <member name="M:BLL.CardsTable.GetCardId(System.String,System.Int32)">
+            <summary>
+            Получаем ID карты
+            </summary>
+            <param name="cardHolderName_Serial">имя держателя карты+серийный номер через пробел( устаревший метод, не стоит им пользоватся)</param>
+            <param name="cardTypeId">тип карты</param>
+            <returns>ID карты</returns>
+        </member>
+        <member name="M:BLL.CardsTable.GetCardUserId(System.Int32)">
+            <summary>
+            получаем ID пользователя, связанного с картой(для каждой карты создается пользователь, кроме ТС)
+            </summary>
+            <param name="cardId">ID карты</param>
+            <returns>ID пользователя</returns>
+        </member>
+        <member name="M:BLL.CardsTable.GetAllCardIds(System.Int32,System.Int32)">
+            <summary>
+            Получаем все ID карт
+            </summary>
+            <param name="OrgId">ID организации</param>
+            <param name="cardTypeId">ID типа карты(описанные тут же как проперти)</param>
+            <returns>Лист ID карт</returns>
+        </member>
+        <member name="M:BLL.CardsTable.GetAllGroupIds(System.Int32,System.Int32)">
+            <summary>
+            Получаем все названия групп
+            </summary>
+            <param name="OrgId">ID организации</param>
+            <param name="cardTypeId">ID типа карты(описанные тут же как проперти)</param>
+            <returns>Лист имен групп</returns>
+        </member>
+        <member name="M:BLL.CardsTable.GetAllCardIdsByGroupId(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Получаем все имена владельцев карт принадлежащих какой-либо группе
+            </summary>
+            <param name="OrgId">ID организации</param>
+            <param name="cardTypeId">ID типа карты(описанные тут же как проперти)</param>
+            <param name="groupName">Имя группы</param>
+            <returns>Лист имен владельцев карт</returns>
+        </member>
+        <member name="M:BLL.CardsTable.GetCardHolderNameByCardId(System.Int32)">
+            <summary>
+            Получаем имя владельца карты с указанным ID
+            </summary>
+            <param name="OrgId">ID карты</param>
+            <returns>Имя владельца карт</returns>
+        </member>
+        <member name="M:BLL.CardsTable.GetGroupNameById(System.Int32)">
+            <summary>
+            Получаем имя группы по ID
+            </summary>
+            <param name="groupName">ID группы</param>
+            <returns>Имя группы</returns>
+        </member>
+        <member name="M:BLL.CardsTable.GetCardNames(System.Collections.Generic.List{System.Int32})">
+            <summary>
+            получаем все имена карты
+            </summary>
+            <param name="cardIds">Лист ID карт(можно получить например GetAllCardIds, либо выбрать как-то еще)</param>
+            <returns>Лист строк имен. длина массива имен равна длине массива ID карт</returns>
+        </member>
+        <member name="M:BLL.CardsTable.GetCardName(System.Int32)">
+            <summary>
+            Получаем имя для карты ID
+            </summary>
+            <param name="cardId">ID карты</param>
+            <returns>Имя карты</returns>
+        </member>
+        <member name="M:BLL.CardsTable.GetCardNumbers(System.Collections.Generic.List{System.Int32})">
+            <summary>
+            получаем все номера карт
+            </summary>
+            <param name="cardIds">Лист ID карт(можно получить например GetAllCardIds, либо выбрать как-то еще)</param>
+            <returns>Лист строк номеров карт. длина массива номеров равна длине массива ID карт</returns>
+        </member>
+        <member name="M:BLL.CardsTable.GetCardNumber(System.Int32)">
+            <summary>
+            Получает номер карты по ID карты
+            </summary>
+            <param name="cardId">ID карты</param>
+            <returns>Номер карты</returns>
+        </member>
+        <member name="M:BLL.CardsTable.GetCardNote(System.Int32)">
+            <summary>
+            Получает комментарий к карте
+            </summary>
+            <param name="cardId">ID карты</param>
+            <returns>Коментарий</returns>
+        </member>
+        <member name="M:BLL.CardsTable.SetCardNote(System.Int32,System.String)">
+            <summary>
+            Присваеваем комментарий к карте
+            </summary>
+            <param name="cardId">ID карты</param>
+            <param name="Note">строка комментария</param>
+        </member>
+        <member name="M:BLL.CardsTable.ChangeCardName(System.String,System.Int32)">
+            <summary>
+            Изменяет имя карты
+            </summary>
+            <param name="cardHolderName">Новое имя карты</param>
+            <param name="cardId">ID карты</param>
+        </member>
+        <member name="M:BLL.CardsTable.ChangeCardNumber(System.String,System.Int32,System.Int32)">
+            <summary>
+            Изменяет номер карты
+            </summary>
+            <param name="cardNumber">Новый номер карты</param>
+            <param name="cardId">ID карты</param>
+            <param name="curUserId">ID пользователя выполяющего действие</param>
+        </member>
+        <member name="M:BLL.CardsTable.DeleteCardAndAllFiles(System.Int32)">
+            <summary>
+            Удаляет карту и все связанные с ней файлы и блоки данных
+            </summary>
+            <param name="CardId">ID карты</param>
+        </member>
+        <member name="M:BLL.CardsTable.GetAllDataBlockIds_byCardId(System.Int32)">
+            <summary>
+            Получает все блоки данных, связанные с картой
+            </summary>
+            <param name="cardId">ID карты</param>
             <returns></returns>
+        </member>
+        <member name="P:BLL.CardsTable.driversCardTypeId">
+            <summary>
+            Переменная. Идентификатор водительского типа карты 
+            </summary>
+        </member>
+        <member name="P:BLL.CardsTable.vehicleCardTypeId">
+            <summary>
+            Переменная. Идентификатор типа карты транспортного средства
+            </summary>
+        </member>
+        <member name="P:BLL.CardsTable.orgInitCardTypeId">
+            <summary>
+            Переменная. Идентификатор типа карты организации
+            </summary>
+        </member>
+        <member name="T:BLL.HistoryWriter">
+            <summary>
+            Добавляет запись в историю
+            </summary>
+        </member>
+        <member name="T:BLL.Singleton`1">
+            <summary>
+            generic Singleton (потокобезопасный с использованием generic-класса и с отложенной инициализацией)
+            </summary>
+            <typeparam name="T">Singleton class</typeparam>
+        </member>
+        <member name="M:BLL.Singleton`1.#ctor">
+            <summary>
+             Защищенный конструктор по умолчанию необходим для того, чтобы
+             предотвратить создание экземпляра класса Singleton
+            </summary>
+        </member>
+        <member name="T:BLL.Singleton`1.SingletonCreator`1">
+            <summary>
+            Фабрика используется для отложенной инициализации экземпляра класса
+            </summary>
+            <typeparam name="S"></typeparam>
+        </member>
+        <member name="F:BLL.Singleton`1.SingletonCreator`1.instance">
+            <summary>
+            Используется Reflection для создания экземпляра класса без публичного конструктора
+            </summary>
+        </member>
+        <member name="T:BLL.DataBaseReference">
+            <summary>
+            Статический класс, в котором содержатся названия дополнительных параметров для различных таблиц.
+            </summary>
+        </member>
+        <member name="T:BLL.UsersTables">
+            <summary>
+            работа с таблицами пользователей.
+            </summary>
+        </member>
+        <member name="T:BLL.UserFromTable">
+            <summary>
+            Класс описывает одного пользователя
+            </summary>
+        </member>
+        <member name="M:BLL.UserFromTable.FillWithInfo(System.Int32,BLL.UsersTables)">
+            <summary>
+            Заполнить поля информацией
+            </summary>
+            <param name="UserId">ID пользователя</param>
+            <param name="tables">обьект класса UsersTables с открытым подключением</param>
+            <returns>this</returns>
+        </member>
+        <member name="P:BLL.UserFromTable.id">
+            <summary>
+            ID пользователя
+            </summary>
+        </member>
+        <member name="P:BLL.UserFromTable.name">
+            <summary>
+            имя
+            </summary>
+        </member>
+        <member name="P:BLL.UserFromTable.pass">
+            <summary>
+            пароль
+            </summary>
+        </member>
+        <member name="P:BLL.UserFromTable.userType">
+            <summary>
+            тип пользователя
+            </summary>
+        </member>
+        <member name="P:BLL.UserFromTable.userRole">
+            <summary>
+            роль пользователя
+            </summary>
+        </member>
+        <member name="P:BLL.UserFromTable.timeConnection">
+            <summary>
+            время подключения
+            </summary>
+        </member>
+        <member name="P:BLL.UserFromTable.orgName">
+            <summary>
+            название организации
+            </summary>
         </member>
         <member name="T:BLL.Params">
             <summary>
