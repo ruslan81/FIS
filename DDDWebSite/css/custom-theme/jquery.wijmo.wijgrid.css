@@ -480,3 +480,33 @@
 {
     text-align: right;
 }
+
+.wijmo-wijgrid-headerrow
+{
+    height:25px;
+}
+
+.wijmo-wijgrid-row
+{
+    height:30px;
+}
+
+.wijmo-wijgrid-alternatingrow
+{
+    background:#eee;
+}
+
+.wijmo-wijgrid-cell-border-right
+{
+    border-right:1px solid #ccc;
+}
+
+.wijmo-wijgrid-cell-border-bottom
+{
+    border-bottom:1px solid #ccc;
+}
+
+.wijmo-wijgrid-cell
+{
+    padding:5px;
+}

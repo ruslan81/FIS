@@ -45,7 +45,8 @@
         function resizeReports() {
             var vertHeightSTR = document.getElementById('vertical-menu').style.height;
             vertHeightSTR = vertHeightSTR.substr(0, vertHeightSTR.length - 2);
-            document.getElementById('outputId').style.height = (vertHeightSTR - 20) + "px";
+            document.getElementById('outputId').style.height = (vertHeightSTR - 30) + "px";
+            document.getElementById('outputId-content').style.height = (vertHeightSTR - 30) + "px";
         }
 
         function LoadDays() {
@@ -402,11 +403,11 @@
     </asp:UpdatePanel>
 </asp:Content>
 <asp:Content ID="DataContent" ContentPlaceHolderID="Reports_PlaceHolder" runat="server">
-    <asp:UpdatePanel ID="DataStatisticsUpdatePanel" runat="server" UpdateMode="Conditional">
+    <!--<asp:UpdatePanel ID="DataStatisticsUpdatePanel" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <uc1:LoadDataStatistics ID="LoadDataStatistics1" runat="server" Visible="false" />
         </ContentTemplate>
-    </asp:UpdatePanel>
+    </asp:UpdatePanel>-->
     <!--<table id="table-remote">
     </table>-->
     <div id="contentTableWrapper">
@@ -418,7 +419,7 @@
             </tbody>
         </table>
     </div>
-    <asp:UpdatePanel ID="GridPanel" UpdateMode="Always" runat="server" Visible="false">
+    <!--<asp:UpdatePanel ID="GridPanel" UpdateMode="Always" runat="server" Visible="false">
         <ContentTemplate>
             <asp:Panel runat="server" ID="AddGridPanel" CssClass="ui-jqgrid">
                 <asp:DataGrid ID="AddGrid" Width="100%" runat="server" OnItemDataBound="AddGrid_ItemDataBound"
@@ -587,7 +588,7 @@
             </asp:Panel>
         </ContentTemplate>
     </asp:UpdatePanel>
-    <br />
+    <br />-->
 </asp:Content>
 <asp:Content ID="BottomContent1" ContentPlaceHolderID="Bottom_PlaceHolder" runat="server">
     <asp:UpdatePanel ID="StatusUpdatePanel" runat="server" UpdateMode="Conditional">

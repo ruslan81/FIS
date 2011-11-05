@@ -22,22 +22,16 @@
 
         //run on page load
         $(function () {
-            //builds a tree
-            $("#tree").wijtree();
-            //and select General Settings
-            $("#general").wijtreenode({ selected: true });
-            loadGeneralSettings();
+            buildTree();
 
             $("#accordion").accordion({
                 change: function (event, ui) {
                     if ($("a", ui.newHeader).text() == "Организация") {
                         loadGeneralSettings();
                     };
-                    if ($("a", ui.newHeader).text() == "Просмотреть(Водитель)") {
-                        loadOverlookDriver();
+                    if ($("a", ui.newHeader).text() == "Напоминания") {
                     }
-                    if ($("a", ui.newHeader).text() == "Просмотреть(ТС)") {
-                        loadOverlookVehicle();
+                    if ($("a", ui.newHeader).text() == "Дополнительно") {
                     }
                 }
             });
@@ -52,12 +46,12 @@
     <script id="tmplGeneralSettings" type="text/x-jquery-tmpl">
         
         <tr>
-            <td style="font-size:12px;">
-                ${Key}
+            <td class="key" key="${Key}" style="font-size:12px;">
+                ${Value.Key}
             </td>
-            <td style="padding-left:50px;">
-                <input value="${Value}" class="inputField-readonly" readonly="readonly"/>
-            </tr>
+            <td class="value" style="padding-left:50px;">
+                <input value="${Value.Value}" class="inputField-readonly" readonly="readonly"/>
+            </td>
         </tr>
             
     </script> 
