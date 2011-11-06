@@ -332,39 +332,135 @@ public partial class Administrator_Data : System.Web.UI.Page
         return vehTree;
     }
 
+    private static List<int> getYearsList()
+    {
+        List<int> years = new List<int>();
+        years.Add(2011);
+        return years;
+    }
+
+    private static string getMonthName(int id){
+        switch(id){
+            case 1: return "Январь";
+            case 2: return "Февраль";
+            case 3: return "Март";
+            case 4: return "Апрель";
+            case 5: return "Май";
+            case 6: return "Июнь";
+            case 7: return "Июль";
+            case 8: return "Август";
+            case 9: return "Сентябрь";
+            case 10: return "Октябрь";
+            case 11: return "Ноябрь";
+            case 12: return "Декабрь";
+            default: return "Месяц?";
+        }
+
+    }
+
+    private static List<int> getMonthsList(int year)
+    {
+        List<int> months = new List<int>();
+        //for (int i=1;i<2;i++){
+            //months.Add(i);
+        //}
+        months.Add(5);
+        return months;
+    }
+
+    private static List<int> getDaysList(int year, int month)
+    {
+        List<int> days = new List<int>();        
+        //for (int i = 1; i < DateTime.DaysInMonth(year,month)/2;i++)
+        //{
+            //days.Add(i);
+        //}
+        days.Add(4);
+        return days;
+    }
+
     /// <summary>
-    ///Получить значения в таблице "Просмотреть(Водитель)"
+    ///Получить значения в таблице "Просмотреть()"
     /// </summary>
     /// <returns>String</returns>
     [System.Web.Services.WebMethod]
     public static List<YearData> GetOverlookDriverNodeData(String CardID, String OrgID)
     {
-        List<YearData> years = new List<YearData>();
+        List<YearData> result = new List<YearData>();
         try
         {
             string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
             DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
             int orgId = Convert.ToInt32(OrgID);
+            int cardId = Convert.ToInt32(CardID);
             dataBlock.OpenConnection();
 
-            YearData d = new YearData();
+            List<int> years = getYearsList();
+
+            bool yearFlag = true;
+            bool monthFlag = true;
+            int count = 0;
+            foreach (int year in years)
+            {
+                yearFlag = true;
+                List<int> months = getMonthsList(year);
+                foreach (int month in months)
+                {
+                    monthFlag = true;
+                    List<int> days = getDaysList(year, month);
+                    foreach (int day in days)
+                    {
+                        YearData data= new YearData();
+                        if (yearFlag)
+                        {
+                            data.YearName = year.ToString();
+                            yearFlag = false;
+                        }
+                        else {
+                            data.YearName = " ";
+                        }
+                        if (monthFlag)
+                        {
+                            data.MonthName = getMonthName(month);
+                            monthFlag = false;
+                        }
+                        else
+                        {
+                            data.MonthName = " ";
+                        }
+                        data.DayName = day.ToString();
+                        data.Percent = dataBlock.plfUnitInfo.Statistics_GetDayStatistics(new DateTime(year, month, day), cardId).ToString();
+                        //data.Percent = "100";
+                        data.key = count;
+                        result.Add(data);
+                        count++;
+                    }
+                }
+            }
+
+            /*YearData d = new YearData();
             d.YearName = CardID;
             d.MonthName = "November";
             d.DayName = "1";
             d.Percent = "37";
+            d.key = 0;
             years.Add(d);
             d = new YearData();
             d.DayName = "2";
             d.Percent = "46";
-            years.Add(d);
+            d.key = 1;
+            years.Add(d);*/
 
             dataBlock.CloseConnection();
         }
         catch (Exception ex)
         {
-            return null;
+            YearData d = new YearData();
+            d.YearName = ex.Message;
+            result.Add(d);
+            return result;
         }
-        return years;
+        return result;
     }
 
     

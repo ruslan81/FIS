@@ -76,7 +76,7 @@ function loadRecoverUserNodeData() {
     '{"text": "Тип файла", "style": "width: 100px"},' +
     '{"text": "Начальная дата", "style": "width: 100px"},' +
     '{"text": "Конечная дата", "style": "width: 100px"},' +
-    '{"text": "Количество записей", "style": "width: 100px"},' +
+    '{"text": "Количество", "style": "width: 100px"},' +
     '{"text": "Дата разбора файла", "style": "width: 150px"},' +
     '{"text": "", "style": "width: 50px"}]');
 
@@ -193,7 +193,7 @@ function loadOverlookDriverNodeData() {
     '{"text": "Месяц", "style": "width: 80px"},' +
     '{"text": "Число", "style": "width: 80px"},' +
     '{"text": "Процент данных", "style": "width: 120px"},' +
-    '{"text": "", "style": ""}]');
+    '{"text": "Прогресс", "style": ""}]');
 
     $.ajax({
         type: "POST",
@@ -204,6 +204,7 @@ function loadOverlookDriverNodeData() {
         dataType: "json",
         success: function (result) {
             updateTable($("#contentTableBody"), $("#tmplOverlookTable"), result.d);
+            refreshProgressBars();
         }
     });
 }
@@ -239,14 +240,13 @@ function loadOverlookVehicleTree() {
 //Событие при выделении узла дерева
 function onOverlookVehicleSelected(e, data) {
     isSelected = $("div", data.element).attr("aria-selected");
-    //cardID = $("a span", data.element).attr("key");
-
+    cardID = $("a span", data.element).attr("key");
     if (isSelected == "true") {
-        loadOverlookVehicleNodeData()
-    } /*else {
+        loadOverlookDriverNodeData()
+    } else {
         $("#contentTableBody").empty();
         $("#contentTable").hide();
-    }*/
+    }
 }
 
 //Загрузить данные для выбранного элемента дерева в разделе "Просмотреть(Водитель)"

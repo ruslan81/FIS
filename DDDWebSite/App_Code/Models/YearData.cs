@@ -12,6 +12,7 @@ public class YearData
     public String MonthName { get; set; }
     public String DayName { get; set; }
     public String Percent { get; set; }
+    public int key { get; set; }
 
     public YearData()
     {
@@ -19,5 +20,6 @@ public class YearData
         MonthName = "";
         DayName = "";
         Percent = "";
+        key = 0;
     }
 }

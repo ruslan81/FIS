@@ -17,8 +17,8 @@ namespace DDDModel
        
         static void Main(string[] args)
         {
-            string connectionString = "server=localhost;port=3306;default command timeout=3000;Connection Timeout=6000;User Id=root;password = ;Persist Security Info=True;database=smartfis";
-            string connectionString1 = "server=mysql62.1gb.ru;default command timeout=600;Connection Timeout=600;database=gb_x_smartfis;User Id=gb_x_smartfis;password =5216a0af;";
+            string connectionString1 = "server=localhost;port=3306;default command timeout=3000;Connection Timeout=6000;User Id=root;password = ;Persist Security Info=True;database=smartfis";
+            string connectionString = "server=mysql62.1gb.ru;default command timeout=600;Connection Timeout=600;database=gb_x_smartfis;User Id=gb_x_smartfis;password =5216a0af;";
             string currentLanguage = "STRING_EN";
             DataBlock dataBlock = new DataBlock(connectionString, currentLanguage);
             
@@ -28,19 +28,14 @@ namespace DDDModel
             //MY CODE
             dataBlock.OpenConnection();
 
-            int orgId = 1;
-            List<int> groupIds = dataBlock.cardsTable.GetAllGroupIds(orgId, dataBlock.cardsTable.driversCardTypeId);
-            for (int i = 0; i < groupIds.Count; i++)
+            for (int i = 90; i < 113; i++)
             {
-                string grName = dataBlock.cardsTable.GetGroupNameById(groupIds[i]);
-                System.Console.WriteLine("GROUP=" + groupIds[i]);
-                List<int> values = dataBlock.cardsTable.GetAllCardIdsByGroupId(orgId, dataBlock.cardsTable.driversCardTypeId, groupIds[i]);
-                for (int j = 0; j < values.Count; j++)
-                {
-                    String name = dataBlock.cardsTable.GetCardHolderNameByCardId(values[j]);
-                    System.Console.WriteLine("   NAME=" + name);
-                }
+                System.Console.WriteLine(
+                        dataBlock.vehicleUnitInfo.Statistics_GetDayStatistics(new DateTime(2011, 5, 4), i).ToString()
+                    );
             }
+
+
             dataBlock.CloseConnection();
             System.Console.ReadKey();
             return;
