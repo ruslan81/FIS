@@ -59,7 +59,7 @@ function onRecoverUserNodeSelected(e, data) {
     cardID = $("a span", data.element).attr("key");
 
     if (isSelected == "true") {
-        loadRecoverUserNodeData()
+        loadRecoverUserNodeData();
     } else {
         $("#contentTableBody").empty();
         $("#contentTable").hide();
@@ -118,6 +118,20 @@ function updateTable(tableBody, template, data) {
     for (var i = 0; i < rows.length; i++) {
         if (i % 2 != 0)
             $(rows[i]).addClass("wijmo-wijgrid-alternatingrow");
+    }
+
+    //отделяем ячейки границами
+    for (var i = 0; i < rows.length; i++) {
+        var cells=$(".wijgridtd",rows[i]);
+        for (var j = 0; j < cells.length; j++) {
+            if (j < cells.length - 1) {
+                $(cells[j]).addClass("wijmo-wijgrid-cell-border-right");
+            }
+            if (i < rows.length - 1) {
+                $(cells[j]).addClass("wijmo-wijgrid-cell-border-bottom");
+            }
+            $(cells[j]).addClass("wijmo-wijgrid-cell");
+        }
     }
 
     //add hover effect

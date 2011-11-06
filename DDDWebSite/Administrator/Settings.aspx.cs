@@ -73,11 +73,11 @@ public partial class Administrator_Settings : System.Web.UI.Page
     //AJAX BEGIN
 
     /// <summary>
-    ///Получить элементы дерева Водителей в разделе "Восстановить у пользователя"
+    ///Получить Общие настройки
     /// </summary>
     /// <returns></returns>
     [System.Web.Services.WebMethod]
-    public static List<MapItem> GetGeneralSettings(String OrgID)
+    public static List<KeyValuePair<int,MapItem>> GetGeneralSettings(String OrgID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
@@ -89,16 +89,16 @@ public partial class Administrator_Settings : System.Web.UI.Page
             dataBlock.organizationTable.OpenConnection();
             List<KeyValuePair<string, int>> orgInfo = new List<KeyValuePair<string, int>>();
             orgInfo = dataBlock.organizationTable.GetAllOrgInfos();
-            List<MapItem> generalSettings = new List<MapItem>();
+            List<KeyValuePair<int, MapItem>> generalSettings = new List<KeyValuePair<int, MapItem>>();
 
-            generalSettings.Add(new MapItem("Наименование организации", dataBlock.organizationTable.GetOrganizationName(orgId)));
-            generalSettings.Add(new MapItem("Страна", dataBlock.organizationTable.GetOrgCountryName(orgId)));
-            generalSettings.Add(new MapItem("Регион", dataBlock.organizationTable.GetOrgRegionName(orgId)));
+            generalSettings.Add(new KeyValuePair<int,MapItem>(0, new MapItem("Наименование организации", dataBlock.organizationTable.GetOrganizationName(orgId))));
+            generalSettings.Add(new KeyValuePair<int,MapItem>(0, new MapItem("Страна", dataBlock.organizationTable.GetOrgCountryName(orgId))));
+            generalSettings.Add(new KeyValuePair<int,MapItem>(0, new MapItem("Регион", dataBlock.organizationTable.GetOrgRegionName(orgId))));
 
             foreach (KeyValuePair<string, int> pair in orgInfo)
             {
                 String value=dataBlock.organizationTable.GetAdditionalOrgInfo(orgId, pair.Value);
-                generalSettings.Add(new MapItem(pair.Key,value));
+                generalSettings.Add(new KeyValuePair<int, MapItem>(pair.Value, new MapItem(pair.Key,value)));
             }
 
             return generalSettings;
@@ -113,6 +113,37 @@ public partial class Administrator_Settings : System.Web.UI.Page
             dataBlock.CloseConnection();
         }
     }
+
+    /// <summary>
+    ///Сохранить Общие настройки
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static bool SaveGeneralSettings(String OrgID, List<MapItem> GeneralSettings)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        try
+        {
+            dataBlock.organizationTable.OpenConnection();
+            int orgID = int.Parse(OrgID);
+            foreach (MapItem item in GeneralSettings)
+            {
+                dataBlock.organizationTable.AddOrEditAdditionalOrgInfo(orgID, int.Parse(item.Key.Trim()), item.Value.Trim());
+            }
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+        finally
+        {
+            dataBlock.organizationTable.CloseConnection();
+            dataBlock.CloseConnection();
+        }
+    }
+
 
     //AJAX END
 
