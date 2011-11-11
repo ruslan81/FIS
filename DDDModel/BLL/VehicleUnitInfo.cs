@@ -1621,8 +1621,8 @@ namespace BLL
             int minutesInDay = 1440;
 
             VehichleUnit.VehicleUnitClass vehicleUnitClass = new VehichleUnit.VehicleUnitClass();
+            //DateTime nextDay = new DateTime(date.Year,date.Month,date.Day+1);
             vehicleUnitClass.vehicleActivities = Get_VehicleActivities_AllInOne(datablockId, date.Date, date);
-
             stat = (vehicleUnitClass.GetTotalVehicleActivitiesTime().TotalMinutes / minutesInDay) * 100;
             return stat;
         }

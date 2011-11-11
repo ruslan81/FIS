@@ -17,8 +17,8 @@ namespace DDDModel
        
         static void Main(string[] args)
         {
-            string connectionString1 = "server=localhost;port=3306;default command timeout=3000;Connection Timeout=6000;User Id=root;password = ;Persist Security Info=True;database=smartfis";
-            string connectionString = "server=mysql62.1gb.ru;default command timeout=600;Connection Timeout=600;database=gb_x_smartfis;User Id=gb_x_smartfis;password =5216a0af;";
+            string connectionString = "server=localhost;port=3306;default command timeout=3000;Connection Timeout=6000;User Id=root;password = ;Persist Security Info=True;database=smartfis";
+            string connectionString1 = "server=mysql62.1gb.ru;default command timeout=600;Connection Timeout=600;database=gb_x_smartfis;User Id=gb_x_smartfis;password =5216a0af;";
             string currentLanguage = "STRING_EN";
             DataBlock dataBlock = new DataBlock(connectionString, currentLanguage);
             
@@ -28,13 +28,10 @@ namespace DDDModel
             //MY CODE
             dataBlock.OpenConnection();
 
-            for (int i = 90; i < 113; i++)
-            {
                 System.Console.WriteLine(
-                        dataBlock.vehicleUnitInfo.Statistics_GetDayStatistics(new DateTime(2011, 5, 4), i).ToString()
+                        dataBlock.plfUnitInfo.Statistics_GetDayStatistics(new DateTime(2006, 11, 1), 135).ToString()
                     );
-            }
-
+            
 
             dataBlock.CloseConnection();
             System.Console.ReadKey();

@@ -16,10 +16,10 @@ public class YearData
 
     public YearData()
     {
-        YearName = "";
-        MonthName = "";
-        DayName = "";
-        Percent = "";
+        YearName = " ";
+        MonthName = " ";
+        DayName = " ";
+        Percent = " ";
         key = 0;
     }
 }

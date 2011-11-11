@@ -4,5 +4,245 @@
         <name>DB.XML</name>
     </assembly>
     <members>
+        <member name="T:PARSER.HexBytes">
+            <summary>
+            класс конвертирует байты и байтовые массивы в различные типы.
+            </summary>
+        </member>
+        <member name="M:PARSER.HexBytes.arrayCopy(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            копирует часть массива байт
+            </summary>
+            <param name="value">исходный массив байт</param>
+            <param name="from">номер индекса, откуда начать копирование</param>
+            <param name="length">колличество байт, которые надо скопировать</param>
+            <returns>номый массив, полученный копированием части старого</returns>
+        </member>
+        <member name="M:PARSER.HexBytes.convertIntoUnsigned1ByteInt(System.Byte)">
+            <summary>
+             byte to short. 
+            </summary>
+            <param name="b">byte</param>
+            <returns>short</returns> 
+        </member>
+        <member name="M:PARSER.HexBytes.convertIntoUnsigned1ByteInt(System.Byte[])">
+            <summary>
+            byte[0] to short.
+            </summary>
+            <param name="b">byte[]</param>
+            <returns>short</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:PARSER.HexBytes.convertIntoUnsigned2ByteInt(System.Byte[])" -->
+        <!-- Badly formed XML comment ignored for member "M:PARSER.HexBytes.convertIntoUnsigned3ByteInt(System.Byte[])" -->
+        <!-- Badly formed XML comment ignored for member "M:PARSER.HexBytes.convertIntoUnsigned4ByteInt(System.Byte[])" -->
+        <member name="M:PARSER.HexBytes.convertBCDStringIntoString(System.Byte[])">
+            <summary>
+            BCD string to String
+            </summary>
+            <param name="b">byte[]</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:PARSER.HexBytes.convertIntoHexString(System.Byte[])">
+            <summary>
+            byte[] convert Into Hex String
+            </summary>
+            <param name="b">byte[] b</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:PARSER.HexBytes.convertIntoHexString(System.Byte)">
+            <summary>
+            byte convert Into Hex String
+            </summary>
+            <param name="b">byte</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:PARSER.HexBytes.CompareByteArrays(System.Byte[],System.Byte[])">
+            <summary>
+            Compares one byte[] to another byte[].
+            </summary>
+            <param name="array1">byte[] array1</param>
+            <param name="array2">byte[] array2</param>
+            <returns>bool</returns>
+        </member>
+        <member name="M:PARSER.HexBytes.MemberCompare(System.Object,System.Object)">
+            <summary>
+            Сравнивает Property двух любых обьектов.
+            </summary>
+            <param name="left">первый обьект</param>
+            <param name="right">второй обьект</param>
+            <returns>bool - true если все равны, false, если нет</returns>
+        </member>
+        <member name="M:PARSER.HexBytes.convertIntoString(System.Byte[])">
+            <summary>
+            Конвертирует массив байт в строку
+            </summary>
+            <param name="b">byte[] b</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:PARSER.HexBytes.convertIntoString(System.Byte)">
+            <summary>
+            Конвертирует один байт в строку
+            </summary>
+            <param name="b">byte b</param>
+            <returns>string</returns>
+        </member>
+        <member name="T:PARSER.PLF_Parser">
+            <summary>
+            Парсер PLF файлов
+            </summary>
+        </member>
+        <member name="M:PARSER.PLF_Parser.PLFUnitData_Parse(System.Byte[])">
+            <summary>
+            Разбирает PLF файл, возвращает информацию в обьекте класса PLFUnitClass
+            </summary>
+            <param name="src">Битовый массив - считаный в память PLF файл</param>
+            <returns>экземпляр PLFUnitClass</returns>
+        </member>
+        <member name="M:PARSER.PLF_Parser.DeleteComments(System.String)">
+            <summary>
+            метод удаляет комментарии в PLF файле, чтобы парсер их игнорировал
+            </summary>
+            <param name="str">Одна строка из PLF файла</param>
+            <returns>строка без комментариев</returns>
+        </member>
+        <member name="T:PARSER.DDDParser">
+            <summary>
+            Класс парсера. В него включены все парсеры, когда подаем файл на вход, сам определяет тип файла.
+            </summary>
+        </member>
+        <member name="F:PARSER.DDDParser.fileName">
+            <summary>
+            имя файла
+            </summary>
+        </member>
+        <member name="F:PARSER.DDDParser.bytes">
+            <summary>
+            массив байт - обьект для разбора
+            </summary>
+        </member>
+        <member name="M:PARSER.DDDParser.GetCardType">
+            <summary>
+            Получить тип разбираемого обьекта
+            </summary>
+            <returns>тип разбираемого обьекта</returns>
+        </member>
+        <member name="M:PARSER.DDDParser.ParseFile(System.Byte[],System.String)">
+            <summary>
+            Разбирает файл
+            </summary>
+            <param name="dddBytes">обьект для разбора</param>
+            <param name="fileNameTmp">Имя файла</param>
+            <returns>Дебаг информация или для лога.</returns>
+        </member>
+        <member name="M:PARSER.DDDParser.ParseFile(System.String)">
+            <summary>
+            Разбирает файл.
+            </summary>
+            <param name="filename">путь к файлу</param>
+            <returns>Дебаг информация или для лога.</returns>
+        </member>
+        <member name="M:PARSER.DDDParser.ParseIt">
+            <summary>
+            Разбирает обьект, вызывается методами ParseFile
+            </summary>
+            <returns>результат действия</returns>
+        </member>
+        <member name="M:PARSER.DDDParser.checkWhatCardIsIt(System.Byte[])">
+            <summary>
+            Устанавливает тип файла для разбора
+            </summary>
+            <param name="twoLetters">первых два байта файла</param>
+            <returns></returns>
+        </member>
+        <member name="M:PARSER.DDDParser.GenerateXmlFile(System.String)">
+            <summary>
+            Генерирует XML файл разобранного файла
+            </summary>
+            <param name="output">путь для сохранения файла</param>
+            <returns>результат.</returns>
+        </member>
+        <member name="P:PARSER.DDDParser.srcType">
+            <summary>
+            тип файла
+            </summary>
+        </member>
+        <member name="P:PARSER.DDDParser.vehicleUnitClass">
+            <summary>
+            обьект типа VehicleUnitClass - саздается если разбираемый файл - ДДД ТС 
+            </summary>
+        </member>
+        <member name="P:PARSER.DDDParser.cardUnitClass">
+            <summary>
+            обьект типа CardUnitClass - саздается если разбираемый файл - ДДД карты
+            </summary>
+        </member>
+        <member name="P:PARSER.DDDParser.plfUnitClass">
+            <summary>
+            обьект типа PLFUnitClass - саздается если разбираемый файл - PLF
+            </summary>
+        </member>
+        <member name="T:PARSER.M_VehicleUnitParser">
+            <summary>
+            Парсер M_ файлов(DDD для транспортных средств)
+            </summary>
+        </member>
+        <member name="F:PARSER.M_VehicleUnitParser.trep">
+            <summary>
+            Переменная указывает какой блок данных сейчас обрабатывается.
+            </summary>
+        </member>
+        <member name="M:PARSER.M_VehicleUnitParser.#ctor">
+            <summary>
+            Конструктор
+            </summary>
+        </member>
+        <member name="M:PARSER.M_VehicleUnitParser.VehicleUnitData_Parse(System.Byte[])">
+            <summary>
+            Разбор ДДД файла для ТС
+            </summary>
+            <param name="src">ДДД файл</param>
+            <returns>VehicleUnitClass</returns>
+        </member>
+        <member name="M:PARSER.M_VehicleUnitParser.isValidSIDTREP(System.Byte[])">
+            <summary>
+            Смотрит тэг, выбирает какой блок данных идет далее и устанавиливает глобальную переменную.
+            </summary>
+            <param name="tag">два байта с описанием следующего блока данных</param>
+            <returns>Возвращает строку, использовалась ранее, для вывода в консоль, сейчас пока ненадо. МОжно использовать для записи лога.</returns>
+        </member>
+        <member name="T:PARSER.C_DriversParser">
+            <summary>
+            Парсер для ДДД файлов карточек водителя и других.
+            </summary>
+        </member>
+        <member name="F:PARSER.C_DriversParser.fileId">
+            <summary>
+            указывает, какой блок данных обрабатывать
+            </summary>
+        </member>
+        <member name="F:PARSER.C_DriversParser.cardType">
+            <summary>
+            типа карты
+            </summary>
+        </member>
+        <member name="M:PARSER.C_DriversParser.#ctor">
+            <summary>
+            Конструктор по умолчанию
+            </summary>
+        </member>
+        <member name="M:PARSER.C_DriversParser.CardUnitData_Parse(System.Byte[])">
+            <summary>
+            Разбирает ДДД файл водителя(или другой карты)
+            </summary>
+            <param name="src">файл ДДД</param>
+            <returns>обьект класса CardUnitClass</returns>
+        </member>
+        <member name="M:PARSER.C_DriversParser.isValidFileID(System.Byte[])">
+            <summary>
+            Указывает, какой блок данных идет дальше
+            </summary>
+            <param name="tag">массив из двух байт, заголовок блока данных</param>
+            <returns>название следующего блока и дополнительная информация. Использовать для дебага или лога.</returns>
+        </member>
     </members>
 </doc>

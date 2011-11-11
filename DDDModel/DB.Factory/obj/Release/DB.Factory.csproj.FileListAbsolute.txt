@@ -24,3 +24,4 @@ D:\BSUIR\Other\UnitedProject\DDDModel\DB.Factory\bin\Release\DB.Interface.xml
 D:\BSUIR\Other\UnitedProject\DDDModel\DB.Factory\obj\Release\ResolveAssemblyReference.cache
 D:\BSUIR\Other\UnitedProject\DDDModel\DB.Factory\obj\Release\DB.Factory.dll
 D:\BSUIR\Other\UnitedProject\DDDModel\DB.Factory\obj\Release\DB.Factory.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\DB.Factory\bin\Release\DB.Factory.XML
