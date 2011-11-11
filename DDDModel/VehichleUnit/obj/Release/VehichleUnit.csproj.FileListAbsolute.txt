@@ -24,3 +24,4 @@ D:\BSUIR\Other\UnitedProject\DDDModel\VehichleUnit\bin\Release\DDDClass.xml
 D:\BSUIR\Other\UnitedProject\DDDModel\VehichleUnit\obj\Release\ResolveAssemblyReference.cache
 D:\BSUIR\Other\UnitedProject\DDDModel\VehichleUnit\obj\Release\VehichleUnit.dll
 D:\BSUIR\Other\UnitedProject\DDDModel\VehichleUnit\obj\Release\VehichleUnit.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\VehichleUnit\bin\Release\VehichleUnit.XML

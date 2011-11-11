@@ -803,7 +803,8 @@ namespace BLL
             allSensorsParamIds = Get_AllParamsSensorsId(sensorsInstalled);
             plfUnitClassTemp.Records = Get_Records(datablockId, sensorsInstalled, allSensorsParamIds);
             plfUnitClassTemp.TIME_STEP = Get_TIME_STEP(datablockId);
-
+            if (plfUnitClassTemp.TIME_STEP == " ")
+                return 0;
             stat = (plfUnitClassTemp.Get_AllWorkingTime().TotalMinutes / (minutesInDay * dayInYear)) * 100;
             return stat;
         }
@@ -828,7 +829,8 @@ namespace BLL
             allSensorsParamIds = Get_AllParamsSensorsId(sensorsInstalled);
             plfUnitClassTemp.Records = Get_Records(datablockId, new DateTime(date.Year, date.Month, 1), new DateTime(date.Year, date.Month, dayInMonth), sensorsInstalled, allSensorsParamIds, sqldbRecords);
             plfUnitClassTemp.TIME_STEP = Get_TIME_STEP(datablockId);
-
+            if (plfUnitClassTemp.TIME_STEP == " ")
+                return 0;
             stat = (plfUnitClassTemp.Get_AllWorkingTime().TotalMinutes / (minutesInDay * dayInMonth)) * 100;
             return stat;
         }
@@ -852,7 +854,8 @@ namespace BLL
             allSensorsParamIds = Get_AllParamsSensorsId(sensorsInstalled);
             plfUnitClassTemp.Records = Get_Records(datablockId, date.Date, date, sensorsInstalled, allSensorsParamIds, sqldbRecords);
             plfUnitClassTemp.TIME_STEP = Get_TIME_STEP(datablockId);
-
+            if (plfUnitClassTemp.TIME_STEP == " ")
+                return 0;
             stat = (plfUnitClassTemp.Get_AllWorkingTime().TotalMinutes / minutesInDay) * 100;
             return stat;
         }

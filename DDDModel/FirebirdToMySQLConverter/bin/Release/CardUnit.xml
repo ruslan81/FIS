@@ -4,5 +4,129 @@
         <name>CardUnit</name>
     </assembly>
     <members>
+        <member name="T:CardUnit.EF_Faults_Data">
+            <summary>
+            Нарушения
+            </summary>
+        </member>
+        <member name="T:CardUnit.CardUnitClass">
+            <summary>
+            Класс полностью описывает структуру ДДД карточки.
+            </summary>
+        </member>
+        <member name="M:CardUnit.CardUnitClass.SerializeCardUnitClass(System.String)">
+            <summary>
+            сериализует обьект в XML
+            </summary>
+            <param name="output">путь, куда сохранять XML</param>
+            <returns>имя файла</returns>
+        </member>
+        <member name="M:CardUnit.CardUnitClass.DeserializeCardUnitClass(System.String)">
+            <summary>
+            Десериализует XML в обьект класса CardUnitClass
+            </summary>
+            <param name="filename">путь к файлу XML</param>
+            <returns>созданный обьект CardUnitClass</returns>
+        </member>
+        <member name="P:CardUnit.CardUnitClass.cardType">
+            <summary>
+            тип карты
+            </summary>
+        </member>
+        <member name="T:CardUnit.EF_Sensor_Installation_Data">
+            <summary>
+            дата установки датчиков
+            </summary>
+        </member>
+        <member name="T:CardUnit.EF_Current_Usage">
+            <summary>
+            EF_Current_Usage
+            </summary>
+        </member>
+        <member name="T:CardUnit.EF_Calibration">
+            <summary>
+            Информация о калибровке. используется только когда карточка мастерской.
+            </summary>
+        </member>
+        <member name="T:CardUnit.EF_CA_Certificate">
+            <summary>
+            СА_сертификаты
+            </summary>
+        </member>
+        <member name="T:CardUnit.EF_IC">
+            <summary>
+            IC
+            </summary>
+        </member>
+        <member name="T:CardUnit.EF_Company_Activity_Data">
+            <summary>
+            Описывает активность компании
+            </summary>
+        </member>
+        <member name="T:CardUnit.EF_Driver_Activity_Data">
+            <summary>
+            активность водителя
+            </summary>
+        </member>
+        <member name="T:CardUnit.EF_Identification">
+            <summary>
+            Описание держателя карты
+            </summary>
+        </member>
+        <member name="T:CardUnit.EF_Controller_Activity_Data">
+            <summary>
+            Описывает активность контролируещего(когда карта контроллера)
+            </summary>
+        </member>
+        <member name="T:CardUnit.EF_Card_Certificate">
+            <summary>
+            Сертификат карты
+            </summary>
+        </member>
+        <member name="T:CardUnit.EF_Specific_Conditions">
+            <summary>
+            особые условия и данные
+            </summary>
+        </member>
+        <member name="T:CardUnit.EF_Driving_Licence_Info">
+            <summary>
+            информация водительской лицензии
+            </summary>
+        </member>
+        <member name="T:CardUnit.EF_Control_Activity_Data">
+            <summary>
+            Данные о проведенном контроле.
+            </summary>
+        </member>
+        <member name="T:CardUnit.EF_Application_Identification">
+            <summary>
+            Описание структуры данных на карточке
+            </summary>
+        </member>
+        <member name="T:CardUnit.EF_Places">
+            <summary>
+            Посещенные места
+            </summary>
+        </member>
+        <member name="T:CardUnit.EF_Events_Data">
+            <summary>
+            События
+            </summary>
+        </member>
+        <member name="T:CardUnit.EF_ICC">
+            <summary>
+            ICC
+            </summary>
+        </member>
+        <member name="T:CardUnit.EF_Card_Download">
+            <summary>
+            Описание последнего считываения информации с карты и количества настроек БУ после этого
+            </summary>
+        </member>
+        <member name="T:CardUnit.EF_Vehicles_Used">
+            <summary>
+            Использование ТС
+            </summary>
+        </member>
     </members>
 </doc>

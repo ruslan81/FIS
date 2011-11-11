@@ -4,5 +4,268 @@
         <name>PLFUnit</name>
     </assembly>
     <members>
+        <member name="T:PLFUnit.PLFSystemTime">
+            <summary>
+            Класс описывает время в PLF файле.
+            </summary>
+        </member>
+        <member name="M:PLFUnit.PLFSystemTime.#ctor(System.String)">
+            <summary>
+            конструктор с параметром
+            </summary>
+            <param name="value">тут любой System_Time параметр</param>
+        </member>
+        <member name="M:PLFUnit.PLFSystemTime.#ctor">
+            <summary>
+            Конструктор по-умолчанию
+            </summary>
+        </member>
+        <member name="M:PLFUnit.PLFSystemTime.GetSystemTime(System.String)">
+            <summary>
+            Парсит любой переданный параметр System_Time, незнаю почему не статический метод, но видимо так надо было.
+            </summary>
+            <param name="value">параметр System_Time</param>
+            <returns>тип DateTime</returns>
+        </member>
+        <member name="M:PLFUnit.PLFSystemTime.GetSystemTime">
+            <summary>
+            Парсит содержимое переменной systemTime в тип DateTime и возвращает его.
+            </summary>
+            <returns>тип DateTime</returns>
+        </member>
+        <member name="M:PLFUnit.PLFSystemTime.GetRoundedSystemTime(System.Int32)">
+            <summary>
+            Незнаю что это такое, нигде не используется
+            </summary>
+            <param name="timeStep">?</param>
+            <returns>?</returns>
+        </member>
+        <member name="M:PLFUnit.PLFSystemTime.ToString">
+            <summary>
+            Перегруженная функция ToString()
+            </summary>
+            <returns>Строковое представление для времени</returns>
+        </member>
+        <member name="P:PLFUnit.PLFSystemTime.systemTime">
+            <summary>
+            Переменная времени. хранится как строка.
+            </summary>
+        </member>
+        <member name="T:PLFUnit.PLFUnitClass">
+            <summary>
+            Класс полностью описывает PLF файл.
+            </summary>
+        </member>
+        <member name="M:PLFUnit.PLFUnitClass.#ctor">
+            <summary>
+            Конструктор по умолчанию
+            </summary>
+        </member>
+        <member name="M:PLFUnit.PLFUnitClass.SerializePLFUnitClass(System.String)">
+            <summary>
+            Сериализует класс в XML
+            </summary>
+            <param name="output">путь, куда ложить файл</param>
+            <returns>имя созданного файла</returns>
+        </member>
+        <member name="M:PLFUnit.PLFUnitClass.DeserializePlfUnitClass(System.String)">
+            <summary>
+            Десериализует из XML в экземпляр этого класса
+            </summary>
+            <param name="filename">путь к файлу.</param>
+            <returns>обьект класса PLFUnitClass</returns>
+        </member>
+        <member name="M:PLFUnit.PLFUnitClass.SortPlfEveryDay">
+            <summary>
+            Сортирует по дням
+            </summary>
+            <returns>возвращает массив обьектов PLFUnitClass, каждый содержит информацию за сутки</returns>
+        </member>
+        <member name="M:PLFUnit.PLFUnitClass.Get_AllWorkingTime">
+            <summary>
+            Возвращает  все время Time_Step*records.count
+            </summary>
+            <returns>продолжительность работы</returns>
+        </member>
+        <member name="M:PLFUnit.PLFUnitClass.Get_MovingTime">
+            <summary>
+            Время движения Speed!=0
+            </summary>
+            <returns>продолжительность движения</returns>
+        </member>
+        <member name="M:PLFUnit.PLFUnitClass.Get_MovingPercents">
+            <summary>
+            Получает процент движения
+            </summary>
+            <returns>Double процент движения</returns>
+        </member>
+        <member name="M:PLFUnit.PLFUnitClass.Get_RestPercents">
+            <summary>
+            Получает процент отдыха
+            </summary>
+            <returns>Double процент отдыха</returns>
+        </member>
+        <member name="M:PLFUnit.PLFUnitClass.Get_IdleRpmTime">
+            <summary>
+             700-PRM-1100. Доделать, чтобы IdleRpm бралось из настроек конкретной машины
+            </summary>
+            <returns>время идеальных оборотов двигателя</returns>
+        </member>
+        <member name="M:PLFUnit.PLFUnitClass.Get_WorkingEngineTime">
+            <summary>
+            Engine_RPM!=0
+            </summary>
+            <returns>время работы двигателя</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:PLFUnit.PLFUnitClass.Get_WorkingEngineWithNoMovingTime" -->
+        <member name="M:PLFUnit.PLFUnitClass.Get_IdleRpmPercent">
+            <summary>
+            Процент идеальных оборотов двигателя
+            </summary>
+            <returns>double процент идеальных оборотов двигателя</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:PLFUnit.PLFUnitClass.Get_RestTime" -->
+        <member name="M:PLFUnit.PLFUnitClass.Get_AllRefills">
+            <summary>
+            Получает все заправки
+            </summary>
+            <returns>Список обьектов типа PLFRefillClass</returns>
+        </member>
+        <member name="M:PLFUnit.PLFUnitClass.Get_AllDropOuts">
+            <summary>
+            Получает все сливы
+            </summary>
+            <returns>Список обьектов типа PLFRefillClass</returns>
+        </member>
+        <member name="M:PLFUnit.PLFUnitClass.GetPath">
+            <summary>
+            Все пройденное расстрояние
+            </summary>
+            <returns>Все пройденное расстояние</returns>
+        </member>
+        <member name="M:PLFUnit.PLFUnitClass.GetOdometer">
+            <summary>
+            Возвращает показания Одометра, пока только 0
+            </summary>
+            <returns>int, всегда 0</returns>
+        </member>
+        <member name="M:PLFUnit.PLFUnitClass.GetFuel">
+            <summary>
+            Сумма уровня топлива... оО Думаю неверно. нужно сделать расход или типа того.
+            </summary>
+            <returns>Топливо</returns>
+        </member>
+        <member name="M:PLFUnit.PLFUnitClass.MaxContinuousMovingTime">
+            <summary>
+            Максимальное непрерывное время движения
+            </summary>
+            <returns>Максимальное непрерывное время движения</returns>
+        </member>
+        <member name="M:PLFUnit.PLFUnitClass.MaxContinuousWorkingWithNoMovingTime">
+            <summary>
+             Максимальное непрерывное время простоя(Speed==0)
+            </summary>
+            <returns>Максимальное непрерывное время простоя</returns>
+        </member>
+        <member name="M:PLFUnit.PLFUnitClass.MaxContinuousPath">
+            <summary>
+            Максимальный непрерывный пройденный путь
+            </summary>
+            <returns>Максимальный непрерывный пройденный путь</returns>
+        </member>
+        <member name="M:PLFUnit.PLFUnitClass.FFT_Fuel(System.Collections.Generic.List{PLFUnit.PLFRecord}@)">
+            <summary>
+            Сглаживание функции. Для подсчета заправок сперва нужно сгладить значения(убрать скачки от болтания) Алгоритм крайне простой и не требует описания.
+            </summary>
+            <param name="recordsList">передавать можно List-PLFRecord- только с заполнеными полями FUEL_VOLUME1</param>
+            <returns>возвразает массив Double, в нем сглаженный уровень топлива</returns>
+        </member>
+        <member name="P:PLFUnit.PLFUnitClass.cardType">
+            <summary>
+            тип карты. Устанавливается во время разбора.
+            </summary>
+        </member>
+        <member name="P:PLFUnit.PLFUnitClass.Records">
+            <summary>
+            Массив записей типа PLFRecord
+            </summary>
+        </member>
+        <member name="P:PLFUnit.PLFUnitClass.ID_DEVICE">
+            <summary>
+            ID бортового устройства
+            </summary>
+        </member>
+        <member name="P:PLFUnit.PLFUnitClass.VEHICLE">
+            <summary>
+            Имя/номер транспортного средства
+            </summary>
+        </member>
+        <member name="P:PLFUnit.PLFUnitClass.TIME_STEP">
+            <summary>
+            Шаг времени.
+            </summary>
+        </member>
+        <member name="P:PLFUnit.PLFUnitClass.START_PERIOD">
+            <summary>
+            дата первой записи в файле
+            </summary>
+        </member>
+        <member name="P:PLFUnit.PLFUnitClass.END_PERIOD">
+            <summary>
+            дата последней записи в файле
+            </summary>
+        </member>
+        <member name="P:PLFUnit.PLFUnitClass.installedSensors">
+            <summary>
+            Список установленных сенсоров
+            </summary>
+        </member>
+        <member name="T:PLFUnit.PLFRefillClass">
+            <summary>
+            Описывает одну заправку или слив топлива.
+            </summary>
+        </member>
+        <member name="M:PLFUnit.PLFRefillClass.#ctor">
+            <summary>
+            Конструктор по умолчанию
+            </summary>
+        </member>
+        <member name="P:PLFUnit.PLFRefillClass.timeStart">
+            <summary>
+            начало слива/заправки
+            </summary>
+        </member>
+        <member name="P:PLFUnit.PLFRefillClass.timeEnd">
+            <summary>
+            окончание слива/заправки
+            </summary>
+        </member>
+        <member name="P:PLFUnit.PLFRefillClass.capacityStart">
+            <summary>
+            Количество топлива на начало слива/заправки
+            </summary>
+        </member>
+        <member name="P:PLFUnit.PLFRefillClass.capacityEnd">
+            <summary>
+            Количество топлива на окончание слива/заправки
+            </summary>
+        </member>
+        <member name="T:PLFUnit.PLFRecord">
+            <summary>
+            Класс описывает одну запись в PLF файле
+            </summary>
+        </member>
+        <member name="M:PLFUnit.PLFRecord.SetNForAllParams">
+            <summary>
+            Устанавливает значение всех параметров в N(когда параметр в N, значит нет датчика и информация отсутствует.
+            </summary>
+        </member>
+        <member name="M:PLFUnit.PLFRecord.getDoubleParam(System.String)">
+            <summary>
+            из строки преобразует в Double. Меняет с точки на запятую разделитель и делает Double.Parse()
+            </summary>
+            <param name="param">любой параметр, который нужно из строки перевести в double</param>
+            <returns>double</returns>
+        </member>
     </members>
 </doc>

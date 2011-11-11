@@ -179,7 +179,7 @@ function loadOverlookDriverTree() {
             $("#tmplGroupTree").tmpl(response.d).appendTo("#OverlookDriverTree");
             $("#OverlookDriverTree").wijtree();
             $("#OverlookDriverTree").wijtree({ selectedNodeChanged: function (e, data) {
-                onOverlookDriverSelected(e, data);
+                onOverlookNodeSelected(e, data);
             }
             });
         }
@@ -187,9 +187,12 @@ function loadOverlookDriverTree() {
 }
 
 //Событие при выделении узла дерева
-function onOverlookDriverSelected(e, data) {
+/*function onOverlookDriverSelected(e, data) {
     isSelected = $("div", data.element).attr("aria-selected");
     cardID = $("a span", data.element).attr("key");
+    if (cardID == "None")
+        return;
+    cardID = "136";
     if (isSelected == "true") {
         loadOverlookDriverNodeData()
     } else {
@@ -203,10 +206,10 @@ function loadOverlookDriverNodeData() {
     $("#contentTable").show();
     //create table header
     createTableHeader($("#contentTableHeader"), $("#tmplHeadColumn"),
-    '[{"text": "Год", "style": "width: 80px"},' +
-    '{"text": "Месяц", "style": "width: 80px"},' +
-    '{"text": "Число", "style": "width: 80px"},' +
-    '{"text": "Процент данных", "style": "width: 120px"},' +
+    '[{"text": "Год", "style": "width: 60px;"},' +
+    '{"text": "Месяц", "style": "width: 60px;"},' +
+    '{"text": "Число", "style": "width: 60px;"},' +
+    '{"text": "Процент данных", "style": "width: 60px;"},' +
     '{"text": "Прогресс", "style": ""}]');
 
     $.ajax({
@@ -221,7 +224,7 @@ function loadOverlookDriverNodeData() {
             refreshProgressBars();
         }
     });
-}
+}*/
 
 //FROM HERE OVERLOOK(VEHICLE) STARTS
 
@@ -244,7 +247,7 @@ function loadOverlookVehicleTree() {
             $("#tmplGroupTree").tmpl(response.d).appendTo("#OverlookVehicleTree");
             $("#OverlookVehicleTree").wijtree();
             $("#OverlookVehicleTree").wijtree({ selectedNodeChanged: function (e, data) {
-                onOverlookVehicleSelected(e, data);
+                onOverlookNodeSelected(e, data);
             }
             });
         }
@@ -252,40 +255,86 @@ function loadOverlookVehicleTree() {
 }
 
 //Событие при выделении узла дерева
-function onOverlookVehicleSelected(e, data) {
+function onOverlookNodeSelected(e, data) {
     isSelected = $("div", data.element).attr("aria-selected");
     cardID = $("a span", data.element).attr("key");
+    if (cardID == "None"){
+        cardID = null;
+        $("#contentTableBody").empty();
+        $("#contentTable").hide();
+        $("#periodSelection").hide();
+        return;
+    }
+    //cardID = "135";
     if (isSelected == "true") {
-        loadOverlookDriverNodeData()
+        $("#periodSelection").show();
+        $("#dateErrorBlock").hide();
     } else {
         $("#contentTableBody").empty();
         $("#contentTable").hide();
+        $("#periodSelection").hide();
     }
 }
 
-//Загрузить данные для выбранного элемента дерева в разделе "Просмотреть(Водитель)"
-function loadOverlookVehicleNodeData() {
-    /*$("#contentTable").show();
-    //create table header
-    createTableHeader($("#contentTableHeader"), $("#tmplHeadColumn"),
-    '[{"text": "", "style": "width: 50px"},' +
-    '{"text": "Имя файла", "style": ""},' +
-    '{"text": "Тип файла", "style": "width: 100px"},' +
-    '{"text": "Начальная дата", "style": "width: 100px"},' +
-    '{"text": "Конечная дата", "style": "width: 100px"},' +
-    '{"text": "Количество записей", "style": "width: 100px"},' +
-    '{"text": "Дата разбора файла", "style": "width: 150px"},' +
-    '{"text": "", "style": "width: 50px"}]');
+/*function showSelectors() {
+    $("#buildButton").show();
+    $("#startDatePicker").show();
+    $("#endDatePicker").show();
+}
 
-    $.ajax({
-    type: "POST",
-    //Page Name (in which the method should be called) and method name
-    url: "Data.aspx/GetRecoverUserNodeData",
-    data: "{'CardID':'" + cardID + "', 'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
-    contentType: "application/json; charset=utf-8",
-    dataType: "json",
-    success: function (result) {
-    updateTable($("#contentTableBody"), $("#tmplDriversTable"), result.d);
+function hideSelectors() {
+    $("#buildButton").hide();
+    $("#startDatePicker").hide();
+    $("#endDatePicker").hide();
+}*/
+
+function buildButtonClick() {
+    $("#dateErrorBlock").hide();
+    if (cardID != null) {
+        $("#contentTable").show();
+        createTableHeader($("#contentTableHeader"), $("#tmplHeadColumn"),
+        '[{"text": "Год", "style": "width: 60px;"},' +
+        '{"text": "Месяц", "style": "width: 60px;"},' +
+        '{"text": "Число", "style": "width: 60px;"},' +
+        '{"text": "Процент данных", "style": "width: 60px;"},' +
+        '{"text": "Прогресс", "style": ""}]');
     }
-    });*/
+    startDate=$("#startDatePicker").datepicker("getDate");
+    endDate=$("#endDatePicker").datepicker("getDate");
+    if (endDate==null || startDate==null){
+        $("#dateErrorBlock").show();
+        return;
+    }
+    if ($("#accordion").accordion("option", "active") == 3) {
+        $.ajax({
+            type: "POST",
+            url: "Data.aspx/GetOverlookVehicleNodeData",
+            data: "{'CardID':'" + cardID + "', 'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'StartDate':'"+convert(startDate)+"', 'EndDate':'"+convert(endDate)+"'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                updateTable($("#contentTableBody"), $("#tmplOverlookTable"), result.d);
+                refreshProgressBars();
+            }
+        });
+    }
+    if ($("#accordion").accordion("option", "active") == 2) {
+        $.ajax({
+            type: "POST",
+            url: "Data.aspx/GetOverlookDriverNodeData",
+            data: "{'CardID':'" + cardID + "', 'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'StartDate':'" + convert(startDate) + "', 'EndDate':'" + convert(endDate) + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                updateTable($("#contentTableBody"), $("#tmplOverlookTable"), result.d);
+                refreshProgressBars();
+            }
+        });
+    }
+}
+
+function convert(date) {
+    res=date.getDate() + "/";
+    if (date.getMonth() < 9) res = res + "0";
+    return res + (date.getMonth() + 1) + "/" + date.getFullYear();
 }

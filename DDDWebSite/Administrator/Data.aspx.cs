@@ -58,10 +58,10 @@ public partial class Administrator_Data : System.Web.UI.Page
 
         if (!IsPostBack)
         {
-           // ((LinkButton)Page.Master.FindControl("DataMasterButt")).Enabled = false;
+            // ((LinkButton)Page.Master.FindControl("DataMasterButt")).Enabled = false;
             UserControlsForAll_BlueButton pan = ((UserControlsForAll_BlueButton)Page.Master.FindControl("DataMasterButt"));
             pan.Enabled = false;
-            Session["DeleteCommmand"] = "RemoveUnparsedData";          
+            Session["DeleteCommmand"] = "RemoveUnparsedData";
 
             string connectionString = System.Configuration.ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
             BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_EN");
@@ -72,7 +72,7 @@ public partial class Administrator_Data : System.Web.UI.Page
 
             //выставляем кук, чтобы можно было передать его в метод, вызываемый ч/з ajax
             Response.Cookies["CURRENT_ORG_ID"].Value = Convert.ToString(orgId);
-            
+
             //ORG NAME сверху
             string curOrgName = "";
             curOrgName = dataBlock.usersTable.Get_UserOrgName(userId);
@@ -82,7 +82,7 @@ public partial class Administrator_Data : System.Web.UI.Page
             curOrgName += " " + dataBlock.usersTable.GetUserInfoValue(userId, DataBaseReference.UserInfo_Name);
             ((Label)Master.FindControl("UserNameHeaderName")).Text = curOrgName;
             ////////////////////////////
-            
+
             ((Panel)Master.FindControl("MainConditionsPanel")).Visible = false;
             ((Panel)Master.FindControl("AdditionalConditionsPanel")).Visible = false;
 
@@ -92,15 +92,15 @@ public partial class Administrator_Data : System.Web.UI.Page
             LoadVehiclesEveryWhere();
             driversCardEditPanelVisible(false);
         }
-      /*  if (DataAccordion.SelectedIndex != 2 && DriversSelectTree.SelectedNode != null)
-            DriversSelectTree.SelectedNode.Selected = false;
-        if (DataAccordion.SelectedIndex != 4 && ManagmentLoadedInfo.SelectedNode != null)
-        {
-            ManagmentLoadedInfo.SelectedNode.Selected = false;
-            driversCardEditPanelVisible(false);          
-        }
-        if (DataAccordion.SelectedIndex != 4)
-            driversCardEditPanelVisible(false);*/
+        /*  if (DataAccordion.SelectedIndex != 2 && DriversSelectTree.SelectedNode != null)
+              DriversSelectTree.SelectedNode.Selected = false;
+          if (DataAccordion.SelectedIndex != 4 && ManagmentLoadedInfo.SelectedNode != null)
+          {
+              ManagmentLoadedInfo.SelectedNode.Selected = false;
+              driversCardEditPanelVisible(false);          
+          }
+          if (DataAccordion.SelectedIndex != 4)
+              driversCardEditPanelVisible(false);*/
     }
 
     //AJAX BEGIN
@@ -125,10 +125,10 @@ public partial class Administrator_Data : System.Web.UI.Page
             cardNames = dataBlock.cardsTable.GetCardNames(namesIds);
 
             dataBlock.CloseConnection();
-            data=new List<MapItem>();
+            data = new List<MapItem>();
             for (int i = 0; i < namesIds.Count; i++)
             {
-                data.Add(new MapItem(namesIds[i].ToString(),cardNames[i]));
+                data.Add(new MapItem(namesIds[i].ToString(), cardNames[i]));
             }
         }
         catch (Exception ex)
@@ -155,12 +155,12 @@ public partial class Administrator_Data : System.Web.UI.Page
 
             int orgID = Convert.ToInt32(OrgID);
             List<int> vehicles = dataBlock.cardsTable.GetAllCardIds(orgID, dataBlock.cardsTable.vehicleCardTypeId);
-            data=new List<MapItem>();
+            data = new List<MapItem>();
             for (int i = 0; i < vehicles.Count; i++)
             {
                 string value = dataBlock.cardsTable.GetCardName(vehicles[i]);
                 string key = vehicles[i].ToString();
-                data.Add(new MapItem(key,value));
+                data.Add(new MapItem(key, value));
             }
             dataBlock.CloseConnection();
         }
@@ -179,15 +179,16 @@ public partial class Administrator_Data : System.Web.UI.Page
     [System.Web.Services.WebMethod]
     public static List<Driver> GetRecoverUserNodeData(String CardID, String OrgID)
     {
-        const string DRIVER="Drivers";
-        const string TRANSPORT="Transport";
+        const string DRIVER = "Drivers";
+        const string TRANSPORT = "Transport";
 
-        List<Driver> drivers=null;
+        List<Driver> drivers = null;
         //выбран общий узел "Водители"
         if (CardID.Equals(DRIVER))
         {
-            List<MapItem> items=GetRecoverUserDriversTree(OrgID); 
-            foreach(MapItem item in items){
+            List<MapItem> items = GetRecoverUserDriversTree(OrgID);
+            foreach (MapItem item in items)
+            {
                 int id = Convert.ToInt32(item.Key);
                 if (drivers == null)
                 {
@@ -260,8 +261,8 @@ public partial class Administrator_Data : System.Web.UI.Page
             DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
             int orgId = Convert.ToInt32(OrgID);
             dataBlock.OpenConnection();
-            String name=dataBlock.organizationTable.GetOrganizationName(orgId);
-            
+            String name = dataBlock.organizationTable.GetOrganizationName(orgId);
+
             drivTree.OrgName = name;
 
             List<int> groupIds = dataBlock.cardsTable.GetAllGroupIds(orgId, dataBlock.cardsTable.driversCardTypeId);
@@ -275,7 +276,7 @@ public partial class Administrator_Data : System.Web.UI.Page
                 for (int j = 0; j < values.Count; j++)
                 {
                     String dr_name = dataBlock.cardsTable.GetCardHolderNameByCardId(values[j]);
-                    gr.addValue(values[j].ToString(),dr_name);
+                    gr.addValue(values[j].ToString(), dr_name);
                 }
                 drivTree.addGroup(gr);
             }
@@ -332,15 +333,20 @@ public partial class Administrator_Data : System.Web.UI.Page
         return vehTree;
     }
 
-    private static List<int> getYearsList()
+    private static List<int> getYearsList(DateTime start, DateTime end)
     {
         List<int> years = new List<int>();
-        years.Add(2011);
+        for (int i = start.Year; i <= end.Year; i++)
+        {
+            years.Add(i);
+        }
         return years;
     }
 
-    private static string getMonthName(int id){
-        switch(id){
+    private static string getMonthName(int id)
+    {
+        switch (id)
+        {
             case 1: return "Январь";
             case 2: return "Февраль";
             case 3: return "Март";
@@ -358,33 +364,65 @@ public partial class Administrator_Data : System.Web.UI.Page
 
     }
 
-    private static List<int> getMonthsList(int year)
+    private static List<int> getMonthsList(int year, DateTime start, DateTime end)
     {
         List<int> months = new List<int>();
-        //for (int i=1;i<2;i++){
-            //months.Add(i);
-        //}
-        months.Add(5);
+        if (year == start.Year)
+        {
+            for (int i = start.Month; i <= 12; i++)
+            {
+                months.Add(i);
+            }
+            return months;
+        }
+        if (year == end.Year)
+        {
+            for (int i = 1; i <= end.Month; i++)
+            {
+                months.Add(i);
+            }
+            return months;
+        }
+        for (int i = 1; i <= 12; i++)
+        {
+            months.Add(i);
+        }
         return months;
     }
 
-    private static List<int> getDaysList(int year, int month)
+    private static List<int> getDaysList(int year, int month, DateTime start, DateTime end)
     {
-        List<int> days = new List<int>();        
-        //for (int i = 1; i < DateTime.DaysInMonth(year,month)/2;i++)
-        //{
-            //days.Add(i);
-        //}
-        days.Add(4);
+        List<int> days = new List<int>();
+        int count=DateTime.DaysInMonth(year, month);
+        if (year == start.Year && start.Month==month)
+        {
+            for (int i = start.Day; i <= count; i++)
+            {
+                days.Add(i);
+            }
+            return days;
+        }
+        if (year == end.Year && end.Month == month)
+        {
+            for (int i = 1; i <= end.Day; i++)
+            {
+                days.Add(i);
+            }
+            return days;
+        }
+        for (int i = 1; i <= count; i++)
+        {
+            days.Add(i);
+        }
         return days;
     }
 
     /// <summary>
-    ///Получить значения в таблице "Просмотреть()"
+    ///Получить значения в таблице "Просмотреть(ТС)"
     /// </summary>
     /// <returns>String</returns>
     [System.Web.Services.WebMethod]
-    public static List<YearData> GetOverlookDriverNodeData(String CardID, String OrgID)
+    public static List<YearData> GetOverlookVehicleNodeData(String CardID, String OrgID, String StartDate, String EndDate)
     {
         List<YearData> result = new List<YearData>();
         try
@@ -395,61 +433,50 @@ public partial class Administrator_Data : System.Web.UI.Page
             int cardId = Convert.ToInt32(CardID);
             dataBlock.OpenConnection();
 
-            List<int> years = getYearsList();
+            DateTime startDate = DateTime.Parse(StartDate);
+            DateTime endDate = DateTime.Parse(EndDate);
 
-            bool yearFlag = true;
-            bool monthFlag = true;
+            List<int> years = getYearsList(startDate,endDate);
+
             int count = 0;
             foreach (int year in years)
             {
-                yearFlag = true;
-                List<int> months = getMonthsList(year);
+                double py = dataBlock.vehicleUnitInfo.Statistics_GetYearStatistics(new DateTime(year, 1, 1), cardId);
+                YearData datay = new YearData();
+                datay.YearName = year.ToString();
+                datay.Percent = py.ToString();
+                datay.key = count;
+                result.Add(datay);
+                count++;
+                if (py == 0)
+                    continue;
+                List<int> months = getMonthsList(year,startDate,endDate);
                 foreach (int month in months)
                 {
-                    monthFlag = true;
-                    List<int> days = getDaysList(year, month);
+                    double pm = dataBlock.vehicleUnitInfo.Statistics_GetMonthStatistics(new DateTime(year, month, 1), cardId);
+                    YearData datam = new YearData();
+                    datam.MonthName = getMonthName(month);
+                    datam.Percent = pm.ToString();
+                    datam.key = count;
+                    result.Add(datam);
+                    count++;
+                    if (pm == 0)
+                        continue;
+                    List<int> days = getDaysList(year, month,startDate,endDate);
                     foreach (int day in days)
                     {
-                        YearData data= new YearData();
-                        if (yearFlag)
-                        {
-                            data.YearName = year.ToString();
-                            yearFlag = false;
-                        }
-                        else {
-                            data.YearName = " ";
-                        }
-                        if (monthFlag)
-                        {
-                            data.MonthName = getMonthName(month);
-                            monthFlag = false;
-                        }
-                        else
-                        {
-                            data.MonthName = " ";
-                        }
+                        double p = dataBlock.vehicleUnitInfo.Statistics_GetDayStatistics(new DateTime(year, month, day), cardId);
+                        if (p == 0)
+                            continue;
+                        YearData data = new YearData();
                         data.DayName = day.ToString();
-                        data.Percent = dataBlock.plfUnitInfo.Statistics_GetDayStatistics(new DateTime(year, month, day), cardId).ToString();
-                        //data.Percent = "100";
+                        data.Percent = p.ToString();
                         data.key = count;
                         result.Add(data);
                         count++;
                     }
                 }
             }
-
-            /*YearData d = new YearData();
-            d.YearName = CardID;
-            d.MonthName = "November";
-            d.DayName = "1";
-            d.Percent = "37";
-            d.key = 0;
-            years.Add(d);
-            d = new YearData();
-            d.DayName = "2";
-            d.Percent = "46";
-            d.key = 1;
-            years.Add(d);*/
 
             dataBlock.CloseConnection();
         }
@@ -463,7 +490,80 @@ public partial class Administrator_Data : System.Web.UI.Page
         return result;
     }
 
-    
+    /// <summary>
+    ///Получить значения в таблице "Просмотреть(Водитель)"
+    /// </summary>
+    /// <returns>String</returns>
+    [System.Web.Services.WebMethod]
+    public static List<YearData> GetOverlookDriverNodeData(String CardID, String OrgID, String StartDate, String EndDate)
+    {
+        List<YearData> result = new List<YearData>();
+        try
+        {
+            string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+            DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+            int orgId = Convert.ToInt32(OrgID);
+            int cardId = Convert.ToInt32(CardID);
+            dataBlock.OpenConnection();
+
+            DateTime startDate = DateTime.Parse(StartDate);
+            DateTime endDate = DateTime.Parse(EndDate);
+
+            List<int> years = getYearsList(startDate,endDate);
+
+            int count = 0;
+            foreach (int year in years)
+            {
+                double py = dataBlock.plfUnitInfo.Statistics_GetYearStatistics(new DateTime(year, 1, 1), cardId);
+                YearData datay = new YearData();
+                datay.YearName = year.ToString();
+                datay.Percent = py.ToString();
+                datay.key = count;
+                result.Add(datay);
+                count++;
+                if (py == 0)
+                    continue;
+                List<int> months = getMonthsList(year,startDate,endDate);
+                foreach (int month in months)
+                {
+                    double pm = dataBlock.plfUnitInfo.Statistics_GetMonthStatistics(new DateTime(year, month, 1), cardId);
+                    YearData datam = new YearData();
+                    datam.MonthName = getMonthName(month);
+                    datam.Percent = pm.ToString();
+                    datam.key = count;
+                    result.Add(datam);
+                    count++;
+                    if (pm == 0)
+                        continue;
+                    List<int> days = getDaysList(year, month,startDate,endDate);
+                    foreach (int day in days)
+                    {
+                        double p = dataBlock.plfUnitInfo.Statistics_GetDayStatistics(new DateTime(year, month, day), cardId);
+                        if (p == 0)
+                            continue;
+                        YearData data = new YearData();
+                        data.DayName = day.ToString();
+                        data.Percent = p.ToString();
+                        data.key = count;
+                        result.Add(data);
+                        count++;
+                    }
+                }
+            }
+
+            dataBlock.CloseConnection();
+        }
+        catch (Exception ex)
+        {
+            YearData d = new YearData();
+            d.YearName = ex.Message;
+            result.Add(d);
+            return result;
+        }
+        return result;
+    }
+
+
     //AJAX END
 
 
@@ -632,7 +732,7 @@ public partial class Administrator_Data : System.Web.UI.Page
                     fileUpload = (List<filenameAndBytesStruct>)Session["FileUpload"];
                     List<int> CardIdsList = new List<int>();
                     CardIdsList = (List<int>)Session["CardIdsList"];
-                   
+
                     foreach (filenameAndBytesStruct curFile in fileUpload)
                     {
                         if (curFile.isPLF)
@@ -640,7 +740,7 @@ public partial class Administrator_Data : System.Web.UI.Page
                         else
                             dataBlock.AddData(orgId, curFile._bytes, curFile.filename);
                     }
-                    
+
                     Session["FileUpload"] = "";
                 }
             dataBlock.CommitTransaction();
@@ -971,7 +1071,7 @@ public partial class Administrator_Data : System.Web.UI.Page
                 {
                     output = Server.MapPath("~/XML_PLF") + "\\";
                     parsedObject = dataBlock.ParseRecords(true, output, userId);
-                    filesCounter++;                   
+                    filesCounter++;
                 }
                 else
                     continue;
@@ -1016,16 +1116,16 @@ public partial class Administrator_Data : System.Web.UI.Page
         try
         {
             int currentAccordionPane = Convert.ToInt32(AccordionCurrentTabIndex_HiddenField.Value);
-           /* FilesPreviewDataGrid.DataSource = null;
-            FilesPreviewDataGrid.DataBind();
-            FilesPreviewPanel.Visible = false;*/
+            /* FilesPreviewDataGrid.DataSource = null;
+             FilesPreviewDataGrid.DataBind();
+             FilesPreviewPanel.Visible = false;*/
 
             switch (currentAccordionPane)
             {
                 case 0:
                     {
                         LoadAllLists();
-                        if(DriversSelectTree.SelectedNode!=null)
+                        if (DriversSelectTree.SelectedNode != null)
                             DriversSelectTree.SelectedNode.Selected = false;
                         if (ManagmentLoadedInfo.SelectedNode != null)
                             ManagmentLoadedInfo.SelectedNode.Selected = false;
@@ -1051,7 +1151,7 @@ public partial class Administrator_Data : System.Web.UI.Page
                         FilesPreviewPanel.Visible = false;
                         VehiclePreviewButtonsPanel.Visible = false;
                         DriverPreviewButtonsPanel.Visible = false;
-                       // FilesPreviewPanel.Visible = false;
+                        // FilesPreviewPanel.Visible = false;
                         setParseButtonVisible(false);
                         setStatistiscPanelVisible(false);
                     } break;
@@ -1098,7 +1198,7 @@ public partial class Administrator_Data : System.Web.UI.Page
                         FilesPreviewPanel.Visible = false;
                         VehiclePreviewButtonsPanel.Visible = false;
                         DriverPreviewButtonsPanel.Visible = false;
-                       // FilesPreviewPanel.Visible = false;
+                        // FilesPreviewPanel.Visible = false;
                     } break;
             }
         }
@@ -1224,7 +1324,7 @@ public partial class Administrator_Data : System.Web.UI.Page
                     else
                     {
                         driversStructureTemp.setFromDate(new DateTime());
-                        driversStructureTemp.setToDate(new DateTime()) ;
+                        driversStructureTemp.setToDate(new DateTime());
                     }
 
                 driversStructureList.Add(driversStructureTemp);
@@ -1283,7 +1383,7 @@ public partial class Administrator_Data : System.Web.UI.Page
             TextBoxTest.Text = "";
             CardUnit.CardUnitClass driversCard = new CardUnit.CardUnitClass();
 
-            driversCard = dataBlock.cardUnitInfo.GetAllCardUnitClass_parsingDataBlock(dataBlockId);            
+            driversCard = dataBlock.cardUnitInfo.GetAllCardUnitClass_parsingDataBlock(dataBlockId);
 
             FilesPreviewDataGrid.DataSource = DriverPreviewDataTable.DriverPreview_FileContents(driversCard);
             FilesPreviewDataGrid.DataBind();
@@ -1314,7 +1414,7 @@ public partial class Administrator_Data : System.Web.UI.Page
             TextBoxTest.Attributes.Add("style", "overflow :hidden");
             int userID = 0;
             int dataBlockId = Convert.ToInt32(onlyForInternal.Value);
-        
+
 
             dataBlock.OpenConnection();
             TextBoxTest.Text = "";
@@ -1326,19 +1426,19 @@ public partial class Administrator_Data : System.Web.UI.Page
                 case 1:
                     {
                         DDDClass.DriverCardApplicationIdentification driversCard = dataBlock.cardUnitInfo.Get_EF_Application_Identification_DriverCardApplicationIdentification(dataBlockId);
-/*
-                        textResult += "cardType: " + cardType.ToString() + Environment.NewLine+"<br/>";
-                        textResult += "activityStructureLength:   " + driversCard.activityStructureLength.ToString() + Environment.NewLine + "<br/>";
-                        textResult += "cardStructureVersion:      " + driversCard.cardStructureVersion.ToString() + Environment.NewLine + "<br/>";
-                        textResult += "noOfCardPlaceRecords:      " + driversCard.noOfCardPlaceRecords.ToString() + Environment.NewLine + "<br/>";
-                        textResult += "noOfCardVehicleRecords:    " + driversCard.noOfCardVehicleRecords.ToString() + Environment.NewLine + "<br/>";
-                        textResult += "noOfEventsPerType:         " + driversCard.noOfEventsPerType.ToString() + Environment.NewLine + "<br/>";
-                        textResult += "noOfFaultsPerType:         " + driversCard.noOfFaultsPerType.ToString() + Environment.NewLine + "<br/>";
-                        textResult += "typeOfTachographCardId:    " + driversCard.typeOfTachographCardId.ToString() + Environment.NewLine + "<br/>";
+                        /*
+                                                textResult += "cardType: " + cardType.ToString() + Environment.NewLine+"<br/>";
+                                                textResult += "activityStructureLength:   " + driversCard.activityStructureLength.ToString() + Environment.NewLine + "<br/>";
+                                                textResult += "cardStructureVersion:      " + driversCard.cardStructureVersion.ToString() + Environment.NewLine + "<br/>";
+                                                textResult += "noOfCardPlaceRecords:      " + driversCard.noOfCardPlaceRecords.ToString() + Environment.NewLine + "<br/>";
+                                                textResult += "noOfCardVehicleRecords:    " + driversCard.noOfCardVehicleRecords.ToString() + Environment.NewLine + "<br/>";
+                                                textResult += "noOfEventsPerType:         " + driversCard.noOfEventsPerType.ToString() + Environment.NewLine + "<br/>";
+                                                textResult += "noOfFaultsPerType:         " + driversCard.noOfFaultsPerType.ToString() + Environment.NewLine + "<br/>";
+                                                textResult += "typeOfTachographCardId:    " + driversCard.typeOfTachographCardId.ToString() + Environment.NewLine + "<br/>";
                                    
-                        TextBoxTest.Text = textResult;
-                        //TextBoxTest.Columns = 8;
-                        //TextBoxTest.Height = 130;*/
+                                                TextBoxTest.Text = textResult;
+                                                //TextBoxTest.Columns = 8;
+                                                //TextBoxTest.Height = 130;*/
                         FilesPreviewDataGrid.DataSource = DriverPreviewDataTable.DriverPreview_AplicationIdentification(driversCard, cardType);
                         FilesPreviewDataGrid.DataBind();
                     }
@@ -1347,14 +1447,14 @@ public partial class Administrator_Data : System.Web.UI.Page
                     {
                         DDDClass.WorkshopCardApplicationIdentification workshopCard = dataBlock.cardUnitInfo.Get_EF_Application_Identification_WorkshopCardApplicationIdentification(dataBlockId);
 
-                      /*  TextBoxTest.Text += "cardType: " + cardType.ToString() + Environment.NewLine + "<br/>";
-                        TextBoxTest.Text += "activityStructureLength:   " + workshopCard.activityStructureLength.ToString() + Environment.NewLine + "<br/>";
-                        TextBoxTest.Text += "cardStructureVersion:      " + workshopCard.cardStructureVersion.ToString() + Environment.NewLine + "<br/>";
-                        TextBoxTest.Text += "noOfCardPlaceRecords:      " + workshopCard.noOfCardPlaceRecords.ToString() + Environment.NewLine + "<br/>";
-                        TextBoxTest.Text += "noOfCardVehicleRecords:    " + workshopCard.noOfCardVehicleRecords.ToString() + Environment.NewLine + "<br/>";
-                        TextBoxTest.Text += "noOfEventsPerType:         " + workshopCard.noOfEventsPerType.ToString() + Environment.NewLine + "<br/>";
-                        TextBoxTest.Text += "noOfFaultsPerType:         " + workshopCard.noOfFaultsPerType.ToString() + Environment.NewLine + "<br/>";
-                        TextBoxTest.Text += "typeOfTachographCardId:    " + workshopCard.typeOfTachographCardId.ToString() + Environment.NewLine + "<br/>";*/
+                        /*  TextBoxTest.Text += "cardType: " + cardType.ToString() + Environment.NewLine + "<br/>";
+                          TextBoxTest.Text += "activityStructureLength:   " + workshopCard.activityStructureLength.ToString() + Environment.NewLine + "<br/>";
+                          TextBoxTest.Text += "cardStructureVersion:      " + workshopCard.cardStructureVersion.ToString() + Environment.NewLine + "<br/>";
+                          TextBoxTest.Text += "noOfCardPlaceRecords:      " + workshopCard.noOfCardPlaceRecords.ToString() + Environment.NewLine + "<br/>";
+                          TextBoxTest.Text += "noOfCardVehicleRecords:    " + workshopCard.noOfCardVehicleRecords.ToString() + Environment.NewLine + "<br/>";
+                          TextBoxTest.Text += "noOfEventsPerType:         " + workshopCard.noOfEventsPerType.ToString() + Environment.NewLine + "<br/>";
+                          TextBoxTest.Text += "noOfFaultsPerType:         " + workshopCard.noOfFaultsPerType.ToString() + Environment.NewLine + "<br/>";
+                          TextBoxTest.Text += "typeOfTachographCardId:    " + workshopCard.typeOfTachographCardId.ToString() + Environment.NewLine + "<br/>";*/
 
                         FilesPreviewDataGrid.DataSource = DriverPreviewDataTable.DriverPreview_AplicationIdentification(workshopCard, cardType);
                         FilesPreviewDataGrid.DataBind();
@@ -1415,17 +1515,17 @@ public partial class Administrator_Data : System.Web.UI.Page
             DDDClass.CardIccIdentification data = new DDDClass.CardIccIdentification();
             data = dataBlock.cardUnitInfo.Get_EF_ICC(dataBlockId).cardIccIdentification;
 
-      /*      TextBoxTest.Text += "cardApprovalNumber:" + data.cardApprovalNumber.ToString() + Environment.NewLine + "<br/>";
-            TextBoxTest.Text += "cardExtendedSerialNumber: " + Environment.NewLine + "<br/>";
-            TextBoxTest.Text += "    manufacturerCode:" + data.cardExtendedSerialNumber.manufacturerCode.ToString() + Environment.NewLine + "<br/>";
-            TextBoxTest.Text += "    monthYear:      " + data.cardExtendedSerialNumber.monthYear.ToString() + Environment.NewLine + "<br/>";
-            TextBoxTest.Text += "    serialNumber:   " + data.cardExtendedSerialNumber.serialNumber.ToString() + Environment.NewLine + "<br/>";
-            TextBoxTest.Text += "    type:           " + data.cardExtendedSerialNumber.type.ToString() + Environment.NewLine + "<br/>";
-            TextBoxTest.Text += "cardPersonaliserID: " + data.CardPersonaliserID_ToString() + Environment.NewLine + "<br/>";
-            TextBoxTest.Text += "clockStop:          " + data.ClockStop_ToString() + Environment.NewLine + "<br/>";
-            TextBoxTest.Text += "embedderIcAssemblerId:" + data.EmbedderIcAssemblerId_ToString() + Environment.NewLine + "<br/>";
-            TextBoxTest.Text += "icIdentifier:       " + data.IcIdentifier_ToString() + Environment.NewLine + "<br/>";
-            TextBoxTest.Text += Environment.NewLine + "<br/>";*/
+            /*      TextBoxTest.Text += "cardApprovalNumber:" + data.cardApprovalNumber.ToString() + Environment.NewLine + "<br/>";
+                  TextBoxTest.Text += "cardExtendedSerialNumber: " + Environment.NewLine + "<br/>";
+                  TextBoxTest.Text += "    manufacturerCode:" + data.cardExtendedSerialNumber.manufacturerCode.ToString() + Environment.NewLine + "<br/>";
+                  TextBoxTest.Text += "    monthYear:      " + data.cardExtendedSerialNumber.monthYear.ToString() + Environment.NewLine + "<br/>";
+                  TextBoxTest.Text += "    serialNumber:   " + data.cardExtendedSerialNumber.serialNumber.ToString() + Environment.NewLine + "<br/>";
+                  TextBoxTest.Text += "    type:           " + data.cardExtendedSerialNumber.type.ToString() + Environment.NewLine + "<br/>";
+                  TextBoxTest.Text += "cardPersonaliserID: " + data.CardPersonaliserID_ToString() + Environment.NewLine + "<br/>";
+                  TextBoxTest.Text += "clockStop:          " + data.ClockStop_ToString() + Environment.NewLine + "<br/>";
+                  TextBoxTest.Text += "embedderIcAssemblerId:" + data.EmbedderIcAssemblerId_ToString() + Environment.NewLine + "<br/>";
+                  TextBoxTest.Text += "icIdentifier:       " + data.IcIdentifier_ToString() + Environment.NewLine + "<br/>";
+                  TextBoxTest.Text += Environment.NewLine + "<br/>";*/
 
             FilesPreviewDataGrid.DataSource = DriverPreviewDataTable.DriverPreview_ICC(data);
             FilesPreviewDataGrid.DataBind();
@@ -1459,9 +1559,9 @@ public partial class Administrator_Data : System.Web.UI.Page
             DDDClass.CardChipIdentification data = new DDDClass.CardChipIdentification();
             data = dataBlock.cardUnitInfo.Get_EF_IC(dataBlockId).cardChipIdentification;
 
-          /*  TextBoxTest.Text += "icManufacturingReferences:" + data.icManufacturingReferences.ToString() + Environment.NewLine + "<br/>";
-            TextBoxTest.Text += "icSerialNumber: " + data.icSerialNumber.ToString() + Environment.NewLine + "<br/>";
-            TextBoxTest.Text += Environment.NewLine + "<br/>";*/
+            /*  TextBoxTest.Text += "icManufacturingReferences:" + data.icManufacturingReferences.ToString() + Environment.NewLine + "<br/>";
+              TextBoxTest.Text += "icSerialNumber: " + data.icSerialNumber.ToString() + Environment.NewLine + "<br/>";
+              TextBoxTest.Text += Environment.NewLine + "<br/>";*/
             FilesPreviewDataGrid.DataSource = DriverPreviewDataTable.DriverPreview_IC(data);
             FilesPreviewDataGrid.DataBind();
         }
@@ -1496,18 +1596,18 @@ public partial class Administrator_Data : System.Web.UI.Page
         {
             DDDClass.CardIdentification data = new DDDClass.CardIdentification();
             data = dataBlock.cardUnitInfo.Get_EF_Identification_CardIdentification(dataBlockId);
-           /* TextBoxTest.Text += "card Identification:    " + Environment.NewLine + "<br/>";
+            /* TextBoxTest.Text += "card Identification:    " + Environment.NewLine + "<br/>";
 
-            TextBoxTest.Text += "cardExpiryDate:    " + data.cardExpiryDate.ToString() + Environment.NewLine + "<br/>";
-            TextBoxTest.Text += "cardIssueDate:     " + data.cardIssueDate.ToString() + Environment.NewLine + "<br/>";
-            TextBoxTest.Text += "cardIssuingAuthorityName:  " + data.cardIssuingAuthorityName.ToString() + Environment.NewLine + "<br/>";
-            TextBoxTest.Text += "cardIssuingMemberState:    " + data.cardIssuingMemberState.ToString() + Environment.NewLine + "<br/>";
-            TextBoxTest.Text += "cardValidityBegin:         " + data.cardValidityBegin.ToString() + Environment.NewLine + "<br/>";
-            TextBoxTest.Text += "cardNumber:    " + Environment.NewLine + "<br/>";
-            TextBoxTest.Text += "   driverIdentificationNumber:    " + data.cardNumber.driverIdentificationNumber() + Environment.NewLine + "<br/>";
-            TextBoxTest.Text += "   ownerIdentificationNumber:    " + data.cardNumber.ownerIdentificationNumber() + Environment.NewLine + "<br/>";
-            TextBoxTest.Text += Environment.NewLine + "<br/>";
-            */
+             TextBoxTest.Text += "cardExpiryDate:    " + data.cardExpiryDate.ToString() + Environment.NewLine + "<br/>";
+             TextBoxTest.Text += "cardIssueDate:     " + data.cardIssueDate.ToString() + Environment.NewLine + "<br/>";
+             TextBoxTest.Text += "cardIssuingAuthorityName:  " + data.cardIssuingAuthorityName.ToString() + Environment.NewLine + "<br/>";
+             TextBoxTest.Text += "cardIssuingMemberState:    " + data.cardIssuingMemberState.ToString() + Environment.NewLine + "<br/>";
+             TextBoxTest.Text += "cardValidityBegin:         " + data.cardValidityBegin.ToString() + Environment.NewLine + "<br/>";
+             TextBoxTest.Text += "cardNumber:    " + Environment.NewLine + "<br/>";
+             TextBoxTest.Text += "   driverIdentificationNumber:    " + data.cardNumber.driverIdentificationNumber() + Environment.NewLine + "<br/>";
+             TextBoxTest.Text += "   ownerIdentificationNumber:    " + data.cardNumber.ownerIdentificationNumber() + Environment.NewLine + "<br/>";
+             TextBoxTest.Text += Environment.NewLine + "<br/>";
+             */
             DDDClass.EquipmentType cardType = dataBlock.cardUnitInfo.Get_EF_Identification_CardType(dataBlockId);
 
             switch (cardType.equipmentType)
@@ -1516,11 +1616,11 @@ public partial class Administrator_Data : System.Web.UI.Page
                     {
                         DDDClass.DriverCardHolderIdentification driverCard = new DDDClass.DriverCardHolderIdentification();
                         driverCard = dataBlock.cardUnitInfo.Get_EF_Identification_DriverCardHolderIdentification(dataBlockId);
-/*
-                        TextBoxTest.Text += "cardType:  " + cardType.ToString() + Environment.NewLine + "<br/>";
-                        TextBoxTest.Text += "cardHolderBirthDate:   " + driverCard.cardHolderBirthDate.ToString() + Environment.NewLine + "<br/>";
-                        TextBoxTest.Text += "cardHolderName:        " + driverCard.cardHolderName.ToString() + Environment.NewLine + "<br/>";
-                        TextBoxTest.Text += "cardHolderName:        " + driverCard.cardHolderPreferredLanguage.ToString() + Environment.NewLine + "<br/>";*/
+                        /*
+                                                TextBoxTest.Text += "cardType:  " + cardType.ToString() + Environment.NewLine + "<br/>";
+                                                TextBoxTest.Text += "cardHolderBirthDate:   " + driverCard.cardHolderBirthDate.ToString() + Environment.NewLine + "<br/>";
+                                                TextBoxTest.Text += "cardHolderName:        " + driverCard.cardHolderName.ToString() + Environment.NewLine + "<br/>";
+                                                TextBoxTest.Text += "cardHolderName:        " + driverCard.cardHolderPreferredLanguage.ToString() + Environment.NewLine + "<br/>";*/
 
                         FilesPreviewDataGrid.DataSource = DriverPreviewDataTable.DriverPreview_CardIdentification(data, driverCard, cardType);
                         FilesPreviewDataGrid.DataBind();
@@ -1531,11 +1631,11 @@ public partial class Administrator_Data : System.Web.UI.Page
                         DDDClass.WorkshopCardHolderIdentification workshopCard = new DDDClass.WorkshopCardHolderIdentification();
                         workshopCard = dataBlock.cardUnitInfo.Get_EF_Identification_WorkshopCardHolderIdentification(dataBlockId);
 
-                     /*   TextBoxTest.Text += "cardType:  " + cardType.ToString() + Environment.NewLine + "<br/>";
-                        TextBoxTest.Text += "workshopName:      " + workshopCard.workshopName.ToString() + Environment.NewLine + "<br/>";
-                        TextBoxTest.Text += "workshopAddress:   " + workshopCard.workshopAddress.ToString() + Environment.NewLine + "<br/>";
-                        TextBoxTest.Text += "cardHolderName:    " + workshopCard.cardHolderName.ToString() + Environment.NewLine + "<br/>";
-                        TextBoxTest.Text += "cardHolderPreferredLanguage: " + workshopCard.cardHolderPreferredLanguage.ToString() + Environment.NewLine + "<br/>";*/
+                        /*   TextBoxTest.Text += "cardType:  " + cardType.ToString() + Environment.NewLine + "<br/>";
+                           TextBoxTest.Text += "workshopName:      " + workshopCard.workshopName.ToString() + Environment.NewLine + "<br/>";
+                           TextBoxTest.Text += "workshopAddress:   " + workshopCard.workshopAddress.ToString() + Environment.NewLine + "<br/>";
+                           TextBoxTest.Text += "cardHolderName:    " + workshopCard.cardHolderName.ToString() + Environment.NewLine + "<br/>";
+                           TextBoxTest.Text += "cardHolderPreferredLanguage: " + workshopCard.cardHolderPreferredLanguage.ToString() + Environment.NewLine + "<br/>";*/
 
                         FilesPreviewDataGrid.DataSource = DriverPreviewDataTable.DriverPreview_CardIdentification(data, workshopCard, cardType);
                         FilesPreviewDataGrid.DataBind();
@@ -1668,11 +1768,11 @@ public partial class Administrator_Data : System.Web.UI.Page
         {
             CardUnit.EF_Driving_Licence_Info data = new CardUnit.EF_Driving_Licence_Info();
             data = dataBlock.cardUnitInfo.Get_EF_Driving_Licence_Info(dataBlockId);
-          /*  TextBoxTest.Text += "Driving Licence Info:    " + Environment.NewLine + Environment.NewLine + "<br/>" + "<br/>";
+            /*  TextBoxTest.Text += "Driving Licence Info:    " + Environment.NewLine + Environment.NewLine + "<br/>" + "<br/>";
 
-            TextBoxTest.Text += "drivingLicenceIssuingAuthority:    " + data.cardDrivingLicenceInformation.drivingLicenceIssuingAuthority.ToString() + Environment.NewLine + "<br/>";
-            TextBoxTest.Text += "drivingLicenceIssuingNation:       " + data.cardDrivingLicenceInformation.drivingLicenceIssuingNation.ToString() + Environment.NewLine + "<br/>";
-            TextBoxTest.Text += "drivingLicenceNumber:              " + data.cardDrivingLicenceInformation.drivingLicenceNumber.ToString() + Environment.NewLine + "<br/>";*/
+              TextBoxTest.Text += "drivingLicenceIssuingAuthority:    " + data.cardDrivingLicenceInformation.drivingLicenceIssuingAuthority.ToString() + Environment.NewLine + "<br/>";
+              TextBoxTest.Text += "drivingLicenceIssuingNation:       " + data.cardDrivingLicenceInformation.drivingLicenceIssuingNation.ToString() + Environment.NewLine + "<br/>";
+              TextBoxTest.Text += "drivingLicenceNumber:              " + data.cardDrivingLicenceInformation.drivingLicenceNumber.ToString() + Environment.NewLine + "<br/>";*/
 
             FilesPreviewDataGrid.DataSource = DriverPreviewDataTable.DriverPreview_DrivingLicenceInfo(data);
             FilesPreviewDataGrid.DataBind();
@@ -1812,26 +1912,26 @@ public partial class Administrator_Data : System.Web.UI.Page
 
             cardPlaceDailyWorkPeriod = dataBlock.cardUnitInfo.Get_EF_Places(dataBlockId);
 
-           /* int number = 1;
-            TextBoxTest.Text = "Place Daily Work Period records COUNT: " + cardPlaceDailyWorkPeriod.placeRecords.Count + Environment.NewLine + "<br/>";
-            */
+            /* int number = 1;
+             TextBoxTest.Text = "Place Daily Work Period records COUNT: " + cardPlaceDailyWorkPeriod.placeRecords.Count + Environment.NewLine + "<br/>";
+             */
             if (cardPlaceDailyWorkPeriod.placeRecords.Count == 0)
                 TextBoxTest.Text += "Нет записей!";
             else
                 FilesPreviewPanel.Visible = true;
 
-          /*  foreach (DDDClass.PlaceRecord record in cardPlaceDailyWorkPeriod.placeRecords)
-            {
-                TextBoxTest.Text += Environment.NewLine + "<br/>";
-                TextBoxTest.Text += "#" + number + Environment.NewLine + "<br/>";
-                TextBoxTest.Text += "   dailyWorkPeriodCountry:\t" + record.dailyWorkPeriodCountry.ToString() + Environment.NewLine + "<br/>";
-                TextBoxTest.Text += "   dailyWorkPeriodRegion:\t   " + record.dailyWorkPeriodRegion.ToString() + Environment.NewLine + "<br/>";
-                TextBoxTest.Text += "   entryTime:               " + record.entryTime.ToString() + Environment.NewLine + "<br/>";
-                TextBoxTest.Text += "   entryTypeDailyWorkPeriod: " + record.entryTypeDailyWorkPeriod.ToString() + Environment.NewLine + "<br/>";
-                TextBoxTest.Text += "   vehicleOdometerValue:    " + record.vehicleOdometerValue.ToString() + Environment.NewLine + "<br/>";
-                TextBoxTest.Text += "-----------------------------------------";
-                number++;
-            }*/
+            /*  foreach (DDDClass.PlaceRecord record in cardPlaceDailyWorkPeriod.placeRecords)
+              {
+                  TextBoxTest.Text += Environment.NewLine + "<br/>";
+                  TextBoxTest.Text += "#" + number + Environment.NewLine + "<br/>";
+                  TextBoxTest.Text += "   dailyWorkPeriodCountry:\t" + record.dailyWorkPeriodCountry.ToString() + Environment.NewLine + "<br/>";
+                  TextBoxTest.Text += "   dailyWorkPeriodRegion:\t   " + record.dailyWorkPeriodRegion.ToString() + Environment.NewLine + "<br/>";
+                  TextBoxTest.Text += "   entryTime:               " + record.entryTime.ToString() + Environment.NewLine + "<br/>";
+                  TextBoxTest.Text += "   entryTypeDailyWorkPeriod: " + record.entryTypeDailyWorkPeriod.ToString() + Environment.NewLine + "<br/>";
+                  TextBoxTest.Text += "   vehicleOdometerValue:    " + record.vehicleOdometerValue.ToString() + Environment.NewLine + "<br/>";
+                  TextBoxTest.Text += "-----------------------------------------";
+                  number++;
+              }*/
 
             FilesPreviewDataGrid.DataSource = DriverPreviewDataTable.DriverPreview_DrivingLicenceInfo(cardPlaceDailyWorkPeriod);
             FilesPreviewDataGrid.DataBind();
@@ -1865,7 +1965,7 @@ public partial class Administrator_Data : System.Web.UI.Page
 
             int userID = 0;
             int dataBlockId = Convert.ToInt32(onlyForInternal.Value);
-          
+
 
             cardCurrentUse = dataBlock.cardUnitInfo.Get_EF_Current_Usage(dataBlockId);
 
@@ -1892,7 +1992,7 @@ public partial class Administrator_Data : System.Web.UI.Page
     {
         EnableAllDriversPreviewButtons();
         ControlActivityData_btn.Enabled = false;
-        
+
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
 
@@ -1905,7 +2005,7 @@ public partial class Administrator_Data : System.Web.UI.Page
 
             int userID = 0;
             int dataBlockId = Convert.ToInt32(onlyForInternal.Value);
-           
+
 
             cardControlActivityDataRecord = dataBlock.cardUnitInfo.Get_EF_Control_Activity_Data(dataBlockId);
             TextBoxTest.Text = "Control Activity Data Record: " + Environment.NewLine + "<br/>";
@@ -1958,7 +2058,7 @@ public partial class Administrator_Data : System.Web.UI.Page
 
             int userID = 0;
             int dataBlockId = Convert.ToInt32(onlyForInternal.Value);
-         
+
             SpecificConditionData = dataBlock.cardUnitInfo.Get_EF_Specific_Conditions(dataBlockId);
 
             int number = 1;
@@ -2047,7 +2147,7 @@ public partial class Administrator_Data : System.Web.UI.Page
                 VehiclesSelectTree.Nodes[0].Value += vehicles[i].ToString() + ", ";
                 VehiclesSelectTree.Nodes[0].ChildNodes[0].Value += vehicles[i].ToString() + ", ";
                 VehiclesSelectTree.Nodes[0].ChildNodes[0].ChildNodes.Add(new TreeNode(vehicleName, vehicles[i].ToString()));
-               
+
             }
         }
         catch (Exception ex)
@@ -2060,7 +2160,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
         try
-        {            
+        {
             Session["DeleteCommmand"] = "ViewVehiclesFile";
             List<int> cardIds = new List<int>();
             cardIds = getIdList(VehiclesSelectTree.SelectedValue);
@@ -2701,7 +2801,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         try
         {
             Status.Text = "";
-            LoadAllDeleteLists();           
+            LoadAllDeleteLists();
             Session["DeleteCommmand"] = "RemoveParsedData";
             SetDelColVisible(true);
             setParseButtonVisible(false);
@@ -2750,7 +2850,7 @@ public partial class Administrator_Data : System.Web.UI.Page
             }
             if (dataBlockIds.Count == 0)
                 Status.Text = "Нет записей для отображения";
-            
+
             AddGrid.DataSource = CreateDeleteDataSource(deleteStructureList);
             AddGrid.DataBind();
             dataBlock.CloseConnection();
@@ -2908,7 +3008,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         try
         {
             setNameChangeVisible(true);
-           
+
             string name = ManagmentLoadedInfo.SelectedNode.Text.Split(' ')[0];
             string surName = ManagmentLoadedInfo.SelectedNode.Text.Split(' ')[1];
             new_DriversName.Text = name;
@@ -2986,7 +3086,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         {
             Status.Text = ex.Message;
         }
-        
+
     }
     ////////////////////////FORALL!!!!!!!!!!!!!!///////////////////////////////////////
     protected void ShowDriversStatistics(object sender, EventArgs e)
@@ -3038,7 +3138,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         LoadDataStatistics1.CheckPlfFiles(false);
         LoadDataStatistics1.LoadAllVehiclesDateStatistics(dataBlockIds);
     }
-//----------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------
     private List<int> getIdList(string input)
     {
         List<int> dataBlockIds = new List<int>();
@@ -3060,7 +3160,7 @@ public partial class Administrator_Data : System.Web.UI.Page
 
     private void SetDelColVisible(bool YES)
     {
-        if(YES)
+        if (YES)
         {
             AddGrid.Columns[0].Visible = true;
             AddGrid.Columns[1].Visible = false;
@@ -3070,7 +3170,7 @@ public partial class Administrator_Data : System.Web.UI.Page
             AddGrid.Columns[0].Visible = false;
             AddGrid.Columns[1].Visible = true;
         }
-            
+
     }
 
     private void setParseButtonVisible(bool YES)
@@ -3118,7 +3218,7 @@ public partial class Administrator_Data : System.Web.UI.Page
 
     private void driversCardEditPanelVisible(bool YES)
     {
-        if(YES)
+        if (YES)
         {
             DriversCardEditButtonsPanel.Visible = true;
             DriverCardEditFormsPanel.Visible = true;

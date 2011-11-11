@@ -15,3 +15,4 @@ D:\BSUIR\Other\UnitedProject\DDDModel\DB.Interface\bin\Release\DB.Interface.pdb
 D:\BSUIR\Other\UnitedProject\DDDModel\DB.Interface\obj\Release\ResolveAssemblyReference.cache
 D:\BSUIR\Other\UnitedProject\DDDModel\DB.Interface\obj\Release\DB.Interface.dll
 D:\BSUIR\Other\UnitedProject\DDDModel\DB.Interface\obj\Release\DB.Interface.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\DB.Interface\bin\Release\DB.Interface.XML

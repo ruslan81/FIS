@@ -4,5 +4,41 @@
         <name>DB.Interface</name>
     </assembly>
     <members>
+        <member name="T:DB.Interface.DBI_Records">
+            <summary>
+            Интерфейс для SQLDB_Records.cs
+            </summary>
+        </member>
+        <member name="T:DB.Interface.DBI">
+            <summary>
+            Интерфейс для SQLDB.cs
+            </summary>
+        </member>
+        <member name="M:DB.Interface.DBI.GetEmailScheduleTimes(System.Collections.Generic.List{System.Int32})">
+            <summary>
+            Получает список дат последней отправки и период для каждого ID
+            </summary>
+            <param name="emailScheduleId">список ID записей отправки отчета на почту</param>
+            <returns>список пар значений - Последняя дата отправки/(тип периода/период отправки)</returns>
+        </member>
+        <member name="M:DB.Interface.DBI.GetAllEmailScheduleTable(System.Int32)">
+            <summary>
+            Получает все поля в таблице emailSchedule
+            </summary>
+            <param name="scheduleId">ID записи отправки отчета на почту</param>
+            <returns>
+            Возвращает список объектов, которые надо привести к нужному типу по очереди(смотреть класс SingleEmailSchedule в пространстве имен BLL)
+            Если ничего не поменялось, то список такой:
+            int EMAIL_SCHEDULE_ID;
+            int ORG_ID;
+            int USER_ID;
+            int REPORT_ID;
+            int CARD_ID;
+            int PERIOD;
+            int PERIOD_TYPE;
+            DateTime LAST_SEND_DATE;(использовать для приведения DateTime.Parse(object.toString()) для правильного приведения;
+            string EMAIL_ADDRESS;
+            </returns>
+        </member>
     </members>
 </doc>

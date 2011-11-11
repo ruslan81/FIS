@@ -8,9 +8,18 @@
 <asp:Content ID="AccordionContent" ContentPlaceHolderID="VerticalOutlookMenu_PlaceHolder"
     runat="server">
     <script src="../js/custom/Arhive.js" type="text/javascript"></script>
+    <link type="text/css" href="../css/data-page.css" rel="stylesheet" />
     <script type="text/javascript">
         //run on page load
         $(function () {
+            cardID = null;
+            $("#buildButton").click(function () { buildButtonClick(); return false; });
+            $("#buildButton").button();
+            $("#startDatePicker").datepicker();
+            $("#startDatePicker").datepicker("setDate", "11/01/2006");
+            $("#endDatePicker").datepicker();
+            $("#endDatePicker").datepicker("setDate", "12/01/2006");
+            $("#periodSelection").hide();
 
             $("#accordion").accordion({
                 change: function (event, ui) {
@@ -35,8 +44,8 @@
             bars = document.getElementsByName("progressbar");
             for (var i in bars) {
                 $("#" + bars[i].id).empty();
-                $("#" + bars[i].id).progressbar({ value: bars[i].value });
-                //$("#" + bars[i].id).progressbar("option", "value", bars[i].value);
+                var val = $(bars[i]).attr("value");
+                $("#" + bars[i].id).progressbar({ value: parseInt(val) });
             }
         }
 
@@ -68,10 +77,10 @@
         });       
     </script>
     <script id="tmplGroupTree" type="text/x-jquery-tmpl">
-        <li class="folder"><a><span key="">${OrgName}</span></a>
+        <li class="folder"><a><span key="None">${OrgName}</span></a>
         <ul>
             {{each groups}}
-            <li class="file"><a><span key="">${GroupName}</span></a>
+            <li class="file"><a><span key="None">${GroupName}</span></a>
                 <ul>
                     {{each values}}
                     <li class="file"><a><span key=${Key}>${Value}</span></a></li>
@@ -451,6 +460,15 @@
     </asp:UpdatePanel>-->
     <!--<table id="table-remote">
     </table>-->
+    <div id="periodSelection">
+        <label>Начальная дата </label><input id="startDatePicker" type="text"/>
+        <label>Конечная дата </label><input id="endDatePicker" type="text"/>
+        <button id="buildButton" onclick="buildButtonClick">Построить</button>
+        <div id="dateErrorBlock" class="error-block">
+            <label class="error" id="dateErrorLabel"> Ошибка: Укажите начальную и конечную дату!</label>
+        </div>
+        <br/><br/>
+    </div>
     <div id="contentTableWrapper">
         <table id="contentTable" style="border-collapse: separate;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
             border="0" cellpadding="0" cellspacing="0">

@@ -1,0 +1,40 @@
+@charset "utf-8";
+/* CSS Document */
+
+.error-block
+{
+    margin-left: 65%;
+    margin-top: -23px;
+    width: 320px;
+    height: 15px;    
+    background: #EEE url(../images/EnterForm/formback.png) repeat-x;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    border: 1px #CCC solid;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    padding: 2px;
+    padding-left: 15px;
+}
+
+.error-block-status
+{   
+    width: 268px;
+    height: 15px;    
+    background: #EEE url(../images/EnterForm/formback.png) repeat-x;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    border: 1px #CCC solid;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    padding: 2px;
+    text-align:center;
+}
+
+.error
+{
+    font-family: Calibri, Georgia, Times New Roman; 
+    font-size:12px;
+    color: #bb0000;
+    font-weight:bold;
+}               
