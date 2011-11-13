@@ -367,6 +367,14 @@ public partial class Administrator_Data : System.Web.UI.Page
     private static List<int> getMonthsList(int year, DateTime start, DateTime end)
     {
         List<int> months = new List<int>();
+        if (year == start.Year && year == end.Year)
+        {
+            for (int i = start.Month; i <= end.Month; i++)
+            {
+                months.Add(i);
+            }
+            return months;
+        }
         if (year == start.Year)
         {
             for (int i = start.Month; i <= 12; i++)
@@ -394,6 +402,14 @@ public partial class Administrator_Data : System.Web.UI.Page
     {
         List<int> days = new List<int>();
         int count=DateTime.DaysInMonth(year, month);
+        if (year == start.Year && start.Month == month && year == end.Year && end.Month == month)
+        {
+            for (int i = start.Day; i <= end.Day; i++)
+            {
+                days.Add(i);
+            }
+            return days;
+        }
         if (year == start.Year && start.Month==month)
         {
             for (int i = start.Day; i <= count; i++)
@@ -435,6 +451,11 @@ public partial class Administrator_Data : System.Web.UI.Page
 
             DateTime startDate = DateTime.Parse(StartDate);
             DateTime endDate = DateTime.Parse(EndDate);
+
+            if (startDate.CompareTo(endDate) >= 0)
+            {
+                return null;
+            }
 
             List<int> years = getYearsList(startDate,endDate);
 
@@ -479,13 +500,15 @@ public partial class Administrator_Data : System.Web.UI.Page
             }
 
             dataBlock.CloseConnection();
+            if (result.Count==0)
+                return null;
         }
         catch (Exception ex)
         {
             YearData d = new YearData();
             d.YearName = ex.Message;
             result.Add(d);
-            return result;
+            return null;
         }
         return result;
     }
@@ -508,6 +531,10 @@ public partial class Administrator_Data : System.Web.UI.Page
 
             DateTime startDate = DateTime.Parse(StartDate);
             DateTime endDate = DateTime.Parse(EndDate);
+
+            if (startDate.CompareTo(endDate) >= 0) {
+                return null;
+            }
 
             List<int> years = getYearsList(startDate,endDate);
 
@@ -552,13 +579,15 @@ public partial class Administrator_Data : System.Web.UI.Page
             }
 
             dataBlock.CloseConnection();
+            if (result.Count == 0)
+                return null;
         }
         catch (Exception ex)
         {
             YearData d = new YearData();
             d.YearName = ex.Message;
             result.Add(d);
-            return result;
+            return null;
         }
         return result;
     }

@@ -79,9 +79,9 @@ button
 
 .error-block
 {
-    margin-left: 65%;
+    margin-left: 67%;
     margin-top: -23px;
-    width: 320px;
+    width: 300px;
     height: 15px;
     background: #EEE url(../images/EnterForm/formback.png) repeat-x;
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
