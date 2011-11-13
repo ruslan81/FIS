@@ -8,21 +8,20 @@
 <asp:Content ID="AccordionContent" ContentPlaceHolderID="VerticalOutlookMenu_PlaceHolder"
     runat="server">
     <script src="../js/custom/Arhive.js" type="text/javascript"></script>
-    <link type="text/css" href="../css/data-page.css" rel="stylesheet" />
     <script type="text/javascript">
         //run on page load
         $(function () {
             cardID = null;
-            $("#buildButton").click(function () { buildButtonClick(); return false; });
-            $("#buildButton").button();
-            $("#startDatePicker").datepicker();
-            $("#startDatePicker").datepicker("setDate", "11/01/2006");
-            $("#endDatePicker").datepicker();
-            $("#endDatePicker").datepicker("setDate", "12/01/2006");
-            $("#periodSelection").hide();
+
+
+
+
 
             $("#accordion").accordion({
                 change: function (event, ui) {
+                    if ($("a", ui.newHeader).text() == "Загрузить на сервер") {
+                        destroyPeriodControls();
+                    };
                     //закладка "Восстановить у пользователя"
                     if ($("a", ui.newHeader).text() == "Восстановить у пользователя") {
                         loadRecoverUserData();
