@@ -8,14 +8,13 @@
 <asp:Content ID="AccordionContent" ContentPlaceHolderID="VerticalOutlookMenu_PlaceHolder"
     runat="server">
     <script src="../js/custom/Arhive.js" type="text/javascript"></script>
+    <script src="../js/jquery.ui.datepicker-ru.js" type="text/javascript"></script>
     <script type="text/javascript">
         //run on page load
         $(function () {
             cardID = null;
 
-
-
-
+            createPeriodControls();
 
             $("#accordion").accordion({
                 change: function (event, ui) {
@@ -24,6 +23,7 @@
                     };
                     //закладка "Восстановить у пользователя"
                     if ($("a", ui.newHeader).text() == "Восстановить у пользователя") {
+                        destroyPeriodControls();
                         loadRecoverUserData();
                     };
                     if ($("a", ui.newHeader).text() == "Просмотреть(Водитель)") {
@@ -462,9 +462,9 @@
     <div id="periodSelection">
         <label>Начальная дата </label><input id="startDatePicker" type="text"/>
         <label>Конечная дата </label><input id="endDatePicker" type="text"/>
-        <button id="buildButton" onclick="buildButtonClick">Построить</button>
+        <button id="buildButton">Построить</button>
         <div id="dateErrorBlock" class="error-block">
-            <label class="error" id="dateErrorLabel"> Ошибка: Укажите начальную и конечную дату!</label>
+            <label class="error" id="dateErrorLabel"> Ошибка: Верно укажите начальную и конечную дату!</label>
         </div>
         <br/><br/>
     </div>
