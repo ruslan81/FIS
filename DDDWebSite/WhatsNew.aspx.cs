@@ -13,6 +13,14 @@ public partial class WhatsNew : System.Web.UI.Page
         {
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "- 14.11.2011" + Environment.NewLine;
+            ReportLabel.Text += @"-  Переделаны разделы Просмотреть Водитель и Просмотреть ТС" + Environment.NewLine;
+            ReportLabel.Text += @"-  Для тестирования в базе данных есть данные на транспортное средство ТС №135 за период с 01.11.2006 по 01.12.2006, можно пробовать интервалы внутри этого промежутка, можно, конечно, и другие, но скорее всего там не будет данных" + Environment.NewLine;
+            ReportLabel.Text += @"-  Произведена оптимизация запроса, сейчас запрос за год в среднем занимает около 8 секунд" + Environment.NewLine;
+            ReportLabel.Text += @"-  Произведена оптимизация отображения данных, если Процент данных 0, то соответствующие дни, месяцы не отображаются,
+            те. если в ответе на запрос за год 364 дня будут пустыми, они просто не отобразятся, а 1 день с непустым значением отобразится" + Environment.NewLine;
+            ReportLabel.Text += @"-  Переделан раздел Настройки/Общие, аналогичным образом будут переделаны остальные разделы" + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "- 19.10.2011" + Environment.NewLine;
             ReportLabel.Text += @"-  Введена поддержка групп в разделах Просмотреть водителей и Просмотреть ТС" + Environment.NewLine;
             ReportLabel.Text += @"-  Оптимизирована работа с разделами Просмотреть водителей и Просмотреть ТС" + Environment.NewLine;

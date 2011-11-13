@@ -1,5 +1,6 @@
 ﻿function loadRecoverUserData() {
     destroyTree($("#tree"));
+    destroyPeriodControls();
     $("#DriversTree").empty();
     $("#TransportTree").empty();
     destroyTable($("#contentTable"), $("#contentTableBody"), $("#contentTableHeader"));
@@ -71,14 +72,14 @@ function loadRecoverUserNodeData() {
     $("#contentTable").show();
     //create table header
     createTableHeader($("#contentTableHeader"), $("#tmplHeadColumn"),
-    '[{"text": "", "style": "width: 50px"},' +
+    '[{"text": "", "style": "width: 50px;"},' +
     '{"text": "Имя файла", "style": ""},' +
-    '{"text": "Тип файла", "style": "width: 100px"},' +
-    '{"text": "Начальная дата", "style": "width: 100px"},' +
-    '{"text": "Конечная дата", "style": "width: 100px"},' +
-    '{"text": "Количество", "style": "width: 100px"},' +
-    '{"text": "Дата разбора файла", "style": "width: 150px"},' +
-    '{"text": "", "style": "width: 50px"}]');
+    '{"text": "Тип файла", "style": "width: 100px;"},' +
+    '{"text": "Начальная дата", "style": "width: 100px;"},' +
+    '{"text": "Конечная дата", "style": "width: 100px;"},' +
+    '{"text": "Количество", "style": "width: 100px;"},' +
+    '{"text": "Дата разбора файла", "style": "width: 150px;"},' +
+    '{"text": "", "style": "width: 50px;"}]');
 
     $.ajax({
         type: "POST",
@@ -163,6 +164,7 @@ function destroyTable(table, tableBody, tableHeader) {
 
 function loadOverlookDriver() {
     destroyTree($("#OverlookDriverTree"));
+    destroyPeriodControls();
     loadOverlookDriverTree();
 }
 
@@ -179,7 +181,7 @@ function loadOverlookDriverTree() {
             $("#tmplGroupTree").tmpl(response.d).appendTo("#OverlookDriverTree");
             $("#OverlookDriverTree").wijtree();
             $("#OverlookDriverTree").wijtree({ selectedNodeChanged: function (e, data) {
-                onOverlookDriverSelected(e, data);
+                onOverlookNodeSelected(e, data);
             }
             });
         }
@@ -187,9 +189,12 @@ function loadOverlookDriverTree() {
 }
 
 //Событие при выделении узла дерева
-function onOverlookDriverSelected(e, data) {
+/*function onOverlookDriverSelected(e, data) {
     isSelected = $("div", data.element).attr("aria-selected");
     cardID = $("a span", data.element).attr("key");
+    if (cardID == "None")
+        return;
+    cardID = "136";
     if (isSelected == "true") {
         loadOverlookDriverNodeData()
     } else {
@@ -203,10 +208,10 @@ function loadOverlookDriverNodeData() {
     $("#contentTable").show();
     //create table header
     createTableHeader($("#contentTableHeader"), $("#tmplHeadColumn"),
-    '[{"text": "Год", "style": "width: 80px"},' +
-    '{"text": "Месяц", "style": "width: 80px"},' +
-    '{"text": "Число", "style": "width: 80px"},' +
-    '{"text": "Процент данных", "style": "width: 120px"},' +
+    '[{"text": "Год", "style": "width: 60px;"},' +
+    '{"text": "Месяц", "style": "width: 60px;"},' +
+    '{"text": "Число", "style": "width: 60px;"},' +
+    '{"text": "Процент данных", "style": "width: 60px;"},' +
     '{"text": "Прогресс", "style": ""}]');
 
     $.ajax({
@@ -221,12 +226,13 @@ function loadOverlookDriverNodeData() {
             refreshProgressBars();
         }
     });
-}
+}*/
 
 //FROM HERE OVERLOOK(VEHICLE) STARTS
 
 function loadOverlookVehicle() {
     destroyTree($("#OverlookVehicleTree"));
+    destroyPeriodControls();
     //$("#OverlookVehicleTree").wijtree("destroy");
     loadOverlookVehicleTree();
 }
@@ -244,7 +250,7 @@ function loadOverlookVehicleTree() {
             $("#tmplGroupTree").tmpl(response.d).appendTo("#OverlookVehicleTree");
             $("#OverlookVehicleTree").wijtree();
             $("#OverlookVehicleTree").wijtree({ selectedNodeChanged: function (e, data) {
-                onOverlookVehicleSelected(e, data);
+                onOverlookNodeSelected(e, data);
             }
             });
         }
@@ -252,42 +258,137 @@ function loadOverlookVehicleTree() {
 }
 
 //Событие при выделении узла дерева
-function onOverlookVehicleSelected(e, data) {
+function onOverlookNodeSelected(e, data) {
+
+    $("#contentTableBody").empty();
+    $("#contentTable").hide();
+    $("#periodSelection").hide();
+        
     isSelected = $("div", data.element).attr("aria-selected");
     cardID = $("a span", data.element).attr("key");
-    if (cardID == "None")
+    if (cardID == "None"){
+        cardID = null;
         return;
+    }
+    //cardID = "135";
     if (isSelected == "true") {
-        loadOverlookDriverNodeData()
+        $("#periodSelection").show();
+        $("#dateErrorBlock").hide();
     } else {
         $("#contentTableBody").empty();
         $("#contentTable").hide();
+        $("#periodSelection").hide();
+        //destroyPeriodControls();
     }
 }
 
-//Загрузить данные для выбранного элемента дерева в разделе "Просмотреть(Водитель)"
-function loadOverlookVehicleNodeData() {
-    /*$("#contentTable").show();
-    //create table header
-    createTableHeader($("#contentTableHeader"), $("#tmplHeadColumn"),
-    '[{"text": "", "style": "width: 50px"},' +
-    '{"text": "Имя файла", "style": ""},' +
-    '{"text": "Тип файла", "style": "width: 100px"},' +
-    '{"text": "Начальная дата", "style": "width: 100px"},' +
-    '{"text": "Конечная дата", "style": "width: 100px"},' +
-    '{"text": "Количество записей", "style": "width: 100px"},' +
-    '{"text": "Дата разбора файла", "style": "width: 150px"},' +
-    '{"text": "", "style": "width: 50px"}]');
-
-    $.ajax({
-    type: "POST",
-    //Page Name (in which the method should be called) and method name
-    url: "Data.aspx/GetRecoverUserNodeData",
-    data: "{'CardID':'" + cardID + "', 'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
-    contentType: "application/json; charset=utf-8",
-    dataType: "json",
-    success: function (result) {
-    updateTable($("#contentTableBody"), $("#tmplDriversTable"), result.d);
+function onClickBuildReport() {
+    $("#dateErrorBlock").hide();
+    if (cardID != null) {
+        $("#contentTable").show();
+        createTableHeader($("#contentTableHeader"), $("#tmplHeadColumn"),
+        '[{"text": "Год", "style": "width: 60px;"},' +
+        '{"text": "Месяц", "style": "width: 60px;"},' +
+        '{"text": "Число", "style": "width: 60px;"},' +
+        '{"text": "Процент данных", "style": "width: 60px;"},' +
+        '{"text": "Прогресс", "style": ""}]');
     }
-    });*/
+    startDate=$("#startDatePicker").datepicker("getDate");
+    endDate = $("#endDatePicker").datepicker("getDate");
+
+    if (endDate == null || startDate == null){// || !checkDate(startDate) || !checkDate(endDate)) {
+        $("#dateErrorBlock").show();
+        return;
+    }
+    if ($("#accordion").accordion("option", "active") == 3) {
+        $.ajax({
+            type: "POST",
+            url: "Data.aspx/GetOverlookVehicleNodeData",
+            data: "{'CardID':'" + cardID + "', 'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'StartDate':'" + convert(startDate) + "', 'EndDate':'" + convert(endDate) + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                if (result.d == null) {
+                    $("#dateErrorBlock").show();
+                    $("#contentTable").hide();
+                    return;
+                }
+                updateTable($("#contentTableBody"), $("#tmplOverlookTable"), result.d);
+                refreshProgressBars();
+            }
+        });
+    }
+    if ($("#accordion").accordion("option", "active") == 2) {
+        $.ajax({
+            type: "POST",
+            url: "Data.aspx/GetOverlookDriverNodeData",
+            data: "{'CardID':'" + cardID + "', 'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'StartDate':'" + convert(startDate) + "', 'EndDate':'" + convert(endDate) + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                if (result.d == null) {
+                    $("#dateErrorBlock").show();
+                    $("#contentTable").hide();
+                    return;
+                }
+                updateTable($("#contentTableBody"), $("#tmplOverlookTable"), result.d);
+                refreshProgressBars();
+            }
+        });
+    }
+}
+
+/*function checkDate(date) {
+    y = date.getFullYear();
+    m = date.getMonth();
+    d = date.getDate();
+    alert(y + " " + m + " " + d);
+    if (d < 1 || d > 31) {
+        return false;
+    }
+    if (m < 1 || d > 12) {
+        return false;
+    }
+    if (y < 2000 || y > 2100) {
+        return false;
+    }
+    return true;
+}*/
+
+function convert(date) {
+    res=date.getDate() + ".";
+    if (date.getMonth() < 9) res = res + "0";
+    return res + (date.getMonth() + 1) + "." + date.getFullYear();
+}
+
+function createPeriodControls() {
+    //$("#periodSelection").show();
+
+    var today = new Date();
+    var todaystr = "" + convert(today);
+    today.setMonth(today.getMonth()-1);
+    var thenstr = "" + convert(today);
+
+    $("#startDatePicker").datepicker();
+    $("#startDatePicker").datepicker("option", "dateFormat", "dd.mm.yy");
+    $("#startDatePicker").datepicker("setDate", thenstr);
+
+    $("#endDatePicker").datepicker();
+    $("#endDatePicker").datepicker("option", "dateFormat", "dd.mm.yy");
+    $("#endDatePicker").datepicker("setDate", todaystr);
+
+    $("#startDatePicker").datepicker($.datepicker.regional['ru']);
+    $("#endDatePicker").datepicker($.datepicker.regional['ru']);
+
+    $("#buildButton").button();
+    $("#buildButton").click(function () {
+        onClickBuildReport();
+        return false;
+    });
+}
+
+function destroyPeriodControls() {
+    //$("#buildButton").button("destroy");
+    $("#periodSelection").hide();
+    $("#contentTable").hide();
 }

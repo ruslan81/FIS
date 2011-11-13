@@ -464,7 +464,7 @@
         <label>Конечная дата </label><input id="endDatePicker" type="text"/>
         <button id="buildButton">Построить</button>
         <div id="dateErrorBlock" class="error-block">
-            <label class="error" id="dateErrorLabel"> Ошибка: Верно укажите начальную и конечную дату!</label>
+            <label class="error" id="dateErrorLabel"> Ошибка: Укажите начальную и конечную дату!</label>
         </div>
         <br/><br/>
     </div>
