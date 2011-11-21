@@ -1,4 +1,4 @@
-﻿<%@ page language="C#" masterpagefile="~/MasterPage/MasterPage.Master" autoeventwireup="true" inherits="Administrator_Data, App_Web_zjjk4otw" enableeventvalidation="false" %>
+﻿<%@ page language="C#" masterpagefile="~/MasterPage/MasterPage.Master" autoeventwireup="true" inherits="Administrator_Data, App_Web_rrv24y20" enableeventvalidation="false" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControlsForAll/BlueButton.ascx" TagName="BlueButton" TagPrefix="uc2" %>
@@ -7,14 +7,22 @@
 <asp:Content ID="AccordionContent" ContentPlaceHolderID="VerticalOutlookMenu_PlaceHolder"
     runat="server">
     <script src="../js/custom/Arhive.js" type="text/javascript"></script>
+    <script src="../js/jquery.ui.datepicker-ru.js" type="text/javascript"></script>
     <script type="text/javascript">
         //run on page load
         $(function () {
+            cardID = null;
+
+            createPeriodControls();
 
             $("#accordion").accordion({
                 change: function (event, ui) {
+                    if ($("a", ui.newHeader).text() == "Загрузить на сервер") {
+                        destroyPeriodControls();
+                    };
                     //закладка "Восстановить у пользователя"
                     if ($("a", ui.newHeader).text() == "Восстановить у пользователя") {
+                        destroyPeriodControls();
                         loadRecoverUserData();
                     };
                     if ($("a", ui.newHeader).text() == "Просмотреть(Водитель)") {
@@ -34,8 +42,8 @@
             bars = document.getElementsByName("progressbar");
             for (var i in bars) {
                 $("#" + bars[i].id).empty();
-                $("#" + bars[i].id).progressbar({ value: bars[i].value });
-                //$("#" + bars[i].id).progressbar("option", "value", bars[i].value);
+                var val = $(bars[i]).attr("value");
+                $("#" + bars[i].id).progressbar({ value: parseInt(val) });
             }
         }
 
@@ -450,6 +458,15 @@
     </asp:UpdatePanel>-->
     <!--<table id="table-remote">
     </table>-->
+    <div id="periodSelection">
+        <label>Начальная дата </label><input id="startDatePicker" type="text"/>
+        <label>Конечная дата </label><input id="endDatePicker" type="text"/>
+        <button id="buildButton">Построить</button>
+        <div id="dateErrorBlock" class="error-block">
+            <label class="error" id="dateErrorLabel"> Ошибка: Укажите начальную и конечную дату!</label>
+        </div>
+        <br/><br/>
+    </div>
     <div id="contentTableWrapper">
         <table id="contentTable" style="border-collapse: separate;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
             border="0" cellpadding="0" cellspacing="0">
