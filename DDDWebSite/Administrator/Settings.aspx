@@ -129,7 +129,7 @@
         </div>
     </div>
 </asp:Content>
-asp:Content ID="ChoisesContent" ContentPlaceHolderID="MainConditions_PlaceHolder" runat="server">
+<asp:Content ID="ChoisesContent" ContentPlaceHolderID="MainConditions_PlaceHolder" runat="server">
     <div id="headerSettings">
         Общие настройки
     </div>

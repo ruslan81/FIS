@@ -72,4 +72,65 @@ button
     margin-left: 40px;
     text-shadow: 2px 2px 1px white; 
 }
-    
+
+
+
+/* Errors */
+
+.error-block
+{
+    margin-left: 655px;
+    margin-top: -25px;
+    width: 265px;
+    height: 15px;
+    background: #EEE url(../images/EnterForm/formback.png) repeat-x;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    border: 1px #CCC solid;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    padding: 2px;
+    padding-left: 15px;
+}
+
+.error-block-status
+{   
+    width: 268px;
+    height: 15px;    
+    background: #EEE url(../images/EnterForm/formback.png) repeat-x;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    border: 1px #CCC solid;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    padding: 2px;
+    text-align:center;
+}
+
+.error
+{
+    font-family: Calibri, Georgia, Times New Roman; 
+    font-size:12px;
+    color: #bb0000;
+    font-weight:bold;
+}               
+
+
+#periodSelection
+{
+    padding-left:10px;
+    padding-top:10px;
+    display:none;
+}
+
+#startDatePicker
+{
+    margin-left:10px;
+    margin-right:10px;
+}
+
+#endDatePicker
+{
+    margin-left:10px;
+    margin-right:10px;
+}

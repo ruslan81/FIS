@@ -79,9 +79,9 @@ button
 
 .error-block
 {
-    margin-left: 67%;
-    margin-top: -23px;
-    width: 300px;
+    margin-left: 655px;
+    margin-top: -25px;
+    width: 265px;
     height: 15px;
     background: #EEE url(../images/EnterForm/formback.png) repeat-x;
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
@@ -118,19 +118,19 @@ button
 
 #periodSelection
 {
-    padding-left:20px;
-    padding-top:20px;
+    padding-left:10px;
+    padding-top:10px;
     display:none;
 }
 
 #startDatePicker
 {
     margin-left:10px;
-    margin-right:20px;
+    margin-right:10px;
 }
 
 #endDatePicker
 {
     margin-left:10px;
-    margin-right:20px;
+    margin-right:10px;
 }
