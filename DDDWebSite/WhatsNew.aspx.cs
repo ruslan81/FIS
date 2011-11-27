@@ -13,6 +13,13 @@ public partial class WhatsNew : System.Web.UI.Page
         {
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "- 27.11.2011" + Environment.NewLine;
+            ReportLabel.Text += @"-  Доработан раздел Архив/Загрузить на сервер" + Environment.NewLine;
+            ReportLabel.Text += @"  -  Переделан внешний вид (размер combobox, отображение полей при добавлении водителя, контролы и др.)" + Environment.NewLine;
+            ReportLabel.Text += @"  -  Решена проблема валидации полей, сейчас осуществляется проверка всех полей" + Environment.NewLine;
+            ReportLabel.Text += @"  -  Устранена проблема, когда в БД добавлялся водитель 'Введите значение! Введите значение!' из-за неверной проверки" + Environment.NewLine;
+            ReportLabel.Text += @"  -  Добавлен функционал кнопки 'Отмена', переработан функционал 'Создать'" + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "- 14.11.2011" + Environment.NewLine;
             ReportLabel.Text += @"-  Переделаны разделы Просмотреть Водитель и Просмотреть ТС" + Environment.NewLine;
             ReportLabel.Text += @"-  Для тестирования в базе данных есть данные на транспортное средство ТС №135 за период с 01.11.2006 по 01.12.2006, можно пробовать интервалы внутри этого промежутка, можно, конечно, и другие, но скорее всего там не будет данных" + Environment.NewLine;
