@@ -134,3 +134,14 @@ button
     margin-left:10px;
     margin-right:10px;
 }
+
+.uploadPanel input
+{
+    margin:0px;
+}
+
+.uploadPanel select
+{
+    height:20px;
+    margin:0px;
+}
