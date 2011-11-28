@@ -4889,3 +4889,6 @@ Cache Callback: 28.11.2011 2:04:05
 Cache Callback: 28.11.2011 2:05:20
 Cache Callback: 28.11.2011 2:06:20
 Cache Callback: 28.11.2011 2:07:36
+Cache Callback: 28.11.2011 22:33:00
+Cache Callback: Message: Сбой при отправке сообщения электронной почты.
+Cache Callback: 28.11.2011 22:33:39

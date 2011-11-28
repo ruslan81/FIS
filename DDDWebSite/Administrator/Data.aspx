@@ -217,15 +217,19 @@
                 </asp:TableCell></asp:TableRow>
         </asp:Table>
     </asp:Panel>
+
     <asp:ModalPopupExtender ID="ModalPopupExtender1" runat="server" TargetControlID="modalPopupHdnField"
         PopupControlID="modalPopupPanel" BackgroundCssClass="modalBackgroung" BehaviorID="ShowModal" />
     <asp:HiddenField ID="modalPopupHdnField" runat="server" />
+
+    <!--Боковая панель-->
     <div id="accordion" style="width: 5">
+        <!--Раздел Загрузить на сервер-->
         <h3>
             <asp:LinkButton ID="AccordionHeader1_Upload" runat="server" PostBackUrl="#" OnClientClick="onAccordionSelectedIndexChanged(0);"
                 Text="Загрузить на сервер" />
         </h3>
-        <div>
+        <div class="uploadPanel">
             <asp:UpdatePanel ID="UploadTestUpdatePanel" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
                     <p>
@@ -233,7 +237,7 @@
                             <asp:Label ID="FileIploadLabel" runat="server" Text="Укажите файл для загрузки на сервер:" />
                         </b>
                     </p>
-                    <asp:FileUpload ID="MyFileUpload" Width="90%" runat="server" />
+                    <asp:FileUpload ID="MyFileUpload" runat="server" />
                     <br />
                     <br />
                     <uc2:BlueButton ID="Upload_Button" Text="Отправить" runat="server" BtnWidth="150" />
@@ -241,24 +245,53 @@
                     <asp:DropDownList runat="server" ID="SelectPLFDriver" Width="100%" Visible="false"
                         OnSelectedIndexChanged="Upload_PLFFile" AutoPostBack="true" />
                     <asp:Panel runat="server" ID="createDriverPanel" Visible="false">
-                        <asp:Label ID="Label8" runat="server" Text="Имя водителя: " Width="30%" />
-                        <asp:TextBox runat="server" ID="CreateDriversName" Width="50%" />
-                        <asp:Label ID="Label9" runat="server" Text="Фамилия водителя: " Width="40%" />
-                        <asp:TextBox runat="server" ID="CreateDriversSurname" Width="50%" />
-                        <asp:Label ID="Label10" runat="server" Text="Номер карты: " Width="30%" />
-                        <asp:TextBox runat="server" ID="CreateDriversNumber" Width="50%" />
-                        <asp:Button ID="CreateDriver" runat="server" Text="Создать" OnClick="CreateDriverClick" />
-                        <asp:Button ID="CancelCreateDriver" runat="server" Text="Отмена" OnClick="CancelCreateDriverClick" />
+                        <table style="margin-bottom:10px;">
+                            <tbody>
+                                <tr>
+                                    <td style="width:125px;">
+                                        <asp:Label ID="Label8" runat="server" Text="Имя водителя: "/>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox runat="server" ID="CreateDriversName"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <asp:Label ID="Label9" runat="server" Text="Фамилия водителя: "/>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox runat="server" ID="CreateDriversSurname"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <asp:Label ID="Label10" runat="server" Text="Номер карты: "/>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox runat="server" ID="CreateDriversNumber"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div style="float:left;">
+                            <uc2:BlueButton ID="CreateDriver" runat="server" Text="Создать" BtnWidth="60" OnButtOnClick="CreateDriverClick" />
+                        </div>
+                        <div style="float:left;margin-left:5px;">
+                            <uc2:BlueButton ID="CancelCreateDriver" runat="server" Text="Отмена" BtnWidth="60" OnButtOnClick="CancelCreateDriverClick" />
+                        </div>
                     </asp:Panel>
                 </ContentTemplate>
                 <Triggers>
                     <asp:PostBackTrigger ControlID="SelectPLFDriver" />
                     <asp:PostBackTrigger ControlID="CreateDriver" />
-                    <asp:AsyncPostBackTrigger ControlID="CancelCreateDriver" EventName="Click" />
+                    <asp:PostBackTrigger ControlID="CancelCreateDriver"/>
                     <asp:PostBackTrigger ControlID="Upload_Button" />
                 </Triggers>
             </asp:UpdatePanel>
         </div>
+
+        <!--Раздел Восстановить у пользователя-->
         <h3>
             <asp:LinkButton ID="AccordionHeader2_UserBackUp" runat="server" PostBackUrl="#" OnClientClick="onAccordionSelectedIndexChanged(1);"
                 Text="Восстановить у пользователя" />
@@ -292,6 +325,8 @@
                 </ul>
             </div>
         </div>
+
+        <!--Раздел Просмотреть(Водитель)-->
         <h3>
             <asp:LinkButton ID="AccordionHeader3_Driver" runat="server" PostBackUrl="#" OnClientClick="onAccordionSelectedIndexChanged(2);"
                 Text="Просмотреть(Водитель)" /></h3>
@@ -332,6 +367,7 @@
             </div>
         </div>
 
+        <!--Раздел Просмотреть(ТС)-->
         <h3>
         <asp:LinkButton ID="AccordionHeader4_Vehicle" runat="server" PostBackUrl="#" OnClientClick="onAccordionSelectedIndexChanged(3);"
             Text="Просмотреть(ТС)" /></h3>
@@ -365,6 +401,7 @@
                 <ul id="OverlookVehicleTree">
                 </ul>
             </div>
+
         </div>
         <!--<h3>
         <asp:LinkButton ID="AccordionHeader5_LOadedInfo" runat="server" PostBackUrl="#" OnClientClick="onAccordionSelectedIndexChanged(4);"
@@ -392,7 +429,10 @@
             </div>
         </div>-->
     </div>
+    <!--Конец боковой панели-->
 </asp:Content>
+
+
 <asp:Content ID="ChoisesContent" ContentPlaceHolderID="MainConditions_PlaceHolder"
     runat="server">
     <asp:Label ID="ChoisesLabel" Text="" runat="server" />

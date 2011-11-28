@@ -203,20 +203,20 @@ function createUserControlsGroups() {
         if (c > 0) {
             $("#deletedialog").dialog({ buttons: { "OK": function () {
                 $(this).dialog("close");
+                var keys = [];
                 for (var i = 0; i < inputs.length; i++) {
                     if (inputs[i].checked) {
                         key = $(inputs[i]).attr("key");
-                        deleteGroup(key);
+                        keys.push({ Key: "", Value: key});
                     }
                 }
-                
+                deleteGroup(keys);
             },
                 "Отмена": function () {
                     $(this).dialog("close");
                 }
             }
         })
-        loadGroupsSettings();
         }
         
         return false;
@@ -281,15 +281,17 @@ function createUserControlsGroups() {
     });
 }
 
-function deleteGroup(id) {
+function deleteGroup(list) {
+    var order = { OrgID: $.cookie("CURRENT_ORG_ID"), GroupIDs: list };
     $.ajax({
         type: "POST",
         //Page Name (in which the method should be called) and method name
-        url: "Settings.aspx/DeleteGroup",
-        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "','GroupID':'" + id + "'}",
+        url: "Settings.aspx/DeleteGroups",
+        data: JSON.stringify(order),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
+            loadGroupsSettings();
         }
     });
 }

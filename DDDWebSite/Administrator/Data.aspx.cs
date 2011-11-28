@@ -695,19 +695,23 @@ public partial class Administrator_Data : System.Web.UI.Page
             dataBlock.OpenConnection();
             int curUserId = dataBlock.usersTable.Get_UserID_byName(Page.User.Identity.Name);
 
-            if (name == "")
+            string message = "Введите значение!";
+
+            if (name.Equals("")||name.Equals(message))
             {
-                CreateDriversName.Text = "Введите значение!";
-                throw notAllFields;
+                CreateDriversName.Text = message;
             }
-            if (surName == "")
+            if (surName.Equals("")||surName.Equals(message))
             {
-                CreateDriversName.Text = "Введите значение!";
-                throw notAllFields;
+                CreateDriversSurname.Text = message;
             }
-            if (number == "")
+            if (number.Equals("")||number.Equals(message))
             {
-                CreateDriversName.Text = "Введите значение!";
+                CreateDriversNumber.Text = message;
+            }
+
+            if (name.Equals("") || name.Equals(message) || surName.Equals("") || surName.Equals(message) || number.Equals("") || number.Equals(message))
+            {
                 throw notAllFields;
             }
 

@@ -217,7 +217,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     /// </summary>
     /// <returns></returns>
     [System.Web.Services.WebMethod]
-    public static bool DeleteGroup(String OrgID, String GroupID)
+    public static bool DeleteGroups(String OrgID, List<MapItem> GroupIDs)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
@@ -225,8 +225,11 @@ public partial class Administrator_Settings : System.Web.UI.Page
         {
             dataBlock.organizationTable.OpenConnection();
             int orgID = int.Parse(OrgID);
-            int groupID = int.Parse(GroupID);
-            dataBlock.cardsTable.DeleteGroup(orgID,groupID);
+            for (int i = 0; i < GroupIDs.Count; i++)
+            {
+                int groupID = int.Parse(GroupIDs[i].Value);
+                dataBlock.cardsTable.DeleteGroup(orgID, groupID);
+            }
             return true;
         }
         catch (Exception ex)
