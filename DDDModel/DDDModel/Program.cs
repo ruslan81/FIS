@@ -27,14 +27,10 @@ namespace DDDModel
 
             //MY CODE
             dataBlock.OpenConnection();
-
-                System.Console.WriteLine(
-                        dataBlock.plfUnitInfo.Statistics_GetDayStatistics(new DateTime(2006, 11, 1), 135).ToString()
-                    );
-            
+            dataBlock.cardsTable.UpdateGroup(1,"NAME","COMMENT");
 
             dataBlock.CloseConnection();
-            System.Console.ReadKey();
+            //System.Console.ReadKey();
             return;
    
            while (ex != true)

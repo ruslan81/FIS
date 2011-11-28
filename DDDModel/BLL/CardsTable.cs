@@ -164,21 +164,30 @@ namespace BLL
             return gettedIds;
         }
         /// <summary>
-        /// Получаем все названия групп
+        /// Получаем все ID групп
         /// </summary>
         /// <param name="OrgId">ID организации</param>
         /// <param name="cardTypeId">ID типа карты(описанные тут же как проперти)</param>
-        /// <returns>Лист имен групп</returns>
+        /// <returns>Лист ID групп</returns>
         public List<int> GetAllGroupIds(int OrgId, int cardTypeId)
         {
             return sqlDb.GetAllGroupIds(OrgId, cardTypeId);
+        }
+        /// <summary>
+        /// Получаем все ID групп
+        /// </summary>
+        /// <param name="OrgId">ID организации</param>
+        /// <returns>Лист ID групп</returns>
+        public List<int> GetAllGroupIds(int OrgId)
+        {
+            return sqlDb.GetAllGroupIds(OrgId);
         }
         /// <summary>
         /// Получаем все имена владельцев карт принадлежащих какой-либо группе
         /// </summary>
         /// <param name="OrgId">ID организации</param>
         /// <param name="cardTypeId">ID типа карты(описанные тут же как проперти)</param>
-        /// <param name="groupName">Имя группы</param>
+        /// <param name="groupId">ID группы</param>
         /// <returns>Лист имен владельцев карт</returns>
         public List<int> GetAllCardIdsByGroupId(int OrgId, int cardTypeId, int groupId)
         {
@@ -187,7 +196,7 @@ namespace BLL
         /// <summary>
         /// Получаем имя владельца карты с указанным ID
         /// </summary>
-        /// <param name="OrgId">ID карты</param>
+        /// <param name="cardId">ID карты</param>
         /// <returns>Имя владельца карт</returns>
         public String GetCardHolderNameByCardId(int cardId)
         {
@@ -197,11 +206,39 @@ namespace BLL
         /// <summary>
         /// Получаем имя группы по ID
         /// </summary>
-        /// <param name="groupName">ID группы</param>
+        /// <param name="groupId">ID группы</param>
         /// <returns>Имя группы</returns>
         public string GetGroupNameById(int groupId)
         {
             return sqlDb.GetGroupNameById(groupId);
+        }
+        /// <summary>
+        /// Получаем комментарий группы по ID
+        /// </summary>
+        /// <param name="groupId">ID группы</param>
+        /// <returns>Комментарий группы</returns>
+        public string GetGroupCommentById(int groupId)
+        {
+            return sqlDb.GetGroupCommentById(groupId);
+        }
+        /// <summary>
+        /// Удаляем группу по ID
+        /// </summary>
+        /// <param name="orgId">ID организации</param>
+        /// <param name="groupId">ID группы</param>
+        public void DeleteGroup(int orgId, int groupId)
+        {
+            sqlDb.DeleteGroup(orgId,groupId);
+        }
+        /// <summary>
+        /// Редактируем группу по ID
+        /// </summary>
+        /// <param name="groupId">ID организации</param>
+        /// <param name="name">Имя группы</param>
+        /// <param name="comment">Комментарий группы</param>
+        public void UpdateGroup(int groupId, String name, String comment)
+        {
+            sqlDb.UpdateGroup(groupId,name,comment);
         }
         /// <summary>
         /// получаем все имена карты

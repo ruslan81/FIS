@@ -393,17 +393,9 @@
         </div>-->
     </div>
 </asp:Content>
-<asp:Content ID="MyChoisesContent" ContentPlaceHolderID="MainConditions_PlaceHolder" runat="server">
-    <!--<div id="periodSelection">
-        <label>Начальная дата </label><input id="Text1" type="text"/>
-        <label>Конечная дата </label><input id="Text2" type="text"/>
-        <button id="Button1">Построить</button>
-        <div id="Div2" class="error-block">
-            <label class="error" id="Label1"> Ошибка: Верно укажите начальную и конечную дату!</label>
-        </div>
-        <br/><br/>
-    </div>-->
-    <!--<asp:Label ID="ChoisesLabel" Text="" runat="server" />
+<asp:Content ID="ChoisesContent" ContentPlaceHolderID="MainConditions_PlaceHolder"
+    runat="server">
+    <asp:Label ID="ChoisesLabel" Text="" runat="server" />
     <asp:UpdatePanel ID="DriversCardEditButtonsPanel" runat="server" UpdateMode="Always">
         <ContentTemplate>
             <asp:Table runat="server" Width="100%" Height="50px">
@@ -423,7 +415,7 @@
                     </asp:TableCell></asp:TableRow>
             </asp:Table>
         </ContentTemplate>
-    </asp:UpdatePanel>-->
+    </asp:UpdatePanel>
 </asp:Content>
 <asp:Content ID="AdditionalChoisesContent" ContentPlaceHolderID="AdditionalConditions_PlaceHolder"
     runat="server">
@@ -468,11 +460,11 @@
     <!--<table id="table-remote">
     </table>-->
     <div id="periodSelection">
-        <label>Начальная дата </label><input id="Text1" type="text"/>
-        <label>Конечная дата </label><input id="Text2" type="text"/>
-        <button id="Button1">Построить</button>
-        <div id="Div2" class="error-block">
-            <label class="error" id="Label1"> Ошибка: Верно укажите начальную и конечную дату!</label>
+        <label>Начальная дата </label><input id="startDatePicker" type="text"/>
+        <label>Конечная дата </label><input id="endDatePicker" type="text"/>
+        <button id="buildButton">Построить</button>
+        <div id="dateErrorBlock" class="error-block">
+            <label class="error" id="dateErrorLabel"> Ошибка: Укажите начальную и конечную дату!</label>
         </div>
         <br/><br/>
     </div>

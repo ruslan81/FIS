@@ -1812,11 +1812,18 @@
         </member>
         <member name="M:BLL.CardsTable.GetAllGroupIds(System.Int32,System.Int32)">
             <summary>
-            Получаем все названия групп
+            Получаем все ID групп
             </summary>
             <param name="OrgId">ID организации</param>
             <param name="cardTypeId">ID типа карты(описанные тут же как проперти)</param>
-            <returns>Лист имен групп</returns>
+            <returns>Лист ID групп</returns>
+        </member>
+        <member name="M:BLL.CardsTable.GetAllGroupIds(System.Int32)">
+            <summary>
+            Получаем все ID групп
+            </summary>
+            <param name="OrgId">ID организации</param>
+            <returns>Лист ID групп</returns>
         </member>
         <member name="M:BLL.CardsTable.GetAllCardIdsByGroupId(System.Int32,System.Int32,System.Int32)">
             <summary>
@@ -1824,22 +1831,44 @@
             </summary>
             <param name="OrgId">ID организации</param>
             <param name="cardTypeId">ID типа карты(описанные тут же как проперти)</param>
-            <param name="groupName">Имя группы</param>
+            <param name="groupId">ID группы</param>
             <returns>Лист имен владельцев карт</returns>
         </member>
         <member name="M:BLL.CardsTable.GetCardHolderNameByCardId(System.Int32)">
             <summary>
             Получаем имя владельца карты с указанным ID
             </summary>
-            <param name="OrgId">ID карты</param>
+            <param name="cardId">ID карты</param>
             <returns>Имя владельца карт</returns>
         </member>
         <member name="M:BLL.CardsTable.GetGroupNameById(System.Int32)">
             <summary>
             Получаем имя группы по ID
             </summary>
-            <param name="groupName">ID группы</param>
+            <param name="groupId">ID группы</param>
             <returns>Имя группы</returns>
+        </member>
+        <member name="M:BLL.CardsTable.GetGroupCommentById(System.Int32)">
+            <summary>
+            Получаем комментарий группы по ID
+            </summary>
+            <param name="groupId">ID группы</param>
+            <returns>Комментарий группы</returns>
+        </member>
+        <member name="M:BLL.CardsTable.DeleteGroup(System.Int32,System.Int32)">
+            <summary>
+            Удаляем группу по ID
+            </summary>
+            <param name="orgId">ID организации</param>
+            <param name="groupId">ID группы</param>
+        </member>
+        <member name="M:BLL.CardsTable.UpdateGroup(System.Int32,System.String,System.String)">
+            <summary>
+            Редактируем группу по ID
+            </summary>
+            <param name="groupId">ID организации</param>
+            <param name="name">Имя группы</param>
+            <param name="comment">Комментарий группы</param>
         </member>
         <member name="M:BLL.CardsTable.GetCardNames(System.Collections.Generic.List{System.Int32})">
             <summary>

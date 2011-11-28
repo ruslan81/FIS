@@ -44,7 +44,6 @@
     </script>  
     
     <script id="tmplGeneralSettings" type="text/x-jquery-tmpl">
-        
         <tr>
             <td class="key" key="${Key}" style="font-size:12px;">
                 ${Value.Key}
@@ -53,7 +52,6 @@
                 <input value="${Value.Value}" class="inputField-readonly" readonly="readonly"/>
             </td>
         </tr>
-            
     </script> 
 
     <script id="userControlsGeneral" type="text/x-jquery-tmpl">
@@ -62,6 +60,63 @@
             <button id="save">Сохранить</button>
             <button id="cancel">Отмена</button>
         </div>
+    </script>
+
+    <script id="userControlsGroups" type="text/x-jquery-tmpl">
+        <button id="edit">Редактировать</button>
+        <button id="delete">Удалить</button>
+        <div id="deletedialog" title="Удаление групп" style="display: none;">
+	        <p>Вы действительно хотите удалить выделенные группы?</p>
+        </div>
+        <div style="float:right">
+            <button id="save">Сохранить</button>
+            <button id="cancel">Отмена</button>
+        </div>
+    </script>
+
+    <script id="tmplContentTable" type="text/x-jquery-tmpl">
+            <table id="contentTable" style="border-collapse: separate;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
+                border="0" cellpadding="0" cellspacing="0">
+                <thead id="contentTableHeader">
+                </thead>
+                <tbody id="contentTableBody" class="ui-widget-content wijmo-wijgrid-data">
+                </tbody>
+            </table>
+    </script>
+
+    <script id="tmplHeadColumn" type="text/x-jquery-tmpl">
+        <th class="ui-widget wijmo-c1basefield ui-state-default wijmo-c1field" style="{{html style}}height:30px;">
+            <div class="wijmo-wijgrid-innercell">
+                <span class="wijmo-wijgrid-headertext">{{html text}}</span>
+            </div>
+        </th>
+    </script>
+
+    <script id="tmplGroupTableContent" type="text/x-jquery-tmpl">
+        <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell" style="margin-left:5px;">
+                    <input type="checkbox" id="checkbox{{html grID}}" key="{{html grID}}"/>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <center>
+                        {{html Number}}
+                    </center>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <input id="nameinput{{html grID}}" value="{{html Name}}" class="inputField-readonly" readonly="readonly"/>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <input id="commentinput{{html grID}}" value="{{html Comment}}" class="inputField-readonly" readonly="readonly"/>
+                </div>
+            </td>
+        </tr>
     </script>
     
     <div id="accordion" style="width: 5">
@@ -80,7 +135,6 @@
                     <asp:AsyncPostBackTrigger ControlID="UsersTreeView" EventName="SelectedNodeChanged" />
                 </Triggers>
             </asp:UpdatePanel>-->
-            <!--Дерево-->
             <div>
                 <ul id="tree">
                     <li class="folder" id="general"><a><span key="General">Общие</span></a>
@@ -95,12 +149,11 @@
                     </li>
                 </ul>
             </div>
-
         </div>
+        <div id="reminders">
         <h3>
             <asp:LinkButton ID="AccordionHeader2_Reminders" CausesValidation="false" runat="server"
-                OnClientClick="acordionIndexSwitch(1);" PostBackUrl="#" Text="Напоминания" /></h3>
-        <div>
+                OnClientClick="acordionIndexSwitch(1);" PostBackUrl="#" Text="Напоминания"/></h3>
             <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Always">
                 <ContentTemplate>
                     <asp:Panel ID="Panel2" Style="border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px;"
@@ -142,14 +195,16 @@
 </asp:Content>
 <asp:Content ID="DataContent" ContentPlaceHolderID="Reports_PlaceHolder" runat="server">
     <div>
-        <table cellpadding="5" style="margin-left:30px">
+        <table cellpadding="5" style="margin-left:30px; width: 90%">
             <tbody id="contentSettings">
             </tbody>
         </table>
     </div>
-    <!--<asp:UpdatePanel ID="DataContentUpdatePanel" runat="server" UpdateMode="Always">
+    <div id="contentSettingsPlace">
+    </div>
+    <asp:UpdatePanel ID="DataContentUpdatePanel" runat="server" UpdateMode="Always">
     <ContentTemplate>
-        <asp:Panel id="DataContentPanel" runat="server" ScrollBars="Auto">
+        <!--<asp:Panel id="DataContentPanel" runat="server" ScrollBars="Auto">
             <uc1:GeneralTab ID="GeneralTab1" runat="server" Visible="false" />
             <uc2:UserGroupsTab ID="UserGroupsTab1" runat="server" />
             <uc3:UserDriversTab ID="UserDriversTab1" runat="server" />
@@ -157,7 +212,7 @@
             <uc5:ReminderOverSpeedingTab ID="ReminderOverSpeedingTab1" runat="server" />
             <uc6:Coefficient ID="Coefficient1" runat="server" />
             <uc7:EmailSheduler ID="EmailSheduler1" runat="server" />
-        </asp:Panel>
+        </asp:Panel>-->
     </ContentTemplate>
 </asp:UpdatePanel>
 
@@ -175,8 +230,7 @@
                     }
                 }
             }
-
-    </script>-->
+        </script>
 </asp:Content>
 <asp:Content ID="DecisionContent1" ContentPlaceHolderID="Decision_PlaceHolder" runat="server">
     <div id="userControls">

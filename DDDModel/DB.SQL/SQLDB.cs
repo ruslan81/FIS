@@ -2791,6 +2791,24 @@ namespace DB.SQL
             sdr.Close();
             return gettedId;
         }
+        public List<int> GetAllGroupIds(int orgId)
+        {
+            List<int> gettedNames = new List<int>();
+            string sql = "SELECT GROUP_ID FROM fn_card WHERE ORG_ID=@ORG_ID ORDER BY GROUP_ID";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@ORG_ID", orgId);
+            MySqlDataReader sdr = cmd.ExecuteReader();
+            while (sdr.Read())
+            {
+                int id = sdr.GetInt32(0);
+                if (!gettedNames.Contains(id))
+                {
+                    gettedNames.Add(id);
+                }
+            }
+            sdr.Close();
+            return gettedNames;
+        }
         public List<int> GetAllGroupIds(int orgId, int cardTypeId)
         {
             List<int> gettedNames = new List<int>();
@@ -2827,7 +2845,49 @@ namespace DB.SQL
                 sdr.Close();
                 return null;
             }
+        }
+        public string GetGroupCommentById(int groupId)
+        {
+            string sql = "SELECT GROUP_COMMENT FROM fn_groups WHERE GROUP_ID=@GR_ID";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@GR_ID", groupId);
+            MySqlDataReader sdr = cmd.ExecuteReader();
+            if (sdr.Read())
+            {
+                string s = sdr.GetString(0);
+                sdr.Close();
+                return s;
+            }
+            else
+            {
+                sdr.Close();
+                return null;
+            }
+        }
+        public void DeleteGroup(int orgId, int groupId)
+        {
+            string sql = "UPDATE fn_card SET GROUP_ID=0 WHERE GROUP_ID=@GROUP_ID AND ORG_ID=@ORG_ID";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@GROUP_ID", groupId);
+            cmd.Parameters.AddWithValue("@ORG_ID", orgId);
+            MySqlDataReader sdr = cmd.ExecuteReader();
+            sdr.Close();
 
+            string sql1 = "DELETE FROM fn_groups WHERE GROUP_ID=@GROUP_ID";
+            MySqlCommand cmd1 = new MySqlCommand(sql1, sqlConnection);
+            cmd1.Parameters.AddWithValue("@GROUP_ID", groupId);
+            MySqlDataReader sdr1 = cmd1.ExecuteReader();
+            sdr1.Close();
+        }
+        public void UpdateGroup(int groupId, String name, String comment)
+        {
+            string sql = "UPDATE fn_groups SET GROUP_NAME=@GR_NAME, GROUP_COMMENT=@GR_COMM WHERE GROUP_ID=@GROUP_ID";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@GROUP_ID", groupId);
+            cmd.Parameters.AddWithValue("@GR_NAME", name);
+            cmd.Parameters.AddWithValue("@GR_COMM", comment);
+            MySqlDataReader sdr = cmd.ExecuteReader();
+            sdr.Close();
         }
         public String GetCardHolderNameByCardId(int cardId) {
             String name = "";

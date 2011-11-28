@@ -144,6 +144,101 @@ public partial class Administrator_Settings : System.Web.UI.Page
         }
     }
 
+    /// <summary>
+    ///Получить настройки групп
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static List<GroupData> GetGroupsSettings(String OrgID)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        try
+        {
+            List<GroupData> result = new List<GroupData>();
+            dataBlock.organizationTable.OpenConnection();
+            int orgID = int.Parse(OrgID);
+
+            List<int> ids = dataBlock.cardsTable.GetAllGroupIds(orgID);
+            int num = 0;
+            foreach (int i in ids)
+            {
+                GroupData gd = new GroupData(i);
+                gd.Name = dataBlock.cardsTable.GetGroupNameById(i);
+                gd.Comment = dataBlock.cardsTable.GetGroupCommentById(i);
+                gd.Number = ++num;
+                result.Add(gd);
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+        finally
+        {
+            dataBlock.organizationTable.CloseConnection();
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Сохранить Настройки групп
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static bool SaveGroupSettings(String OrgID, List<GroupData> GroupSettings)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        try
+        {
+            dataBlock.OpenConnection();
+            int orgID = int.Parse(OrgID);
+            foreach (GroupData item in GroupSettings)
+            {
+                dataBlock.cardsTable.UpdateGroup(item.grID,item.Name,item.Comment);
+            }
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Удаление групп
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static bool DeleteGroup(String OrgID, String GroupID)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        try
+        {
+            dataBlock.organizationTable.OpenConnection();
+            int orgID = int.Parse(OrgID);
+            int groupID = int.Parse(GroupID);
+            dataBlock.cardsTable.DeleteGroup(orgID,groupID);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+        finally
+        {
+            dataBlock.organizationTable.CloseConnection();
+            dataBlock.CloseConnection();
+        }
+    }
 
     //AJAX END
 
@@ -173,7 +268,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
         try
         {
             GeneralTab1.Visible = false;
-            UserGroupsTab1.Visible = false;
+            UserGroupsTab1.Visible = true;
             UserDriversTab1.Visible = false;
             UserVehicleTab1.Visible = false;
             Coefficient1.Visible = false;
@@ -181,6 +276,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
             HideButtons(false);
             EditButtonPressed_EnableButtons(false);
             ReminderOverSpeedingTab1.Visible = false;
+
+            return;
 
             if (ReminderTreeView.SelectedNode != null)//тут все Деревья из других закладок аккордиона
             {
