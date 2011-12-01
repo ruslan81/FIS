@@ -29,7 +29,7 @@ function updateTable(tableBody, template, data) {
     }
 
     //add hover effect
-    $(".wijmo-wijgrid-datarow", tableBody).hover(function () {
+    /*$(".wijmo-wijgrid-datarow", tableBody).hover(function () {
         $(this).addClass("ui-state-hover");
     }, function () {
         $(this).removeClass("ui-state-hover");
@@ -39,7 +39,7 @@ function updateTable(tableBody, template, data) {
     $(".wijmo-wijgrid-datarow", tableBody).click(function () {
         $(".wijmo-wijgrid-datarow .ui-state-highlight", tableBody).removeClass("ui-state-highlight");
         $(this).find("td").addClass("ui-state-highlight");
-    });
+    });*/
 }
 
 //create table header
@@ -68,6 +68,7 @@ function onRecoverUserNodeSelected(e, data) {
     isSelected = $("div", data.element).attr("aria-selected");
 
     if (isSelected == "true") {
+        
         key = $("a span", data.element).attr("key");
         if (key == "General") {
             loadGeneralSettings();
@@ -87,6 +88,7 @@ function onRecoverUserNodeSelected(e, data) {
 }
 
 function loadGeneralSettings() {
+    //alert("bla");
     $.ajax({
         type: "POST",
         //Page Name (in which the method should be called) and method name
@@ -95,8 +97,10 @@ function loadGeneralSettings() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            //очищаем tbody от предыдущих данных
+            //очищаем от предыдущих данных
             $("#contentSettings").empty();
+            //очищаем от предыдущих данных
+            $("#contentTable").empty();
             //вставляем данные в шаблон и добавляем его к tbody
             $("#tmplGeneralSettings").tmpl(response.d).appendTo("#contentSettings");
 
@@ -152,6 +156,9 @@ function createUserControlsGeneral() {
                     loadGeneralSettings();
                     return false;
                 }
+            },
+            error: function () {
+                alert("Ошибка Settings.aspx/SaveGeneralSettings");
             }
         });
 
@@ -207,7 +214,7 @@ function createUserControlsGroups() {
                 for (var i = 0; i < inputs.length; i++) {
                     if (inputs[i].checked) {
                         key = $(inputs[i]).attr("key");
-                        keys.push({ Key: "", Value: key});
+                        keys.push({ Key: "", Value: key });
                     }
                 }
                 deleteGroup(keys);
@@ -216,31 +223,42 @@ function createUserControlsGroups() {
                     $(this).dialog("close");
                 }
             }
-        })
+
+            });
+            //TODO resizable none
+            $(".ui-icon-closethick").text("");
         }
-        
+
         return false;
     });
 
     $("#edit").click(function () {
         var inputs = $("#contentTable input:checkbox");
+        var c = 0;
         for (var i = 0; i < inputs.length; i++) {
-            $(inputs[i]).hide();
             if (inputs[i].checked) {
-                key = $(inputs[i]).attr("key");
-                $("#nameinput" + key).removeClass("inputField-readonly");
-                $("#nameinput" + key).addClass("inputField");
-                $("#nameinput" + key).removeAttr("readonly");
-                $("#commentinput" + key).removeClass("inputField-readonly");
-                $("#commentinput" + key).addClass("inputField");
-                $("#commentinput" + key).removeAttr("readonly");
+                c++;
             }
         }
+        if (c > 0) {
+            for (var i = 0; i < inputs.length; i++) {
+                $(inputs[i]).hide();
+                if (inputs[i].checked) {
+                    key = $(inputs[i]).attr("key");
+                    $("#nameinput" + key).removeClass("inputField-readonly");
+                    $("#nameinput" + key).addClass("inputField");
+                    $("#nameinput" + key).removeAttr("readonly");
+                    $("#commentinput" + key).removeClass("inputField-readonly");
+                    $("#commentinput" + key).addClass("inputField");
+                    $("#commentinput" + key).removeAttr("readonly");
+                }
+            }
 
-        $("#edit").button({ disabled: true });
-        $("#delete").button({ disabled: true });
-        $("#save").button({ disabled: false });
-        $("#cancel").button({ disabled: false });
+            $("#edit").button({ disabled: true });
+            $("#delete").button({ disabled: true });
+            $("#save").button({ disabled: false });
+            $("#cancel").button({ disabled: false });
+        }
 
         return false;
     });

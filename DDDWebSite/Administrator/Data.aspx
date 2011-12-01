@@ -14,6 +14,8 @@
         $(function () {
             cardID = null;
 
+            $("#main-conditions").hide();
+
             createPeriodControls();
 
             $("#accordion").accordion({
@@ -435,7 +437,16 @@
 
 <asp:Content ID="ChoisesContent" ContentPlaceHolderID="MainConditions_PlaceHolder"
     runat="server">
-    <asp:Label ID="ChoisesLabel" Text="" runat="server" />
+    <div id="periodSelection">
+        <label>Начальная дата </label><input id="startDatePicker" type="text"/>
+        <label>Конечная дата </label><input id="endDatePicker" type="text"/>
+        <button id="buildButton">Построить</button>
+        <div id="dateErrorBlock" class="error-block">
+            <label class="error" id="dateErrorLabel"> Ошибка: Укажите начальную и конечную дату!</label>
+        </div>
+        <br/><br/>
+    </div>
+    <!--<asp:Label ID="ChoisesLabel" Text="" runat="server" />
     <asp:UpdatePanel ID="DriversCardEditButtonsPanel" runat="server" UpdateMode="Always">
         <ContentTemplate>
             <asp:Table runat="server" Width="100%" Height="50px">
@@ -455,7 +466,7 @@
                     </asp:TableCell></asp:TableRow>
             </asp:Table>
         </ContentTemplate>
-    </asp:UpdatePanel>
+    </asp:UpdatePanel>-->
 </asp:Content>
 <asp:Content ID="AdditionalChoisesContent" ContentPlaceHolderID="AdditionalConditions_PlaceHolder"
     runat="server">
@@ -499,7 +510,7 @@
     </asp:UpdatePanel>-->
     <!--<table id="table-remote">
     </table>-->
-    <div id="periodSelection">
+    <!--<div id="periodSelection">
         <label>Начальная дата </label><input id="startDatePicker" type="text"/>
         <label>Конечная дата </label><input id="endDatePicker" type="text"/>
         <button id="buildButton">Построить</button>
@@ -507,7 +518,7 @@
             <label class="error" id="dateErrorLabel"> Ошибка: Укажите начальную и конечную дату!</label>
         </div>
         <br/><br/>
-    </div>
+    </div>-->
     <div id="contentTableWrapper">
         <table id="contentTable" style="border-collapse: separate;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
             border="0" cellpadding="0" cellspacing="0">

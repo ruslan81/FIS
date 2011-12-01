@@ -39,7 +39,7 @@
     width:300px;
 }
 
-.inputField-readonly
+#contentSettings .inputField-readonly
 {
     border:none;
     border-bottom:1px solid #ccc;
@@ -145,3 +145,24 @@ button
     height:20px;
     margin:0px;
 }
+
+
+#contentTable .wijmo-wijgrid-alternatingrow .inputField-readonly
+{
+	background-color:#eee;	
+}
+
+#contentTable .inputField-readonly
+{
+	border:none;
+    border-radius:none;
+    padding-left:5px;
+    height:22px;
+    width:300px;
+}
+
+#contentTable input
+{
+	background-color:#fff;	
+}
+

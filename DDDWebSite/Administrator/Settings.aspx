@@ -61,7 +61,7 @@
             <button id="cancel">Отмена</button>
         </div>
     </script>
-
+    
     <script id="userControlsGroups" type="text/x-jquery-tmpl">
         <button id="edit">Редактировать</button>
         <button id="delete">Удалить</button>
