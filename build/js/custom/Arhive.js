@@ -263,6 +263,7 @@ function onOverlookNodeSelected(e, data) {
     $("#contentTableBody").empty();
     $("#contentTable").hide();
     $("#periodSelection").hide();
+    $("#main-conditions").hide();
         
     isSelected = $("div", data.element).attr("aria-selected");
     cardID = $("a span", data.element).attr("key");
@@ -273,11 +274,13 @@ function onOverlookNodeSelected(e, data) {
     //cardID = "135";
     if (isSelected == "true") {
         $("#periodSelection").show();
+        $("#main-conditions").show();
         $("#dateErrorBlock").hide();
     } else {
         $("#contentTableBody").empty();
         $("#contentTable").hide();
         $("#periodSelection").hide();
+        $("#main-conditions").hide();
         //destroyPeriodControls();
     }
 }
