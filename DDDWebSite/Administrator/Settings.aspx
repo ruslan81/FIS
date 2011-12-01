@@ -61,7 +61,7 @@
             <button id="cancel">Отмена</button>
         </div>
     </script>
-
+    
     <script id="userControlsGroups" type="text/x-jquery-tmpl">
         <button id="edit">Редактировать</button>
         <button id="delete">Удалить</button>
@@ -75,6 +75,7 @@
     </script>
 
     <script id="tmplContentTable" type="text/x-jquery-tmpl">
+        <div id="contentTableWrapper">
             <table id="contentTable" style="border-collapse: separate;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
                 border="0" cellpadding="0" cellspacing="0">
                 <thead id="contentTableHeader">
@@ -82,6 +83,7 @@
                 <tbody id="contentTableBody" class="ui-widget-content wijmo-wijgrid-data">
                 </tbody>
             </table>
+         </div>
     </script>
 
     <script id="tmplHeadColumn" type="text/x-jquery-tmpl">

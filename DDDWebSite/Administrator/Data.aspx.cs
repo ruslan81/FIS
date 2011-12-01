@@ -83,7 +83,7 @@ public partial class Administrator_Data : System.Web.UI.Page
             ((Label)Master.FindControl("UserNameHeaderName")).Text = curOrgName;
             ////////////////////////////
 
-            ((Panel)Master.FindControl("MainConditionsPanel")).Visible = false;
+            ((Panel)Master.FindControl("MainConditionsPanel")).Visible = true;
             ((Panel)Master.FindControl("AdditionalConditionsPanel")).Visible = false;
 
             dataBlock.usersTable.CloseConnection();
