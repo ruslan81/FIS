@@ -1,7 +1,5 @@
-﻿<%@ control language="C#" autoeventwireup="true" inherits="Administrator_Settings_UserControls_UserGroupsTab, App_Web_nexep02w" %>
+﻿<%@ control language="C#" autoeventwireup="true" inherits="Administrator_Settings_UserControls_UserGroupsTab, App_Web_j4pdhdg4" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
-
-
 
 <asp:Panel ID="User_Groups" runat="server" Width="100%" ScrollBars="None">
     <asp:UpdatePanel ID="UpdatePanel1" runat="server" >
@@ -10,7 +8,7 @@
                 <asp:DataGrid ID="GroupsDataGrid"  runat="server"  Width="100%" AutoGenerateColumns="false"                    
                     HeaderStyle-CssClass="ui-jqgrid-titlebar" AlternatingItemStyle-CssClass="other"
                     CellSpacing="0" CellPadding="3" BorderColor="#CCC" border="0">
-                    <Columns>  
+                    <Columns>
                         <asp:TemplateColumn>
                             <ItemTemplate>                                                                                    
                                 <asp:RadioButton ID="GroupsDataGrid_RadioButton" Width="8" GroupName="GVRow"  onclick="javascript:CheckOtherIsChecked(this);"

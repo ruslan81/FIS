@@ -1,4 +1,56 @@
-﻿function buildTree() {
+﻿//Update/create table
+//tableBody - tbody tag, template - template to generate table, data - table data
+function updateTable(tableBody, template, data) {
+    //очищаем tbody от предыдущих данных
+    $(tableBody).empty();
+    //вставляем данные в шаблон и добавляем его к tbody
+    $(template).tmpl(data).appendTo(tableBody);
+
+    //get table rows
+    var rows = $(".wijmo-wijgrid-datarow", tableBody);
+    //делаем таблицу "полосатой"
+    for (var i = 0; i < rows.length; i++) {
+        if (i % 2 != 0)
+            $(rows[i]).addClass("wijmo-wijgrid-alternatingrow");
+    }
+
+    //отделяем ячейки границами
+    for (var i = 0; i < rows.length; i++) {
+        var cells = $(".wijgridtd", rows[i]);
+        for (var j = 0; j < cells.length; j++) {
+            if (j < cells.length - 1) {
+                $(cells[j]).addClass("wijmo-wijgrid-cell-border-right");
+            }
+            if (i < rows.length - 1) {
+                $(cells[j]).addClass("wijmo-wijgrid-cell-border-bottom");
+            }
+            $(cells[j]).addClass("wijmo-wijgrid-cell");
+        }
+    }
+
+    //add hover effect
+    /*$(".wijmo-wijgrid-datarow", tableBody).hover(function () {
+        $(this).addClass("ui-state-hover");
+    }, function () {
+        $(this).removeClass("ui-state-hover");
+    });
+
+    //add ability to select rows
+    $(".wijmo-wijgrid-datarow", tableBody).click(function () {
+        $(".wijmo-wijgrid-datarow .ui-state-highlight", tableBody).removeClass("ui-state-highlight");
+        $(this).find("td").addClass("ui-state-highlight");
+    });*/
+}
+
+//create table header
+//tableHeader - thead tag, template - template to generate header, columns - table's columns in JSON format (column name : column style)
+function createTableHeader(tableHeader, template, columns) {
+    $(tableHeader).empty();
+    $(tableHeader).append("<tr class='wijmo-wijgrid-headerrow'></tr>");
+    $(template).tmpl(jQuery.parseJSON(columns)).appendTo($(".wijmo-wijgrid-headerrow", tableHeader));
+}
+
+function buildTree() {
     //builds a tree
     $("#tree").wijtree();
     $("#tree").wijtree({ selectedNodeChanged: function (e, data) {
@@ -16,15 +68,27 @@ function onRecoverUserNodeSelected(e, data) {
     isSelected = $("div", data.element).attr("aria-selected");
 
     if (isSelected == "true") {
-        loadGeneralSettings();
+        
+        key = $("a span", data.element).attr("key");
+        if (key == "General") {
+            loadGeneralSettings();
+        } else if (key == "Groups") {
+            loadGroupsSettings();
+        } else if (key == "Drivers") {
+            loadGeneralSettings();
+        } else if (key == "Transport") {
+            loadGeneralSettings();
+        } else if (key == "Default") {
+            loadGeneralSettings();
+        }
     } else {
         $("#headerSettings").empty();
         $("#contentSettings").empty();
     }
 }
 
-//Загрузить элементы дерева Водителей в разделе "Восстановить у пользователя"
 function loadGeneralSettings() {
+    //alert("bla");
     $.ajax({
         type: "POST",
         //Page Name (in which the method should be called) and method name
@@ -33,8 +97,10 @@ function loadGeneralSettings() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            //очищаем tbody от предыдущих данных
+            //очищаем от предыдущих данных
             $("#contentSettings").empty();
+            //очищаем от предыдущих данных
+            $("#contentTable").empty();
             //вставляем данные в шаблон и добавляем его к tbody
             $("#tmplGeneralSettings").tmpl(response.d).appendTo("#contentSettings");
 
@@ -90,6 +156,9 @@ function createUserControlsGeneral() {
                     loadGeneralSettings();
                     return false;
                 }
+            },
+            error: function () {
+                alert("Ошибка Settings.aspx/SaveGeneralSettings");
             }
         });
 
@@ -100,4 +169,163 @@ function createUserControlsGeneral() {
         loadGeneralSettings();
         return false;
     });
+}
+
+
+function loadGroupsSettings() {
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Settings.aspx/GetGroupsSettings",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            createUserControlsGroups();
+            createContentTableGroups(response);
+            $("#contentTable").show();
+        }
+    });
+}
+
+function createUserControlsGroups() {
+    $("#headerSettings").empty();
+    $("#headerSettings").text("Настройки групп");
+
+    $("#userControls").empty();
+    $("#userControls").append($("#userControlsGroups").text());
+
+    $("#userControls button").button();
+    $("#save").button({ disabled: true });
+    $("#cancel").button({ disabled: true });
+
+    $("#delete").click(function () {
+        var inputs = $("#contentTable input:checkbox");
+        var c = 0;
+        for (var i = 0; i < inputs.length; i++) {
+            if (inputs[i].checked) {
+                c++;
+            }
+        }
+        if (c > 0) {
+            $("#deletedialog").dialog({ buttons: { "OK": function () {
+                $(this).dialog("close");
+                var keys = [];
+                for (var i = 0; i < inputs.length; i++) {
+                    if (inputs[i].checked) {
+                        key = $(inputs[i]).attr("key");
+                        keys.push({ Key: "", Value: key });
+                    }
+                }
+                deleteGroup(keys);
+            },
+                "Отмена": function () {
+                    $(this).dialog("close");
+                }
+            }
+
+            });
+            //TODO resizable none
+            $(".ui-icon-closethick").text("");
+        }
+
+        return false;
+    });
+
+    $("#edit").click(function () {
+        var inputs = $("#contentTable input:checkbox");
+        var c = 0;
+        for (var i = 0; i < inputs.length; i++) {
+            if (inputs[i].checked) {
+                c++;
+            }
+        }
+        if (c > 0) {
+            for (var i = 0; i < inputs.length; i++) {
+                $(inputs[i]).hide();
+                if (inputs[i].checked) {
+                    key = $(inputs[i]).attr("key");
+                    $("#nameinput" + key).removeClass("inputField-readonly");
+                    $("#nameinput" + key).addClass("inputField");
+                    $("#nameinput" + key).removeAttr("readonly");
+                    $("#commentinput" + key).removeClass("inputField-readonly");
+                    $("#commentinput" + key).addClass("inputField");
+                    $("#commentinput" + key).removeAttr("readonly");
+                }
+            }
+
+            $("#edit").button({ disabled: true });
+            $("#delete").button({ disabled: true });
+            $("#save").button({ disabled: false });
+            $("#cancel").button({ disabled: false });
+        }
+
+        return false;
+    });
+
+    $("#save").click(function () {
+        var settings = [];
+
+        var inputs = $("#contentTable input:checkbox");
+        for (var i = 0; i < inputs.length; i++) {
+            if (inputs[i].checked) {
+                key = $(inputs[i]).attr("key");
+                name = $("#nameinput" + key).attr("value");
+                comment = $("#commentinput" + key).attr("value");
+                settings.push({ Name: name, Comment: comment, grID: key, Number: 0 });
+            }
+        }
+
+        var order = { OrgID: $.cookie("CURRENT_ORG_ID"), GroupSettings: settings };
+
+        $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Settings.aspx/SaveGroupSettings",
+        data: JSON.stringify(order),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            loadGroupsSettings();    
+        }
+        });
+
+        return false;
+    });
+
+    $("#cancel").click(function () {
+        loadGroupsSettings();
+        return false;
+    });
+}
+
+function deleteGroup(list) {
+    var order = { OrgID: $.cookie("CURRENT_ORG_ID"), GroupIDs: list };
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Settings.aspx/DeleteGroups",
+        data: JSON.stringify(order),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            loadGroupsSettings();
+        }
+    });
+}
+
+function createContentTableGroups(response) {
+    //очищаем tbody от предыдущих данных
+    $("#contentSettings").empty();
+    $("#contentSettingsPlace").empty();
+    $("#contentSettingsPlace").append($("#tmplContentTable").text());
+
+    createTableHeader($("#contentTableHeader"), $("#tmplHeadColumn"),
+    '[{"text": "", "style": "width: 50px;"},' +
+    '{"text": "Номер п/п", "style": "width: 80px;"},' +
+    '{"text": "Название группы", "style": "width: 150px;"},' +
+    '{"text": "Комментарий", "style": ""}]');
+
+    updateTable($("#contentTableBody"), $("#tmplGroupTableContent"), response.d);
+    $("#checkbox0").hide();
 }
