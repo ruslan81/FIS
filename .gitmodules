@@ -1,0 +1,3 @@
+[submodule "SequenceTree"]
+	path = SequenceTree
+	url = git@github.com:ShunkevichDV/SequenceTree.git

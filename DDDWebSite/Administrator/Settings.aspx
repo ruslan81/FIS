@@ -66,7 +66,7 @@
         <button id="edit">Редактировать</button>
         <button id="delete">Удалить</button>
         <div id="deletedialog" title="Удаление групп" style="display: none;">
-	        <p>Вы действительно хотите удалить выделенные группы?</p>
+	        <p>Вы действительно хотите удалить выделенные элементы?</p>
         </div>
         <div style="float:right">
             <button id="save">Сохранить</button>
@@ -104,7 +104,7 @@
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
                     <center>
-                        {{html Number}}
+                   <input id="numberinput{{html grID}}" value="{{html Number}}" class="inputField-readonly" readonly="readonly"/>
                     </center>
                 </div>
             </td>

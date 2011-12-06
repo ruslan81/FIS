@@ -27,7 +27,7 @@ namespace DDDModel
 
             //MY CODE
             dataBlock.OpenConnection();
-            dataBlock.cardsTable.UpdateGroup(1,"NAME","COMMENT");
+            dataBlock.cardsTable.ChangeCardComment("Comment",110);
 
             dataBlock.CloseConnection();
             //System.Console.ReadKey();
