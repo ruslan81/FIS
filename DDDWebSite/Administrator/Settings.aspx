@@ -66,7 +66,7 @@
         <button id="edit">Редактировать</button>
         <button id="delete">Удалить</button>
         <div id="deletedialog" title="Удаление групп" style="display: none;">
-	        <p>Вы действительно хотите удалить выделенные элементы?</p>
+	        <p>Вы действительно хотите удалить выделенные группы?</p>
         </div>
         <div style="float:right">
             <button id="save">Сохранить</button>
@@ -75,7 +75,6 @@
     </script>
 
     <script id="tmplContentTable" type="text/x-jquery-tmpl">
-        <div id="contentTableWrapper">
             <table id="contentTable" style="border-collapse: separate;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
                 border="0" cellpadding="0" cellspacing="0">
                 <thead id="contentTableHeader">
@@ -83,7 +82,6 @@
                 <tbody id="contentTableBody" class="ui-widget-content wijmo-wijgrid-data">
                 </tbody>
             </table>
-         </div>
     </script>
 
     <script id="tmplHeadColumn" type="text/x-jquery-tmpl">
@@ -104,7 +102,7 @@
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
                     <center>
-                   <input id="numberinput{{html grID}}" value="{{html Number}}" class="inputField-readonly" readonly="readonly"/>
+                        {{html Number}}
                     </center>
                 </div>
             </td>

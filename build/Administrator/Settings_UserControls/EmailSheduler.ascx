@@ -1,4 +1,4 @@
-﻿<%@ control language="C#" autoeventwireup="true" inherits="Administrator_Settings_UserControls_EmailSheduler, App_Web_j4pdhdg4" %>
+﻿<%@ control language="C#" autoeventwireup="true" inherits="Administrator_Settings_UserControls_EmailSheduler, App_Web_a3dk3elo" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Panel ID="Shedules" runat="server" Width="100%" ScrollBars="None">
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">

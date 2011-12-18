@@ -317,17 +317,6 @@ namespace BLL
         {
             sqlDb.ChangeCardHolderName(cardHolderName, cardId);
         }
-
-        /// <summary>
-        /// Изменяет комментарий карты
-        /// </summary>
-        /// <param name="cardComment">Новое имя карты</param>
-        /// <param name="cardId">ID карты</param>
-        public void ChangeCardComment(string cardComment, int cardId)
-        {
-            sqlDb.ChangeCardComment(cardComment, cardId);
-        }
-
         /// <summary>
         /// Изменяет номер карты
         /// </summary>
@@ -337,8 +326,8 @@ namespace BLL
         public void ChangeCardNumber(string cardNumber, int cardId, int curUserId)
         {
             sqlDb.ChangeCardNumber(cardNumber, cardId);
-            //HistoryTable log = new HistoryTable(connectionString, CurrentLanguage, sqlDb);
-            //log.AddHistoryRecord("fn_card", "card_id", cardId, curUserId, log.driversRegDataChanged, "Drivers card number: " + cardNumber + ", code: " + cardId, sqlDb);
+            HistoryTable log = new HistoryTable(connectionString, CurrentLanguage, sqlDb);
+            log.AddHistoryRecord("fn_card", "card_id", cardId, curUserId, log.driversRegDataChanged, "Drivers card number: " + cardNumber + ", code: " + cardId, sqlDb);
         }
         /// <summary>
         /// Удаляет карту и все связанные с ней файлы и блоки данных

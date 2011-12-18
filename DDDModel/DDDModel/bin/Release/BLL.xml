@@ -1919,13 +1919,6 @@
             <param name="cardHolderName">Новое имя карты</param>
             <param name="cardId">ID карты</param>
         </member>
-        <member name="M:BLL.CardsTable.ChangeCardComment(System.String,System.Int32)">
-            <summary>
-            Изменяет комментарий карты
-            </summary>
-            <param name="cardComment">Новое имя карты</param>
-            <param name="cardId">ID карты</param>
-        </member>
         <member name="M:BLL.CardsTable.ChangeCardNumber(System.String,System.Int32,System.Int32)">
             <summary>
             Изменяет номер карты
