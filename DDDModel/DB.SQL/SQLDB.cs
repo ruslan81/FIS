@@ -2725,7 +2725,7 @@ namespace DB.SQL
             }
             return cardId;
         }
-        public int CreateNewCard(string cardHolderName, string cardNumber, int cardTypeId, int orgId, string CardNote)
+        public int CreateNewCard(string cardHolderName, string cardNumber, int cardTypeId, int orgId, string CardNote, int groupID)
         {
             int generatedId = 0;
             MySqlCommand cmd = new MySqlCommand();
@@ -2739,8 +2739,8 @@ namespace DB.SQL
                 throw (new Exception("Can't generate CARD_ID"));
 
             sql = "INSERT INTO fn_card "
-                + "(CARD_ID, CARD_TYPE_ID, CARD_HOLDER_NAME, CARD_NUMBER, ORG_ID, CARD_NOTE)"
-                + "VALUES (@CARD_ID, @CARD_TYPE_ID, @CARD_HOLDER_NAME, @CARD_NUMBER, @ORG_ID, @CARD_NOTE)";
+                + "(CARD_ID, CARD_TYPE_ID, CARD_HOLDER_NAME, CARD_NUMBER, ORG_ID, CARD_NOTE, GROUP_ID)"
+                + "VALUES (@CARD_ID, @CARD_TYPE_ID, @CARD_HOLDER_NAME, @CARD_NUMBER, @ORG_ID, @CARD_NOTE, @GR_ID)";
             cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@CARD_ID", generatedId);
             cmd.Parameters.AddWithValue("@CARD_TYPE_ID", cardTypeId);
@@ -2748,10 +2748,11 @@ namespace DB.SQL
             cmd.Parameters.AddWithValue("@CARD_NUMBER", cardNumber);
             cmd.Parameters.AddWithValue("@ORG_ID", orgId);
             cmd.Parameters.AddWithValue("@CARD_NOTE", CardNote);
+            cmd.Parameters.AddWithValue("@GR_ID", groupID);
             cmd.ExecuteNonQuery();
             return generatedId;
         }
-        public int CreateNewCard(string cardHolderName, string cardNumber, int cardTypeId, int orgId, string CardNote, int UserId)//При создании еще указывается ссылка на пользователя. Используется при создании водителей.
+        public int CreateNewCard(string cardHolderName, string cardNumber, int cardTypeId, int orgId, string CardNote, int UserId, int groupID)//При создании еще указывается ссылка на пользователя. Используется при создании водителей.
         {
             int generatedId = 0;
             MySqlCommand cmd = new MySqlCommand();
@@ -2765,8 +2766,8 @@ namespace DB.SQL
                 throw (new Exception("Can't generate CARD_ID"));
 
             sql = "INSERT INTO fn_card "
-                + "(CARD_ID, CARD_TYPE_ID, CARD_HOLDER_NAME, CARD_NUMBER, ORG_ID, CARD_NOTE, USER_ID)"
-                + "VALUES (@CARD_ID, @CARD_TYPE_ID, @CARD_HOLDER_NAME, @CARD_NUMBER, @ORG_ID, @CARD_NOTE, @USER_ID)";
+                + "(CARD_ID, CARD_TYPE_ID, CARD_HOLDER_NAME, CARD_NUMBER, ORG_ID, CARD_NOTE, USER_ID, GROUP_ID)"
+                + "VALUES (@CARD_ID, @CARD_TYPE_ID, @CARD_HOLDER_NAME, @CARD_NUMBER, @ORG_ID, @CARD_NOTE, @USER_ID, @GR_ID)";
             cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@CARD_ID", generatedId);
             cmd.Parameters.AddWithValue("@CARD_TYPE_ID", cardTypeId);
@@ -2775,6 +2776,7 @@ namespace DB.SQL
             cmd.Parameters.AddWithValue("@ORG_ID", orgId);
             cmd.Parameters.AddWithValue("@CARD_NOTE", CardNote);
             cmd.Parameters.AddWithValue("@USER_ID", UserId);
+            cmd.Parameters.AddWithValue("@GR_ID", groupID);
             cmd.ExecuteNonQuery();
             return generatedId;
         }
@@ -2794,7 +2796,7 @@ namespace DB.SQL
         public List<int> GetAllGroupIds(int orgId)
         {
             List<int> gettedNames = new List<int>();
-            string sql = "SELECT GROUP_ID FROM fn_card WHERE ORG_ID=@ORG_ID ORDER BY GROUP_ID";
+            string sql = "SELECT GROUP_ID FROM fn_groups WHERE ORG_ID=@ORG_ID ORDER BY GROUP_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@ORG_ID", orgId);
             MySqlDataReader sdr = cmd.ExecuteReader();
@@ -2812,7 +2814,7 @@ namespace DB.SQL
         public List<int> GetAllGroupIds(int orgId, int cardTypeId)
         {
             List<int> gettedNames = new List<int>();
-            string sql = "SELECT GROUP_ID FROM fn_card WHERE CARD_TYPE_ID=@CARD_TYPE_ID AND ORG_ID=@ORG_ID ORDER BY GROUP_ID";
+            string sql = "SELECT GROUP_ID FROM fn_groups WHERE (CARD_TYPE_ID=@CARD_TYPE_ID OR CARD_TYPE_ID=0) AND ORG_ID=@ORG_ID ORDER BY GROUP_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@CARD_TYPE_ID", cardTypeId);
             cmd.Parameters.AddWithValue("@ORG_ID", orgId);
@@ -2864,9 +2866,27 @@ namespace DB.SQL
                 return null;
             }
         }
+        public int GetGroupCardTypeById(int groupId)
+        {
+            string sql = "SELECT CARD_TYPE_ID FROM fn_groups WHERE GROUP_ID=@GR_ID";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@GR_ID", groupId);
+            MySqlDataReader sdr = cmd.ExecuteReader();
+            if (sdr.Read())
+            {
+                int s = Convert.ToInt32(sdr.GetDecimal(0));
+                sdr.Close();
+                return s;
+            }
+            else
+            {
+                sdr.Close();
+                return 0;
+            }
+        }
         public void DeleteGroup(int orgId, int groupId)
         {
-            string sql = "UPDATE fn_card SET GROUP_ID=0 WHERE GROUP_ID=@GROUP_ID AND ORG_ID=@ORG_ID";
+            string sql = "UPDATE fn_card SET GROUP_ID=1 WHERE GROUP_ID=@GROUP_ID AND ORG_ID=@ORG_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@GROUP_ID", groupId);
             cmd.Parameters.AddWithValue("@ORG_ID", orgId);
@@ -2879,13 +2899,25 @@ namespace DB.SQL
             MySqlDataReader sdr1 = cmd1.ExecuteReader();
             sdr1.Close();
         }
-        public void UpdateGroup(int groupId, String name, String comment)
+        public void UpdateGroup(int groupId, String name, String comment, int cardType)
         {
-            string sql = "UPDATE fn_groups SET GROUP_NAME=@GR_NAME, GROUP_COMMENT=@GR_COMM WHERE GROUP_ID=@GROUP_ID";
+            string sql = "UPDATE fn_groups SET GROUP_NAME=@GR_NAME, GROUP_COMMENT=@GR_COMM, CARD_TYPE_ID=@C_T_I WHERE GROUP_ID=@GROUP_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@GROUP_ID", groupId);
             cmd.Parameters.AddWithValue("@GR_NAME", name);
             cmd.Parameters.AddWithValue("@GR_COMM", comment);
+            cmd.Parameters.AddWithValue("@C_T_I", cardType);
+            MySqlDataReader sdr = cmd.ExecuteReader();
+            sdr.Close();
+        }
+        public void CreateGroup(int orgID, String name, String comment, int cardType)
+        {
+            string sql = "INSERT INTO fn_groups (GROUP_NAME, GROUP_COMMENT, ORG_ID, CARD_TYPE_ID) VALUES (@GR_NAME, @GR_COMM, @ORG_ID, @C_T_I)";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@ORG_ID", orgID);
+            cmd.Parameters.AddWithValue("@GR_NAME", name);
+            cmd.Parameters.AddWithValue("@GR_COMM", comment);
+            cmd.Parameters.AddWithValue("@C_T_I", cardType);
             MySqlDataReader sdr = cmd.ExecuteReader();
             sdr.Close();
         }
@@ -2941,6 +2973,15 @@ namespace DB.SQL
                 throw new Exception("Этого водителя не существует!");
             return name;
         }
+        public int GetCardGroupID(int cardId)
+        {
+            //string name = "";
+            string sql = "Select GROUP_ID FROM fn_card WHERE CARD_ID = @CARD_ID";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@CARD_ID", cardId);
+            return Convert.ToInt32(cmd.ExecuteScalar());
+            //return name;
+        }
         public void ChangeCardHolderName(string newName, int cardId)
         {
             string sql = "UPDATE fn_card SET CARD_HOLDER_NAME=@CARD_HOLDER_NAME WHERE CARD_ID=@CARD_ID";
@@ -2966,6 +3007,15 @@ namespace DB.SQL
             cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@CARD_ID", cardId);
             cmd.Parameters.AddWithValue("@CARD_NUMBER", newNumber);
+            cmd.ExecuteNonQuery();
+        }
+        public void ChangeCardGroup(int groupId, int cardId)
+        {
+            string sql = "UPDATE fn_card SET GROUP_ID=@GROUP_ID WHERE CARD_ID=@CARD_ID";
+            MySqlCommand cmd = new MySqlCommand();
+            cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@CARD_ID", cardId);
+            cmd.Parameters.AddWithValue("@GROUP_ID", groupId);
             cmd.ExecuteNonQuery();
         }
         public void DeleteCard(int cardId)
@@ -4056,7 +4106,7 @@ namespace DB.SQL
 
             //FD_ORG
             generatedId = AddNewOrganization("Init Organization", 1, 1, 1, "Init Organization", "STRING_EN");
-            CreateNewCard("Init Organization ORG", "000", orgInitCardTypeId, generatedId, "Карта организации " + "Init Organization" + " для неразобранных блоков данных");
+            CreateNewCard("Init Organization ORG", "000", orgInitCardTypeId, generatedId, "Карта организации " + "Init Organization" + " для неразобранных блоков данных",1);
 
             //fd_param
             sql = "INSERT INTO fd_param "

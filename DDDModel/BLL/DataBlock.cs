@@ -632,7 +632,7 @@ namespace BLL
                             cardId = cardsTable.GetCardId(drName, drNumber, cardsTable.driversCardTypeId);
                             if (cardId <= 0)
                             {
-                                cardId = cardsTable.CreateNewCard(drName, drNumber, cardsTable.driversCardTypeId, organizationID, "Init DataBlockId = " + DATA_BLOCK_ID, userId);
+                                cardId = cardsTable.CreateNewCard(drName, drNumber, cardsTable.driversCardTypeId, organizationID, "Init DataBlockId = " + DATA_BLOCK_ID, userId,1);
                             }
                             sqlDb.SetDataBlock_CardId(DATA_BLOCK_ID, cardId);
                             //sqlDB.CloseConnection();
@@ -665,7 +665,7 @@ namespace BLL
                             {
                                 string marka = "";
                                 DateTime BLOCKED = dddParser.vehicleUnitClass.vehicleOverview.vuDownloadablePeriod.maxDownloadableTime.getTimeRealDate();
-                                cardId = cardsTable.CreateNewCard(vehRegNumber, vin, cardsTable.vehicleCardTypeId, organizationID, "Init DataBlockId = " + DATA_BLOCK_ID, userId);
+                                cardId = cardsTable.CreateNewCard(vehRegNumber, vin, cardsTable.vehicleCardTypeId, organizationID, "Init DataBlockId = " + DATA_BLOCK_ID, userId,1);
                                 //vehiclesTables.OpenConnection();
                                 vehicleId = vehiclesTables.AddNewVehicle(vehRegNumber, marka, vin, 0, 1, cardId, BLOCKED, 1);
                                 //vehiclesTables.CloseConnection();

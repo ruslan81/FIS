@@ -309,7 +309,7 @@ namespace BLL
             AddOrEditAdditionalOrgInfo(orgId, DataBaseReference.OrgInfo_RegistrationDate, DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
             AddOrEditAdditionalOrgInfo(orgId, DataBaseReference.OrgInfo_EndOfRegistrationDate, DateTime.Now.AddMonths(6).ToShortDateString());
             //внимательно следить при неполадках. описана эта функция в CardsTable
-            sqlDBR.CreateNewCard(newName + "ORG", "000", 3, orgId, "Карта организации " + newName + " для неразобранных блоков данных");
+            sqlDBR.CreateNewCard(newName + "ORG", "000", 3, orgId, "Карта организации " + newName + " для неразобранных блоков данных",1);
 
             return orgId;
         }

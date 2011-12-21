@@ -14,12 +14,17 @@
 <asp:Content ID="AccordionContent" ContentPlaceHolderID="VerticalOutlookMenu_PlaceHolder"
     runat="server">
     
+    <link type="text/css" href="../css/custom-theme/jquery.wijmo.wijcombobox.css" rel="stylesheet" />
+
     <script src="../js/custom/Settings.js" type="text/javascript"></script>
+    <script src="../js/jquery.wijmo.wijcombobox.js" type="text/javascript"></script>   
 
     <asp:HiddenField ID="AccordionSelectedPane" Visible="true" runat="server" Value="0" />
 
     <script type="text/javascript" language="javascript">
 
+        var mode = "";
+        
         //run on page load
         $(function () {
             buildTree();
@@ -65,9 +70,18 @@
     <script id="userControlsGroups" type="text/x-jquery-tmpl">
         <button id="edit">Редактировать</button>
         <button id="delete">Удалить</button>
+        <button id="create">Создать</button>
         <div id="deletedialog" title="Удаление групп" style="display: none;">
 	        <p>Вы действительно хотите удалить выделенные элементы?</p>
         </div>
+        <div style="float:right">
+            <button id="save">Сохранить</button>
+            <button id="cancel">Отмена</button>
+        </div>
+    </script>
+
+     <script id="userControlsDefault" type="text/x-jquery-tmpl">
+        <button id="edit">Редактировать</button>
         <div style="float:right">
             <button id="save">Сохранить</button>
             <button id="cancel">Отмена</button>
@@ -104,6 +118,76 @@
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
                     <center>
+                    {{html Number}}
+                    </center>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <input id="nameinput{{html grID}}" value="{{html Name}}" class="inputField-readonly" readonly="readonly"/>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <input id="commentinput{{html grID}}" value="{{html Comment}}" class="inputField-readonly" readonly="readonly"/>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <select id="groupSelector{{html grID}}" name="groupSelector" card="{{html cardType}}" onchange="this.card=this.value;">
+                        <option value="1">Водитель</option>
+                        <option value="2">ТС</option>
+                    </select>
+                </div>
+            </td>
+        </tr>
+    </script>
+
+    <script id="NewGroup" type="text/x-jquery-tmpl">
+        <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell" style="margin-left:5px;">
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <input id="newNameinputGroup" value="" class="inputField"/>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <input id="newCommentinputGroup" value="" class="inputField"/>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <select id="newGroupSelector" name="groupSelector" card="1" onchange="this.card=this.value;">
+                        <option value="1">Водитель</option>
+                        <option value="2">ТС</option>
+                    </select>
+                </div>
+            </td>
+        </tr>
+    </script>
+
+    <script id="tmplOption" type="text/x-jquery-tmpl">
+        <option value="{{html Key}}">{{html Value}}</option>
+    </script>
+
+    <script id="tmplCardTableContent" type="text/x-jquery-tmpl">
+        <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell" style="margin-left:5px;">
+                    <input type="checkbox" id="checkbox{{html grID}}" key="{{html grID}}"/>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <center>
                    <input id="numberinput{{html grID}}" value="{{html Number}}" class="inputField-readonly" readonly="readonly"/>
                     </center>
                 </div>
@@ -118,9 +202,82 @@
                     <input id="commentinput{{html grID}}" value="{{html Comment}}" class="inputField-readonly" readonly="readonly"/>
                 </div>
             </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <select id="groupSelector{{html grID}}" name="groupSelector" group="{{html groupID}}" onchange="this.group=this.value;">
+                    </select>
+                </div>
+            </td>
+        </tr>
+    </script>
+
+    <script id="newCard" type="text/x-jquery-tmpl">
+        <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell" style="margin-left:5px;">
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <center>
+                   <input id="newCardNumber" value="" class="inputField"/>
+                    </center>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <input id="newCardName" value="" class="inputField"/>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <input id="newCardComment" value="" class="inputField"/>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <select id="newCardGroupSelector" name="groupSelector" group="1" onchange="this.group=this.value;">
+                    </select>
+                </div>
+            </td>
         </tr>
     </script>
     
+    <script id="tmplDefaultSettingsTable" type="text/x-jquery-tmpl">
+        <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell" style="margin-left:5px;">
+                    <input type="checkbox" key="{{html keyID}}"/>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <input value="{{html CriteriaName}}" id="CriteriaName{{html keyID}}" class="inputField-readonly" readonly="readonly"/>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <input value="{{html MeasureName}}" id="MeasureName{{html keyID}}" class="inputField-readonly" readonly="readonly"/>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <input value="{{html MinValue}}" id="MinValue{{html keyID}}" class="inputField-readonly" readonly="readonly"/>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <input value="{{html MaxValue}}" id="MaxValue{{html keyID}}" class="inputField-readonly" readonly="readonly"/>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <input value="{{html CriteriaNote}}" id="CriteriaNote{{html keyID}}" class="inputField-readonly" readonly="readonly"/>
+                </div>
+            </td>
+        </tr>
+    </script>
+
     <div id="accordion" style="width: 5">
         <h3><asp:LinkButton CausesValidation="false" runat="server" PostBackUrl="#" Text="Организация"/></h3>
         <div>
@@ -197,6 +354,7 @@
 </asp:Content>
 <asp:Content ID="DataContent" ContentPlaceHolderID="Reports_PlaceHolder" runat="server">
     <div>
+    
         <table cellpadding="5" style="margin-left:30px; width: 90%">
             <tbody id="contentSettings">
             </tbody>

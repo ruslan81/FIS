@@ -1766,7 +1766,7 @@
             <param name="Current_Language">Текущий язык</param>
             <param name="sql">Обьект подключения к базе данных</param>
         </member>
-        <member name="M:BLL.CardsTable.CreateNewCard(System.String,System.String,System.Int32,System.Int32,System.String,System.Int32)">
+        <member name="M:BLL.CardsTable.CreateNewCard(System.String,System.String,System.Int32,System.Int32,System.String,System.Int32,System.Int32)">
             <summary>
             Создать новую карту
             </summary>
@@ -1855,6 +1855,13 @@
             <param name="groupId">ID группы</param>
             <returns>Комментарий группы</returns>
         </member>
+        <member name="M:BLL.CardsTable.GetGroupCardTypeById(System.Int32)">
+            <summary>
+            Получаем тип карты группы по ID
+            </summary>
+            <param name="groupId">ID группы</param>
+            <returns>Тип карты группы</returns>
+        </member>
         <member name="M:BLL.CardsTable.DeleteGroup(System.Int32,System.Int32)">
             <summary>
             Удаляем группу по ID
@@ -1862,13 +1869,23 @@
             <param name="orgId">ID организации</param>
             <param name="groupId">ID группы</param>
         </member>
-        <member name="M:BLL.CardsTable.UpdateGroup(System.Int32,System.String,System.String)">
+        <member name="M:BLL.CardsTable.UpdateGroup(System.Int32,System.String,System.String,System.Int32)">
             <summary>
             Редактируем группу по ID
             </summary>
             <param name="groupId">ID организации</param>
             <param name="name">Имя группы</param>
             <param name="comment">Комментарий группы</param>
+            <param name="cardType">Тип карты</param>
+        </member>
+        <member name="M:BLL.CardsTable.CreateGroup(System.Int32,System.String,System.String,System.Int32)">
+            <summary>
+            Редактируем группу по ID
+            </summary>
+            <param name="orgID">ID организации</param>
+            <param name="name">Имя группы</param>
+            <param name="comment">Комментарий группы</param>
+            <param name="cardType">Тип карты</param>
         </member>
         <member name="M:BLL.CardsTable.GetCardNames(System.Collections.Generic.List{System.Int32})">
             <summary>
@@ -1905,6 +1922,13 @@
             <param name="cardId">ID карты</param>
             <returns>Коментарий</returns>
         </member>
+        <member name="M:BLL.CardsTable.GetCardGroupID(System.Int32)">
+            <summary>
+            Получает группу карты по ID карты
+            </summary>
+            <param name="cardId">ID карты</param>
+            <returns>Группа карты</returns>
+        </member>
         <member name="M:BLL.CardsTable.SetCardNote(System.Int32,System.String)">
             <summary>
             Присваеваем комментарий к карте
@@ -1917,6 +1941,13 @@
             Изменяет имя карты
             </summary>
             <param name="cardHolderName">Новое имя карты</param>
+            <param name="cardId">ID карты</param>
+        </member>
+        <member name="M:BLL.CardsTable.ChangeCardGroup(System.Int32,System.Int32)">
+            <summary>
+            Изменяет группу карты
+            </summary>
+            <param name="groupId">Новый ID группы</param>
             <param name="cardId">ID карты</param>
         </member>
         <member name="M:BLL.CardsTable.ChangeCardComment(System.String,System.Int32)">

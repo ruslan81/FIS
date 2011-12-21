@@ -27,7 +27,12 @@ namespace DDDModel
 
             //MY CODE
             dataBlock.OpenConnection();
-            dataBlock.cardsTable.ChangeCardComment("Comment",110);
+            /*List<int> res=dataBlock.cardsTable.GetAllGroupIds(1,2);
+            for (int i = 0; i < res.Count; i++) {
+                System.Console.WriteLine(res[i]);
+            }
+                System.Console.ReadKey();*/
+            dataBlock.cardsTable.CreateGroup(1,"Name","Comment",1);
 
             dataBlock.CloseConnection();
             //System.Console.ReadKey();

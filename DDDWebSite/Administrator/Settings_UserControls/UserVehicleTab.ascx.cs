@@ -587,7 +587,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
             dataBlock.OpenConnection();
             dataBlock.OpenTransaction();
             int curUserId = dataBlock.usersTable.Get_UserID_byName(Page.User.Identity.Name);
-            int newCardId = dataBlock.cardsTable.CreateNewCard(RegNumber, Vin, dataBlock.cardsTable.vehicleCardTypeId, orgId, "Created manually " + RegNumber, curUserId);
+            int newCardId = dataBlock.cardsTable.CreateNewCard(RegNumber, Vin, dataBlock.cardsTable.vehicleCardTypeId, orgId, "Created manually " + RegNumber, curUserId, 1);
            
             int selectedVehId = dataBlock.vehiclesTables.AddNewVehicle(RegNumber, vehManufacturer, Vin, VehicleTypeId, 1, newCardId, new DateTime(), priority);
             SaveInfo(selectedVehId, dataBlock);

@@ -715,7 +715,7 @@ public partial class Administrator_Data : System.Web.UI.Page
                 throw notAllFields;
             }
 
-            int cardId = dataBlock.cardsTable.CreateNewCard(name + " " + surName, number, dataBlock.cardsTable.driversCardTypeId, orgId, "Init DataBlockId = NONE", curUserId);
+            int cardId = dataBlock.cardsTable.CreateNewCard(name + " " + surName, number, dataBlock.cardsTable.driversCardTypeId, orgId, "Init DataBlockId = NONE", curUserId, 1);
 
             List<filenameAndBytesStruct> fileUpload = new List<filenameAndBytesStruct>();
             fileUpload = (List<filenameAndBytesStruct>)Session["FileUpload"];

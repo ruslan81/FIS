@@ -12,6 +12,8 @@ public class GroupData
     public String Comment { get; set; }
     public int grID { get; set; }
     public int Number { get; set; }
+    public int cardType { get; set; }
+    public int cardName { get; set; }
 
 	public GroupData(int id)
 	{

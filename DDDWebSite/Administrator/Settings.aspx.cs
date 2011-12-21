@@ -156,7 +156,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
         try
         {
             List<GroupData> result = new List<GroupData>();
-            dataBlock.organizationTable.OpenConnection();
+            dataBlock.OpenConnection();
             int orgID = int.Parse(OrgID);
 
             List<int> ids = dataBlock.cardsTable.GetAllGroupIds(orgID);
@@ -167,6 +167,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
                 gd.Name = dataBlock.cardsTable.GetGroupNameById(i);
                 gd.Comment = dataBlock.cardsTable.GetGroupCommentById(i);
                 gd.Number = ++num;
+                gd.cardType = dataBlock.cardsTable.GetGroupCardTypeById(i);
                 result.Add(gd);
             }
 
@@ -178,7 +179,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
         }
         finally
         {
-            dataBlock.organizationTable.CloseConnection();
+            //dataBlock.organizationTable.CloseConnection();
             dataBlock.CloseConnection();
         }
     }
@@ -198,7 +199,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
             int orgID = int.Parse(OrgID);
             foreach (GroupData item in GroupSettings)
             {
-                dataBlock.cardsTable.UpdateGroup(item.grID,item.Name,item.Comment);
+                dataBlock.cardsTable.UpdateGroup(item.grID,item.Name,item.Comment,item.cardType);
             }
             return true;
         }
@@ -223,7 +224,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
         try
         {
-            dataBlock.organizationTable.OpenConnection();
+            dataBlock.OpenConnection();
             int orgID = int.Parse(OrgID);
             for (int i = 0; i < GroupIDs.Count; i++)
             {
@@ -238,7 +239,37 @@ public partial class Administrator_Settings : System.Web.UI.Page
         }
         finally
         {
-            dataBlock.organizationTable.CloseConnection();
+            //dataBlock.organizationTable.CloseConnection();
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Создание групп
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static bool CreateGroup(String OrgID, String Name, String Comment, String CardType)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        try
+        {
+            dataBlock.OpenConnection();
+            int orgID = int.Parse(OrgID);
+            int cardType = int.Parse(CardType);
+
+            dataBlock.cardsTable.CreateGroup(orgID,Name,Comment,cardType);
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+        finally
+        {
+            //dataBlock.organizationTable.CloseConnection();
             dataBlock.CloseConnection();
         }
     }
@@ -248,11 +279,11 @@ public partial class Administrator_Settings : System.Web.UI.Page
     /// </summary>
     /// <returns></returns>
     [System.Web.Services.WebMethod]
-    public static List<DriverData> GetDriversSettings(String OrgID)
+    public static List<CardData> GetDriversSettings(String OrgID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
-        List<DriverData> result = new List<DriverData>();
+        List<CardData> result = new List<CardData>();
         try
         {
             //dataBlock.organizationTable.OpenConnection();
@@ -262,10 +293,12 @@ public partial class Administrator_Settings : System.Web.UI.Page
             List<int> cardsList = dataBlock.cardsTable.GetAllCardIds(orgID, dataBlock.cardsTable.driversCardTypeId);
             foreach (int cardId in cardsList)
             {
-                DriverData gd = new DriverData(cardId);
+                CardData gd = new CardData(cardId);
                 gd.Name = dataBlock.cardsTable.GetCardName(cardId);
                 gd.Number = dataBlock.cardsTable.GetCardNumber(cardId);
                 gd.Comment = dataBlock.cardsTable.GetCardNote(cardId);
+                gd.groupID = dataBlock.cardsTable.GetCardGroupID(cardId);
+                gd.groupName = dataBlock.cardsTable.GetGroupNameById(gd.groupID);
                 result.Add(gd);
             }
             //dataBlock.CloseConnection();
@@ -287,7 +320,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     /// </summary>
     /// <returns></returns>
     [System.Web.Services.WebMethod]
-    public static bool SaveDriverSettings(String OrgID, List<DriverData> DriverSettings)
+    public static bool SaveDriverSettings(String OrgID, List<CardData> DriverSettings)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
@@ -295,11 +328,12 @@ public partial class Administrator_Settings : System.Web.UI.Page
         {
             dataBlock.OpenConnection();
             int orgID = int.Parse(OrgID);
-            foreach (DriverData item in DriverSettings)
+            foreach (CardData item in DriverSettings)
             {
                 dataBlock.cardsTable.ChangeCardName(item.Name,item.grID);
                 dataBlock.cardsTable.ChangeCardNumber(item.Number, item.grID, 0);
                 dataBlock.cardsTable.ChangeCardComment(item.Comment, item.grID);
+                dataBlock.cardsTable.ChangeCardGroup(item.groupID, item.grID);
             }
             return true;
         }
@@ -324,7 +358,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
         try
         {
-            dataBlock.organizationTable.OpenConnection();
+            dataBlock.OpenConnection();
             int orgID = int.Parse(OrgID);
             for (int i = 0; i < DriverIDs.Count; i++)
             {
@@ -339,7 +373,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
         }
         finally
         {
-            dataBlock.organizationTable.CloseConnection();
+            //dataBlock.organizationTable.CloseConnection();
             dataBlock.CloseConnection();
         }
     }
@@ -349,11 +383,11 @@ public partial class Administrator_Settings : System.Web.UI.Page
     /// </summary>
     /// <returns></returns>
     [System.Web.Services.WebMethod]
-    public static List<DriverData> GetTransportsSettings(String OrgID)
+    public static List<CardData> GetTransportsSettings(String OrgID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
-        List<DriverData> result = new List<DriverData>();
+        List<CardData> result = new List<CardData>();
         try
         {
             //dataBlock.organizationTable.OpenConnection();
@@ -363,10 +397,12 @@ public partial class Administrator_Settings : System.Web.UI.Page
             List<int> cardsList = dataBlock.cardsTable.GetAllCardIds(orgID, dataBlock.cardsTable.vehicleCardTypeId);
             foreach (int cardId in cardsList)
             {
-                DriverData gd = new DriverData(cardId);
+                CardData gd = new CardData(cardId);
                 gd.Name = dataBlock.cardsTable.GetCardName(cardId);
                 gd.Number = dataBlock.cardsTable.GetCardNumber(cardId);
                 gd.Comment = dataBlock.cardsTable.GetCardNote(cardId);
+                gd.groupID = dataBlock.cardsTable.GetCardGroupID(cardId);
+                gd.groupName = dataBlock.cardsTable.GetGroupNameById(gd.groupID);
                 result.Add(gd);
             }
             //dataBlock.CloseConnection();
@@ -388,7 +424,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     /// </summary>
     /// <returns></returns>
     [System.Web.Services.WebMethod]
-    public static bool SaveTransportSettings(String OrgID, List<DriverData> TransportSettings)
+    public static bool SaveTransportSettings(String OrgID, List<CardData> TransportSettings)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
@@ -396,11 +432,12 @@ public partial class Administrator_Settings : System.Web.UI.Page
         {
             dataBlock.OpenConnection();
             int orgID = int.Parse(OrgID);
-            foreach (DriverData item in TransportSettings)
+            foreach (CardData item in TransportSettings)
             {
                 dataBlock.cardsTable.ChangeCardName(item.Name, item.grID);
                 dataBlock.cardsTable.ChangeCardNumber(item.Number, item.grID, 0);
                 dataBlock.cardsTable.ChangeCardComment(item.Comment, item.grID);
+                dataBlock.cardsTable.ChangeCardGroup(item.groupID, item.grID);
             }
             return true;
         }
@@ -441,6 +478,204 @@ public partial class Administrator_Settings : System.Web.UI.Page
         finally
         {
             dataBlock.organizationTable.CloseConnection();
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Получение списка групп
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static List<MapItem> GetGroupListDrivers(String OrgID)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        
+        try
+        {
+            dataBlock.OpenConnection();
+            int orgID = int.Parse(OrgID);
+            List<MapItem> result = new List<MapItem>();
+            List<int> ids=dataBlock.cardsTable.GetAllGroupIds(orgID,dataBlock.cardsTable.driversCardTypeId);
+            foreach (int index in ids) {
+                string name = dataBlock.cardsTable.GetGroupNameById(index);
+                result.Add(new MapItem(Convert.ToString(index),name));
+            }
+            return result;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+        finally
+        {
+            //dataBlock.organizationTable.CloseConnection();
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Получение списка групп
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static List<MapItem> GetGroupListTransports(String OrgID)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+
+        try
+        {
+            dataBlock.OpenConnection();
+            int orgID = int.Parse(OrgID);
+            List<MapItem> result = new List<MapItem>();
+            List<int> ids = dataBlock.cardsTable.GetAllGroupIds(orgID, dataBlock.cardsTable.vehicleCardTypeId);
+            foreach (int index in ids)
+            {
+                string name = dataBlock.cardsTable.GetGroupNameById(index);
+                result.Add(new MapItem(Convert.ToString(index), name));
+            }
+            return result;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+        finally
+        {
+            //dataBlock.organizationTable.CloseConnection();
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Создание карты водителя
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static bool CreateCardDriver(string OrgID, string UserID, CardData data)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        try
+        {
+            dataBlock.OpenConnection();
+            int orgID = int.Parse(OrgID);
+            int userID = int.Parse(UserID);
+            dataBlock.cardsTable.CreateNewCard(data.Name,data.Number,dataBlock.cardsTable.driversCardTypeId,orgID,data.Comment,userID, data.groupID);
+            
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+        finally
+        {
+            //dataBlock.organizationTable.CloseConnection();
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Создание карты ТС
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static bool CreateCardTransport(string OrgID, string UserID, CardData data)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        try
+        {
+            dataBlock.OpenConnection();
+            int orgID = int.Parse(OrgID);
+            int userID = int.Parse(UserID);
+            dataBlock.cardsTable.CreateNewCard(data.Name, data.Number, dataBlock.cardsTable.vehicleCardTypeId, orgID, data.Comment, userID, data.groupID);
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+        finally
+        {
+            //dataBlock.organizationTable.CloseConnection();
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Получить настройки по умолчанию
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static List<SettingsData> GetDefaultSettings()
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        List<SettingsData> result = new List<SettingsData>();
+           
+        try{
+            dataBlock.OpenConnection();
+            List<KeyValuePair<string, int>> allKeys = new List<KeyValuePair<string, int>>();
+            allKeys = dataBlock.criteriaTable.GetAllCriteria_Name_n_Id();
+
+            CriteriaTable oneCriteria = new CriteriaTable(connectionString, "STRING_EN", dataBlock.sqlDb);
+
+            foreach (KeyValuePair<string, int> key in allKeys)
+            {
+                oneCriteria = dataBlock.criteriaTable.LoadCriteria(key.Value);
+
+                SettingsData sd = new SettingsData(oneCriteria.KeyId);
+                sd.MeasureName=oneCriteria.MeasureName;
+                sd.CriteriaName = oneCriteria.CriteriaName;
+                sd.CriteriaNote = oneCriteria.CriteriaNote;
+                sd.MinValue = oneCriteria.MinValue;
+                sd.MaxValue = oneCriteria.MaxValue;
+
+                result.Add(sd);
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+        finally
+        {
+            //dataBlock.organizationTable.CloseConnection();
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Сохранить настройки по умолчанию
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static void SaveDefaultSettings(List<SettingsData> DefaultSettings)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        try
+        {
+            dataBlock.OpenConnection();
+            foreach (SettingsData data in DefaultSettings)
+            {
+                dataBlock.criteriaTable.EditCriteria(data.keyID, data.CriteriaNote, data.MinValue, data.MaxValue);
+            }
+        }
+        catch (Exception ex)
+        {
+            return;
+        }
+        finally
+        {
+            //dataBlock.organizationTable.CloseConnection();
             dataBlock.CloseConnection();
         }
     }

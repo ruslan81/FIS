@@ -215,8 +215,8 @@ namespace DB.Interface
         string GetDeviceFirmware_version(int firmwareId);
         //---------------------------------FD_CARD--------
         int GetCardId(string cardHolderName, string cardNumber, int cardTypeId);
-        int CreateNewCard(string cardHolderName, string cardNumber, int cardTypeId, int orgId, string CardNote);
-        int CreateNewCard(string cardHolderName, string cardNumber, int cardTypeId, int orgId, string CardNote, int UserId);//При создании еще указывается ссылка на пользователя. Используется при создании водителей.
+        int CreateNewCard(string cardHolderName, string cardNumber, int cardTypeId, int orgId, string CardNote, int groupID);
+        int CreateNewCard(string cardHolderName, string cardNumber, int cardTypeId, int orgId, string CardNote, int UserId, int groupID);//При создании еще указывается ссылка на пользователя. Используется при создании водителей.
         List<int> GetAllCardIds(int orgId, int cardTypeId);
         string GetCardNumber(int cardId);
         string GetCardName(int cardId);

@@ -287,7 +287,7 @@ public partial class Administrator_Settings_UserControls_UserDriversTab : System
             dataBlock.OpenTransaction();
             int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
             int curUserId = dataBlock.usersTable.Get_UserID_byName(Page.User.Identity.Name);
-            int newCardId = dataBlock.cardsTable.CreateNewCard(name + " " + surName, driversCard, dataBlock.cardsTable.driversCardTypeId, orgId, "Created manually " + name + " " + surName + " " + driversCard, curUserId);
+            int newCardId = dataBlock.cardsTable.CreateNewCard(name + " " + surName, driversCard, dataBlock.cardsTable.driversCardTypeId, orgId, "Created manually " + name + " " + surName + " " + driversCard, curUserId,1);
            
             SaveInfo(newCardId, dataBlock);
         }

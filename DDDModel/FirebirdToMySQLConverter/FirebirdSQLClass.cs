@@ -111,7 +111,7 @@ namespace FirebirdToMySQLConverter
 
                         if (car.DEPARTMENTID == department.ID)
                         {
-                            int cardId = datablock.cardsTable.CreateNewCard(car.REGNUMBER, "Unknown", datablock.cardsTable.vehicleCardTypeId, orgId, "Created from FIREBIRD database", 0);
+                            int cardId = datablock.cardsTable.CreateNewCard(car.REGNUMBER, "Unknown", datablock.cardsTable.vehicleCardTypeId, orgId, "Created from FIREBIRD database", 0, 1);
                             carId = datablock.vehiclesTables.AddNewVehicle(car.REGNUMBER, car.CARMODEL, "Unknown", 1, newDeviceId, cardId, DateTime.Now, 1);
                             tempOldNewIds = new KeyValuePair<int, int>(car.ID, carId);
                             carsOldNewIds.Add(tempOldNewIds);
@@ -127,7 +127,7 @@ namespace FirebirdToMySQLConverter
                     foreach (WORKERS.worker workerForAdd in workersList)
                     {
                         int newWId = datablock.cardsTable.CreateNewCard(workerForAdd.FIRSTNAME + " " + workerForAdd.SURNAME, workerForAdd.WORKERINTID.ToString(), datablock.cardsTable.driversCardTypeId,
-                            orgId, "Created from firebird", 0);
+                            orgId, "Created from firebird", 0, 1);
                         /*userInfoId = datablock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Patronimic);
                         datablock.usersTable.EditUserInfo(newWId, userInfoId, workerForAdd.MIDDLENAME);
                         userInfoId = datablock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Name);

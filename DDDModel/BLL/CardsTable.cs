@@ -62,7 +62,7 @@ namespace BLL
         /// <param name="CardNote">Комментарий к карту</param>
         /// <param name="curUserId">Текущий пользователь, создающий карты(для лога)</param>
         /// <returns>Id новой карты</returns>
-        public int CreateNewCard(string cardHolderName, string cardNumber, int cardTypeId, int orgId, string CardNote, int curUserId)
+        public int CreateNewCard(string cardHolderName, string cardNumber, int cardTypeId, int orgId, string CardNote, int curUserId, int groupID)
         {
             Exception userNameAllreadyExists = new Exception("Пользователь с таким именем уже существует!");
 
@@ -85,7 +85,7 @@ namespace BLL
                 userTables.AddUserInfoValue(userId, DataBaseReference.UserInfo_Name, cardHolderName);
                 userTables.AddUserInfoValue(userId, DataBaseReference.UserInfo_RegDate, DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
                 //userTables.CloseConnection();
-                returnValue = sqlDb.CreateNewCard(cardHolderName, cardNumber, cardTypeId, orgId, CardNote, userId);
+                returnValue = sqlDb.CreateNewCard(cardHolderName, cardNumber, cardTypeId, orgId, CardNote, userId, groupID);
 
                 if (curUserId > 0)
                 {
@@ -95,7 +95,7 @@ namespace BLL
             }
             else
             {
-                returnValue = sqlDb.CreateNewCard(cardHolderName, cardNumber, cardTypeId, orgId, CardNote);
+                returnValue = sqlDb.CreateNewCard(cardHolderName, cardNumber, cardTypeId, orgId, CardNote, groupID);
 
                 if (curUserId > 0 && cardTypeId == vehicleCardTypeId)
                 {
@@ -222,6 +222,15 @@ namespace BLL
             return sqlDb.GetGroupCommentById(groupId);
         }
         /// <summary>
+        /// Получаем тип карты группы по ID
+        /// </summary>
+        /// <param name="groupId">ID группы</param>
+        /// <returns>Тип карты группы</returns>
+        public int GetGroupCardTypeById(int groupId)
+        {
+            return sqlDb.GetGroupCardTypeById(groupId);
+        }
+        /// <summary>
         /// Удаляем группу по ID
         /// </summary>
         /// <param name="orgId">ID организации</param>
@@ -236,9 +245,21 @@ namespace BLL
         /// <param name="groupId">ID организации</param>
         /// <param name="name">Имя группы</param>
         /// <param name="comment">Комментарий группы</param>
-        public void UpdateGroup(int groupId, String name, String comment)
+        /// <param name="cardType">Тип карты</param>
+        public void UpdateGroup(int groupId, String name, String comment, int cardType)
         {
-            sqlDb.UpdateGroup(groupId,name,comment);
+            sqlDb.UpdateGroup(groupId,name,comment,cardType);
+        }
+        /// <summary>
+        /// Редактируем группу по ID
+        /// </summary>
+        /// <param name="orgID">ID организации</param>
+        /// <param name="name">Имя группы</param>
+        /// <param name="comment">Комментарий группы</param>
+        /// <param name="cardType">Тип карты</param>
+        public void CreateGroup(int orgID,String name, String comment, int cardType)
+        {
+            sqlDb.CreateGroup(orgID, name, comment, cardType);
         }
         /// <summary>
         /// получаем все имена карты
@@ -300,6 +321,15 @@ namespace BLL
             return returnValue;
         }
         /// <summary>
+        /// Получает группу карты по ID карты
+        /// </summary>
+        /// <param name="cardId">ID карты</param>
+        /// <returns>Группа карты</returns>
+        public int GetCardGroupID(int cardId)
+        {
+            return sqlDb.GetCardGroupID(cardId);
+        }
+        /// <summary>
         /// Присваеваем комментарий к карте
         /// </summary>
         /// <param name="cardId">ID карты</param>
@@ -317,7 +347,15 @@ namespace BLL
         {
             sqlDb.ChangeCardHolderName(cardHolderName, cardId);
         }
-
+        /// <summary>
+        /// Изменяет группу карты
+        /// </summary>
+        /// <param name="groupId">Новый ID группы</param>
+        /// <param name="cardId">ID карты</param>
+        public void ChangeCardGroup(int groupId, int cardId)
+        {
+            sqlDb.ChangeCardGroup(groupId, cardId);
+        }
         /// <summary>
         /// Изменяет комментарий карты
         /// </summary>
