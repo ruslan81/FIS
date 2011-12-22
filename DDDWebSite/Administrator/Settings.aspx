@@ -145,25 +145,25 @@
 
     <script id="NewGroup" type="text/x-jquery-tmpl">
         <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
-            <td class="wijgridtd wijdata-type-string">
+            <td class="wijgridtd wijdata-type-string wijmo-wijgrid-cell-border-bottom wijmo-wijgrid-cell-border-right wijmo-wijgrid-cell">
                 <div class="wijmo-wijgrid-innercell" style="margin-left:5px;">
                 </div>
             </td>
-            <td class="wijgridtd wijdata-type-string">
+            <td class="wijgridtd wijdata-type-string wijmo-wijgrid-cell-border-bottom wijmo-wijgrid-cell-border-right wijmo-wijgrid-cell">
                 <div class="wijmo-wijgrid-innercell">
                 </div>
             </td>
-            <td class="wijgridtd wijdata-type-string">
+            <td class="wijgridtd wijdata-type-string wijmo-wijgrid-cell-border-bottom wijmo-wijgrid-cell-border-right wijmo-wijgrid-cell">
                 <div class="wijmo-wijgrid-innercell">
                     <input id="newNameinputGroup" value="" class="inputField"/>
                 </div>
             </td>
-            <td class="wijgridtd wijdata-type-string">
+            <td class="wijgridtd wijdata-type-string wijmo-wijgrid-cell-border-bottom wijmo-wijgrid-cell-border-right wijmo-wijgrid-cell">
                 <div class="wijmo-wijgrid-innercell">
                     <input id="newCommentinputGroup" value="" class="inputField"/>
                 </div>
             </td>
-            <td class="wijgridtd wijdata-type-string">
+            <td class="wijgridtd wijdata-type-string wijmo-wijgrid-cell-border-bottom wijmo-wijgrid-cell-border-right wijmo-wijgrid-cell">
                 <div class="wijmo-wijgrid-innercell">
                     <select id="newGroupSelector" name="groupSelector" card="1" onchange="this.card=this.value;">
                         <option value="1">Водитель</option>
@@ -213,28 +213,28 @@
 
     <script id="newCard" type="text/x-jquery-tmpl">
         <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
-            <td class="wijgridtd wijdata-type-string">
+            <td class="wijgridtd wijdata-type-string wijmo-wijgrid-cell-border-bottom wijmo-wijgrid-cell-border-right wijmo-wijgrid-cell">
                 <div class="wijmo-wijgrid-innercell" style="margin-left:5px;">
                 </div>
             </td>
-            <td class="wijgridtd wijdata-type-string">
+            <td class="wijgridtd wijdata-type-string wijmo-wijgrid-cell-border-bottom wijmo-wijgrid-cell-border-right wijmo-wijgrid-cell">
                 <div class="wijmo-wijgrid-innercell">
                     <center>
                    <input id="newCardNumber" value="" class="inputField"/>
                     </center>
                 </div>
             </td>
-            <td class="wijgridtd wijdata-type-string">
+            <td class="wijgridtd wijdata-type-string wijmo-wijgrid-cell-border-bottom wijmo-wijgrid-cell-border-right wijmo-wijgrid-cell">
                 <div class="wijmo-wijgrid-innercell">
                     <input id="newCardName" value="" class="inputField"/>
                 </div>
             </td>
-            <td class="wijgridtd wijdata-type-string">
+            <td class="wijgridtd wijdata-type-string wijmo-wijgrid-cell-border-bottom wijmo-wijgrid-cell-border-right wijmo-wijgrid-cell">
                 <div class="wijmo-wijgrid-innercell">
                     <input id="newCardComment" value="" class="inputField"/>
                 </div>
             </td>
-            <td class="wijgridtd wijdata-type-string">
+            <td class="wijgridtd wijdata-type-string wijmo-wijgrid-cell-border-bottom wijmo-wijgrid-cell-border-right wijmo-wijgrid-cell">
                 <div class="wijmo-wijgrid-innercell">
                     <select id="newCardGroupSelector" name="groupSelector" group="1" onchange="this.group=this.value;">
                     </select>

@@ -263,6 +263,12 @@ function createUserControlsGroups() {
         var trs = $("#contentTable tr");
         $(trs[0]).after($("#NewGroup").text());
 
+        $("#newGroupSelector").wijcombobox(
+        {
+            showingAnimation: { effect: "blind" },
+            hidingAnimation: { effect: "blind" }
+        });
+
         return false;
     });
 

@@ -36,7 +36,7 @@
     padding-left:5px;
     box-shadow:inset 1px 1px 1px #ccc;
     height:22px;
-    width:300px;
+    width:90%;
 }
 
 #contentSettings .inputField-readonly
@@ -47,14 +47,14 @@
     border-radius:none;
     padding-left:5px;
     height:22px;
-    width:300px;
+    width:90%;
 }
 
 #contentSettings input
 {
     font-family:Tahoma;
     font-size:12px;
-    width:100%;
+    width:90%;
 }
 
 button
@@ -165,14 +165,15 @@ button
     border-radius:none;
     padding-left:5px;
     height:22px;
-    width:300px;
+    width:90%;
 }
 
 #contentTable input
 {
 	background-color:#fff;
 	font-family:Tahoma;
-	font-size:11px;	
+	font-size:11px;
+	width:90%;
 }
 
 
