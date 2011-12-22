@@ -128,7 +128,7 @@ function updateTable(tableBody, template, data) {
             if (j < cells.length - 1) {
                 $(cells[j]).addClass("wijmo-wijgrid-cell-border-right");
             }
-            if (i < rows.length - 1) {
+            if (i < rows.length) {
                 $(cells[j]).addClass("wijmo-wijgrid-cell-border-bottom");
             }
             $(cells[j]).addClass("wijmo-wijgrid-cell");
@@ -281,7 +281,6 @@ function onOverlookNodeSelected(e, data) {
         $("#contentTable").hide();
         $("#periodSelection").hide();
         $("#main-conditions").hide();
-        //destroyPeriodControls();
     }
 }
 
@@ -394,4 +393,90 @@ function destroyPeriodControls() {
     //$("#buildButton").button("destroy");
     $("#periodSelection").hide();
     $("#contentTable").hide();
+}
+
+function loadUnparsedDataBlocks() {
+    destroyTree($("#tree"));
+    destroyPeriodControls();
+    destroyParseControls();
+    $("#DriversTree").empty();
+    $("#TransportTree").empty();
+    destroyTable($("#contentTable"), $("#contentTableBody"), $("#contentTableHeader"))
+
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Data.aspx/GetUnparsedDataBlocks",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            if (result.d.length > 0) {
+                $("#contentTable").show();
+                //create table header
+                createTableHeader($("#contentTableHeader"), $("#tmplHeadColumn"),
+                    '[{"text": "", "style": "width: 50px;"},' +
+                    '{"text": "Имя файла", "style": ""},' +
+                    '{"text": "Размер (в байтах)", "style": "width: 150px;"},' +
+                    '{"text": "Состояние", "style": "width: 150px;"},' +
+                    '{"text": "", "style": "width: 50px;"}]');
+                updateTable($("#contentTableBody"), $("#tmplDataBlockIDTable"), result.d);
+
+                $("#contentTableBody .remove-icon").click(function () {
+                    var dataBlockID = $(this).attr("datablockid");
+                    //alert(dataBlockID);
+                    $.ajax({
+                        type: "POST",
+                        //Page Name (in which the method should be called) and method name
+                        url: "Data.aspx/RemoveItemUnparsedDataBlocks",
+                        data: "{'DataBlockID':'" + dataBlockID + "'}",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+                            loadUnparsedDataBlocks();
+                        }
+                    });
+                });
+
+                createParseControls();
+            }
+        }
+    });
+}
+
+function createParseControls() {
+    $("#parse-files").button();
+    $("#parse-files").click(function () {
+        $("#parsing-dialog").dialog({ modal: true, closeText: '', resizable: false, closeOnEscape: false,
+            open: function (event, ui) {
+                $(".ui-dialog-titlebar-close").hide();
+            }, buttons: []
+        });
+        $("#parsing-dialog").dialog();
+        $.ajax({
+            type: "POST",
+            //Page Name (in which the method should be called) and method name
+            url: "Data.aspx/ParseDataBlocks",
+            data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'UserName':'" + $.cookie("CURRENT_USERNAME") + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                $("#parsing-dialog").dialog("close");
+                loadUnparsedDataBlocks();
+                return false;
+            },
+            error: function (result) {
+                alert("Внимание! На сервере произошла ошибка.");
+                $("#parsing-dialog").dialog("close");
+                return false;
+            }
+        });
+        return false;
+    });
+    $("#parse-files").show();
+}
+
+function destroyParseControls() {
+    $("#parse-files").button("destroy");
+    $("#parse-files").hide();
 }

@@ -2991,15 +2991,6 @@ namespace DB.SQL
             cmd.Parameters.AddWithValue("@CARD_HOLDER_NAME", newName);
             cmd.ExecuteNonQuery();
         }
-        public void ChangeCardComment(string newNote, int cardId)
-        {
-            string sql = "UPDATE fn_card SET CARD_NOTE=@CARD_NOTE WHERE CARD_ID=@CARD_ID";
-            MySqlCommand cmd = new MySqlCommand();
-            cmd = new MySqlCommand(sql, sqlConnection);
-            cmd.Parameters.AddWithValue("@CARD_ID", cardId);
-            cmd.Parameters.AddWithValue("@CARD_NOTE", newNote);
-            cmd.ExecuteNonQuery();
-        }
         public void ChangeCardNumber(string newNumber, int cardId)
         {
             string sql = "UPDATE fn_card SET CARD_NUMBER=@CARD_NUMBER WHERE CARD_ID=@CARD_ID";

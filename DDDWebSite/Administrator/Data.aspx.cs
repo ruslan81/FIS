@@ -72,6 +72,7 @@ public partial class Administrator_Data : System.Web.UI.Page
 
             //выставляем кук, чтобы можно было передать его в метод, вызываемый ч/з ajax
             Response.Cookies["CURRENT_ORG_ID"].Value = Convert.ToString(orgId);
+            Response.Cookies["CURRENT_USERNAME"].Value = User.Identity.Name;
 
             //ORG NAME сверху
             string curOrgName = "";
@@ -104,6 +105,129 @@ public partial class Administrator_Data : System.Web.UI.Page
     }
 
     //AJAX BEGIN
+
+
+    /// <summary>
+    ///Получить список неразобранных файлов в разделе "Загрузить на сервер"
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static List<DataBlockID> GetUnparsedDataBlocks(String OrgID)
+    {
+        try
+        {
+            string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+            DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+
+            int orgId = Convert.ToInt32(OrgID);
+
+            List<DataBlockID> dataBlockIDList = new List<DataBlockID>();
+            DataBlockID dataBlockIDItem;
+            List<int> dataBlockIDs = new List<int>();
+            int number = 0;
+
+            dataBlock.OpenConnection();
+            dataBlockIDs = dataBlock.GetAllUnparsedDataBlockIDs(orgId);
+            foreach (int id in dataBlockIDs)
+            {
+                number++;
+                dataBlockIDItem = new DataBlockID();
+                dataBlockIDItem.ID = id;
+                dataBlockIDItem.Number = number;
+                dataBlockIDItem.Name = dataBlock.GetDataBlock_FileName(id);
+                dataBlockIDItem.State = dataBlock.GetDataBlockState(id);
+                dataBlockIDItem.ByteSize = Convert.ToInt32(dataBlock.GetDataBlock_BytesCount(id));
+
+                dataBlockIDList.Add(dataBlockIDItem);
+            }
+
+            dataBlock.CloseConnection();
+
+            return dataBlockIDList;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
+
+
+    /// <summary>
+    ///Удалить элемент из списка неразобранных файлов в разделе "Загрузить на сервер"
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static bool RemoveItemUnparsedDataBlocks(String DataBlockID)
+    {
+        try
+        {
+            int dataBlockID = int.Parse(DataBlockID);
+            string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+            DataBlock dataBlock = new DataBlock(connectionString, dataBlockID, "STRING_EN");
+            dataBlock.DeleteDataBlockAndRecords();
+
+            dataBlock.CloseConnection();
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+    }
+
+
+    /// <summary>
+    ///Разобрать все файлы из списка неразобранных файлов в разделе "Загрузить на сервер"
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static bool ParseDataBlocks(String OrgID, String UserName)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        PLFUnit.PLFUnitClass plfForXml = new PLFUnit.PLFUnitClass();
+        List<int> dataBlockIDs = new List<int>();
+        int filesCounter = 0;
+        object parsedObject;
+
+        try
+        {
+            dataBlock.OpenConnection();
+            dataBlock.OpenTransaction();
+            int userId = dataBlock.usersTable.Get_UserID_byName(UserName);
+            int orgId = int.Parse(OrgID);
+            dataBlockIDs = dataBlock.GetAllUnparsedDataBlockIDs(orgId);
+            if (dataBlockIDs.Count == 0)
+            {
+                return true;
+            }
+            string output = "";
+            foreach (int blockId in dataBlockIDs)
+            {
+                dataBlock.SetDataBlockIdForParse(blockId);
+                dataBlock.SetOrgIdForParse(orgId);
+                if (dataBlock.GetDataBlockState(blockId) == "Not parsed")
+                {
+                    output = HttpContext.Current.Server.MapPath("~/XML_PLF") + "\\";
+                    parsedObject = dataBlock.ParseRecords(true, output, userId);
+                    filesCounter++;
+                }
+            }
+            dataBlock.CommitTransaction();
+            dataBlock.CloseConnection();
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            dataBlock.RollbackConnection();
+            dataBlock.CloseConnection();
+            return false;
+        }
+       
+    }
+
 
     /// <summary>
     ///Получить элементы дерева Водителей в разделе "Восстановить у пользователя"
