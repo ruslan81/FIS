@@ -165,7 +165,7 @@ button
     border-radius:none;
     padding-left:5px;
     height:22px;
-    width:300px;
+    width:100%;
 }
 
 #contentTable input
