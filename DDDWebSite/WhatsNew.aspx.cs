@@ -14,6 +14,11 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "- 18.12.2011" + Environment.NewLine;
+            ReportLabel.Text += @"-  Завершена работа над разделом Архив/Загрузить на сервер" + Environment.NewLine;
+            ReportLabel.Text += @"  -  Как оказалось файлы после загрузки на сервер сразу не разбираются, они просто добавляются в БД + несколько других записей." + Environment.NewLine;
+            ReportLabel.Text += @"  -  Далее все загруженные, но не разобранные файлы отображаются в этом же разделе на центральной панели. Эти файлы можно удалить (если их не надо разбирать) или разобрать их все." + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "- 02.12.2011" + Environment.NewLine;
             ReportLabel.Text += @"-  Сделан раздел Настройки/Организация/Группы" + Environment.NewLine;
             ReportLabel.Text += @"  -  Все функции (редактировать, удалить, сохранить, отмена) работают" + Environment.NewLine;

@@ -15,14 +15,14 @@
 #contentTable
 {
     width:100%;
-    display:none;   
+    display:none;    
 }
 
 .document-icon
 {
-    background: url(icons/32x32/page_down.png);
-    width:32px;
-    height:32px;
+    background: url(icons/24x24/page_down.png);
+    width:24px;
+    height:24px;
     border:none;
     margin:4px;
     margin-right:0px;
@@ -36,6 +36,7 @@
     padding-left:5px;
     box-shadow:inset 1px 1px 1px #ccc;
     height:22px;
+    width:300px;
 }
 
 #contentSettings .inputField-readonly
@@ -47,6 +48,12 @@
     padding-left:5px;
     height:22px;
     width:300px;
+}
+
+#contentSettings input
+{
+    font-family:Tahoma;
+    font-size:12px;
 }
 
 button
@@ -157,24 +164,37 @@ button
     border-radius:none;
     padding-left:5px;
     height:22px;
+    width:300px;
 }
 
 #contentTable input
 {
-	background-color:#fff;	
-	width:100%;
+	background-color:#fff;
+	font-family:Tahoma;
+	font-size:11px;	
 }
 
-#contentTableWrapper
+
+.remove-icon
 {
-	border: none;
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	overflow: hidden;
+    background: url(icons/24x24/remove.png);
+    width:24px;
+    height:24px;
+    border:none;
+    margin:4px;
+    margin-right:0px;
+    cursor: pointer;
 }
 
-.wijmo-wijcombobox-input
+#parse-files
 {
-	margin:0;	
+    display:none;
+    margin-top:10px;
+}
+
+.loading-icon 
+{
+    background-image: url(icons/loading.gif);
+    width:48px;
+    height:48px;
 }

@@ -1,4 +1,4 @@
-﻿<%@ page language="C#" masterpagefile="~/MasterPage/MasterPage.Master" autoeventwireup="true" inherits="Administrator_Data, App_Web_yosqodhc" enableeventvalidation="false" %>
+﻿<%@ page language="C#" masterpagefile="~/MasterPage/MasterPage.Master" autoeventwireup="true" inherits="Administrator_Data, App_Web_iigehfjg" enableeventvalidation="false" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControlsForAll/BlueButton.ascx" TagName="BlueButton" TagPrefix="uc2" %>
@@ -16,21 +16,27 @@
             $("#main-conditions").hide();
 
             createPeriodControls();
+            //загружаем неразобранные файлы
+            loadUnparsedDataBlocks();
 
             $("#accordion").accordion({
                 change: function (event, ui) {
                     if ($("a", ui.newHeader).text() == "Загрузить на сервер") {
                         destroyPeriodControls();
+                        loadUnparsedDataBlocks();
                     };
                     //закладка "Восстановить у пользователя"
                     if ($("a", ui.newHeader).text() == "Восстановить у пользователя") {
                         destroyPeriodControls();
+                        destroyParseControls()
                         loadRecoverUserData();
                     };
                     if ($("a", ui.newHeader).text() == "Просмотреть(Водитель)") {
+                        destroyParseControls()
                         loadOverlookDriver();
                     }
                     if ($("a", ui.newHeader).text() == "Просмотреть(ТС)") {
+                        destroyParseControls()
                         loadOverlookVehicle();
                     }
                 }
@@ -151,7 +157,7 @@
                     <form name="_ctl0" method="post" action="Download.aspx" id="_ctl0">
                         <input type="hidden" name="type" value="RecoverUserDownload"/> 
                         <input type="hidden" name="dataBlockId" value="{{html DataBlockId}}"/> 
-                        <input type="submit" value="" class="document-icon"/> 
+                        <input type="submit" value="" class="document-icon" title="Скачать"/> 
                     </form>
                     </center>
                 </div>
@@ -193,6 +199,43 @@
         </tr>
     </script>
 
+    <script id="tmplDataBlockIDTable" type="text/x-jquery-tmpl">
+        <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow">
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell" style="margin-left:5px;">
+                    {{html Number}}
+                </div>
+            </td>
+
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    {{html Name}}
+                </div>
+            </td>
+
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    {{html ByteSize}}
+                </div>
+            </td>
+
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                        {{html State}}
+                </div>
+            </td>
+
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <center>
+                        <div datablockid='{{html ID}}' class="remove-icon" title="Удалить"></div>
+                    </center>
+                </div>
+            </td>
+
+        </tr>
+    </script>
+
     <script id="tmplHeadColumn" type="text/x-jquery-tmpl">
         <th class="ui-widget wijmo-c1basefield ui-state-default wijmo-c1field" style="{{html style}}height:30px;">
             <div class="wijmo-wijgrid-innercell">
@@ -200,6 +243,14 @@
             </div>
         </th>
     </script>
+
+    <div id="parsing-dialog" title="Разбор файлов" style="display:none;">
+        <center>
+	        <p>Разбор файлов... Пожалуйста, подождите.</p>
+            <div class="loading-icon" style="margin-top:20px;"></div>
+        </center>
+    </div>
+
     <asp:UpdatePanel ID="InvisibleUpdatePanel" runat="server" UpdateMode="Always">
         <ContentTemplate>
             <div style="display: none;">
@@ -526,6 +577,8 @@
             <tbody id="contentTableBody" class="ui-widget-content wijmo-wijgrid-data">
             </tbody>
         </table>
+
+        <button id="parse-files">Разобрать файлы</button>
     </div>
     <!--<asp:UpdatePanel ID="GridPanel" UpdateMode="Always" runat="server" Visible="false">
         <ContentTemplate>
