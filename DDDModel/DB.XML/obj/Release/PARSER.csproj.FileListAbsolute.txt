@@ -51,4 +51,3 @@ D:\BSUIR\Other\UnitedProject\DDDModel\DB.XML\bin\Release\DDDClass.xml
 D:\BSUIR\Other\UnitedProject\DDDModel\DB.XML\obj\Release\ResolveAssemblyReference.cache
 D:\BSUIR\Other\UnitedProject\DDDModel\DB.XML\obj\Release\DB.XML.dll
 D:\BSUIR\Other\UnitedProject\DDDModel\DB.XML\obj\Release\DB.XML.pdb
-D:\BSUIR\Other\UnitedProject\DDDModel\DB.XML\bin\Release\DB.XML.XML

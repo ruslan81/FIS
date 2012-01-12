@@ -3000,6 +3000,15 @@ namespace DB.SQL
             cmd.Parameters.AddWithValue("@CARD_NUMBER", newNumber);
             cmd.ExecuteNonQuery();
         }
+        public void ChangeCardComment(string newComment, int cardId)
+        {
+            string sql = "UPDATE fn_card SET CARD_NOTE=@CARD_COMMENT WHERE CARD_ID=@CARD_ID";
+            MySqlCommand cmd = new MySqlCommand();
+            cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@CARD_ID", cardId);
+            cmd.Parameters.AddWithValue("@CARD_COMMENT", newComment);
+            cmd.ExecuteNonQuery();
+        }
         public void ChangeCardGroup(int groupId, int cardId)
         {
             string sql = "UPDATE fn_card SET GROUP_ID=@GROUP_ID WHERE CARD_ID=@CARD_ID";
@@ -3037,6 +3046,158 @@ namespace DB.SQL
             return returnValue;
         }
 
+        #endregion
+        //------------------------------REMIND TABLES----------
+        #region "RemindTables"
+        public void CreateNewRemind(int orgId, bool remindActive, int userId, int sourceType, int sourceId, int period, DateTime lastDate, int remindType)
+        {
+            string sql = "INSERT INTO fn_remind (ORG_ID, REMIND_ACTIVE, REMIND_USER, REMIND_SOURCE_TYPE, REMIND_SOURCE, REMIND_PERIOD, REMIND_LAST_DATE, REMIND_TYPE) VALUES (@ORG_ID, @REM_ACTIVE, @REM_USER, @REM_SOURCE_TYPE, @REM_SOURCE, @REM_PERIOD, @REM_LAST_DATE, @REM_TYPE)";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@ORG_ID", orgId);
+            cmd.Parameters.AddWithValue("@REM_ACTIVE", remindActive ? 1 : 0);
+            cmd.Parameters.AddWithValue("@REM_USER", userId);
+            cmd.Parameters.AddWithValue("@REM_SOURCE_TYPE", sourceType);
+            cmd.Parameters.AddWithValue("@REM_SOURCE", sourceId);
+            cmd.Parameters.AddWithValue("@REM_PERIOD", period);
+            cmd.Parameters.AddWithValue("@REM_LAST_DATE", lastDate);
+            cmd.Parameters.AddWithValue("@REM_TYPE", remindType);
+            cmd.ExecuteNonQuery();
+        }
+        public List<int> GetAllRemindIds(int orgId)
+        {
+            List<int> gettedNames = new List<int>();
+            string sql = "SELECT REMIND_ID FROM fn_remind WHERE ORG_ID=@ORG_ID ORDER BY REMIND_ID";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@ORG_ID", orgId);
+            MySqlDataReader sdr = cmd.ExecuteReader();
+            while (sdr.Read())
+            {
+                int id = sdr.GetInt32(0);
+                if (!gettedNames.Contains(id))
+                {
+                    gettedNames.Add(id);
+                }
+            }
+            sdr.Close();
+            return gettedNames;
+        }
+        public List<int> GetAllHourRemindIds()
+        {
+            List<int> gettedNames = new List<int>();
+            string sql = "SELECT REMIND_ID FROM fn_remind WHERE REMIND_PERIOD=2 AND REMIND_ACTIVE=1 ORDER BY REMIND_ID";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            MySqlDataReader sdr = cmd.ExecuteReader();
+            while (sdr.Read())
+            {
+                int id = sdr.GetInt32(0);
+                if (!gettedNames.Contains(id))
+                {
+                    gettedNames.Add(id);
+                }
+            }
+            sdr.Close();
+            return gettedNames;
+        }
+        public List<int> GetAllDayRemindIds()
+        {
+            List<int> gettedNames = new List<int>();
+            string sql = "SELECT REMIND_ID FROM fn_remind WHERE REMIND_PERIOD=3 AND REMIND_ACTIVE=1 ORDER BY REMIND_ID";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            MySqlDataReader sdr = cmd.ExecuteReader();
+            while (sdr.Read())
+            {
+                int id = sdr.GetInt32(0);
+                if (!gettedNames.Contains(id))
+                {
+                    gettedNames.Add(id);
+                }
+            }
+            sdr.Close();
+            return gettedNames;
+        }
+        public List<int> GetAllMonthRemindIds()
+        {
+            List<int> gettedNames = new List<int>();
+            string sql = "SELECT REMIND_ID FROM fn_remind WHERE REMIND_PERIOD=4 AND REMIND_ACTIVE=1 ORDER BY REMIND_ID";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            MySqlDataReader sdr = cmd.ExecuteReader();
+            while (sdr.Read())
+            {
+                int id = sdr.GetInt32(0);
+                if (!gettedNames.Contains(id))
+                {
+                    gettedNames.Add(id);
+                }
+            }
+            sdr.Close();
+            return gettedNames;
+        }
+        public void UpdateRemind(int remindId, bool remindActive, int userId, int sourceType, int sourceId, int period, DateTime lastDate, int remindType)
+        {
+            string sql = "UPDATE fn_remind SET REMIND_ACTIVE=@REM_ACTIVE, REMIND_USER=@REM_USER, REMIND_SOURCE_TYPE=@REM_SOURCE_TYPE, REMIND_SOURCE=@REM_SOURCE, REMIND_PERIOD=@REM_PERIOD, REMIND_LAST_DATE=@REM_LAST_DATE, REMIND_TYPE=@REM_TYPE WHERE REMIND_ID=@REM_ID";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@REM_ID", remindId);
+            cmd.Parameters.AddWithValue("@REM_ACTIVE", remindActive ? 1 : 0);
+            cmd.Parameters.AddWithValue("@REM_USER", userId);
+            cmd.Parameters.AddWithValue("@REM_SOURCE_TYPE", sourceType);
+            cmd.Parameters.AddWithValue("@REM_SOURCE", sourceId);
+            cmd.Parameters.AddWithValue("@REM_PERIOD", period);
+            cmd.Parameters.AddWithValue("@REM_LAST_DATE", lastDate);
+            cmd.Parameters.AddWithValue("@REM_TYPE", remindType);
+            cmd.ExecuteNonQuery();
+        }
+        public void DeleteRemind(int remindId)
+        {
+            string sql = "DELETE FROM fn_remind WHERE REMIND_ID = @REMIND_ID";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@REMIND_ID", remindId);
+            cmd.ExecuteNonQuery();
+        }
+        public bool GetRemindActive(int remindId)
+        {
+            int returnValue = Convert.ToInt32(GetOneParameter(remindId, "REMIND_ID", "fn_remind", "REMIND_ACTIVE"));
+            return returnValue==0 ? false : true;
+        }
+        public int GetRemindUser(int remindId)
+        {
+            int returnValue = Convert.ToInt32(GetOneParameter(remindId, "REMIND_ID", "fn_remind", "REMIND_USER"));
+            return returnValue;
+        }
+        public int GetRemindSourceType(int remindId)
+        {
+            int returnValue = Convert.ToInt32(GetOneParameter(remindId, "REMIND_ID", "fn_remind", "REMIND_SOURCE_TYPE"));
+            return returnValue;
+        }
+        public int GetRemindSource(int remindId)
+        {
+            int returnValue = Convert.ToInt32(GetOneParameter(remindId, "REMIND_ID", "fn_remind", "REMIND_SOURCE"));
+            return returnValue;
+        }
+        public int GetRemindPeriod(int remindId)
+        {
+            int returnValue = Convert.ToInt32(GetOneParameter(remindId, "REMIND_ID", "fn_remind", "REMIND_PERIOD"));
+            return returnValue;
+        }
+        public int GetRemindType(int remindId)
+        {
+            int returnValue = Convert.ToInt32(GetOneParameter(remindId, "REMIND_ID", "fn_remind", "REMIND_TYPE"));
+            return returnValue;
+        }
+        public string GetRemindTypeName(int remindTypeId)
+        {
+            string returnValue = Convert.ToString(GetOneParameter(remindTypeId, "REMIND_TYPE", "fn_remind_type", "REMIND_TYPE_NAME"));
+            return returnValue;
+        }
+        public string GetRemindPeriodName(int remindPeriodId)
+        {
+            string returnValue = Convert.ToString(GetOneParameter(remindPeriodId, "REMIND_PERIOD", "fn_remind_period", "REMIND_PERIOD_NAME"));
+            return returnValue;
+        }
+        public DateTime GetRemindLastDate(int remindId)
+        {
+            DateTime returnValue = Convert.ToDateTime(GetOneParameter(remindId, "REMIND_ID", "fn_remind", "REMIND_LAST_DATE"));
+            return returnValue;
+        }
         #endregion
         //------------------------------HISTORY TABLES----------
         #region "HistoryTables"

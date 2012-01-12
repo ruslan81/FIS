@@ -24,4 +24,3 @@ D:\BSUIR\Other\UnitedProject\DDDModel\TotalsClasses\bin\Release\DDDClass.xml
 D:\BSUIR\Other\UnitedProject\DDDModel\TotalsClasses\obj\Release\ResolveAssemblyReference.cache
 D:\BSUIR\Other\UnitedProject\DDDModel\TotalsClasses\obj\Release\TotalsClasses.dll
 D:\BSUIR\Other\UnitedProject\DDDModel\TotalsClasses\obj\Release\TotalsClasses.pdb
-D:\BSUIR\Other\UnitedProject\DDDModel\TotalsClasses\bin\Release\TotalsClasses.XML

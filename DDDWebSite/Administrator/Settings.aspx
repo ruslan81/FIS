@@ -27,14 +27,22 @@
         
         //run on page load
         $(function () {
+            mode = "";
+            currentDriverId = "";
             buildTree();
+            buildRemindTree();
 
             $("#accordion").accordion({
                 change: function (event, ui) {
                     if ($("a", ui.newHeader).text() == "Организация") {
+                        $("#contentSettingsPlace").empty();
+                        $("#headerSettings").empty();
                         loadGeneralSettings();
                     };
                     if ($("a", ui.newHeader).text() == "Напоминания") {
+                        $("#contentSettingsPlace").empty();
+                        //createRemindControls();
+                        loadReminds();
                     }
                     if ($("a", ui.newHeader).text() == "Дополнительно") {
                     }
@@ -88,7 +96,47 @@
         </div>
     </script>
 
-    <script id="tmplContentTable" type="text/x-jquery-tmpl">
+    <script id="RemindMainLabels" type="text/x-jquery-tmpl">
+        <table style="width:100%;">
+        <tr>
+            <td style="width:50%;"><label id="RemindLabel1"></label></td>
+            <td style="width:50%;"><label id="RemindLabel2"></label></td>
+        </tr>
+        </table>
+    </script>
+
+    <script id="RemindContentControls" type="text/x-jquery-tmpl">
+        <table id="RemindControlsTable">
+        <tr>
+            <td style="width:20%;">
+            <div style="float:right"><label>Кому</label></div>
+            </td>
+            <td style="width:20%;">
+                <select id="whomSelector">
+                </select>
+            </td>
+            <td style="width:20%;">
+            <div style="float:right"><label>Периодичность</label></div>
+            </td>
+            <td style="width:20%;">
+                <select id="periodSelector">
+                    <option value="1">По факту</option>
+                    <option value="2">Каждый час</option>
+                    <option value="3">Каждый день</option>
+                    <option value="4">Каждый месяц</option>
+                </select>
+            </td>
+            <td style="width:20%;">
+                <div style="float:right"><input type="checkbox"/></div>
+            </td>
+            <td style="width:20%;">
+                <label>Активно</label>
+            </td>
+        </tr>
+        </table>
+    </script>
+
+   <script id="tmplContentTable" type="text/x-jquery-tmpl">
         <div id="contentTableWrapper">
             <table id="contentTable" style="border-collapse: separate;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
                 border="0" cellpadding="0" cellspacing="0">
@@ -176,6 +224,20 @@
 
     <script id="tmplOption" type="text/x-jquery-tmpl">
         <option value="{{html Key}}">{{html Value}}</option>
+    </script>
+
+    <script id="tmplTabsContent" type="text/x-jquery-tmpl">
+        <div id="tabs" style="background: transparent;">                
+            <ul style="height:30px;">
+    		    <li><asp:LinkButton ID="CurrentTab" runat="server" Text="Текущие напоминания" href="#tabs-1"/></li>
+		        <li><asp:LinkButton ID="JournalTab" runat="server" Text="Журнал" href="#tabs-2"/></li>
+	        </ul>
+            <div id="tabs-1">
+            </div>
+            <div id="tabs-2">
+                I am JournalTab
+            </div>
+        </div>
     </script>
 
     <script id="tmplCardTableContent" type="text/x-jquery-tmpl">
@@ -278,6 +340,112 @@
         </tr>
     </script>
 
+    <script id="tmplRemindTable" type="text/x-jquery-tmpl">
+        <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell" style="margin-left:5px;">
+                    <input type="checkbox" key="{{html id}}" name="selectCheckbox"/>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <select id="userSelector{{html id}}" name="userSelector" user="{{html userId}}" onchange="this.user=this.value;">
+                    </select>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <input value="{{html sourceName}}" id="source{{html id}}" sourceType="{{html sourceType}}" key="{{html sourceId}}" class="inputField-readonly" readonly="readonly" style="width:70%;"/>
+                    <img id="preview{{html id}}" src="../images/icons/preview.png" alt="Load Driver" width="20" height="20" key="{{html id}}" style="display:none;"/>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <select id="periodSelector{{html id}}" name="periodSelector" period="{{html periodType}}" onchange="this.period=this.value;">
+                    </select>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <input value="{{html date}}" id="lastDate{{html id}}" class="inputField-readonly" readonly="readonly"/>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <select id="typeSelector{{html id}}" name="typeSelector" typeSel="{{html type}}" onchange="this.typeSel=this.value;">
+                    </select>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                {{if active==1}}
+                    <input type="checkbox" checked="true" disabled="true" id="active{{html id}}" class="inputField-readonly" readonly="readonly"/>
+                {{else}}
+                    <input type="checkbox" disabled="true" id="active{{html id}}" class="inputField-readonly" readonly="readonly"/>
+                {{/if}}
+                </div>
+            </td>
+        </tr>
+    </script>
+
+    <script id="NewRemind" type="text/x-jquery-tmpl">
+        <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
+            <td class="wijgridtd wijdata-type-string wijmo-wijgrid-cell-border-bottom wijmo-wijgrid-cell-border-right wijmo-wijgrid-cell">
+                <div class="wijmo-wijgrid-innercell" style="margin-left:5px;">
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string wijmo-wijgrid-cell-border-bottom wijmo-wijgrid-cell-border-right wijmo-wijgrid-cell">
+                <div class="wijmo-wijgrid-innercell">
+                    <select id="userSelectorNew" name="userSelector" user="29" onchange="this.user=this.value;">
+                    </select>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string wijmo-wijgrid-cell-border-bottom wijmo-wijgrid-cell-border-right wijmo-wijgrid-cell">
+                <div class="wijmo-wijgrid-innercell">
+                    <input value="Init Organization" id="sourceNew" key="1" sourceType="2" class="inputField-readonly" readonly="readonly" style="width:70%;"/>
+                    <img id="previewNew" src="../images/icons/preview.png" alt="Load Driver" width="20" height="20"/>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string wijmo-wijgrid-cell-border-bottom wijmo-wijgrid-cell-border-right wijmo-wijgrid-cell">
+                <div class="wijmo-wijgrid-innercell">
+                    <select id="periodSelectorNew" name="periodSelector" period="1" onchange="this.period=this.value;">
+                    </select>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string wijmo-wijgrid-cell-border-bottom wijmo-wijgrid-cell-border-right wijmo-wijgrid-cell">
+                <div class="wijmo-wijgrid-innercell">
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string wijmo-wijgrid-cell-border-bottom wijmo-wijgrid-cell-border-right wijmo-wijgrid-cell">
+                <div class="wijmo-wijgrid-innercell">
+                    <select id="typeSelectorNew" name="typeSelector" typeSel="1" onchange="this.typeSel=this.value;">
+                    </select>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string wijmo-wijgrid-cell-border-bottom wijmo-wijgrid-cell-border-right wijmo-wijgrid-cell">
+                <div class="wijmo-wijgrid-innercell">
+                    <input type="checkbox" checked="true" id="activeNew" class="inputField-readonly" readonly="readonly"/>
+                </div>
+            </td>
+        </tr>
+    </script>
+
+    <script id="tmplDriverTree" type="text/x-jquery-tmpl">
+        <li class="folder" id="OrgLI" name="${OrgName}" key=${OrgId} li_type="2"><a><span key=${OrgId} type="2">${OrgName}</span></a>
+        <ul>
+            {{each groups}}
+            <li class="file" key=${GroupId} li_type="1"><a><span key=${GroupId} type="1">${GroupName}</span></a>
+                <ul>
+                    {{each values}}
+                    <li class="file" key=${Key} li_type="0"><a><span key=${Key} type="0">${Value}</span></a></li>
+                    {{/each}}
+                </ul>
+            </li>
+            {{/each}}
+        </ul>
+        </li>
+    </script>
+
     <div id="accordion" style="width: 5">
         <h3><asp:LinkButton CausesValidation="false" runat="server" PostBackUrl="#" Text="Организация"/></h3>
         <div>
@@ -310,10 +478,17 @@
             </div>
         </div>
         <div id="reminders">
-        <h3>
-            <asp:LinkButton ID="AccordionHeader2_Reminders" CausesValidation="false" runat="server"
-                OnClientClick="acordionIndexSwitch(1);" PostBackUrl="#" Text="Напоминания"/></h3>
-            <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Always">
+            <h3><asp:LinkButton ID="AccordionHeader2_Reminders" CausesValidation="false" runat="server" PostBackUrl="#" Text="Напоминания"/></h3>
+            <div>
+            <div id="choosedialog" title="Выбор источника" style="display: none;">
+	            <p>Выберите водителя или группу водителей:</p>
+                <div>
+                    <ul id="DriversTree">
+                    </ul>
+                </div>
+            </div>
+            </div>
+            <!--<asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Always">
                 <ContentTemplate>
                     <asp:Panel ID="Panel2" Style="border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px;"
                         runat="server" BorderWidth="1px" BorderColor="LightGray">
@@ -322,9 +497,9 @@
                             OnSelectedNodeChanged="ReminderTreeView_NodeChanged" />
                     </asp:Panel>
                 </ContentTemplate>
-            </asp:UpdatePanel>
+            </asp:UpdatePanel>-->
         </div>
-        <h3>
+        <!--<h3>
             <asp:LinkButton ID="AccordionHeader3_Additional" CausesValidation="false" runat="server"
                 OnClientClick="acordionIndexSwitch(2);" PostBackUrl="#" Text="Дополнительно" /></h3>
         <div>
@@ -338,7 +513,8 @@
                     </asp:Panel>
                 </ContentTemplate>
             </asp:UpdatePanel>
-        </div>
+        </div>-->
+                
     </div>
 </asp:Content>
 <asp:Content ID="ChoisesContent" ContentPlaceHolderID="MainConditions_PlaceHolder" runat="server">

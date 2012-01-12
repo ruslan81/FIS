@@ -9,7 +9,7 @@ using System.Web;
 public class TreeGroup
 {
     public String GroupName { get; set; }
-    //public String GroupKey { get; set; }
+    public int GroupId { get; set; }
     public List<MapItem> values { get; set; }
 
     public TreeGroup()

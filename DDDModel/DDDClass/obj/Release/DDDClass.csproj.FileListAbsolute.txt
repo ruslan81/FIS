@@ -15,4 +15,3 @@ D:\BSUIR\Other\UnitedProject\DDDModel\DDDClass\bin\Release\DDDClass.pdb
 D:\BSUIR\Other\UnitedProject\DDDModel\DDDClass\obj\Release\ResolveAssemblyReference.cache
 D:\BSUIR\Other\UnitedProject\DDDModel\DDDClass\obj\Release\DDDClass.dll
 D:\BSUIR\Other\UnitedProject\DDDModel\DDDClass\obj\Release\DDDClass.pdb
-D:\BSUIR\Other\UnitedProject\DDDModel\DDDClass\bin\Release\DDDClass.XML

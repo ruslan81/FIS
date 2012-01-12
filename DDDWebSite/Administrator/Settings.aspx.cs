@@ -679,6 +679,243 @@ public partial class Administrator_Settings : System.Web.UI.Page
             dataBlock.CloseConnection();
         }
     }
+
+    /// <summary>
+    ///Получить список пользователей
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static List<MapItem> GetUserList(String OrgID)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        try
+        {
+            List<MapItem> result = new List<MapItem>();
+            dataBlock.OpenConnection();
+            int orgID = int.Parse(OrgID);
+
+            List<int> users2 = dataBlock.usersTable.Get_AllUsersId(orgID, 2);
+            List<int> users3 = dataBlock.usersTable.Get_AllUsersId(orgID, 3);
+            List<int> users4 = dataBlock.usersTable.Get_AllUsersId(orgID, 4);
+            List<int> users = new List<int>();
+            users.AddRange(users2);
+            users.AddRange(users3);
+            users.AddRange(users4);
+
+            foreach (int id in users) {
+                string name=dataBlock.usersTable.Get_UserName(id);
+                result.Add(new MapItem(id.ToString(),name));
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+        finally
+        {
+            //dataBlock.organizationTable.CloseConnection();
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Получить список напоминаний
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static List<RemindData> GetRemindList(String OrgID)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        try
+        {
+            List<RemindData> result = new List<RemindData>();
+            dataBlock.OpenConnection();
+            int orgID = int.Parse(OrgID);
+
+            List<int> ids = dataBlock.remindTable.GetAllRemindIds(orgID);
+            foreach (int id in ids) {
+                RemindData rd = new RemindData();
+                rd.date = dataBlock.remindTable.GetRemindLastDate(id).ToString();
+                rd.userId = dataBlock.remindTable.GetRemindUser(id);
+                rd.userName = dataBlock.usersTable.Get_UserName(rd.userId);
+                rd.sourceId = dataBlock.remindTable.GetRemindSource(id);
+                rd.sourceType = dataBlock.remindTable.GetRemindSourceType(id);
+                switch (rd.sourceType) {
+                    case 0: {rd.sourceName = dataBlock.cardsTable.GetCardHolderNameByCardId(rd.sourceId);break;}
+                    case 1: {rd.sourceName = dataBlock.cardsTable.GetGroupNameById(rd.sourceId);break;}
+                    case 2: {rd.sourceName = dataBlock.organizationTable.GetOrganizationName(rd.sourceId);break;}
+                };
+                rd.id = id;
+                rd.active = dataBlock.remindTable.GetRemindActive(id) ? 1 : 0;
+                rd.periodType = dataBlock.remindTable.GetRemindPeriod(id);
+                rd.type = dataBlock.remindTable.GetRemindType(id);
+                result.Add(rd);
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+        finally
+        {
+            //dataBlock.organizationTable.CloseConnection();
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Получить список типов напоминаний
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static List<MapItem> GetRemindTypeList()
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        try{
+            dataBlock.OpenConnection();
+            List<MapItem> result = new List<MapItem>();
+            for (int i = 1; i < 8; i++) {
+                result.Add(new MapItem(Convert.ToString(i),dataBlock.remindTable.GetRemindTypeName(i)));
+            }
+            return result;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+        finally
+        {
+            //dataBlock.organizationTable.CloseConnection();
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Получить список типов напоминаний
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static List<MapItem> GetRemindPeriodTypeList()
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        try
+        {
+            dataBlock.OpenConnection();
+            List<MapItem> result = new List<MapItem>();
+            for (int i = 1; i < 5; i++)
+            {
+                result.Add(new MapItem(Convert.ToString(i), dataBlock.remindTable.GetRemindPeriodName(i)));
+            }
+            return result;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+        finally
+        {
+            //dataBlock.organizationTable.CloseConnection();
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Удаление напоминаний
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static bool DeleteReminds(String OrgID, List<MapItem> RemindIDs)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        try
+        {
+            dataBlock.OpenConnection();
+            int orgID = int.Parse(OrgID);
+            for (int i = 0; i < RemindIDs.Count; i++)
+            {
+                int remindID = int.Parse(RemindIDs[i].Value);
+                dataBlock.remindTable.DeleteRemind(remindID);
+            }
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+        finally
+        {
+            //dataBlock.organizationTable.CloseConnection();
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Сохранить напоминания
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static bool SaveRemindSettings(String OrgID, List<RemindData> RemindSettings)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        try
+        {
+            dataBlock.OpenConnection();
+            int orgID = int.Parse(OrgID);
+            foreach (RemindData item in RemindSettings)
+            {
+                bool active = item.active == 1 ? true : false;
+                DateTime time=dataBlock.remindTable.GetRemindLastDate(item.id);
+                dataBlock.remindTable.UpdateRemind(item.id,active,item.userId,item.sourceType,item.sourceId,item.periodType,time,item.type);
+            }
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Создание напоминания
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static bool CreateRemind(string OrgID, RemindData data)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        try
+        {
+            dataBlock.OpenConnection();
+            int orgID = int.Parse(OrgID);
+            bool active = data.active == 1 ? true : false;
+            dataBlock.remindTable.CreateNewRemind(orgID,active,data.userId,data.sourceType,data.sourceId,data.periodType,DateTime.Today,data.type);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+        finally
+        {
+            //dataBlock.organizationTable.CloseConnection();
+            dataBlock.CloseConnection();
+        }
+    }
     //AJAX END
 
     private void TreeViews_LoadList()

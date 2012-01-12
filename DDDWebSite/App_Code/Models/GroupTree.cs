@@ -9,6 +9,7 @@ using System.Web;
 public class GroupTree
 {
     public String OrgName { get; set; }
+    public int OrgId { get; set; }
     public List<TreeGroup> groups { get; set; }
 
     public GroupTree()

@@ -1,4 +1,4 @@
-﻿//Update/create table
+﻿  //Update/create table
 //tableBody - tbody tag, template - template to generate table, data - table data
 function updateTable(tableBody, template, data) {
     //очищаем tbody от предыдущих данных
@@ -30,15 +30,15 @@ function updateTable(tableBody, template, data) {
 
     //add hover effect
     /*$(".wijmo-wijgrid-datarow", tableBody).hover(function () {
-        $(this).addClass("ui-state-hover");
+    $(this).addClass("ui-state-hover");
     }, function () {
-        $(this).removeClass("ui-state-hover");
+    $(this).removeClass("ui-state-hover");
     });
 
     //add ability to select rows
     $(".wijmo-wijgrid-datarow", tableBody).click(function () {
-        $(".wijmo-wijgrid-datarow .ui-state-highlight", tableBody).removeClass("ui-state-highlight");
-        $(this).find("td").addClass("ui-state-highlight");
+    $(".wijmo-wijgrid-datarow .ui-state-highlight", tableBody).removeClass("ui-state-highlight");
+    $(this).find("td").addClass("ui-state-highlight");
     });*/
 }
 
@@ -50,12 +50,242 @@ function createTableHeader(tableHeader, template, columns) {
     $(template).tmpl(jQuery.parseJSON(columns)).appendTo($(".wijmo-wijgrid-headerrow", tableHeader));
 }
 
+function createRemindControls() {
+    $("#headerSettings").empty();
+    $("#headerSettings").append($("#RemindMainLabels").text());
+    buildRemindTree();
+    //$("#contentSettings").append($("#tmplTabsContent").text());
+    //$('#tabs').tabs();
+    //$("#tabs-1").append($("#tmplContentTable").text());
+    //loadReminds();
+    
+    $("#userControls").empty();
+    $("#userControls").append($("#userControlsGroups").text());
+
+    $("#userControls button").button();
+    $("#save").button({ disabled: true });
+    $("#cancel").button({ disabled: true });
+
+    $("#edit").click(function () {
+        mode = "edit";
+        var inputs = $('#contentTable [name="selectCheckbox"]');
+        var c = 0;
+        for (var i = 0; i < inputs.length; i++) {
+            if (inputs[i].checked) {
+                c++;
+            }
+        }
+        if (c > 0) {
+            for (var i = 0; i < inputs.length; i++) {
+                $(inputs[i]).hide();
+                if (inputs[i].checked) {
+                    var key = $(inputs[i]).attr("key");
+                    
+                    $("#userSelector" + key).wijcombobox({
+                        disabled: false
+                    });
+                    $("#periodSelector" + key).wijcombobox({
+                        disabled: false
+                    });
+                    $("#typeSelector" + key).wijcombobox({
+                        disabled: false
+                    });
+                    $("#active" + key).removeAttr("disabled");
+                    $("#preview" + key).show();
+                    $('#preview' + key).click(function () {
+                        var key = $(this).attr("key");
+                        var driverKey = $('#source' + key).attr("key");
+                        var type = $('#source' + key).attr("sourceType");
+                        var text = $('#source' + key).attr("value");
+                        currentDriverId = '#source' + key;
+                        $("#choosedialog").dialog({ buttons: {
+                            "OK": function () {
+                                $(this).dialog("close");
+                            },
+                            "Отмена": function () {
+                                $(currentDriverId).attr("key", driverKey);
+                                $(currentDriverId).attr("value", text);
+                                $(currentDriverId).attr("sourceType", type);
+                                $(this).dialog("close");
+                            }
+                        }
+                        }
+                        );
+                        $("#choosedialog").dialog("option", "closeText", '');
+                        $("#choosedialog").dialog("option", "resizable", false);
+                        $("#choosedialog").dialog("option", "modal", true);
+                        $("#choosedialog").dialog("option", "height", 350);
+                        loadDriversTree(driverKey, type);
+                    });
+                }
+            }
+
+            $("#edit").button({ disabled: true });
+            $("#delete").button({ disabled: true });
+            $("#create").button({ disabled: true });
+            $("#save").button({ disabled: false });
+            $("#cancel").button({ disabled: false });
+        }
+
+        return false;
+    });
+
+    $("#delete").click(function () {
+        var inputs = $('#contentTable [name="selectCheckbox"]');
+        var c = 0;
+        for (var i = 0; i < inputs.length; i++) {
+            if (inputs[i].checked) {
+                c++;
+            }
+        }
+        if (c > 0) {
+            $("#deletedialog").dialog({ buttons: { "OK": function () {
+                $(this).dialog("close");
+                var keys = [];
+                for (var i = 0; i < inputs.length; i++) {
+                    if (inputs[i].checked) {
+                        key = $(inputs[i]).attr("key");
+                        keys.push({ Key: "", Value: key });
+                    }
+                }
+                deleteRemind(keys);
+            },
+                "Отмена": function () {
+                    $(this).dialog("close");
+                }
+            }
+
+            });
+            $("#deletedialog").dialog("option", "closeText", '');
+            $("#deletedialog").dialog("option", "resizable", false);
+            $("#deletedialog").dialog("option", "modal", true);
+        }
+        return false;
+    });
+
+    $("#save").click(function () {
+        if (mode == "edit") {
+            var settings = [];
+
+            var inputs = $("#contentTable input:checkbox");
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].checked) {
+                    key = $(inputs[i]).attr("key");
+                    user = $("#userSelector" + key).attr("user");
+                    source = $("#source" + key).attr("key");
+                    sourceType = $("#source" + key).attr("sourceType");
+                    period = $("#periodSelector" + key).attr("period");
+                    type = $("#typeSelector" + key).attr("typeSel");
+                    activeBool = $("#active" + key).attr("checked");
+                    var active = 0;
+                    if (activeBool) {
+                        active = 1;
+                    }
+                    settings.push({ id: key, userId: user, sourceType: sourceType, sourceId: source, type: type, periodType: period, active: active });
+                }
+            }
+
+            var order = { OrgID: $.cookie("CURRENT_ORG_ID"), RemindSettings: settings };
+            $.ajax({
+                type: "POST",
+                //Page Name (in which the method should be called) and method name
+                url: "Settings.aspx/SaveRemindSettings",
+                data: JSON.stringify(order),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    loadReminds();
+                }
+            });
+        }
+
+        if (mode == "create") {
+            user = $("#userSelectorNew").attr("user");
+            source = $("#sourceNew").attr("key");
+            sourceType = $("#sourceNew").attr("sourceType");
+            period = $("#periodSelectorNew").attr("period");
+            type = $("#typeSelectorNew").attr("typeSel");
+            activeBool = $("#activeNew").attr("checked");
+            var active = 0;
+            if (activeBool) {
+                active = 1;
+            }
+
+            var data = { userId: user, sourceType: sourceType, sourceId: source, periodType: period, type: type, active: active };
+            var order = { OrgID: $.cookie("CURRENT_ORG_ID"), data: data };
+
+            $.ajax({
+                type: "POST",
+                //Page Name (in which the method should be called) and method name
+                url: "Settings.aspx/CreateRemind",
+                data: JSON.stringify(order),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    loadReminds();
+                }
+            });
+        }
+
+        mode = "";
+        return false;
+    });
+
+    $("#create").click(function () {
+        mode = "create";
+        $("#edit").button({ disabled: true });
+        $("#delete").button({ disabled: true });
+        $("#create").button({ disabled: true });
+        $("#save").button({ disabled: false });
+        $("#cancel").button({ disabled: false });
+
+        var trs = $("#contentTable tr");
+        $(trs[0]).after($("#NewRemind").text());
+
+        $('#previewNew').click(function () {
+            var driverKey = $('#sourceNew').attr("key");
+            var type = $('#sourceNew').attr("sourceType");
+            var text = $('#sourceNew').attr("value");
+            currentDriverId = '#sourceNew';
+            loadDriversTree(driverKey, type);
+            $("#choosedialog").dialog({ buttons: {
+                "OK": function () {
+                    $(this).dialog("close");
+                },
+                "Отмена": function () {
+                    $(currentDriverId).attr("key", driverKey);
+                    $(currentDriverId).attr("value", text);
+                    $(currentDriverId).attr("sourceType", type);
+                    $(this).dialog("close");
+                }
+            }
+            }
+            );
+            $("#choosedialog").dialog("option", "closeText", '');
+            $("#choosedialog").dialog("option", "resizable", false);
+            $("#choosedialog").dialog("option", "modal", true);
+            $("#choosedialog").dialog("option", "height", 350);
+        });
+
+        createRemindSelectorsSingle();
+
+        
+        return false;
+    });
+
+    $("#cancel").click(function () {
+        mode = "";
+        loadReminds();
+        return false;
+    });
+}
+
 function buildTree() {
     //builds a tree
     $("#tree").wijtree();
     $("#tree").wijtree({ selectedNodeChanged: function (e, data) {
-            onRecoverUserNodeSelected(e, data);
-        }
+        onRecoverUserNodeSelected(e, data);
+    }
     });
     //and select General Settings
     $("#general").wijtreenode({ selected: true });
@@ -63,12 +293,49 @@ function buildTree() {
     loadGeneralSettings();
 }
 
+function buildRemindTree() {
+    //builds a tree
+    /*$("#RemindTree").wijtree();
+    $("#RemindTree").wijtree({ selectedNodeChanged: function (e, data) {
+        onRemindNodeSelected(e, data);
+    }
+    });
+    $("#SpeedRemind").wijtreenode({ selected: true });
+    $("#RemindLabel1").text($("#SpeedRemind").text());*/
+    //loadDriversTree();
+}
+
+function loadDriversTree(key,type) {
+    $.ajax({
+        type: "POST",
+        url: "Data.aspx/GetOverlookDriversTree",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#DriversTree").wijtree("destroy");
+            $("#DriversTree").empty();
+            $("#tmplDriverTree").tmpl(response.d).appendTo("#DriversTree");
+            $("#DriversTree").wijtree();
+            $("#DriversTree").wijtree({ selectedNodeChanged: function (e, data) {
+                onRemindDriverNodeSelected(e, data);
+            }
+            });
+            $('#DriversTree [key="' + key + '"][li_type="' + type + '"]').wijtreenode({ selected: true });
+            $('span .ui-icon').addClass("ui-icon-triangle-1-se");
+            $('span .ui-icon').removeClass("ui-icon-triangle-1-e");
+            $('.wijmo-wijtree-child').css("display", "block");
+            //$("#RemindLabel2").text($("#OrgLI").attr("name"));
+            //$("#DriversTree").hide();
+        }
+    });
+}
+
 //Событие при выделении узла дерева
 function onRecoverUserNodeSelected(e, data) {
     isSelected = $("div", data.element).attr("aria-selected");
 
     if (isSelected == "true") {
-        
         key = $("a span", data.element).attr("key");
         if (key == "General") {
             loadGeneralSettings();
@@ -87,8 +354,42 @@ function onRecoverUserNodeSelected(e, data) {
     }
 }
 
+function onRemindNodeSelected(e, data) {
+    isSelected = $("div", data.element).attr("aria-selected");
+
+    if (isSelected == "true") {
+        key = $("a span", data.element).attr("key");
+        text = $("a span", data.element).text();
+        $("#RemindLabel1").text(text);
+    } else {
+        //$("#headerSettings").empty();
+        $("#RemindLabel1").empty();
+        //$("#RemindLabel2").empty();
+        //$("#contentSettings").empty();
+    }
+}
+
+function onRemindDriverNodeSelected(e, data) {
+    isSelected = $("div", data.element).attr("aria-selected");
+
+    if (isSelected == "true") {
+        var key = $("a span", data.element).attr("key");
+        var type = $("a span", data.element).attr("type");
+        var text = $(":first a span", data.element).text();
+        
+        $(currentDriverId).attr("key", key);
+        $(currentDriverId).attr("value", text);
+        $(currentDriverId).attr("sourceType", type);
+        //$("#RemindLabel2").text(text);
+    } else {
+        //$("#headerSettings").empty();
+        //$("#RemindLabel1").empty();
+        //$("#RemindLabel2").empty();
+        //$("#contentSettings").empty();
+    }
+}
+
 function loadGeneralSettings() {
-    //alert("bla");
     $.ajax({
         type: "POST",
         //Page Name (in which the method should be called) and method name
@@ -171,6 +472,26 @@ function createUserControlsGeneral() {
     });
 }
 
+function loadReminds() {
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Settings.aspx/GetRemindList",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            //$("#contentTable").show();
+            //createUserControlsGroups();
+            $("#DriversTree").wijtree("destroy");
+            $("#DriversTree").empty();
+            createContentTableRemind(response);
+            createRemindSelectors();
+            createRemindControls();
+            $("#contentTable").show();
+        }
+    });
+}
 
 function loadGroupsSettings() {
     $.ajax({
@@ -327,7 +648,7 @@ function createUserControlsGroups() {
                     $("#commentinput" + key).removeClass("inputField-readonly");
                     $("#commentinput" + key).addClass("inputField");
                     $("#commentinput" + key).removeAttr("readonly");
-                    $(selInputs[i-1]).wijcombobox(
+                    $(selInputs[i - 1]).wijcombobox(
                     {
                         disabled: false
                     });
@@ -378,8 +699,8 @@ function createUserControlsGroups() {
             name = $("#newNameinputGroup").attr("value");
             comment = $("#newCommentinputGroup").attr("value");
             card = $("#newGroupSelector").attr("card");
-            
-            var order = { OrgID: $.cookie("CURRENT_ORG_ID"), Name: name, Comment: comment, CardType: card};
+
+            var order = { OrgID: $.cookie("CURRENT_ORG_ID"), Name: name, Comment: comment, CardType: card };
 
             $.ajax({
                 type: "POST",
@@ -521,7 +842,7 @@ function createUserControlsDrivers() {
                     settings.push({ Name: name, Comment: comment, grID: key, Number: number, groupID: group });
                 }
             }
-            
+
             var order = { OrgID: $.cookie("CURRENT_ORG_ID"), DriverSettings: settings };
 
             $.ajax({
@@ -541,8 +862,8 @@ function createUserControlsDrivers() {
             comment = $("#newCardComment").attr("value");
             number = $("#newCardNumber").attr("value");
             card = $("#newCardGroupSelector").attr("group");
-            
-            var data={Name: name, Comment: comment, Number: number, groupID: card};
+
+            var data = { Name: name, Comment: comment, Number: number, groupID: card };
             var order = { OrgID: $.cookie("CURRENT_ORG_ID"), data: data, UserID: 0 };
 
             $.ajax({
@@ -652,7 +973,7 @@ function createUserControlsTransports() {
                     $("#nameinput" + key).removeAttr("readonly");
                     $("#commentinput" + key).removeClass("inputField-readonly");
                     $("#commentinput" + key).addClass("inputField");
-                    $("#commentinput" + key).removeAttr("readonly");   
+                    $("#commentinput" + key).removeAttr("readonly");
                     $(selInputs[i]).wijcombobox(
                     {
                         disabled: false
@@ -830,6 +1151,21 @@ function deleteGroup(list) {
     });
 }
 
+function deleteRemind(list) {
+    var order = { OrgID: $.cookie("CURRENT_ORG_ID"), RemindIDs: list };
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Settings.aspx/DeleteReminds",
+        data: JSON.stringify(order),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            loadReminds();
+        }
+    });
+}
+
 function deleteDrivers(list) {
     var order = { OrgID: $.cookie("CURRENT_ORG_ID"), DriverIDs: list };
     $.ajax({
@@ -860,6 +1196,25 @@ function deleteTransports(list) {
     });
 }
 
+function createContentTableRemind(response) {
+    //очищаем tbody от предыдущих данных
+    $("#contentSettings").empty();
+    $("#contentSettingsPlace").empty();
+    $("#contentSettingsPlace").append($("#tmplContentTable").text());
+    $("#contentTable").show();
+    createTableHeader($("#contentTableHeader"), $("#tmplHeadColumn"),
+    '[{"text": "", "style": "width: 50px;"},' +
+    '{"text": "Кому", "style": "width: 120px;"},' +
+    '{"text": "Водитель", "style": "width: 120px;"},' +
+    '{"text": "Периодичность", "style": "width: 120px;"},' +
+    '{"text": "Последняя отправка", "style": "width: 120px;"},' +
+    '{"text": "Тип напоминания", "style": "width: 120px;"},' +
+    '{"text": "Активно", "style": "width: 50px;"}]');
+    updateTable($("#contentTableBody"), $("#tmplRemindTable"), response.d);
+    //$("#checkbox1").hide();
+
+}
+
 function createContentTableGroups(response) {
     //очищаем tbody от предыдущих данных
     $("#contentSettings").empty();
@@ -875,7 +1230,7 @@ function createContentTableGroups(response) {
 
     updateTable($("#contentTableBody"), $("#tmplGroupTableContent"), response.d);
     $("#checkbox1").hide();
-    
+
 }
 
 function createContentTableDrivers(response) {
@@ -938,26 +1293,7 @@ function createGroupSelectorDrivers() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            var selectors = [];
-            selectors = $('select[name="groupSelector"]');
-            for (var i = 0; i < selectors.length; i++) {
-                $("#tmplOption").tmpl(response.d).appendTo(selectors[i]);
-                var group = $(selectors[i]).attr("group");
-                var options = $("#" + selectors[i].id + " option");
-                for (var j = 0; j < options.length; j++) {
-                    var option = $(options[j]).attr("value")
-                    if (option == group) {
-                        $(options[j]).attr("selected", true);
-                    }
-                }
-                $(selectors[i]).wijcombobox(
-                {
-                    showingAnimation: { effect: "blind" },
-                    hidingAnimation: { effect: "blind" },
-                    isEditable: false,
-                    disabled: true
-                });
-            }
+            createSelectors(response, "groupSelector", "group");            
         }
     });
 }
@@ -971,27 +1307,7 @@ function createGroupSelectorTransports() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            var selectors = [];
-            selectors = $('select[name="groupSelector"]');
-            for (var i = 0; i < selectors.length; i++) {
-                $("#tmplOption").tmpl(response.d).appendTo(selectors[i]);
-                var group = $(selectors[i]).attr("group");
-                var options = $("#" + selectors[i].id + " option");
-                for (var j = 0; j < options.length; j++) {
-                    var option = $(options[j]).attr("value")
-                    if (option == group) {
-                        $(options[j]).attr("selected", true);
-                        break;
-                    }
-                }
-                $(selectors[i]).wijcombobox(
-                {
-                    showingAnimation: { effect: "blind" },
-                    hidingAnimation: { effect: "blind" },
-                    isEditable: false,
-                    disabled: true
-                });
-            }
+            createSelectors(response, "groupSelector", "group");
         }
     });
 }
@@ -1005,56 +1321,24 @@ function createGroupSelectorDriversSingle(selector) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            $("#tmplOption").tmpl(response.d).appendTo(selector);
-            var group = $(selector).attr("group");
-            var options = $("#" + selector.id + " option");
-            for (var j = 0; j < options.length; j++) {
-                var option = $(options[j]).attr("value")
-                if (option == group) {
-                    $(options[j]).attr("selected", true);
-                    break;
-                }
-            }
-            $(selector).wijcombobox(
-                {
-                    showingAnimation: { effect: "blind" },
-                    hidingAnimation: { effect: "blind" },
-                    isEditable: false
-                    //disabled: true
-                });
+            createSelector(selector, response, "group");
         }
-        });
-   }
+    });
+}
 
-   function createGroupSelectorTransportsSingle(selector) {
-        $.ajax({
-            type: "POST",
-            //Page Name (in which the method should be called) and method name
-            url: "Settings.aspx/GetGroupListTransports",
-            data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                $("#tmplOption").tmpl(response.d).appendTo(selector);
-                var group = $(selector).attr("group");
-                var options = $("#" + selector.id + " option");
-                for (var j = 0; j < options.length; j++) {
-                    var option = $(options[j]).attr("value")
-                    if (option == group) {
-                        $(options[j]).attr("selected", true);
-                        break;
-                    }
-                }
-                $(selector).wijcombobox(
-                {
-                    showingAnimation: { effect: "blind" },
-                    hidingAnimation: { effect: "blind" },
-                    isEditable: false
-                    //                   disabled: true
-                });
-            }
-        });
-    }
+function createGroupSelectorTransportsSingle(selector) {
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Settings.aspx/GetGroupListTransports",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            createSelector(selector, response, "group");
+        }
+    });
+}
 
 function createGroupCardTypeSelectors() {
     $("#groupSelector1").remove();
@@ -1079,4 +1363,143 @@ function createGroupCardTypeSelectors() {
             disabled: true
         });
     }
+}
+
+function createSelectors(response, name, attr) {
+    var selectors = [];
+    selectors = $('select[name="' + name + '"]');
+    for (var i = 0; i < selectors.length; i++) {
+        $("#tmplOption").tmpl(response.d).appendTo(selectors[i]);
+        var group = $(selectors[i]).attr(attr);
+        //alert(group);
+        var options = $("#" + selectors[i].id + " option");
+        for (var j = 0; j < options.length; j++) {
+            var option = $(options[j]).attr("value")
+            if (option == group) {
+                $(options[j]).attr("selected", true);
+                break;
+            }
+        }
+        $(selectors[i]).wijcombobox(
+                {
+                    showingAnimation: { effect: "blind" },
+                    hidingAnimation: { effect: "blind" },
+                    isEditable: false,
+                    disabled: true
+                });
+    }
+}
+
+function createSelector(selector, response, attr) {
+    $("#tmplOption").tmpl(response.d).appendTo(selector);
+    var group = $(selector).attr(attr);
+    var options = $("#" + selector.id + " option");
+    for (var j = 0; j < options.length; j++) {
+        var option = $(options[j]).attr("value")
+        if (option == group) {
+            $(options[j]).attr("selected", true);
+            break;
+        }
+    }
+    $(selector).wijcombobox(
+                {
+                    showingAnimation: { effect: "blind" },
+                    hidingAnimation: { effect: "blind" },
+                    isEditable: false
+                    //                   disabled: true
+                });
+}
+
+function createRemindSelectors() {
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Settings.aspx/GetRemindTypeList",
+        data: "",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            createSelectors(response, "typeSelector", "typeSel");
+        }
+    });
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Settings.aspx/GetRemindPeriodTypeList",
+        data: "",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            createSelectors(response, "periodSelector", "period");
+        }
+    });
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Settings.aspx/GetUserList",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            createSelectors(response, "userSelector", "user");
+        }
+    });
+}
+
+function createRemindSelectorsSingle() {
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Settings.aspx/GetRemindTypeList",
+        data: "",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            createSelector($("#typeSelectorNew"), response, "typeSel");
+        }
+    });
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Settings.aspx/GetRemindPeriodTypeList",
+        data: "",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            createSelector($("#periodSelectorNew"), response, "period");
+        }
+    });
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Settings.aspx/GetUserList",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            createSelector($("#userSelectorNew"), response, "user");
+            value = $("#userSelectorNew option:first").attr("value");
+            $("#userSelectorNew option:first").attr("selected", "true");
+            $("#userSelectorNew").attr("user",value);
+        }
+    });
+}
+
+function loadUserList() {
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Settings.aspx/GetUserList",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#tmplOption").tmpl(response.d).appendTo("#whomSelector");
+            $("#whomSelector").wijcombobox({
+                showingAnimation: { effect: "blind" },
+                hidingAnimation: { effect: "blind" },
+                isEditable: false
+            });
+        }
+    });   
 }

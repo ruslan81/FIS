@@ -167,6 +167,10 @@ namespace BLL
         /// Класс отвечает за работу с отправкой почты по расписанию.
         /// </summary>
         public EmailScheduleTable emailScheduleTable { get; set; }
+        /// <summary>
+        /// Класс отвечает за работу с таблицей напоминаний.
+        /// </summary>
+        public RemindTable remindTable { get; set; }
 
         /// <summary>
         /// Возврашает текущий  dataBlcokId
@@ -213,6 +217,7 @@ namespace BLL
             reportsTable = new ReportsTable(connectionString, CurrentLanguage, sqlDb);
             invoiceTable = new InvoiceTable(connectionString, CurrentLanguage, sqlDb);
             emailScheduleTable = new EmailScheduleTable(connectionString, CurrentLanguage, sqlDb);
+            remindTable = new RemindTable(connectionString, CurrentLanguage, sqlDb);
             currentCardType = -1;
             organizationID = 0;
         }
@@ -249,6 +254,7 @@ namespace BLL
             reportsTable = new ReportsTable(connectionString, CurrentLanguage, sqlDb);
             invoiceTable = new InvoiceTable(connectionString, CurrentLanguage, sqlDb);
             emailScheduleTable = new EmailScheduleTable(connectionString, CurrentLanguage, sqlDb);
+            remindTable = new RemindTable(connectionString, CurrentLanguage, sqlDb);
             currentCardType = -1;
             organizationID = 0;
         }
@@ -281,6 +287,7 @@ namespace BLL
             reportsTable = new ReportsTable(connectionString, CurrentLanguage, sqlDb);
             invoiceTable = new InvoiceTable(connectionString, CurrentLanguage, sqlDb);
             emailScheduleTable = new EmailScheduleTable(connectionString, CurrentLanguage, sqlDb);
+            remindTable = new RemindTable(connectionString, CurrentLanguage, sqlDb);
             currentCardType = -1;
             organizationID = 0;
         }

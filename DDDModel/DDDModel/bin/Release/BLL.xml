@@ -1080,6 +1080,11 @@
             Класс отвечает за работу с отправкой почты по расписанию.
             </summary>
         </member>
+        <member name="P:BLL.DataBlock.remindTable">
+            <summary>
+            Класс отвечает за работу с таблицей напоминаний.
+            </summary>
+        </member>
         <member name="T:BLL.Logic">
             <summary>
             недоделано
@@ -1426,6 +1431,146 @@
             <param name="stringValue">Значение строки</param>
             <param name="Language">Язык</param>
             <returns>ID строки</returns>
+        </member>
+        <member name="F:BLL.RemindTable.CurrentLanguage">
+            <summary>
+            Текущий язык
+            </summary>
+        </member>
+        <member name="F:BLL.RemindTable.connectionString">
+            <summary>
+            Строка подключения
+            </summary>
+        </member>
+        <member name="F:BLL.RemindTable.sqlDb">
+            <summary>
+            Обьект подключения к базе данных
+            </summary>
+        </member>
+        <member name="M:BLL.RemindTable.#ctor(System.String,System.String,DB.SQL.SQLDB)">
+            <summary>
+            Конструктор 
+            </summary>
+            <param name="connectionsStringTMP">Строка подключения к базе данных(не обязательна, так как передается подключение</param>
+            <param name="Current_Language">Текущий язык</param>
+            <param name="sql">Обьект подключения к базе данных</param>
+        </member>
+        <member name="M:BLL.RemindTable.CreateNewRemind(System.Int32,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.DateTime,System.Int32)">
+            <summary>
+            Создает новое напоминание
+            </summary>
+            <param name="remindActive">Активность</param>
+            <param name="userId">ID пользователя</param>
+            <param name="orgId">ID организации</param>
+            <param name="sourceId">ID водителя</param>
+            <param name="period">Периодичность</param>
+            <param name="lastDate">Дата последнего напоминания</param>
+            <param name="remindType">Тип напоминания</param>
+        </member>
+        <member name="M:BLL.RemindTable.UpdateRemind(System.Int32,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.DateTime,System.Int32)">
+            <summary>
+            Создает новое напоминание
+            </summary>
+            <param name="remindId">ID напоминания</param>
+            <param name="remindActive">Активность</param>
+            <param name="userId">ID пользователя</param>
+            <param name="sourceId">ID водителя</param>
+            <param name="period">Периодичность</param>
+            <param name="lastDate">Дата последнего напоминания</param>
+            <param name="remindType">Тип напоминания</param>
+        </member>
+        <member name="M:BLL.RemindTable.DeleteRemind(System.Int32)">
+            <summary>
+            Удаляет напоминание
+            </summary>
+            <param name="remindId">ID напоминания</param>
+        </member>
+        <member name="M:BLL.RemindTable.GetRemindActive(System.Int32)">
+            <summary>
+            Получает активность напоминания по ID
+            </summary>
+            <param name="remindId">ID напоминания</param>
+            <returns>Активность</returns>
+        </member>
+        <member name="M:BLL.RemindTable.GetRemindUser(System.Int32)">
+            <summary>
+            Получает ID пользователя напоминания по ID
+            </summary>
+            <param name="remindId">ID напоминания</param>
+            <returns>ID пользователя</returns>
+        </member>
+        <member name="M:BLL.RemindTable.GetRemindSource(System.Int32)">
+            <summary>
+            Получает ID источника напоминания по ID
+            </summary>
+            <param name="remindId">ID напоминания</param>
+            <returns>ID источника</returns>
+        </member>
+        <member name="M:BLL.RemindTable.GetRemindSourceType(System.Int32)">
+            <summary>
+            Получает тип источника напоминания по ID
+            </summary>
+            <param name="remindId">ID напоминания</param>
+            <returns>Тип источника</returns>
+        </member>
+        <member name="M:BLL.RemindTable.GetRemindPeriod(System.Int32)">
+            <summary>
+            Получает периодичность напоминания по ID
+            </summary>
+            <param name="remindId">ID напоминания</param>
+            <returns>Периодичность</returns>
+        </member>
+        <member name="M:BLL.RemindTable.GetRemindType(System.Int32)">
+            <summary>
+            Получает тип напоминания по ID
+            </summary>
+            <param name="remindId">ID напоминания</param>
+            <returns>Тип</returns>
+        </member>
+        <member name="M:BLL.RemindTable.GetRemindLastDate(System.Int32)">
+            <summary>
+            Получает последнюю дату напоминания по ID
+            </summary>
+            <param name="remindId">ID напоминания</param>
+            <returns>Последняя дата</returns>
+        </member>
+        <member name="M:BLL.RemindTable.GetRemindTypeName(System.Int32)">
+            <summary>
+            Получает название типа напоминания по ID
+            </summary>
+            <param name="remindId">ID типа напоминания</param>
+            <returns>Название</returns>
+        </member>
+        <member name="M:BLL.RemindTable.GetRemindPeriodName(System.Int32)">
+            <summary>
+            Получает название периодичности напоминания по ID
+            </summary>
+            <param name="remindId">ID периодичности напоминания</param>
+            <returns>Название</returns>
+        </member>
+        <member name="M:BLL.RemindTable.GetAllRemindIds(System.Int32)">
+            <summary>
+            Получает ID напоминаний
+            </summary>
+            <returns>ID напоминаний</returns>
+        </member>
+        <member name="M:BLL.RemindTable.GetAllHourRemindIds">
+            <summary>
+            Получает ID ежечасных напоминаний
+            </summary>
+            <returns>ID напоминаний</returns>
+        </member>
+        <member name="M:BLL.RemindTable.GetAllDayRemindIds">
+            <summary>
+            Получает ID ежедневных напоминаний
+            </summary>
+            <returns>ID напоминаний</returns>
+        </member>
+        <member name="M:BLL.RemindTable.GetAllMonthRemindIds">
+            <summary>
+            Получает ID ежемесячных напоминаний
+            </summary>
+            <returns>ID напоминаний</returns>
         </member>
         <member name="T:BLL.OrganizationTable">
             <summary>

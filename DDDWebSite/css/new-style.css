@@ -176,6 +176,14 @@ button
 	width:90%;
 }
 
+#RemindControlsTable input
+{
+	background-color:#fff;
+	font-family:Tahoma;
+	font-size:11px;
+	width:90%;
+}
+
 
 .remove-icon
 {

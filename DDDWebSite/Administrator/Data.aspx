@@ -545,7 +545,7 @@
                 <asp:ImageButton ID="ChangeDrNumber_Cancel" runat="server" OnClick="makeChangeDriversInfo_cancel"
                     ToolTip="Отмена" ImageUrl="~/images/icons/button_cancel.png" Width="3%" />
             </asp:Panel>
-            <br />
+            <br/>
         </ContentTemplate>
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="ChangeDrName_OK" EventName="Click" />

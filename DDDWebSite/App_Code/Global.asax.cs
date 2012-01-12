@@ -102,6 +102,7 @@ namespace TestCacheTimeout
 			Debug.WriteLine("Running as: " + WindowsIdentity.GetCurrent().Name );
 			DoSomeFileWritingStuff();
             new Thread(DoSheduleWork).Start();
+            new Thread(CheckReminds).Start();
 
 			Debug.WriteLine("End DoWork...");
 		}
@@ -185,6 +186,117 @@ namespace TestCacheTimeout
                 }
             }
 		}
+
+        private void SendRemindMessage(string addr,string text) {
+            MailMessage Message = new MailMessage();
+            Message.Subject = "Напоминание SmartFIS";
+            Message.Body = text;
+            Message.To.Add(new MailAddress(addr));
+            Message.From = new MailAddress(ConfigurationManager.AppSettings["DefaultEmailAddress"]);
+
+            SmtpClient smtpClient = new SmtpClient();
+            NetworkCredential basicCredential =
+                new NetworkCredential("u274550", "67cd6ab5");
+            MailMessage message = new MailMessage();
+
+            smtpClient.Host = "smtp-19.1gb.ru";
+            smtpClient.UseDefaultCredentials = false;
+            smtpClient.Credentials = basicCredential;
+
+            smtpClient.Send(Message);
+        }
+
+        /// <summary>
+        /// Рассылка напоминаний
+        /// </summary>
+        private void CheckReminds()
+        {
+            lock (locker)
+            {
+                string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
+                
+                DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+                try
+                {
+                    dataBlock.OpenConnection();
+
+                    DateTime now = DateTime.Now;
+
+                    //Processing every-hour reminds
+                    int minute = Convert.ToInt32(ConfigurationSettings.AppSettings["ScheduleHourlyMailSendMinute"]);
+                    if (now.Minute == minute) {
+                        List<int> hourIds = dataBlock.remindTable.GetAllHourRemindIds();
+                        StreamWriter wr = new StreamWriter("MailLog.txt",true);
+                        foreach (int id in hourIds)
+                        {
+                            //string addr = "shu.dv@tut.by";
+                            string addr = "ai@programist.ru";
+                            string source = dataBlock.cardsTable.GetCardHolderNameByCardId(dataBlock.remindTable.GetRemindSource(id));
+                            string type = dataBlock.remindTable.GetRemindTypeName(dataBlock.remindTable.GetRemindType(id));
+                            string text = "Данное сообщение отправлено сервисом SmartFIS.\nПериодичность: каждый час.\nВодитель (группа): " + source + ";\nТип напоминания: " + type + ";";
+                            SendRemindMessage(addr,text);
+                            wr.WriteLine("Mail sent to "+addr+"; text:\n"+text);
+                        }
+                        wr.Close();
+                    }
+                    //Processing every-day reminds
+                    string daytime = ConfigurationSettings.AppSettings["ScheduleDailyMailSendTime"];
+                    if (now.TimeOfDay.ToString().Substring(0, 5) == daytime)
+                    {
+                        List<int> dayIds = dataBlock.remindTable.GetAllDayRemindIds();
+                        StreamWriter wr = new StreamWriter("MailLog.txt", true);
+                        foreach (int id in dayIds)
+                        {
+                            //string addr = "shu.dv@tut.by";
+                            string addr = "ai@programist.ru";
+                            string source = dataBlock.cardsTable.GetCardHolderNameByCardId(dataBlock.remindTable.GetRemindSource(id));
+                            string type = dataBlock.remindTable.GetRemindTypeName(dataBlock.remindTable.GetRemindType(id));
+                            string text = "Данное сообщение отправлено сервисом SmartFIS.\nПериодичность: каждый день.\nВодитель (группа): " + source + ";\nТип напоминания: " + type + ";";
+                            SendRemindMessage(addr, text);
+                            wr.WriteLine("Mail sent to " + addr + "; text:\n" + text);
+                        }
+                        wr.Close();
+                    }
+                    //Processing every-month reminds
+                    int day = Convert.ToInt32(ConfigurationSettings.AppSettings["ScheduleMonthlyMailSendDay"]);
+                    daytime = ConfigurationSettings.AppSettings["ScheduleMonthlyMailSendTime"];
+                    if (now.Day==day && now.TimeOfDay.ToString().Substring(0, 5) == daytime)
+                    {
+                        List<int> monthIds = dataBlock.remindTable.GetAllMonthRemindIds();
+                        StreamWriter wr = new StreamWriter("MailLog.txt", true);
+                        foreach (int id in monthIds)
+                        {
+                            //string addr = "shu.dv@tut.by";
+                            string addr = "ai@programist.ru";
+                            string source = dataBlock.cardsTable.GetCardHolderNameByCardId(dataBlock.remindTable.GetRemindSource(id));
+                            string type = dataBlock.remindTable.GetRemindTypeName(dataBlock.remindTable.GetRemindType(id));
+                            string text = "Данное сообщение отправлено сервисом SmartFIS.\nПериодичность: каждый месяц.\nВодитель (группа): " + source + ";\nТип напоминания: " + type + ";";
+                            SendRemindMessage(addr, text);
+                            wr.WriteLine("Mail sent to " + addr + "; text:\n" + text);
+                        }
+                        wr.Close();
+                    }
+
+                    /*List<SingleEmailSchedule> shedulesToSend = dataBlock.emailScheduleTable.GetAllEmailShedules_ForSending();
+                    foreach (SingleEmailSchedule shed in shedulesToSend)
+                    {
+                        SendReportByEmail(generateReport(shed.REPORT_ID, shed.CARD_ID, shed.USER_ID, dataBlock),
+                            StiExportFormat.Pdf, shed.EMAIL_ADDRESS, "Рассылка SmartFis.ru local",
+                            "Сообщение сгенерировано автоматически, в приложении отчет за период",
+                            "Attachment");
+                        dataBlock.emailScheduleTable.SetEmailSheduleLastSendDate(shed.EMAIL_SCHEDULE_ID);
+                    }*/
+                }
+                catch (Exception x)
+                {
+                    Debug.WriteLine(x);
+                }
+                finally
+                {
+                    dataBlock.CloseConnection();
+                }
+            }
+        }
         /// <summary>
         /// Генерирует отчет
         /// </summary>

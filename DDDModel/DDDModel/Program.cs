@@ -27,13 +27,12 @@ namespace DDDModel
 
             //MY CODE
             dataBlock.OpenConnection();
-            /*List<int> res=dataBlock.cardsTable.GetAllGroupIds(1,2);
-            for (int i = 0; i < res.Count; i++) {
-                System.Console.WriteLine(res[i]);
+            dataBlock.remindTable.CreateNewRemind(1,true,29,1,1,2,DateTime.Today,1);
+            List<int> list=dataBlock.remindTable.GetAllHourRemindIds();
+            foreach (int i in list) {
+                System.Console.WriteLine(i);
             }
-                System.Console.ReadKey();*/
-            dataBlock.cardsTable.CreateGroup(1,"Name","Comment",1);
-
+            System.Console.ReadKey();
             dataBlock.CloseConnection();
             //System.Console.ReadKey();
             return;

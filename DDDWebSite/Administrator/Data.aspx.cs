@@ -388,6 +388,7 @@ public partial class Administrator_Data : System.Web.UI.Page
             String name = dataBlock.organizationTable.GetOrganizationName(orgId);
 
             drivTree.OrgName = name;
+            drivTree.OrgId = orgId;
 
             List<int> groupIds = dataBlock.cardsTable.GetAllGroupIds(orgId, dataBlock.cardsTable.driversCardTypeId);
             for (int i = 0; i < groupIds.Count; i++)
@@ -395,6 +396,7 @@ public partial class Administrator_Data : System.Web.UI.Page
                 TreeGroup gr = new TreeGroup();
                 string grName = dataBlock.cardsTable.GetGroupNameById(groupIds[i]);
                 gr.GroupName = grName;
+                gr.GroupId = groupIds[i];
                 List<int> values = dataBlock.cardsTable.GetAllCardIdsByGroupId(orgId, dataBlock.cardsTable.driversCardTypeId, groupIds[i]);
 
                 for (int j = 0; j < values.Count; j++)
