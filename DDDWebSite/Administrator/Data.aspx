@@ -29,15 +29,17 @@
                     //закладка "Восстановить у пользователя"
                     if ($("a", ui.newHeader).text() == "Восстановить у пользователя") {
                         destroyPeriodControls();
-                        destroyParseControls()
+                        destroyParseControls();
                         loadRecoverUserData();
                     };
                     if ($("a", ui.newHeader).text() == "Просмотреть(Водитель)") {
-                        destroyParseControls()
+                        destroyPeriodControls();
+                        destroyParseControls();
                         loadOverlookDriver();
                     }
                     if ($("a", ui.newHeader).text() == "Просмотреть(ТС)") {
-                        destroyParseControls()
+                        destroyPeriodControls();
+                        destroyParseControls();
                         loadOverlookVehicle();
                     }
                 }
@@ -60,21 +62,16 @@
             $find('ShowModal').show();
         }
 
-        function onAccordionSelectedIndexChanged(accIndex) {
-            /*document.getElementById("<% =AccordionCurrentTabIndex_HiddenField.ClientID %>").value = accIndex;
-            var actionBtn = "<%= InvisibleAccordionButton.ClientID %>";
-            document.getElementById(actionBtn).click();*/
-        }
-
         function resizeReports() {
             var vertHeightSTR = document.getElementById('vertical-menu').style.height;
             vertHeightSTR = vertHeightSTR.substr(0, vertHeightSTR.length - 2);
             document.getElementById('outputId').style.height = (vertHeightSTR - 30) + "px";
             document.getElementById('outputId-content').style.height = (vertHeightSTR - 30) + "px";
-        }
-
-        function LoadDays() {
-            alert("23423423");
+            if ($('#main-conditions:visible').length > 0) {
+                var h = $('#outputId').height() - $('#main-conditions').height()-30;
+                $('#outputId').height(h);
+                $('#outputId-content').height(h);
+            } 
         }
 
         $(window).resize(function () {
@@ -162,7 +159,7 @@
                     </form>
                     </center>
                 </div>
-            </td>                      
+            </td>
         </tr>
     </script>
 
@@ -245,6 +242,7 @@
         </th>
     </script>
 
+    <!--Диалоговое окно, отображающее процесс разбора данных-->
     <div id="parsing-dialog" title="Разбор файлов" style="display:none;">
         <center>
 	        <p>Разбор файлов... Пожалуйста, подождите.</p>
@@ -252,7 +250,7 @@
         </center>
     </div>
 
-    <asp:UpdatePanel ID="InvisibleUpdatePanel" runat="server" UpdateMode="Always">
+    <!--<asp:UpdatePanel ID="InvisibleUpdatePanel" runat="server" UpdateMode="Always">
         <ContentTemplate>
             <div style="display: none;">
                 <asp:Button ID="InvisibleAccordionButton" runat="server" CausesValidation="false"
@@ -273,14 +271,13 @@
 
     <asp:ModalPopupExtender ID="ModalPopupExtender1" runat="server" TargetControlID="modalPopupHdnField"
         PopupControlID="modalPopupPanel" BackgroundCssClass="modalBackgroung" BehaviorID="ShowModal" />
-    <asp:HiddenField ID="modalPopupHdnField" runat="server" />
+    <asp:HiddenField ID="modalPopupHdnField" runat="server" />-->
 
     <!--Боковая панель-->
-    <div id="accordion" style="width: 5">
+    <div id="accordion">
         <!--Раздел Загрузить на сервер-->
         <h3>
-            <asp:LinkButton ID="AccordionHeader1_Upload" runat="server" PostBackUrl="#" OnClientClick="onAccordionSelectedIndexChanged(0);"
-                Text="Загрузить на сервер" />
+            <asp:LinkButton ID="AccordionHeader1_Upload" runat="server" PostBackUrl="#" Text="Загрузить на сервер" />
         </h3>
         <div class="uploadPanel">
             <asp:UpdatePanel ID="UploadTestUpdatePanel" runat="server" UpdateMode="Conditional">
@@ -346,8 +343,7 @@
 
         <!--Раздел Восстановить у пользователя-->
         <h3>
-            <asp:LinkButton ID="AccordionHeader2_UserBackUp" runat="server" PostBackUrl="#" OnClientClick="onAccordionSelectedIndexChanged(1);"
-                Text="Восстановить у пользователя" />
+            <asp:LinkButton ID="AccordionHeader2_UserBackUp" runat="server" PostBackUrl="#" Text="Восстановить у пользователя" />
         </h3>
         <div>
             <!--<asp:UpdatePanel ID="UserFileRecover_UpdatePanel" runat="server" UpdateMode="Always"
@@ -381,8 +377,7 @@
 
         <!--Раздел Просмотреть(Водитель)-->
         <h3>
-            <asp:LinkButton ID="AccordionHeader3_Driver" runat="server" PostBackUrl="#" OnClientClick="onAccordionSelectedIndexChanged(2);"
-                Text="Просмотреть(Водитель)" /></h3>
+            <asp:LinkButton ID="AccordionHeader3_Driver" runat="server" PostBackUrl="#" Text="Просмотреть(Водитель)" /></h3>
         <div>
             <!--<asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Always">
                 <ContentTemplate>
@@ -422,8 +417,8 @@
 
         <!--Раздел Просмотреть(ТС)-->
         <h3>
-        <asp:LinkButton ID="AccordionHeader4_Vehicle" runat="server" PostBackUrl="#" OnClientClick="onAccordionSelectedIndexChanged(3);"
-            Text="Просмотреть(ТС)" /></h3>
+            <asp:LinkButton ID="AccordionHeader4_Vehicle" runat="server" PostBackUrl="#" Text="Просмотреть(ТС)" />
+        </h3>
         <div>
         <!--<asp:UpdatePanel ID="UpdateP2" runat="server" UpdateMode="Always">
             <ContentTemplate>

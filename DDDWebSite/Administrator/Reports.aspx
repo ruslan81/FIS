@@ -9,7 +9,11 @@
 
     <script language="Javascript" src="../FusionCharts/FusionCharts.js"></script>
     <script type="text/javascript" language="javascript" src="../anychartstock_files/js/AnyChartStock.js"></script>
-   
+
+    <script src="../js/custom/Report.js" type="text/javascript"></script>
+    
+    
+       
 </asp:Content>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
@@ -17,26 +21,19 @@
     runat="server">
 
     <script type="text/javascript">
-        function resizeReports() {
-            var reportPanelHeight = document.getElementById('outputId').style.height;
-            reportPanelHeight = reportPanelHeight.substring(0, reportPanelHeight.length - 2);
-            document.getElementById('tabs').style.height = reportPanelHeight - 7 + "px";
-            document.getElementById('ctl00_Reports_PlaceHolder_NavigationReportControl1_ScrollPanel').style.height = reportPanelHeight - 70 + "px";
-            
-            var oneAccPanelHeight = document.getElementById('firstAccordionPanel').style.height;
-            oneAccPanelHeight = oneAccPanelHeight.substring(0, oneAccPanelHeight.length - 2);
-            document.getElementById('DriverOverFlowPanel').style.height = oneAccPanelHeight - 45 + "px";
-            document.getElementById('VehicleOverFlowPanel').style.height = oneAccPanelHeight - 2 + "px";
-            document.getElementById('MultiDriverOverFlowPanel').style.height = oneAccPanelHeight - 21 + "px";
-            document.getElementById('MultiVehicleOverFlowPanel').style.height = oneAccPanelHeight - 21 + "px";
-            document.getElementById('PLFOverFlowPanel').style.height = oneAccPanelHeight - 135 + "px";
-        }
+        //run on page load
+        $(function () {
 
-        function pageLoad() {
-            resizeReports();
-        }
+            $("#accordion").accordion({
+                change: function (event, ui) {
+                    //Раздел PLF Файлы (Датчики)
+                    if ($("a", ui.newHeader).text() == "PLF Файлы (Датчики)") {
+                        loadPLFFilesTree();
+                        $('#tabs').tabs();
+                    };
+                }
+            });
 
-        $(document).ready(function() {
             resizeReports();
             $("#dialog").dialog();
             $("#dialog2").dialog({ autoOpen: false, draggable: true, resizable: true });
@@ -47,11 +44,85 @@
             $("#accordion").accordion("resize");
             resizeReports();
         });
-        
-      function showModal() {
-          $find('ShowModal').show();
-      }
+
+        function resizeReports() {
+            var reportPanelHeight = document.getElementById('outputId').style.height;
+            reportPanelHeight = reportPanelHeight.substring(0, reportPanelHeight.length - 2);
+            document.getElementById('tabs').style.height = reportPanelHeight - 7 + "px";
+            document.getElementById('report').style.height = reportPanelHeight - 7 - 50 + "px";
+            document.getElementById('chart').style.height = reportPanelHeight - 7 - 50 + "px";
+            document.getElementById('chart').style.width = $('#outputId').width() - 35 + "px";
+            /*document.getElementById('ctl00_Reports_PlaceHolder_NavigationReportControl1_ScrollPanel').style.height = reportPanelHeight - 70 + "px";
+
+            var oneAccPanelHeight = document.getElementById('firstAccordionPanel').style.height;
+            oneAccPanelHeight = oneAccPanelHeight.substring(0, oneAccPanelHeight.length - 2);
+            document.getElementById('DriverOverFlowPanel').style.height = oneAccPanelHeight - 45 + "px";
+            document.getElementById('VehicleOverFlowPanel').style.height = oneAccPanelHeight - 2 + "px";
+            document.getElementById('MultiDriverOverFlowPanel').style.height = oneAccPanelHeight - 21 + "px";
+            document.getElementById('MultiVehicleOverFlowPanel').style.height = oneAccPanelHeight - 21 + "px";
+            //document.getElementById('PLFOverFlowPanel').style.height = oneAccPanelHeight - 135 + "px";*/
+        }
+
+        function showModal() {
+              $find('ShowModal').show();
+          }
+
+        function acordionIndexSwitch(accIndex) {
+            document.getElementById("<% =AccordionSelectedPane.ClientID %>").value = accIndex;
+        }
     </script>
+
+
+    <script id="tmplPLFFilesTree" type="text/x-jquery-tmpl">
+        <li class="folder"><a><span key="${ID}">${Name}</span></a>
+            <ul>
+                {{each PLFItems}}
+                    <li class="file"><a><span key="None">${Vehicle} / ${DeviceID}</span></a>
+                        <ul>
+                            {{each PLFs}}
+                                <li class="file"><a><span cardID="${ID}" driver="${Name}" driverNumber="${Number}" device="${Vehicle} / ${DeviceID}" key=${Key}>${Value}</span></a></li>
+                            {{/each}}
+                        </ul>
+                    </li>
+                {{/each}}
+            </ul>
+        </li>
+    </script>
+
+
+    <script id="tmplNoPLFFile" type="text/x-jquery-tmpl">
+        <div style="color:#a60000;font-weight:bold;text-align:center;">
+            Выберите интересующий Вас PLF файл.
+        </div>
+    </script>
+
+    <script id="tmplChoosePLFFile" type="text/x-jquery-tmpl">
+        <div style="float:left">
+            <div>
+                Вы выбрали: 
+            </div>
+            <div style="margin-left:20px;">
+                - водитель: <b>${Driver}</b>
+                <br/>
+                - датчики: <b>${Device}</b>
+                <br/>
+                - период: <b>${Period}</b>
+            </div>
+        </div>
+
+        <div style="float:right;">
+            <form method="post" action="Download.aspx">
+                <div style="float:right;">
+                    <input type="hidden" name="type" value="${type}"/>
+                    <input type="hidden" name="CardID" value="${CardID}"/>
+                    <input type="hidden" name="PLFID" value="${PLFID}"/>
+                    <input type="hidden" name="UserName" value="${UserName}"/>
+                    <input id="getReport" value="Получить отчет" type="submit" title="Скачать pdf-файл"/>
+                </div>
+            </form>
+        </div>
+    </script>
+
 
     <asp:Panel ID="modalPopupPanel" CssClass="modalPopup" runat="server" Style="display: none">
         <asp:Image ImageUrl="~/images/icons/long1.gif" runat="server" Width="100%" />
@@ -66,20 +137,17 @@
     
      <asp:HiddenField ID="AccordionSelectedPane" Visible="true" runat="server" Value="0" /> 
     
-     <script type="text/javascript" language="javascript">
-         function acordionIndexSwitch(accIndex) {
-             document.getElementById("<% =AccordionSelectedPane.ClientID %>").value = accIndex;
-         }
-    </script>   
-    
-    <div id="accordion" style="width: 5;">
+    <!--Боковая панель-->
+    <div id="accordion">
+        <!--Раздел Водитель-->
         <h3>
-            <asp:LinkButton ID="AccordionHeader1_Driver" runat="server" OnClientClick="acordionIndexSwitch(0);" PostBackUrl="#" Text="Водитель" /></h3>
+            <asp:LinkButton ID="AccordionHeader1_Driver" runat="server" OnClientClick="acordionIndexSwitch(0);" PostBackUrl="#" Text="Водитель" />
+        </h3>
         <div id="firstAccordionPanel">
             <asp:UpdatePanel ID="DriverSelectUpdatePanel" runat="server">
                 <ContentTemplate>
                     <asp:Table runat="server" Width="100%" Height="1px"><asp:TableRow><asp:TableCell></asp:TableCell></asp:TableRow></asp:Table><asp:DropDownList ID="drSearch" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DriverSearchMade"
-                        Width="100%"/>     
+                        Width="100%"/>
                     <asp:ListSearchExtender ID="ListSearchExtender2" runat="server" PromptPosition="Top" PromptText="Начните вводить для поиска"
                          TargetControlID="drSearch"  QueryPattern="Contains" PromptCssClass="ListSearchExtenderPrompt"/>
                     <hr/>
@@ -95,8 +163,11 @@
                 </Triggers>
             </asp:UpdatePanel>
         </div>
+
+        <!--Раздел Транспортное средство-->
         <h3>
-            <asp:LinkButton ID="AccordionHeader2_Vehicle" runat="server" OnClientClick="acordionIndexSwitch(1);" PostBackUrl="#" Text="Транспортное средство" /></h3>
+            <asp:LinkButton ID="AccordionHeader2_Vehicle" runat="server" OnClientClick="acordionIndexSwitch(1);" PostBackUrl="#" Text="Транспортное средство" />
+        </h3>
         <div>
             <asp:UpdatePanel ID="VehicleSelectUpdatePanel" runat="server">
                 <ContentTemplate>
@@ -111,13 +182,16 @@
                 </Triggers>
             </asp:UpdatePanel>
         </div>
+
+        <!--Раздел Группа водителей-->
         <h3>
-            <asp:LinkButton ID="AccordionHeader3_DriversGroup" runat="server" OnClientClick="acordionIndexSwitch(2);" PostBackUrl="#" Text="Группа водителей" /></h3>
+            <asp:LinkButton ID="AccordionHeader3_DriversGroup" runat="server" OnClientClick="acordionIndexSwitch(2);" PostBackUrl="#" Text="Группа водителей" />
+        </h3>
         <div>
             <asp:UpdatePanel ID="MultiDriversSelectUpdatePanel" runat="server">
                 <ContentTemplate>
                     <div style="padding:0px 0px 0px 8px;">
-                        <asp:CheckBox  ID="MultiDriversSelectAllDrivers" runat="server" AutoPostBack="true"
+                        <asp:CheckBox ID="MultiDriversSelectAllDrivers" runat="server" AutoPostBack="true"
                             Text="Все водители" BackColor="White" OnCheckedChanged="SelectAllMultiDrivers" />
                     </div>
                     <div id="MultiDriverOverFlowPanel" style="border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; border: 1px solid #AFCBDE;">
@@ -132,8 +206,11 @@
                 </Triggers>
             </asp:UpdatePanel>
         </div>
+
+        <!--Раздел Группа ТС-->
         <h3>
-            <asp:LinkButton ID="AccordionHeader4_VehiclesGroup" runat="server" OnClientClick="acordionIndexSwitch(3);" PostBackUrl="#" Text="Группа ТС" /></h3>
+            <asp:LinkButton ID="AccordionHeader4_VehiclesGroup" runat="server" OnClientClick="acordionIndexSwitch(3);" PostBackUrl="#" Text="Группа ТС" />
+        </h3>
         <div>
             <asp:UpdatePanel ID="MultiVehiclesSelectUpdatePanel" runat="server">
                 <ContentTemplate>
@@ -148,10 +225,13 @@
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
+
+        <!--Раздел PLF Файлы (Датчики)-->
         <h3>
-            <asp:LinkButton ID="AccordionHeader5_PLF" runat="server" OnClientClick="acordionIndexSwitch(4);" PostBackUrl="#" Text="PLF Файлы(Датчики)" /></h3>
+            <asp:LinkButton ID="AccordionHeader5_PLF" runat="server" PostBackUrl="#" Text="PLF Файлы (Датчики)" />
+        </h3>
         <div>
-            <asp:UpdatePanel ID="PlfFileChoiseUpdatePanel" runat="server">
+            <!--<asp:UpdatePanel ID="PlfFileChoiseUpdatePanel" runat="server">
                 <ContentTemplate>
                     <asp:Table ID="Table1" runat="server" Width="100%" Height="1px"><asp:TableRow><asp:TableCell></asp:TableCell></asp:TableRow></asp:Table><asp:DropDownList ID="plfDrSearch" runat="server" AutoPostBack="true" OnSelectedIndexChanged="PlfDriverSearchMade"
                         Width="225px"/>
@@ -172,13 +252,25 @@
                 <Triggers>
                     <asp:AsyncPostBackTrigger ControlID="PLFTreeView" EventName="SelectedNodeChanged" />
                 </Triggers>
-            </asp:UpdatePanel>
+            </asp:UpdatePanel>-->
+
+            <!--Дерево-->
+            <div>
+                <ul id="PLFFilesTree">
+                </ul>
+            </div>
         </div>
+
     </div>
+    <!--Конец боковой панели-->
+
 </asp:Content>
+
 <asp:Content ID="ChoisesContent" ContentPlaceHolderID="MainConditions_PlaceHolder"
     runat="server">
-                <asp:UpdatePanel ID="ChoisesUpdatePanel" runat="server" UpdateMode="Conditional">
+    <!--Верхняя панель-->
+
+                <!--<asp:UpdatePanel ID="ChoisesUpdatePanel" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>
                         <asp:Table ID="choisesTable" runat="server" Width="100%" BackColor="ControlLight">
                             <asp:TableRow Height="25px">
@@ -216,120 +308,151 @@
                                 Format="d MMMM yyyy" Animated="true" />
                         </asp:Panel>
                     </ContentTemplate>
-                </asp:UpdatePanel>
+                </asp:UpdatePanel>-->
+
+    <div id="statusPanel">
+    </div>
 </asp:Content>
+
+
 <asp:Content ID="DataContent" ContentPlaceHolderID="Reports_PlaceHolder" runat="server">
-<asp:UpdatePanel ID="OutputUpdatePanel" runat="server" UpdateMode="Conditional">
-    <ContentTemplate>    
-    <script type="text/javascript">
-        Sys.WebForms.PageRequestManager.getInstance().add_endRequest(asss);
-        function asss() {
-            $('#tabs').tabs();           
-        }
-    </script>       
+    <!--Центральная панель-->
+
+    <!--<asp:UpdatePanel ID="OutputUpdatePanel" runat="server" UpdateMode="Conditional">
+        <ContentTemplate>
+        <script type="text/javascript">
+            Sys.WebForms.PageRequestManager.getInstance().add_endRequest(asss);
+            function asss() {
+                $('#tabs').tabs();
+            }
+        </script>
 
 
-    <div id="tabs" style="background: transparent;">                
-        <ul style="height:30px;">
-		    <li><asp:LinkButton ID="ReportsTab" runat="server" Text="Отчеты" href="#tabs-1"/></li>
-		    <li><asp:LinkButton ID="ChartsTab" runat="server" Text="Графики" href="#tabs-2"/></li>
-	    </ul>
-        <div id="tabs-1">
-            <asp:UpdatePanel ID="ReportUpdatePanel" runat="server" UpdateMode="Conditional">
-                <ContentTemplate>
-                    <asp:Panel runat="server" ID="NavigationReportControl1_ScrollPanel" Height="100%" ScrollBars="Auto">
-                            <asp:UpdatePanel ID="PlfReportsPickUpdatePanel1" runat="server"  UpdateMode="Conditional">
+        <div id="tabs" style="background: transparent;">
+            <ul style="height:30px;">
+		        <li><asp:LinkButton ID="ReportsTab" runat="server" Text="Отчеты" href="#tabs-1"/></li>
+		        <li><asp:LinkButton ID="ChartsTab" runat="server" Text="Графики" href="#tabs-2"/></li>
+	        </ul>
+            <div id="tabs-1">
+                <asp:UpdatePanel ID="ReportUpdatePanel" runat="server" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <asp:Panel runat="server" ID="NavigationReportControl1_ScrollPanel" Height="100%" ScrollBars="Auto">
+                                <asp:UpdatePanel ID="PlfReportsPickUpdatePanel1" runat="server"  UpdateMode="Conditional">
+                                    <ContentTemplate>
+                                        <asp:Panel ID="Panel7" runat="server" BorderWidth="1px" BorderColor="LightGray" Width="300px" Height="38px"
+                                        style="padding: 9px; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px;">
+                                        Выберите тип отчета: <asp:DropDownList ID="PlfReportsRadioButtonList" Font-Size="Small" Visible="false" 
+                                            runat="server" AutoPostBack="true" Width="100%"
+                                            OnSelectedIndexChanged="PlfReportsDataGrid_RadioButton_Checked"/>
+                                        </asp:Panel>
+                                        <asp:HiddenField ID="Selected_PlfReportsDataGrid_Index" runat="server" />
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+                            <uc1:NavigationReportControl ID="NavigationReportControl1" runat="server" />
+                        </asp:Panel>    
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
+            <div id="tabs-2">
+                <asp:Panel runat="server" ID="AnyChart_ScrollPanel" Height="350px" ScrollBars="Auto">
+            
+                    <asp:Panel Width="100%" ID="AddCondWidthPanel" runat="server">
+                            <asp:UpdatePanel ID="ChartsCheckBoxListUpdatePanel" runat="server" UpdateMode="Conditional">
                                 <ContentTemplate>
-                                    <asp:Panel ID="Panel7" runat="server" BorderWidth="1px" BorderColor="LightGray" Width="300px" Height="38px"
-                                    style="padding: 9px; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px;">
-                                    Выберите тип отчета: <asp:DropDownList ID="PlfReportsRadioButtonList" Font-Size="Small" Visible="false" 
-                                        runat="server" AutoPostBack="true" Width="100%"
-                                        OnSelectedIndexChanged="PlfReportsDataGrid_RadioButton_Checked"/>
-                                    </asp:Panel>
-                                    <asp:HiddenField ID="Selected_PlfReportsDataGrid_Index" runat="server" />
+                                    <asp:Panel ID="Panel6" runat="server" BorderWidth="1px" BorderColor="LightGray"
+                                        style="padding: 9px; vertical-align:middle; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px;">
+                                        <asp:CheckBoxList runat="server" ID="ChartsCheckBoxList" Font-Size="X-Small" RepeatDirection="Horizontal" CellSpacing="1"
+                                            Width="100%" RepeatColumns="8" OnSelectedIndexChanged="ChartsCheckBoxList_SelectedIndexChanged" />
+                                    </asp:Panel>            
                                 </ContentTemplate>
                             </asp:UpdatePanel>
-                        <uc1:NavigationReportControl ID="NavigationReportControl1" runat="server" />
                     </asp:Panel>    
-                </ContentTemplate>
-            </asp:UpdatePanel>
-        </div>
-        <div id="tabs-2">
-            <asp:Panel runat="server" ID="AnyChart_ScrollPanel" Height="350px" ScrollBars="Auto">
             
-                <asp:Panel Width="100%" ID="AddCondWidthPanel" runat="server">
-                        <asp:UpdatePanel ID="ChartsCheckBoxListUpdatePanel" runat="server" UpdateMode="Conditional">
-                            <ContentTemplate>
-                                <asp:Panel ID="Panel6" runat="server" BorderWidth="1px" BorderColor="LightGray"
-                                    style="padding: 9px; vertical-align:middle; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px;">
-                                    <asp:CheckBoxList runat="server" ID="ChartsCheckBoxList" Font-Size="X-Small" RepeatDirection="Horizontal" CellSpacing="1"
-                                        Width="100%" RepeatColumns="8" OnSelectedIndexChanged="ChartsCheckBoxList_SelectedIndexChanged" />
-                                </asp:Panel>            
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
-                </asp:Panel>    
-            
-                <asp:Literal ID="ChartLiteral" runat="server" Mode="Transform" />
-                <asp:Panel ID="AnycahrtPanel" Visible="false" runat="server">
-                    <div id="AnyChartContainer" style="width: 100%; height: 400px">
-                    </div>
-                </asp:Panel>
-                <asp:HiddenField runat="server" ID="MapPath_HiddenFieldForDeleteingXml" />
-                <asp:HiddenField runat="server" ID="AnyChartHiddenField" />
-           </asp:Panel>     
+                    <asp:Literal ID="ChartLiteral" runat="server" Mode="Transform" />
+                    <asp:Panel ID="AnycahrtPanel" Visible="false" runat="server">
+                        <div id="AnyChartContainer" style="width: 100%; height: 400px">
+                        </div>
+                    </asp:Panel>
+                    <asp:HiddenField runat="server" ID="MapPath_HiddenFieldForDeleteingXml" />
+                    <asp:HiddenField runat="server" ID="AnyChartHiddenField" />
+               </asp:Panel>
+            </div>
         </div>
-    </div>
    
-    <script type="text/javascript" language="javascript">
-        function updateAnyChart() {
-            //<![CDATA[
-            var chart = new AnyChartStock("../anychartstock_files/swf/AnyChartStock.swf", "../anychartstock_files/swf/Preloader.swf");
-            var fileName = document.getElementById("<% =AnyChartHiddenField.ClientID %>").value;
-            chart.onChartDataLoad = DeleteFileName;
-            chart.setXMLFile(fileName);
-            chart.write("AnyChartContainer");
-            //]]>
-        }
-        function DeleteFileName() {
-            var mapPath = document.getElementById("<% =MapPath_HiddenFieldForDeleteingXml.ClientID %>").value;
-            var fileName = document.getElementById("<% =AnyChartHiddenField.ClientID %>").value;
-            PageMethods.DeleteMethod(mapPath + "\\" + fileName, null, null);
-        }
-    </script>
-    </ContentTemplate>
-</asp:UpdatePanel>
- <asp:UpdatePanelAnimationExtender ID="ReportUpdatePanelnExtender" runat="server"
-        TargetControlID="OutputUpdatePanel" Enabled="True">
-        <Animations>
-            <OnUpdated>
-                <Parallel duration="0">
-                    <ScriptAction Script="updateAnyChart();" />                                                       
-                </Parallel>   
-            </OnUpdated>
-        </Animations></asp:UpdatePanelAnimationExtender></asp:Content><asp:Content ID="DecisionContent1" ContentPlaceHolderID="Decision_PlaceHolder" runat="server">
-<asp:UpdatePanel ID="DecisionUpdatePanel" runat="server" UpdateMode="Conditional">
-    <ContentTemplate>
-        <asp:Table runat="server"  ID="resultActionButtonsTable" CellPadding="3" GridLines="None" Width="100%">
-            <asp:TableRow>
-                <asp:TableCell Width="15%">
-                    <uc2:BlueButton ID="Export_Button" Text="Экспорт" Enabled="false" runat="server" OnClientClick="$('#dialog').dialog({autoOpen: true, draggable: false, resizable: false, modal:true });"/>                    
-                </asp:TableCell><asp:TableCell></asp:TableCell><asp:TableCell Width="15%">
-                    <uc2:BlueButton ID="Choises_CANCEL_Button" Text="Отменить" runat="server" Visible="false" CausesValidation="false" />
-                </asp:TableCell><asp:TableCell Width="15%">        
-                    <uc2:BlueButton ID="Choises_ADD_Button" Text="Добавить" runat="server" Visible="false" CausesValidation="true"/>
-                </asp:TableCell><asp:TableCell Width="15%">        
-                    <uc2:BlueButton ID="Email_Button" Text="E-mail" runat="server" CausesValidation="true" OnClientClick="$('#dialog2').dialog({autoOpen: true, draggable: true, resizable: true, modal:true });"/>
-                </asp:TableCell><asp:TableCell Width="15%">        
-                    <uc2:BlueButton ID="Print_Button" Text="Печать" runat="server" CausesValidation="true"/>
-                </asp:TableCell></asp:TableRow></asp:Table></ContentTemplate><Triggers>
-    </Triggers>
-</asp:UpdatePanel>
+        <script type="text/javascript" language="javascript">
+            function updateAnyChart() {
+                //<![CDATA[
+                var chart = new AnyChartStock("../anychartstock_files/swf/AnyChartStock.swf", "../anychartstock_files/swf/Preloader.swf");
+                var fileName = document.getElementById("<% =AnyChartHiddenField.ClientID %>").value;
+                chart.onChartDataLoad = DeleteFileName;
+                chart.setXMLFile(fileName);
+                chart.write("AnyChartContainer");
+                //]]>
+            }
+            function DeleteFileName() {
+                var mapPath = document.getElementById("<% =MapPath_HiddenFieldForDeleteingXml.ClientID %>").value;
+                var fileName = document.getElementById("<% =AnyChartHiddenField.ClientID %>").value;
+                PageMethods.DeleteMethod(mapPath + "\\" + fileName, null, null);
+            }
+        </script>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+    <asp:UpdatePanelAnimationExtender ID="ReportUpdatePanelnExtender" runat="server"
+            TargetControlID="OutputUpdatePanel" Enabled="True">
+            <Animations>
+                <OnUpdated>
+                    <Parallel duration="0">
+                        <ScriptAction Script="updateAnyChart();" />
+                    </Parallel>   
+                </OnUpdated>
+            </Animations>
+    </asp:UpdatePanelAnimationExtender>-->
+
+
+    <div id="tabs">
+            <ul>
+                <li><a href="#tabs-1">Отчеты</a></li>
+		        <li><a href="#tabs-2">Графики</a></li>
+	        </ul>
+            <div id="tabs-1">
+                <div id="report" style="overflow: auto;">
+                </div>
+            </div>
+            <div id="tabs-2">
+                <div id="chart" style="overflow: hidden;">
+                </div>
+            </div>
+    </div>
+
 </asp:Content>
+
+
+<asp:Content ID="DecisionContent1" ContentPlaceHolderID="Decision_PlaceHolder" runat="server">
+    <!--<asp:UpdatePanel ID="DecisionUpdatePanel" runat="server" UpdateMode="Conditional">
+        <ContentTemplate>
+            <asp:Table runat="server"  ID="resultActionButtonsTable" CellPadding="3" GridLines="None" Width="100%">
+                <asp:TableRow>
+                    <asp:TableCell Width="15%">
+                        <uc2:BlueButton ID="Export_Button" Text="Экспорт" Enabled="false" runat="server" OnClientClick="$('#dialog').dialog({autoOpen: true, draggable: false, resizable: false, modal:true });"/>                    
+                    </asp:TableCell><asp:TableCell></asp:TableCell><asp:TableCell Width="15%">
+                        <uc2:BlueButton ID="Choises_CANCEL_Button" Text="Отменить" runat="server" Visible="false" CausesValidation="false" />
+                    </asp:TableCell><asp:TableCell Width="15%">        
+                        <uc2:BlueButton ID="Choises_ADD_Button" Text="Добавить" runat="server" Visible="false" CausesValidation="true"/>
+                    </asp:TableCell><asp:TableCell Width="15%">        
+                        <uc2:BlueButton ID="Email_Button" Text="E-mail" runat="server" CausesValidation="true" OnClientClick="$('#dialog2').dialog({autoOpen: true, draggable: true, resizable: true, modal:true });"/>
+                    </asp:TableCell><asp:TableCell Width="15%">        
+                        <uc2:BlueButton ID="Print_Button" Text="Печать" runat="server" CausesValidation="true"/>
+                    </asp:TableCell></asp:TableRow></asp:Table></ContentTemplate><Triggers>
+        </Triggers>
+    </asp:UpdatePanel>-->
+</asp:Content>
+
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Bottom_PlaceHolder" runat="server">
+    <!--Нижняя панель-->
 
-    <script type="text/javascript" language="javascript">
+    <!--<script type="text/javascript" language="javascript">
         function ExportRbl_SelIndexChanged() {
             var selectedValue = $('#<%= ReportsExport_RadioButtonList.ClientID %>').find('input:checked').val();
             document.getElementById("<% =ReportsExport_RadioButtonList_SelectedValHiddenField.ClientID %>").value = selectedValue;
@@ -435,5 +558,5 @@
         <ContentTemplate>
             <asp:HiddenField ID="HiddenField" runat="server" />
         </ContentTemplate>
-    </asp:UpdatePanel>   
+    </asp:UpdatePanel>-->
 </asp:Content>

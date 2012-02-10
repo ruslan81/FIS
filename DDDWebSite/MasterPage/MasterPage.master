@@ -17,10 +17,11 @@
     <link type="text/css" href="../css/custom-theme/jquery.wijmo-open.1.2.0.css" rel="stylesheet" />
     <link type="text/css" href="../css/custom-theme/jquery.wijmo.wijtree.css" rel="stylesheet" />
     <link type="text/css" href="../css/custom-theme/jquery.wijmo.wijgrid.css" rel="stylesheet" />
-    <!--<link type="text/css" href="../css/custom-theme/jquery.wijmo.wijtextbox.css" rel="stylesheet" />-->
     <link type="text/css" href="../css/new-style.css" rel="stylesheet" />
 
     <script type="text/javascript" src="../js/jquery-1.5.1.min.js"></script>
+    <script type="text/javascript" src="../js/highcharts.src.js"></script>
+    <script type="text/javascript" src="../js/exporting.src.js"></script>
     <script type="text/javascript" src="../js/jquery-ui-1.8.11.custom.min.js"></script>
     <script type="text/javascript" src="../js/jquery.tmpl.min.js"></script>
     <script type="text/javascript" src="../js/jquery.wijmo-open.1.2.0.min.js"></script>
@@ -30,7 +31,6 @@
     <script type="text/javascript" src="../js/jquery.glob.min.js"></script>
     <script type="text/javascript" src="../js/jquery.wijmo.wijdatasource.js"></script>
     <script type="text/javascript" src="../js/jquery.wijmo.wijgrid.js"></script>
-    <!--<script type="text/javascript" src="../js/jquery.wijmo.wijtextbox.js" ></script>-->
 
     <script type="text/javascript">
         Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function(sender, args) {
@@ -54,7 +54,7 @@
             var curHeight = getClientHeight() - 51;
             var contentHeight = curHeight - 112;
             var mainContent = contentHeight - 56;
-            var outputHeight = mainContent - 156;
+            var outputHeight = mainContent - 120;
             document.getElementById('all').style.height = curHeight + "px"; //Устанавливаем для Div id=All высоту рабочего пространства экрана.
             document.getElementById('content').style.height = contentHeight + "px";
             document.getElementById('vertical-menu').style.height = mainContent + "px";

@@ -1,4 +1,4 @@
-<%@ page language="C#" autoeventwireup="true" inherits="loginPage, App_Web_sit3yd0s" title="Login" %>
+<%@ page language="C#" autoeventwireup="true" inherits="loginPage, App_Web_l2rfijt4" title="Login" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

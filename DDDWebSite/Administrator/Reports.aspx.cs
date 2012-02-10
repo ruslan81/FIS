@@ -9,7 +9,8 @@ using BLL;
 using InfoSoftGlobal;
 using System.Data;
 using System.Reflection;
-
+using System.IO;
+using System.Xml;
 
 public partial class Administrator_Report : System.Web.UI.Page
 {
@@ -48,8 +49,8 @@ public partial class Administrator_Report : System.Web.UI.Page
 
 
                 Session["maxRecordsCount"] = 1500;
-                
-                string connectionString = System.Configuration.ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
+
+                string connectionString = System.Configuration.ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
                 BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_EN");
                 dataBlock.OpenConnection();
                 int userId = dataBlock.usersTable.Get_UserID_byName(User.Identity.Name);
@@ -68,6 +69,10 @@ public partial class Administrator_Report : System.Web.UI.Page
                 dataBlock.CloseConnection();
                 Session["CURRENT_ORG_ID"] = orgId;
 
+                //выставляем кук, чтобы можно было передать его в метод, вызываемый ч/з ajax
+                Response.Cookies["CURRENT_ORG_ID"].Value = Convert.ToString(orgId);
+                Response.Cookies["CURRENT_USERNAME"].Value = User.Identity.Name;
+
                 Load_Vehicles();
                 Load_ReportsList();
                 Load_PLFAndDrivers();
@@ -79,9 +84,9 @@ public partial class Administrator_Report : System.Web.UI.Page
             }
         }
         #endregion
-        MasterPage m = (MasterPage)Page.Master;
+        //MasterPage m = (MasterPage)Page.Master;
         contentPX = 523;
-      //  m.ResizeReportDiv(contentPX);
+        //m.ResizeReportDiv(contentPX);
         // FCLiteral.Text = "";
         ChartLiteral.Text = "";
         resultActionLabel.Text = "";
@@ -114,6 +119,357 @@ public partial class Administrator_Report : System.Web.UI.Page
             }
         }
     }
+
+
+    //AJAX BEGIN
+
+
+    /// <summary>
+    ///Получить элементы дерева в разделе "PLF Файлы"
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static List<PLFFilesTreeItem> GetPLFFilesTree(String OrgID)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+
+        int orgId = Convert.ToInt32(OrgID);
+        List<string> names = new List<string>();
+        List<string> numbers = new List<string>();
+        List<int> IDs = new List<int>();
+        List<int> PLFs = new List<int>();
+
+        dataBlock.OpenConnection();
+
+        IDs = dataBlock.cardsTable.GetAllCardIds(orgId, dataBlock.cardsTable.driversCardTypeId);
+        names = dataBlock.cardsTable.GetCardNames(IDs);
+        numbers = dataBlock.cardsTable.GetCardNumbers(IDs);
+        List<PLFFilesTreeItem> PLFFilesTreeItems = new List<PLFFilesTreeItem>();
+        
+        const int CARD_TYPE_DRIVER=0;
+        const int CARD_TYPE_PLF=2;
+
+        for (int i = 0; i < names.Count;i++)
+        {
+            PLFFilesTreeItem treeItem=new PLFFilesTreeItem ();
+            treeItem.ID=IDs[i];
+            treeItem.Name=names[i];
+            treeItem.Number=numbers[i];
+            
+            PLFFilesTreeItems.Add(treeItem);
+
+            PLFs= dataBlock.cardsTable.GetAllDataBlockIds_byCardId(IDs[i]);
+            if (PLFs != null)
+            {
+                foreach (int plf in PLFs)
+                {
+                    int cardType; //0 - driver, 2 - plf
+                    cardType = dataBlock.GetDataBlock_CardType(plf);
+
+                    if (cardType == CARD_TYPE_PLF)
+                    {
+                        string vehicle = dataBlock.plfUnitInfo.Get_VEHICLE(plf);
+                        string deviceID = dataBlock.plfUnitInfo.Get_ID_DEVICE(plf);
+                        string period = "(" + dataBlock.plfUnitInfo.Get_START_PERIOD(plf).ToShortDateString() +
+                                        " - " +
+                                        dataBlock.plfUnitInfo.Get_END_PERIOD(plf).ToShortDateString() + ")";
+
+                        bool exist=false;
+                        foreach(PLFFilesTreeItem item in PLFFilesTreeItems)
+                        {
+                            foreach(PLFItem PLFItem in item.PLFItems)
+                            {
+                                if(PLFItem.DeviceID.Equals(vehicle)&&PLFItem.Equals(deviceID)){
+                                    PLFItem.PLFs.Add(new MapItem(plf.ToString(), period));
+                                    exist=true;
+                                    break;
+                                }
+                            }
+                        }
+                        if(!exist)
+                        {
+                            PLFItem PLFItem = new PLFItem();
+                            PLFItem.Vehicle = vehicle;
+                            PLFItem.DeviceID = deviceID;
+                            PLFItem.PLFs.Add(new MapItem(plf.ToString(), period));
+
+                            treeItem.PLFItems.Add(PLFItem);
+                        }
+                    }
+                }
+            }
+        }
+        dataBlock.CloseConnection();
+
+        return PLFFilesTreeItems;
+    }
+
+     /// <summary>
+    ///Получить элементы дерева в разделе "PLF Файлы"
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static Report GetReport(String CardID, String PLFID, String UserName)
+    {
+        int dataBlockId = int.Parse(PLFID);
+        List<int> dataBlockIDS = new List<int>();
+        dataBlockIDS.Add(dataBlockId);
+        int cardID = int.Parse(CardID);
+
+        string connectionString = System.Configuration.ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_EN");
+        dataBlock.OpenConnection();
+
+        DateTime from = new DateTime();
+        from = dataBlock.plfUnitInfo.Get_START_PERIOD(dataBlockId);
+
+        DateTime to = new DateTime();
+        to = dataBlock.plfUnitInfo.Get_END_PERIOD(dataBlockId);
+
+        string vehicle = dataBlock.plfUnitInfo.Get_VEHICLE(dataBlockId);
+        string deviceID = dataBlock.plfUnitInfo.Get_ID_DEVICE(dataBlockId);
+
+        DataSet dataset = new DataSet();
+
+        int userId = dataBlock.usersTable.Get_UserID_byName(UserName);
+
+        List<PLFUnit.PLFRecord> records = new List<PLFUnit.PLFRecord>();
+        dataset = ReportDataSetLoader.Get_PLF_ALLData(dataBlockIDS,
+            new DateTime(from.Year, from.Month, from.Day), new DateTime(to.Year, to.Month, to.Day),
+            cardID, userId, ref records);
+
+        dataBlock.CloseConnection();
+
+        //gets table PlfHeader_1
+        DataTable dt = dataset.Tables[0];
+        //gets the first row
+        DataRow dr = dt.Rows[0];
+        string dateFrom = dr["С"].ToString();
+        string dateTo = dr["По"].ToString();
+        string regNumber = dr["Регистрационный номер"].ToString();
+        string userName = dr["Имя пользователя"].ToString();
+        string driverNumber = dr["Номер водителя"].ToString();
+        string driverName = dr["Имя водителя"].ToString();
+        string orgName = dr["Название организации"].ToString();
+        string deviceNumber = dr["Номер бортового устройства"].ToString();
+        string logoPath = dr["Путь к фото"].ToString();
+
+        //gets table PLFReport_FullCalendar_Totals
+        DataTable dtTotals = dataset.Tables[2];
+        //gets the first row
+        DataRow drTotals = dtTotals.Rows[0];
+
+        TimeSpan tTotalWorkTime = (TimeSpan)drTotals["Суммарное время работы"];
+        string totalWorkTime = String.Format("{0:00}", (int)tTotalWorkTime.TotalHours) + ":" + String.Format("{0:00}", tTotalWorkTime.Minutes) + ":" + String.Format("{0:00}", tTotalWorkTime.Seconds);
+
+        TimeSpan tMotorWorkTime = (TimeSpan)drTotals["Время работы двигателя"];
+        string motorWorkTime = String.Format("{0:00}", (int)tMotorWorkTime.TotalHours) + ":" + String.Format("{0:00}", tMotorWorkTime.Minutes) + ":" + String.Format("{0:00}", tMotorWorkTime.Seconds);
+
+        TimeSpan tMovement = (TimeSpan)drTotals["Время движения"];
+        string movement = String.Format("{0:00}", (int)tMovement.TotalHours) + ":" + String.Format("{0:00}", tMovement.Minutes) + ":" + String.Format("{0:00}", tMovement.Seconds);
+
+        TimeSpan tMaxMovement = (TimeSpan)drTotals["Максимальное непрерывное время движения"];
+        string maxMovement = String.Format("{0:00}", (int)tMaxMovement.TotalHours) + ":" + String.Format("{0:00}", tMaxMovement.Minutes) + ":" + String.Format("{0:00}", tMaxMovement.Seconds);
+
+        TimeSpan tDowntime = (TimeSpan)drTotals["Время простоя с заведенным двигателем"];
+        string downtime = String.Format("{0:00}", (int)tDowntime.TotalHours) + ":" + String.Format("{0:00}", tDowntime.Minutes) + ":" + String.Format("{0:00}", tDowntime.Seconds);
+
+        TimeSpan tMaxDowntime = (TimeSpan)drTotals["Максимальное непрерывное время простоя"];
+        string maxDowntime = String.Format("{0:00}", (int)tMaxDowntime.TotalHours) + ":" + String.Format("{0:00}", tMaxDowntime.Minutes) + ":" + String.Format("{0:00}", tMaxDowntime.Seconds);
+
+        string maxDistance = drTotals["Максимальный непрерывный пройденный путь"].ToString();
+        double startFuelVolume = (double)drTotals["Объем топлива в баках на начало периода"];
+        double finishFuelVolume = (double)drTotals["Объем топлива в баках на конец периода"];
+        string totalRefills = drTotals["Количество заправок"].ToString();
+        string totalDropout = drTotals["Количество возможных сливов"].ToString();
+        double totalRefillsVolume = (double)drTotals["Всего заправлено топлива"];
+        double totalDropoutVolume = (double)drTotals["Всего возможно слито топлива"];
+
+        //gets table PLFReport_FullCalendar_Refills
+        DataTable dtRefills = dataset.Tables[3];
+
+        double distance = 0;
+
+        double averageSpeed = 0;
+        double maxSpeed = 0;
+
+        double maxFuelValue = 0;
+        double minFuelValue = double.Parse(records[0].FUEL_VOLUME1);
+
+        double maxRPM = 0;
+        double minRPM = double.PositiveInfinity;
+        double averageRPM = 0;
+        double sumRPM = 0;
+        int notZeroRPMCounter = 0;
+
+        double maxVoltage = 0;
+        double minVoltage = double.Parse(records[0].VOLTAGE, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
+        double averageVoltage = 0;
+
+        foreach (PLFUnit.PLFRecord record in records)
+        {
+            distance += double.Parse(record.DISTANCE_COUNTER, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
+            double speed = double.Parse(record.SPEED, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
+            if (speed > maxSpeed)
+            {
+                maxSpeed = speed;
+            }
+
+            double fuelValue = double.Parse(record.FUEL_VOLUME1);
+            if (fuelValue > maxFuelValue)
+            {
+                maxFuelValue = fuelValue;
+            }
+            if (fuelValue < minFuelValue)
+            {
+                minFuelValue = fuelValue;
+            }
+
+            double RPM = double.Parse(record.ENGINE_RPM);
+            if (RPM > maxRPM)
+            {
+                maxRPM = RPM;
+            }
+            if (RPM > 0)
+            {
+                notZeroRPMCounter++;
+                sumRPM += RPM;
+                if (RPM < minRPM)
+                {
+                    minRPM = RPM;
+                }
+            }
+
+            double voltage = double.Parse(record.VOLTAGE, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
+            if (voltage > maxVoltage)
+            {
+                maxVoltage = voltage;
+            }
+            if (voltage < minVoltage)
+            {
+                minVoltage = voltage;
+            }
+
+            averageVoltage += voltage / records.Count;
+        }
+
+        averageSpeed = distance / tMovement.TotalSeconds * 3600;
+
+        averageRPM = sumRPM / notZeroRPMCounter;//timeMovement.TotalSeconds * 60;
+
+
+        const string DROPOUT_ACTION = "Возможный слив";
+
+        string fuelDetails="";
+        foreach (DataRow row in dtRefills.Rows)
+        {
+            fuelDetails+="<tr>";
+
+            string action = row["Заправка/Слив"].ToString();
+            DateTime sDateTime = (DateTime)row["НачВремя"];
+            DateTime fDateTime = (DateTime)row["КонВремя"];
+            double sFuelVolume = (double)row["НачОбъем"];
+            double fFuelVolume = (double)row["КонОбъем"];
+            double diffVolume = fFuelVolume - sFuelVolume;
+
+            string color = "color:#2d469b;";
+            if (action.Equals(DROPOUT_ACTION))
+                color = "color:#ffffff;background-color:#600000;font-weight:bold;";
+
+            fuelDetails+="<td style='width: 20%;border-bottom:1px solid #c8c8c8; border-right: 1px solid #c8c8c8;"+color+"'>";
+            fuelDetails+=action;
+            fuelDetails+="</td>";
+
+            fuelDetails += "<td style='width: 16%;border-bottom:1px solid #c8c8c8; border-right: 1px solid #c8c8c8;" + color + "'>";
+            fuelDetails+=sDateTime.ToString("dd.MM.yyyy HH:mm:ss");
+            fuelDetails+="</td>";
+
+            fuelDetails += "<td style='width: 16%;border-bottom:1px solid #c8c8c8; border-right: 1px solid #c8c8c8;" + color + "'>";
+            fuelDetails+=fDateTime.ToString("dd.MM.yyyy HH:mm:ss");
+            fuelDetails+="</td>";
+
+            fuelDetails += "<td style='width: 16%;border-bottom:1px solid #c8c8c8; border-right: 1px solid #c8c8c8;" + color + "'>";
+            fuelDetails+=String.Format("{0:0.000}", sFuelVolume);
+            fuelDetails+="</td>";
+
+            fuelDetails += "<td style='width: 16%;border-bottom:1px solid #c8c8c8; border-right: 1px solid #c8c8c8;" + color + "'>";
+            fuelDetails+=String.Format("{0:0.000}", fFuelVolume);
+            fuelDetails+="</td>";
+
+            fuelDetails += "<td style='width: 16%;border-bottom:1px solid #c8c8c8; border-right: 1px solid #c8c8c8;" + color + "'>";
+            fuelDetails+=String.Format("{0:0.000}", diffVolume);
+            fuelDetails+="</td>";
+
+
+            fuelDetails+="</tr>";
+        }
+
+
+        string report = "";
+
+        Dictionary<String, String> dict = new Dictionary<string, string>();
+        dict.Add("orgName",orgName);
+        dict.Add("driverName", driverName + " / " + driverNumber);
+        dict.Add("vehicle", vehicle + " / " + deviceID);
+
+        dict.Add("dateFrom", dateFrom);
+        dict.Add("dateTo", dateTo);
+
+        dict.Add("workFrom", records[0].SYSTEM_TIME.GetSystemTime().ToString("dd.MM.yyyy HH:mm:ss"));
+        dict.Add("workTo", records[records.Count - 1].SYSTEM_TIME.GetSystemTime().ToString("dd.MM.yyyy HH:mm:ss"));
+        TimeSpan diff = records[records.Count - 1].SYSTEM_TIME.GetSystemTime().Subtract(records[0].SYSTEM_TIME.GetSystemTime());
+        dict.Add("period", String.Format("{0:0}", (int)diff.TotalHours) + ":" + String.Format("{0:00}", diff.Minutes) + ":" + String.Format("{0:00}", diff.Seconds));
+        dict.Add("totalWorkTime", totalWorkTime);
+        dict.Add("motorWorkTime", motorWorkTime);
+        dict.Add("movement", movement);
+        dict.Add("maxMovement", maxMovement);
+        dict.Add("downtime", downtime);
+        dict.Add("maxDowntime", maxDowntime);
+
+        dict.Add("distance", String.Format("{0:0.000}", distance));
+        dict.Add("maxDistance", String.Format("{0:0.000}", maxDistance));
+        dict.Add("averageSpeed", String.Format("{0:0.000}", averageSpeed));
+        dict.Add("maxSpeed", String.Format("{0:0.000}", maxSpeed));
+
+        dict.Add("averageRPM", String.Format("{0:0}", averageRPM));
+        dict.Add("maxRPM", String.Format("{0:0}", maxRPM));
+        dict.Add("minRPM", String.Format("{0:0}", minRPM));
+
+        dict.Add("averageVoltage", String.Format("{0:0.0}", averageVoltage));
+        dict.Add("maxVoltage", String.Format("{0:0.0}", maxVoltage));
+        dict.Add("minVoltage", String.Format("{0:0.0}", minVoltage));
+
+        dict.Add("startFuelVolume", String.Format("{0:0.000}", startFuelVolume));
+        dict.Add("finishFuelVolume", String.Format("{0:0.000}", finishFuelVolume));
+        dict.Add("maxFuelValue", String.Format("{0:0.000}", maxFuelValue));
+        dict.Add("minFuelValue", String.Format("{0:0.000}", minFuelValue));
+        dict.Add("totalRefills", totalRefills);
+        dict.Add("totalRefillsVolume", String.Format("{0:0.000}", totalRefillsVolume));
+        dict.Add("totalDropout", totalDropout);
+        dict.Add("totalDropoutVolume", String.Format("{0:0.000}", totalDropoutVolume));
+        dict.Add("fuelDetails", fuelDetails);
+
+        //load needed template
+        string path = HttpContext.Current.Server.MapPath("~/templates") + "\\";
+        report=TemplatesUtils.generateHTML(path+"full-report.html",dict);
+
+        Report r = new Report();
+        r.report = report;
+        r.time = new double[records.Count];
+        r.speed = new double[records.Count];
+        r.voltage = new double[records.Count];
+        for (int i=0;i<records.Count;i++)
+        {
+            double t=(records[i].SYSTEM_TIME.GetSystemTime()-new DateTime(1970,1,1,0,0,0)).TotalMilliseconds;
+            r.time[i] = t;
+            r.speed[i]=double.Parse(records[i].SPEED, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
+            r.voltage[i] = double.Parse(records[i].VOLTAGE, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
+        }
+        
+        return r;
+    }
+
 
     DataTable CreateDataSource(List<string> data, int header) //0 - Водители, 1 - ТС, 2 - plf
     {
@@ -580,6 +936,30 @@ public partial class Administrator_Report : System.Web.UI.Page
                                 case "Полный отчет за календарный период":
                                     {
                                         dataset = ReportDataSetLoader.Get_PLF_ALLData(dataBlockIDS, from, to, cardId, userId, ref records);
+                                        DataTable dt = dataset.Tables[0];
+
+                                        foreach (DataRow dr in dt.Rows)
+                                        {
+                                            string value=dr["С"].ToString();
+                                        }
+
+                                        // step 1: creation of a document-object
+                                        iTextSharp.text.Document document = new iTextSharp.text.Document();
+
+                                        // step 2:
+                                        // we create a writer that listens to the document
+                                        // and directs a PDF-stream to a file
+                                        iTextSharp.text.pdf.PdfWriter.GetInstance(document, new FileStream("Chap0101.pdf", FileMode.Create));
+
+                                        // step 3: we open the document
+                                        document.Open();
+
+                                        // step 4: we add a paragraph to the document
+                                        document.Add(new iTextSharp.text.Paragraph("Hello World"));
+
+                                        // step 5: we close the document
+                                        document.Close();
+
                                         LoadStiReport(dataset, "Reports/PLFReports/PlfFullCalendarReport.mrt");
                                     } break;
                                 case "ТС по дням":

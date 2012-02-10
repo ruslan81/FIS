@@ -14,6 +14,19 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "- ##.01.2012" + Environment.NewLine;
+            ReportLabel.Text += @"-  Отчеты/PLF Файлы переделано дерево водителей." + Environment.NewLine;
+            ReportLabel.Text += @"-  Во всех переделанных деревьях убрана рамка вокруг них." + Environment.NewLine;
+            ReportLabel.Text += @"-  Решена проблема с размерами иконок в таблицах раздела Архив данных." + Environment.NewLine;
+            ReportLabel.Text += @"-  Решена проблема с изменением размеров центральной панели (тот баг, что мы видели, но не могли повторить)." + Environment.NewLine;
+
+            ReportLabel.Text += Environment.NewLine + "- 22.12.2011" + Environment.NewLine;
+            ReportLabel.Text += @"-  1. Переименованы названия общих настроек в БД с английского на русский." + Environment.NewLine;
+            ReportLabel.Text += @"-  2. Завершена работа над разделом Группы: отображение данных и их изменение (Редактировать, Удалить, Создать, Сохранить, Отмена)" + Environment.NewLine;
+            ReportLabel.Text += @"-  3. Завершена работа над разделом Водители: отображение данных и их изменение (Редактировать, Удалить, Создать, Сохранить, Отмена)" + Environment.NewLine;
+            ReportLabel.Text += @"-  4. Завершена работа над разделом ТС: отображение данных и их изменение (Редактировать, Удалить, Создать, Сохранить, Отмена)" + Environment.NewLine;
+            ReportLabel.Text += @"-  5. Завершена работа над разделом Установки по умолчанию: отображение данных и их изменение (Редактировать, Сохранить, Отмена)" + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "- 18.12.2011" + Environment.NewLine;
             ReportLabel.Text += @"-  Завершена работа над разделом Архив/Загрузить на сервер" + Environment.NewLine;
             ReportLabel.Text += @"  -  Как оказалось файлы после загрузки на сервер сразу не разбираются, они просто добавляются в БД + несколько других записей." + Environment.NewLine;
