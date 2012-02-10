@@ -129,7 +129,7 @@ public partial class Administrator_Report : System.Web.UI.Page
     /// </summary>
     /// <returns></returns>
     [System.Web.Services.WebMethod]
-    public static List<PLFFilesTreeItem> GetPLFFilesTree(String OrgID)
+    /*public static List<PLFFilesTreeItem> GetPLFFilesTree(String OrgID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
@@ -491,7 +491,7 @@ public partial class Administrator_Report : System.Web.UI.Page
             dt.Rows.Add(dr);
         }
         return dt;
-    }
+    }*/
 
     private void Load_Vehicles()
     {

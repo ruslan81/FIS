@@ -165,6 +165,7 @@ button
     border-radius:none;
     padding-left:5px;
     height:22px;
+    font-size:12px;
     width:90%;
 }
 
@@ -182,7 +183,6 @@ button
 	font-size:11px;
 	width:90%;
 }
-
 
 .remove-icon
 {
@@ -211,4 +211,10 @@ button
 .ui-widget-content
 {
     border:none;
+}
+
+.wijmo-wijlist-ul
+{
+	background-color: #e4e4e4;
+	border: 1px solid #ccc;
 }

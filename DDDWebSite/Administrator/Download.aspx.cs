@@ -51,7 +51,7 @@ public partial class Administrator_download : System.Web.UI.Page
         }
 
         //Section "PLF Файлы"
-        if (Type == GET_REPORT)
+        /*if (Type == GET_REPORT)
         {
             String CardID=Request.Form.Get("CardID");
             String PLFID=Request.Form.Get("PLFID");
@@ -808,6 +808,6 @@ public partial class Administrator_download : System.Web.UI.Page
             Response.ContentType = "application/octet-stream";
             Response.OutputStream.Write(ms.GetBuffer(), 0, ms.GetBuffer().Length);
             Response.End();
-        }
+        }*/
     }
 }
