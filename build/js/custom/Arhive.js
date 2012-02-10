@@ -269,6 +269,7 @@ function onOverlookNodeSelected(e, data) {
     cardID = $("a span", data.element).attr("key");
     if (cardID == "None"){
         cardID = null;
+        resizeReports();
         return;
     }
     //cardID = "135";
@@ -282,6 +283,8 @@ function onOverlookNodeSelected(e, data) {
         $("#periodSelection").hide();
         $("#main-conditions").hide();
     }
+
+    resizeReports();
 }
 
 function onClickBuildReport() {
@@ -393,6 +396,8 @@ function destroyPeriodControls() {
     //$("#buildButton").button("destroy");
     $("#periodSelection").hide();
     $("#contentTable").hide();
+    $("#main-conditions").hide();
+    resizeReports();
 }
 
 function loadUnparsedDataBlocks() {

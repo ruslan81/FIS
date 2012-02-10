@@ -1,4 +1,4 @@
-﻿<%@ page language="C#" masterpagefile="~/MasterPage/MasterPage.Master" autoeventwireup="true" inherits="Administrator_Settings, App_Web_xcnr22yy" %>
+﻿<%@ page language="C#" masterpagefile="~/MasterPage/MasterPage.Master" autoeventwireup="true" inherits="Administrator_Settings, App_Web_h5cd2tc2" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="Settings_UserControls/GeneralTab.ascx" TagName="GeneralTab" TagPrefix="uc1" %>
@@ -123,12 +123,12 @@
             </td>
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
-                    <input id="nameinput{{html grID}}" value="{{html Name}}" class="inputField-readonly" readonly="readonly"/>
+                    <input id="nameinput{{html grID}}" value="{{html Name}}" class="inputField-readonly input" readonly="readonly"/>
                 </div>
             </td>
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
-                    <input id="commentinput{{html grID}}" value="{{html Comment}}" class="inputField-readonly" readonly="readonly"/>
+                    <input id="commentinput{{html grID}}" value="{{html Comment}}" class="inputField-readonly input" readonly="readonly"/>
                 </div>
             </td>
             <td class="wijgridtd wijdata-type-string">
@@ -187,18 +187,18 @@
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
                     <center>
-                   <input id="numberinput{{html grID}}" value="{{html Number}}" class="inputField-readonly" readonly="readonly"/>
+                   <input id="numberinput{{html grID}}" value="{{html Number}}" class="inputField-readonly input" readonly="readonly"/>
                     </center>
                 </div>
             </td>
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
-                    <input id="nameinput{{html grID}}" value="{{html Name}}" class="inputField-readonly" readonly="readonly"/>
+                    <input id="nameinput{{html grID}}" value="{{html Name}}" class="inputField-readonly input" readonly="readonly"/>
                 </div>
             </td>
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
-                    <input id="commentinput{{html grID}}" value="{{html Comment}}" class="inputField-readonly" readonly="readonly"/>
+                    <input id="commentinput{{html grID}}" value="{{html Comment}}" class="inputField-readonly input" readonly="readonly"/>
                 </div>
             </td>
             <td class="wijgridtd wijdata-type-string">
@@ -251,27 +251,27 @@
             </td>
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
-                    <input value="{{html CriteriaName}}" id="CriteriaName{{html keyID}}" class="inputField-readonly" readonly="readonly"/>
+                    <input value="{{html CriteriaName}}" id="CriteriaName{{html keyID}}" class="inputField-readonly input" readonly="readonly"/>
                 </div>
             </td>
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
-                    <input value="{{html MeasureName}}" id="MeasureName{{html keyID}}" class="inputField-readonly" readonly="readonly"/>
+                    <input value="{{html MeasureName}}" id="MeasureName{{html keyID}}" class="inputField-readonly input" readonly="readonly"/>
                 </div>
             </td>
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
-                    <input value="{{html MinValue}}" id="MinValue{{html keyID}}" class="inputField-readonly" readonly="readonly"/>
+                    <input value="{{html MinValue}}" id="MinValue{{html keyID}}" class="inputField-readonly input" readonly="readonly"/>
                 </div>
             </td>
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
-                    <input value="{{html MaxValue}}" id="MaxValue{{html keyID}}" class="inputField-readonly" readonly="readonly"/>
+                    <input value="{{html MaxValue}}" id="MaxValue{{html keyID}}" class="inputField-readonly input" readonly="readonly"/>
                 </div>
             </td>
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
-                    <input value="{{html CriteriaNote}}" id="CriteriaNote{{html keyID}}" class="inputField-readonly" readonly="readonly"/>
+                    <input value="{{html CriteriaNote}}" id="CriteriaNote{{html keyID}}" class="inputField-readonly input" readonly="readonly"/>
                 </div>
             </td>
         </tr>

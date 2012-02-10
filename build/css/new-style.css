@@ -168,9 +168,8 @@ button
     width:90%;
 }
 
-#contentTable input
+#contentTable .input
 {
-	background-color:#fff;
 	font-family:Tahoma;
 	font-size:11px;
 	width:90%;
@@ -199,4 +198,9 @@ button
     background-image: url(icons/loading.gif);
     width:48px;
     height:48px;
+}
+
+.ui-widget-content
+{
+    border:none;
 }
