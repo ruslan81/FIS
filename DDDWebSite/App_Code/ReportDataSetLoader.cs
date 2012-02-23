@@ -51,7 +51,7 @@ public class ReportDataSetLoader
         DataSet dataSet = new DataSet();
 
         dataSet.Tables.Add(ReportDataLoader.WeeklyDriverActivityProtocol_DataForReportNEW(cardActivity, cardVehicleUsed));
-        dataSet.Tables.Add(PlfReportsDataTables.Get_PlfHeader_1(from, to, DriversCardId, curUserId, "", "", ""));       
+        dataSet.Tables.Add(PlfReportsDataTables.Get_PlfHeader_1(from, to, DriversCardId, curUserId, "", "", ""));
 
         return dataSet;
     }
@@ -230,10 +230,10 @@ public class ReportDataSetLoader
         dataBlock.OpenConnection();
         plf.Records = dataBlock.plfUnitInfo.Get_Records(dataBlockIds, from, to, DriversCardId);
         //Тест сглаживания!
-        List<PLFUnit.PLFRecord> recordsToAproximate = new List<PLFUnit.PLFRecord>();
-        recordsToAproximate = plf.Records;
-        PLFUnit.PLFUnitClass.FFT_Fuel(ref recordsToAproximate);
-        plf.Records = recordsToAproximate;
+        //List<PLFUnit.PLFRecord> recordsToAproximate = new List<PLFUnit.PLFRecord>();
+        //recordsToAproximate = plf.Records;
+        //PLFUnit.PLFUnitClass.FFT_Fuel(ref recordsToAproximate);
+        //plf.Records = recordsToAproximate;
         //
 
         if (dataBlockIds.Count > 0)
@@ -245,16 +245,23 @@ public class ReportDataSetLoader
             plf.VEHICLE = dataBlock.plfUnitInfo.Get_VEHICLE(dataBlockIds[0]);
         }
         else
-            throw new Exception("Нельзя расчитать значения для отчета, не задан Шаг Времени");
+        {
+            //throw new Exception("Нельзя расчитать значения для отчета, не задан Шаг Времени");
+        }
+
         dataBlock.CloseConnection();
         DataSet dataSet = new DataSet();
+        if (dataBlockIds.Count <= 0)
+        {
+            return dataSet;
+        }
         string vehRegNumber = plf.VEHICLE;
         string vehDeviceNumber = plf.ID_DEVICE;
-       
+
         dataSet.Tables.Add(PlfReportsDataTables.Get_PlfHeader_1(from, to, DriversCardId, curUserId, vehRegNumber, vehDeviceNumber, ""));
         dataSet.Tables.Add(PlfReportsDataTables.PlfReport_FullCalendar(records));
-        dataSet.Tables.Add(PlfReportsDataTables.PlfReport_FullCalendar_Totals(plf));
-        dataSet.Tables.Add(PlfReportsDataTables.PlfReport_FullCalendar_Refills(plf));
+        //dataSet.Tables.Add(PlfReportsDataTables.PlfReport_FullCalendar_Totals(plf));
+        //dataSet.Tables.Add(PlfReportsDataTables.PlfReport_FullCalendar_Refills(plf));
 
         return dataSet;
     }
@@ -316,7 +323,7 @@ public class ReportDataSetLoader
 
         dataset.Tables.Add(PlfReportsDataTables.Get_PlfHeader_1(from, to, DriversCardId, curUserId, vehDeviceNumber, vehRegNumber, ""));
         dataset.Tables.Add(PlfReportsDataTables.PlfReport_Efficiency_ByDays(plf, driversName));
-        
+
         return dataset;
     }
 
@@ -347,9 +354,9 @@ public class ReportDataSetLoader
             if (plfUnit.Records.Count == 0)
                 continue;
             activityReport = new DataTable();
-           // dataset.Tables.Add(PlfReportsDataTables.PlfReport_Efficiency_ByDays_Header(orgName, from, to, plfUnit.Records[0].SYSTEM_TIME.GetSystemTime()));
+            // dataset.Tables.Add(PlfReportsDataTables.PlfReport_Efficiency_ByDays_Header(orgName, from, to, plfUnit.Records[0].SYSTEM_TIME.GetSystemTime()));
             dataset.Tables.Add(new DataTable(SYSTEM_DELAY_TABLES + Guid.NewGuid().ToString()));
-          //  dataset.Tables.Add(PlfReportsDataTables.PlfReport_Efficiency_ByDays(plfUnit, driversName));
+            //  dataset.Tables.Add(PlfReportsDataTables.PlfReport_Efficiency_ByDays(plfUnit, driversName));
             dataset.Tables.Add(SYSTEM_NEXT_PAGE + Guid.NewGuid().ToString());
         }
 
@@ -373,7 +380,7 @@ public class ReportDataSetLoader
 
     private static DataTable Get_SimpleDateHeader(DateTime from, DateTime to)
     {
-        DataTable activityTable = new DataTable("SimpleDateHeader_"+Guid.NewGuid().ToString());
+        DataTable activityTable = new DataTable("SimpleDateHeader_" + Guid.NewGuid().ToString());
         string fromStr = from.ToShortDateString();
         string toStr = to.ToShortDateString();
         string Col_1 = "Период c " + fromStr + " по " + toStr;
@@ -388,7 +395,7 @@ public class ReportDataSetLoader
         string fromStr = from.ToShortDateString();
         string toStr = to.ToShortDateString();
         string Col_1 = "Период c " + fromStr + " по " + toStr;
-        string Col_2 = "Дата " + current.ToLongDateString(); 
+        string Col_2 = "Дата " + current.ToLongDateString();
         activityTable.Columns.Add(new DataColumn(Col_1, typeof(string)));
         activityTable.Columns.Add(new DataColumn(Col_2, typeof(string)));
         dr = activityTable.NewRow();
@@ -400,5 +407,5 @@ public class ReportDataSetLoader
         return activityTable;
     }
 
-  
+
 }

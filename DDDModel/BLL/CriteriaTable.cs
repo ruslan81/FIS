@@ -103,14 +103,14 @@ namespace BLL
         public CriteriaTable LoadCriteria(int keyId)
         {
             KeyId = keyId;
-            sqlDB.OpenConnection();
+            //sqlDB.OpenConnection();
             CriteriaName = sqlDB.GetString(sqlDB.GetCriteriaNameId(keyId), CurrentLanguage);
             CriteriaNote = sqlDB.GetString(sqlDB.GetCriteriaNoteId(keyId), CurrentLanguage);
             MinValue = sqlDB.GetCriteriaMinValue(keyId);
             MaxValue = sqlDB.GetCriteriaMaxValue(keyId);
             MeasureId = sqlDB.GetCriteriaMeasureId(keyId);
             MeasureName = sqlDB.GetString(sqlDB.GetMeasureFullNameId(MeasureId), CurrentLanguage);
-            sqlDB.CloseConnection();
+            //sqlDB.CloseConnection();
             return this;
         }
         /// <summary>
