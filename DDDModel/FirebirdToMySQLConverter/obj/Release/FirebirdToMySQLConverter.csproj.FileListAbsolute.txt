@@ -107,3 +107,4 @@ D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\bin\Release\CardU
 D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\obj\Release\ResolveAssemblyReference.cache
 D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\obj\Release\FirebirdToMySQLConverter.dll
 D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\obj\Release\FirebirdToMySQLConverter.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\bin\Release\FirebirdToMySQLConverter.XML
