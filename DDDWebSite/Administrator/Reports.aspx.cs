@@ -129,7 +129,7 @@ public partial class Administrator_Report : System.Web.UI.Page
     /// </summary>
     /// <returns></returns>
     [System.Web.Services.WebMethod]
-    /*public static List<PLFFilesTreeItem> GetPLFFilesTree(String OrgID)
+    public static List<PLFFilesTreeItem> GetPLFFilesTree(String OrgID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
@@ -354,9 +354,23 @@ public partial class Administrator_Report : System.Web.UI.Page
             averageVoltage += voltage / records.Count;
         }
 
-        averageSpeed = distance / tMovement.TotalSeconds * 3600;
+        if (tMovement.TotalSeconds != 0)
+        {
+            averageSpeed = distance / tMovement.TotalSeconds * 3600;
+        }
+        else
+        {
+            averageSpeed = 0;
+        }
 
-        averageRPM = sumRPM / notZeroRPMCounter;//timeMovement.TotalSeconds * 60;
+        if (notZeroRPMCounter != 0)
+        {
+            averageRPM = sumRPM / notZeroRPMCounter;//timeMovement.TotalSeconds * 60;
+        }
+        else
+        {
+            averageRPM = 0;
+        }
 
 
         const string DROPOUT_ACTION = "Возможный слив";
@@ -410,8 +424,10 @@ public partial class Administrator_Report : System.Web.UI.Page
 
         Dictionary<String, String> dict = new Dictionary<string, string>();
         dict.Add("orgName",orgName);
-        dict.Add("driverName", driverName + " / " + driverNumber);
-        dict.Add("vehicle", vehicle + " / " + deviceID);
+        dict.Add("driverName", driverName);
+        dict.Add("driverNumber", driverNumber);
+        dict.Add("vehicle", vehicle);
+        dict.Add("vehicleRegNumber", deviceID);
 
         dict.Add("dateFrom", dateFrom);
         dict.Add("dateTo", dateTo);
@@ -459,13 +475,18 @@ public partial class Administrator_Report : System.Web.UI.Page
         r.time = new double[records.Count];
         r.speed = new double[records.Count];
         r.voltage = new double[records.Count];
+        r.rpm = new double[records.Count];
+        r.fuel = new double[records.Count];
         for (int i=0;i<records.Count;i++)
         {
             double t=(records[i].SYSTEM_TIME.GetSystemTime()-new DateTime(1970,1,1,0,0,0)).TotalMilliseconds;
             r.time[i] = t;
             r.speed[i]=double.Parse(records[i].SPEED, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
             r.voltage[i] = double.Parse(records[i].VOLTAGE, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
+            r.rpm[i] = double.Parse(records[i].ENGINE_RPM, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
+            r.fuel[i] = Math.Round(double.Parse(records[i].FUEL_VOLUME1),1);
         }
+        r.period = new DateTime(from.Year, from.Month, from.Day).ToShortDateString() + " - " + new DateTime(to.Year, to.Month, to.Day).ToShortDateString();
         
         return r;
     }
@@ -491,7 +512,7 @@ public partial class Administrator_Report : System.Web.UI.Page
             dt.Rows.Add(dr);
         }
         return dt;
-    }*/
+    }
 
     private void Load_Vehicles()
     {

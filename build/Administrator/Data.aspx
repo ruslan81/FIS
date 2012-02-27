@@ -1,4 +1,4 @@
-﻿<%@ page language="C#" masterpagefile="~/MasterPage/MasterPage.Master" autoeventwireup="true" inherits="Administrator_Data, App_Web_h5cd2tc2" enableeventvalidation="false" %>
+﻿<%@ page language="C#" masterpagefile="~/MasterPage/MasterPage.Master" autoeventwireup="true" inherits="Administrator_Data, App_Web_prjv44ea" enableeventvalidation="false" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControlsForAll/BlueButton.ascx" TagName="BlueButton" TagPrefix="uc2" %>
@@ -539,7 +539,7 @@
                 <asp:ImageButton ID="ChangeDrNumber_Cancel" runat="server" OnClick="makeChangeDriversInfo_cancel"
                     ToolTip="Отмена" ImageUrl="~/images/icons/button_cancel.png" Width="3%" />
             </asp:Panel>
-            <br />
+            <br/>
         </ContentTemplate>
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="ChangeDrName_OK" EventName="Click" />

@@ -51,7 +51,7 @@ public partial class Administrator_download : System.Web.UI.Page
         }
 
         //Section "PLF Файлы"
-        /*if (Type == GET_REPORT)
+        if (Type == GET_REPORT)
         {
             String CardID=Request.Form.Get("CardID");
             String PLFID=Request.Form.Get("PLFID");
@@ -199,9 +199,23 @@ public partial class Administrator_download : System.Web.UI.Page
                 averageVoltage += voltage / records.Count;
             }
 
-            averageSpeed = distance / tMovement.TotalSeconds * 3600;
+            if (tMovement.TotalSeconds != 0)
+            {
+                averageSpeed = distance / tMovement.TotalSeconds * 3600;
+            }
+            else
+            {
+                averageSpeed = 0;
+            }
 
-            averageRPM = sumRPM / notZeroRPMCounter;//timeMovement.TotalSeconds * 60;
+            if (notZeroRPMCounter != 0)
+            {
+                averageRPM = sumRPM / notZeroRPMCounter;//timeMovement.TotalSeconds * 60;
+            }
+            else
+            {
+                averageRPM = 0;
+            }
 
             // step 1: creation of a document-object
             iTextSharp.text.Document document = new iTextSharp.text.Document(iTextSharp.text.PageSize.A4, 50, 50, 70, 50);
@@ -248,15 +262,27 @@ public partial class Administrator_download : System.Web.UI.Page
             p.SpacingBefore = 20;
             document.Add(p);
 
-            p = new iTextSharp.text.Paragraph(new iTextSharp.text.Chunk("Водитель: ",
+            p = new iTextSharp.text.Paragraph(new iTextSharp.text.Chunk("Имя водителя: ",
                 new iTextSharp.text.Font(tahoma, 12, iTextSharp.text.Font.NORMAL, textColor)));
-            p.Add(new iTextSharp.text.Chunk(driverName + " / " + driverNumber,
+            p.Add(new iTextSharp.text.Chunk(driverName,
+                new iTextSharp.text.Font(tahoma, 12, iTextSharp.text.Font.BOLD, normalColor)));
+            document.Add(p);
+
+            p = new iTextSharp.text.Paragraph(new iTextSharp.text.Chunk("Номер водителя: ",
+                new iTextSharp.text.Font(tahoma, 12, iTextSharp.text.Font.NORMAL, textColor)));
+            p.Add(new iTextSharp.text.Chunk(driverNumber,
                 new iTextSharp.text.Font(tahoma, 12, iTextSharp.text.Font.BOLD, normalColor)));
             document.Add(p);
 
             p = new iTextSharp.text.Paragraph(new iTextSharp.text.Chunk("Транспортное средство: ",
                 new iTextSharp.text.Font(tahoma, 12, iTextSharp.text.Font.NORMAL, textColor)));
-            p.Add(new iTextSharp.text.Chunk(vehicle + " / " + deviceID,
+            p.Add(new iTextSharp.text.Chunk(vehicle,
+                new iTextSharp.text.Font(tahoma, 12, iTextSharp.text.Font.BOLD, normalColor)));
+            document.Add(p);
+
+            p = new iTextSharp.text.Paragraph(new iTextSharp.text.Chunk("Регистрационный номер ТС: ",
+                new iTextSharp.text.Font(tahoma, 12, iTextSharp.text.Font.NORMAL, textColor)));
+            p.Add(new iTextSharp.text.Chunk(deviceID,
                 new iTextSharp.text.Font(tahoma, 12, iTextSharp.text.Font.BOLD, normalColor)));
             document.Add(p);
 
@@ -808,6 +834,6 @@ public partial class Administrator_download : System.Web.UI.Page
             Response.ContentType = "application/octet-stream";
             Response.OutputStream.Write(ms.GetBuffer(), 0, ms.GetBuffer().Length);
             Response.End();
-        }*/
+        }
     }
 }

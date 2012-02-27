@@ -1,4 +1,4 @@
-<%@ master language="C#" autoeventwireup="true" inherits="MasterPage, App_Web_cxd5yimm" %>
+<%@ master language="C#" autoeventwireup="true" inherits="MasterPage, App_Web_ohdrpb13" %>
 
 <%@ Register src="../UserControlsForAll/BlueButton.ascx" tagname="BlueButton" tagprefix="uc2" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
@@ -54,7 +54,7 @@
             var curHeight = getClientHeight() - 51;
             var contentHeight = curHeight - 112;
             var mainContent = contentHeight - 56;
-            var outputHeight = mainContent - 120;
+            var outputHeight = mainContent - 155;
             document.getElementById('all').style.height = curHeight + "px"; //Устанавливаем для Div id=All высоту рабочего пространства экрана.
             document.getElementById('content').style.height = contentHeight + "px";
             document.getElementById('vertical-menu').style.height = mainContent + "px";

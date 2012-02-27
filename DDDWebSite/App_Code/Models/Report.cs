@@ -12,6 +12,9 @@ public class Report
     public double[] speed { get; set; }
     public double[] time { get; set; }
     public double[] voltage { get; set; }
+    public double[] rpm { get; set; }
+    public double[] fuel { get; set; }
+    public string period { get; set; }
 
 	public Report()
 	{
