@@ -45,6 +45,18 @@ function onPLFFilesNodeSelected(e, data) {
 
             $("#getReport").button();
 
+            $("#report").empty();
+            $("#tmplLoadingPLFFile").tmpl({}).appendTo("#report");
+
+            if (chart != null) {
+                chart.destroy();
+            }
+            chart = null;
+            $("#chart").empty();
+            $("#tmplLoadingPLFFile").tmpl({}).appendTo("#chart");
+
+            plfData = null;
+
             $.ajax({
                 type: "POST",
                 //Page Name (in which the method should be called) and method name
@@ -54,119 +66,15 @@ function onPLFFilesNodeSelected(e, data) {
                 dataType: "json",
                 success: function (result) {
                     $("#report").empty();
+                    $("#chart").empty();
+
                     $('#report').html(result.d.report);
 
-                    var chart = new Highcharts.Chart({
-                        chart: {
-                            renderTo: 'chart',
-                            zoomType: 'x',
-                            marginLeft:35
-                        },
-                        title: {
-                            text: '19.09.2003 - 07.10.2003'
-                        },
-                        subtitle: {
-                            text: 'нажмите и перетащите в области графика, чтобы увеличить'
-                        },
-                        xAxis: {
-                            type: 'datetime',
-                            maxZoom: 1000 * 60 * 10,
-                            gridLineWidth: 1,
-                            title: {
-                                text: null
-                            }
-                        },
-                        yAxis: [
-                            {
-                                title: {
-                                    text:null
-                                },
-                                opposite: true
-                            },
-                            {
-                                title: {
-                                    text: null
-                                }
-                            }
-                        ],
-                        tooltip: {
-                            
-                            shared: true,
-                            crosshairs: true    
-                        },
-                        legend: {
-                            align: 'left',
-                            verticalAlign: 'top',
-                            y: 20,
-                            x: 20,
-                            floating: true,
-                            borderWidth: 0
-                        },
-                        plotOptions: {
-                            area: {
-                                fillOpacity:0.35,
-                                lineWidth: 1,
-                                marker: {
-                                    enabled: false,
-                                    states: {
-                                        hover: {
-                                            enabled: true,
-                                            radius: 5
-                                        }
-                                    }
-                                },
-                                shadow: false,
-                                states: {
-                                    hover: {
-                                        lineWidth: 1
-                                    }
-                                }
-                            },
-                            marker: {
-                                lineWidth: 2
-                            }
-                        },
-                        credits: {
-                            enabled: true,
-                            align: 'right',
-	                        verticalAlign: 'bottom'
-                        },
-                        series: []
-                    });
+                    plfData = result;
 
-                    var data = [];
-                    for (var i = 0; i < result.d.time.length; i++) {
-                        var x = result.d.time[i];
-                        var y = result.d.speed[i];
-                        data.push({
-                            x: x,
-                            y: y
-                        });
+                    if (currentTab == 1) {
+                        createCharts(plfData);
                     }
-                    chart.addSeries({
-                        name:'Скорость',
-                        type: 'area',
-                        yAxis: 0,
-                        data: data
-                    });
-
-                    data = [];
-                    for (var i = 0; i < result.d.time.length; i++) {
-                        var x = result.d.time[i];
-                        var y = result.d.voltage[i];
-                        data.push({
-                            x: x,
-                            y: y
-                        });
-                    }
-                    chart.addSeries({
-                        name: 'Напряжение',
-                        type: 'area',
-                        yAxis: 1,
-                        data: data
-                    });
-
-                    resizeReports();
                 }
             });
         } else {
@@ -181,4 +89,162 @@ function onPLFFilesNodeSelected(e, data) {
         $("#report").empty();
         $("#chart").empty();
     }
+}
+
+function createCharts(result) {
+    chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'chart',
+            zoomType: 'x',
+            marginLeft: 35
+        },
+        title: {
+            text: result.d.period
+        },
+        subtitle: {
+            text: ' '
+        },
+        xAxis: {
+            type: 'datetime',
+            maxZoom: 1000 * 60 * 10,
+            gridLineWidth: 1,
+            title: {
+                text: null
+            }
+        },
+        yAxis: [
+                    {
+                        title: {
+                            text: null
+                        },
+                        opposite: true
+                    },
+                    {
+                        title: {
+                            text: null
+                        }
+                    },
+                    {
+                        title: {
+                            text: null
+                        },
+                        opposite: true
+                    },
+                    {
+                        title: {
+                            text: null
+                        },
+                        opposite: true
+                    }
+                ],
+        tooltip: {
+
+            shared: true,
+            crosshairs: true
+        },
+        legend: {
+            align: 'left',
+            verticalAlign: 'top',
+            y: 20,
+            x: 20,
+            floating: true,
+            borderWidth: 0
+        },
+        plotOptions: {
+            area: {
+                fillOpacity: 0.5,
+                lineWidth: 1,
+                marker: {
+                    enabled: false,
+                    states: {
+                        hover: {
+                            enabled: true,
+                            radius: 5
+                        }
+                    }
+                },
+                shadow: false,
+                states: {
+                    hover: {
+                        lineWidth: 1
+                    }
+                }
+            },
+            marker: {
+                lineWidth: 2
+            }
+        },
+        credits: {
+            enabled: true,
+            align: 'right',
+            verticalAlign: 'bottom'
+        },
+        series: []
+    });
+
+    var data = [];
+    for (var i = 0; i < result.d.time.length; i++) {
+        var x = result.d.time[i];
+        var y = result.d.speed[i];
+        data.push({
+            x: x,
+            y: y
+        });
+    }
+    chart.addSeries({
+        name: 'Скорость',
+        type: 'area',
+        yAxis: 0,
+        data: data
+    });
+
+    data = [];
+    for (var i = 0; i < result.d.time.length; i++) {
+        var x = result.d.time[i];
+        var y = result.d.voltage[i];
+        data.push({
+            x: x,
+            y: y
+        });
+    }
+    chart.addSeries({
+        name: 'Напряжение',
+        type: 'area',
+        yAxis: 1,
+        data: data
+    });
+
+    data = [];
+    for (var i = 0; i < result.d.time.length; i++) {
+        var x = result.d.time[i];
+        var y = result.d.rpm[i];
+        data.push({
+            x: x,
+            y: y
+        });
+    }
+    chart.addSeries({
+        name: 'RPM',
+        type: 'area',
+        yAxis: 2,
+        data: data
+    });
+
+    data = [];
+    for (var i = 0; i < result.d.time.length; i++) {
+        var x = result.d.time[i];
+        var y = result.d.fuel[i];
+        data.push({
+            x: x,
+            y: y
+        });
+    }
+    chart.addSeries({
+        name: 'Уровень топлива',
+        type: 'area',
+        yAxis: 3,
+        data: data
+    });
+
+    resizeReports();
 }

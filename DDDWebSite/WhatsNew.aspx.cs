@@ -14,7 +14,13 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
-            ReportLabel.Text += Environment.NewLine + "- ##.01.2012" + Environment.NewLine;
+            ReportLabel.Text += Environment.NewLine + "- 13.02.2012" + Environment.NewLine;
+            ReportLabel.Text += @"-  Завершена работа над разделом Отчеты/PLF Файлы" + Environment.NewLine;
+            ReportLabel.Text += @"-  Упрощен ПИ, оставлены только самые востребованные возможности." + Environment.NewLine;
+            ReportLabel.Text += @"-  Отображение отчета по выбранному plf-файлу на странице и в виде PDF." + Environment.NewLine;
+            ReportLabel.Text += @"-  Отображение графиков по значениям выбранного plf-файла (Скорость, Напряжение, RPM, Уровень топлива)." + Environment.NewLine;
+
+            ReportLabel.Text += Environment.NewLine + "- 12.01.2012" + Environment.NewLine;
             ReportLabel.Text += @"-  Отчеты/PLF Файлы переделано дерево водителей." + Environment.NewLine;
             ReportLabel.Text += @"-  Во всех переделанных деревьях убрана рамка вокруг них." + Environment.NewLine;
             ReportLabel.Text += @"-  Решена проблема с размерами иконок в таблицах раздела Архив данных." + Environment.NewLine;

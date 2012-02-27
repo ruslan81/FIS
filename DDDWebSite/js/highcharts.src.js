@@ -6120,7 +6120,8 @@ function Chart(options, callback) {
 			// build the header
 			s = useHeader ?
 				['<span style="font-size: 10px">' +
-				(isDateTime ? dateFormat('%A, %b %e, %Y', x) :  x) +
+			    //(isDateTime ? dateFormat('%A, %b %e, %Y', x) :  x) +
+                (isDateTime ? dateFormat('%d.%m.%Y %H:%M:%S', x) : x) +
 				'</span>'] : [];
 
 			// build the values

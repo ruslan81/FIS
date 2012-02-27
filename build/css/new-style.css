@@ -165,6 +165,7 @@ button
     border-radius:none;
     padding-left:5px;
     height:22px;
+    font-size:12px;
     width:90%;
 }
 
@@ -175,6 +176,13 @@ button
 	width:90%;
 }
 
+#RemindControlsTable input
+{
+	background-color:#fff;
+	font-family:Tahoma;
+	font-size:11px;
+	width:90%;
+}
 
 .remove-icon
 {
@@ -203,4 +211,19 @@ button
 .ui-widget-content
 {
     border:none;
+}
+
+.wijmo-wijlist-ul
+{
+	background-color: #e4e4e4;
+	border: 1px solid #ccc;
+}
+
+.item-detail
+{
+    margin-left: 5px;
+    background-color: white;
+    border: 1px solid #CCC;
+    border-radius: 5px;
+    padding: 10px;
 }

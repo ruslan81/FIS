@@ -1,4 +1,4 @@
-﻿<%@ page language="C#" masterpagefile="~/MasterPage/MasterPage.Master" autoeventwireup="true" inherits="Administrator_Report, App_Web_h5cd2tc2" %>
+﻿<%@ page language="C#" masterpagefile="~/MasterPage/MasterPage.Master" autoeventwireup="true" inherits="Administrator_Report, App_Web_prjv44ea" %>
 
 <%@ Register Assembly="StatefullScrollPanel" Namespace="CustomControls" TagPrefix="asp" %>
 <%@ Register Src="Reports_UserControls/NavigationReportControl.ascx" TagName="NavigationReportControl"
@@ -20,6 +20,10 @@
     runat="server">
 
     <script type="text/javascript">
+        var chart=null;
+        var plfData = null;
+        var currentTab = 0;
+
         //run on page load
         $(function () {
 
@@ -28,7 +32,20 @@
                     //Раздел PLF Файлы (Датчики)
                     if ($("a", ui.newHeader).text() == "PLF Файлы (Датчики)") {
                         loadPLFFilesTree();
-                        $('#tabs').tabs();
+                        $("#tabs").tabs({ show: function (e, ui) {
+                            if (ui.index == 0) {
+                                currentTab = 0;
+                            }
+                            if (ui.index == 1) {
+                                currentTab = 1;
+                                if (chart == null) {
+                                    if (plfData != null) {
+                                        createCharts(plfData);
+                                    }
+                                }
+                            }
+                        }
+                        });
                     };
                 }
             });
@@ -45,11 +62,12 @@
         });
 
         function resizeReports() {
-            var reportPanelHeight = document.getElementById('outputId').style.height;
-            reportPanelHeight = reportPanelHeight.substring(0, reportPanelHeight.length - 2);
-            document.getElementById('tabs').style.height = reportPanelHeight - 7 + "px";
-            document.getElementById('report').style.height = reportPanelHeight - 7 - 50 + "px";
-            document.getElementById('chart').style.height = reportPanelHeight - 7 - 50 + "px";
+            var outHeight = $("#main-content").height() -155 + 37;
+            $("#outputId").height(outHeight);
+            $("#outputId-content").height(outHeight);
+            document.getElementById('tabs').style.height = outHeight - 5 + "px";
+            document.getElementById('report').style.height = outHeight - 5 - 50 + "px";
+            document.getElementById('chart').style.height = outHeight - 5 - 50 + "px";
             document.getElementById('chart').style.width = $('#outputId').width() - 35 + "px";
             /*document.getElementById('ctl00_Reports_PlaceHolder_NavigationReportControl1_ScrollPanel').style.height = reportPanelHeight - 70 + "px";
 
@@ -95,15 +113,19 @@
         </div>
     </script>
 
+    <script id="tmplLoadingPLFFile" type="text/x-jquery-tmpl">
+        <center>
+            <div class="loading-icon" style="margin-top:20px">
+            </div>
+        </center>
+    </script>
+
     <script id="tmplChoosePLFFile" type="text/x-jquery-tmpl">
         <div style="float:left">
-            <div>
-                Вы выбрали: 
-            </div>
-            <div style="margin-left:20px;">
+            <div class="item-detail">
                 - водитель: <b>${Driver}</b>
                 <br/>
-                - датчики: <b>${Device}</b>
+                - транспортное средство: <b>${Device}</b>
                 <br/>
                 - период: <b>${Period}</b>
             </div>
