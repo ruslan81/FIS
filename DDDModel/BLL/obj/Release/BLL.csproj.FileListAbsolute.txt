@@ -96,3 +96,4 @@ D:\BSUIR\Other\UnitedProject\DDDModel\BLL\bin\Release\PLFUnit.xml
 D:\BSUIR\Other\UnitedProject\DDDModel\BLL\bin\Release\DDDClass.pdb
 D:\BSUIR\Other\UnitedProject\DDDModel\BLL\bin\Release\DDDClass.xml
 D:\BSUIR\Other\UnitedProject\DDDModel\BLL\obj\Release\BLL.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\BLL\bin\Release\BLL.XML
