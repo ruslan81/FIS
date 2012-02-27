@@ -262,10 +262,10 @@ namespace TestCacheTimeout
                             //string addr = "ai@programist.ru";
 
                             //NEW
-                            //DateTime from = now.AddHours(-1);
-                            //DateTime to = now;
-                            DateTime from = new DateTime(2005,5,12);
-                            DateTime to = new DateTime(2005, 5, 14);
+                            DateTime from = now.AddHours(-1);
+                            DateTime to = now;
+                            //DateTime from = new DateTime(2005,5,12);
+                            //DateTime to = new DateTime(2005, 5, 14);
                             
                             List<int> cardIds = FormDriversIdList(id, dataBlock);
                             foreach (int cardId in cardIds)
@@ -290,8 +290,8 @@ namespace TestCacheTimeout
                                                 {
                                                     string type = dataBlock.remindTable.GetRemindTypeName(dataBlock.remindTable.GetRemindType(id));
                                                     string text = "Данное сообщение отправлено сервисом SmartFIS.\nПериодичность: каждый час.\nВодитель: " + source + ";\nТип напоминания: " + type + ";\nЗначение параметра: " + record.SPEED;
-                                                    SendRemindMessage(addr, text);
-                                                    wr.WriteLine("Mail sent to " + addr + "; text:\n" + text);
+                                                    //SendRemindMessage(addr, text);
+                                                    //wr.WriteLine("Mail sent to " + addr + "; text:\n" + text);
                                                 }
                                                 break;
                                             }
@@ -303,8 +303,8 @@ namespace TestCacheTimeout
                                                 {
                                                     string type = dataBlock.remindTable.GetRemindTypeName(dataBlock.remindTable.GetRemindType(id));
                                                     string text = "Данное сообщение отправлено сервисом SmartFIS.\nПериодичность: каждый час.\nВодитель: " + source + ";\nТип напоминания: " + type + ";\nЗначение параметра: " + record.ENGINE_RPM;
-                                                    SendRemindMessage(addr, text);
-                                                    wr.WriteLine("Mail sent to " + addr + "; text:\n" + text);
+                                                    //SendRemindMessage(addr, text);
+                                                    //wr.WriteLine("Mail sent to " + addr + "; text:\n" + text);
                                                 }
                                                 break;
                                             }
