@@ -19,3 +19,10 @@ C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\CardUnit\bi
 C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\CardUnit\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\CardUnit\obj\Debug\CardUnit.dll
 C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\CardUnit\obj\Debug\CardUnit.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\CardUnit\bin\Debug\CardUnit.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\CardUnit\bin\Debug\CardUnit.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\CardUnit\bin\Debug\DDDClass.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\CardUnit\bin\Debug\DDDClass.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\CardUnit\obj\Debug\ResolveAssemblyReference.cache
+D:\BSUIR\Other\UnitedProject\DDDModel\CardUnit\obj\Debug\CardUnit.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\CardUnit\obj\Debug\CardUnit.pdb

@@ -255,68 +255,77 @@ namespace TestCacheTimeout
                     if (now.Minute == minute)
                     {
                         List<int> hourIds = dataBlock.remindTable.GetAllHourRemindIds();
-                        
+
                         foreach (int id in hourIds)
                         {
                             string addr = "shu.dv@tut.by";
                             //string addr = "ai@programist.ru";
 
                             //NEW
-                            DateTime from = now.AddHours(-1);
-                            DateTime to = now;
-                            //DateTime from = new DateTime(2005,5,12);
-                            //DateTime to = new DateTime(2005, 5, 14);
-                            
+                            //DateTime from = now.AddHours(-1);
+                            //DateTime to = now;
+                            DateTime from = new DateTime(2005, 12, 13);
+                            DateTime to = new DateTime(2005, 12, 13);
+
                             List<int> cardIds = FormDriversIdList(id, dataBlock);
                             foreach (int cardId in cardIds)
                             {
                                 List<PLFUnit.PLFRecord> records = new List<PLFUnit.PLFRecord>();
-                                if (cardId == 137) {
-                                    Debug.Write(137);
-                                }
-                                DataSet dataset = ReportDataSetLoader.Get_PLF_ALLData(dataBlock.cardsTable.GetAllDataBlockIds_byCardId(cardId), new DateTime(from.Year, from.Month, from.Day), new DateTime(to.Year, to.Month, to.Day), cardId, 0, ref records);
-                                 foreach (PLFUnit.PLFRecord record in records)
+                                List<int> blockIds = dataBlock.cardsTable.GetAllDataBlockIds_byCardId(cardId);
+                                if (blockIds.Count == 0)
                                 {
-                                    StreamWriter wr = new StreamWriter("MailLog.txt", true);
-                                    string source = dataBlock.cardsTable.GetCardHolderNameByCardId(cardId);
-                                    switch (dataBlock.remindTable.GetRemindType(id))
-                                    {
-                                        //SPEED
-                                        case 1:
-                                            {
-                                                CriteriaTable oneCriteria = dataBlock.criteriaTable.LoadCriteria(8);
-                                                //Debug.WriteLine("SPEED #" + record.SPEED+"#");
-                                                if (Convert.ToDouble(record.SPEED.Replace('.',',')) > oneCriteria.MaxValue)
-                                                {
-                                                    string type = dataBlock.remindTable.GetRemindTypeName(dataBlock.remindTable.GetRemindType(id));
-                                                    string text = "Данное сообщение отправлено сервисом SmartFIS.\nПериодичность: каждый час.\nВодитель: " + source + ";\nТип напоминания: " + type + ";\nЗначение параметра: " + record.SPEED;
-                                                    //SendRemindMessage(addr, text);
-                                                    //wr.WriteLine("Mail sent to " + addr + "; text:\n" + text);
-                                                }
-                                                break;
-                                            }
-                                        //RPM
-                                        case 2:
-                                            {
-                                                CriteriaTable oneCriteria = dataBlock.criteriaTable.LoadCriteria(7);
-                                                if (Convert.ToDecimal(record.ENGINE_RPM.Replace('.', ',')) > oneCriteria.MaxValue)
-                                                {
-                                                    string type = dataBlock.remindTable.GetRemindTypeName(dataBlock.remindTable.GetRemindType(id));
-                                                    string text = "Данное сообщение отправлено сервисом SmartFIS.\nПериодичность: каждый час.\nВодитель: " + source + ";\nТип напоминания: " + type + ";\nЗначение параметра: " + record.ENGINE_RPM;
-                                                    //SendRemindMessage(addr, text);
-                                                    //wr.WriteLine("Mail sent to " + addr + "; text:\n" + text);
-                                                }
-                                                break;
-                                            }
-                                    }
-                                    wr.Close();
+                                    continue;
                                 }
+                                DataSet dataset = ReportDataSetLoader.Get_PLF_ALLData(blockIds, new DateTime(from.Year, from.Month, from.Day), new DateTime(to.Year, to.Month, to.Day), cardId, 0, ref records);
+                                StreamWriter wr = new StreamWriter("MailLog.txt", true);
+                                string source = dataBlock.cardsTable.GetCardHolderNameByCardId(cardId);
+                                switch (dataBlock.remindTable.GetRemindType(id))
+                                {
+                                    //SPEED
+                                    case 1:
+                                        {
+                                            CriteriaTable oneCriteria = dataBlock.criteriaTable.LoadCriteria(8);
+                                            string type = dataBlock.remindTable.GetRemindTypeName(dataBlock.remindTable.GetRemindType(id));
+                                            string text = "Данное сообщение отправлено сервисом SmartFIS.\nПериодичность: каждый час.                                                        \nВодитель: " + source + ";\nТип напоминания: " + type +
+                                                ";\nПериод анализа: " + from.ToString() + " - " + to.ToString() +
+                                                ";\nНормативное значение параметра: " + oneCriteria.MaxValue;
+                                            foreach (PLFUnit.PLFRecord record in records)
+                                            {
+                                                if (Convert.ToDouble(record.SPEED.Replace('.', ',')) > oneCriteria.MaxValue)
+                                                {
+                                                    text = text + ";\n"+record.SYSTEM_TIME.systemTime+" - "+record.SPEED;
+                                                }
+                                            }
+                                            //SendRemindMessage(addr, text);
+                                            wr.WriteLine("Mail sent to " + addr + "; text:\n" + text);
+                                           
+                                            break;
+                                        }
+                                    //RPM
+                                    case 2:
+                                        {
+                                            CriteriaTable oneCriteria = dataBlock.criteriaTable.LoadCriteria(7);
+                                            string type = dataBlock.remindTable.GetRemindTypeName(dataBlock.remindTable.GetRemindType(id));
+                                            string text = "Данное сообщение отправлено сервисом SmartFIS.\nПериодичность: каждый час.                                                        \nВодитель: " + source + ";\nТип напоминания: " + type +
+                                                ";\nПериод анализа: " + from.ToString() + " - " + to.ToString() +
+                                                ";\nНормативное значение параметра: " + oneCriteria.MaxValue;
+                                            foreach (PLFUnit.PLFRecord record in records)
+                                            {
+                                                if (Convert.ToDouble(record.ENGINE_RPM.Replace('.', ',')) > oneCriteria.MaxValue)
+                                                {
+                                                    text = text + ";\n" + record.SYSTEM_TIME.systemTime + " - " + record.ENGINE_RPM;
+                                                }
+                                            }
+                                            //SendRemindMessage(addr, text);
+                                            wr.WriteLine("Mail sent to " + addr + "; text:\n" + text);
+                                           
+                                            break;
+                                        }
+                                }
+                                wr.Close();
                             }
-                            //NEW
-
-
                         }
-                        
+                        //NEW
                     }
                     //Processing every-day reminds
                     string daytime = ConfigurationSettings.AppSettings["ScheduleDailyMailSendTime"];

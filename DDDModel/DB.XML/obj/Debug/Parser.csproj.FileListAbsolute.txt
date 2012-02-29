@@ -35,3 +35,16 @@ C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.XML\bin\
 C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.XML\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.XML\obj\Debug\DB.XML.dll
 C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.XML\obj\Debug\DB.XML.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\DB.XML\bin\Debug\DB.XML.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\DB.XML\bin\Debug\DB.XML.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\DB.XML\bin\Debug\CardUnit.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\DB.XML\bin\Debug\DDDClass.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\DB.XML\bin\Debug\PLFUnit.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\DB.XML\bin\Debug\VehichleUnit.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\DB.XML\bin\Debug\VehichleUnit.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\DB.XML\bin\Debug\CardUnit.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\DB.XML\bin\Debug\PLFUnit.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\DB.XML\bin\Debug\DDDClass.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\DB.XML\obj\Debug\ResolveAssemblyReference.cache
+D:\BSUIR\Other\UnitedProject\DDDModel\DB.XML\obj\Debug\DB.XML.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\DB.XML\obj\Debug\DB.XML.pdb

@@ -6,6 +6,7 @@ using System.Xml.Serialization;
 using System.Xml;
 using System.IO;
 using System.Globalization;
+using System.Diagnostics;
 
 
 namespace PLFUnit
@@ -559,6 +560,7 @@ namespace PLFUnit
         /// <returns>возвразает массив Double, в нем сглаженный уровень топлива</returns>
         public static List<double> FFT_Fuel(ref List<PLFRecord> recordsList)
         {
+            //Debug.WriteLine("RECORDLIST: "+recordsList.Count());
             List<double> fuelVol = new List<double>();
             foreach (PLFRecord record in recordsList)
             {

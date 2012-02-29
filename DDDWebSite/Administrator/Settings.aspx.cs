@@ -624,6 +624,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
             allKeys = dataBlock.criteriaTable.GetAllCriteria_Name_n_Id();
 
             CriteriaTable oneCriteria = new CriteriaTable(connectionString, "STRING_EN", dataBlock.sqlDb);
+            dataBlock.criteriaTable.OpenConnection();
 
             foreach (KeyValuePair<string, int> key in allKeys)
             {
@@ -648,6 +649,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
         finally
         {
             //dataBlock.organizationTable.CloseConnection();
+            dataBlock.criteriaTable.CloseConnection();
             dataBlock.CloseConnection();
         }
     }

@@ -44,3 +44,26 @@ C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\BLL\bin\Deb
 C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\BLL\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\BLL\obj\Debug\BLL.dll
 C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\BLL\obj\Debug\BLL.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\BLL\bin\Debug\BLL.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\BLL\bin\Debug\BLL.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\BLL\bin\Debug\CardUnit.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\BLL\bin\Debug\CRC32.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\BLL\bin\Debug\DB.Factory.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\BLL\bin\Debug\DB.Interface.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\BLL\bin\Debug\DB.SQL.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\BLL\bin\Debug\DB.XML.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\BLL\bin\Debug\DDDClass.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\BLL\bin\Debug\PLFUnit.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\BLL\bin\Debug\VehichleUnit.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\BLL\bin\Debug\CRC32.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\BLL\bin\Debug\DB.Factory.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\BLL\bin\Debug\CardUnit.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\BLL\bin\Debug\DB.XML.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\BLL\bin\Debug\DB.Interface.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\BLL\bin\Debug\VehichleUnit.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\BLL\bin\Debug\DB.SQL.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\BLL\bin\Debug\PLFUnit.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\BLL\bin\Debug\DDDClass.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\BLL\obj\Debug\ResolveAssemblyReference.cache
+D:\BSUIR\Other\UnitedProject\DDDModel\BLL\obj\Debug\BLL.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\BLL\obj\Debug\BLL.pdb

@@ -5,3 +5,10 @@ C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\TotalsClass
 C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\TotalsClasses\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\TotalsClasses\obj\Debug\TotalsClasses.dll
 C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\TotalsClasses\obj\Debug\TotalsClasses.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\TotalsClasses\bin\Debug\TotalsClasses.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\TotalsClasses\bin\Debug\TotalsClasses.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\TotalsClasses\bin\Debug\DDDClass.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\TotalsClasses\bin\Debug\DDDClass.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\TotalsClasses\obj\Debug\ResolveAssemblyReference.cache
+D:\BSUIR\Other\UnitedProject\DDDModel\TotalsClasses\obj\Debug\TotalsClasses.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\TotalsClasses\obj\Debug\TotalsClasses.pdb

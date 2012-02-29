@@ -25,3 +25,29 @@ C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\FirebirdToM
 C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\FirebirdToMySQLConverter\bin\Debug\VehichleUnit.pdb
 C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\FirebirdToMySQLConverter\bin\Debug\DB.SQL.pdb
 C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\FirebirdToMySQLConverter\bin\Debug\CardUnit.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\bin\Debug\FirebirdToMySQLConverter.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\bin\Debug\FirebirdToMySQLConverter.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\bin\Debug\BLL.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\bin\Debug\DB.Interface.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\bin\Debug\DB.SQL.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\bin\Debug\PLFUnit.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\bin\Debug\CRC32.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\bin\Debug\DDDClass.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\bin\Debug\DB.Factory.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\bin\Debug\DB.XML.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\bin\Debug\VehichleUnit.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\bin\Debug\CardUnit.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\bin\Debug\FirebirdSql.Data.FirebirdClient.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\bin\Debug\BLL.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\bin\Debug\CRC32.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\bin\Debug\DDDClass.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\bin\Debug\DB.Factory.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\bin\Debug\DB.XML.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\bin\Debug\DB.Interface.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\bin\Debug\VehichleUnit.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\bin\Debug\DB.SQL.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\bin\Debug\PLFUnit.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\bin\Debug\CardUnit.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\obj\Debug\ResolveAssemblyReference.cache
+D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\obj\Debug\FirebirdToMySQLConverter.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\FirebirdToMySQLConverter\obj\Debug\FirebirdToMySQLConverter.pdb

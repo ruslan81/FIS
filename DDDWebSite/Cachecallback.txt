@@ -10332,3 +10332,70 @@ Cache Callback: Message: Reading from the stream has failed.
 Cache Callback: 12.02.2012 23:40:00
 Cache Callback: 13.02.2012 0:04:20
 Cache Callback: 13.02.2012 0:14:00
+Cache Callback: 27.02.2012 17:05:50
+Cache Callback: Message: Удаленный сервер возвратил ошибку: (407) Требуется проверка подлинности посредника.
+Cache Callback: 27.02.2012 17:07:00
+Cache Callback: Message: Удаленный сервер возвратил ошибку: (407) Требуется проверка подлинности посредника.
+Cache Callback: 27.02.2012 18:48:00
+Cache Callback: Message: Удаленный сервер возвратил ошибку: (407) Требуется проверка подлинности посредника.
+Cache Callback: 27.02.2012 18:55:20
+Cache Callback: Message: Удаленный сервер возвратил ошибку: (407) Требуется проверка подлинности посредника.
+Cache Callback: 27.02.2012 19:19:00
+Cache Callback: Message: Удаленный сервер возвратил ошибку: (407) Требуется проверка подлинности посредника.
+Cache Callback: 27.02.2012 19:23:00
+Cache Callback: Message: Удаленный сервер возвратил ошибку: (407) Требуется проверка подлинности посредника.
+Cache Callback: 27.02.2012 19:27:00
+Cache Callback: Message: Удаленный сервер возвратил ошибку: (407) Требуется проверка подлинности посредника.
+Cache Callback: 27.02.2012 19:35:20
+Cache Callback: Message: Удаленный сервер возвратил ошибку: (407) Требуется проверка подлинности посредника.
+Cache Callback: 27.02.2012 19:47:40
+Cache Callback: Message: Удаленный сервер возвратил ошибку: (407) Требуется проверка подлинности посредника.
+Cache Callback: 28.02.2012 13:24:00
+Cache Callback: Message: Удаленный сервер возвратил ошибку: (407) Требуется проверка подлинности посредника.
+Cache Callback: 28.02.2012 23:32:40
+Cache Callback: 28.02.2012 23:37:40
+Cache Callback: 28.02.2012 23:40:20
+Cache Callback: 28.02.2012 23:47:00
+Cache Callback: 28.02.2012 23:50:54
+Cache Callback: 28.02.2012 23:52:20
+Cache Callback: 29.02.2012 0:00:00
+Cache Callback: 29.02.2012 0:03:00
+Cache Callback: 29.02.2012 0:05:00
+Cache Callback: 29.02.2012 0:11:28
+Cache Callback: 29.02.2012 0:13:00
+Cache Callback: 29.02.2012 0:21:20
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 29.02.2012 0:25:00
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: 29.02.2012 0:43:08
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 29.02.2012 0:45:00
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: Message: Сбой при отправке сообщения электронной почты.
+Cache Callback: 29.02.2012 0:48:40
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 29.02.2012 9:49:20
+Cache Callback: Message: Удаленный сервер возвратил ошибку: (407) Требуется проверка подлинности посредника.
+Cache Callback: 29.02.2012 9:56:00
+Cache Callback: Message: Удаленный сервер возвратил ошибку: (407) Требуется проверка подлинности посредника.
+Cache Callback: 29.02.2012 10:34:00
+Cache Callback: Message: Удаленный сервер возвратил ошибку: (407) Требуется проверка подлинности посредника.
+Cache Callback: 29.02.2012 10:35:42
+Cache Callback: Message: Удаленный сервер возвратил ошибку: (407) Требуется проверка подлинности посредника.
+Cache Callback: 29.02.2012 10:37:20
+Cache Callback: Message: Удаленный сервер возвратил ошибку: (407) Требуется проверка подлинности посредника.
+Cache Callback: 29.02.2012 10:42:47
+Cache Callback: Message: Удаленный сервер возвратил ошибку: (407) Требуется проверка подлинности посредника.
+Cache Callback: 29.02.2012 10:44:00
+Cache Callback: Message: Удаленный сервер возвратил ошибку: (407) Требуется проверка подлинности посредника.
+Cache Callback: 29.02.2012 10:47:20
+Cache Callback: Message: Удаленный сервер возвратил ошибку: (407) Требуется проверка подлинности посредника.
+Cache Callback: 29.02.2012 10:52:00
+Cache Callback: Message: Удаленный сервер возвратил ошибку: (407) Требуется проверка подлинности посредника.
+Cache Callback: 29.02.2012 10:58:40
+Cache Callback: Message: Удаленный сервер возвратил ошибку: (407) Требуется проверка подлинности посредника.
+Cache Callback: 29.02.2012 11:02:00
+Cache Callback: Message: Удаленный сервер возвратил ошибку: (407) Требуется проверка подлинности посредника.
+Cache Callback: 29.02.2012 11:04:20
+Cache Callback: Message: Удаленный сервер возвратил ошибку: (407) Требуется проверка подлинности посредника.

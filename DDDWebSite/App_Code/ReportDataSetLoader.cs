@@ -229,12 +229,16 @@ public class ReportDataSetLoader
         PLFUnit.PLFUnitClass plf = new PLFUnit.PLFUnitClass();
         dataBlock.OpenConnection();
         plf.Records = dataBlock.plfUnitInfo.Get_Records(dataBlockIds, from, to, DriversCardId);
+
         //Тест сглаживания!
-        //List<PLFUnit.PLFRecord> recordsToAproximate = new List<PLFUnit.PLFRecord>();
-        //recordsToAproximate = plf.Records;
-        //PLFUnit.PLFUnitClass.FFT_Fuel(ref recordsToAproximate);
-        //plf.Records = recordsToAproximate;
-        //
+        if (plf.Records.Count > 0)
+        {
+            List<PLFUnit.PLFRecord> recordsToAproximate = new List<PLFUnit.PLFRecord>();
+            recordsToAproximate = plf.Records;
+            PLFUnit.PLFUnitClass.FFT_Fuel(ref recordsToAproximate);
+            plf.Records = recordsToAproximate;
+        }
+        
 
         if (dataBlockIds.Count > 0)
             plf.installedSensors = dataBlock.plfUnitInfo.Get_InstalledSensors(dataBlockIds[0]);
@@ -246,7 +250,7 @@ public class ReportDataSetLoader
         }
         else
         {
-            //throw new Exception("Нельзя расчитать значения для отчета, не задан Шаг Времени");
+            throw new Exception("Нельзя расчитать значения для отчета, не задан Шаг Времени");
         }
 
         dataBlock.CloseConnection();
@@ -260,8 +264,21 @@ public class ReportDataSetLoader
 
         dataSet.Tables.Add(PlfReportsDataTables.Get_PlfHeader_1(from, to, DriversCardId, curUserId, vehRegNumber, vehDeviceNumber, ""));
         dataSet.Tables.Add(PlfReportsDataTables.PlfReport_FullCalendar(records));
-        //dataSet.Tables.Add(PlfReportsDataTables.PlfReport_FullCalendar_Totals(plf));
-        //dataSet.Tables.Add(PlfReportsDataTables.PlfReport_FullCalendar_Refills(plf));
+        if (plf.Records.Count > 0)
+        {
+            dataSet.Tables.Add(PlfReportsDataTables.PlfReport_FullCalendar_Totals(plf));
+        }
+        else {
+            dataSet.Tables.Add();
+        }
+        if (plf.Records.Count > 0)
+        {
+            dataSet.Tables.Add(PlfReportsDataTables.PlfReport_FullCalendar_Refills(plf));
+        }
+        else
+        {
+            dataSet.Tables.Add();
+        }
 
         return dataSet;
     }

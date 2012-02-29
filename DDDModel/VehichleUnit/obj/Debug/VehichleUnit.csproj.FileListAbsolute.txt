@@ -19,3 +19,10 @@ C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\VehichleUni
 C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\VehichleUnit\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\VehichleUnit\obj\Debug\VehichleUnit.dll
 C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\VehichleUnit\obj\Debug\VehichleUnit.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\VehichleUnit\bin\Debug\VehichleUnit.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\VehichleUnit\bin\Debug\VehichleUnit.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\VehichleUnit\bin\Debug\DDDClass.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\VehichleUnit\bin\Debug\DDDClass.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\VehichleUnit\obj\Debug\ResolveAssemblyReference.cache
+D:\BSUIR\Other\UnitedProject\DDDModel\VehichleUnit\obj\Debug\VehichleUnit.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\VehichleUnit\obj\Debug\VehichleUnit.pdb
