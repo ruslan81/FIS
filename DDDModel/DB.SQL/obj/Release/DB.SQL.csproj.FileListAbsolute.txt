@@ -24,4 +24,3 @@ D:\BSUIR\Other\UnitedProject\DDDModel\DB.SQL\bin\Release\DB.Interface.dll
 D:\BSUIR\Other\UnitedProject\DDDModel\DB.SQL\bin\Release\DB.Interface.pdb
 D:\BSUIR\Other\UnitedProject\DDDModel\DB.SQL\bin\Release\DB.Interface.xml
 D:\BSUIR\Other\UnitedProject\DDDModel\DB.SQL\obj\Release\DB.SQL.pdb
-D:\BSUIR\Other\UnitedProject\DDDModel\DB.SQL\bin\Release\DB.SQL.XML

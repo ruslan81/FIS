@@ -27,10 +27,11 @@ namespace DDDModel
 
             //MY CODE
             dataBlock.OpenConnection();
-            //dataBlock.remindTable.CreateNewRemind(1,true,29,1,1,2,DateTime.Today,1);
-            //List<int> list=dataBlock.remindTable.GetAllHourRemindIds();
-            int orgId = dataBlock.remindTable.GetRemindOrgId(13);
-            System.Console.WriteLine(orgId);
+            dataBlock.remindTable.CreateNewRemind(1,true,29,1,1,2,DateTime.Today,1);
+            List<int> list=dataBlock.remindTable.GetAllHourRemindIds();
+            foreach (int i in list) {
+                System.Console.WriteLine(i);
+            }
             System.Console.ReadKey();
             dataBlock.CloseConnection();
             //System.Console.ReadKey();

@@ -3183,11 +3183,6 @@ namespace DB.SQL
             int returnValue = Convert.ToInt32(GetOneParameter(remindId, "REMIND_ID", "fn_remind", "REMIND_TYPE"));
             return returnValue;
         }
-        public int GetRemindOrgId(int remindId)
-        {
-            int returnValue = Convert.ToInt32(GetOneParameter(remindId, "REMIND_ID", "fn_remind", "ORG_ID"));
-            return returnValue;
-        }
         public string GetRemindTypeName(int remindTypeId)
         {
             string returnValue = Convert.ToString(GetOneParameter(remindTypeId, "REMIND_TYPE", "fn_remind_type", "REMIND_TYPE_NAME"));
