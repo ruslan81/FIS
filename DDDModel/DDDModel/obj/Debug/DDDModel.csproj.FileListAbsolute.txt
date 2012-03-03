@@ -54,3 +54,34 @@ C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bi
 C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Debug\FirebirdSql.Data.FirebirdClient.dll
 C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Debug\FirebirdSql.Data.FirebirdClient.pdb
 C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDModel\bin\Debug\FirebirdToMySQLConverter.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\obj\Debug\DDDModel.exe
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\obj\Debug\DDDModel.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\bin\Debug\DDDModel.exe
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\bin\Debug\DDDModel.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\bin\Debug\BLL.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\bin\Debug\CardUnit.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\bin\Debug\DB.Interface.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\bin\Debug\DB.SQL.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\bin\Debug\DDDClass.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\bin\Debug\FirebirdToMySQLConverter.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\bin\Debug\TotalsClasses.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\bin\Debug\FirebirdSql.Data.FirebirdClient.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\bin\Debug\CRC32.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\bin\Debug\DB.Factory.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\bin\Debug\DB.XML.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\bin\Debug\VehichleUnit.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\bin\Debug\PLFUnit.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\bin\Debug\FirebirdSql.Data.FirebirdClient.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\bin\Debug\BLL.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\bin\Debug\CRC32.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\bin\Debug\CardUnit.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\bin\Debug\DB.Factory.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\bin\Debug\DB.XML.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\bin\Debug\TotalsClasses.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\bin\Debug\DB.Interface.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\bin\Debug\FirebirdToMySQLConverter.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\bin\Debug\DB.SQL.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\bin\Debug\VehichleUnit.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\bin\Debug\PLFUnit.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\bin\Debug\DDDClass.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDModel\obj\Debug\ResolveAssemblyReference.cache

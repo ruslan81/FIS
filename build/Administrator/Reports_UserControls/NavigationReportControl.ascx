@@ -1,4 +1,4 @@
-﻿<%@ control language="C#" autoeventwireup="true" inherits="Administrator_Reports_UserControls_NavigationReportControl, App_Web_ka5qghr0" %>
+﻿<%@ control language="C#" autoeventwireup="true" inherits="Administrator_Reports_UserControls_NavigationReportControl, App_Web_wj4zgzde" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Reference Control="~/MasterPage/MasterPage.master"%>
 

@@ -12,3 +12,10 @@ C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.SQL\bin\
 C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.SQL\bin\Debug\DB.SQL.pdb
 C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.SQL\bin\Debug\DB.Interface.dll
 C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DB.SQL\bin\Debug\DB.Interface.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\DB.SQL\bin\Debug\DB.SQL.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\DB.SQL\bin\Debug\DB.SQL.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\DB.SQL\bin\Debug\DB.Interface.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\DB.SQL\bin\Debug\DB.Interface.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\DB.SQL\obj\Debug\ResolveAssemblyReference.cache
+D:\BSUIR\Other\UnitedProject\DDDModel\DB.SQL\obj\Debug\DB.SQL.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\DB.SQL\obj\Debug\DB.SQL.pdb

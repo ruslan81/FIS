@@ -13,3 +13,8 @@ C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDClass\bi
 C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDClass\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDClass\obj\Debug\DDDClass.dll
 C:\Users\STAK-Desktop\Documents\Visual Studio 2008\Projects\DDDModel\DDDClass\obj\Debug\DDDClass.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDClass\bin\Debug\DDDClass.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDClass\bin\Debug\DDDClass.pdb
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDClass\obj\Debug\ResolveAssemblyReference.cache
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDClass\obj\Debug\DDDClass.dll
+D:\BSUIR\Other\UnitedProject\DDDModel\DDDClass\obj\Debug\DDDClass.pdb

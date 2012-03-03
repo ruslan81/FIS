@@ -21,52 +21,52 @@ using Stimulsoft.Report;
 using Stimulsoft.Report.Export;
 using System.Threading;
 
-namespace TestCacheTimeout 
+namespace TestCacheTimeout
 {
-	/// <summary>
-	/// Summary description for Global.
-	/// </summary>
-	public class Global : System.Web.HttpApplication
-	{
-		private const string DummyCacheItemKey = "GagaGuguGigi";
+    /// <summary>
+    /// Summary description for Global.
+    /// </summary>
+    public class Global : System.Web.HttpApplication
+    {
+        private const string DummyCacheItemKey = "GagaGuguGigi";
 
-		public static ArrayList _JobQueue = new ArrayList();
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
-		public Global()
-		{
-			InitializeComponent();
-		}	
-		protected void Application_Start(Object sender, EventArgs e)
-		{
-			RegisterCacheEntry();
-		}
-		/// <summary>
-		/// Register a cache entry which expires in 1 minute and gives us a callback.
-		/// </summary>
-		/// <returns></returns>
-		private void RegisterCacheEntry()
-		{
+        public static ArrayList _JobQueue = new ArrayList();
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+        public Global()
+        {
+            InitializeComponent();
+        }
+        protected void Application_Start(Object sender, EventArgs e)
+        {
+            RegisterCacheEntry();
+        }
+        /// <summary>
+        /// Register a cache entry which expires in 1 minute and gives us a callback.
+        /// </summary>
+        /// <returns></returns>
+        private void RegisterCacheEntry()
+        {
             int casheTime = Convert.ToInt32(ConfigurationSettings.AppSettings["ScheduleMailSendInterval"]);
-			// Prevent duplicate key addition
-			if( null != HttpContext.Current.Cache[ DummyCacheItemKey ] ) return;
+            // Prevent duplicate key addition
+            if (null != HttpContext.Current.Cache[DummyCacheItemKey]) return;
 
-			HttpContext.Current.Cache.Add( DummyCacheItemKey, "Test", null, DateTime.MaxValue,
+            HttpContext.Current.Cache.Add(DummyCacheItemKey, "Test", null, DateTime.MaxValue,
                 TimeSpan.FromMinutes(casheTime), CacheItemPriority.NotRemovable,
-				new CacheItemRemovedCallback( CacheItemRemovedCallback ) );
-		}
-		/// <summary>
-		/// Callback method which gets invoked whenever the cache entry expires.
-		/// We can do our "service" works here.
-		/// </summary>
-		/// <param name="key"></param>
-		/// <param name="value"></param>
-		/// <param name="reason"></param>
-		public void CacheItemRemovedCallback(string key, object value, CacheItemRemovedReason reason)
-		{
-			Debug.WriteLine("Cache item callback: " + DateTime.Now.ToString() );
+                new CacheItemRemovedCallback(CacheItemRemovedCallback));
+        }
+        /// <summary>
+        /// Callback method which gets invoked whenever the cache entry expires.
+        /// We can do our "service" works here.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="reason"></param>
+        public void CacheItemRemovedCallback(string key, object value, CacheItemRemovedReason reason)
+        {
+            Debug.WriteLine("Cache item callback: " + DateTime.Now.ToString());
             try
             {
                 // Do the service works
@@ -82,53 +82,53 @@ namespace TestCacheTimeout
                 // add the cache item.
                 HitPage();
             }
-		}
-		/// <summary>
-		/// Hits a local webpage in order to add another expiring item in cache
-		/// </summary>
-		private void HitPage()
-		{
+        }
+        /// <summary>
+        /// Hits a local webpage in order to add another expiring item in cache
+        /// </summary>
+        private void HitPage()
+        {
             string address = ConfigurationSettings.AppSettings["DummyPageAddress"];
             //string dummyPagePath = getFullUrlPath(address);
-			WebClient client = new WebClient();
+            WebClient client = new WebClient();
             client.DownloadData(address);
-		}
-		/// <summary>
-		/// Asynchronously do the 'service' works
-		/// </summary>
-		private void DoWork()
-		{
-			Debug.WriteLine("Begin DoWork...");
-			Debug.WriteLine("Running as: " + WindowsIdentity.GetCurrent().Name );
-			DoSomeFileWritingStuff();
+        }
+        /// <summary>
+        /// Asynchronously do the 'service' works
+        /// </summary>
+        private void DoWork()
+        {
+            Debug.WriteLine("Begin DoWork...");
+            Debug.WriteLine("Running as: " + WindowsIdentity.GetCurrent().Name);
+            DoSomeFileWritingStuff();
             new Thread(DoSheduleWork).Start();
             new Thread(CheckReminds).Start();
 
-			Debug.WriteLine("End DoWork...");
-		}
-		/// <summary>
-		/// Пишет время и даду каждый раз, когда выполняется в файл в корне
-		/// </summary>
-		private void DoSomeFileWritingStuff()
-		{
+            Debug.WriteLine("End DoWork...");
+        }
+        /// <summary>
+        /// Пишет время и даду каждый раз, когда выполняется в файл в корне
+        /// </summary>
+        private void DoSomeFileWritingStuff()
+        {
             string address = "~/Cachecallback.txt";
-			Debug.WriteLine("Writing to file...");
+            Debug.WriteLine("Writing to file...");
             string filePath = System.Web.Hosting.HostingEnvironment.MapPath(address);
 
-			try
-			{
+            try
+            {
                 using (StreamWriter writer = new StreamWriter(filePath, true))
-				{
-					writer.WriteLine("Cache Callback: {0}", DateTime.Now);
-					writer.Close();
-				}
-			}
-			catch( Exception x )
-			{
-				Debug.WriteLine( x );
-			}
-			Debug.WriteLine("File write successful");
-		}
+                {
+                    writer.WriteLine("Cache Callback: {0}", DateTime.Now);
+                    writer.Close();
+                }
+            }
+            catch (Exception x)
+            {
+                Debug.WriteLine(x);
+            }
+            Debug.WriteLine("File write successful");
+        }
         /// <summary>
         /// Пишет время и даду каждый раз, когда выполняется в файл в корне
         /// </summary>
@@ -153,13 +153,13 @@ namespace TestCacheTimeout
             Debug.WriteLine("File write successful");
         }
         static readonly object locker = new object();
-		/// <summary>
-		/// Рассылка
-		/// </summary>
-		private void DoSheduleWork()
-		{
+        /// <summary>
+        /// Рассылка
+        /// </summary>
+        private void DoSheduleWork()
+        {
             lock (locker)
-            {                
+            {
                 string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
                 DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
                 try
@@ -185,9 +185,10 @@ namespace TestCacheTimeout
                     dataBlock.CloseConnection();
                 }
             }
-		}
+        }
 
-        private void SendRemindMessage(string addr,string text) {
+        private void SendRemindMessage(string addr, string text)
+        {
             MailMessage Message = new MailMessage();
             Message.Subject = "Напоминание SmartFIS";
             Message.Body = text;
@@ -206,6 +207,33 @@ namespace TestCacheTimeout
             smtpClient.Send(Message);
         }
 
+        private List<int> FormDriversIdList(int remindId, DataBlock dataBlock)
+        {
+            List<int> result = new List<int>();
+            int id = dataBlock.remindTable.GetRemindSource(remindId);
+            int orgId = dataBlock.remindTable.GetRemindOrgId(remindId);
+            int type = dataBlock.remindTable.GetRemindSourceType(remindId);
+            switch (type)
+            {
+                case 0: { result.Add(id); break; }
+                case 1:
+                    {
+                        result = dataBlock.cardsTable.GetAllCardIdsByGroupId(orgId, dataBlock.cardsTable.driversCardTypeId, id);
+                        break;
+                    }
+                case 2:
+                    {
+                        List<int> groupIds = dataBlock.cardsTable.GetAllGroupIds(orgId);
+                        foreach (int groupId in groupIds)
+                        {
+                            result.AddRange(dataBlock.cardsTable.GetAllCardIdsByGroupId(orgId, dataBlock.cardsTable.driversCardTypeId, groupId));
+                        }
+                        break;
+                    }
+            }
+            return result;
+        }
+
         /// <summary>
         /// Рассылка напоминаний
         /// </summary>
@@ -214,7 +242,7 @@ namespace TestCacheTimeout
             lock (locker)
             {
                 string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-                
+
                 DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
                 try
                 {
@@ -224,20 +252,80 @@ namespace TestCacheTimeout
 
                     //Processing every-hour reminds
                     int minute = Convert.ToInt32(ConfigurationSettings.AppSettings["ScheduleHourlyMailSendMinute"]);
-                    if (now.Minute == minute) {
+                    if (now.Minute == minute)
+                    {
                         List<int> hourIds = dataBlock.remindTable.GetAllHourRemindIds();
-                        StreamWriter wr = new StreamWriter("MailLog.txt",true);
+
                         foreach (int id in hourIds)
                         {
-                            //string addr = "shu.dv@tut.by";
-                            string addr = "ai@programist.ru";
-                            string source = dataBlock.cardsTable.GetCardHolderNameByCardId(dataBlock.remindTable.GetRemindSource(id));
-                            string type = dataBlock.remindTable.GetRemindTypeName(dataBlock.remindTable.GetRemindType(id));
-                            string text = "Данное сообщение отправлено сервисом SmartFIS.\nПериодичность: каждый час.\nВодитель (группа): " + source + ";\nТип напоминания: " + type + ";";
-                            SendRemindMessage(addr,text);
-                            wr.WriteLine("Mail sent to "+addr+"; text:\n"+text);
+                            string addr = "shu.dv@tut.by";
+                            //string addr = "ai@programist.ru";
+
+                            //NEW
+                            //DateTime from = now.AddHours(-1);
+                            //DateTime to = now;
+                            DateTime from = new DateTime(2005, 12, 13);
+                            DateTime to = new DateTime(2005, 12, 13);
+
+                            List<int> cardIds = FormDriversIdList(id, dataBlock);
+                            foreach (int cardId in cardIds)
+                            {
+                                List<PLFUnit.PLFRecord> records = new List<PLFUnit.PLFRecord>();
+                                List<int> blockIds = dataBlock.cardsTable.GetAllDataBlockIds_byCardId(cardId);
+                                if (blockIds.Count == 0)
+                                {
+                                    continue;
+                                }
+                                DataSet dataset = ReportDataSetLoader.Get_PLF_ALLData(blockIds, new DateTime(from.Year, from.Month, from.Day), new DateTime(to.Year, to.Month, to.Day), cardId, 0, ref records);
+                                StreamWriter wr = new StreamWriter("MailLog.txt", true);
+                                string source = dataBlock.cardsTable.GetCardHolderNameByCardId(cardId);
+                                switch (dataBlock.remindTable.GetRemindType(id))
+                                {
+                                    //SPEED
+                                    case 1:
+                                        {
+                                            CriteriaTable oneCriteria = dataBlock.criteriaTable.LoadCriteria(8);
+                                            string type = dataBlock.remindTable.GetRemindTypeName(dataBlock.remindTable.GetRemindType(id));
+                                            string text = "Данное сообщение отправлено сервисом SmartFIS.\nПериодичность: каждый час.                                                        \nВодитель: " + source + ";\nТип напоминания: " + type +
+                                                ";\nПериод анализа: " + from.ToString() + " - " + to.ToString() +
+                                                ";\nНормативное значение параметра: " + oneCriteria.MaxValue;
+                                            foreach (PLFUnit.PLFRecord record in records)
+                                            {
+                                                if (Convert.ToDouble(record.SPEED.Replace('.', ',')) > oneCriteria.MaxValue)
+                                                {
+                                                    text = text + ";\n"+record.SYSTEM_TIME.systemTime+" - "+record.SPEED;
+                                                }
+                                            }
+                                            //SendRemindMessage(addr, text);
+                                            wr.WriteLine("Mail sent to " + addr + "; text:\n" + text);
+                                           
+                                            break;
+                                        }
+                                    //RPM
+                                    case 2:
+                                        {
+                                            CriteriaTable oneCriteria = dataBlock.criteriaTable.LoadCriteria(7);
+                                            string type = dataBlock.remindTable.GetRemindTypeName(dataBlock.remindTable.GetRemindType(id));
+                                            string text = "Данное сообщение отправлено сервисом SmartFIS.\nПериодичность: каждый час.                                                        \nВодитель: " + source + ";\nТип напоминания: " + type +
+                                                ";\nПериод анализа: " + from.ToString() + " - " + to.ToString() +
+                                                ";\nНормативное значение параметра: " + oneCriteria.MaxValue;
+                                            foreach (PLFUnit.PLFRecord record in records)
+                                            {
+                                                if (Convert.ToDouble(record.ENGINE_RPM.Replace('.', ',')) > oneCriteria.MaxValue)
+                                                {
+                                                    text = text + ";\n" + record.SYSTEM_TIME.systemTime + " - " + record.ENGINE_RPM;
+                                                }
+                                            }
+                                            //SendRemindMessage(addr, text);
+                                            wr.WriteLine("Mail sent to " + addr + "; text:\n" + text);
+                                           
+                                            break;
+                                        }
+                                }
+                                wr.Close();
+                            }
                         }
-                        wr.Close();
+                        //NEW
                     }
                     //Processing every-day reminds
                     string daytime = ConfigurationSettings.AppSettings["ScheduleDailyMailSendTime"];
@@ -247,32 +335,32 @@ namespace TestCacheTimeout
                         StreamWriter wr = new StreamWriter("MailLog.txt", true);
                         foreach (int id in dayIds)
                         {
-                            //string addr = "shu.dv@tut.by";
-                            string addr = "ai@programist.ru";
+                            string addr = "shu.dv@tut.by";
+                            //string addr = "ai@programist.ru";
                             string source = dataBlock.cardsTable.GetCardHolderNameByCardId(dataBlock.remindTable.GetRemindSource(id));
                             string type = dataBlock.remindTable.GetRemindTypeName(dataBlock.remindTable.GetRemindType(id));
                             string text = "Данное сообщение отправлено сервисом SmartFIS.\nПериодичность: каждый день.\nВодитель (группа): " + source + ";\nТип напоминания: " + type + ";";
-                            SendRemindMessage(addr, text);
-                            wr.WriteLine("Mail sent to " + addr + "; text:\n" + text);
+                            //SendRemindMessage(addr, text);
+                            //wr.WriteLine("Mail sent to " + addr + "; text:\n" + text);
                         }
                         wr.Close();
                     }
                     //Processing every-month reminds
                     int day = Convert.ToInt32(ConfigurationSettings.AppSettings["ScheduleMonthlyMailSendDay"]);
                     daytime = ConfigurationSettings.AppSettings["ScheduleMonthlyMailSendTime"];
-                    if (now.Day==day && now.TimeOfDay.ToString().Substring(0, 5) == daytime)
+                    if (now.Day == day && now.TimeOfDay.ToString().Substring(0, 5) == daytime)
                     {
                         List<int> monthIds = dataBlock.remindTable.GetAllMonthRemindIds();
                         StreamWriter wr = new StreamWriter("MailLog.txt", true);
                         foreach (int id in monthIds)
                         {
-                            //string addr = "shu.dv@tut.by";
-                            string addr = "ai@programist.ru";
+                            string addr = "shu.dv@tut.by";
+                            //string addr = "ai@programist.ru";
                             string source = dataBlock.cardsTable.GetCardHolderNameByCardId(dataBlock.remindTable.GetRemindSource(id));
                             string type = dataBlock.remindTable.GetRemindTypeName(dataBlock.remindTable.GetRemindType(id));
                             string text = "Данное сообщение отправлено сервисом SmartFIS.\nПериодичность: каждый месяц.\nВодитель (группа): " + source + ";\nТип напоминания: " + type + ";";
-                            SendRemindMessage(addr, text);
-                            wr.WriteLine("Mail sent to " + addr + "; text:\n" + text);
+                            //SendRemindMessage(addr, text);
+                            //wr.WriteLine("Mail sent to " + addr + "; text:\n" + text);
                         }
                         wr.Close();
                     }
@@ -350,7 +438,7 @@ namespace TestCacheTimeout
             }
             report.RegData(dataset);
             report.Render(new Stimulsoft.Report.Engine.StiRenderState(false));
-           // report.Compile();
+            // report.Compile();
             return report;
         }
         /// <summary>
@@ -440,9 +528,9 @@ namespace TestCacheTimeout
                 {
                     throw new Exception("Method must be called from a web context");
                 }
-               // string url = HttpContext.Current.Request.Url.ToString();
-               // int index = url.IndexOf("DDDWebSite", 0, StringComparison.OrdinalIgnoreCase);
-               // url = url.Substring(0, index)+"DDDWebSite/"+address;
+                // string url = HttpContext.Current.Request.Url.ToString();
+                // int index = url.IndexOf("DDDWebSite", 0, StringComparison.OrdinalIgnoreCase);
+                // url = url.Substring(0, index)+"DDDWebSite/"+address;
                 HttpServerUtility server = HttpContext.Current.Server;
                 string filePath = server.MapPath(address);
                 return filePath;
@@ -452,53 +540,53 @@ namespace TestCacheTimeout
                 return "";
             }
         }
-	    protected void Session_Start(Object sender, EventArgs e)
-		{
+        protected void Session_Start(Object sender, EventArgs e)
+        {
 
-		}
-		protected void Application_BeginRequest(Object sender, EventArgs e)
-		{
+        }
+        protected void Application_BeginRequest(Object sender, EventArgs e)
+        {
             //string address = "WebForm1.aspx";
             string dummyPagePath = ConfigurationSettings.AppSettings["DummyPageAddress"];
-			// If the dummy page is hit, then it means we want to add another item
-			// in cache
+            // If the dummy page is hit, then it means we want to add another item
+            // in cache
             if (HttpContext.Current.Request.Url.ToString() == dummyPagePath)
-			{
-				// Add the item in cache and when succesful, do the work.
-				RegisterCacheEntry();
-			}
+            {
+                // Add the item in cache and when succesful, do the work.
+                RegisterCacheEntry();
+            }
             //DoSheduleWork();
         }
-		protected void Application_EndRequest(Object sender, EventArgs e)
-		{
+        protected void Application_EndRequest(Object sender, EventArgs e)
+        {
 
-		}
-		protected void Application_AuthenticateRequest(Object sender, EventArgs e)
-		{
-		}
-		protected void Application_Error(Object sender, EventArgs e)
-		{
-			Debug.WriteLine( Server.GetLastError() );
+        }
+        protected void Application_AuthenticateRequest(Object sender, EventArgs e)
+        {
+        }
+        protected void Application_Error(Object sender, EventArgs e)
+        {
+            Debug.WriteLine(Server.GetLastError());
             DoSomeFileWritingStuff(Server.GetLastError().Message);
-		}
-		protected void Session_End(Object sender, EventArgs e)
-		{
+        }
+        protected void Session_End(Object sender, EventArgs e)
+        {
 
-		}
-		protected void Application_End(Object sender, EventArgs e)
-		{
+        }
+        protected void Application_End(Object sender, EventArgs e)
+        {
 
-		}
-		#region Web Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
-			this.components = new System.ComponentModel.Container();
-		}
-		#endregion
-	}
+        }
+        #region Web Form Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+        }
+        #endregion
+    }
 }
 

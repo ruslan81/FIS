@@ -203,9 +203,15 @@ public class PlfReportsDataTables
         }
         dr["Минимальные обороты двигателя за время движения"] = minRpm;
 
-        int shit = avgRPMs / avgMinutesAmmount;
-        dr["Средние обороты двигателя за время движения"] = avgRPMs / avgMinutesAmmount;
-         
+        //int shit = avgRPMs / avgMinutesAmmount;
+        if (avgMinutesAmmount == 0)
+        {
+            dr["Средние обороты двигателя за время движения"] = 0;
+        }
+        else
+        {
+            dr["Средние обороты двигателя за время движения"] = avgRPMs / avgMinutesAmmount;
+        }
         dt.Rows.Add(dr);
         return dt;
     }

@@ -1,4 +1,4 @@
-﻿<%@ page language="C#" masterpagefile="~/MasterPage/MasterPage.Master" autoeventwireup="true" inherits="Administrator_Report, App_Web_prjv44ea" %>
+﻿<%@ page language="C#" masterpagefile="~/MasterPage/MasterPage.Master" autoeventwireup="true" inherits="Administrator_Report, App_Web_adaoju1m" %>
 
 <%@ Register Assembly="StatefullScrollPanel" Namespace="CustomControls" TagPrefix="asp" %>
 <%@ Register Src="Reports_UserControls/NavigationReportControl.ascx" TagName="NavigationReportControl"
