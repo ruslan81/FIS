@@ -1,4 +1,4 @@
-﻿<%@ page language="C#" autoeventwireup="true" inherits="Administrator_ReportServiceTest, App_Web_adaoju1m" %>
+﻿<%@ page language="C#" autoeventwireup="true" inherits="Administrator_ReportServiceTest, App_Web_aja1r34e" %>
 
 <%@ Register Assembly="Stimulsoft.Report.Web, Version=2010.3.900.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a"
     Namespace="Stimulsoft.Report.Web" TagPrefix="cc1" %>

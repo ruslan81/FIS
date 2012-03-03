@@ -3,6 +3,18 @@ function loadPLFFilesTree() {
     $("#statusPanel").empty();
     $("#tmplNoPLFFile").tmpl("").appendTo("#statusPanel");
 
+    //destroy a tree
+    $("#PLFFilesTree").wijtree("destroy");
+    $("#PLFFilesTree").empty();
+
+    if (chart != null) {
+        chart.destroy();
+    }
+    chart = null;
+
+    $("#report").empty();
+    $("#chart").empty();
+
     $.ajax({
         type: "POST",
         //Page Name (in which the method should be called) and method name
@@ -11,7 +23,6 @@ function loadPLFFilesTree() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            $("#PLFFilesTree").empty();
             $("#tmplPLFFilesTree").tmpl(response.d).appendTo("#PLFFilesTree");
 
             //builds a tree
@@ -19,7 +30,6 @@ function loadPLFFilesTree() {
 
             //sets a listener to node selection
             $("#PLFFilesTree").wijtree({ selectedNodeChanged: function (e, data) {
-
                 onPLFFilesNodeSelected(e, data);
             }
             });
@@ -152,7 +162,7 @@ function createCharts(result) {
         },
         plotOptions: {
             area: {
-                fillOpacity: 0.5,
+                fillOpacity: 0.01,
                 lineWidth: 1,
                 marker: {
                     enabled: false,
@@ -178,6 +188,9 @@ function createCharts(result) {
             enabled: true,
             align: 'right',
             verticalAlign: 'bottom'
+        },
+        exporting: {
+            enabled: false
         },
         series: []
     });

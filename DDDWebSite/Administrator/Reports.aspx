@@ -9,11 +9,8 @@
 
     <script language="Javascript" src="../FusionCharts/FusionCharts.js"></script>
     <script type="text/javascript" language="javascript" src="../anychartstock_files/js/AnyChartStock.js"></script>
-
     <script src="../js/custom/Report.js" type="text/javascript"></script>
     
-    
-       
 </asp:Content>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
@@ -47,7 +44,7 @@
                             }
                         }
                         });
-                    };
+                    }
                 }
             });
 
@@ -70,15 +67,6 @@
             document.getElementById('report').style.height = outHeight - 5 - 50 + "px";
             document.getElementById('chart').style.height = outHeight - 5 - 50 + "px";
             document.getElementById('chart').style.width = $('#outputId').width() - 35 + "px";
-            /*document.getElementById('ctl00_Reports_PlaceHolder_NavigationReportControl1_ScrollPanel').style.height = reportPanelHeight - 70 + "px";
-
-            var oneAccPanelHeight = document.getElementById('firstAccordionPanel').style.height;
-            oneAccPanelHeight = oneAccPanelHeight.substring(0, oneAccPanelHeight.length - 2);
-            document.getElementById('DriverOverFlowPanel').style.height = oneAccPanelHeight - 45 + "px";
-            document.getElementById('VehicleOverFlowPanel').style.height = oneAccPanelHeight - 2 + "px";
-            document.getElementById('MultiDriverOverFlowPanel').style.height = oneAccPanelHeight - 21 + "px";
-            document.getElementById('MultiVehicleOverFlowPanel').style.height = oneAccPanelHeight - 21 + "px";
-            //document.getElementById('PLFOverFlowPanel').style.height = oneAccPanelHeight - 135 + "px";*/
         }
 
         function showModal() {
@@ -110,7 +98,7 @@
 
     <script id="tmplNoPLFFile" type="text/x-jquery-tmpl">
         <div style="color:#a60000;font-weight:bold;text-align:center;">
-            Выберите интересующий Вас PLF файл.
+            выберите интересующий вас PLF файл
         </div>
     </script>
 

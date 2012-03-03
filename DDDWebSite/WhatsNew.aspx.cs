@@ -14,6 +14,11 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "- 03.03.2012" + Environment.NewLine;
+            ReportLabel.Text += @"-  Убрана кнопка экспорта графиков." + Environment.NewLine;
+            ReportLabel.Text += @"-  Изменен вид графиков." + Environment.NewLine;
+            ReportLabel.Text += @"-  Устранен баг с переходом в другой раздел из раздела Отчеты/PLF Файлы." + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "- 13.02.2012" + Environment.NewLine;
             ReportLabel.Text += @"-  Завершена работа над разделом Отчеты/PLF Файлы" + Environment.NewLine;
             ReportLabel.Text += @"-  Упрощен ПИ, оставлены только самые востребованные возможности." + Environment.NewLine;
