@@ -253,14 +253,18 @@ public class ReportDataSetLoader
             throw new Exception("Нельзя расчитать значения для отчета, не задан Шаг Времени");
         }
 
+        string vehRegNumber = dataBlock.plfUnitInfo.Get_VEHICLE(dataBlockIds[0]);
+        string vehDeviceNumber = dataBlock.plfUnitInfo.Get_ID_DEVICE(dataBlockIds[0]);
+
         dataBlock.CloseConnection();
+
         DataSet dataSet = new DataSet();
         if (dataBlockIds.Count <= 0)
         {
             return dataSet;
         }
-        string vehRegNumber = plf.VEHICLE;
-        string vehDeviceNumber = plf.ID_DEVICE;
+        //string vehRegNumber = plf.VEHICLE;
+        //string vehDeviceNumber = plf.ID_DEVICE;
 
         dataSet.Tables.Add(PlfReportsDataTables.Get_PlfHeader_1(from, to, DriversCardId, curUserId, vehRegNumber, vehDeviceNumber, ""));
         dataSet.Tables.Add(PlfReportsDataTables.PlfReport_FullCalendar(records));

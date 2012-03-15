@@ -16,6 +16,7 @@ public class Driver
     public int RecordsCount { get; set; }
     public string CreationTime { get; set; }
     public string FromDate { get; set; }
+    public List<string> MyData { get; set; }
 
     public void setFromDate(DateTime FromDate)
     {

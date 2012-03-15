@@ -62,8 +62,8 @@ public partial class loginPage : System.Web.UI.Page
             else
             {
                 errorBlock.Style.Add("display","block");
-                result.Text = "Введите корректный логин и пароль!";
-                throw new Exception("Введите корректный логин и пароль!");
+                result.Text = "Введите корректные логин и пароль!";
+                throw new Exception("Введите корректные логин и пароль!");
             }
         }
         catch (Exception ex)

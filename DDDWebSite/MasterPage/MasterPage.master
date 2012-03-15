@@ -9,8 +9,6 @@
 
     <title>SmartFIS</title>
 
-    <asp:ContentPlaceHolder ID="HeadContentPlaceHolder" runat="server" />
-
     <link href="../css/shablon.css" rel="stylesheet" type="text/css" />
     <link type="text/css" href="../css/custom-theme/jquery-ui-1.8.11.custom.css" rel="stylesheet" />	
     <link type="text/css" href="../css/custom-theme/ui.jqgrid.css" rel="stylesheet" />
@@ -114,6 +112,8 @@
             $("#accordion").accordion("resize");
         });
 	</script>
+
+    <asp:ContentPlaceHolder ID="HeadContentPlaceHolder" runat="server" />
 
 </head>
 <body>

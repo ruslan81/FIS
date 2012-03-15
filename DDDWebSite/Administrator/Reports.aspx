@@ -5,11 +5,12 @@
 <%@ Register Src="Reports_UserControls/NavigationReportControl.ascx" TagName="NavigationReportControl"
     TagPrefix="uc1" %>
 <%@ Register src="../UserControlsForAll/BlueButton.ascx" tagname="BlueButton" tagprefix="uc2" %>
-<asp:Content ID="HeaderContent" ContentPlaceHolderID="HeadContentPlaceHolder" runat="server">
 
-    <script language="Javascript" src="../FusionCharts/FusionCharts.js"></script>
-    <script type="text/javascript" language="javascript" src="../anychartstock_files/js/AnyChartStock.js"></script>
+<asp:Content ID="HeaderContent" ContentPlaceHolderID="HeadContentPlaceHolder" runat="server">
+    <link type="text/css" href="../css/custom-theme/jquery.wijmo.wijcombobox.css" rel="stylesheet" />
+
     <script src="../js/custom/Report.js" type="text/javascript"></script>
+    <script src="../js/jquery.wijmo.wijcombobox.js" type="text/javascript"></script>
     
 </asp:Content>
 
@@ -127,9 +128,23 @@
                     <input type="hidden" name="CardID" value="${CardID}"/>
                     <input type="hidden" name="PLFID" value="${PLFID}"/>
                     <input type="hidden" name="UserName" value="${UserName}"/>
+                    <input type="hidden" id="format" name="Format" value="pdf"/>
                     <input id="getReport" value="Получить отчет" type="submit" title="Скачать pdf-файл"/>
                 </div>
             </form>
+        </div>
+
+        <div style="float:right;margin-right:15px;margin-left:10px;">
+            <select id="formatChooser"> 
+                <option value="pdf">pdf</option>
+                <option value="html">html</option>
+                <option value="rtf">rtf</option>
+                <option value="png">png</option>
+            </select>
+        </div>
+
+        <div style="float:right;margin-top:2px;">
+            выберите формат отчета:
         </div>
     </script>
 
@@ -425,8 +440,10 @@
 		        <li><a href="#tabs-2">Графики</a></li>
 	        </ul>
             <div id="tabs-1">
+                <center>
                 <div id="report" style="overflow: auto;">
                 </div>
+                </center>
             </div>
             <div id="tabs-2">
                 <div id="chart" style="overflow: hidden;">

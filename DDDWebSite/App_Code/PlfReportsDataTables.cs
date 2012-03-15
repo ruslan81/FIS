@@ -108,12 +108,15 @@ public class PlfReportsDataTables
     {
         DataTable dt = new DataTable("PLFReport_FullCalendar_Totals");
         DataRow dr;
-        dt.Columns.Add(new DataColumn("Суммарное время работы", typeof(TimeSpan)));
-        dt.Columns.Add(new DataColumn("Время работы двигателя", typeof(TimeSpan)));
-        dt.Columns.Add(new DataColumn("Время движения", typeof(TimeSpan)));
-        dt.Columns.Add(new DataColumn("Максимальное непрерывное время движения", typeof(TimeSpan)));
-        dt.Columns.Add(new DataColumn("Время простоя с заведенным двигателем", typeof(TimeSpan)));
-        dt.Columns.Add(new DataColumn("Максимальное непрерывное время простоя", typeof(TimeSpan)));
+        dt.Columns.Add(new DataColumn("Начало работы", typeof(string)));
+        dt.Columns.Add(new DataColumn("Окончание работы", typeof(string)));
+        dt.Columns.Add(new DataColumn("Продолжительность периода", typeof(string)));
+        dt.Columns.Add(new DataColumn("Суммарное время работы", typeof(string)));
+        dt.Columns.Add(new DataColumn("Время работы двигателя", typeof(string)));
+        dt.Columns.Add(new DataColumn("Время движения", typeof(string)));
+        dt.Columns.Add(new DataColumn("Максимальное непрерывное время движения", typeof(string)));
+        dt.Columns.Add(new DataColumn("Время простоя с заведенным двигателем", typeof(string)));
+        dt.Columns.Add(new DataColumn("Максимальное непрерывное время простоя", typeof(string)));
         dt.Columns.Add(new DataColumn("Максимальный непрерывный пройденный путь", typeof(double)));
         dt.Columns.Add(new DataColumn("Объем топлива в баках на начало периода", typeof(double)));
         dt.Columns.Add(new DataColumn("Объем топлива в баках на конец периода", typeof(double)));
@@ -121,30 +124,66 @@ public class PlfReportsDataTables
         dt.Columns.Add(new DataColumn("Всего заправлено топлива", typeof(double)));
         dt.Columns.Add(new DataColumn("Количество возможных сливов", typeof(double)));
         dt.Columns.Add(new DataColumn("Всего возможно слито топлива", typeof(double)));
-        dt.Columns.Add(new DataColumn("Минимальные обороты двигателя за время движения", typeof(int)));
-        dt.Columns.Add(new DataColumn("Средние обороты двигателя за время движения", typeof(int)));
+        dt.Columns.Add(new DataColumn("Пройденный путь", typeof(double)));
+        dt.Columns.Add(new DataColumn("Средняя скорость за время движения", typeof(double)));
+        dt.Columns.Add(new DataColumn("Максимальная скорость за время движения", typeof(double)));
+        dt.Columns.Add(new DataColumn("Средние обороты двигателя за время движения", typeof(double)));
+        dt.Columns.Add(new DataColumn("Максимальные обороты двигателя за время движения", typeof(double)));
+        dt.Columns.Add(new DataColumn("Минимальные обороты двигателя за время движения", typeof(double)));
+        dt.Columns.Add(new DataColumn("Среднее напряжение бортсети", typeof(double)));
+        dt.Columns.Add(new DataColumn("Максимальное напряжение бортсети", typeof(double)));
+        dt.Columns.Add(new DataColumn("Минимальное напряжение бортсети", typeof(double)));
+        dt.Columns.Add(new DataColumn("Максимальный объем топлива в баках", typeof(double)));
+        dt.Columns.Add(new DataColumn("Минимальный  объем топлива в баках", typeof(double)));
+
         /*  
-        
+         * dt.Columns.Add(new DataColumn("Минимальные обороты двигателя за время движения", typeof(int)));
+         * dt.Columns.Add(new DataColumn("Средние обороты двигателя за время движения", typeof(int)));
+         * 
          dt.Columns.Add(new DataColumn("Израсходовано топлива (ДУТ | ДРТ)", typeof(int)));
          dt.Columns.Add(new DataColumn("Средний общий путевой расход топлива (ДУТ | ДРТ) л/100 км", typeof(int)));
          dt.Columns.Add(new DataColumn("Средний часовой расход топлива за время простоя л/ч", typeof(int)));
          dt.Columns.Add(new DataColumn("Средний часовой расход топлива за время движения л/ч", typeof(int)));
          dt.Columns.Add(new DataColumn("Средний часовой расход топлива за время работы ДРТ л/ч", typeof(int)));
          dt.Columns.Add(new DataColumn("Максимальный часовой расход топлива за время простоя л/ч", typeof(int)));
-					
-						
-     Максимальный часовой расход топлива за время простоя л/ч					
-     Средний общий часовой расход топлива (ДУТ | ДРТ) л/ч					
-     Перерасход топлива (без учета возможных сливов) (ДУТ | ДРТ) л
-	
+         * 
+         * 
+         Максимальный часовой расход топлива за время простоя л/ч
+         Средний общий часовой расход топлива (ДУТ | ДРТ) л/ч
+         Перерасход топлива (без учета возможных сливов) (ДУТ | ДРТ) л
+         * 
         */
         dr = dt.NewRow();
-        dr["Суммарное время работы"] = plf.Get_AllWorkingTime();
-        dr["Время работы двигателя"] = plf.Get_WorkingEngineTime();
-        dr["Время движения"] = plf.Get_MovingTime();
-        dr["Максимальное непрерывное время движения"] = plf.MaxContinuousMovingTime();
-        dr["Время простоя с заведенным двигателем"] = plf.Get_WorkingEngineWithNoMovingTime();
-        dr["Максимальное непрерывное время простоя"] = plf.MaxContinuousWorkingWithNoMovingTime();
+
+        dr["Начало работы"] = plf.Records[0].SYSTEM_TIME.GetSystemTime().ToString("dd.MM.yyyy HH:mm:ss");
+        dr["Окончание работы"] = plf.Records[plf.Records.Count - 1].SYSTEM_TIME.GetSystemTime().ToString("dd.MM.yyyy HH:mm:ss");
+
+        TimeSpan diff = plf.Records[plf.Records.Count - 1].SYSTEM_TIME.GetSystemTime().Subtract(plf.Records[0].SYSTEM_TIME.GetSystemTime());
+        dr["Продолжительность периода"] = String.Format("{0:0}", (int)diff.TotalHours) + ":" + String.Format("{0:00}", diff.Minutes) + ":" + String.Format("{0:00}", diff.Seconds);
+
+        TimeSpan tTotalWorkTime = plf.Get_AllWorkingTime();
+        string totalWorkTime = String.Format("{0:00}", (int)tTotalWorkTime.TotalHours) + ":" + String.Format("{0:00}", tTotalWorkTime.Minutes) + ":" + String.Format("{0:00}", tTotalWorkTime.Seconds);
+        dr["Суммарное время работы"] = totalWorkTime;
+
+        TimeSpan tMotorWorkTime = plf.Get_WorkingEngineTime();
+        string motorWorkTime = String.Format("{0:00}", (int)tMotorWorkTime.TotalHours) + ":" + String.Format("{0:00}", tMotorWorkTime.Minutes) + ":" + String.Format("{0:00}", tMotorWorkTime.Seconds);
+        dr["Время работы двигателя"] = motorWorkTime;
+
+        TimeSpan tMovement = plf.Get_MovingTime();
+        string movement = String.Format("{0:00}", (int)tMovement.TotalHours) + ":" + String.Format("{0:00}", tMovement.Minutes) + ":" + String.Format("{0:00}", tMovement.Seconds);
+        dr["Время движения"] = movement;
+
+        TimeSpan tMaxMovement = plf.MaxContinuousMovingTime();
+        string maxMovement = String.Format("{0:00}", (int)tMaxMovement.TotalHours) + ":" + String.Format("{0:00}", tMaxMovement.Minutes) + ":" + String.Format("{0:00}", tMaxMovement.Seconds);
+        dr["Максимальное непрерывное время движения"] = maxMovement;
+
+        TimeSpan tDowntime = plf.Get_WorkingEngineWithNoMovingTime();
+        string downtime = String.Format("{0:00}", (int)tDowntime.TotalHours) + ":" + String.Format("{0:00}", tDowntime.Minutes) + ":" + String.Format("{0:00}", tDowntime.Seconds);
+        dr["Время простоя с заведенным двигателем"] = downtime;
+
+        TimeSpan tMaxDowntime = plf.MaxContinuousWorkingWithNoMovingTime();
+        string maxDowntime = String.Format("{0:00}", (int)tMaxDowntime.TotalHours) + ":" + String.Format("{0:00}", tMaxDowntime.Minutes) + ":" + String.Format("{0:00}", tMaxDowntime.Seconds);
+        dr["Максимальное непрерывное время простоя"] = maxDowntime;
 
         dr["Максимальный непрерывный пройденный путь"] = plf.MaxContinuousPath();
        
@@ -167,51 +206,102 @@ public class PlfReportsDataTables
         dr["Количество возможных сливов"] = refillsArray.Count;
         dr["Всего возможно слито топлива"] = totalFuelRefilled;
         dr["Всего возможно слито топлива"] = totalFuelRefilled;
-       // plf.FFT_Fuel();
-        int minRpm = 20000;
-        float oneStep = Convert.ToInt32(plf.TIME_STEP) / 60;
-        float fullStep = 0;
-        int avgMinuteRpm = 0;
-        int avgRPMs = 0;
-        int avgMinutesAmmount = 0;
 
+        double distance = 0;
+
+        double averageSpeed = 0;
+        double maxSpeed = 0;
+
+        double maxFuelValue = 0;
+        double minFuelValue = double.Parse(plf.Records[0].FUEL_VOLUME1);
+
+        double maxRPM = 0;
+        double minRPM = double.PositiveInfinity;
+        double averageRPM = 0;
+        double sumRPM = 0;
+        int notZeroRPMCounter = 0;
+
+        double maxVoltage = 0;
+        double minVoltage = double.Parse(plf.Records[0].VOLTAGE, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
+        double averageVoltage = 0;
 
         foreach(PLFUnit.PLFRecord record in plf.Records)
         {
-            if (record.ENGINE_RPM != "0")
+            distance += double.Parse(record.DISTANCE_COUNTER, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
+            double speed = double.Parse(record.SPEED, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
+            if (speed > maxSpeed)
             {
-                //расчет минимальных оборотов за время движения
-                if (Convert.ToInt32(record.ENGINE_RPM) < minRpm)
-                    minRpm = Convert.ToInt32(record.ENGINE_RPM);
-                //расчет средних оборотов за время движения
-                fullStep += oneStep;
-                avgMinuteRpm += Convert.ToInt32(record.ENGINE_RPM);
-                if (fullStep >= 1)
-                {
-                    fullStep = 0;
-                    avgMinuteRpm = avgMinuteRpm / (60 / Convert.ToInt32(plf.TIME_STEP));
-                    avgRPMs += avgMinuteRpm;
-                    avgMinuteRpm = 0;
-                    avgMinutesAmmount++;
+                maxSpeed = speed;
+            }
 
-                    if (record.SPEED == "0")
-                    {
- 
-                    }
+            double fuelValue = double.Parse(record.FUEL_VOLUME1);
+            if (fuelValue > maxFuelValue)
+            {
+                maxFuelValue = fuelValue;
+            }
+            if (fuelValue < minFuelValue)
+            {
+                minFuelValue = fuelValue;
+            }
+
+            double RPM = double.Parse(record.ENGINE_RPM);
+            if (RPM > maxRPM)
+            {
+                maxRPM = RPM;
+            }
+            if (RPM > 0)
+            {
+                notZeroRPMCounter++;
+                sumRPM += RPM;
+                if (RPM < minRPM)
+                {
+                    minRPM = RPM;
                 }
             }
-        }
-        dr["Минимальные обороты двигателя за время движения"] = minRpm;
 
-        //int shit = avgRPMs / avgMinutesAmmount;
-        if (avgMinutesAmmount == 0)
+            double voltage = double.Parse(record.VOLTAGE, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
+            if (voltage > maxVoltage)
+            {
+                maxVoltage = voltage;
+            }
+            if (voltage < minVoltage)
+            {
+                minVoltage = voltage;
+            }
+
+            averageVoltage += voltage / plf.Records.Count;
+        }
+
+        if (tMovement.TotalSeconds != 0)
         {
-            dr["Средние обороты двигателя за время движения"] = 0;
+            averageSpeed = distance / tMovement.TotalSeconds * 3600;
         }
         else
         {
-            dr["Средние обороты двигателя за время движения"] = avgRPMs / avgMinutesAmmount;
+            averageSpeed = 0;
         }
+
+        if (notZeroRPMCounter != 0)
+        {
+            averageRPM = sumRPM / notZeroRPMCounter;
+        }
+        else
+        {
+            averageRPM = 0;
+        }
+
+        dr["Пройденный путь"] = distance;
+        dr["Средняя скорость за время движения"] = averageSpeed;
+        dr["Максимальная скорость за время движения"] = maxSpeed;
+        dr["Средние обороты двигателя за время движения"] = averageRPM;
+        dr["Максимальные обороты двигателя за время движения"] = maxRPM;
+        dr["Минимальные обороты двигателя за время движения"] = minRPM;
+        dr["Среднее напряжение бортсети"] = averageVoltage;
+        dr["Максимальное напряжение бортсети"] = maxVoltage;
+        dr["Минимальное напряжение бортсети"] = minVoltage;
+        dr["Максимальный объем топлива в баках"] = maxFuelValue;
+        dr["Минимальный  объем топлива в баках"] = minFuelValue;
+
         dt.Rows.Add(dr);
         return dt;
     }
@@ -531,8 +621,8 @@ public class PlfReportsDataTables
         activityTable.Columns.Add(new DataColumn(Col_9, typeof(string)));
 
         dr = activityTable.NewRow();
-        dr[Col_1] = from.ToLongDateString();
-        dr[Col_2] = to.ToLongDateString();
+        dr[Col_1] = from.ToString("dd.MM.yyyy");
+        dr[Col_2] = to.ToString("dd.MM.yyyy");
         dr[Col_3] = VehRegNumber;
         dr[Col_4] = userName;
         dr[Col_5] = driversNumber;
@@ -568,8 +658,8 @@ public class PlfReportsDataTables
         activityTable.Columns.Add(new DataColumn(Col_7, typeof(string)));
 
         dr = activityTable.NewRow();
-        dr[Col_1] = from.ToLongDateString();
-        dr[Col_2] = to.ToLongDateString();
+        dr[Col_1] = from.ToString("dd.MM.yyyy");
+        dr[Col_2] = to.ToString("dd.MM.yyyy");
         dr[Col_4] = userName;
         dr[Col_7] = orgName;
         activityTable.Rows.Add(dr);
@@ -606,8 +696,8 @@ public class PlfReportsDataTables
         activityTable.Columns.Add(new DataColumn(Col_6, typeof(string)));
 
         dr = activityTable.NewRow();
-        dr[Col_1] = from.ToLongDateString();
-        dr[Col_2] = to.ToLongDateString();
+        dr[Col_1] = from.ToString("dd.MM.yyyy");
+        dr[Col_2] = to.ToString("dd.MM.yyyy");
         dr[Col_3] = VehRegNumber;
         dr[Col_4] = IdentNumber;
         dr[Col_5] = userName;
