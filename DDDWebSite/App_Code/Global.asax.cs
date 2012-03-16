@@ -258,8 +258,8 @@ namespace TestCacheTimeout
 
                         foreach (int id in hourIds)
                         {
-                            string addr = "shu.dv@tut.by";
-                            //string addr = "ai@programist.ru";
+                            //string addr = "shu.dv@tut.by";
+                            string addr = "ai@programist.ru";
 
                             //NEW
                             //DateTime from = now.AddHours(-1);
@@ -296,7 +296,7 @@ namespace TestCacheTimeout
                                                     text = text + ";\n"+record.SYSTEM_TIME.systemTime+" - "+record.SPEED;
                                                 }
                                             }
-                                            //SendRemindMessage(addr, text);
+                                            SendRemindMessage(addr, text);
                                             wr.WriteLine("Mail sent to " + addr + "; text:\n" + text);
                                            
                                             break;

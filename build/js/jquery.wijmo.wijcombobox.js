@@ -1217,7 +1217,7 @@
 
 		_openlist: function (items, data) {
 			var self = data.self, eventObj = data.e, keypress, textWidth, menuElement,
-			o, oldPadding, verticalBorder = 2, headerHeight = 0, dropDownHeight,
+			o, oldPadding, verticalBorder = 0, headerHeight = 0, dropDownHeight,
 			h, showingAnimation, showingStyle, showingSize;
 			keypress = self._keypress = !!eventObj;
 			o = self.options;

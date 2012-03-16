@@ -54,6 +54,23 @@ function onPLFFilesNodeSelected(e, data) {
                 'type': 'GetReport','CardID': cardID, 'PLFID': plf, 'UserName': $.cookie("CURRENT_USERNAME")}).appendTo("#statusPanel");
 
             $("#getReport").button();
+            $("#formatChooser").wijcombobox({ changed: function (e, item) {
+                var format = $("#formatChooser").attr("selectedIndex");
+                if (format == "0") {
+                    $("#format").attr("value","pdf");
+                }
+                if (format == "1") {
+                    $("#format").attr("value", "html");
+                }
+                if (format == "2") {
+                    $("#format").attr("value", "rtf");
+                }
+                if (format == "3") {
+                    $("#format").attr("value", "png");
+                }
+            },
+                isEditable: false
+            });
 
             $("#report").empty();
             $("#tmplLoadingPLFFile").tmpl({}).appendTo("#report");

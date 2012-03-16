@@ -1,4 +1,4 @@
-<%@ master language="C#" autoeventwireup="true" inherits="MasterPage, App_Web_nybdyn10" %>
+<%@ master language="C#" autoeventwireup="true" inherits="MasterPage, App_Web_souycijt" %>
 
 <%@ Register src="../UserControlsForAll/BlueButton.ascx" tagname="BlueButton" tagprefix="uc2" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
@@ -8,8 +8,6 @@
     <meta http-equiv="content-type" content="text/html" charset=utf-8" />
 
     <title>SmartFIS</title>
-
-    <asp:ContentPlaceHolder ID="HeadContentPlaceHolder" runat="server" />
 
     <link href="../css/shablon.css" rel="stylesheet" type="text/css" />
     <link type="text/css" href="../css/custom-theme/jquery-ui-1.8.11.custom.css" rel="stylesheet" />	
@@ -114,6 +112,8 @@
             $("#accordion").accordion("resize");
         });
 	</script>
+
+    <asp:ContentPlaceHolder ID="HeadContentPlaceHolder" runat="server" />
 
 </head>
 <body>
