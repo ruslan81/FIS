@@ -237,8 +237,9 @@ button
 
 .wijmo-wijlist-ul
 {
-	background-color: #e4e4e4;
+	background-color: #eee;
 	border: 1px solid #ccc;
+	border-radius: 3px;
 }
 
 .item-detail
@@ -248,4 +249,9 @@ button
     border: 1px solid #CCC;
     border-radius: 5px;
     padding: 10px;
+}
+
+input
+{
+    margin:0;
 }

@@ -1,4 +1,4 @@
-﻿<%@ page language="C#" autoeventwireup="true" inherits="AdministratorS_CreatingForms, App_Web_v5gwytir" %>
+﻿<%@ page language="C#" autoeventwireup="true" inherits="AdministratorS_CreatingForms, App_Web_0i3bss0a" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="CreatingFormsControls/GeneralTab_CretingFormsControl.ascx" TagName="GeneralTab_CretingFormsControl"

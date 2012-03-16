@@ -133,15 +133,6 @@ namespace BLL
             return sqlDb.GetRemindType(remindId);
         }
         /// <summary>
-        /// Получает ID организации напоминания по ID напоминания
-        /// </summary>
-        /// <param name="remindId">ID напоминания</param>
-        /// <returns>ID организации</returns>
-        public int GetRemindOrgId(int remindId)
-        {
-            return sqlDb.GetRemindOrgId(remindId);
-        }
-        /// <summary>
         /// Получает последнюю дату напоминания по ID
         /// </summary>
         /// <param name="remindId">ID напоминания</param>

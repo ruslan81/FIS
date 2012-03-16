@@ -11,13 +11,16 @@
 <%@ Register Src="Settings_UserControls/EmailSheduler.ascx" TagName="EmailSheduler" TagPrefix="uc7" %>
 <%@ Register src="../UserControlsForAll/BlueButton.ascx" tagname="BlueButton" tagprefix="uc2" %>
 
-<asp:Content ID="AccordionContent" ContentPlaceHolderID="VerticalOutlookMenu_PlaceHolder"
-    runat="server">
-    
+<asp:Content ID="Content1" ContentPlaceHolderID="HeadContentPlaceHolder" runat="server">
+
     <link type="text/css" href="../css/custom-theme/jquery.wijmo.wijcombobox.css" rel="stylesheet" />
 
     <script src="../js/custom/Settings.js" type="text/javascript"></script>
-    <script src="../js/jquery.wijmo.wijcombobox.js" type="text/javascript"></script>   
+    <script src="../js/jquery.wijmo.wijcombobox.js" type="text/javascript"></script>
+    
+</asp:Content>
+
+<asp:Content ID="AccordionContent" ContentPlaceHolderID="VerticalOutlookMenu_PlaceHolder" runat="server">
 
     <asp:HiddenField ID="AccordionSelectedPane" Visible="true" runat="server" Value="0" />
 

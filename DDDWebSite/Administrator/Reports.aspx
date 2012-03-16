@@ -5,15 +5,13 @@
 <%@ Register Src="Reports_UserControls/NavigationReportControl.ascx" TagName="NavigationReportControl"
     TagPrefix="uc1" %>
 <%@ Register src="../UserControlsForAll/BlueButton.ascx" tagname="BlueButton" tagprefix="uc2" %>
-<asp:Content ID="HeaderContent" ContentPlaceHolderID="HeadContentPlaceHolder" runat="server">
 
-    <script language="Javascript" src="../FusionCharts/FusionCharts.js"></script>
-    <script type="text/javascript" language="javascript" src="../anychartstock_files/js/AnyChartStock.js"></script>
+<asp:Content ID="HeaderContent" ContentPlaceHolderID="HeadContentPlaceHolder" runat="server">
+    <link type="text/css" href="../css/custom-theme/jquery.wijmo.wijcombobox.css" rel="stylesheet" />
 
     <script src="../js/custom/Report.js" type="text/javascript"></script>
+    <script src="../js/jquery.wijmo.wijcombobox.js" type="text/javascript"></script>
     
-    
-       
 </asp:Content>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
@@ -47,7 +45,7 @@
                             }
                         }
                         });
-                    };
+                    }
                 }
             });
 
@@ -70,15 +68,6 @@
             document.getElementById('report').style.height = outHeight - 5 - 50 + "px";
             document.getElementById('chart').style.height = outHeight - 5 - 50 + "px";
             document.getElementById('chart').style.width = $('#outputId').width() - 35 + "px";
-            /*document.getElementById('ctl00_Reports_PlaceHolder_NavigationReportControl1_ScrollPanel').style.height = reportPanelHeight - 70 + "px";
-
-            var oneAccPanelHeight = document.getElementById('firstAccordionPanel').style.height;
-            oneAccPanelHeight = oneAccPanelHeight.substring(0, oneAccPanelHeight.length - 2);
-            document.getElementById('DriverOverFlowPanel').style.height = oneAccPanelHeight - 45 + "px";
-            document.getElementById('VehicleOverFlowPanel').style.height = oneAccPanelHeight - 2 + "px";
-            document.getElementById('MultiDriverOverFlowPanel').style.height = oneAccPanelHeight - 21 + "px";
-            document.getElementById('MultiVehicleOverFlowPanel').style.height = oneAccPanelHeight - 21 + "px";
-            //document.getElementById('PLFOverFlowPanel').style.height = oneAccPanelHeight - 135 + "px";*/
         }
 
         function showModal() {
@@ -110,7 +99,7 @@
 
     <script id="tmplNoPLFFile" type="text/x-jquery-tmpl">
         <div style="color:#a60000;font-weight:bold;text-align:center;">
-            Выберите интересующий Вас PLF файл.
+            выберите интересующий вас PLF файл
         </div>
     </script>
 
@@ -139,9 +128,23 @@
                     <input type="hidden" name="CardID" value="${CardID}"/>
                     <input type="hidden" name="PLFID" value="${PLFID}"/>
                     <input type="hidden" name="UserName" value="${UserName}"/>
+                    <input type="hidden" id="format" name="Format" value="pdf"/>
                     <input id="getReport" value="Получить отчет" type="submit" title="Скачать pdf-файл"/>
                 </div>
             </form>
+        </div>
+
+        <div style="float:right;margin-right:15px;margin-left:10px;">
+            <select id="formatChooser"> 
+                <option value="pdf">pdf</option>
+                <option value="html">html</option>
+                <option value="rtf">rtf</option>
+                <option value="png">png</option>
+            </select>
+        </div>
+
+        <div style="float:right;margin-top:2px;">
+            выберите формат отчета:
         </div>
     </script>
 
@@ -437,8 +440,10 @@
 		        <li><a href="#tabs-2">Графики</a></li>
 	        </ul>
             <div id="tabs-1">
+                <center>
                 <div id="report" style="overflow: auto;">
                 </div>
+                </center>
             </div>
             <div id="tabs-2">
                 <div id="chart" style="overflow: hidden;">

@@ -22,7 +22,7 @@ public partial class loginPage : System.Web.UI.Page
             PasswordTextBox.Attributes.Add("onKeyPress", "javascript:if (event.keyCode == 13) __doPostBack('" + LinkButton1.ClientID + "','')");
 
             ProfilesTextBox.Focus();
-            LastUpdate.Text = "Последнее обновление 13.02.2012 00:00";
+            LastUpdate.Text = "Последнее обновление 03.03.2012 00:00";
         }
         PassRecoverStatus.Text = "";
     }
@@ -62,8 +62,8 @@ public partial class loginPage : System.Web.UI.Page
             else
             {
                 errorBlock.Style.Add("display","block");
-                result.Text = "Введите корректный логин и пароль!";
-                throw new Exception("Введите корректный логин и пароль!");
+                result.Text = "Введите корректные логин и пароль!";
+                throw new Exception("Введите корректные логин и пароль!");
             }
         }
         catch (Exception ex)

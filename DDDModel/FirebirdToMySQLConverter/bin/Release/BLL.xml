@@ -1527,13 +1527,6 @@
             <param name="remindId">ID напоминания</param>
             <returns>Тип</returns>
         </member>
-        <member name="M:BLL.RemindTable.GetRemindOrgId(System.Int32)">
-            <summary>
-            Получает ID организации напоминания по ID напоминания
-            </summary>
-            <param name="remindId">ID напоминания</param>
-            <returns>ID организации</returns>
-        </member>
         <member name="M:BLL.RemindTable.GetRemindLastDate(System.Int32)">
             <summary>
             Получает последнюю дату напоминания по ID
