@@ -3146,6 +3146,14 @@ namespace DB.SQL
             cmd.Parameters.AddWithValue("@REM_TYPE", remindType);
             cmd.ExecuteNonQuery();
         }
+        public void UpdateRemind(int remindId, DateTime lastDate)
+        {
+            string sql = "UPDATE fn_remind SET REMIND_LAST_DATE=@REM_LAST_DATE WHERE REMIND_ID=@REM_ID";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@REM_ID", remindId);
+            cmd.Parameters.AddWithValue("@REM_LAST_DATE", lastDate);
+            cmd.ExecuteNonQuery();
+        }
         public void DeleteRemind(int remindId)
         {
             string sql = "DELETE FROM fn_remind WHERE REMIND_ID = @REMIND_ID";

@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using BLL;
-
+using System.Configuration;
 
 public partial class Administrator_Administration : System.Web.UI.Page
 {
@@ -208,6 +208,85 @@ public partial class Administrator_Administration : System.Web.UI.Page
         if (!script.IsStartupScriptRegistered(this.GetType(), "Alert"))
         {
         //    script.RegisterStartupScript(this.GetType(), "Alert", "alert('test!');", true);
+        }
+    }
+
+
+    //AJAX BEGIN
+
+    /// <summary>
+    ///Получить данные по журналу
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static List<MapItem> GetEvents()
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        HistoryTable historyTable = new HistoryTable(connectionString, "STRING_EN", dataBlock.sqlDb);
+        try
+        {
+            dataBlock.OpenConnection();
+            List<MapItem> result = new List<MapItem>();
+            List<KeyValuePair<string, int>> actions = historyTable.GetAllActions();
+            result.Add(new MapItem("-1","Все"));
+            foreach (KeyValuePair<string, int> action in actions)
+                result.Add(new MapItem(action.Value.ToString(),action.Key));
+            return result;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Получить данные по журналу
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static List<JournalData> GetJournal(String OrgID, String StartDate, String EndDate, String eventType, String searchString)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        HistoryTable historyTable = new HistoryTable(connectionString, "STRING_EN", dataBlock.sqlDb);
+
+        try
+        {
+            dataBlock.OpenConnection();
+            List<JournalData> result = new List<JournalData>();
+
+            int orgId = Convert.ToInt32(OrgID);
+            List<int> usersIds = new List<int>();
+            DateTime from = Convert.ToDateTime(StartDate);
+            DateTime to = Convert.ToDateTime(EndDate);
+            int actionId = Convert.ToInt32(eventType);
+
+            usersIds.AddRange(dataBlock.usersTable.Get_AllUsersId(orgId, dataBlock.usersTable.DriverUserTypeId));
+            usersIds.AddRange(dataBlock.usersTable.Get_AllUsersId(orgId, dataBlock.usersTable.AdministratorUserTypeId));
+            usersIds.AddRange(dataBlock.usersTable.Get_AllUsersId(orgId, dataBlock.usersTable.ManagerUserTypeId));
+            DataTable data = historyTable.GetAllHistorysForUsers(usersIds, from, to, actionId, searchString);
+            foreach (DataRow row in data.Rows) {
+                JournalData jd = new JournalData();
+                jd.dateTime = row["Дата и время"].ToString();
+                jd.user = row["Пользователь"].ToString();
+                jd.note = row["Описание"].ToString();
+                result.Add(jd);
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
         }
     }
 }

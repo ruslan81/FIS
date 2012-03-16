@@ -287,17 +287,22 @@ namespace TestCacheTimeout
                                             CriteriaTable oneCriteria = dataBlock.criteriaTable.LoadCriteria(8);
                                             string type = dataBlock.remindTable.GetRemindTypeName(dataBlock.remindTable.GetRemindType(id));
                                             string text = "Данное сообщение отправлено сервисом SmartFIS.\nПериодичность: каждый час.                                                        \nВодитель: " + source + ";\nТип напоминания: " + type +
-                                                ";\nПериод анализа: " + from.ToString() + " - " + to.ToString() +
-                                                ";\nНормативное значение параметра: " + oneCriteria.MaxValue;
+                                                ";\nПериод анализа: " + from.ToString("yyyy-mm-dd hh:mm") + " - " + to.ToString("yyyy-mm-dd hh:mm") + ";\nНормативное значение параметра: " + oneCriteria.MaxValue;
+                                            bool flag = false;
                                             foreach (PLFUnit.PLFRecord record in records)
                                             {
                                                 if (Convert.ToDouble(record.SPEED.Replace('.', ',')) > oneCriteria.MaxValue)
                                                 {
+                                                    flag = true;
                                                     text = text + ";\n"+record.SYSTEM_TIME.systemTime+" - "+record.SPEED;
                                                 }
                                             }
-                                            //SendRemindMessage(addr, text);
-                                            wr.WriteLine("Mail sent to " + addr + "; text:\n" + text);
+                                            if (flag)
+                                            {
+                                                SendRemindMessage(addr, text);
+                                                dataBlock.remindTable.UpdateRemind(id, now);
+                                                wr.WriteLine("Mail sent to " + addr + "; text:\n" + text);
+                                            }
                                            
                                             break;
                                         }
@@ -307,17 +312,22 @@ namespace TestCacheTimeout
                                             CriteriaTable oneCriteria = dataBlock.criteriaTable.LoadCriteria(7);
                                             string type = dataBlock.remindTable.GetRemindTypeName(dataBlock.remindTable.GetRemindType(id));
                                             string text = "Данное сообщение отправлено сервисом SmartFIS.\nПериодичность: каждый час.                                                        \nВодитель: " + source + ";\nТип напоминания: " + type +
-                                                ";\nПериод анализа: " + from.ToString() + " - " + to.ToString() +
-                                                ";\nНормативное значение параметра: " + oneCriteria.MaxValue;
+                                                ";\nПериод анализа: " + from.ToString("yyyy-mm-dd hh:mm") + " - " + to.ToString("yyyy-mm-dd hh:mm") +";\nНормативное значение параметра: " + oneCriteria.MaxValue;
+                                            bool flag = false;
                                             foreach (PLFUnit.PLFRecord record in records)
                                             {
                                                 if (Convert.ToDouble(record.ENGINE_RPM.Replace('.', ',')) > oneCriteria.MaxValue)
                                                 {
+                                                    flag = true;
                                                     text = text + ";\n" + record.SYSTEM_TIME.systemTime + " - " + record.ENGINE_RPM;
                                                 }
                                             }
-                                            //SendRemindMessage(addr, text);
-                                            wr.WriteLine("Mail sent to " + addr + "; text:\n" + text);
+                                            if (flag)
+                                            {
+                                                SendRemindMessage(addr, text);
+                                                dataBlock.remindTable.UpdateRemind(id,now);
+                                                wr.WriteLine("Mail sent to " + addr + "; text:\n" + text);
+                                            }
                                            
                                             break;
                                         }

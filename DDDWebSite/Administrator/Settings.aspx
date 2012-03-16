@@ -356,7 +356,7 @@
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
                     <input value="{{html sourceName}}" id="source{{html id}}" sourceType="{{html sourceType}}" key="{{html sourceId}}" class="inputField-readonly" readonly="readonly" style="width:70%;"/>
-                    <img id="preview{{html id}}" src="../images/icons/preview.png" alt="Load Driver" width="20" height="20" key="{{html id}}" style="display:none;"/>
+                    <img id="preview{{html id}}" src="../css/icons/24x24/search.png" alt="Load Driver" width="20" height="20" key="{{html id}}" style="display:none;cursor:pointer;"/>
                 </div>
             </td>
             <td class="wijgridtd wijdata-type-string">
@@ -379,9 +379,12 @@
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
                 {{if active==1}}
-                    <input type="checkbox" checked="true" disabled="true" id="active{{html id}}" class="inputField-readonly" readonly="readonly"/>
+                     <center>
+                          <input type="checkbox" checked="true" disabled="true" id="active{{html id}}" class="inputField-readonly" readonly="readonly"/></center>
                 {{else}}
+                <center>
                     <input type="checkbox" disabled="true" id="active{{html id}}" class="inputField-readonly" readonly="readonly"/>
+                </center>
                 {{/if}}
                 </div>
             </td>
@@ -403,7 +406,7 @@
             <td class="wijgridtd wijdata-type-string wijmo-wijgrid-cell-border-bottom wijmo-wijgrid-cell-border-right wijmo-wijgrid-cell">
                 <div class="wijmo-wijgrid-innercell">
                     <input value="Init Organization" id="sourceNew" key="1" sourceType="2" class="inputField-readonly" readonly="readonly" style="width:70%;"/>
-                    <img id="previewNew" src="../images/icons/preview.png" alt="Load Driver" width="20" height="20"/>
+                    <img id="previewNew" style="cursor: pointer;" src="../css/icons/24x24/search.png" alt="Load Driver" width="20" height="20"/>
                 </div>
             </td>
             <td class="wijgridtd wijdata-type-string wijmo-wijgrid-cell-border-bottom wijmo-wijgrid-cell-border-right wijmo-wijgrid-cell">
@@ -480,6 +483,11 @@
         <div id="reminders">
             <h3><asp:LinkButton ID="AccordionHeader2_Reminders" CausesValidation="false" runat="server" PostBackUrl="#" Text="Напоминания"/></h3>
             <div>
+
+            <div>
+            Данный раздел позволяет создавать и редактировать напоминания различных типов и периодичности для контроля за группами водителей или конкретными водителями.<br/><br/>Выбранные вами напоминания будут автоматически формироваться и отправляться на e-mail адресата с заданной периодичностью.
+            </div>
+
             <div id="choosedialog" title="Выбор источника" style="display: none;">
 	            <p>Выберите водителя или группу водителей:</p>
                 <div>

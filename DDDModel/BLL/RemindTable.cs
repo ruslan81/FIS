@@ -48,7 +48,7 @@ namespace BLL
             sqlDb.CreateNewRemind(orgId, remindActive, userId, sourceType, sourceId, period, lastDate, remindType);
         }
         /// <summary>
-        /// Создает новое напоминание
+        /// Редактирует напоминание
         /// </summary>
         /// <param name="remindId">ID напоминания</param>
         /// <param name="remindActive">Активность</param>
@@ -60,6 +60,15 @@ namespace BLL
         public void UpdateRemind(int remindId, bool remindActive, int userId, int sourceType, int sourceId, int period, DateTime lastDate, int remindType)
         {
             sqlDb.UpdateRemind(remindId, remindActive, userId, sourceType, sourceId, period, lastDate, remindType);
+        }
+        /// <summary>
+        /// Редактирует напоминание
+        /// </summary>
+        /// <param name="remindId">ID напоминания</param>
+        /// <param name="lastDate">Дата последнего напоминания</param>
+        public void UpdateRemind(int remindId, DateTime lastDate)
+        {
+            sqlDb.UpdateRemind(remindId,lastDate);
         }
         /// <summary>
         /// Удаляет напоминание

@@ -783,7 +783,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
         try{
             dataBlock.OpenConnection();
             List<MapItem> result = new List<MapItem>();
-            for (int i = 1; i < 8; i++) {
+            //for (int i = 1; i < 8; i++) {
+            for (int i = 1; i < 3; i++) {
                 result.Add(new MapItem(Convert.ToString(i),dataBlock.remindTable.GetRemindTypeName(i)));
             }
             return result;
