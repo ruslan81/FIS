@@ -52,7 +52,8 @@ function createTableHeader(tableHeader, template, columns) {
 
 function createRemindControls() {
     $("#headerSettings").empty();
-    $("#headerSettings").append($("#RemindMainLabels").text());
+    $("#headerSettings").text("Напоминания");
+    //$("#headerSettings").append($("#RemindMainLabels").text());
     buildRemindTree();
     //$("#contentSettings").append($("#tmplTabsContent").text());
     //$('#tabs').tabs();
@@ -90,6 +91,8 @@ function createRemindControls() {
                     $("#typeSelector" + key).wijcombobox({
                         disabled: false
                     });
+                    $("#active" + key).removeClass("inputField-readonly");
+                    $("#active" + key).removeAttr("readonly");
                     $("#active" + key).removeAttr("disabled");
                     $("#preview" + key).show();
                     $('#preview' + key).click(function () {

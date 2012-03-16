@@ -14,10 +14,33 @@
 <%@ Register src="../UserControlsForAll/BlueButton.ascx" tagname="BlueButton" tagprefix="uc2" %>
 
 <asp:Content ID="AccordionContent" ContentPlaceHolderID="VerticalOutlookMenu_PlaceHolder" runat="server">
-
+  <script src="../js/custom/Adminsitration.js" type="text/javascript"></script>
+  <script src="../js/jquery.ui.datepicker-ru.js" type="text/javascript"></script>
+  <script src="../js/jquery.wijmo.wijcombobox.js" type="text/javascript"></script>
   <asp:HiddenField ID="AccordionSelectedPane" Visible="true" runat="server" Value="0" /> 
   
-  <script type="text/javascript">
+  <script type="text/javascript">    
+      //run on page load
+      $(function () {
+          loadGeneralData();
+
+          $("#accordion").accordion({
+              change: function (event, ui) {
+
+                  $("#ContentContainer").empty();
+                  if ($("a", ui.newHeader).text() == "Общие сведения") {
+                      loadGeneralData();
+                  };
+                  if ($("a", ui.newHeader).text() == "Счета") {
+                      loadInvoiceData();
+                  };
+                  if ($("a", ui.newHeader).text() == "Журнал") {
+                      loadJournalData();
+                  };
+                  
+              }
+          });
+      });
 
       function pageLoad() {
           $('#accordion').bind('accordionchange', function() {
@@ -56,6 +79,89 @@
       });
     
     </script>
+
+    <!-- TEMPLATES-->
+
+    <script id="GeneralData" type="text/x-jquery-tmpl">
+            <table id="statisticTable"  style="border-collapse: separate;width:40%;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
+                border="0" cellpadding="0" cellspacing="0">
+                <thead id="statisticTableHeader"></thead>
+                <tbody id="statisticTableBody" class="ui-widget-content wijmo-wijgrid-data">
+                </tbody>
+            </table>
+            <table id="messageTable"  style="border-collapse: separate;width:60%;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
+                border="0" cellpadding="0" cellspacing="0">
+                <thead id="messageTableHeader"></thead>
+                <tbody id="messageTableBody" class="ui-widget-content wijmo-wijgrid-data">
+                </tbody>
+            </table>
+    </script>
+
+    <script id="InvoiceData" type="text/x-jquery-tmpl">
+            <table id="invoiceTable"  style="border-collapse: separate;width:100%;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
+                border="0" cellpadding="0" cellspacing="0">
+                <thead id="invoiceTableHeader"></thead>
+                <tbody id="invoiceTableBody" class="ui-widget-content wijmo-wijgrid-data">
+                </tbody>
+            </table>
+    </script>
+    
+    <script id="JournalData" type="text/x-jquery-tmpl">
+            <div id="filter" style="border: 1px solid #0000FF;border-radius: 3px;">
+            <label><h3>Фильтр</h3></label>
+            <label>Начальная дата </label><input id="startDatePicker" type="text"/>
+            <label>Конечная дата </label><input id="endDatePicker" type="text"/><br>
+
+            <div id="dateErrorBlock" class="error-block">
+            <label class="error" id="dateErrorLabel"> Ошибка: Укажите начальную и конечную дату!</label>
+            </div>
+
+            <label>Событие </label><select style="wisth:0%;" id="eventSelector" event="-1" onchange="this.event=this.value;"></select>
+            <label>Текст в описании </label><input id="textInput" value=""/>
+            <button id="buildButton">Применить</button>
+            </div>
+            <table id="journalTable"  style="border-collapse: separate;width:100%;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
+                border="0" cellpadding="0" cellspacing="0">
+                <thead id="journalTableHeader"></thead>
+                <tbody id="journalTableBody" class="ui-widget-content wijmo-wijgrid-data">
+                </tbody>
+            </table>
+    </script>
+    
+    <script id="tmplJournalTableContent" type="text/x-jquery-tmpl">
+        <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <center>
+                   <input value="{{html dateTime}}" class="inputField-readonly input" readonly="readonly"/>
+                    </center>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                   <input value="{{html user}}" class="inputField-readonly input" readonly="readonly"/>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                   <input value="{{html note}}" class="inputField-readonly input" readonly="readonly"/>
+                </div>
+            </td>
+        </tr>
+    </script>
+
+    <script id="tmplHeadColumn" type="text/x-jquery-tmpl">
+        <th class="ui-widget wijmo-c1basefield ui-state-default wijmo-c1field" style="{{html style}}height:30px;">
+            <div class="wijmo-wijgrid-innercell">
+                <span class="wijmo-wijgrid-headertext">{{html text}}</span>
+            </div>
+        </th>
+    </script>
+
+    <script id="tmplOption" type="text/x-jquery-tmpl">
+        <option value="{{html Key}}">{{html Value}}</option>
+    </script>
+
         <asp:UpdatePanel ID="InvisibleUpdatePanel" runat="server" UpdateMode="Always">  
             <ContentTemplate>
             
@@ -100,7 +206,9 @@
 </asp:Content>
 
 <asp:Content ID="DataContent" ContentPlaceHolderID="Reports_PlaceHolder" runat="server">
-    <asp:UpdatePanel id="DataContentUpdatePanel" runat="server" UpdateMode="Always"  OnDataBinding="GeneralDataLoad">
+    <div id="ContentContainer">
+    </div>
+    <!--<asp:UpdatePanel id="DataContentUpdatePanel" runat="server" UpdateMode="Always"  OnDataBinding="GeneralDataLoad">
         <ContentTemplate>
             <script type="text/javascript">
                 Sys.WebForms.PageRequestManager.getInstance().add_endRequest(asss);
@@ -110,6 +218,7 @@
             </script>       
         
             <uc1:GeneralData_UserControl ID="GeneralData_UserControl1" runat="server"/>
+
             <uc2:UsersTab_UserControl ID="UsersTab_UserControl1" runat="server"  Visible="false" />
             <uc3:DealersTab_UserControl ID="DealersTab_X_UserControl1" runat="server"  Visible="false"/>
             <uc4:LogTab_UserControl ID="LogTab_UserControl1" runat="server" />
@@ -142,4 +251,5 @@
             <asp:Label runat="server" ID="Status" Font-Size="Large" ForeColor="DarkBlue" />
         </ContentTemplate>
     </asp:UpdatePanel>
+        -->
 </asp:Content>

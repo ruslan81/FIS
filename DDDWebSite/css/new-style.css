@@ -176,6 +176,28 @@ button
 	width:90%;
 }
 
+#ContentContainer .wijmo-wijgrid-alternatingrow .inputField-readonly
+{
+	background-color:#eee;	
+}
+
+#ContentContainer .input
+{
+	font-family:Tahoma;
+	font-size:11px;
+	width:90%;
+}
+
+#ContentContainer .inputField-readonly
+{
+	border:none;
+    border-radius:none;
+    padding-left:5px;
+    height:22px;
+    font-size:12px;
+    width:90%;
+}
+
 #RemindControlsTable input
 {
 	background-color:#fff;
