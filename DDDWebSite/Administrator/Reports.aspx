@@ -64,9 +64,9 @@
             var outHeight = $("#main-content").height() -155 + 37;
             $("#outputId").height(outHeight);
             $("#outputId-content").height(outHeight);
-            document.getElementById('tabs').style.height = outHeight - 5 + "px";
-            document.getElementById('report').style.height = outHeight - 5 - 50 + "px";
-            document.getElementById('chart').style.height = outHeight - 5 - 50 + "px";
+            document.getElementById('tabs').style.height = outHeight - 6 + "px";
+            document.getElementById('report').style.height = outHeight - 7 - 50 + "px";
+            document.getElementById('chart').style.height = outHeight - 7 - 50 + "px";
             document.getElementById('chart').style.width = $('#outputId').width() - 35 + "px";
         }
 

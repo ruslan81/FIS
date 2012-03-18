@@ -1,4 +1,4 @@
-﻿<%@ page language="C#" masterpagefile="~/MasterPage/MasterPage.Master" autoeventwireup="true" inherits="Administrator_Report, App_Web_cfnly5ki" %>
+﻿<%@ page language="C#" masterpagefile="~/MasterPage/MasterPage.Master" autoeventwireup="true" inherits="Administrator_Report, App_Web_wdr5ddqv" %>
 
 <%@ Register Assembly="StatefullScrollPanel" Namespace="CustomControls" TagPrefix="asp" %>
 <%@ Register Src="Reports_UserControls/NavigationReportControl.ascx" TagName="NavigationReportControl"
@@ -63,9 +63,9 @@
             var outHeight = $("#main-content").height() -155 + 37;
             $("#outputId").height(outHeight);
             $("#outputId-content").height(outHeight);
-            document.getElementById('tabs').style.height = outHeight - 5 + "px";
-            document.getElementById('report').style.height = outHeight - 5 - 50 + "px";
-            document.getElementById('chart').style.height = outHeight - 5 - 50 + "px";
+            document.getElementById('tabs').style.height = outHeight - 6 + "px";
+            document.getElementById('report').style.height = outHeight - 7 - 50 + "px";
+            document.getElementById('chart').style.height = outHeight - 7 - 50 + "px";
             document.getElementById('chart').style.width = $('#outputId').width() - 35 + "px";
         }
 

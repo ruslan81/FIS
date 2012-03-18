@@ -21,7 +21,7 @@ function updateTable(tableBody, template, data) {
             if (j < cells.length - 1) {
                 $(cells[j]).addClass("wijmo-wijgrid-cell-border-right");
             }
-            if (i < rows.length - 1) {
+            if (i < rows.length) {
                 $(cells[j]).addClass("wijmo-wijgrid-cell-border-bottom");
             }
             $(cells[j]).addClass("wijmo-wijgrid-cell");
