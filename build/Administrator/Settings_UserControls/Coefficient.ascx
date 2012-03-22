@@ -1,4 +1,4 @@
-﻿<%@ control language="C#" autoeventwireup="true" inherits="Administrator_Settings_UserControls_Coefficient, App_Web_roolmgow" %>
+﻿<%@ control language="C#" autoeventwireup="true" inherits="Administrator_Settings_UserControls_Coefficient, App_Web_3d0asxpa" %>
 
 
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>

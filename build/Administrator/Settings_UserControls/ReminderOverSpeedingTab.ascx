@@ -1,4 +1,4 @@
-﻿<%@ control language="C#" autoeventwireup="true" inherits="Administrator_Settings_UserControls_ReminderOverSpeedingTab, App_Web_roolmgow" %>
+﻿<%@ control language="C#" autoeventwireup="true" inherits="Administrator_Settings_UserControls_ReminderOverSpeedingTab, App_Web_3d0asxpa" %>
 
 <asp:Panel ID="OverSpeedingPanel" runat="server">
     <asp:Table ID="AditionalEditTable" runat="server" Width="100%" CellPadding="10">

@@ -1,4 +1,4 @@
-<%@ master language="C#" autoeventwireup="true" inherits="MasterPage, App_Web_0zude5g2" %>
+<%@ master language="C#" autoeventwireup="true" inherits="MasterPage, App_Web_kbk2hij5" %>
 
 <%@ Register src="../UserControlsForAll/BlueButton.ascx" tagname="BlueButton" tagprefix="uc2" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>

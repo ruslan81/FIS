@@ -1,4 +1,4 @@
-﻿<%@ control language="C#" autoeventwireup="true" inherits="Administrator_Adminisration_UserControls_DealersTab_UserControl, App_Web_kxknpksr" %>
+﻿<%@ control language="C#" autoeventwireup="true" inherits="Administrator_Adminisration_UserControls_DealersTab_UserControl, App_Web_yg0rim4p" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register src="../../UserControlsForAll/BlueButton.ascx" tagname="BlueButton" tagprefix="uc2" %>
 

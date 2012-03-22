@@ -287,7 +287,7 @@ namespace TestCacheTimeout
                                             CriteriaTable oneCriteria = dataBlock.criteriaTable.LoadCriteria(8);
                                             string type = dataBlock.remindTable.GetRemindTypeName(dataBlock.remindTable.GetRemindType(id));
                                             string text = "Данное сообщение отправлено сервисом SmartFIS.\nПериодичность: каждый час.                                                        \nВодитель: " + source + ";\nТип напоминания: " + type +
-                                                ";\nПериод анализа: " + from.ToString("yyyy-mm-dd hh:mm") + " - " + to.ToString("yyyy-mm-dd hh:mm") + ";\nНормативное значение параметра: " + oneCriteria.MaxValue;
+                                                ";\nПериод анализа: " + from.ToString("dd.MM.yyyy hh:mm") + " - " + to.ToString("dd.MM.yyyy hh:mm") + ";\nНормативное значение параметра: " + oneCriteria.MaxValue;
                                             bool flag = false;
                                             foreach (PLFUnit.PLFRecord record in records)
                                             {
@@ -312,7 +312,7 @@ namespace TestCacheTimeout
                                             CriteriaTable oneCriteria = dataBlock.criteriaTable.LoadCriteria(7);
                                             string type = dataBlock.remindTable.GetRemindTypeName(dataBlock.remindTable.GetRemindType(id));
                                             string text = "Данное сообщение отправлено сервисом SmartFIS.\nПериодичность: каждый час.                                                        \nВодитель: " + source + ";\nТип напоминания: " + type +
-                                                ";\nПериод анализа: " + from.ToString("yyyy-mm-dd hh:mm") + " - " + to.ToString("yyyy-mm-dd hh:mm") + ";\nНормативное значение параметра: " + oneCriteria.MaxValue;
+                                                ";\nПериод анализа: " + from.ToString("dd.MM.yyyy hh:mm") + " - " + to.ToString("dd.MM.yyyy hh:mm") + ";\nНормативное значение параметра: " + oneCriteria.MaxValue;
                                             bool flag = false;
                                             foreach (PLFUnit.PLFRecord record in records)
                                             {
