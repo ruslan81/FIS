@@ -40,6 +40,7 @@
                     if ($("a", ui.newHeader).text() == "Организация") {
                         $("#contentSettingsPlace").empty();
                         $("#headerSettings").empty();
+                        $("#general").wijtreenode({ selected: true });
                         loadGeneralSettings();
                     };
                     if ($("a", ui.newHeader).text() == "Напоминания") {

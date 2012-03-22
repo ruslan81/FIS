@@ -258,8 +258,8 @@ namespace TestCacheTimeout
 
                         foreach (int id in hourIds)
                         {
-                            //string addr = "shu.dv@tut.by";
-                            string addr = "ai@programist.ru";
+                            string addr = "shu.dv@tut.by";
+                            //string addr = "ai@programist.ru";
 
                             //NEW
                             //DateTime from = now.AddHours(-1);
