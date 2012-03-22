@@ -234,8 +234,8 @@ button
 
 .ui-widget-content
 {
-    /*border:none;*/
-    border:1px solid #e4e4e4;
+    border:none;
+    /*border:1px solid #e4e4e4;*/
 }
 
 .wijmo-wijlist-ul

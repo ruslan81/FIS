@@ -111,13 +111,12 @@ function createRemindControls() {
                                 $(currentDriverId).attr("sourceType", type);
                                 $(this).dialog("close");
                             }
-                        }
-                        }
-                        );
-                        $("#choosedialog").dialog("option", "closeText", '');
-                        $("#choosedialog").dialog("option", "resizable", false);
-                        $("#choosedialog").dialog("option", "modal", true);
-                        $("#choosedialog").dialog("option", "height", 350);
+                        },
+                            closeText: '',
+                            resizable: false,
+                            modal: true,
+                            height: 350
+                        });
                         loadDriversTree(driverKey, type);
                     });
                 }
