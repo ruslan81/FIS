@@ -164,7 +164,7 @@
         <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell" style="margin-left:5px;">
-                    <input type="checkbox" id="checkbox{{html grID}}" key="{{html grID}}"/>
+                    <input type="checkbox" id="checkbox{{html grID}}" cardType="{{html cardType}}" key="{{html grID}}"/>
                 </div>
             </td>
             <td class="wijgridtd wijdata-type-string">
@@ -186,7 +186,7 @@
             </td>
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
-                    <select id="groupSelector{{html grID}}" name="groupSelector" card="{{html cardType}}" onchange="this.card=this.value;">
+                    <select id="groupSelector{{html grID}}" name="groupSelector" cardType="{{html cardType}}" card="{{html cardType}}" onchange="this.card=this.value;">
                         <option value="1">Водитель</option>
                         <option value="2">ТС</option>
                     </select>

@@ -17,25 +17,46 @@ namespace DDDModel
        
         static void Main(string[] args)
         {
-            string connectionString = "server=localhost;port=3306;default command timeout=3000;Connection Timeout=6000;User Id=root;password = ;Persist Security Info=True;database=smartfis";
-            string connectionString1 = "server=mysql62.1gb.ru;default command timeout=600;Connection Timeout=600;database=gb_x_smartfis;User Id=gb_x_smartfis;password =5216a0af;";
+            string connectionString1 = "server=localhost;port=3306;default command timeout=3000;Connection Timeout=6000;User Id=root;password = ;Persist Security Info=True;database=smartfis";
+            string connectionString = "server=mysql62.1gb.ru;default command timeout=600;Connection Timeout=600;database=gb_x_smartfis;User Id=gb_x_smartfis;password =5216a0af;";
             string currentLanguage = "STRING_EN";
             DataBlock dataBlock = new DataBlock(connectionString, currentLanguage);
             
+            dataBlock.OpenConnection();
+
             bool ex = false;
             ConsoleKeyInfo ch;
 
             //MY CODE
-            dataBlock.OpenConnection();
-            dataBlock.remindTable.CreateNewRemind(1,true,29,1,1,2,DateTime.Today,1);
+            
+            /*dataBlock.remindTable.CreateNewRemind(1,true,29,1,1,2,DateTime.Today,1);
             List<int> list=dataBlock.remindTable.GetAllHourRemindIds();
             foreach (int i in list) {
                 System.Console.WriteLine(i);
             }
             System.Console.ReadKey();
-            dataBlock.CloseConnection();
+            dataBlock.CloseConnection();*/
             //System.Console.ReadKey();
-            return;
+            
+
+
+
+           //SCRIPT TO ADD COMMON GROUP
+            List<Int32> orgIds = dataBlock.organizationTable.Get_AllOrganizationsId();
+            int k = 0;
+            foreach (int id in orgIds) 
+            {
+                List<Int32> groupIds = dataBlock.cardsTable.GetAllGroupIds(id,0);
+                if (groupIds.Count == 0) {
+                    //k++;
+                    dataBlock.cardsTable.CreateDefaultGroup(id);
+                }
+            }
+
+            System.Console.WriteLine(k);
+            System.Console.ReadKey();
+
+           return;
    
            while (ex != true)
             {
