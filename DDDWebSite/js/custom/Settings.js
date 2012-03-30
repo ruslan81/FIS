@@ -650,7 +650,7 @@ function createUserControlsGroups() {
                     $("#commentinput" + key).removeClass("inputField-readonly");
                     $("#commentinput" + key).addClass("inputField");
                     $("#commentinput" + key).removeAttr("readonly");
-                    $(selInputs[i - 1]).wijcombobox(
+                    $(selInputs[i]).wijcombobox(
                     {
                         disabled: false
                     });
@@ -1343,7 +1343,7 @@ function createGroupSelectorTransportsSingle(selector) {
 }
 
 function createGroupCardTypeSelectors() {
-    $("#groupSelector1").remove();
+    $("[cardType='0']").remove();
 
     var selectors = [];
     selectors = $('select[name="groupSelector"]');

@@ -2796,7 +2796,7 @@ namespace DB.SQL
         public List<int> GetAllGroupIds(int orgId)
         {
             List<int> gettedNames = new List<int>();
-            string sql = "SELECT GROUP_ID FROM fn_groups WHERE ORG_ID=@ORG_ID ORDER BY GROUP_ID";
+            string sql = "SELECT GROUP_ID FROM fn_groups WHERE ORG_ID=@ORG_ID ORDER BY CARD_TYPE_ID, GROUP_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@ORG_ID", orgId);
             MySqlDataReader sdr = cmd.ExecuteReader();
@@ -2814,7 +2814,7 @@ namespace DB.SQL
         public List<int> GetAllGroupIds(int orgId, int cardTypeId)
         {
             List<int> gettedNames = new List<int>();
-            string sql = "SELECT GROUP_ID FROM fn_groups WHERE (CARD_TYPE_ID=@CARD_TYPE_ID OR CARD_TYPE_ID=0) AND ORG_ID=@ORG_ID ORDER BY GROUP_ID";
+            string sql = "SELECT GROUP_ID FROM fn_groups WHERE (CARD_TYPE_ID=@CARD_TYPE_ID OR CARD_TYPE_ID=0) AND ORG_ID=@ORG_ID ORDER BY CARD_TYPE_ID, GROUP_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@CARD_TYPE_ID", cardTypeId);
             cmd.Parameters.AddWithValue("@ORG_ID", orgId);
@@ -2918,6 +2918,19 @@ namespace DB.SQL
             cmd.Parameters.AddWithValue("@GR_NAME", name);
             cmd.Parameters.AddWithValue("@GR_COMM", comment);
             cmd.Parameters.AddWithValue("@C_T_I", cardType);
+            MySqlDataReader sdr = cmd.ExecuteReader();
+            sdr.Close();
+        }
+        //FOR PRIVATE USE ONLY!
+        public void CreateDefaultGroup(int orgID)
+        {
+            string sql = "INSERT INTO fn_groups (GROUP_ID,GROUP_NAME, GROUP_COMMENT, ORG_ID, CARD_TYPE_ID) VALUES (@GR_ID,@GR_NAME, @GR_COMM, @ORG_ID, @C_T_I)";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@GR_ID", 0);
+            cmd.Parameters.AddWithValue("@ORG_ID", orgID);
+            cmd.Parameters.AddWithValue("@GR_NAME", "Общая группа");
+            cmd.Parameters.AddWithValue("@GR_COMM", "Группа по умолчанию");
+            cmd.Parameters.AddWithValue("@C_T_I", 0);
             MySqlDataReader sdr = cmd.ExecuteReader();
             sdr.Close();
         }
@@ -3189,6 +3202,11 @@ namespace DB.SQL
         public int GetRemindType(int remindId)
         {
             int returnValue = Convert.ToInt32(GetOneParameter(remindId, "REMIND_ID", "fn_remind", "REMIND_TYPE"));
+            return returnValue;
+        }
+        public int GetRemindOrgId(int remindId)
+        {
+            int returnValue = Convert.ToInt32(GetOneParameter(remindId, "REMIND_ID", "fn_remind", "ORG_ID"));
             return returnValue;
         }
         public string GetRemindTypeName(int remindTypeId)
