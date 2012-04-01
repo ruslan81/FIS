@@ -2886,8 +2886,17 @@ namespace DB.SQL
         }
         public void DeleteGroup(int orgId, int groupId)
         {
-            string sql = "UPDATE fn_card SET GROUP_ID=1 WHERE GROUP_ID=@GROUP_ID AND ORG_ID=@ORG_ID";
+            string sql0 = "SELECT GROUP_ID FROM fn_groups WHERE ORG_ID=@ORG_ID AND CARD_TYPE_ID=0";
+            MySqlCommand cmd0 = new MySqlCommand(sql0, sqlConnection);
+            cmd0.Parameters.AddWithValue("@ORG_ID", orgId);
+            MySqlDataReader sdr0 = cmd0.ExecuteReader();
+            sdr0.Read();
+            int newGroupId = sdr0.GetInt32(0);
+            sdr0.Close();
+            
+            string sql = "UPDATE fn_card SET GROUP_ID=@NEW_GROUP_ID WHERE GROUP_ID=@GROUP_ID AND ORG_ID=@ORG_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@NEW_GROUP_ID", newGroupId);
             cmd.Parameters.AddWithValue("@GROUP_ID", groupId);
             cmd.Parameters.AddWithValue("@ORG_ID", orgId);
             MySqlDataReader sdr = cmd.ExecuteReader();
