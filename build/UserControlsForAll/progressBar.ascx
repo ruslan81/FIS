@@ -1,4 +1,4 @@
-﻿<%@ control language="C#" autoeventwireup="true" inherits="UserControlsForAll_progressBar, App_Web_sy4aqssv" %>
+﻿<%@ control language="C#" autoeventwireup="true" inherits="UserControlsForAll_progressBar, App_Web_hljqjqjf" %>
 
 <asp:UpdatePanel ID="ProgressUpdatePanel" runat="server" UpdateMode="Conditional">
     <ContentTemplate>    

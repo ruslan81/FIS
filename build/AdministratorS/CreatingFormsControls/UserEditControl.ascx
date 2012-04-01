@@ -1,4 +1,4 @@
-﻿<%@ control language="C#" autoeventwireup="true" inherits="AdministratorS_CreatingFormsControls_UserEditControl, App_Web_rf41oueq" %>
+﻿<%@ control language="C#" autoeventwireup="true" inherits="AdministratorS_CreatingFormsControls_UserEditControl, App_Web_2mb1bcku" %>
 
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
 

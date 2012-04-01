@@ -111,13 +111,12 @@ function createRemindControls() {
                                 $(currentDriverId).attr("sourceType", type);
                                 $(this).dialog("close");
                             }
-                        }
-                        }
-                        );
-                        $("#choosedialog").dialog("option", "closeText", '');
-                        $("#choosedialog").dialog("option", "resizable", false);
-                        $("#choosedialog").dialog("option", "modal", true);
-                        $("#choosedialog").dialog("option", "height", 350);
+                        },
+                            closeText: '',
+                            resizable: false,
+                            modal: true,
+                            height: 350
+                        });
                         loadDriversTree(driverKey, type);
                     });
                 }
@@ -651,7 +650,7 @@ function createUserControlsGroups() {
                     $("#commentinput" + key).removeClass("inputField-readonly");
                     $("#commentinput" + key).addClass("inputField");
                     $("#commentinput" + key).removeAttr("readonly");
-                    $(selInputs[i - 1]).wijcombobox(
+                    $(selInputs[i]).wijcombobox(
                     {
                         disabled: false
                     });
@@ -1344,7 +1343,7 @@ function createGroupSelectorTransportsSingle(selector) {
 }
 
 function createGroupCardTypeSelectors() {
-    $("#groupSelector1").remove();
+    $("[cardType='0']").remove();
 
     var selectors = [];
     selectors = $('select[name="groupSelector"]');

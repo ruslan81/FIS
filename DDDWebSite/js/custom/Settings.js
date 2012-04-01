@@ -1228,7 +1228,7 @@ function createContentTableGroups(response) {
     '{"text": "Номер п/п", "style": "width: 80px;"},' +
     '{"text": "Название группы", "style": "width: 150px;"},' +
     '{"text": "Комментарий", "style": "width: 250px;"},' +
-    '{"text": "Тип карты", "style": ""}]');
+    '{"text": "Тип", "style": ""}]');
 
     updateTable($("#contentTableBody"), $("#tmplGroupTableContent"), response.d);
     $("#checkbox1").hide();

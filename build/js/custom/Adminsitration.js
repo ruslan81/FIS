@@ -117,7 +117,7 @@ function loadJournalData() {
     });
 
     loadEventList();
-    buildJournalTable();
+    //buildJournalTable();
 }
 
 function buildJournalTable() {
@@ -159,11 +159,11 @@ function loadEventList() {
         dataType: "json",
         success: function (response) {
             $("#tmplOption").tmpl(response.d).appendTo("#eventSelector");
-            /*$("#eventSelector").wijcombobox({
+            $("#eventSelector").wijcombobox({
                 showingAnimation: { effect: "blind" },
                 hidingAnimation: { effect: "blind" },
                 isEditable: false
-            });*/
+            });
         }
     });
 }

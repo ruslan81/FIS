@@ -1,4 +1,4 @@
-<%@ page language="C#" masterpagefile="~/MasterPage/MasterPage.master" autoeventwireup="true" inherits="Administrator_Administration, App_Web_iiwpvxqf" %>
+<%@ page language="C#" masterpagefile="~/MasterPage/MasterPage.master" autoeventwireup="true" inherits="Administrator_Administration, App_Web_2ytgymyg" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="Adminisration_UserControls/GeneralData_UserControl.ascx" TagName="GeneralData_UserControl"
@@ -13,6 +13,9 @@
 <%@ Register src="../UserControlsForAll/BlueButton.ascx" tagname="BlueButton" tagprefix="uc2" %>
 
 <asp:Content ID="AccordionContent" ContentPlaceHolderID="VerticalOutlookMenu_PlaceHolder" runat="server">
+
+  <link type="text/css" href="../css/custom-theme/jquery.wijmo.wijcombobox.css" rel="stylesheet" />
+
   <script src="../js/custom/Adminsitration.js" type="text/javascript"></script>
   <script src="../js/jquery.ui.datepicker-ru.js" type="text/javascript"></script>
   <script src="../js/jquery.wijmo.wijcombobox.js" type="text/javascript"></script>
@@ -106,18 +109,21 @@
     </script>
     
     <script id="JournalData" type="text/x-jquery-tmpl">
+
             <div id="filter" style="border: 1px solid #0000FF;border-radius: 3px;">
-            <label><h3>Фильтр</h3></label>
-            <label>Начальная дата </label><input id="startDatePicker" type="text"/>
-            <label>Конечная дата </label><input id="endDatePicker" type="text"/><br>
+            <table>
+            <tr><td><label><h3>Фильтр</h3></label></td><td></td><td></td></tr>
+            <tr><td><label>Начальная дата </label><input id="startDatePicker" type="text"/>
+            <td><label>Конечная дата </label><input id="endDatePicker" type="text"/><td></td></tr><br>
 
             <div id="dateErrorBlock" class="error-block">
             <label class="error" id="dateErrorLabel"> Ошибка: Укажите начальную и конечную дату!</label>
             </div>
 
-            <label>Событие </label><select style="wisth:0%;" id="eventSelector" event="-1" onchange="this.event=this.value;"></select>
-            <label>Текст в описании </label><input id="textInput" value=""/>
-            <button id="buildButton">Применить</button>
+            <tr><td style="height:"><label>Событие </label><select id="eventSelector" event="-1" onchange="this.event=this.value;"></select></td>
+            <td><label>Текст в описании </label><input id="textInput" value=""/></td>
+            <td><button id="buildButton">Применить</button></td></tr>
+            </table>
             </div>
             <table id="journalTable"  style="border-collapse: separate;width:100%;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
                 border="0" cellpadding="0" cellspacing="0">

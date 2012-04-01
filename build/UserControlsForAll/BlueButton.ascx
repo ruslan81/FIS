@@ -1,4 +1,4 @@
-﻿<%@ control language="C#" autoeventwireup="true" inherits="UserControlsForAll_BlueButton, App_Web_sy4aqssv" %>
+﻿<%@ control language="C#" autoeventwireup="true" inherits="UserControlsForAll_BlueButton, App_Web_hljqjqjf" %>
 
 <asp:Panel ID="BlueButtonPanel" runat="server" CssClass="enterbutton">
     <link href="../css/BlueButtonCSS.css" rel="stylesheet" type="text/css" />
