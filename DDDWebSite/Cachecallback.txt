@@ -10467,3 +10467,12 @@ Cache Callback: 30.03.2012 12:38:20
 Cache Callback: 02.04.2012 0:09:00
 Cache Callback: 02.04.2012 0:21:40
 Cache Callback: 02.04.2012 0:27:20
+Cache Callback: 02.04.2012 0:55:40
+Cache Callback: 02.04.2012 0:59:00
+Cache Callback: 02.04.2012 1:50:40
+Cache Callback: 02.04.2012 1:53:20
+Cache Callback: Message: d:\BSUIR\Other\UnitedProject\DDDWebSite\Administrator\Administration.aspx.cs(346): error CS0103: Имя 'eventType' отсутствует в текущем контексте
+Cache Callback: 02.04.2012 2:14:40
+Cache Callback: 02.04.2012 2:41:20
+Cache Callback: 02.04.2012 13:16:20
+Cache Callback: 02.04.2012 13:30:20

@@ -17,8 +17,8 @@ namespace DDDModel
        
         static void Main(string[] args)
         {
-            string connectionString1 = "server=localhost;port=3306;default command timeout=3000;Connection Timeout=6000;User Id=root;password = ;Persist Security Info=True;database=smartfis";
-            string connectionString = "server=mysql62.1gb.ru;default command timeout=600;Connection Timeout=600;database=gb_x_smartfis;User Id=gb_x_smartfis;password =5216a0af;";
+            string connectionString = "server=localhost;port=3306;default command timeout=3000;Connection Timeout=6000;User Id=root;password = ;Persist Security Info=True;database=smartfis";
+            string connectionString1 = "server=mysql62.1gb.ru;default command timeout=600;Connection Timeout=600;database=gb_x_smartfis;User Id=gb_x_smartfis;password =5216a0af;";
             string currentLanguage = "STRING_EN";
             DataBlock dataBlock = new DataBlock(connectionString, currentLanguage);
             
@@ -28,21 +28,18 @@ namespace DDDModel
             ConsoleKeyInfo ch;
 
             //MY CODE
-            
-            /*dataBlock.remindTable.CreateNewRemind(1,true,29,1,1,2,DateTime.Today,1);
-            List<int> list=dataBlock.remindTable.GetAllHourRemindIds();
-            foreach (int i in list) {
-                System.Console.WriteLine(i);
-            }
+
+            string name=dataBlock.invoiceTable.GetInvoiceStatusName(1);
+            System.Console.WriteLine(name);
+
             System.Console.ReadKey();
-            dataBlock.CloseConnection();*/
-            //System.Console.ReadKey();
+            dataBlock.CloseConnection();
             
 
 
 
            //SCRIPT TO ADD COMMON GROUP
-            List<Int32> orgIds = dataBlock.organizationTable.Get_AllOrganizationsId();
+            /*List<Int32> orgIds = dataBlock.organizationTable.Get_AllOrganizationsId();
             int k = 0;
             foreach (int id in orgIds) 
             {
@@ -54,7 +51,7 @@ namespace DDDModel
             }
 
             System.Console.WriteLine(k);
-            System.Console.ReadKey();
+            System.Console.ReadKey();*/
 
            return;
    

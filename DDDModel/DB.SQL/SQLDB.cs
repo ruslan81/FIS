@@ -3515,6 +3515,20 @@ namespace DB.SQL
             sdr.Close();
             return gettedId;
         }
+        public List<int> GetAllInvoiceStatuses()
+        {
+            List<int> gettedId = new List<int>();
+
+            string sql = "SELECT INVOICE_STATUS_ID FROM fd_invoice_status";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            MySqlDataReader sdr = cmd.ExecuteReader();
+            while (sdr.Read())
+            {
+                gettedId.Add(sdr.GetInt32(0));
+            }
+            sdr.Close();
+            return gettedId;
+        }
         public int AddInvoice(int invoiceTypeId, int invoiceStatusId, int orgId, string BillName,
             DateTime dateInvoice, DateTime datePaymentTerm, DateTime datePayment, string Language)
         {
@@ -3549,6 +3563,11 @@ namespace DB.SQL
         public int GetInvoice_StatusId(int invoiceId)
         {
             int returnValue = Convert.ToInt32(GetOneParameter(invoiceId, "INVOICE_ID", "fn_invoice", "INVOICE_STATUS_ID"));
+            return returnValue;
+        }
+        public string GetInvoiceStatusName(int statusId)
+        {
+            string returnValue = Convert.ToString(GetOneParameter(statusId, "INVOICE_STATUS_ID", "fd_invoice_status", "INVOICE_STATUS_NAME"));
             return returnValue;
         }
         public int GetInvoice_OrgId(int invoiceId)

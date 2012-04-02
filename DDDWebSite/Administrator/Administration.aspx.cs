@@ -215,7 +215,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     //AJAX BEGIN
 
     /// <summary>
-    ///Получить данные по журналу
+    ///Получить данные по событиям журнала
     /// </summary>
     /// <returns></returns>
     [System.Web.Services.WebMethod]
@@ -232,6 +232,39 @@ public partial class Administrator_Administration : System.Web.UI.Page
             result.Add(new MapItem("-1","Все"));
             foreach (KeyValuePair<string, int> action in actions)
                 result.Add(new MapItem(action.Value.ToString(),action.Key));
+            return result;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Получить данные по статусам счетов
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static List<MapItem> GetInvoiceStatuses()
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        InvoiceTable invoiceTable = new InvoiceTable(connectionString, "STRING_EN", dataBlock.sqlDb);
+        try
+        {
+            dataBlock.OpenConnection();
+            List<MapItem> result = new List<MapItem>();
+
+            List<Int32> statuses=invoiceTable.GetAllInvoiceStatuses();
+            foreach (int status in statuses) {
+                string name=invoiceTable.GetInvoiceStatusName(status);
+                result.Add(new MapItem(status.ToString(),name));
+            }
+
             return result;
         }
         catch (Exception ex)
@@ -277,6 +310,63 @@ public partial class Administrator_Administration : System.Web.UI.Page
                 jd.note = row["Описание"].ToString();
                 result.Add(jd);
             }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Получить данные по счетам
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static List<InvoiceData> GetInvoices(String OrgID, String StartDate, String EndDate, String statusType)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        InvoiceTable invoiceTable = new InvoiceTable(connectionString, "STRING_EN", dataBlock.sqlDb);
+
+        try
+        {
+            dataBlock.OpenConnection();
+            List<InvoiceData> result = new List<InvoiceData>();
+
+            int orgId = Convert.ToInt32(OrgID);
+            List<int> usersIds = new List<int>();
+            DateTime from = Convert.ToDateTime(StartDate);
+            DateTime to = Convert.ToDateTime(EndDate);
+            int statusId = Convert.ToInt32(statusType);
+
+            List<int> invoices = invoiceTable.GetAllInvoices(orgId);
+            foreach (int invoice in invoices) 
+            {
+                InvoiceData id = new InvoiceData();
+                id.name = invoiceTable.GetInvoiceName(invoice);
+                DateTime begDate=invoiceTable.GetDateInvoice(invoice);
+                if (begDate.CompareTo(from) < 0 || begDate.CompareTo(to) > 0)
+                {
+                    continue;
+                }
+                id.beginDate = begDate.ToString();
+                id.endDate = invoiceTable.GetDatePaymentTerm(invoice).ToString();
+                id.payDate = invoiceTable.GetDatePayment(invoice);
+                id.statusId = invoiceTable.GetInvoiceStatusId(invoice);
+                if (statusId != 0 && id.statusId != statusId)
+                {
+                    continue;
+                }
+                id.status = invoiceTable.GetInvoiceStatusName(id.statusId);
+                result.Add(id);
+            }
+            
 
             return result;
         }

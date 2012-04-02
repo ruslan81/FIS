@@ -210,6 +210,32 @@ namespace BLL
            int statusSTRID = sqlDBR.GetInvoiceStatusNameStrId(invoiceStatusId);
            return sqlDBR.GetString(statusSTRID, CurrentLanguage);
         }
+        /// <summary>
+        /// Получить ID статуса счета
+        /// </summary>
+        /// <param name="invoiceId">ID счета</param>
+        /// <returns>Статус счета</returns>
+        public int GetInvoiceStatusId(int invoiceId)
+        {
+            return sqlDBR.GetInvoice_StatusId(invoiceId);
+        }
+        /// <summary>
+        /// Получить имя статуса счета
+        /// </summary>
+        /// <param name="invoiceId">ID статуса счета</param>
+        /// <returns>Имя статус счета</returns>
+        public string GetInvoiceStatusName(int invoiceStatusId)
+        {
+            return sqlDBR.GetInvoiceStatusName(invoiceStatusId);
+        }
+        /// <summary>
+        /// Получить возможные статусы счетов
+        /// </summary>
+        /// <returns>Статусы счетов</returns>
+        public List<Int32> GetAllInvoiceStatuses()
+        {
+            return sqlDBR.GetAllInvoiceStatuses();
+        }
 
         //FD_INVOICE_STATUS
         /// <summary>

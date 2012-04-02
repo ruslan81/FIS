@@ -101,6 +101,22 @@
     </script>
 
     <script id="InvoiceData" type="text/x-jquery-tmpl">
+
+            <div id="filter" style="border: 1px solid #0000FF;border-radius: 3px;">
+            <table>
+            <tr><td><label><h3>Фильтр</h3></label></td><td></td><td></td></tr>
+            <tr><td><label>Начальная дата </label><input id="startDatePicker" type="text"/>
+            <td><label>Конечная дата </label><input id="endDatePicker" type="text"/><td></td></tr><br>
+
+            <div id="dateErrorBlock" class="error-block">
+            <label class="error" id="dateErrorLabel"> Ошибка: Укажите начальную и конечную дату!</label>
+            </div>
+
+            <tr><td style="height:"><label>Тип </label><select id="invoiceStatusSelector" statusType="0" onchange="this.statusType=this.value;"></select></td>
+            <td><button id="buildButton">Применить</button></td></tr>
+            </table>
+            </div>
+
             <table id="invoiceTable"  style="border-collapse: separate;width:100%;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
                 border="0" cellpadding="0" cellspacing="0">
                 <thead id="invoiceTableHeader"></thead>
@@ -151,6 +167,36 @@
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
                    <input value="{{html note}}" class="inputField-readonly input" readonly="readonly"/>
+                </div>
+            </td>
+        </tr>
+    </script>
+
+    <script id="tmplInvoiceTableContent" type="text/x-jquery-tmpl">
+        <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                   <input value="{{html name}}" class="inputField-readonly input" readonly="readonly"/>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                   <input value="{{html beginDate}}" class="inputField-readonly input" readonly="readonly"/>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                   <input value="{{html endDate}}" class="inputField-readonly input" readonly="readonly"/>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                   <input value="{{html status}}" class="inputField-readonly input" readonly="readonly"/>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                   <input value="{{html payDate}}" class="inputField-readonly input" readonly="readonly"/>
                 </div>
             </td>
         </tr>
