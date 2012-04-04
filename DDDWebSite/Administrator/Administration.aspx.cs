@@ -38,13 +38,13 @@ public partial class Administrator_Administration : System.Web.UI.Page
                 //AdminAccordion.SelectedIndex = 0;
 
                 //Прячем/показываем нужны меню, в зависимости от типа организации
-             /*   int orgTypeId = dataBlock.organizationTable.GetOrgTypeId(orgId);
-                if (orgTypeId != dataBlock.organizationTable.DealerTypeId && orgTypeId != dataBlock.organizationTable.PredealerTypeId )
-                {
-                   // AccountsAccordionPane2_Header.Visible = false;
-                    AccountsAccordionPane2_Panel.Visible = false;
-                }
-                //*/
+                /*   int orgTypeId = dataBlock.organizationTable.GetOrgTypeId(orgId);
+                   if (orgTypeId != dataBlock.organizationTable.DealerTypeId && orgTypeId != dataBlock.organizationTable.PredealerTypeId )
+                   {
+                      // AccountsAccordionPane2_Header.Visible = false;
+                       AccountsAccordionPane2_Panel.Visible = false;
+                   }
+                   //*/
                 dataBlock.CloseConnection();
 
                 InvisibleAccordionButton_Click(sender, e);
@@ -85,11 +85,11 @@ public partial class Administrator_Administration : System.Web.UI.Page
                         GeneralData_UserControl1.Visible = true;
                         GeneralData_UserControl1.LoadAllLists();
                     } break;
-               /* case 1://Dealers
-                    {
-                        DealersTab_UserControl1.Visible = true;
-                        DealersTab_UserControl1.LoadDealersTable();
-                    } break;*/
+                /* case 1://Dealers
+                     {
+                         DealersTab_UserControl1.Visible = true;
+                         DealersTab_UserControl1.LoadDealersTable();
+                     } break;*/
                 case 2://Users
                     {
                         //AdminAccordion.SelectedIndex = 2;
@@ -198,7 +198,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
             }
         }
         //DataContentUpdatePanel.Update();
-       // AccordionUpdatePanel.Update();
+        // AccordionUpdatePanel.Update();
         return true;
     }
 
@@ -207,7 +207,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
         ClientScriptManager script = Page.ClientScript;
         if (!script.IsStartupScriptRegistered(this.GetType(), "Alert"))
         {
-        //    script.RegisterStartupScript(this.GetType(), "Alert", "alert('test!');", true);
+            //    script.RegisterStartupScript(this.GetType(), "Alert", "alert('test!');", true);
         }
     }
 
@@ -229,9 +229,9 @@ public partial class Administrator_Administration : System.Web.UI.Page
             dataBlock.OpenConnection();
             List<MapItem> result = new List<MapItem>();
             List<KeyValuePair<string, int>> actions = historyTable.GetAllActions();
-            result.Add(new MapItem("-1","Все"));
+            result.Add(new MapItem("-1", "Все"));
             foreach (KeyValuePair<string, int> action in actions)
-                result.Add(new MapItem(action.Value.ToString(),action.Key));
+                result.Add(new MapItem(action.Value.ToString(), action.Key));
             return result;
         }
         catch (Exception ex)
@@ -259,13 +259,57 @@ public partial class Administrator_Administration : System.Web.UI.Page
             dataBlock.OpenConnection();
             List<MapItem> result = new List<MapItem>();
 
-            List<Int32> statuses=invoiceTable.GetAllInvoiceStatuses();
-            foreach (int status in statuses) {
-                string name=invoiceTable.GetInvoiceStatusName(status);
-                result.Add(new MapItem(status.ToString(),name));
+            List<Int32> statuses = invoiceTable.GetAllInvoiceStatuses();
+            foreach (int status in statuses)
+            {
+                string name = invoiceTable.GetInvoiceStatusName(status);
+                result.Add(new MapItem(status.ToString(), name));
             }
 
             return result;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Получить общие данные
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static UserGeneralData GetGeneralData(String OrgID, String UserName)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        HistoryTable historyTable = new HistoryTable(connectionString, "STRING_EN", dataBlock.sqlDb);
+
+        try
+        {
+            dataBlock.OpenConnection();
+            int orgId = Convert.ToInt32(OrgID);
+            //int userId = Convert.ToInt32(UserName);
+            int userId = dataBlock.usersTable.Get_UserID_byName(UserName);
+            UserGeneralData ud = new UserGeneralData();
+            //ud.connectDate=dataBlock.usersTable.Get_TimeConnect(userId).ToString();
+
+            DateTime date = dataBlock.usersTable.Get_TimeConnect(userId);
+            ud.connectDate = date.ToLongDateString() + " " + date.ToShortTimeString();
+            if (DateTime.TryParse(dataBlock.organizationTable.GetAdditionalOrgInfo(orgId, DataBaseReference.OrgInfo_RegistrationDate), out date))
+            { ud.registerDate = date.ToLongDateString() + " " + date.ToShortTimeString(); }
+            else { ud.registerDate = "Неизвестно"; }
+            if (DateTime.TryParse(dataBlock.organizationTable.GetAdditionalOrgInfo(orgId, DataBaseReference.OrgInfo_EndOfRegistrationDate), out date))
+            { ud.endDate = date.ToLongDateString(); }
+            else { ud.endDate = "Неизвестно"; }
+
+            ud.licenseType = "Flat";
+
+            return ud;
         }
         catch (Exception ex)
         {
@@ -303,7 +347,8 @@ public partial class Administrator_Administration : System.Web.UI.Page
             usersIds.AddRange(dataBlock.usersTable.Get_AllUsersId(orgId, dataBlock.usersTable.AdministratorUserTypeId));
             usersIds.AddRange(dataBlock.usersTable.Get_AllUsersId(orgId, dataBlock.usersTable.ManagerUserTypeId));
             DataTable data = historyTable.GetAllHistorysForUsers(usersIds, from, to, actionId, searchString);
-            foreach (DataRow row in data.Rows) {
+            foreach (DataRow row in data.Rows)
+            {
                 JournalData jd = new JournalData();
                 jd.dateTime = row["Дата и время"].ToString();
                 jd.user = row["Пользователь"].ToString();
@@ -346,11 +391,11 @@ public partial class Administrator_Administration : System.Web.UI.Page
             int statusId = Convert.ToInt32(statusType);
 
             List<int> invoices = invoiceTable.GetAllInvoices(orgId);
-            foreach (int invoice in invoices) 
+            foreach (int invoice in invoices)
             {
                 InvoiceData id = new InvoiceData();
                 id.name = invoiceTable.GetInvoiceName(invoice);
-                DateTime begDate=invoiceTable.GetDateInvoice(invoice);
+                DateTime begDate = invoiceTable.GetDateInvoice(invoice);
                 if (begDate.CompareTo(from) < 0 || begDate.CompareTo(to) > 0)
                 {
                     continue;
@@ -366,7 +411,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
                 id.status = invoiceTable.GetInvoiceStatusName(id.statusId);
                 result.Add(id);
             }
-            
+
 
             return result;
         }

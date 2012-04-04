@@ -85,18 +85,33 @@
 
     <!-- TEMPLATES-->
 
+    <script id="tmplGeneralData" type="text/x-jquery-tmpl">
+        <label>Текущее подключение с </label><label>{{html connectDate}}</label><br>
+        <label>Тип лицензии </label><label>{{html licenseType}}</label><br>
+        <label>Дата регистрации в системе </label><label>{{html registerDate}}</label><br>
+        <label>Срок окончания регистрации </label><label>{{html endDate}}</label><br>
+    </script>
+
     <script id="GeneralData" type="text/x-jquery-tmpl">
-            <table id="statisticTable"  style="border-collapse: separate;width:40%;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
-                border="0" cellpadding="0" cellspacing="0">
-                <thead id="statisticTableHeader"></thead>
-                <tbody id="statisticTableBody" class="ui-widget-content wijmo-wijgrid-data">
-                </tbody>
-            </table>
-            <table id="messageTable"  style="border-collapse: separate;width:60%;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
-                border="0" cellpadding="0" cellspacing="0">
-                <thead id="messageTableHeader"></thead>
-                <tbody id="messageTableBody" class="ui-widget-content wijmo-wijgrid-data">
-                </tbody>
+            <table style="width:100%;">
+            <tr id="firstGeneralRow"> 
+            </tr>
+            <tr><td>
+                <table id="statisticTable"  style="width:100%;border: 1px solid #0000FF;border-radius: 3px;border-collapse: separate;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
+                    border="0" cellpadding="0" cellspacing="0">
+                    <thead id="statisticTableHeader"></thead>
+                    <tbody id="statisticTableBody" class="ui-widget-content wijmo-wijgrid-data">
+                    </tbody>
+                </table>
+            </td>
+            <td>
+                <table id="messageTable"  style="width:100%;border: 1px solid #0000FF;border-radius: 3px;border-collapse: separate;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
+                    border="0" cellpadding="0" cellspacing="0">
+                    <thead id="messageTableHeader"></thead>
+                    <tbody id="messageTableBody" class="ui-widget-content wijmo-wijgrid-data">
+                    </tbody>
+                </table>
+            </td></tr>
             </table>
     </script>
 

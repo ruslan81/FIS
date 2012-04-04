@@ -52,6 +52,20 @@ function createTableHeader(tableHeader, template, columns) {
 
 function loadGeneralData() {
     $("#ContentContainer").append($("#GeneralData").text());
+
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Administration.aspx/GetGeneralData",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'UserName':'" + $.cookie("CURRENT_USERNAME") + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $($("#tmplGeneralData")).tmpl(response.d).appendTo($("#firstGeneralRow"));
+        }
+    });
+
+    
     createStatisticTable();
     createMessageTable();
 }
