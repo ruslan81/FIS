@@ -49,10 +49,10 @@
         }
 
         function resizeAllMaster() {
-            var curHeight = getClientHeight() - 51;
-            var contentHeight = curHeight - 112;
-            var mainContent = contentHeight - 56;
-            var outputHeight = mainContent - 155;
+            var curHeight = getClientHeight();
+            var contentHeight = curHeight - 102;
+            var mainContent = contentHeight - 5;
+            var outputHeight = mainContent - 118;
             document.getElementById('all').style.height = curHeight + "px"; //Устанавливаем для Div id=All высоту рабочего пространства экрана.
             document.getElementById('content').style.height = contentHeight + "px";
             document.getElementById('vertical-menu').style.height = mainContent + "px";
@@ -121,75 +121,57 @@
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" AsyncPostBackTimeout="9999999"
         EnableScriptGlobalization="true" EnableScriptLocalization="true" EnablePageMethods="true" />
     <div id="all">
-            <div id="top">
-                <div id="logo" style="margin-top:0px;">
-                        <!--1 Лого системы-->
-                    <asp:Image ImageUrl="~/images/SmartFIS_logo2.png" ID="SmartFisLogo" 
-                        runat="server" />
-                </div>
-                <div id="client-banner-sinfo">
-                    <div id="client-banner">
-                        <div id="client">
-                                <!--2 Клиент Пользователь-->
-                            <asp:Label ID="CompanyHeaderLabel" Text="Предприятие: " runat="server"/>
-                            <asp:Label ID="CompanyHeaderOrgName" style="font-weight:bold; margin-right:20px;" runat="server"/>
-                            <p></p>
-                            <asp:Label ID="UserNameHeader" Text="Пользователь: " runat="server"/>
-                            <asp:Label ID="UserNameHeaderName" style="font-weight:bold" runat="server"/>
+        <div id="top">
+                <div id="horizontalMenu" class="horizontal-menu">
+                <!--5 Горизонтальное меню -->
+                        <div class="mini-logo">
+                            <asp:Image ImageUrl="~/images/SmartFIS-logo-mini.png" ID="SmartFisLogo" runat="server"/>
                         </div>
-                        <div id="banner" style="float:right; margin-right:0px;">
-                                <!--4 Баннер-->
-                            <uc2:BlueButton ID="ExitButt2" Text="Выход" runat="server" BtnWidth="60" CausesValidation="false" />
+                        <!--<div id="separator"></div>-->
+                        <div style="float:left; height:100%;">
+                            <asp:Table ID="Table1" runat="server">
+                                <asp:TableRow>
+                                    <asp:TableCell>
+                                        <uc2:BlueButton ID="ReportsMasterButt" Text="Отчеты" runat="server" BtnWidth="60" CausesValidation="false" />
+                                    </asp:TableCell>
+                                    <asp:TableCell>
+                                        <uc2:BlueButton ID="DataMasterButt" Text="Архив данных" runat="server" BtnWidth="90" CausesValidation="false" />
+                                    </asp:TableCell>
+                                    <asp:TableCell>
+                                        <uc2:BlueButton ID="SettingsMasterButt" Text="Настройки" runat="server" BtnWidth="70" CausesValidation="false" />
+                                    </asp:TableCell>
+                                    <asp:TableCell>
+                                        <uc2:BlueButton ID="AdministrationMasterButt" Text="Управление" runat="server" BtnWidth="80" CausesValidation="false" />
+                                    </asp:TableCell>
+                                </asp:TableRow>
+                            </asp:Table>
                         </div>
-                    </div>
-                    <div id="systeminfo">
-                            <!--3 Информация от системы-->
-                    </div>
+                        <div style="float:right; display:inline-block;">
+                            <div id="client">
+                                    <!--2 Клиент Пользователь-->
+                                <asp:Label ID="CompanyHeaderLabel" Text="Предприятие: " style="color:#777;" runat="server"/>
+                                <asp:Label ID="CompanyHeaderOrgName" style="font-weight:bold;" runat="server"/>
+                                <br/>
+                                <asp:Label ID="UserNameHeader" Text="Пользователь: " style="color:#777;" runat="server"/>
+                                <asp:Label ID="UserNameHeaderName" style="font-weight:bold" runat="server"/>
+                            </div>
+                            <asp:Table ID="Table2" runat="server">
+                                <asp:TableRow>
+                                    <asp:TableCell>
+                                        <uc2:BlueButton ID="HelpMasterButt" Text="Помощь" runat="server" BtnWidth="60" CausesValidation="false" />
+                                    </asp:TableCell>
+                                    <asp:TableCell>
+                                        <uc2:BlueButton ID="ExitButt2" Text="Выход" runat="server" BtnWidth="50" CausesValidation="false" />
+                                    </asp:TableCell>
+                                </asp:TableRow>
+                            </asp:Table>
+                        </div>
                 </div>
-                <asp:Table runat="server" GridLines="Both" Height="100%" Width="100%" ID="WelcomeMasterTable"
-                    Visible="false">
-                    <asp:TableRow>
-                        <asp:TableCell HorizontalAlign="Center" VerticalAlign="Middle">
-                            <asp:Label ID="WelcomMasterLabel" runat="server" Font-Bold="true" Font-Size="XX-Large"
-                                ForeColor="DarkBlue" />
-                        </asp:TableCell>
-                    </asp:TableRow>
-                </asp:Table>
         </div>
         
         <asp:Label runat="server" ID="MasterPageExceptionString" Font-Size="XX-Small" ForeColor="DarkBlue"
             Font-Bold="true" />
         <div id="content">
-            <div id="horizontalMenu" class="horizontal-menu">
-                <!--5 Горизонтальное меню -->
-                        <div style="float:left; height:100%;">
-                            <asp:Table runat="server">
-                                <asp:TableRow>
-                                    <asp:TableCell>
-                                        <uc2:BlueButton ID="ReportsMasterButt" Text="Отчеты" runat="server" BtnWidth="120" CausesValidation="false" />
-                                    </asp:TableCell>
-                                    <asp:TableCell>
-                                        <uc2:BlueButton ID="DataMasterButt" Text="Архив данных" runat="server" BtnWidth="120" CausesValidation="false" />
-                                    </asp:TableCell>
-                                    <asp:TableCell>
-                                        <uc2:BlueButton ID="SettingsMasterButt" Text="Настройки" runat="server" BtnWidth="120" CausesValidation="false" />
-                                    </asp:TableCell>
-                                </asp:TableRow>
-                            </asp:Table>
-                        </div>      
-                        <div style="float:right; display:inline-block;">   
-                            <asp:Table runat="server">
-                                <asp:TableRow>
-                                    <asp:TableCell>
-                                        <uc2:BlueButton ID="HelpMasterButt" Text="Помощь" runat="server" BtnWidth="120" CausesValidation="false" />
-                                    </asp:TableCell>
-                                    <asp:TableCell>
-                                        <uc2:BlueButton ID="AdministrationMasterButt" Text="Управление" runat="server" BtnWidth="120" CausesValidation="false" />
-                                    </asp:TableCell>
-                                </asp:TableRow>
-                            </asp:Table>
-                        </div>
-            </div>        
             <div id="vertical-menu">
                 <!--6 Вертикальное двигающееся меню как в Outlook-->
                 <div id="accHead" class="accordionHeader">
@@ -225,7 +207,7 @@
                 </div>
             </div>
         </div>
-        <div style="padding: 0px 10px 0px 10px;">        
+        <div style="padding: 0px 0px 0px 0px;">
             <div id="bottom">
                 <div style="padding: 0px 15px;">
 			        <asp:ContentPlaceHolder ID="Bottom_PlaceHolder" runat="server">

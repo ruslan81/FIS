@@ -1,4 +1,4 @@
-﻿<%@ page language="C#" masterpagefile="~/MasterPage/MasterPage.Master" autoeventwireup="true" inherits="Administrator_Settings, App_Web_iiwpvxqf" %>
+﻿<%@ page language="C#" masterpagefile="~/MasterPage/MasterPage.Master" autoeventwireup="true" inherits="Administrator_Settings, App_Web_fadw50ob" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="Settings_UserControls/GeneralTab.ascx" TagName="GeneralTab" TagPrefix="uc1" %>
@@ -50,12 +50,24 @@
                     }
                 }
             });
-        }); 
+
+            resizeSettings();
+        });
 
         $(window).resize(function () {
             resizeAllMaster();
+            resizeSettings();
             $("#accordion").accordion("resize");
         });
+
+        function resizeSettings() {
+            if ($('#decision:visible').length > 0) {
+                var h = $('#outputId').height() - $('#decision').height()-8;
+                $('#outputId').height(h);
+                $('#outputId-content').height(h);
+
+            }
+        }
     </script>  
     
     <script id="tmplGeneralSettings" type="text/x-jquery-tmpl">

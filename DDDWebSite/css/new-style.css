@@ -243,6 +243,16 @@ button
     border:1px solid #e4e4e4;
 }
 
+.ui-slider
+{
+    border:1px solid #e4e4e4;
+}
+
+.ui-datepicker
+{
+    border:1px solid #e4e4e4;
+}
+
 .wijmo-wijlist-ul
 {
 	background-color: #eee;
@@ -262,4 +272,21 @@ button
 input
 {
     margin:0;
+}
+
+#sliderWrapper
+{
+    padding-bottom: 10px !important;
+    margin-right: 38px;
+    padding-top: 2px;
+}
+
+#playPath
+{
+    width: 30px;
+    height: 15px;
+}
+
+.infowindow {
+    margin:5px;
 }

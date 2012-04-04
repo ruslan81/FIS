@@ -1,4 +1,4 @@
-<%@ page language="c#" inherits="TestCacheTimeout.WebForm1, App_Web_avhfmgms" %>
+<%@ page language="c#" inherits="TestCacheTimeout.WebForm1, App_Web_cnd3zu5b" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" > 
 
 <html>
