@@ -52,6 +52,20 @@ function createTableHeader(tableHeader, template, columns) {
 
 function loadGeneralData() {
     $("#ContentContainer").append($("#GeneralData").text());
+
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Administration.aspx/GetGeneralData",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'UserName':'" + $.cookie("CURRENT_USERNAME") + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $($("#tmplGeneralData")).tmpl(response.d).appendTo($("#firstGeneralRow"));
+        }
+    });
+
+    
     createStatisticTable();
     createMessageTable();
 }
@@ -78,11 +92,21 @@ function loadInvoiceData() {
     $("#ContentContainer").append($("#InvoiceData").text());
     createTableHeader($("#invoiceTableHeader"), $("#tmplHeadColumn"),
     '[{"text": "Наименование", "style": ";"},' +
-    '{"text": "Дата выставления", "style": "width: 100px;"},' +
-    '{"text": "Срок оплаты", "style": "width: 100px;"},' +
-    '{"text": "Статус", "style": "width: 80px;"},' +
-    '{"text": "Дата оплаты", "style": "width: 100px;"}]');
+    '{"text": "Дата выставления", "style": "width: 150px;"},' +
+    '{"text": "Срок оплаты", "style": "width: 150px;"},' +
+    '{"text": "Статус", "style": "width: 100px;"},' +
+    '{"text": "Дата оплаты", "style": "width: 150px;"}]');
     $("#invoiceTable").show();
+
+    createFilter();
+
+    $("#buildButton").click(function () {
+        buildInvoiceTable();
+        return false;
+    });
+
+    loadInvoiceStatusList();
+    buildInvoiceTable();
 }
 
 //JOURNAL
@@ -94,38 +118,23 @@ function loadJournalData() {
     '{"text": "Описание", "style": ""}]');
     $("#journalTable").show();
 
-    var today = new Date();
-    var todaystr = "" + convert(today);
-    today.setMonth(today.getMonth() - 1);
-    var thenstr = "" + convert(today);
+    createFilter();
 
-    $("#startDatePicker").datepicker();
-    $("#startDatePicker").datepicker("option", "dateFormat", "dd.mm.yy");
-    $("#startDatePicker").datepicker("setDate", thenstr);
-
-    $("#endDatePicker").datepicker();
-    $("#endDatePicker").datepicker("option", "dateFormat", "dd.mm.yy");
-    $("#endDatePicker").datepicker("setDate", todaystr);
-
-    $("#startDatePicker").datepicker($.datepicker.regional['ru']);
-    $("#endDatePicker").datepicker($.datepicker.regional['ru']);
-
-    $("#buildButton").button();
     $("#buildButton").click(function () {
         buildJournalTable();
         return false;
     });
 
     loadEventList();
-    buildJournalTable();
+    //buildJournalTable();
 }
 
 function buildJournalTable() {
     $("#dateErrorBlock").hide();
     var startDate = $("#startDatePicker").datepicker("getDate");
     var endDate = $("#endDatePicker").datepicker("getDate");
-    var eventType=$("#eventSelector").attr("event");
-    var text = $("#textInput").attr("value");
+    var event=$("#eventSelector").attr("event");
+    var text=$("#textInput").attr("value");
     if (endDate == null || startDate == null) {
         $("#dateErrorBlock").show();
         return;
@@ -139,6 +148,29 @@ function buildJournalTable() {
         dataType: "json",
         success: function (response) {
             updateTable($("#journalTableBody"), $("#tmplJournalTableContent"), response.d);
+        }
+    });
+}
+
+function buildInvoiceTable() {
+    $("#dateErrorBlock").hide();
+    var startDate = $("#startDatePicker").datepicker("getDate");
+    var endDate = $("#endDatePicker").datepicker("getDate");
+    var status = $("#invoiceStatusSelector").attr("statusType");
+    
+    if (endDate == null || startDate == null) {
+        $("#dateErrorBlock").show();
+        return;
+    }
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Administration.aspx/GetInvoices",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'StartDate':'" + convert(startDate) + "', 'EndDate':'" + convert(endDate) + "', 'statusType':'" + status + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            updateTable($("#invoiceTableBody"), $("#tmplInvoiceTableContent"), response.d);
         }
     });
 }
@@ -159,11 +191,52 @@ function loadEventList() {
         dataType: "json",
         success: function (response) {
             $("#tmplOption").tmpl(response.d).appendTo("#eventSelector");
-            /*$("#eventSelector").wijcombobox({
+            $("#eventSelector").wijcombobox({
                 showingAnimation: { effect: "blind" },
                 hidingAnimation: { effect: "blind" },
                 isEditable: false
-            });*/
+            });
+        }
+    });
+}
+
+function createFilter() {
+    var today = new Date();
+    var todaystr = "" + convert(today);
+    today.setMonth(today.getMonth() - 1);
+    var thenstr = "" + convert(today);
+
+    $("#startDatePicker").datepicker();
+    $("#startDatePicker").datepicker("option", "dateFormat", "dd.mm.yy");
+    $("#startDatePicker").datepicker("setDate", thenstr);
+
+    $("#endDatePicker").datepicker();
+    $("#endDatePicker").datepicker("option", "dateFormat", "dd.mm.yy");
+    $("#endDatePicker").datepicker("setDate", todaystr);
+
+    $("#startDatePicker").datepicker($.datepicker.regional['ru']);
+    $("#endDatePicker").datepicker($.datepicker.regional['ru']);
+
+    $("#buildButton").button();
+
+}
+
+function loadInvoiceStatusList() {
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Administration.aspx/GetInvoiceStatuses",
+        data: "{}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#tmplOption").tmpl(response.d).appendTo("#invoiceStatusSelector");
+            $("#invoiceStatusSelector").wijcombobox({
+                showingAnimation: { effect: "blind" },
+                hidingAnimation: { effect: "blind" },
+                isEditable: false
+            });
+            $("#invoiceStatusSelector option [value='0']").attr("selected", "true");
         }
     });
 }

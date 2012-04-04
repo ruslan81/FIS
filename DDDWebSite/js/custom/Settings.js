@@ -111,13 +111,12 @@ function createRemindControls() {
                                 $(currentDriverId).attr("sourceType", type);
                                 $(this).dialog("close");
                             }
-                        }
-                        }
-                        );
-                        $("#choosedialog").dialog("option", "closeText", '');
-                        $("#choosedialog").dialog("option", "resizable", false);
-                        $("#choosedialog").dialog("option", "modal", true);
-                        $("#choosedialog").dialog("option", "height", 350);
+                        },
+                            closeText: '',
+                            resizable: false,
+                            modal: true,
+                            height: 350
+                        });
                         loadDriversTree(driverKey, type);
                     });
                 }
@@ -657,7 +656,7 @@ function createUserControlsGroups() {
                     $("#commentinput" + key).removeClass("inputField-readonly");
                     $("#commentinput" + key).addClass("inputField");
                     $("#commentinput" + key).removeAttr("readonly");
-                    $(selInputs[i - 1]).wijcombobox(
+                    $(selInputs[i]).wijcombobox(
                     {
                         disabled: false
                     });
@@ -1235,7 +1234,7 @@ function createContentTableGroups(response) {
     '{"text": "Номер п/п", "style": "width: 80px;"},' +
     '{"text": "Название группы", "style": "width: 150px;"},' +
     '{"text": "Комментарий", "style": "width: 250px;"},' +
-    '{"text": "Тип карты", "style": ""}]');
+    '{"text": "Тип", "style": ""}]');
 
     updateTable($("#contentTableBody"), $("#tmplGroupTableContent"), response.d);
     $("#checkbox1").hide();
@@ -1350,7 +1349,7 @@ function createGroupSelectorTransportsSingle(selector) {
 }
 
 function createGroupCardTypeSelectors() {
-    $("#groupSelector1").remove();
+    $("[cardType='0']").remove();
 
     var selectors = [];
     selectors = $('select[name="groupSelector"]');

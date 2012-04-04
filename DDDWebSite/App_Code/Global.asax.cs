@@ -258,8 +258,8 @@ namespace TestCacheTimeout
 
                         foreach (int id in hourIds)
                         {
-                            //string addr = "shu.dv@tut.by";
-                            string addr = "ai@programist.ru";
+                            string addr = "shu.dv@tut.by";
+                            //string addr = "ai@programist.ru";
 
                             //NEW
                             //DateTime from = now.AddHours(-1);
@@ -338,7 +338,7 @@ namespace TestCacheTimeout
                         //NEW
                     }
                     //Processing every-day reminds
-                    string daytime = ConfigurationSettings.AppSettings["ScheduleDailyMailSendTime"];
+                    /*string daytime = ConfigurationSettings.AppSettings["ScheduleDailyMailSendTime"];
                     if (now.TimeOfDay.ToString().Substring(0, 5) == daytime)
                     {
                         List<int> dayIds = dataBlock.remindTable.GetAllDayRemindIds();
@@ -373,7 +373,7 @@ namespace TestCacheTimeout
                             //wr.WriteLine("Mail sent to " + addr + "; text:\n" + text);
                         }
                         wr.Close();
-                    }
+                    }*/
 
                     /*List<SingleEmailSchedule> shedulesToSend = dataBlock.emailScheduleTable.GetAllEmailShedules_ForSending();
                     foreach (SingleEmailSchedule shed in shedulesToSend)

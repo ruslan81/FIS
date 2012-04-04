@@ -14,6 +14,9 @@
 <%@ Register src="../UserControlsForAll/BlueButton.ascx" tagname="BlueButton" tagprefix="uc2" %>
 
 <asp:Content ID="AccordionContent" ContentPlaceHolderID="VerticalOutlookMenu_PlaceHolder" runat="server">
+
+  <link type="text/css" href="../css/custom-theme/jquery.wijmo.wijcombobox.css" rel="stylesheet" />
+
   <script src="../js/custom/Adminsitration.js" type="text/javascript"></script>
   <script src="../js/jquery.ui.datepicker-ru.js" type="text/javascript"></script>
   <script src="../js/jquery.wijmo.wijcombobox.js" type="text/javascript"></script>
@@ -82,22 +85,53 @@
 
     <!-- TEMPLATES-->
 
+    <script id="tmplGeneralData" type="text/x-jquery-tmpl">
+        <label>Текущее подключение с </label><label>{{html connectDate}}</label><br>
+        <label>Тип лицензии </label><label>{{html licenseType}}</label><br>
+        <label>Дата регистрации в системе </label><label>{{html registerDate}}</label><br>
+        <label>Срок окончания регистрации </label><label>{{html endDate}}</label><br>
+    </script>
+
     <script id="GeneralData" type="text/x-jquery-tmpl">
-            <table id="statisticTable"  style="border-collapse: separate;width:40%;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
-                border="0" cellpadding="0" cellspacing="0">
-                <thead id="statisticTableHeader"></thead>
-                <tbody id="statisticTableBody" class="ui-widget-content wijmo-wijgrid-data">
-                </tbody>
-            </table>
-            <table id="messageTable"  style="border-collapse: separate;width:60%;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
-                border="0" cellpadding="0" cellspacing="0">
-                <thead id="messageTableHeader"></thead>
-                <tbody id="messageTableBody" class="ui-widget-content wijmo-wijgrid-data">
-                </tbody>
+            <table style="width:100%;">
+            <tr id="firstGeneralRow"> 
+            </tr>
+            <tr><td>
+                <table id="statisticTable"  style="width:100%;border: 1px solid #0000FF;border-radius: 3px;border-collapse: separate;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
+                    border="0" cellpadding="0" cellspacing="0">
+                    <thead id="statisticTableHeader"></thead>
+                    <tbody id="statisticTableBody" class="ui-widget-content wijmo-wijgrid-data">
+                    </tbody>
+                </table>
+            </td>
+            <td>
+                <table id="messageTable"  style="width:100%;border: 1px solid #0000FF;border-radius: 3px;border-collapse: separate;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
+                    border="0" cellpadding="0" cellspacing="0">
+                    <thead id="messageTableHeader"></thead>
+                    <tbody id="messageTableBody" class="ui-widget-content wijmo-wijgrid-data">
+                    </tbody>
+                </table>
+            </td></tr>
             </table>
     </script>
 
     <script id="InvoiceData" type="text/x-jquery-tmpl">
+
+            <div id="filter" style="border: 1px solid #0000FF;border-radius: 3px;">
+            <table>
+            <tr><td><label><h3>Фильтр</h3></label></td><td></td><td></td></tr>
+            <tr><td><label>Начальная дата </label><input id="startDatePicker" type="text"/>
+            <td><label>Конечная дата </label><input id="endDatePicker" type="text"/><td></td></tr><br>
+
+            <div id="dateErrorBlock" class="error-block">
+            <label class="error" id="dateErrorLabel"> Ошибка: Укажите начальную и конечную дату!</label>
+            </div>
+
+            <tr><td style="height:"><label>Тип </label><select id="invoiceStatusSelector" statusType="0" onchange="this.statusType=this.value;"></select></td>
+            <td><button id="buildButton">Применить</button></td></tr>
+            </table>
+            </div>
+
             <table id="invoiceTable"  style="border-collapse: separate;width:100%;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
                 border="0" cellpadding="0" cellspacing="0">
                 <thead id="invoiceTableHeader"></thead>
@@ -107,18 +141,21 @@
     </script>
     
     <script id="JournalData" type="text/x-jquery-tmpl">
+
             <div id="filter" style="border: 1px solid #0000FF;border-radius: 3px;">
-            <label><h3>Фильтр</h3></label>
-            <label>Начальная дата </label><input id="startDatePicker" type="text"/>
-            <label>Конечная дата </label><input id="endDatePicker" type="text"/><br>
+            <table>
+            <tr><td><label><h3>Фильтр</h3></label></td><td></td><td></td></tr>
+            <tr><td><label>Начальная дата </label><input id="startDatePicker" type="text"/>
+            <td><label>Конечная дата </label><input id="endDatePicker" type="text"/><td></td></tr><br>
 
             <div id="dateErrorBlock" class="error-block">
             <label class="error" id="dateErrorLabel"> Ошибка: Укажите начальную и конечную дату!</label>
             </div>
 
-            <label>Событие </label><select style="wisth:0%;" id="eventSelector" event="-1" onchange="this.event=this.value;"></select>
-            <label>Текст в описании </label><input id="textInput" value=""/>
-            <button id="buildButton">Применить</button>
+            <tr><td style="height:"><label>Событие </label><select id="eventSelector" event="-1" onchange="this.event=this.value;"></select></td>
+            <td><label>Текст в описании </label><input id="textInput" value=""/></td>
+            <td><button id="buildButton">Применить</button></td></tr>
+            </table>
             </div>
             <table id="journalTable"  style="border-collapse: separate;width:100%;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
                 border="0" cellpadding="0" cellspacing="0">
@@ -145,6 +182,36 @@
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
                    <input value="{{html note}}" class="inputField-readonly input" readonly="readonly"/>
+                </div>
+            </td>
+        </tr>
+    </script>
+
+    <script id="tmplInvoiceTableContent" type="text/x-jquery-tmpl">
+        <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                   <input value="{{html name}}" class="inputField-readonly input" readonly="readonly"/>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                   <input value="{{html beginDate}}" class="inputField-readonly input" readonly="readonly"/>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                   <input value="{{html endDate}}" class="inputField-readonly input" readonly="readonly"/>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                   <input value="{{html status}}" class="inputField-readonly input" readonly="readonly"/>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                   <input value="{{html payDate}}" class="inputField-readonly input" readonly="readonly"/>
                 </div>
             </td>
         </tr>

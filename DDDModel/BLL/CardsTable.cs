@@ -251,7 +251,7 @@ namespace BLL
             sqlDb.UpdateGroup(groupId,name,comment,cardType);
         }
         /// <summary>
-        /// Редактируем группу по ID
+        /// Создание группы
         /// </summary>
         /// <param name="orgID">ID организации</param>
         /// <param name="name">Имя группы</param>
@@ -260,6 +260,14 @@ namespace BLL
         public void CreateGroup(int orgID,String name, String comment, int cardType)
         {
             sqlDb.CreateGroup(orgID, name, comment, cardType);
+        }
+        /// <summary>
+        /// Создание группы по умолчанию
+        /// </summary>
+        /// <param name="orgID">ID организации</param>
+        public void CreateDefaultGroup(int orgID)
+        {
+            sqlDb.CreateDefaultGroup(orgID);
         }
         /// <summary>
         /// получаем все имена карты

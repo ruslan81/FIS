@@ -22,20 +22,38 @@ namespace DDDModel
             string currentLanguage = "STRING_EN";
             DataBlock dataBlock = new DataBlock(connectionString, currentLanguage);
             
+            dataBlock.OpenConnection();
+
             bool ex = false;
             ConsoleKeyInfo ch;
 
             //MY CODE
-            dataBlock.OpenConnection();
-            dataBlock.remindTable.CreateNewRemind(1,true,29,1,1,2,DateTime.Today,1);
-            List<int> list=dataBlock.remindTable.GetAllHourRemindIds();
-            foreach (int i in list) {
-                System.Console.WriteLine(i);
-            }
+
+            string name=dataBlock.invoiceTable.GetInvoiceStatusName(1);
+            System.Console.WriteLine(name);
+
             System.Console.ReadKey();
             dataBlock.CloseConnection();
-            //System.Console.ReadKey();
-            return;
+            
+
+
+
+           //SCRIPT TO ADD COMMON GROUP
+            /*List<Int32> orgIds = dataBlock.organizationTable.Get_AllOrganizationsId();
+            int k = 0;
+            foreach (int id in orgIds) 
+            {
+                List<Int32> groupIds = dataBlock.cardsTable.GetAllGroupIds(id,0);
+                if (groupIds.Count == 0) {
+                    //k++;
+                    dataBlock.cardsTable.CreateDefaultGroup(id);
+                }
+            }
+
+            System.Console.WriteLine(k);
+            System.Console.ReadKey();*/
+
+           return;
    
            while (ex != true)
             {

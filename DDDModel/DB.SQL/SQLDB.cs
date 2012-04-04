@@ -2796,7 +2796,7 @@ namespace DB.SQL
         public List<int> GetAllGroupIds(int orgId)
         {
             List<int> gettedNames = new List<int>();
-            string sql = "SELECT GROUP_ID FROM fn_groups WHERE ORG_ID=@ORG_ID ORDER BY GROUP_ID";
+            string sql = "SELECT GROUP_ID FROM fn_groups WHERE ORG_ID=@ORG_ID ORDER BY CARD_TYPE_ID, GROUP_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@ORG_ID", orgId);
             MySqlDataReader sdr = cmd.ExecuteReader();
@@ -2814,7 +2814,7 @@ namespace DB.SQL
         public List<int> GetAllGroupIds(int orgId, int cardTypeId)
         {
             List<int> gettedNames = new List<int>();
-            string sql = "SELECT GROUP_ID FROM fn_groups WHERE (CARD_TYPE_ID=@CARD_TYPE_ID OR CARD_TYPE_ID=0) AND ORG_ID=@ORG_ID ORDER BY GROUP_ID";
+            string sql = "SELECT GROUP_ID FROM fn_groups WHERE (CARD_TYPE_ID=@CARD_TYPE_ID OR CARD_TYPE_ID=0) AND ORG_ID=@ORG_ID ORDER BY CARD_TYPE_ID, GROUP_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@CARD_TYPE_ID", cardTypeId);
             cmd.Parameters.AddWithValue("@ORG_ID", orgId);
@@ -2886,8 +2886,17 @@ namespace DB.SQL
         }
         public void DeleteGroup(int orgId, int groupId)
         {
-            string sql = "UPDATE fn_card SET GROUP_ID=1 WHERE GROUP_ID=@GROUP_ID AND ORG_ID=@ORG_ID";
+            string sql0 = "SELECT GROUP_ID FROM fn_groups WHERE ORG_ID=@ORG_ID AND CARD_TYPE_ID=0";
+            MySqlCommand cmd0 = new MySqlCommand(sql0, sqlConnection);
+            cmd0.Parameters.AddWithValue("@ORG_ID", orgId);
+            MySqlDataReader sdr0 = cmd0.ExecuteReader();
+            sdr0.Read();
+            int newGroupId = sdr0.GetInt32(0);
+            sdr0.Close();
+            
+            string sql = "UPDATE fn_card SET GROUP_ID=@NEW_GROUP_ID WHERE GROUP_ID=@GROUP_ID AND ORG_ID=@ORG_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@NEW_GROUP_ID", newGroupId);
             cmd.Parameters.AddWithValue("@GROUP_ID", groupId);
             cmd.Parameters.AddWithValue("@ORG_ID", orgId);
             MySqlDataReader sdr = cmd.ExecuteReader();
@@ -2918,6 +2927,19 @@ namespace DB.SQL
             cmd.Parameters.AddWithValue("@GR_NAME", name);
             cmd.Parameters.AddWithValue("@GR_COMM", comment);
             cmd.Parameters.AddWithValue("@C_T_I", cardType);
+            MySqlDataReader sdr = cmd.ExecuteReader();
+            sdr.Close();
+        }
+        //FOR PRIVATE USE ONLY!
+        public void CreateDefaultGroup(int orgID)
+        {
+            string sql = "INSERT INTO fn_groups (GROUP_ID,GROUP_NAME, GROUP_COMMENT, ORG_ID, CARD_TYPE_ID) VALUES (@GR_ID,@GR_NAME, @GR_COMM, @ORG_ID, @C_T_I)";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@GR_ID", 0);
+            cmd.Parameters.AddWithValue("@ORG_ID", orgID);
+            cmd.Parameters.AddWithValue("@GR_NAME", "Общая группа");
+            cmd.Parameters.AddWithValue("@GR_COMM", "Группа по умолчанию");
+            cmd.Parameters.AddWithValue("@C_T_I", 0);
             MySqlDataReader sdr = cmd.ExecuteReader();
             sdr.Close();
         }
@@ -3189,6 +3211,11 @@ namespace DB.SQL
         public int GetRemindType(int remindId)
         {
             int returnValue = Convert.ToInt32(GetOneParameter(remindId, "REMIND_ID", "fn_remind", "REMIND_TYPE"));
+            return returnValue;
+        }
+        public int GetRemindOrgId(int remindId)
+        {
+            int returnValue = Convert.ToInt32(GetOneParameter(remindId, "REMIND_ID", "fn_remind", "ORG_ID"));
             return returnValue;
         }
         public string GetRemindTypeName(int remindTypeId)
@@ -3488,6 +3515,20 @@ namespace DB.SQL
             sdr.Close();
             return gettedId;
         }
+        public List<int> GetAllInvoiceStatuses()
+        {
+            List<int> gettedId = new List<int>();
+
+            string sql = "SELECT INVOICE_STATUS_ID FROM fd_invoice_status";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            MySqlDataReader sdr = cmd.ExecuteReader();
+            while (sdr.Read())
+            {
+                gettedId.Add(sdr.GetInt32(0));
+            }
+            sdr.Close();
+            return gettedId;
+        }
         public int AddInvoice(int invoiceTypeId, int invoiceStatusId, int orgId, string BillName,
             DateTime dateInvoice, DateTime datePaymentTerm, DateTime datePayment, string Language)
         {
@@ -3522,6 +3563,11 @@ namespace DB.SQL
         public int GetInvoice_StatusId(int invoiceId)
         {
             int returnValue = Convert.ToInt32(GetOneParameter(invoiceId, "INVOICE_ID", "fn_invoice", "INVOICE_STATUS_ID"));
+            return returnValue;
+        }
+        public string GetInvoiceStatusName(int statusId)
+        {
+            string returnValue = Convert.ToString(GetOneParameter(statusId, "INVOICE_STATUS_ID", "fd_invoice_status", "INVOICE_STATUS_NAME"));
             return returnValue;
         }
         public int GetInvoice_OrgId(int invoiceId)
