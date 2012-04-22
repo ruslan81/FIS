@@ -1,0 +1,44 @@
+﻿#detailedData input
+{
+    font-family:Tahoma;
+    font-size:12px;
+}
+#detailedData .input
+{
+    font-family:Tahoma;
+    font-size:12px;
+}
+
+#tabs label
+{
+    font-family:Tahoma;
+    font-size:12px;
+}
+
+.inputField
+{
+    border:1px solid #eee;
+    border-radius:5px;
+    padding-left:5px;
+    box-shadow:inset 1px 1px 1px #ccc;
+    height:22px;
+}
+
+.inputField-readonly
+{
+    border:none;
+    border-bottom:1px solid #ccc;
+    background:#ddd;
+    border-radius:none;
+    padding-left:5px;
+    height:22px;
+}
+
+#tabs-2
+{
+	background:#eeeeee;
+}
+#tabs-1
+{
+	background:#eeeeee;
+}

@@ -16,6 +16,7 @@
 <asp:Content ID="AccordionContent" ContentPlaceHolderID="VerticalOutlookMenu_PlaceHolder" runat="server">
 
   <link type="text/css" href="../css/custom-theme/jquery.wijmo.wijcombobox.css" rel="stylesheet" />
+  <link type="text/css" href="../css/DetailedData.css" rel="stylesheet" />
 
   <script src="../js/custom/Adminsitration.js" type="text/javascript"></script>
   <script src="../js/jquery.ui.datepicker-ru.js" type="text/javascript"></script>
@@ -25,6 +26,8 @@
   <script type="text/javascript">    
       //run on page load
       $(function () {
+          var mode = "";
+          var tabIndex = 0;
           loadGeneralData();
 
           $("#accordion").accordion({
@@ -40,7 +43,7 @@
                   if ($("a", ui.newHeader).text() == "Журнал") {
                       loadJournalData();
                   };
-                  
+
               }
           });
       });
@@ -92,8 +95,50 @@
         <label>Срок окончания регистрации </label><label>{{html endDate}}</label><br>
     </script>
 
+    <script id="tmplGeneralDetailedData" type="text/x-jquery-tmpl">
+        <table style="width: 100%;">
+        <label>Аккаунт</label></br><div style="width: 80%;"><input id="orgName" value="{{html orgName}}"/></div></br>
+        <label>Пользователь</label></br><div style="width: 40%;"><input id="orgLogin" value="{{html orgLogin}}"/></div></br>
+
+        <table style="width:81%;">
+        <tr><td><label>Пароль </label></td><td><label>Пароль (Подтверждение) </label></td></tr>
+        <tr><td><input id="pass1" value="{{html password}}"/></td><td><input id="pass2" value="{{html password}}"/></td></tr>
+        </table>
+
+        <hr>
+
+        <table style="width:100%;">
+        <tr><td><label>Страна </label></td><td><label>Город </label></td><td><label>Почтовый индекс </label></td></tr>
+        <tr><td><select id="country" countryId="{{html country}}" onchange="this.countryId=this.value;"></select></td><td>
+        <input id="city" value="{{html city}}"/></td><td><input id="index" value="{{html index}}"/></td></tr>
+        </table><br>
+
+        <label>Часовая зона</label></br>
+        <div style="width:50%;"><select id="timeZoneSelector" timeZoneId="{{html timeZone}}" onchange="this.timeZoneId=this.value;"></select></div><br>
+
+
+        <label>Адрес1</label><br><div style="width: 80%;"><input id="addr1" value="{{html address1}}"/></div><br>
+        <label>Адрес2</label><br><div style="width: 80%;"><input id="addr2" value="{{html address2}}"/></div><br>
+
+        <table style="width:100%;">
+        <tr><td><label>Телефон </label></td><td><label>Факс </label></td><td><label>e-mail </label></td></tr>
+        <tr><td><input id="phone" value="{{html phone}}"/></td><td><input id="fax" value="{{html fax}}"/></td><td><input id="mail" value="{{html mail}}"/></td></tr>
+        </table>
+
+        <hr>
+
+        
+    </script>
+
     <script id="GeneralData" type="text/x-jquery-tmpl">
-            <table style="width:100%;">
+     <div id="tabs">
+            <ul>
+                <li><a href="#tabs-1">Общие сведения</a></li>
+		        <li><a href="#tabs-2">Детальные сведения</a></li>
+	        </ul>
+            <div id="tabs-1">
+                <div id="commonData" style="overflow: auto;">
+                 <table style="width:100%;">
             <tr id="firstGeneralRow"> 
             </tr>
             <tr><td>
@@ -113,6 +158,13 @@
                 </table>
             </td></tr>
             </table>
+                </div>
+            </div>
+            <div id="tabs-2">
+                <div id="detailedData" style="overflow: hidden;">
+                </div>
+            </div>
+    </div>           
     </script>
 
     <script id="InvoiceData" type="text/x-jquery-tmpl">
@@ -319,4 +371,17 @@
         </ContentTemplate>
     </asp:UpdatePanel>
         -->
+</asp:Content>
+<asp:Content ID="DecisionContent1" ContentPlaceHolderID="Decision_PlaceHolder" runat="server">
+
+    <script id="сontrolsGeneralDetailed" type="text/x-jquery-tmpl">
+        <button id="edit">Редактировать</button>
+        <div style="float:right">
+            <button id="save">Сохранить</button>
+            <button id="cancel">Отмена</button>
+        </div>
+    </script>
+
+    <div id="userControls">
+    </div>
 </asp:Content>

@@ -29,14 +29,12 @@ namespace DDDModel
 
             //MY CODE
 
-            string name=dataBlock.invoiceTable.GetInvoiceStatusName(1);
-            System.Console.WriteLine(name);
+            List<int> list = dataBlock.usersTable.GetAllCountries();
 
+            foreach(int id in list){
+                   System.Console.WriteLine(dataBlock.usersTable.GetCountryName(id));
+            }
             System.Console.ReadKey();
-            dataBlock.CloseConnection();
-            
-
-
 
            //SCRIPT TO ADD COMMON GROUP
             /*List<Int32> orgIds = dataBlock.organizationTable.Get_AllOrganizationsId();
