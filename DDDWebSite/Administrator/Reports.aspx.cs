@@ -259,6 +259,8 @@ public partial class Administrator_Report : System.Web.UI.Page
         r.voltage = new double[records.Count];
         r.rpm = new double[records.Count];
         r.fuel = new double[records.Count];
+        r.lat= new double[records.Count];
+        r.lng = new double[records.Count];
         for (int i=0;i<records.Count;i++)
         {
             double t=(records[i].SYSTEM_TIME.GetSystemTime()-new DateTime(1970,1,1,0,0,0)).TotalMilliseconds;
@@ -267,6 +269,16 @@ public partial class Administrator_Report : System.Web.UI.Page
             r.voltage[i] = double.Parse(records[i].VOLTAGE, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
             r.rpm[i] = double.Parse(records[i].ENGINE_RPM, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
             r.fuel[i] = Math.Round(double.Parse(records[i].FUEL_VOLUME1),1);
+            if (records[i].LATITUDE != null && records[i].LONGITUDE != null)
+            {
+                r.lat[i] = double.Parse(records[i].LATITUDE, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
+                r.lng[i] = double.Parse(records[i].LONGITUDE,System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
+            }
+            else
+            {
+                r.lat[i] = 0;
+                r.lng[i] = 0;
+            }
         }
         r.period = new DateTime(from.Year, from.Month, from.Day).ToShortDateString() + " - " + new DateTime(to.Year, to.Month, to.Day).ToShortDateString();
         

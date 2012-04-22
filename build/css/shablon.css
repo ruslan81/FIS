@@ -8,7 +8,7 @@ body {margin:0; padding:0; color:#333;
     margin: 0 auto;
 }
 
-#top { height:80px; padding:10px;}
+#top {}
 
 #logo {height:100px; width:300px; float:left; text-align:center;}
 
@@ -16,13 +16,16 @@ body {margin:0; padding:0; color:#333;
 
 #client-banner {}
 
-#client {float:left; background:#fff;
-		padding:10px;
-		border: 1px #ccc solid;
-		border-radius: 5px;
-		-moz-border-radius: 5px;
-		-webkit-border-radius: 5px;
-		/*box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);*/
+#client 
+{
+    float:left;
+	padding:1px 5px 1px 5px;
+	margin-right:10px;
+	border: 1px solid #DDD;
+	box-shadow: 0 1px 0 #FAFAFA, 0 1px 0 #FAFAFA inset;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
 }
 
 #banner {}
@@ -31,20 +34,42 @@ body {margin:0; padding:0; color:#333;
 
 .horizontal-menu {background:#eee url(../images/hormenu_back.png) repeat-x; 
 				  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-				  border: 1px #ccc solid;
-				  padding:8px 10px 12px; 
+				  border-bottom: 1px solid #CACACA;
+                  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 0 10px rgba(0, 0, 0, 0.1);
+				  padding:8px 10px 12px 10px; 
 				  height:25px;
-				  border-radius: 10px;
-				  -moz-border-radius: 10px;
-				  -webkit-border-radius: 10px;
 				  }
 
-#content {padding:10px; }
+#separator
+{
+    float: left;
+    height: 46px;
+    /*border-left: 1px solid #DDD;*/
+    margin: -8px 10px 0 10px;
+    border-right: 1px solid #fff;
+}
+
+.mini-logo
+{
+    float:left;
+    padding: 5px 20px 5px 20px;
+    margin-right: 5px;
+    border: 1px solid #DDD;
+    box-shadow: 0 1px 0 #FAFAFA, 0 1px 0 #FAFAFA inset;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    margin-top: -6px;
+}
+
+#content 
+{
+    padding:0px 5px 5px 5px;
+}
 
 #vertical-menu 
 {
 		width:300px;
-		margin-top:10px;
 		float:left;
 		border-radius: 10px;
 		-moz-border-radius: 10px;
@@ -60,9 +85,10 @@ body {margin:0; padding:0; color:#333;
 		margin-top:10px;
 		background:#eee;
 		box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-		border-radius: 10px; height:100%; 
-		-moz-border-radius: 10px;
-		-webkit-border-radius: 10px;
+		height:100%; 
+		border-radius: 5px; 
+		-moz-border-radius: 5px;
+		-webkit-border-radius: 5px;
 }
 
 .output{margin-bottom:0px;}	
@@ -76,9 +102,8 @@ body {margin:0; padding:0; color:#333;
 	margin-bottom:-4px;	
     width: 100%;
 	background: url("../images/corner.png") repeat-x scroll 0 0 transparent;
-    border: 1px solid #CCCCCC;
-    border-radius: 10px 10px 10px 10px;
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    border-top: 1px solid #CACACA;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 0 10px rgba(0, 0, 0, 0.1);
     clear: left;
     height: 39px;
 }

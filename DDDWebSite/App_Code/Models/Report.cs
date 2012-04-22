@@ -14,6 +14,8 @@ public class Report
     public double[] voltage { get; set; }
     public double[] rpm { get; set; }
     public double[] fuel { get; set; }
+    public double[] lat { get; set; }
+    public double[] lng { get; set; }
     public string period { get; set; }
 
 	public Report()

@@ -52,12 +52,24 @@
                     }
                 }
             });
-        }); 
+
+            resizeSettings();
+        });
 
         $(window).resize(function () {
             resizeAllMaster();
+            resizeSettings();
             $("#accordion").accordion("resize");
         });
+
+        function resizeSettings() {
+            if ($('#decision:visible').length > 0) {
+                var h = $('#outputId').height() - $('#decision').height()-8;
+                $('#outputId').height(h);
+                $('#outputId-content').height(h);
+
+            }
+        }
     </script>  
     
     <script id="tmplGeneralSettings" type="text/x-jquery-tmpl">

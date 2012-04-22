@@ -411,6 +411,9 @@ function loadGeneralSettings() {
             $("#headerSettings").text("Общие настройки");
 
             createUserControlsGeneral();
+
+            resizeAllMaster();
+            resizeSettings();
         }
     });
 }
@@ -491,6 +494,9 @@ function loadReminds() {
             createRemindSelectors();
             createRemindControls();
             $("#contentTable").show();
+
+            resizeAllMaster();
+            resizeSettings();
         }
     });
 }
