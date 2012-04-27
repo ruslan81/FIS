@@ -55,10 +55,15 @@ public partial class Administrator_download : System.Web.UI.Page
         //Section "PLF Файлы"
         if (Type == GET_REPORT)
         {
-            String CardID=Request.Form.Get("CardID");
-            String PLFID=Request.Form.Get("PLFID");
-            String UserName = Request.Form.Get("UserName");
-            String Format = Request.Form.Get("Format");
+            string CardID=Request.Form.Get("CardID");
+            string PLFID=Request.Form.Get("PLFID");
+            string UserName = Request.Form.Get("UserName");
+            string Format = Request.Form.Get("Format");
+            string ReportType = Request.Form.Get("ReportType");
+            if (string.IsNullOrEmpty(ReportType))
+            {
+                ReportType = "FullReport";
+            }
 
             int dataBlockId = int.Parse(PLFID);
             List<int> dataBlockIDS = new List<int>();
@@ -98,7 +103,7 @@ public partial class Administrator_download : System.Web.UI.Page
             //load needed template
             string path = HttpContext.Current.Server.MapPath("~/templates") + "\\";
             XtraReport report = new XtraReport();
-            report.LoadLayout(path + "FullReport.repx");
+            report.LoadLayout(path + ReportType+".repx");
             report.DataSource = dataset;
             MemoryStream reportStream = new MemoryStream();
             switch (Format)

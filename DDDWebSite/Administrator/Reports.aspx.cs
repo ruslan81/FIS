@@ -206,12 +206,29 @@ public partial class Administrator_Report : System.Web.UI.Page
         return PLFFilesTreeItems;
     }
 
+    /// <summary>
+    ///Получить типы отчетов
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static string[] GetReportTypes()
+    {
+        //load needed template
+        string[] filePaths = Directory.GetFiles(HttpContext.Current.Server.MapPath("~/templates"));
+        string[] fileNames = new string[filePaths.Length];
+        for (int i = 0; i < filePaths.Length; i++)
+        {
+            fileNames[i] = Path.GetFileNameWithoutExtension(filePaths[i]);
+        }
+        return fileNames;
+    }
+
      /// <summary>
     ///Получить элементы дерева в разделе "PLF Файлы"
     /// </summary>
     /// <returns></returns>
     [System.Web.Services.WebMethod]
-    public static Report GetReport(String CardID, String PLFID, String UserName)
+    public static Report GetReport(String CardID, String PLFID, String UserName, String ReportType)
     {
         int dataBlockId = int.Parse(PLFID);
         List<int> dataBlockIDS = new List<int>();
@@ -242,7 +259,11 @@ public partial class Administrator_Report : System.Web.UI.Page
         //load needed template
         string path = HttpContext.Current.Server.MapPath("~/templates") + "\\";
         XtraReport report = new XtraReport();
-        report.LoadLayout(path + "FullReport.repx");
+        if (string.IsNullOrEmpty(ReportType))
+        {
+            ReportType = "FullReport";
+        }
+        report.LoadLayout(path + ReportType+".repx");
         report.DataSource = dataset;
         MemoryStream reportStream = new MemoryStream();
         report.ExportToHtml(reportStream);

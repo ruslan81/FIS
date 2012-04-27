@@ -29,6 +29,8 @@
         var plfData = null;
         //текущая закладка
         var currentTab = 0;
+        //виды отчетов
+        var reportTypes = null;
         //карта
         var map = null;
         //путь на карте
@@ -179,6 +181,7 @@
                     <input type="hidden" name="PLFID" value="${PLFID}"/>
                     <input type="hidden" name="UserName" value="${UserName}"/>
                     <input type="hidden" id="format" name="Format" value="pdf"/>
+                    <input type="hidden" id="reportType" name="reportType" value=""/>
                     <input id="getReport" value="Получить отчет" type="submit" title="Скачать pdf-файл"/>
                 </div>
             </form>
@@ -196,9 +199,24 @@
         <div style="float:right;margin-top:2px;">
             выберите формат отчета:
         </div>
+
+        <div style="float:right;margin-right:15px;margin-left:10px;">
+            <select id="reportChooser"> 
+            </select>
+        </div>
+
+        <div style="float:right;margin-top:2px;">
+            выберите вид отчета:
+        </div>
         
     </script>
 
+
+    <script id="tmplSelect" type="text/x-jquery-tmpl">
+        {{each filenames}}
+            <option value="${$value}">${$value}</option>
+        {{/each}}
+    </script>
 
     <asp:Panel ID="modalPopupPanel" CssClass="modalPopup" runat="server" Style="display: none">
         <asp:Image ImageUrl="~/images/icons/long1.gif" runat="server" Width="100%" />
