@@ -127,6 +127,56 @@ function onPLFFilesNodeSelected(e, data) {
                 isEditable: false
             });
 
+            reportTypes = null;
+
+            $.ajax({
+                type: "POST",
+                //Page Name (in which the method should be called) and method name
+                url: "Reports.aspx/GetReportTypes",
+                data: [],
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (res) {
+                    reportTypes = res;
+                    $("#tmplSelect").tmpl({ 'filenames': reportTypes.d }).appendTo("#reportChooser");
+
+                    $("#reportChooser").wijcombobox({ changed: function (e, item) {
+                        var reportType = $("#reportChooser").attr("selectedIndex");
+
+                        $("#reportType").attr("value", reportTypes.d[reportType]);
+
+                        $("#report").empty();
+                        $("#tmplLoadingPLFFile").tmpl({}).appendTo("#report");
+
+                        $.ajax({
+                            type: "POST",
+                            //Page Name (in which the method should be called) and method name
+                            url: "Reports.aspx/GetReport",
+                            data: "{'CardID':'" + cardID + "', 'PLFID':'" + plf + "', 'UserName':'" + $.cookie("CURRENT_USERNAME") + "', 'ReportType':'" + ((reportTypes == null) ? "" : reportTypes.d[$("#reportChooser").attr("selectedIndex")]) + "'}",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (result) {
+                                $("#report").empty();
+
+                                $('#report').html(result.d.report);
+                            }
+                        });
+                    },
+                        isEditable: false
+                    });
+
+                    //default select general report
+                    var defTypeReport = "FullReport";
+                    for (var i = 0; i < reportTypes.d.length; i++) {
+                        if (reportTypes.d[i] == defTypeReport) {
+                            $("#reportChooser").wijcombobox({ selectedIndex: i });
+                            $("#reportChooser").attr("selectedIndex", i);
+                            break;
+                        }
+                    }
+                }
+            });
+
             $("#report").empty();
             $("#tmplLoadingPLFFile").tmpl({}).appendTo("#report");
 
@@ -154,7 +204,7 @@ function onPLFFilesNodeSelected(e, data) {
                 type: "POST",
                 //Page Name (in which the method should be called) and method name
                 url: "Reports.aspx/GetReport",
-                data: "{'CardID':'" + cardID + "', 'PLFID':'" + plf + "', 'UserName':'" + $.cookie("CURRENT_USERNAME") + "'}",
+                data: "{'CardID':'" + cardID + "', 'PLFID':'" + plf + "', 'UserName':'" + $.cookie("CURRENT_USERNAME") + "', 'ReportType':'" + ((reportTypes == null) ? "" : reportTypes.d[$("#reportChooser").attr("selectedIndex")]) + "'}",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (result) {
@@ -368,7 +418,7 @@ function createMap(result) {
     if (!isSliderExist) {
         $("#slider").bind("slidechange", function (event, ui) {
             //return if no data
-            if (result == null || map == null) {
+            if (plfData == null || map == null) {
                 return;
             }
 
@@ -379,25 +429,25 @@ function createMap(result) {
                 if (diff > 0) {
                     path.pop();
                 } else {
-                    path.push(new google.maps.LatLng(result.d.lat[currentLastPoint + i],
-                    result.d.lng[currentLastPoint + i]));
+                    path.push(new google.maps.LatLng(plfData.d.lat[currentLastPoint + i],
+                    plfData.d.lng[currentLastPoint + i]));
                 }
             }
             currentLastPoint = ui.value;
 
             //передвигаем карту в конечную точку
-            map.panTo(new google.maps.LatLng(result.d.lat[currentLastPoint],
-                    result.d.lng[currentLastPoint]));
+            map.panTo(new google.maps.LatLng(plfData.d.lat[currentLastPoint],
+                    plfData.d.lng[currentLastPoint]));
             //передвигаем маркер в конечную точку
-            markers[1].setPosition(new google.maps.LatLng(result.d.lat[currentLastPoint],
-                    result.d.lng[currentLastPoint]));
+            markers[1].setPosition(new google.maps.LatLng(plfData.d.lat[currentLastPoint],
+                    plfData.d.lng[currentLastPoint]));
 
             infoWindowFinish.setContent(
             "<div class='infowindow'>" +
             "<span style='font-size:13px'><b>Конечная точка</b></span><br/>" +
-            "Широта: " + result.d.lat[currentLastPoint] + "<br/>" +
-            "Долгота: " + result.d.lng[currentLastPoint] + "<br/>" +
-            "Время: <b>" + date2String(new Date(result.d.time[currentLastPoint])) + "</b><br/>" +
+            "Широта: " + plfData.d.lat[currentLastPoint] + "<br/>" +
+            "Долгота: " + plfData.d.lng[currentLastPoint] + "<br/>" +
+            "Время: <b>" + date2String(new Date(plfData.d.time[currentLastPoint])) + "</b><br/>" +
             "</div>"
         );
 
