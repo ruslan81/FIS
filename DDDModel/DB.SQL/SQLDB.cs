@@ -1190,6 +1190,34 @@ namespace DB.SQL
             }
             return returnArray;
         }
+        public List<int> GetAllCountries()
+        {
+            List<int> result = new List<int>();
+            string sql = "SELECT id_country FROM country_";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            MySqlDataReader sdr = cmd.ExecuteReader();
+            while (sdr.Read())
+            {
+                result.Add(sdr.GetInt32(0));
+            }
+            sdr.Close();
+            return result;
+        }
+        public string GetCountryName(int id)
+        {
+            string sql = "SELECT country_name_ru FROM country_ WHERE id_country=@ID";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@ID", id);
+            MySqlDataReader sdr = cmd.ExecuteReader();
+            while (sdr.Read())
+            {
+                string result=sdr.GetString(0);
+                sdr.Close();
+                return result;
+            }
+            sdr.Close();
+            return "";
+        }
         public int AddNewUser(string name, string pass, int userTypeId, int userRoleId, int orgId, string oldName, string oldPass)
         {
             int generatedId = 0;
@@ -1248,6 +1276,15 @@ namespace DB.SQL
             }
             return generatedId;
         }
+        public void EditUserPassword(int curUserId, string pass)
+        {
+            string sql = "UPDATE fd_user SET USER_PASSWORD=@USER_PASSWORD WHERE USER_ID=@USER_ID";//, ORG_ID=@ORG_ID  добавить вконец, когда будут организации.
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@USER_ID", curUserId);
+            cmd.Parameters.AddWithValue("@USER_PASSWORD", pass);
+            cmd.ExecuteNonQuery();
+        }
+        
         public void DeleteUser(int UserId)
         {
             string sql = "DELETE FROM fn_user_rights WHERE USER_ID = @USER_ID";
@@ -2893,7 +2930,7 @@ namespace DB.SQL
             sdr0.Read();
             int newGroupId = sdr0.GetInt32(0);
             sdr0.Close();
-            
+
             string sql = "UPDATE fn_card SET GROUP_ID=@NEW_GROUP_ID WHERE GROUP_ID=@GROUP_ID AND ORG_ID=@ORG_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@NEW_GROUP_ID", newGroupId);
@@ -2943,7 +2980,8 @@ namespace DB.SQL
             MySqlDataReader sdr = cmd.ExecuteReader();
             sdr.Close();
         }
-        public String GetCardHolderNameByCardId(int cardId) {
+        public String GetCardHolderNameByCardId(int cardId)
+        {
             String name = "";
             string sql = "SELECT CARD_HOLDER_NAME FROM fn_card WHERE CARD_ID=@CARD_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
@@ -3186,7 +3224,7 @@ namespace DB.SQL
         public bool GetRemindActive(int remindId)
         {
             int returnValue = Convert.ToInt32(GetOneParameter(remindId, "REMIND_ID", "fn_remind", "REMIND_ACTIVE"));
-            return returnValue==0 ? false : true;
+            return returnValue == 0 ? false : true;
         }
         public int GetRemindUser(int remindId)
         {
@@ -4312,7 +4350,7 @@ namespace DB.SQL
 
             //FD_ORG
             generatedId = AddNewOrganization("Init Organization", 1, 1, 1, "Init Organization", "STRING_EN");
-            CreateNewCard("Init Organization ORG", "000", orgInitCardTypeId, generatedId, "Карта организации " + "Init Organization" + " для неразобранных блоков данных",1);
+            CreateNewCard("Init Organization ORG", "000", orgInitCardTypeId, generatedId, "Карта организации " + "Init Organization" + " для неразобранных блоков данных", 1);
 
             //fd_param
             sql = "INSERT INTO fd_param "

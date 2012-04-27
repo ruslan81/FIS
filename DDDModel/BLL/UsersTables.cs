@@ -195,6 +195,15 @@ namespace BLL
                 log.AddHistoryRecord("fd_user", "USER_ID", userId, curUserId, log.driversRegDataChanged, "Code: " + userId.ToString(), sqlDb);
             }
         }
+        public void EditUserPassword(int curUserId, string pass)
+        {
+            sqlDb.EditUserPassword(curUserId, pass);
+            if (curUserId > 0)
+            {
+                HistoryTable log = new HistoryTable(connectionString, CurrentLanguage, sqlDb);
+                log.AddHistoryRecord("fd_user", "USER_ID", curUserId, curUserId, log.driversRegDataChanged, "Code: " + curUserId.ToString(), sqlDb);
+            }
+        }
         public int AddNewUser(UserFromTable newUser, int userTypeId, int userRoleId, int orgId, int curUserId)
         {
             Exception userNameAllreadyExists = new Exception("Пользователь с таким именем уже существует!");
@@ -268,7 +277,15 @@ namespace BLL
                 sqlDb.EditUserInfo(userId, UserInfoId, newValue, CurrentLanguage);
             else
                 sqlDb.AddUserInfoValue(userId, UserInfoId, newValue, CurrentLanguage);
-        }       
+        }
+        public List<int> GetAllCountries()
+        {
+            return sqlDb.GetAllCountries();
+        }
+        public string GetCountryName(int id)
+        {
+            return sqlDb.GetCountryName(id);
+        }
     }
     /// <summary>
     /// Класс описывает одного пользователя

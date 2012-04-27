@@ -287,7 +287,6 @@ public partial class Administrator_Administration : System.Web.UI.Page
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
-        HistoryTable historyTable = new HistoryTable(connectionString, "STRING_EN", dataBlock.sqlDb);
 
         try
         {
@@ -318,6 +317,182 @@ public partial class Administrator_Administration : System.Web.UI.Page
         finally
         {
             dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Получить детальные общие данные
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static UserGeneralDetailedData GetGeneralDetailedData(String OrgID, String UserName)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+
+        try
+        {
+            dataBlock.OpenConnection();
+            int orgId = Convert.ToInt32(OrgID);;
+            int userId = dataBlock.usersTable.Get_UserID_byName(UserName);
+            UserGeneralDetailedData ud = new UserGeneralDetailedData();
+
+            string dealerName;
+            int dealerId;
+            int userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_DealerId);
+            string temp = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
+            if (int.TryParse(dataBlock.usersTable.GetUserInfoValue(userId, userInfoId), out dealerId))
+            {
+                dealerName = dataBlock.organizationTable.GetOrganizationName(dealerId);
+            }
+            else
+                dealerName = "???";
+            if (dealerName.Trim() == "")
+                dealerName = "???";
+
+            ud.orgName = dealerName;
+
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Name);
+            ud.orgLogin = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
+            ud.password = dataBlock.usersTable.Get_UserPassword(userId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Country);
+            ud.country = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_City);
+            ud.city = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_ZIP);
+            ud.index = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_AddressOne);
+            ud.address1 = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_AddressTwo);
+            ud.address2 = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.OrgInfo_PhoneNumber);
+            ud.phone = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.OrgInfo_Fax);
+            ud.fax = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.OrgInfo_Email);
+            ud.mail = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.OrgInfo_TimeZone);
+            ud.timeZone = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
+            return ud;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Сохранить детальные общие данные
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static void SaveGeneralDetailedData(String OrgID, String UserName, UserGeneralDetailedData ud)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+
+        try
+        {
+            dataBlock.OpenConnection();
+            int orgId = Convert.ToInt32(OrgID);
+            int userId = dataBlock.usersTable.Get_UserID_byName(UserName);
+
+            int userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_DealerId);
+            //dataBlock.usersTable.EditUserInfo(userId,userInfoId,ud.orgName);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Name);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.orgLogin);
+
+            dataBlock.usersTable.EditUserPassword(userId,ud.password);
+
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Country);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.country);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_City);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.city);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_ZIP);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.index);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_AddressOne);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.address1);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_AddressTwo);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.address2);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.OrgInfo_PhoneNumber);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.phone);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.OrgInfo_Fax);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.fax);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.OrgInfo_Email);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.mail);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.OrgInfo_TimeZone);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.timeZone);
+        }
+        catch (Exception ex)
+        {
+            return;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
+
+
+    /// <summary>
+    ///Получить список стран
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static List<MapItem> GetCountries()
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+
+        List<MapItem> result = new List<MapItem>();
+        try
+        {
+            dataBlock.OpenConnection();
+            List<int> ids = dataBlock.usersTable.GetAllCountries();
+            foreach (int id in ids) {
+                string name=dataBlock.usersTable.GetCountryName(id);
+                result.Add(new MapItem(id.ToString(),name));
+            }
+            return result;
+        }
+        catch (Exception ex)
+        {
+            return result;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Получить список часовых зон
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static List<MapItem> GetTimeZones()
+    {
+        List<MapItem> result = new List<MapItem>();
+        try
+        {
+            int key=1;
+            foreach (TimeZoneInfo timeZone in TimeZoneInfo.GetSystemTimeZones())
+            {
+                result.Add(new MapItem(key.ToString(), timeZone.DisplayName));
+                key++;
+            }
+            return result;
+        }
+        catch (Exception ex)
+        {
+            return result;
+        }
+        finally
+        {
         }
     }
 
