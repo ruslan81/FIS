@@ -29,10 +29,10 @@ namespace DDDModel
 
             //MY CODE
 
-            List<int> list = dataBlock.usersTable.GetAllCountries();
-
+            List<int> list = dataBlock.usersTable.GetAllMessagesIds(1);
+            //System.Console.WriteLine(list.Count);
             foreach(int id in list){
-                   System.Console.WriteLine(dataBlock.usersTable.GetCountryName(id));
+                   System.Console.WriteLine(dataBlock.usersTable.GetMessageEndDate(id));
             }
             System.Console.ReadKey();
 

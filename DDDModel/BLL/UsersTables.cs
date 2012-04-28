@@ -286,6 +286,31 @@ namespace BLL
         {
             return sqlDb.GetCountryName(id);
         }
+
+        public List<int> GetAllMessagesIds(int userId)
+        {
+            return sqlDb.GetAllMessagesIds(userId);
+        }
+        public void DeleteMessage(int id)
+        {
+            sqlDb.DeleteMessage(id);
+        }
+        public string GetMessageTopic(int id)
+        {
+            return sqlDb.GetMessageTopic(id);
+        }
+        public string GetMessageSender(int id)
+        {
+            return sqlDb.GetMessageSender(id);
+        }
+        public DateTime GetMessageDate(int id)
+        {
+            return sqlDb.GetMessageDate(id);
+        }
+        public DateTime GetMessageEndDate(int id)
+        {
+            return sqlDb.GetMessageEndDate(id);
+        }
     }
     /// <summary>
     /// Класс описывает одного пользователя

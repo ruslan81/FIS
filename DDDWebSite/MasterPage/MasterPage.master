@@ -155,16 +155,18 @@
                                 <asp:Label ID="UserNameHeader" Text="Пользователь: " style="color:#777;" runat="server"/>
                                 <asp:Label ID="UserNameHeaderName" style="font-weight:bold" runat="server"/>
                             </div>
-                            <asp:Table ID="Table2" runat="server">
-                                <asp:TableRow>
-                                    <asp:TableCell>
-                                        <uc2:BlueButton ID="HelpMasterButt" Text="Помощь" runat="server" BtnWidth="60" CausesValidation="false" />
-                                    </asp:TableCell>
-                                    <asp:TableCell>
-                                        <uc2:BlueButton ID="ExitButt2" Text="Выход" runat="server" BtnWidth="50" CausesValidation="false" />
-                                    </asp:TableCell>
-                                </asp:TableRow>
-                            </asp:Table>
+                            <div style="float:right;">
+                                <asp:Table ID="Table2" runat="server">
+                                    <asp:TableRow>
+                                        <asp:TableCell>
+                                            <uc2:BlueButton ID="HelpMasterButt" Text="Помощь" runat="server" BtnWidth="60" CausesValidation="false" />
+                                        </asp:TableCell>
+                                        <asp:TableCell>
+                                            <uc2:BlueButton ID="ExitButt2" Text="Выход" runat="server" BtnWidth="50" CausesValidation="false" />
+                                        </asp:TableCell>
+                                    </asp:TableRow>
+                                </asp:Table>
+                            </div>
                         </div>
                 </div>
         </div>

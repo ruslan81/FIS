@@ -89,10 +89,24 @@
     <!-- TEMPLATES-->
 
     <script id="tmplGeneralData" type="text/x-jquery-tmpl">
-        <label>Текущее подключение с </label><label>{{html connectDate}}</label><br>
-        <label>Тип лицензии </label><label>{{html licenseType}}</label><br>
-        <label>Дата регистрации в системе </label><label>{{html registerDate}}</label><br>
-        <label>Срок окончания регистрации </label><label>{{html endDate}}</label><br>
+    <div id="generalDataLabels">
+        <div>
+            <div style="float:left;">Текущее подключение с </div>
+            <div> {{html connectDate}}</div>
+        </div>
+        <div>
+            <div style="float:left;">Тип лицензии </div>
+            <div> {{html licenseType}}</div>
+        </div>
+        <div>
+            <div style="float:left;">Дата регистрации в системе </div>
+            <div> {{html registerDate}}</div>
+        </div>
+        <div>
+            <div style="float:left;">Срок окончания регистрации </div>
+            <div> {{html endDate}}</div>
+        </div>
+    </div>
     </script>
 
     <script id="tmplGeneralDetailedData" type="text/x-jquery-tmpl">
@@ -116,7 +130,6 @@
         <label>Часовая зона</label></br>
         <div style="width:50%;"><select id="timeZoneSelector" timeZoneId="{{html timeZone}}" onchange="this.timeZoneId=this.value;"></select></div><br>
 
-
         <label>Адрес1</label><br><div style="width: 80%;"><input id="addr1" value="{{html address1}}"/></div><br>
         <label>Адрес2</label><br><div style="width: 80%;"><input id="addr2" value="{{html address2}}"/></div><br>
 
@@ -126,8 +139,6 @@
         </table>
 
         <hr>
-
-        
     </script>
 
     <script id="GeneralData" type="text/x-jquery-tmpl">
@@ -141,21 +152,31 @@
                  <table style="width:100%;">
             <tr id="firstGeneralRow"> 
             </tr>
-            <tr><td>
-                <table id="statisticTable"  style="width:100%;border: 1px solid #0000FF;border-radius: 3px;border-collapse: separate;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
-                    border="0" cellpadding="0" cellspacing="0">
-                    <thead id="statisticTableHeader"></thead>
-                    <tbody id="statisticTableBody" class="ui-widget-content wijmo-wijgrid-data">
-                    </tbody>
-                </table>
-            </td>
+            <tr>
+                <td>
+                    <div id="statisticTableWrapper">
+                        <table id="statisticTable"  style="width:100%;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
+                            border="0" cellpadding="0" cellspacing="0">
+                            <thead id="statisticTableHeader"></thead>
+                            <tbody id="statisticTableBody" class="ui-widget-content wijmo-wijgrid-data">
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
             <td>
-                <table id="messageTable"  style="width:100%;border: 1px solid #0000FF;border-radius: 3px;border-collapse: separate;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
-                    border="0" cellpadding="0" cellspacing="0">
-                    <thead id="messageTableHeader"></thead>
-                    <tbody id="messageTableBody" class="ui-widget-content wijmo-wijgrid-data">
-                    </tbody>
-                </table>
+                <div id="messageTableWrapper">
+                    <table id="messageTable"  style="width:100%;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
+                        border="0" cellpadding="0" cellspacing="0">
+                        <thead id="messageTableHeader"></thead>
+                        <tbody id="messageTableBody" class="ui-widget-content wijmo-wijgrid-data">
+                        </tbody>
+                    </table>
+                    <br>
+                    <button id="remove">Удалить</button>
+                    <div id="deletedialog" title="Удаление сообщений" style="display: none;">
+	                    <p>Вы действительно хотите удалить выделенные сообщения?</p>
+                    </div>
+                </div>
             </td></tr>
             </table>
                 </div>
@@ -234,6 +255,105 @@
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
                    <input value="{{html note}}" class="inputField-readonly input" readonly="readonly"/>
+                </div>
+            </td>
+        </tr>
+    </script>
+
+    <script id="tmplMessageTableContent" type="text/x-jquery-tmpl">
+        <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <center>
+                        <input type="checkbox" messageId="{{html id}}" name="messageCheckbox"/>
+                    </center>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                   {{html sender}}
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                   {{html topic}}
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                   {{html date}}
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                   {{html endDate}}
+                </div>
+            </td>
+        </tr>
+    </script>
+
+    <script id="tmplStatisticTableContent" type="text/x-jquery-tmpl">
+        <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <center>
+                   Количество пользователей:
+                    </center>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                   <center>
+                        {{html usersCount}}
+                   </center>
+                </div>
+            </td>
+        </tr>
+         <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <center>
+                   Количество водителей:
+                    </center>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                   <center>
+                        {{html driversCount}}
+                   </center>
+                </div>
+            </td>
+        </tr>
+         <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <center>
+                   Количество машин:
+                    </center>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                   <center>
+                        {{html vehiclesCount}}
+                   </center>
+                </div>
+            </td>
+        </tr>
+         <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <center>
+                   Количество отчетов:
+                    </center>
+                </div>
+            </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                   <center>
+                        {{html invoicesCount}}
+                   </center>
                 </div>
             </td>
         </tr>

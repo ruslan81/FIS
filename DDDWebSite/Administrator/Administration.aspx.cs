@@ -22,8 +22,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
                 BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_EN");
                 dataBlock.OpenConnection();
                 int userId = dataBlock.usersTable.Get_UserID_byName(User.Identity.Name);
-                int orgId = dataBlock.usersTable.Get_UserOrgId(userId);
-                Session["CURRENT_ORG_ID"] = orgId;
+                
                 //ORG NAME сверху
                 string curOrgName = "";
                 curOrgName = dataBlock.usersTable.Get_UserOrgName(userId);
@@ -32,6 +31,13 @@ public partial class Administrator_Administration : System.Web.UI.Page
                 curOrgName = dataBlock.usersTable.GetUserInfoValue(userId, DataBaseReference.UserInfo_Surname);
                 curOrgName += " " + dataBlock.usersTable.GetUserInfoValue(userId, DataBaseReference.UserInfo_Name);
                 ((Label)Master.FindControl("UserNameHeaderName")).Text = curOrgName;
+
+                int orgId = dataBlock.usersTable.Get_UserOrgId(userId);
+                Session["CURRENT_ORG_ID"] = orgId;
+
+                //выставляем кук, чтобы можно было передать его в метод, вызываемый ч/з ajax
+                Response.Cookies["CURRENT_ORG_ID"].Value = Convert.ToString(orgId);
+
                 ///////////////////////////
                 ((Panel)Master.FindControl("MainConditionsPanel")).Visible = false;
                 ((Panel)Master.FindControl("AdditionalConditionsPanel")).Visible = false;
@@ -213,6 +219,108 @@ public partial class Administrator_Administration : System.Web.UI.Page
 
 
     //AJAX BEGIN
+
+    /// <summary>
+    ///Получить данные по статистике
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static StatisticData GetStatistic(String OrgID, String UserName)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        InvoiceTable invoiceTable = new InvoiceTable(connectionString, "STRING_EN", dataBlock.sqlDb);
+        try
+        {
+            dataBlock.OpenConnection();
+            int orgId = Convert.ToInt32(OrgID);
+            int userId = dataBlock.usersTable.Get_UserID_byName(UserName);
+            StatisticData result = new StatisticData();
+
+            result.usersCount = dataBlock.usersTable.Get_AllUsersId(orgId).Count.ToString();
+            result.driversCount = dataBlock.cardsTable.GetAllCardIds(orgId,dataBlock.cardsTable.driversCardTypeId).Count.ToString();
+            result.vehiclesCount = dataBlock.cardsTable.GetAllCardIds(orgId, dataBlock.cardsTable.vehicleCardTypeId).Count.ToString();
+            result.invoicesCount = invoiceTable.GetAllInvoices(orgId).Count.ToString();
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    /// Получить данные по сообщения
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static List<MessageData> GetMessages(String UserName)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        InvoiceTable invoiceTable = new InvoiceTable(connectionString, "STRING_EN", dataBlock.sqlDb);
+        try
+        {
+            dataBlock.OpenConnection();
+            //int orgId = Convert.ToInt32(OrgID);
+            int userId = dataBlock.usersTable.Get_UserID_byName(UserName);
+            List<MessageData> result = new List<MessageData>();
+
+            List<int> ids = dataBlock.usersTable.GetAllMessagesIds(userId);
+            foreach(int id in ids)
+            {
+                MessageData md = new MessageData();
+                md.id = id;
+                md.sender = dataBlock.usersTable.GetMessageSender(id);
+                md.topic = dataBlock.usersTable.GetMessageTopic(id);
+                md.date = dataBlock.usersTable.GetMessageDate(id).ToShortDateString();
+                md.endDate = dataBlock.usersTable.GetMessageEndDate(id).ToShortDateString();
+                result.Add(md);
+            }
+            
+            return result;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    /// Удалить сообщения
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static void DeleteMessages(List<MapItem> messageIds)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        try
+        {
+            dataBlock.OpenConnection();
+            foreach (MapItem id in messageIds)
+            {
+                dataBlock.usersTable.DeleteMessage(Convert.ToInt32(id.Value));
+            }
+        }
+        catch (Exception ex)
+        {
+            return;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
 
     /// <summary>
     ///Получить данные по событиям журнала

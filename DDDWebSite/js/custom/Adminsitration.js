@@ -21,9 +21,9 @@ function updateTable(tableBody, template, data) {
             if (j < cells.length - 1) {
                 $(cells[j]).addClass("wijmo-wijgrid-cell-border-right");
             }
-            if (i < rows.length - 1) {
+            //if (i < rows.length - 1) {
                 $(cells[j]).addClass("wijmo-wijgrid-cell-border-bottom");
-            }
+            //}
             $(cells[j]).addClass("wijmo-wijgrid-cell");
         }
     }
@@ -51,6 +51,7 @@ function createTableHeader(tableHeader, template, columns) {
 }
 
 function loadGeneralData() {
+    $("#ContentContainer").empty();
     $("#ContentContainer").append($("#GeneralData").text());
 
     $.ajax({
@@ -91,18 +92,61 @@ function loadGeneralData() {
 function createStatisticTable() {
     createTableHeader($("#statisticTableHeader"), $("#tmplHeadColumn"),
     '[{"text": "", "style": "width: 40%;"},' +
-    '{"text": "Текущее", "style": "width: 30%;"},' +
-    '{"text": "Доступное", "style": "width: 30%;"}]');
+    '{"text": "Текущее", "style": "width: 30%;"}]');
     $("#statisticTable").show();
+
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Administration.aspx/GetStatistic",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'UserName':'" + $.cookie("CURRENT_USERNAME") + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            updateTable($("#statisticTableBody"), $("#tmplStatisticTableContent"), response.d);        
+        }
+    });    
 }
 
 function createMessageTable() {
     createTableHeader($("#messageTableHeader"), $("#tmplHeadColumn"),
-    '[{"text": "Отправитель", "style": "width: 100px;"},' +
+    '[{"text": "", "style": "width: 50px;"},' +
+    '{"text": "Отправитель", "style": "width: 100px;"},' +
     '{"text": "Тема", "style": ";"},' +
     '{"text": "Дата", "style": "width: 100px;"},' +
     '{"text": "Срок окончания", "style": "width: 100px;"}]');
+
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Administration.aspx/GetMessages",
+        data: "{'UserName':'" + $.cookie("CURRENT_USERNAME") + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            updateTable($("#messageTableBody"), $("#tmplMessageTableContent"), response.d);
+        }
+    });
     $("#messageTable").show();
+
+    $("#remove").button();
+    $("#remove").click(function () {
+        $("#deletedialog").dialog({ buttons: {
+            "OK": function () {
+                removeMessages();
+                $(this).dialog("close");
+            },
+            "Отмена": function () {
+                $(this).dialog("close");
+            }
+        },
+            closeText: '',
+            resizable: false,
+            modal: true
+        });
+        return false;
+    });
+    return false;
 }
 
 //INVOICE
@@ -421,6 +465,38 @@ function loadTimeZoneList() {
                 isEditable: false,
                 disabled: true
             });
+        }
+    });
+}
+
+function removeMessages() {
+
+    var inputs=$('#messageTableBody input');
+    var list = "[";
+    var count = 0;
+    for (var i=0;i<inputs.length;i++){
+        if ( inputs[i].checked ) {
+            var id = $(inputs[i]).attr("messageId");
+            if (count > 0) {
+                list = list + ", {'Value':'" + id + "', 'Key':' '}";
+            } else {
+                list = list + " {'Value':'" + id + "', 'Key':' '}";
+            }
+            count++;
+        }
+    }
+    list = list + "]";
+    if (count == 0)
+    return false;
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Administration.aspx/DeleteMessages",
+        data: "{'messageIds': " + list + " }",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            loadGeneralData();
         }
     });
 }

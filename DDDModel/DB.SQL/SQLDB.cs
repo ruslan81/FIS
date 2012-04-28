@@ -1381,6 +1381,47 @@ namespace DB.SQL
             int returnValue = Convert.ToInt32(GetOneParameter(valueStrId, "STRID_USER_INFO_VALUE", "fd_user_info_set", "USER_ID"));
             return returnValue;
         }
+        public List<int> GetAllMessagesIds(int userId)
+        {
+            List<int> result = new List<int>();
+            string sql = "SELECT MESSAGE_ID FROM fn_message WHERE USER_ID=@USER_ID";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@USER_ID", userId);
+            MySqlDataReader sdr = cmd.ExecuteReader();
+            while (sdr.Read())
+            {
+                result.Add(sdr.GetInt32(0));
+            }
+            sdr.Close();
+            return result;
+        }
+        public void DeleteMessage(int messageId)
+        {
+            string sql = "DELETE FROM fn_message WHERE MESSAGE_ID=@MESS_ID";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@MESS_ID", messageId);
+            cmd.ExecuteNonQuery();
+        }
+        public string GetMessageTopic(int messageId)
+        {
+            string returnValue = Convert.ToString(GetOneParameter(messageId, "MESSAGE_ID", "fn_message", "MESSAGE_TOPIC"));
+            return returnValue;
+        }
+        public string GetMessageSender(int messageId)
+        {
+            string returnValue = Convert.ToString(GetOneParameter(messageId, "MESSAGE_ID", "fn_message", "MESSAGE_SENDER"));
+            return returnValue;
+        }
+        public DateTime GetMessageDate(int messageId)
+        {
+            DateTime returnValue = Convert.ToDateTime(GetOneParameter(messageId, "MESSAGE_ID", "fn_message", "MESSAGE_DATE"));
+            return returnValue;
+        }
+        public DateTime GetMessageEndDate(int messageId)
+        {
+            DateTime returnValue = Convert.ToDateTime(GetOneParameter(messageId, "MESSAGE_ID", "fn_message", "MESSAGE_END_DATE"));
+            return returnValue;
+        }
         #endregion
         //---------------------------------FD_ORG and OrganizationTables------------------
         #region "ORG"
