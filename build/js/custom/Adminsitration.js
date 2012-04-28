@@ -52,8 +52,40 @@ function createTableHeader(tableHeader, template, columns) {
 
 function loadGeneralData() {
     $("#ContentContainer").append($("#GeneralData").text());
+
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Administration.aspx/GetGeneralData",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'UserName':'" + $.cookie("CURRENT_USERNAME") + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $($("#tmplGeneralData")).tmpl(response.d).appendTo($("#firstGeneralRow"));
+        }
+    });
+
     createStatisticTable();
     createMessageTable();
+
+    $("#tabs").tabs();
+
+    $("#tabs").tabs({ show: function (e, ui) {
+        if (ui.index == 0) {
+            tabIndex = 0;
+            $("#userControls").hide();
+        }
+        if (ui.index == 1) {
+            tabIndex = 1;
+            loadGeneralDetailedData();
+            $("#userControls").show();
+        }
+        return false;
+    }
+    });
+
+    //loadGeneralDetailedData();
+    $("#userControls").hide();
 }
 
 function createStatisticTable() {
@@ -78,11 +110,21 @@ function loadInvoiceData() {
     $("#ContentContainer").append($("#InvoiceData").text());
     createTableHeader($("#invoiceTableHeader"), $("#tmplHeadColumn"),
     '[{"text": "Наименование", "style": ";"},' +
-    '{"text": "Дата выставления", "style": "width: 100px;"},' +
-    '{"text": "Срок оплаты", "style": "width: 100px;"},' +
-    '{"text": "Статус", "style": "width: 80px;"},' +
-    '{"text": "Дата оплаты", "style": "width: 100px;"}]');
+    '{"text": "Дата выставления", "style": "width: 150px;"},' +
+    '{"text": "Срок оплаты", "style": "width: 150px;"},' +
+    '{"text": "Статус", "style": "width: 100px;"},' +
+    '{"text": "Дата оплаты", "style": "width: 150px;"}]');
     $("#invoiceTable").show();
+
+    createFilter();
+
+    $("#buildButton").click(function () {
+        buildInvoiceTable();
+        return false;
+    });
+
+    loadInvoiceStatusList();
+    buildInvoiceTable();
 }
 
 //JOURNAL
@@ -94,23 +136,8 @@ function loadJournalData() {
     '{"text": "Описание", "style": ""}]');
     $("#journalTable").show();
 
-    var today = new Date();
-    var todaystr = "" + convert(today);
-    today.setMonth(today.getMonth() - 1);
-    var thenstr = "" + convert(today);
+    createFilter();
 
-    $("#startDatePicker").datepicker();
-    $("#startDatePicker").datepicker("option", "dateFormat", "dd.mm.yy");
-    $("#startDatePicker").datepicker("setDate", thenstr);
-
-    $("#endDatePicker").datepicker();
-    $("#endDatePicker").datepicker("option", "dateFormat", "dd.mm.yy");
-    $("#endDatePicker").datepicker("setDate", todaystr);
-
-    $("#startDatePicker").datepicker($.datepicker.regional['ru']);
-    $("#endDatePicker").datepicker($.datepicker.regional['ru']);
-
-    $("#buildButton").button();
     $("#buildButton").click(function () {
         buildJournalTable();
         return false;
@@ -124,8 +151,8 @@ function buildJournalTable() {
     $("#dateErrorBlock").hide();
     var startDate = $("#startDatePicker").datepicker("getDate");
     var endDate = $("#endDatePicker").datepicker("getDate");
-    var eventType=$("#eventSelector").attr("event");
-    var text = $("#textInput").attr("value");
+    var event=$("#eventSelector").attr("event");
+    var text=$("#textInput").attr("value");
     if (endDate == null || startDate == null) {
         $("#dateErrorBlock").show();
         return;
@@ -139,6 +166,29 @@ function buildJournalTable() {
         dataType: "json",
         success: function (response) {
             updateTable($("#journalTableBody"), $("#tmplJournalTableContent"), response.d);
+        }
+    });
+}
+
+function buildInvoiceTable() {
+    $("#dateErrorBlock").hide();
+    var startDate = $("#startDatePicker").datepicker("getDate");
+    var endDate = $("#endDatePicker").datepicker("getDate");
+    var status = $("#invoiceStatusSelector").attr("statusType");
+    
+    if (endDate == null || startDate == null) {
+        $("#dateErrorBlock").show();
+        return;
+    }
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Administration.aspx/GetInvoices",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'StartDate':'" + convert(startDate) + "', 'EndDate':'" + convert(endDate) + "', 'statusType':'" + status + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            updateTable($("#invoiceTableBody"), $("#tmplInvoiceTableContent"), response.d);
         }
     });
 }
@@ -163,6 +213,213 @@ function loadEventList() {
                 showingAnimation: { effect: "blind" },
                 hidingAnimation: { effect: "blind" },
                 isEditable: false
+            });
+        }
+    });
+}
+
+function createFilter() {
+    var today = new Date();
+    var todaystr = "" + convert(today);
+    today.setMonth(today.getMonth() - 1);
+    var thenstr = "" + convert(today);
+
+    $("#startDatePicker").datepicker();
+    $("#startDatePicker").datepicker("option", "dateFormat", "dd.mm.yy");
+    $("#startDatePicker").datepicker("setDate", thenstr);
+
+    $("#endDatePicker").datepicker();
+    $("#endDatePicker").datepicker("option", "dateFormat", "dd.mm.yy");
+    $("#endDatePicker").datepicker("setDate", todaystr);
+
+    $("#startDatePicker").datepicker($.datepicker.regional['ru']);
+    $("#endDatePicker").datepicker($.datepicker.regional['ru']);
+
+    $("#buildButton").button();
+
+}
+
+function loadInvoiceStatusList() {
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Administration.aspx/GetInvoiceStatuses",
+        data: "{}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#tmplOption").tmpl(response.d).appendTo("#invoiceStatusSelector");
+            $("#invoiceStatusSelector").wijcombobox({
+                showingAnimation: { effect: "blind" },
+                hidingAnimation: { effect: "blind" },
+                isEditable: false
+            });
+            $("#invoiceStatusSelector option [value='0']").attr("selected", "true");
+        }
+    });
+}
+
+function loadGeneralDetailedData() {
+    $("#detailedData").empty();
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Administration.aspx/GetGeneralDetailedData",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'UserName':'" + $.cookie("CURRENT_USERNAME") + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#tmplGeneralDetailedData").tmpl(response.d).appendTo("#detailedData");
+            //$("#detailedData input").removeClass("inputField");
+            $("#detailedData input").addClass("inputField-readonly input");
+            $("#detailedData input").attr("readonly", "readonly");
+            //$("#detailedData input").attr("style", "border: 2px solid red;");
+            loadCountryList();
+            loadTimeZoneList();
+        }
+    });
+
+    $("#userControls").empty();
+    $("#userControls").append($("#сontrolsGeneralDetailed").text());
+
+    $("#userControls button").button();
+    $("#save").button({ disabled: true });
+    $("#cancel").button({ disabled: true });
+
+    $("#edit").click(function () {
+        mode = "edit";
+
+
+        $("#timeZoneSelector").wijcombobox({
+            disabled: false
+        });
+        $("#country").wijcombobox({
+            disabled: false
+        });
+
+        $("#detailedData .input").removeClass("inputField-readonly");
+        $("#detailedData .input").removeAttr("readonly");
+        $("#detailedData .input").addClass("inputField");
+        
+
+        $("#edit").button({ disabled: true });
+        $("#save").button({ disabled: false });
+        $("#cancel").button({ disabled: false });
+        return false;
+    });
+
+    $("#cancel").click(function () {
+        mode = "";
+        loadGeneralDetailedData();
+        return false;
+    });
+
+    $("#save").click(function () {
+        mode = "";
+        var res = saveGeneralDetailedData();
+        if (res == "error") {
+            return false;
+        }
+
+        loadGeneralDetailedData();
+        return false;
+    });
+
+}
+
+function saveGeneralDetailedData() {
+    var orgName=$("#orgName").attr("value");
+    var orgLogin=$("#orgLogin").attr("value");
+    var pass1=$("#pass1").attr("value");
+    var pass2 = $("#pass2").attr("value");
+
+    if (pass1 != pass2) {
+        alert("Введенные пароли не совпадают!");
+        return "error";
+    }
+
+    var country=$("#country").attr("countryId");
+    var city=$("#city").attr("value");
+    var index=$("#index").attr("value");
+    var timeZone = $("#timeZoneSelector").attr("timeZoneId");
+    var address1=$("#addr1").attr("value");
+    var address2=$("#addr2").attr("value");
+    var phone=$("#phone").attr("value");
+    var fax=$("#fax").attr("value");
+    var mail = $("#mail").attr("value");
+
+    var ud = 
+           //+ "', 'orgName':'" + orgName
+           "{'orgLogin':'" + orgLogin
+           + "', 'country':'" + country
+           + "', 'password':'" + pass1
+           + "', 'city':'" + city
+           + "', 'index':'" + index
+           + "', 'address1':'" + address1
+           + "', 'address2':'" + address2
+           + "', 'timeZone':'" + timeZone
+           + "', 'phone':'" + phone
+           + "', 'fax':'" + fax
+           + "', 'mail':'" + mail + "'}";
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Administration.aspx/SaveGeneralDetailedData",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'UserName':'" + $.cookie("CURRENT_USERNAME") + "', 'ud':" + ud + "}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            /*$("#detailedData input").addClass("inputField-readonly input");
+            $("#detailedData input").attr("readonly", "readonly");
+            $("#detailedData input").attr("style", "border: 2px solid red;");*/
+            return "OK";
+        }
+    });
+}
+
+function loadCountryList() {
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Administration.aspx/GetCountries",
+        data: "{}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#country").append("<option value='0'>Не указано</option>");
+            $("#tmplOption").tmpl(response.d).appendTo("#country");
+            var country = $("#country").attr("countryId");
+            if (country == "") { country = "0"; }
+            $('#country [value="' + country + '"]').attr("selected", "true");
+            $("#country").wijcombobox({
+                showingAnimation: { effect: "blind" },
+                hidingAnimation: { effect: "blind" },
+                isEditable: false,
+                disabled: true
+            });
+        }
+    });
+}
+
+function loadTimeZoneList() {
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Administration.aspx/GetTimeZones",
+        data: "{}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#timeZoneSelector").append("<option value='0'>Не указано</option>");
+            $("#tmplOption").tmpl(response.d).appendTo("#timeZoneSelector");
+            var timeZone = $("#timeZoneSelector").attr("timeZoneId");
+            if (timeZone == "") { timeZone = "0"; }
+            $('#timeZoneSelector [value="' + timeZone + '"]').attr("selected", "true");
+            $("#timeZoneSelector").wijcombobox({
+                showingAnimation: { effect: "blind" },
+                hidingAnimation: { effect: "blind" },
+                isEditable: false,
+                disabled: true
             });
         }
     });

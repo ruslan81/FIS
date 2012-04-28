@@ -14,6 +14,11 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "- 28.04.2012" + Environment.NewLine;
+            ReportLabel.Text += @"-  Возможность выбора различных видов отчетов." + Environment.NewLine;
+            ReportLabel.Text += @"-  Поправлен баг с картой (при просмотре маршрута нескольких файлов подряд)." + Environment.NewLine;
+            ReportLabel.Text += @"-  Некоторые изменения в дизайне." + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "- 04.04.2012" + Environment.NewLine;
             ReportLabel.Text += @"-  Поддержка Google Map API v3 в отчетах." + Environment.NewLine;
             ReportLabel.Text += @"-  Изменен дизайн, увеличена рабочая область." + Environment.NewLine;
