@@ -29,11 +29,9 @@ namespace DDDModel
 
             //MY CODE
 
-            List<int> list = dataBlock.usersTable.GetAllMessagesIds(1);
-            //System.Console.WriteLine(list.Count);
-            foreach(int id in list){
-                   System.Console.WriteLine(dataBlock.usersTable.GetMessageEndDate(id));
-            }
+            List<int> list = dataBlock.usersTable.GetAllCities(22);
+
+            dataBlock.organizationTable.DeleteOrganization(56);
             System.Console.ReadKey();
 
            //SCRIPT TO ADD COMMON GROUP

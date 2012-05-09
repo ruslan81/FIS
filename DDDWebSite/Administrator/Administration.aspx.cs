@@ -37,6 +37,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
 
                 //выставляем кук, чтобы можно было передать его в метод, вызываемый ч/з ajax
                 Response.Cookies["CURRENT_ORG_ID"].Value = Convert.ToString(orgId);
+                Response.Cookies["CURRENT_USERNAME"].Value = User.Identity.Name;
 
                 ///////////////////////////
                 ((Panel)Master.FindControl("MainConditionsPanel")).Visible = false;
@@ -323,6 +324,114 @@ public partial class Administrator_Administration : System.Web.UI.Page
     }
 
     /// <summary>
+    /// Получить данные по дилерам
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static List<DealerData> GetDealers(String OrgID)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        
+        try
+        {
+            dataBlock.OpenConnection();
+            int orgId = Convert.ToInt32(OrgID);
+            //int userId = dataBlock.usersTable.Get_UserID_byName(UserName);
+            List<DealerData> result = new List<DealerData>();
+
+            List<int> ids=dataBlock.organizationTable.Get_AllDealersId(orgId);
+            foreach (int id in ids) {
+                DealerData dd = new DealerData();
+                dd.id = id;
+                dd.name = dataBlock.organizationTable.GetOrganizationName(id);
+                //dd.login = dataBlock.usersTable.Get_UserName(id);
+                dd.country = dataBlock.organizationTable.GetOrgCountryId(id).ToString();
+                dd.city = dataBlock.organizationTable.GetOrgRegionId(id).ToString();
+                
+                DateTime date = new DateTime();
+                if (DateTime.TryParse(dataBlock.organizationTable.GetAdditionalOrgInfo(id, 1), out date))
+                { dd.date = date.ToShortDateString(); }
+                else { dd.date = "Неизвестно"; }
+                if (DateTime.TryParse(dataBlock.organizationTable.GetAdditionalOrgInfo(id, 2), out date))
+                { dd.endDate = date.ToShortDateString();}
+                else { dd.endDate = "Неизвестно"; }
+
+                result.Add(dd);
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    /// Получить данные по пользователям
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static List<UserData> GetUsers(String OrgID)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+
+        try
+        {
+            dataBlock.OpenConnection();
+            int orgId = Convert.ToInt32(OrgID);
+            //int userId = dataBlock.usersTable.Get_UserID_byName(UserName);
+            List<UserData> result = new List<UserData>();
+
+            List<int> ids = dataBlock.usersTable.Get_AllUsersId(orgId);
+            foreach (int id in ids) {
+                UserData ud = new UserData();
+                ud.dealer = dataBlock.organizationTable.GetOrganizationName(id);
+                ud.login = dataBlock.usersTable.Get_UserName(id);
+                ud.id = id;
+                int userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Name);
+                ud.name = dataBlock.usersTable.GetUserInfoValue(id, userInfoId);
+                userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Surname);
+                ud.surname = dataBlock.usersTable.GetUserInfoValue(id, userInfoId);
+                userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Patronimic);
+                ud.patronimic = dataBlock.usersTable.GetUserInfoValue(id, userInfoId);
+                userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_RegDate);
+                ud.date = dataBlock.usersTable.GetUserInfoValue(id, userInfoId);
+                ud.roleId = dataBlock.usersTable.GetUserRoleId(id);
+                ud.role = dataBlock.usersTable.GetUserRoleName(id);
+
+                DateTime date = dataBlock.usersTable.Get_TimeConnect(id);
+                if (date == null)
+                {
+                    ud.state = "Отключен";
+                }
+                else {
+                    ud.state = "Подключен " + date.ToShortDateString() + " " + date.ToShortTimeString();
+                }
+                
+                result.Add(ud);
+            }
+
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
     ///Получить данные по событиям журнала
     /// </summary>
     /// <returns></returns>
@@ -407,10 +516,10 @@ public partial class Administrator_Administration : System.Web.UI.Page
 
             DateTime date = dataBlock.usersTable.Get_TimeConnect(userId);
             ud.connectDate = date.ToLongDateString() + " " + date.ToShortTimeString();
-            if (DateTime.TryParse(dataBlock.organizationTable.GetAdditionalOrgInfo(orgId, DataBaseReference.OrgInfo_RegistrationDate), out date))
+            if (DateTime.TryParse(dataBlock.organizationTable.GetAdditionalOrgInfo(orgId, 1), out date))
             { ud.registerDate = date.ToLongDateString() + " " + date.ToShortTimeString(); }
             else { ud.registerDate = "Неизвестно"; }
-            if (DateTime.TryParse(dataBlock.organizationTable.GetAdditionalOrgInfo(orgId, DataBaseReference.OrgInfo_EndOfRegistrationDate), out date))
+            if (DateTime.TryParse(dataBlock.organizationTable.GetAdditionalOrgInfo(orgId, 2), out date))
             { ud.endDate = date.ToLongDateString(); }
             else { ud.endDate = "Неизвестно"; }
 
@@ -545,6 +654,92 @@ public partial class Administrator_Administration : System.Web.UI.Page
         }
     }
 
+    /// <summary>
+    ///Сохранить данные по дилерам
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static void SaveDealersData(String OrgID,  List<DealerData> list)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+
+        try
+        {
+            dataBlock.OpenConnection();
+            int orgId = Convert.ToInt32(OrgID);
+            foreach(DealerData dd in list){
+                dataBlock.organizationTable.SetOrganizationName(dd.name,dd.id);
+                dataBlock.organizationTable.SetOrgCountryAndRegion(dd.id, Convert.ToInt32(dd.country), Convert.ToInt32(dd.city));
+                dataBlock.organizationTable.AddOrEditAdditionalOrgInfo(dd.id, 2, dd.endDate);
+            }
+        }
+        catch (Exception ex)
+        {
+            return;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Создать нового дилера
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static void CreateNewDealer(String OrgID, DealerData data)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+
+        try
+        {
+            dataBlock.OpenConnection();
+            int orgId = Convert.ToInt32(OrgID);
+            int id=dataBlock.organizationTable.AddNewOrganization(data.name, 5, Convert.ToInt32(data.country), Convert.ToInt32(data.city),orgId);
+            dataBlock.organizationTable.AddOrEditAdditionalOrgInfo(id, 1, data.date);
+            dataBlock.organizationTable.AddOrEditAdditionalOrgInfo(id, 2, data.endDate);
+        }
+        catch (Exception ex)
+        {
+            return;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Создать нового дилера
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static void DeleteDealers(String OrgID, List<MapItem> ids)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+
+        try
+        {
+            dataBlock.OpenConnection();
+            int orgId = Convert.ToInt32(OrgID);
+            foreach (MapItem id in ids)
+            {
+                dataBlock.organizationTable.DeleteOrganization(Convert.ToInt32(id.Value));
+            }
+        }
+        catch (Exception ex)
+        {
+            return;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
 
     /// <summary>
     ///Получить список стран
@@ -564,6 +759,40 @@ public partial class Administrator_Administration : System.Web.UI.Page
             foreach (int id in ids) {
                 string name=dataBlock.usersTable.GetCountryName(id);
                 result.Add(new MapItem(id.ToString(),name));
+            }
+            return result;
+        }
+        catch (Exception ex)
+        {
+            return result;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Получить список городов
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static List<MapItem> GetCities(String CountryID)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+
+        List<MapItem> result = new List<MapItem>();
+        try
+        {
+            int countryId = Convert.ToInt32(CountryID);
+
+            dataBlock.OpenConnection();
+            List<int> ids = dataBlock.usersTable.GetAllCities(countryId);
+            foreach (int id in ids)
+            {
+                string name = dataBlock.usersTable.GetCityName(id);
+                result.Add(new MapItem(id.ToString(), name));
             }
             return result;
         }

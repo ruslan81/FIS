@@ -70,3 +70,35 @@
 	-webkit-border-radius: 5px;
 	overflow: hidden;
 }
+
+#outputId .wijmo-wijgrid-datarow input
+{
+	font-family: Tahoma;
+	font-size: 11px;
+}
+#outputId .wijmo-wijgrid-datarow .inputField-readonly
+{
+	background-color: white;	
+}
+
+#outputId .wijmo-wijgrid-alternatingrow .inputField-readonly
+{
+	background-color:#eee;	
+}
+
+#outputId .input
+{
+	font-family:Tahoma;
+	font-size:11px;
+	width:90%;
+}
+
+#outputId .inputField-readonly
+{
+	border:none;
+    border-radius:none;
+    padding-left:5px;
+    height:22px;
+    font-size:12px;
+    width:90%;
+}

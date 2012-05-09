@@ -286,6 +286,14 @@ namespace BLL
         {
             return sqlDb.GetCountryName(id);
         }
+        public List<int> GetAllCities(int countryId)
+        {
+            return sqlDb.GetAllCities(countryId);
+        }
+        public string GetCityName(int id)
+        {
+            return sqlDb.GetCityName(id);
+        }
 
         public List<int> GetAllMessagesIds(int userId)
         {

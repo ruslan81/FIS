@@ -11053,3 +11053,30 @@ Cache Callback: 28.04.2012 20:53:20
 Cache Callback: 28.04.2012 20:54:40
 Cache Callback: 28.04.2012 20:55:18
 Cache Callback: Message: Невозможно соединиться с удаленным сервером
+Cache Callback: 30.04.2012 22:53:20
+Cache Callback: 30.04.2012 23:51:20
+Cache Callback: 01.05.2012 23:49:00
+Cache Callback: 02.05.2012 0:23:20
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: 02.05.2012 14:27:00
+Cache Callback: Message: Удаленный сервер возвратил ошибку: (407) Требуется проверка подлинности посредника.
+Cache Callback: 02.05.2012 18:50:00
+Cache Callback: Message: Удаленный сервер возвратил ошибку: (407) Требуется проверка подлинности посредника.
+Cache Callback: 03.05.2012 13:26:40
+Cache Callback: Message: Удаленный сервер возвратил ошибку: (407) Требуется проверка подлинности посредника.
+Cache Callback: 03.05.2012 15:32:00
+Cache Callback: Message: Удаленный сервер возвратил ошибку: (407) Требуется проверка подлинности посредника.
+Cache Callback: Message: d:\BSUIR\Other\UnitedProject\DDDWebSite\Administrator\Administration.aspx.cs(694): error CS0111: Тип 'Administrator_Administration' уже определяет член с именем 'GetCountries' с теми же типами параметров
+Cache Callback: 03.05.2012 23:07:40
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: Message: Сбой при отправке сообщения электронной почты.
+Cache Callback: 05.05.2012 0:21:40
+Cache Callback: 05.05.2012 14:26:06
+Cache Callback: 06.05.2012 21:30:00
+Cache Callback: Message: Неизвестный веб-метод DeleteDealers.
+Имя параметра: methodName
+Cache Callback: Message: Неизвестный веб-метод DeleteDealers.
+Имя параметра: methodName
+Cache Callback: 06.05.2012 23:32:00
+Cache Callback: 06.05.2012 23:50:00
+Cache Callback: 10.05.2012 1:52:40

@@ -1218,6 +1218,35 @@ namespace DB.SQL
             sdr.Close();
             return "";
         }
+        public List<int> GetAllCities(int countryId)
+        {
+            List<int> result = new List<int>();
+            string sql = "SELECT id_city FROM city_ WHERE id_country=@COUNTRY_ID";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@COUNTRY_ID", countryId);
+            MySqlDataReader sdr = cmd.ExecuteReader();
+            while (sdr.Read())
+            {
+                result.Add(sdr.GetInt32(0));
+            }
+            sdr.Close();
+            return result;
+        }
+        public string GetCityName(int id)
+        {
+            string sql = "SELECT city_name_ru FROM city_ WHERE id_city=@ID";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@ID", id);
+            MySqlDataReader sdr = cmd.ExecuteReader();
+            while (sdr.Read())
+            {
+                string result = sdr.GetString(0);
+                sdr.Close();
+                return result;
+            }
+            sdr.Close();
+            return "";
+        }
         public int AddNewUser(string name, string pass, int userTypeId, int userRoleId, int orgId, string oldName, string oldPass)
         {
             int generatedId = 0;
@@ -1747,6 +1776,49 @@ namespace DB.SQL
             try { DeleteString(stringId); }
             catch
             { }
+        }
+        public void DeleteOrganization(int orgId)
+        {
+            string sql;
+            MySqlCommand cmd;
+            sql = "UPDATE fd_org SET ORG_TYPE_ID = -1 WHERE ORG_ID=@ID";
+            cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@ID", orgId);
+            cmd.ExecuteNonQuery();
+
+            sql = "SELECT STRID_ORG_NAME FROM fd_org WHERE ORG_ID=@ID";
+            cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@ID", orgId);
+            MySqlDataReader sdr = cmd.ExecuteReader();
+            int strId=-1;
+            while (sdr.Read())
+            {
+                strId=sdr.GetInt32(0);
+            }
+            sdr.Close();
+
+            sql = "SELECT STRING_EN FROM fd_string WHERE STRING_ID=@ID";
+            cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@ID", strId);
+            sdr = cmd.ExecuteReader();
+            string value = "";
+            while (sdr.Read())
+            {
+                value = sdr.GetString(0);
+            }
+            sdr.Close();
+
+            sql = "UPDATE fd_string SET STRING_EN = @STR WHERE STRING_ID=@ID";
+            cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@STR", "###" + value);
+            cmd.Parameters.AddWithValue("@ID", strId);
+            cmd.ExecuteNonQuery();
+
+            sql = "UPDATE fn_card SET CARD_HOLDER_NAME = @STR2 WHERE CARD_HOLDER_NAME=@STR1";
+            cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@STR1", value + "ORG");
+            cmd.Parameters.AddWithValue("@STR2", "###" + value + "ORG");
+            cmd.ExecuteNonQuery();
         }
         public int AddNewOrgInfo(string Name)
         {
