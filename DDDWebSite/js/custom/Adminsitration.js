@@ -395,14 +395,12 @@ function loadUsersData() {
     '{"text": "Дилер", "style": ";"},' +
     '{"text": "Фамилия", "style": ";"},' +
     '{"text": "Имя", "style": ";"},' +
-    '{"text": "Отчество", "style": ";"},' +
     '{"text": "Логин", "style": ";"},' +
-    '{"text": "Дата регистрации", "style": "width: 100px;"},' +
-    '{"text": "Роль", "style": "width: 100px;"},' +
-    '{"text": "Состояние", "style": "200px;"}]');
+    '{"text": "Роль", "style": ";"},' +
+    '{"text": "Состояние", "style": ";"}]');
     $("#usersTable").show();
 
-    loadGeneralUsersData();
+    loadGeneralUsersData();    
 
     $("#userControls").empty();
     $("#userControls").append($("#сontrolsUsers").text());
@@ -439,6 +437,7 @@ function loadGeneralUsersData() {
         success: function (response) {
             updateTable($("#usersTableBody"), $("#tmplUsersTableContent"), response.d);
             radioIndex = -1;
+            loadUserTypesList();
         }
     });
 }
@@ -882,6 +881,34 @@ function loadCommonCountryList() {
                 });
             }
             loadCommonCityList();
+        }
+    });
+}
+
+function loadUserTypesList() {
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Administration.aspx/GetUserTypes",
+        data: "{}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            var selectors = $("#outputId [name='roleSelector']");
+            //alert(selectors.length);
+            for (var i = 0; i < selectors.length; i++) {
+                $(selectors[i]).append("<option value='0'>Не указано</option>");
+                $("#tmplOption").tmpl(response.d).appendTo(selectors[i]);
+                var role = $(selectors[i]).attr("roleId");
+                if (role == "") { role = "0"; }
+                $('#' + selectors[i].id + ' [value="' + role + '"]').attr("selected", "true");
+                $(selectors[i]).wijcombobox({
+                    showingAnimation: { effect: "blind" },
+                    hidingAnimation: { effect: "blind" },
+                    isEditable: false,
+                    disabled: true
+                });
+            }
         }
     });
 }

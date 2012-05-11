@@ -403,8 +403,8 @@ public partial class Administrator_Administration : System.Web.UI.Page
                 ud.patronimic = dataBlock.usersTable.GetUserInfoValue(id, userInfoId);
                 userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_RegDate);
                 ud.date = dataBlock.usersTable.GetUserInfoValue(id, userInfoId);
-                ud.roleId = dataBlock.usersTable.GetUserRoleId(id);
-                ud.role = dataBlock.usersTable.GetUserRoleName(id);
+                ud.roleId = dataBlock.usersTable.Get_UserTypeId(id);
+                ud.role = dataBlock.usersTable.Get_UserTypeStr(id);
 
                 DateTime date = dataBlock.usersTable.Get_TimeConnect(id);
                 if (date == null)
@@ -793,6 +793,37 @@ public partial class Administrator_Administration : System.Web.UI.Page
             {
                 string name = dataBlock.usersTable.GetCityName(id);
                 result.Add(new MapItem(id.ToString(), name));
+            }
+            return result;
+        }
+        catch (Exception ex)
+        {
+            return result;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Получить список типов пользователей
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static List<MapItem> GetUserTypes()
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+
+        List<MapItem> result = new List<MapItem>();
+        try
+        {
+            dataBlock.OpenConnection();
+            List<KeyValuePair<string,int>> ids = dataBlock.usersTable.GetAllUsersTypes();
+            foreach (KeyValuePair<string, int> id in ids)
+            {
+                result.Add(new MapItem(id.Value.ToString(), id.Key));
             }
             return result;
         }

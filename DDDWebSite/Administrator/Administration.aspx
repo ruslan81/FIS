@@ -423,24 +423,12 @@
             </td>
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
-                   {{html patronimic}}
-                </div>
-            </td>
-              <td class="wijgridtd wijdata-type-string">
-                <div class="wijmo-wijgrid-innercell">
                    {{html login}}
                 </div>
             </td>
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
-                   <center>
-                        {{html date}}
-                   </center>
-                </div>
-            </td>
-            <td class="wijgridtd wijdata-type-string">
-                <div class="wijmo-wijgrid-innercell">
-                   {{html role}}
+                <select id="role{{html id}}" roleId="{{html roleId}}" name="roleSelector" onchange="this.roleId=this.value;"></select>
                 </div>
             </td>
             <td class="wijgridtd wijdata-type-string">
@@ -680,7 +668,7 @@
                 </div>
             <h3 id="AccountsAccordionPane2_Header" runat="server"><asp:LinkButton ID="AccountsAccordionPane2" runat="server" CausesValidation="false" PostBackUrl="#" OnClientClick="onNewAccordionSelectedIndexChanged(7);" Text="Дилеры" /></h3>
                <div>
-                    <div id="AccountsOverFlowPanel" style="overflow:auto; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; border: 1px solid #AFCBDE;">
+                    <!--<div id="AccountsOverFlowPanel" style="overflow:auto; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; border: 1px solid #AFCBDE;">
                         <asp:UpdatePanel ID="AccountsTreeUpdatePanel" runat="server" UpdateMode="Conditional">
                             <ContentTemplate>
                                 <asp:TreeView ID="AccountsTreeView" runat="server" ForeColor="Black" HoverNodeStyle-ForeColor="Firebrick"
@@ -688,14 +676,14 @@
                                 NodeStyle-HorizontalPadding="5" NodeIndent="20" ShowLines="true" OnSelectedNodeChanged="AccountsTreeView_NodeChanged" />    
                             </ContentTemplate>
                         </asp:UpdatePanel>
-                    </div>
+                    </div>-->
                 </div>     
             <h3><asp:LinkButton ID="UsersAccordionPane3" runat="server" CausesValidation="false" PostBackUrl="#" OnClientClick="onNewAccordionSelectedIndexChanged(2);" Text="Пользователи" /></h3>
                 <div>
                 </div>
-            <h3><asp:LinkButton ID="ReportsAccordionPane4" runat="server" CausesValidation="false" PostBackUrl="#" OnClientClick="onNewAccordionSelectedIndexChanged(3);" Text="Отчеты" /></h3>
+            <!--<h3><asp:LinkButton ID="ReportsAccordionPane4" runat="server" CausesValidation="false" PostBackUrl="#" OnClientClick="onNewAccordionSelectedIndexChanged(3);" Text="Отчеты" /></h3>
                 <div>
-                </div>
+                </div>-->
             <h3><asp:LinkButton ID="BillsAccordionPane5" runat="server" CausesValidation="false" PostBackUrl="#" OnClientClick="onNewAccordionSelectedIndexChanged(4);" Text="Счета" /></h3>
                 <div>
                 </div>

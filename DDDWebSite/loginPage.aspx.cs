@@ -55,7 +55,7 @@ public partial class loginPage : System.Web.UI.Page
                     cookie.Expires = DateTime.Now.AddHours(2);//куки живут два часа
                     FormsAuthentication.SetAuthCookie(UserNameTextBox.Text, Persistent.Checked);//Раньше эта строка была перед ИФ
                 }
-                int userId = dataBlock.usersTable.Get_UserID_byName(Page.User.Identity.Name);
+                int userId = dataBlock.usersTable.Get_UserID_byName(UserNameTextBox.Text);
                 dataBlock.usersTable.Set_TimeConnect(userId);
                 Response.Redirect(url);
             }

@@ -11080,3 +11080,6 @@ Cache Callback: Message: Неизвестный веб-метод DeleteDealers.
 Cache Callback: 06.05.2012 23:32:00
 Cache Callback: 06.05.2012 23:50:00
 Cache Callback: 10.05.2012 1:52:40
+Cache Callback: 10.05.2012 22:50:40
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: Message: Сбой при отправке сообщения электронной почты.
