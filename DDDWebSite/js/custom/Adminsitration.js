@@ -340,6 +340,21 @@ function deleteDealers(list) {
     });
 }
 
+function deleteUser(index) {
+    //var order = { OrgID: $.cookie("CURRENT_ORG_ID"), ids: list };
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Administration.aspx/DeleteUser",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'UserID':'" + index + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            loadUsersData();
+        }
+    });
+}
+
 function loadGeneralDealersData() {
     $.ajax({
         type: "POST",
@@ -372,12 +387,12 @@ function createNewDealer() {
     var endDate = $("#endDatePicker").attr("value");
     var country = $("#newcountry").attr("value");
     var city = $("#newcity").attr("value");
-    var dealerData = "{'name':'"+name+"','date':'"+date+"','endDate':'"+endDate+"','country':'"+country+"','city':'"+city+"'}";
+    var dealerData = "{'name':'" + name + "','date':'" + date + "','endDate':'" + endDate + "','country':'" + country + "','city':'" + city + "'}";
     $.ajax({
         type: "POST",
         //Page Name (in which the method should be called) and method name
         url: "Administration.aspx/CreateNewDealer",
-        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "','data': "+dealerData+"}",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "','data': " + dealerData + "}",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
@@ -400,11 +415,7 @@ function loadUsersData() {
     '{"text": "Состояние", "style": ";"}]');
     $("#usersTable").show();
 
-    loadGeneralUsersData();    
-
-    $("#userControls").empty();
-    $("#userControls").append($("#сontrolsUsers").text());
-    $("#userControls button").button();
+    loadGeneralUsersData();
 
     $("#tabs").tabs();
 
@@ -422,8 +433,6 @@ function loadUsersData() {
         return false;
     }
     });
-
-    $("#userControls").show();
 }
 
 function loadGeneralUsersData() {
@@ -438,6 +447,7 @@ function loadGeneralUsersData() {
             updateTable($("#usersTableBody"), $("#tmplUsersTableContent"), response.d);
             radioIndex = -1;
             loadUserTypesList();
+            loadUsersControls();
         }
     });
 }
@@ -462,6 +472,65 @@ function loadInvoiceData() {
 
     loadInvoiceStatusList();
     buildInvoiceTable();
+}
+
+function loadUsersControls() {
+    $("#userControls").empty();
+    $("#userControls").append($("#controlsUsers").text());
+    $("#userControls button").button();
+
+    $("#save").button({ disabled: true });
+    $("#cancel").button({ disabled: true });
+
+    $("#edit").click(function () {
+        mode = "edit";
+        $("#tabs").tabs({ selected: 1 });
+        return false;
+    });
+
+    $("#create").click(function () {
+        mode = "create";
+        $("#tabs").tabs({ selected: 1 });
+        return false;
+    });
+
+    $("#cancel").click(function () {
+        mode = "";
+        loadUsersData();
+        return false;
+    });
+
+    $("#save").click(function () {
+        if (mode == "edit") {
+            saveUsersData();
+        }
+        if (mode == "create") {
+            createNewUser();
+        }
+        mode = "";
+        return false;
+    });
+
+    $("#delete").click(function () {
+        if (radioIndex > 0) {
+            $("#deletedialog").dialog({ buttons: { "OK": function () {
+                $(this).dialog("close");
+                deleteUser(radioIndex);
+            },
+                "Отмена": function () {
+                    $(this).dialog("close");
+                }
+            }
+
+            });
+            $("#deletedialog").dialog("option", "closeText", '');
+            $("#deletedialog").dialog("option", "resizable", false);
+            $("#deletedialog").dialog("option", "modal", true);
+        }
+        return false;
+    });
+
+    $("#userControls").show();
 }
 
 //JOURNAL
@@ -613,6 +682,7 @@ function loadGeneralDetailedData() {
             //$("#detailedData input").attr("style", "border: 2px solid red;");
             loadCountryList();
             loadTimeZoneList();
+            loadAllDealersList();
         }
     });
 
@@ -633,11 +703,21 @@ function loadGeneralDetailedData() {
         $("#country").wijcombobox({
             disabled: false
         });
+        $("#dealerSelector").wijcombobox({
+            disabled: false
+        });
 
         $("#detailedData .input").removeClass("inputField-readonly");
         $("#detailedData .input").removeAttr("readonly");
         $("#detailedData .input").addClass("inputField");
 
+        $("#orgName").removeClass("inputField");
+        $("#orgName").addClass("inputField-readonly");
+        $("#orgName").attr("readonly", "readonly");
+
+        $("#orgLogin").removeClass("inputField");
+        $("#orgLogin").addClass("inputField-readonly");
+        $("#orgLogin").attr("readonly", "readonly");
 
         $("#edit").button({ disabled: true });
         $("#save").button({ disabled: false });
@@ -692,28 +772,62 @@ function loadDealersDetailedData() {
 
 function loadUsersDetailedData() {
     $("#detailedData").empty();
-    if (radioIndex == -1) {
+    if (radioIndex == -1 && mode != "create") {
         $("#detailedData").append("<font color='#FF0000' size='5'>Выберите объект для отображения детальных сведений!<font>");
         return;
     }
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Administration.aspx/GetUserDetailedData",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'UserID':'" + radioIndex + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#tmplUsersDetailedData").tmpl(response.d).appendTo("#detailedData");
+            //$("#detailedData input").removeClass("inputField");
+            $("#detailedData input").addClass("inputField-readonly input");
+            $("#detailedData input").attr("readonly", "readonly");
+            //$("#detailedData input").attr("style", "border: 2px solid red;");
+            loadCountryList();
+            loadTimeZoneList();
+            loadRoleList();
+            loadAllDealersList();
 
-    /*$.ajax({
-    type: "POST",
-    //Page Name (in which the method should be called) and method name
-    url: "Administration.aspx/GetGeneralDetailedData",
-    data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'UserName':'" + $.cookie("CURRENT_USERNAME") + "'}",
-    contentType: "application/json; charset=utf-8",
-    dataType: "json",
-    success: function (response) {
-    $("#tmplGeneralDetailedData").tmpl(response.d).appendTo("#detailedData");
-    //$("#detailedData input").removeClass("inputField");
-    $("#detailedData input").addClass("inputField-readonly input");
-    $("#detailedData input").attr("readonly", "readonly");
-    //$("#detailedData input").attr("style", "border: 2px solid red;");
-    loadCountryList();
-    loadTimeZoneList();
-    }
-    });*/
+            if (mode == "edit") {
+                $("#detailedData .input").removeClass("inputField-readonly");
+                $("#detailedData .input").removeAttr("readonly");
+                $("#detailedData .input").addClass("inputField");
+
+                $("#orgName").removeClass("inputField");
+                $("#orgName").addClass("inputField-readonly");
+                $("#orgName").attr("readonly", "readonly");
+
+                $("#edit").button({ disabled: true });
+                $("#delete").button({ disabled: true });
+                $("#create").button({ disabled: true });
+                $("#save").button({ disabled: false });
+                $("#cancel").button({ disabled: false });
+            }
+            if (mode == "create") {
+                $("#detailedData .input").removeClass("inputField-readonly");
+                $("#detailedData .input").removeAttr("readonly");
+                $("#detailedData .input").addClass("inputField");
+
+                $("#orgName").removeClass("inputField");
+                $("#orgName").addClass("inputField-readonly");
+                $("#orgName").attr("readonly", "readonly");
+
+                $("#orgName").attr("value", "Текущая организация");
+
+                $("#edit").button({ disabled: true });
+                $("#delete").button({ disabled: true });
+                $("#create").button({ disabled: true });
+                $("#save").button({ disabled: false });
+                $("#cancel").button({ disabled: false });
+            }
+        }
+    });
 }
 
 function saveGeneralDetailedData() {
@@ -728,6 +842,7 @@ function saveGeneralDetailedData() {
     }
 
     var country = $("#country").attr("countryId");
+    var dealerId = $("#dealerSelector").attr("dealerId");
     var city = $("#city").attr("value");
     var index = $("#index").attr("value");
     var timeZone = $("#timeZoneSelector").attr("timeZoneId");
@@ -747,6 +862,7 @@ function saveGeneralDetailedData() {
            + "', 'address1':'" + address1
            + "', 'address2':'" + address2
            + "', 'timeZone':'" + timeZone
+           + "', 'dealerId':'" + dealerId
            + "', 'phone':'" + phone
            + "', 'fax':'" + fax
            + "', 'mail':'" + mail + "'}";
@@ -802,6 +918,123 @@ function saveDealersData() {
     });
 }
 
+function saveUsersData() {
+
+    //var orgName = $("#orgName").attr("value");
+    var login = $("#orgLogin").attr("value");
+    var role = $("#role").attr("roleId");
+    var pass1 = $("#pass1").attr("value");
+    var pass2 = $("#pass2").attr("value");
+
+    if (pass1 != pass2) {
+        alert("Введенные пароли не совпадают!");
+        return "error";
+    }
+
+    var country = $("#country").attr("countryId");
+    var city = $("#city").attr("value");
+    var index = $("#index").attr("value");
+    var timeZone = $("#timeZoneSelector").attr("timeZoneId");
+    var dealerId = $("#dealerSelector").attr("dealerId");
+    var address1 = $("#addr1").attr("value");
+    var address2 = $("#addr2").attr("value");
+    var phone = $("#phone").attr("value");
+    var fax = $("#fax").attr("value");
+    var mail = $("#mail").attr("value");
+    var name = $("#name").attr("value");
+    var patronimic = $("#patronimic").attr("value");
+    var surname = $("#surname").attr("value");
+
+    var ud =
+           "{'login':'" + login
+           + "', 'country':'" + country
+           + "', 'password':'" + pass1
+           + "', 'city':'" + city
+           + "', 'index':'" + index
+           + "', 'address1':'" + address1
+           + "', 'address2':'" + address2
+           + "', 'timeZone':'" + timeZone
+           + "', 'dealerId':'" + dealerId
+           + "', 'phone':'" + phone
+           + "', 'fax':'" + fax
+           + "', 'roleId':'" + role
+           + "', 'name':'" + name
+           + "', 'surname':'" + surname
+           + "', 'patronimic':'" + patronimic
+           + "', 'mail':'" + mail + "'}";
+
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Administration.aspx/SaveUsersData",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'UserID':'" + radioIndex + "', 'ud':" + ud + "}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            loadUsersData();
+            return "OK";
+        }
+    });
+}
+
+function createNewUser() {
+    //var orgName = $("#orgName").attr("value");
+    var login = $("#orgLogin").attr("value");
+    var role = $("#role").attr("roleId");
+    var pass1 = $("#pass1").attr("value");
+    var pass2 = $("#pass2").attr("value");
+
+    if (pass1 != pass2) {
+        alert("Введенные пароли не совпадают!");
+        return "error";
+    }
+
+    var country = $("#country").attr("countryId");
+    var city = $("#city").attr("value");
+    var index = $("#index").attr("value");
+    var timeZone = $("#timeZoneSelector").attr("timeZoneId");
+    var dealerId = $("#dealerSelector").attr("dealerId");
+    var address1 = $("#addr1").attr("value");
+    var address2 = $("#addr2").attr("value");
+    var phone = $("#phone").attr("value");
+    var fax = $("#fax").attr("value");
+    var mail = $("#mail").attr("value");
+    var name = $("#name").attr("value");
+    var patronimic = $("#patronimic").attr("value");
+    var surname = $("#surname").attr("value");
+
+    var ud =
+           "{'login':'" + login
+           + "', 'country':'" + country
+           + "', 'password':'" + pass1
+           + "', 'city':'" + city
+           + "', 'index':'" + index
+           + "', 'address1':'" + address1
+           + "', 'address2':'" + address2
+           + "', 'timeZone':'" + timeZone
+           + "', 'dealerId':'" + dealerId
+           + "', 'phone':'" + phone
+           + "', 'fax':'" + fax
+           + "', 'roleId':'" + role
+           + "', 'name':'" + name
+           + "', 'surname':'" + surname
+           + "', 'patronimic':'" + patronimic
+           + "', 'mail':'" + mail + "'}";
+
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Administration.aspx/CreateNewUser",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'UserName':'" + $.cookie("CURRENT_USERNAME") + "', 'ud':" + ud + "}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            loadUsersData();
+            return "OK";
+        }
+    });
+}
+
 function loadCountryList() {
     $.ajax({
         type: "POST",
@@ -822,6 +1055,69 @@ function loadCountryList() {
                 isEditable: false,
                 disabled: true
             });
+            if (mode == "edit" || mode == "create") {
+                $("#country").wijcombobox({
+                    disabled: false
+                });
+            }
+        }
+    });
+}
+
+function loadAllDealersList() {
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Administration.aspx/GetAllDealers",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#dealerSelector").append("<option value='0'>Не указано</option>");
+            $("#tmplOption").tmpl(response.d).appendTo("#dealerSelector");
+            var country = $("#dealerSelector").attr("dealerId");
+            if (country == "") { country = "0"; }
+            $('#dealerSelector [value="' + country + '"]').attr("selected", "true");
+            $("#dealerSelector").wijcombobox({
+                showingAnimation: { effect: "blind" },
+                hidingAnimation: { effect: "blind" },
+                isEditable: false,
+                disabled: true
+            });
+            if (mode == "edit" || mode == "create") {
+                $("#dealerSelector").wijcombobox({
+                    disabled: false
+                });
+            }
+        }
+    });
+}
+
+function loadRoleList() {
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Administration.aspx/GetUserTypes",
+        data: "{}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#role").append("<option value='0'>Не указано</option>");
+            $("#tmplOption").tmpl(response.d).appendTo("#role");
+            var role = $("#role").attr("roleId");
+            if (role == "") { role = "0"; }
+            $('#role [value="' + role + '"]').attr("selected", "true");
+            $("#role").wijcombobox({
+                showingAnimation: { effect: "blind" },
+                hidingAnimation: { effect: "blind" },
+                isEditable: false,
+                disabled: true
+            });
+            if (mode == "edit" || mode == "create") {
+                $("#role").wijcombobox({
+                    disabled: false
+                });
+            }
         }
     });
 }
@@ -851,9 +1147,9 @@ function loadNewCountryList() {
 }
 
 function loadNewCityList() {
-        var country = $("#newcountry").attr("countryId");
-        if (country == "") { country = "0"; }
-        loadCityList(country, $("#newcity"), false);
+    var country = $("#newcountry").attr("countryId");
+    if (country == "") { country = "0"; }
+    loadCityList(country, $("#newcity"), false);
 }
 
 function loadCommonCountryList() {
@@ -967,6 +1263,11 @@ function loadTimeZoneList() {
                 isEditable: false,
                 disabled: true
             });
+            if (mode == "edit" || mode == "create") {
+                $("#timeZoneSelector").wijcombobox({
+                    disabled: false
+                });
+            }
         }
     });
 }

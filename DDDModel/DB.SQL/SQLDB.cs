@@ -1028,7 +1028,7 @@ namespace DB.SQL
         {
             List<int> gettedId = new List<int>();
 
-            string sql = "SELECT USER_ID FROM fd_user ORDER BY USER_ID";
+            string sql = "SELECT USER_ID FROM fd_user WHERE USER_DELETED IS NULL ORDER BY USER_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             MySqlDataReader sdr = cmd.ExecuteReader();
             while (sdr.Read())
@@ -1042,7 +1042,7 @@ namespace DB.SQL
         {
             List<int> gettedId = new List<int>();
 
-            string sql = "SELECT USER_ID FROM fd_user WHERE ORG_ID=@ORG_ID ORDER BY USER_ID";
+            string sql = "SELECT USER_ID FROM fd_user WHERE USER_DELETED IS NULL AND ORG_ID=@ORG_ID ORDER BY USER_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@ORG_ID", orgId);
             MySqlDataReader sdr = cmd.ExecuteReader();
@@ -1057,7 +1057,7 @@ namespace DB.SQL
         {
             List<int> gettedId = new List<int>();
 
-            string sql = "SELECT USER_ID FROM fd_user WHERE ORG_ID=@ORG_ID AND USER_TYPE_ID=@USER_TYPE_ID ORDER BY USER_ID";
+            string sql = "SELECT USER_ID FROM fd_user WHERE USER_DELETED IS NULL AND ORG_ID=@ORG_ID AND USER_TYPE_ID=@USER_TYPE_ID ORDER BY USER_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@ORG_ID", orgId);
             cmd.Parameters.AddWithValue("@USER_TYPE_ID", UserTypeId);
@@ -1313,6 +1313,24 @@ namespace DB.SQL
             cmd.Parameters.AddWithValue("@USER_PASSWORD", pass);
             cmd.ExecuteNonQuery();
         }
+
+        public void EditUserLogin(int curUserId, string login)
+        {
+            string sql = "UPDATE fd_user SET USER_LOGIN=@USER_LOGIN WHERE USER_ID=@USER_ID";//, ORG_ID=@ORG_ID  добавить вконец, когда будут организации.
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@USER_ID", curUserId);
+            cmd.Parameters.AddWithValue("@USER_LOGIN", login);
+            cmd.ExecuteNonQuery();
+        }
+
+        public void EditUserType(int curUserId, int type)
+        {
+            string sql = "UPDATE fd_user SET USER_TYPE_ID=@USER_TYPE WHERE USER_ID=@USER_ID";//, ORG_ID=@ORG_ID  добавить вконец, когда будут организации.
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@USER_ID", curUserId);
+            cmd.Parameters.AddWithValue("@USER_TYPE", type);
+            cmd.ExecuteNonQuery();
+        }
         
         public void DeleteUser(int UserId)
         {
@@ -1324,6 +1342,31 @@ namespace DB.SQL
             sql = "DELETE FROM fd_user WHERE USER_ID = @USER_ID";
             cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@USER_ID", UserId);
+            cmd.ExecuteNonQuery();
+        }
+        public void DeleteUserSoft(int UserId)
+        {
+            string sql = "UPDATE fd_user SET USER_DELETED=@DATE WHERE USER_ID = @USER_ID ";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@USER_ID", UserId);
+            cmd.Parameters.AddWithValue("@DATE", DateTime.Now);
+            cmd.ExecuteNonQuery();
+
+            sql = "SELECT USER_LOGIN FROM fd_user WHERE USER_ID=@ID";
+            cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@ID", UserId);
+            MySqlDataReader sdr = cmd.ExecuteReader();
+            string value = "";
+            while (sdr.Read())
+            {
+                value = sdr.GetString(0);
+            }
+            sdr.Close();
+
+            sql = "UPDATE fd_user SET USER_LOGIN = @STR WHERE USER_ID=@ID";
+            cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@STR", "###" + value);
+            cmd.Parameters.AddWithValue("@ID", UserId);
             cmd.ExecuteNonQuery();
         }
         //FD_USER_INFO_SET and FD_USER_INFO
@@ -1563,7 +1606,7 @@ namespace DB.SQL
         {
             List<int> gettedId = new List<int>();
 
-            string sql = "SELECT ORG_ID FROM fd_org WHERE "
+            string sql = "SELECT ORG_ID FROM fd_org WHERE DATE_DELETE IS NULL AND"
                 + "ORG_TYPE_ID NOT IN (" + dealerTypeId.ToString() + "," + subDealerId.ToString() + "," + preDealerId.ToString() + ") "
                 + "AND PARENT_ORG_ID=@PARENT_ORG_ID ORDER BY ORG_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
@@ -1582,7 +1625,7 @@ namespace DB.SQL
 
             string sql = "SELECT ORG_ID FROM fd_org WHERE "
                 + "ORG_TYPE_ID IN (" + dealerTypeId.ToString() + "," + subDealerId.ToString() + ") "
-                + "AND PARENT_ORG_ID=@PARENT_ORG_ID ORDER BY ORG_ID";
+                + "AND PARENT_ORG_ID=@PARENT_ORG_ID AND DATE_DELETE IS NULL ORDER BY ORG_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@PARENT_ORG_ID", parentOrgId);
             MySqlDataReader sdr = cmd.ExecuteReader();
@@ -1599,7 +1642,7 @@ namespace DB.SQL
             KeyValuePair<string, int> hash;
             List<int> allOrganizationIds = new List<int>();
             allOrganizationIds = GetAllOrganizationsId();
-            string sql = "SELECT STRID_ORG_NAME FROM fd_org WHERE ORG_ID=@ORG_ID";
+            string sql = "SELECT STRID_ORG_NAME FROM fd_org WHERE DATE_DELETE IS NULL AND ORG_ID=@ORG_ID";
             MySqlCommand cmd;
             int stringId;
             foreach (int id in allOrganizationIds)
@@ -1781,9 +1824,10 @@ namespace DB.SQL
         {
             string sql;
             MySqlCommand cmd;
-            sql = "UPDATE fd_org SET ORG_TYPE_ID = -1 WHERE ORG_ID=@ID";
+            sql = "UPDATE fd_org SET DATE_DELETE = @DATE WHERE ORG_ID=@ID";
             cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@ID", orgId);
+            cmd.Parameters.AddWithValue("@DATE", DateTime.Now);
             cmd.ExecuteNonQuery();
 
             sql = "SELECT STRID_ORG_NAME FROM fd_org WHERE ORG_ID=@ID";

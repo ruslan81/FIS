@@ -392,13 +392,32 @@ public partial class Administrator_Administration : System.Web.UI.Page
             List<int> ids = dataBlock.usersTable.Get_AllUsersId(orgId);
             foreach (int id in ids) {
                 UserData ud = new UserData();
-                ud.dealer = dataBlock.organizationTable.GetOrganizationName(id);
+                //ud.dealer = dataBlock.organizationTable.GetOrganizationName(id);
                 ud.login = dataBlock.usersTable.Get_UserName(id);
                 ud.id = id;
                 int userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Name);
                 ud.name = dataBlock.usersTable.GetUserInfoValue(id, userInfoId);
                 userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Surname);
                 ud.surname = dataBlock.usersTable.GetUserInfoValue(id, userInfoId);
+
+                userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_DealerId);
+                int dealerId;
+                if (int.TryParse(dataBlock.usersTable.GetUserInfoValue(id, userInfoId), out dealerId))
+                {
+                    if (dealerId > 0)
+                    {
+                        ud.dealer = dataBlock.organizationTable.GetOrganizationName(dealerId);
+                    }
+                    else
+                    {
+                        ud.dealer = "-";
+                    }
+                }
+                else
+                {
+                    ud.dealer = "-"; 
+                }
+                
                 userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Patronimic);
                 ud.patronimic = dataBlock.usersTable.GetUserInfoValue(id, userInfoId);
                 userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_RegDate);
@@ -420,6 +439,92 @@ public partial class Administrator_Administration : System.Web.UI.Page
 
 
             return result;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Получить детальные данные о пользователе
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static UserGeneralDetailedData GetUserDetailedData(String OrgID, String UserID)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+
+        try
+        {
+            dataBlock.OpenConnection();
+            int orgId = Convert.ToInt32(OrgID);
+            int userId = Convert.ToInt32(UserID);
+            UserGeneralDetailedData ud = new UserGeneralDetailedData();
+
+            //int dealerId = dataBlock.usersTable.Get_UserOrgId(userId);
+            //ud.orgName = dataBlock.organizationTable.GetOrganizationName(dealerId);
+
+            int userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Name);
+            ud.orgLogin = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
+            ud.password = dataBlock.usersTable.Get_UserPassword(userId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Country);
+            ud.country = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_City);
+            ud.city = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_ZIP);
+            ud.index = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_AddressOne);
+            ud.address1 = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_AddressTwo);
+            ud.address2 = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_PhoneNumber);
+            ud.phone = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Fax);
+            ud.fax = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Email);
+            ud.mail = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_TimeZone);
+            ud.timeZone = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Name);
+            ud.name = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Patronimic);
+            ud.patronimic = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Surname);
+            ud.surname = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
+
+            int dealerId;
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_DealerId);
+            if (int.TryParse(dataBlock.usersTable.GetUserInfoValue(userId, userInfoId), out dealerId))
+            {
+                if (dealerId > 0)
+                {
+                    ud.dealerId = dealerId;
+                    ud.dealer = dataBlock.organizationTable.GetOrganizationName(dealerId);
+                }
+                else
+                {
+                    ud.dealerId = 0;
+                    ud.dealer = "-";
+                }
+            }
+            else
+            {
+                ud.dealerId = 0;
+                ud.dealer = "-";
+            }
+
+            ud.roleId = dataBlock.usersTable.Get_UserTypeId(userId);
+            ud.role = dataBlock.usersTable.Get_UserTypeStr(userId);
+            ud.login = dataBlock.usersTable.Get_UserName(userId);
+            ud.orgName = dataBlock.organizationTable.GetOrganizationName(dataBlock.usersTable.Get_UserOrgId(userId));
+
+            return ud;
         }
         catch (Exception ex)
         {
@@ -554,25 +659,14 @@ public partial class Administrator_Administration : System.Web.UI.Page
             int userId = dataBlock.usersTable.Get_UserID_byName(UserName);
             UserGeneralDetailedData ud = new UserGeneralDetailedData();
 
-            string dealerName;
-            int dealerId;
-            int userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_DealerId);
-            string temp = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
-            if (int.TryParse(dataBlock.usersTable.GetUserInfoValue(userId, userInfoId), out dealerId))
-            {
-                dealerName = dataBlock.organizationTable.GetOrganizationName(dealerId);
-            }
-            else
-                dealerName = "???";
-            if (dealerName.Trim() == "")
-                dealerName = "???";
+            int dealerId=dataBlock.usersTable.Get_UserOrgId(userId);
+            ud.orgName = dataBlock.organizationTable.GetOrganizationName(dealerId);       
 
-            ud.orgName = dealerName;
-
-            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Name);
-            ud.orgLogin = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
+            //int userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Name);
+            //ud.orgLogin = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
+            ud.orgLogin = dataBlock.usersTable.Get_UserName(userId);
             ud.password = dataBlock.usersTable.Get_UserPassword(userId);
-            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Country);
+            int userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Country);
             ud.country = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
             userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_City);
             ud.city = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
@@ -582,14 +676,35 @@ public partial class Administrator_Administration : System.Web.UI.Page
             ud.address1 = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
             userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_AddressTwo);
             ud.address2 = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
-            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.OrgInfo_PhoneNumber);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_PhoneNumber);
             ud.phone = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
-            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.OrgInfo_Fax);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Fax);
             ud.fax = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
-            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.OrgInfo_Email);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Email);
             ud.mail = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
-            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.OrgInfo_TimeZone);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_TimeZone);
             ud.timeZone = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
+
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_DealerId);
+            if (int.TryParse(dataBlock.usersTable.GetUserInfoValue(userId, userInfoId), out dealerId))
+            {
+                if (dealerId > 0)
+                {
+                    ud.dealerId = dealerId;
+                    ud.dealer = dataBlock.organizationTable.GetOrganizationName(dealerId);
+                }
+                else
+                {
+                    ud.dealerId = 0;
+                    ud.dealer = "-";
+                }
+            }
+            else
+            {
+                ud.dealerId = 0;
+                ud.dealer = "-";
+            }
+
             return ud;
         }
         catch (Exception ex)
@@ -619,12 +734,8 @@ public partial class Administrator_Administration : System.Web.UI.Page
             int userId = dataBlock.usersTable.Get_UserID_byName(UserName);
 
             int userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_DealerId);
-            //dataBlock.usersTable.EditUserInfo(userId,userInfoId,ud.orgName);
-            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Name);
-            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.orgLogin);
-
-            dataBlock.usersTable.EditUserPassword(userId,ud.password);
-
+            dataBlock.usersTable.EditUserInfo(userId,userInfoId, ud.dealerId.ToString());
+            
             userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Country);
             dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.country);
             userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_City);
@@ -635,14 +746,17 @@ public partial class Administrator_Administration : System.Web.UI.Page
             dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.address1);
             userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_AddressTwo);
             dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.address2);
-            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.OrgInfo_PhoneNumber);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_PhoneNumber);
             dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.phone);
-            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.OrgInfo_Fax);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Fax);
             dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.fax);
-            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.OrgInfo_Email);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Email);
             dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.mail);
-            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.OrgInfo_TimeZone);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_TimeZone);
             dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.timeZone);
+
+            //dataBlock.usersTable.EditUserLogin(userId, ud.login);
+            dataBlock.usersTable.EditUserPassword(userId, ud.password);
         }
         catch (Exception ex)
         {
@@ -654,6 +768,160 @@ public partial class Administrator_Administration : System.Web.UI.Page
         }
     }
 
+    /// <summary>
+    ///Сохранить данные о пользователях
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static void SaveUsersData(String OrgID, String UserID, UserGeneralDetailedData ud)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+
+        try
+        {
+            dataBlock.OpenConnection();
+            int orgId = Convert.ToInt32(OrgID);
+            int userId = Convert.ToInt32(UserID);
+
+            int userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_DealerId);
+            dataBlock.usersTable.EditUserInfo(userId,userInfoId,ud.dealerId.ToString());
+            //userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Name);
+            //dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.orgLogin);
+            string login = dataBlock.usersTable.Get_UserName(userId);
+            string password = dataBlock.usersTable.Get_UserPassword(userId);
+            int type = dataBlock.usersTable.Get_UserTypeId(userId);
+            if (!login.Equals(ud.login))
+            {
+                dataBlock.usersTable.EditUserLogin(userId, ud.login);
+            }
+            if (type!=ud.roleId)
+            {
+                dataBlock.usersTable.EditUserType(userId, ud.roleId);
+            }
+            if (!password.Equals(ud.password))
+            {
+                dataBlock.usersTable.EditUserPassword(userId, ud.password);
+            }
+
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Country);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.country);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_City);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.city);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_ZIP);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.index);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_AddressOne);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.address1);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_AddressTwo);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.address2);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_PhoneNumber);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.phone);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Fax);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.fax);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Email);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.mail);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_TimeZone);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.timeZone);
+
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Name);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.name);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Surname);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.surname);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Patronimic);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.patronimic);
+        }
+        catch (Exception ex)
+        {
+            return;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Создать нового пользователя
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static void CreateNewUser(String OrgID, String UserName,  UserGeneralDetailedData ud)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+
+        try
+        {
+            dataBlock.OpenConnection();
+            int orgId = Convert.ToInt32(OrgID);
+            int curUserId = dataBlock.usersTable.Get_UserID_byName(UserName);
+            UserFromTable uf = new UserFromTable(ud.login,ud.password,"","",new DateTime(),"");
+
+            int userId = dataBlock.usersTable.AddNewUser(uf, ud.roleId, 1, orgId, curUserId);
+
+            int userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Country);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.country);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_City);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.city);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_DealerId);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.dealerId.ToString());
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_ZIP);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.index);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_AddressOne);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.address1);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_AddressTwo);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.address2);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_PhoneNumber);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.phone);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Fax);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.fax);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Email);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.mail);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_TimeZone);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.timeZone);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Name);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.name);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Surname);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.surname);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Patronimic);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.patronimic);
+        }
+        catch (Exception ex)
+        {
+            return;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Удалить пользователя
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static void DeleteUser(String OrgID, String UserID)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+
+        try
+        {
+            dataBlock.OpenConnection();
+            int orgId = Convert.ToInt32(OrgID);
+            int userId = Convert.ToInt32(UserID);
+            dataBlock.usersTable.DeleteUserSoft(userId);
+        }
+        catch (Exception ex)
+        {
+            return;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
     /// <summary>
     ///Сохранить данные по дилерам
     /// </summary>
@@ -729,6 +997,11 @@ public partial class Administrator_Administration : System.Web.UI.Page
             foreach (MapItem id in ids)
             {
                 dataBlock.organizationTable.DeleteOrganization(Convert.ToInt32(id.Value));
+                List<int> users = dataBlock.usersTable.Get_AllUsersId(Convert.ToInt32(id.Value));
+                foreach (int user in users)
+                {
+                    dataBlock.usersTable.DeleteUserSoft(user);
+                }
             }
         }
         catch (Exception ex)
@@ -759,6 +1032,40 @@ public partial class Administrator_Administration : System.Web.UI.Page
             foreach (int id in ids) {
                 string name=dataBlock.usersTable.GetCountryName(id);
                 result.Add(new MapItem(id.ToString(),name));
+            }
+            return result;
+        }
+        catch (Exception ex)
+        {
+            return result;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Получить список дилеров
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static List<MapItem> GetAllDealers(String OrgID)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+
+        List<MapItem> result = new List<MapItem>();
+        try
+        {
+            dataBlock.OpenConnection();
+            int orgId = Convert.ToInt32(OrgID);
+
+            List<int> ids = dataBlock.organizationTable.Get_AllDealersId(orgId);
+            foreach (int id in ids)
+            {
+                string name = dataBlock.organizationTable.GetOrganizationName(id);
+                result.Add(new MapItem(id.ToString(), name));
             }
             return result;
         }
@@ -954,7 +1261,6 @@ public partial class Administrator_Administration : System.Web.UI.Page
                 id.status = invoiceTable.GetInvoiceStatusName(id.statusId);
                 result.Add(id);
             }
-
 
             return result;
         }

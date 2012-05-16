@@ -29,10 +29,10 @@ namespace DDDModel
 
             //MY CODE
 
-            List<int> list = dataBlock.usersTable.GetAllCities(22);
+            dataBlock.usersTable.EditUserType(1,3);
 
-            dataBlock.organizationTable.DeleteOrganization(56);
-            System.Console.ReadKey();
+            //dataBlock.organizationTable.DeleteOrganization(56);
+            //System.Console.ReadKey();
 
            //SCRIPT TO ADD COMMON GROUP
             /*List<Int32> orgIds = dataBlock.organizationTable.Get_AllOrganizationsId();

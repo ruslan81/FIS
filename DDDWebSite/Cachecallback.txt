@@ -11083,3 +11083,38 @@ Cache Callback: 10.05.2012 1:52:40
 Cache Callback: 10.05.2012 22:50:40
 Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
 Cache Callback: Message: Сбой при отправке сообщения электронной почты.
+Cache Callback: 12.05.2012 22:00:00
+Cache Callback: 12.05.2012 23:10:40
+Cache Callback: 13.05.2012 19:20:40
+Cache Callback: Message: d:\BSUIR\Other\UnitedProject\DDDWebSite\Administrator\Administration.aspx.cs(483): error CS1061: "UserGeneralDetailedData" не содержит определение для "login". Не удалось найти метод  расширения "login", принимающий первый аргумент типа "UserGeneralDetailedData"  (пропущено использование директивы или ссылка на сборку?)
+Cache Callback: Message: d:\BSUIR\Other\UnitedProject\DDDWebSite\Administrator\Administration.aspx.cs(483): error CS0103: Имя 'id' отсутствует в текущем контексте
+Cache Callback: 13.05.2012 21:05:34
+Cache Callback: Message: Сбой при отправке сообщения электронной почты.
+Cache Callback: Message: Поток находился в процессе прерывания.
+Cache Callback: 13.05.2012 21:07:00
+Cache Callback: 13.05.2012 22:12:40
+Cache Callback: 13.05.2012 22:27:40
+Cache Callback: 13.05.2012 22:46:00
+Cache Callback: 13.05.2012 22:50:30
+Cache Callback: 14.05.2012 23:21:20
+Cache Callback: 15.05.2012 21:38:40
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: Message: Сбой при отправке сообщения электронной почты.
+Cache Callback: 15.05.2012 22:21:40
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 15.05.2012 22:33:20
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 15.05.2012 22:37:00
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 15.05.2012 22:40:00
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: Message: Сбой при отправке сообщения электронной почты.
+Cache Callback: 15.05.2012 22:43:00
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 15.05.2012 22:47:49
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 15.05.2012 22:49:40
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 16.05.2012 21:12:00
+Cache Callback: 16.05.2012 21:41:00
+Cache Callback: 16.05.2012 23:51:40

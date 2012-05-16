@@ -126,8 +126,11 @@
 
     <script id="tmplGeneralDetailedData" type="text/x-jquery-tmpl">
         <table style="width: 100%;">
-        <label>Аккаунт</label></br><div style="width: 80%;"><input id="orgName" value="{{html orgName}}"/></div></br>
+        <label>Организация</label></br><div style="width: 80%;"><input id="orgName" value="{{html orgName}}"/></div></br>
         <label>Пользователь</label></br><div style="width: 40%;"><input id="orgLogin" value="{{html orgLogin}}"/></div></br>
+
+        <label>Дилер</label></br>
+        <div style="width:50%;"><select id="dealerSelector" dealerId="{{html dealerId}}" onchange="this.dealerId=this.value;"></select></div><br>
 
         <table style="width:81%;">
         <tr><td><label>Пароль </label></td><td><label>Пароль (Подтверждение) </label></td></tr>
@@ -254,10 +257,19 @@
     </div>           
     </script>
 
-    <script id="UsersDetailedData" type="text/x-jquery-tmpl">
+    <script id="tmplUsersDetailedData" type="text/x-jquery-tmpl">
         <table style="width: 100%;">
-        <label>Аккаунт</label></br><div style="width: 80%;"><input id="orgName" value="{{html orgName}}"/></div></br>
-        <label>Пользователь</label></br><div style="width: 40%;"><input id="orgLogin" value="{{html orgLogin}}"/></div></br>
+        <label>Организация</label></br><div style="width: 80%;"><input id="orgName" value="{{html orgName}}"/></div></br>
+        <label>Пользователь</label></br><div style="width: 40%;"><input id="orgLogin" value="{{html login}}"/></div></br>
+
+        <label>Дилер</label></br>
+        <div style="width:50%;"><select id="dealerSelector" dealerId="{{html dealerId}}" onchange="this.dealerId=this.value;"></select></div><br>
+
+        <label>Роль</label></br><div style="width: 100%;"><select id="role" roleId="{{html roleId}}" onchange="this.roleId=this.value;"></select></div></br>
+
+        <table style="width:100%;">
+        <tr><td><label>Имя </label></td><td><label>Отчество </label></td><td><label>Фамилия </label></td></tr>
+        <tr><td><input id="name" value="{{html name}}"/></td><td><input id="patronimic" value="{{html patronimic}}"/></td><td><input id="surname" value="{{html surname}}"/></td></tr>
 
         <table style="width:81%;">
         <tr><td><label>Пароль </label></td><td><label>Пароль (Подтверждение) </label></td></tr>
@@ -762,6 +774,19 @@
         </div>
         <div id="deletedialog" title="Удаление" style="display: none;">
 	        <p>Вы действительно хотите удалить выделенные элементы?</p>
+        </div>
+    </script>
+
+    <script id="controlsUsers" type="text/x-jquery-tmpl">
+        <button id="edit">Редактировать</button>
+        <button id="delete">Удалить</button>
+        <button id="create">Создать</button>
+        <div style="float:right">
+            <button id="save">Сохранить</button>
+            <button id="cancel">Отмена</button>
+        </div>
+        <div id="deletedialog" title="Удаление" style="display: none;">
+	        <p>Вы действительно хотите удалить выделенный элемент?</p>
         </div>
     </script>
 
