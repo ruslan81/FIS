@@ -11118,3 +11118,15 @@ Cache Callback: Message: Невозможно определить имя про
 Cache Callback: 16.05.2012 21:12:00
 Cache Callback: 16.05.2012 21:41:00
 Cache Callback: 16.05.2012 23:51:40
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: 18.05.2012 15:57:37
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: Message: Поток находился в процессе прерывания.
+Cache Callback: 18.05.2012 15:59:00
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: Message: Сбой при отправке сообщения электронной почты.
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: 18.05.2012 18:36:20
+Cache Callback: Message: Удаленный сервер возвратил ошибку: (407) Требуется проверка подлинности посредника.
+Cache Callback: 18.05.2012 18:38:00
+Cache Callback: Message: Удаленный сервер возвратил ошибку: (407) Требуется проверка подлинности посредника.

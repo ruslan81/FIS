@@ -377,7 +377,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     /// </summary>
     /// <returns></returns>
     [System.Web.Services.WebMethod]
-    public static List<UserData> GetUsers(String OrgID)
+    public static List<UserData> GetUsers(String OrgID, String UserName)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
@@ -386,10 +386,11 @@ public partial class Administrator_Administration : System.Web.UI.Page
         {
             dataBlock.OpenConnection();
             int orgId = Convert.ToInt32(OrgID);
-            //int userId = dataBlock.usersTable.Get_UserID_byName(UserName);
+            int userId = dataBlock.usersTable.Get_UserID_byName(UserName);
             List<UserData> result = new List<UserData>();
 
             List<int> ids = dataBlock.usersTable.Get_AllUsersId(orgId);
+            ids.Remove(userId);
             foreach (int id in ids) {
                 UserData ud = new UserData();
                 //ud.dealer = dataBlock.organizationTable.GetOrganizationName(id);

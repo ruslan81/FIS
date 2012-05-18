@@ -440,7 +440,7 @@ function loadGeneralUsersData() {
         type: "POST",
         //Page Name (in which the method should be called) and method name
         url: "Administration.aspx/GetUsers",
-        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'UserName':'" + $.cookie("CURRENT_USERNAME") + "'}",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
@@ -567,7 +567,7 @@ function buildJournalTable() {
         type: "POST",
         //Page Name (in which the method should be called) and method name
         url: "Administration.aspx/GetJournal",
-        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'StartDate':'" + convert(startDate) + "', 'EndDate':'" + convert(endDate) + "', 'eventType':'" + eventType + "', 'searchString':'" + text + "'}",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'StartDate':'" + convert(startDate) + "', 'EndDate':'" + convert(endDate) + "', 'eventType':'" + event + "', 'searchString':'" + text + "'}",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {

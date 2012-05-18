@@ -38,24 +38,29 @@
 
                   $("#ContentContainer").empty();
                   if ($("a", ui.newHeader).text() == "Общие сведения") {
+                      $("#userControls").empty();
                       tabIndex = 0;
                       radioIndex = -1;
                       loadGeneralData();
                   };
                   if ($("a", ui.newHeader).text() == "Дилеры") {
+                      $("#userControls").empty();
                       tabIndex = 0;
                       radioIndex = -1;
                       loadDealersData();
                   };
                   if ($("a", ui.newHeader).text() == "Пользователи") {
+                      $("#userControls").empty();
                       tabIndex = 0;
                       radioIndex = -1;
                       loadUsersData();
                   };
                   if ($("a", ui.newHeader).text() == "Счета") {
+                      $("#userControls").empty();
                       loadInvoiceData();
                   };
                   if ($("a", ui.newHeader).text() == "Журнал") {
+                      $("#userControls").empty();
                       loadJournalData();
                   };
 
