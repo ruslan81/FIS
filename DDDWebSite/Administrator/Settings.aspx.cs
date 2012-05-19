@@ -51,6 +51,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
 
                 //выставляем кук, чтобы можно было передать его в метод, вызываемый ч/з ajax
                 Response.Cookies["CURRENT_ORG_ID"].Value = Convert.ToString(orgId);
+                Response.Cookies["CURRENT_USERNAME"].Value = User.Identity.Name;
 
                 ///////////////////////////
                 dataBlock.CloseConnection();

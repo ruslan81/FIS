@@ -219,6 +219,7 @@ namespace BLL
             int orgTypeId = sqlDBR.GetOrgTypeId(orgId);
             return orgTypeId;
         }
+        //ЗЛО!
         /// <summary>
         /// Получить название страны организации
         /// </summary>
@@ -230,6 +231,7 @@ namespace BLL
             int orgCountryNameId = sqlDBR.GetCountryNameId(orgCountryId);
             return sqlDBR.GetString(orgCountryNameId, CurrentLanguage);
         }
+        //ЗЛО!
         /// <summary>
         /// Получить название региона организации
         /// </summary>
@@ -240,6 +242,24 @@ namespace BLL
             int orgRegionId = sqlDBR.GetOrgRegionId(orgId);
             int orgRegionNameId = sqlDBR.GetRegionLongNameId(orgRegionId);
             return sqlDBR.GetString(orgRegionNameId, CurrentLanguage);
+        }
+        /// <summary>
+        /// Получить ID страны организации
+        /// </summary>
+        /// <param name="orgId">ID организации</param>
+        /// <returns>ID страны организации</returns>
+        public int GetOrgCountryId(int orgId)
+        {
+            return sqlDBR.GetOrgCountryId(orgId);
+        }
+        /// <summary>
+        /// Получить ID региона организации
+        /// </summary>
+        /// <param name="orgId">ID организации</param>
+        /// <returns>ID региона организации</returns>
+        public int GetOrgRegionId(int orgId)
+        {
+            return sqlDBR.GetOrgRegionId(orgId);
         }
         /// <summary>
         /// Получить все страны
@@ -430,11 +450,12 @@ namespace BLL
             return sqlDBR.AddNewOrgInfo(newName);
         }
         /// <summary>
-        /// Удалить организацию. Метод нужно доработать, много хвостов остается
+        /// Удалить организацию. Мягко. Очень.
         /// </summary>
         /// <param name="orgId">ID организации</param>
         public void DeleteOrganization(int orgId)
         {
+            sqlDBR.DeleteOrganization(orgId);
         }
         /// <summary>
         /// Удалить доп параметр организации

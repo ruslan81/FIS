@@ -204,6 +204,24 @@ namespace BLL
                 log.AddHistoryRecord("fd_user", "USER_ID", curUserId, curUserId, log.driversRegDataChanged, "Code: " + curUserId.ToString(), sqlDb);
             }
         }
+        public void EditUserLogin(int curUserId, string login)
+        {
+            sqlDb.EditUserLogin(curUserId, login);
+            if (curUserId > 0)
+            {
+                HistoryTable log = new HistoryTable(connectionString, CurrentLanguage, sqlDb);
+                log.AddHistoryRecord("fd_user", "USER_ID", curUserId, curUserId, log.driversRegDataChanged, "Code: " + curUserId.ToString(), sqlDb);
+            }
+        }
+        public void EditUserType(int curUserId, int type)
+        {
+            sqlDb.EditUserType(curUserId, type);
+            if (curUserId > 0)
+            {
+                HistoryTable log = new HistoryTable(connectionString, CurrentLanguage, sqlDb);
+                log.AddHistoryRecord("fd_user", "USER_ID", curUserId, curUserId, log.driversRegDataChanged, "Code: " + curUserId.ToString(), sqlDb);
+            }
+        }
         public int AddNewUser(UserFromTable newUser, int userTypeId, int userRoleId, int orgId, int curUserId)
         {
             Exception userNameAllreadyExists = new Exception("Пользователь с таким именем уже существует!");
@@ -228,6 +246,12 @@ namespace BLL
         {
             sqlDb.OpenConnection();
             sqlDb.DeleteUser(userId);
+            sqlDb.CloseConnection();
+        }
+        public void DeleteUserSoft(int userId)
+        {
+            sqlDb.OpenConnection();
+            sqlDb.DeleteUserSoft(userId);
             sqlDb.CloseConnection();
         }
         //FD_USER_INFO_SET and FD_USER_INFO
@@ -285,6 +309,39 @@ namespace BLL
         public string GetCountryName(int id)
         {
             return sqlDb.GetCountryName(id);
+        }
+        public List<int> GetAllCities(int countryId)
+        {
+            return sqlDb.GetAllCities(countryId);
+        }
+        public string GetCityName(int id)
+        {
+            return sqlDb.GetCityName(id);
+        }
+
+        public List<int> GetAllMessagesIds(int userId)
+        {
+            return sqlDb.GetAllMessagesIds(userId);
+        }
+        public void DeleteMessage(int id)
+        {
+            sqlDb.DeleteMessage(id);
+        }
+        public string GetMessageTopic(int id)
+        {
+            return sqlDb.GetMessageTopic(id);
+        }
+        public string GetMessageSender(int id)
+        {
+            return sqlDb.GetMessageSender(id);
+        }
+        public DateTime GetMessageDate(int id)
+        {
+            return sqlDb.GetMessageDate(id);
+        }
+        public DateTime GetMessageEndDate(int id)
+        {
+            return sqlDb.GetMessageEndDate(id);
         }
     }
     /// <summary>

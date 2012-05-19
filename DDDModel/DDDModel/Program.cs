@@ -29,12 +29,10 @@ namespace DDDModel
 
             //MY CODE
 
-            List<int> list = dataBlock.usersTable.GetAllCountries();
+            dataBlock.usersTable.EditUserType(1,3);
 
-            foreach(int id in list){
-                   System.Console.WriteLine(dataBlock.usersTable.GetCountryName(id));
-            }
-            System.Console.ReadKey();
+            //dataBlock.organizationTable.DeleteOrganization(56);
+            //System.Console.ReadKey();
 
            //SCRIPT TO ADD COMMON GROUP
             /*List<Int32> orgIds = dataBlock.organizationTable.Get_AllOrganizationsId();
