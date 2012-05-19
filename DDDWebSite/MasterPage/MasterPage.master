@@ -1,4 +1,4 @@
-<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+ï»¿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
 
 <%@ Register src="../UserControlsForAll/BlueButton.ascx" tagname="BlueButton" tagprefix="uc2" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
@@ -44,19 +44,19 @@
                 return document.documentElement.clientHeight;
             else if (document.body)
                 return document.body.clientHeight;
-            //íèæå ñòàðàÿ âåðñèÿ. íå õî÷åò ðàáîòàòü â FireFox
+            //Ð½Ð¸Ð¶Ðµ ÑÑ‚Ð°Ñ€Ð°Ñ Ð²ÐµÑ€ÑÐ¸Ñ. Ð½Ðµ Ñ…Ð¾Ñ‡ÐµÑ‚ Ñ€Ð°Ð±Ð¾Ñ‚Ð°Ñ‚ÑŒ Ð² FireFox
             return document.documentElement.clientHeight;
         }
 
         function resizeAllMaster() {
             var curHeight = getClientHeight();
-            var contentHeight = curHeight - 102;
-            var mainContent = contentHeight - 5;
-            var outputHeight = mainContent - 118;
-            document.getElementById('all').style.height = curHeight + "px"; //Óñòàíàâëèâàåì äëÿ Div id=All âûñîòó ðàáî÷åãî ïðîñòðàíñòâà ýêðàíà.
+            var contentHeight = curHeight - 65 - 55;
+            var mainContent = contentHeight - 35;
+            var outputHeight = mainContent - 88 - 30;
+            document.getElementById('all').style.height = curHeight + "px"; //Ð£ÑÑ‚Ð°Ð½Ð°Ð²Ð»Ð¸Ð²Ð°ÐµÐ¼ Ð´Ð»Ñ Div id=All Ð²Ñ‹ÑÐ¾Ñ‚Ñƒ Ñ€Ð°Ð±Ð¾Ñ‡ÐµÐ³Ð¾ Ð¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÑ‚Ð²Ð° ÑÐºÑ€Ð°Ð½Ð°.
             document.getElementById('content').style.height = contentHeight + "px";
-            document.getElementById('vertical-menu').style.height = mainContent + "px";
-            document.getElementById('accHead').style.height = mainContent - 20 + "px";
+            document.getElementById('vertical-menu').style.height = mainContent-5 + "px";
+            document.getElementById('accHead').style.height = mainContent - 25 + "px";
             document.getElementById('main-content').style.height = mainContent + "px";
             document.getElementById('outputId').style.height = outputHeight + "px";
             document.getElementById('outputId-content').style.height = outputHeight + "px";
@@ -122,60 +122,80 @@
         EnableScriptGlobalization="true" EnableScriptLocalization="true" EnablePageMethods="true" />
     <div id="all">
         <div id="top">
-                <div id="horizontalMenu" class="horizontal-menu">
-                <!--5 Ãîðèçîíòàëüíîå ìåíþ -->
-                        <div class="mini-logo">
-                            <asp:Image ImageUrl="~/images/SmartFIS-logo-mini.png" ID="SmartFisLogo" runat="server"/>
-                        </div>
-                        <!--<div id="separator"></div>-->
-                        <div style="float:left; height:100%;">
-                            <asp:Table ID="Table1" runat="server">
-                                <asp:TableRow>
-                                    <asp:TableCell>
-                                        <uc2:BlueButton ID="ReportsMasterButt" Text="Îò÷åòû" runat="server" BtnWidth="60" CausesValidation="false" />
-                                    </asp:TableCell>
-                                    <asp:TableCell>
-                                        <uc2:BlueButton ID="DataMasterButt" Text="Àðõèâ äàííûõ" runat="server" BtnWidth="90" CausesValidation="false" />
-                                    </asp:TableCell>
-                                    <asp:TableCell>
-                                        <uc2:BlueButton ID="SettingsMasterButt" Text="Íàñòðîéêè" runat="server" BtnWidth="70" CausesValidation="false" />
-                                    </asp:TableCell>
-                                    <asp:TableCell>
-                                        <uc2:BlueButton ID="AdministrationMasterButt" Text="Óïðàâëåíèå" runat="server" BtnWidth="80" CausesValidation="false" />
-                                    </asp:TableCell>
-                                </asp:TableRow>
-                            </asp:Table>
-                        </div>
-                        <div style="float:right; display:inline-block;">
-                            <div id="client">
-                                    <!--2 Êëèåíò Ïîëüçîâàòåëü-->
-                                <asp:Label ID="CompanyHeaderLabel" Text="Ïðåäïðèÿòèå: " style="color:#777;" runat="server"/>
-                                <asp:Label ID="CompanyHeaderOrgName" style="font-weight:bold;" runat="server"/>
-                                <br/>
-                                <asp:Label ID="UserNameHeader" Text="Ïîëüçîâàòåëü: " style="color:#777;" runat="server"/>
-                                <asp:Label ID="UserNameHeaderName" style="font-weight:bold" runat="server"/>
-                            </div>
-                            <div style="float:right;">
-                                <asp:Table ID="Table2" runat="server">
-                                    <asp:TableRow>
-                                        <asp:TableCell>
-                                            <uc2:BlueButton ID="HelpMasterButt" Text="Ïîìîùü" runat="server" BtnWidth="60" CausesValidation="false" />
-                                        </asp:TableCell>
-                                        <asp:TableCell>
-                                            <uc2:BlueButton ID="ExitButt2" Text="Âûõîä" runat="server" BtnWidth="50" CausesValidation="false" />
-                                        </asp:TableCell>
-                                    </asp:TableRow>
-                                </asp:Table>
-                            </div>
-                        </div>
+            <div id="logo" style="margin-top:0px;">
+                <!--1 Ð›Ð¾Ð³Ð¾Ñ‚Ð¸Ð¿-->
+                <asp:Image ImageUrl="~/images/SmartFIS_logo2.png" ID="SmartFisLogo" 
+                    runat="server" />
+            </div>
+            <div id="client-banner-sinfo">
+                <div id="client-banner">
+                    <div id="banner" style="float:right; margin-right:0px;">
+                        <!--4 Ð‘Ð°Ð½Ð½ÐµÑ€-->
+                        <uc2:BlueButton ID="ExitButt2" Text="Ð’Ñ‹Ñ…Ð¾Ð´" runat="server" BtnWidth="60" CausesValidation="false" />
+                    </div>
+
+                    <div id="client">
+                        <!--2 ÐšÐ»Ð¸ÐµÐ½Ñ‚ ÐŸÐ¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑŒ-->
+                        <asp:Label ID="CompanyHeaderLabel" Text="ÐŸÑ€ÐµÐ´Ð¿Ñ€Ð¸ÑÑ‚Ð¸Ðµ: " runat="server"/>
+                        <asp:Label ID="CompanyHeaderOrgName" style="font-weight:bold; margin-right:20px;" runat="server"/>
+                        <p></p>
+                        <asp:Label ID="UserNameHeader" Text="ÐŸÐ¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑŒ: " runat="server"/>
+                        <asp:Label ID="UserNameHeaderName" style="font-weight:bold" runat="server"/>
+                    </div>
                 </div>
+                <div id="systeminfo">
+                        
+                </div>
+            </div>
+            <asp:Table runat="server" GridLines="Both" Height="100%" Width="100%" ID="WelcomeMasterTable"
+                Visible="false">
+                <asp:TableRow>
+                    <asp:TableCell HorizontalAlign="Center" VerticalAlign="Middle">
+                        <asp:Label ID="WelcomMasterLabel" runat="server" Font-Bold="true" Font-Size="XX-Large"
+                            ForeColor="DarkBlue" />
+                    </asp:TableCell>
+                </asp:TableRow>
+            </asp:Table>
         </div>
         
         <asp:Label runat="server" ID="MasterPageExceptionString" Font-Size="XX-Small" ForeColor="DarkBlue"
             Font-Bold="true" />
+
         <div id="content">
+
+            <div id="horizontalMenu" class="horizontal-menu">
+                <!--5 Ð“Ð¾Ñ€Ð¸Ð·Ð¾Ð½Ñ‚Ð°Ð»ÑŒÐ½Ð¾Ðµ Ð¼ÐµÐ½ÑŽ -->
+                <div style="float:left; height:100%;">
+                    <asp:Table runat="server">
+                        <asp:TableRow>
+                            <asp:TableCell>
+                                <uc2:BlueButton ID="ReportsMasterButt" Text="ÐžÑ‚Ñ‡ÐµÑ‚Ñ‹" runat="server" BtnWidth="120" CausesValidation="false" />
+                            </asp:TableCell>
+                            <asp:TableCell>
+                                <uc2:BlueButton ID="DataMasterButt" Text="ÐÑ€Ñ…Ð¸Ð² Ð´Ð°Ð½Ð½Ñ‹Ñ…" runat="server" BtnWidth="120" CausesValidation="false" />
+                            </asp:TableCell>
+                            <asp:TableCell>
+                                <uc2:BlueButton ID="SettingsMasterButt" Text="ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸" runat="server" BtnWidth="120" CausesValidation="false" />
+                            </asp:TableCell>
+                        </asp:TableRow>
+                    </asp:Table>
+                </div>      
+                <div style="float:right; display:inline-block;">
+                    <asp:Table runat="server">
+                        <asp:TableRow>
+                            <asp:TableCell>
+                                <uc2:BlueButton ID="HelpMasterButt" Text="ÐŸÐ¾Ð¼Ð¾Ñ‰ÑŒ" runat="server" BtnWidth="120" CausesValidation="false" />
+                            </asp:TableCell>
+                            <asp:TableCell>
+                                <uc2:BlueButton ID="AdministrationMasterButt" Text="Ð£Ð¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ" runat="server" BtnWidth="120" CausesValidation="false" />
+                            </asp:TableCell>
+                        </asp:TableRow>
+                    </asp:Table>
+                </div>
+            </div>
+
             <div id="vertical-menu">
-                <!--6 Âåðòèêàëüíîå äâèãàþùååñÿ ìåíþ êàê â Outlook-->
+                <!--6 Ð’ÐµÑ€Ñ‚Ð¸ÐºÐ°Ð»ÑŒÐ½Ð¾Ðµ Ð´Ð²Ð¸Ð³Ð°ÑŽÑ‰ÐµÐµÑÑ Ð¼ÐµÐ½ÑŽ ÐºÐ°Ðº Ð² Outlook-->
                 <div id="accHead" class="accordionHeader">
                     <asp:ContentPlaceHolder ID="VerticalOutlookMenu_PlaceHolder" runat="server" />
                 </div>
@@ -183,7 +203,7 @@
             <div id="main-content">
                 <asp:Panel runat="server" ID="MainConditionsPanel">
                     <div id="main-conditions" style="height:58px;">
-                        <!--7 Îñíîâíîå ïîëå óñëîâèé âûáîðà  -->
+                        <!--7 ÐžÑÐ½Ð¾Ð²Ð½Ð¾Ðµ Ð¿Ð¾Ð»Ðµ ÑƒÑÐ»Ð¾Ð²Ð¸Ð¹ Ð²Ñ‹Ð±Ð¾Ñ€Ð°  -->
                             <asp:ContentPlaceHolder ID="MainConditions_PlaceHolder" runat="server" />
                     </div>
                 </asp:Panel>
@@ -191,25 +211,25 @@
                     <asp:UpdatePanel ID="AddConditionsUpdatePanel" UpdateMode="Conditional" runat="server">
                         <ContentTemplate>
                             <div id="addConditionsDivId"  class="add-conditions" runat="server">
-                            <!--8 Äîïîëíèòåëüíîå ïîëå óñëîâèé âûáîðà-->
+                            <!--8 Ð”Ð¾Ð¿Ð¾Ð»Ð½Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ð¾Ðµ Ð¿Ð¾Ð»Ðµ ÑƒÑÐ»Ð¾Ð²Ð¸Ð¹ Ð²Ñ‹Ð±Ð¾Ñ€Ð°-->
                                 <asp:ContentPlaceHolder ID="AdditionalConditions_PlaceHolder" runat="server" />
                             </div>
                         </ContentTemplate>  
-                    </asp:UpdatePanel>                  
+                    </asp:UpdatePanel>
                 </asp:Panel>
                 <div id="outputId" class="output" style="padding:15px;">
-                        <!-- 9 Ïîëå âûâîäà èíôîðìàöèè (îò÷åòîâ)-->
+                        <!-- 9 ÐŸÐ¾Ð»Ðµ Ð²Ñ‹Ð²Ð¾Ð´Ð° Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ (Ð¾Ñ‚Ñ‡ÐµÑ‚Ð¾Ð²)-->
                     <div id="outputId-content">                    
                         <asp:ContentPlaceHolder ID="Reports_PlaceHolder" runat="server"/>
                     </div>
                 </div>    
                 <div id="decision">
-                    <!--11 Ïîëå ïðèíÿòèÿ ðåøåíèé-->
+                    <!--11 ÐŸÐ¾Ð»Ðµ Ð¿Ñ€Ð¸Ð½ÑÑ‚Ð¸Ñ Ñ€ÐµÑˆÐµÐ½Ð¸Ð¹-->
                     <asp:ContentPlaceHolder ID="Decision_PlaceHolder" runat="server" />
                 </div>
             </div>
         </div>
-        <div style="padding: 0px 0px 0px 0px;">
+        <div style="padding: 0px;margin-left:5px;margin-right:5px;">
             <div id="bottom">
                 <div style="padding: 0px 15px;">
 			        <asp:ContentPlaceHolder ID="Bottom_PlaceHolder" runat="server">

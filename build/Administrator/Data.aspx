@@ -1,4 +1,4 @@
-﻿<%@ page language="C#" masterpagefile="~/MasterPage/MasterPage.Master" autoeventwireup="true" inherits="Administrator_Data, App_Web_5u4mvsqh" enableeventvalidation="false" %>
+﻿<%@ page language="C#" masterpagefile="~/MasterPage/MasterPage.Master" autoeventwireup="true" inherits="Administrator_Data, App_Web_qeuh0xrn" enableeventvalidation="false" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControlsForAll/BlueButton.ascx" TagName="BlueButton" TagPrefix="uc2" %>
@@ -67,10 +67,10 @@
             document.getElementById('outputId').style.height = (vertHeightSTR - 30) + "px";
             document.getElementById('outputId-content').style.height = (vertHeightSTR - 30) + "px";
             if ($('#main-conditions:visible').length > 0) {
-                var h = $('#outputId').height() - $('#main-conditions').height()-30;
+                var h = $('#outputId').height() - $('#main-conditions').height()-25;
                 $('#outputId').height(h);
                 $('#outputId-content').height(h);
-            } 
+            }
         }
 
         $(window).resize(function () {

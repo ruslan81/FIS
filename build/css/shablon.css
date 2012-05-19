@@ -8,17 +8,18 @@ body {margin:0; padding:0; color:#333;
     margin: 0 auto;
 }
 
-#top {}
+#top {margin:5px;}
 
-#logo {height:100px; width:300px; float:left; text-align:center;}
+#logo {height:65px; width:300px; float:left; text-align:center;}
 
-#client-banner-sinfo {height:100px;margin-left:300px; padding-left:20px;}
+#client-banner-sinfo {height:65px;margin-left:300px; padding-left:20px;}
 
 #client-banner {}
 
 #client 
 {
-    float:left;
+    float:right;
+    background-color: #f4f4f4;
 	padding:1px 5px 1px 5px;
 	margin-right:10px;
 	border: 1px solid #DDD;
@@ -32,13 +33,18 @@ body {margin:0; padding:0; color:#333;
 
 #systeminfo { height:50px;}
 
-.horizontal-menu {background:#eee url(../images/hormenu_back.png) repeat-x; 
-				  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-				  border-bottom: 1px solid #CACACA;
-                  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 0 10px rgba(0, 0, 0, 0.1);
-				  padding:8px 10px 12px 10px; 
-				  height:25px;
-				  }
+.horizontal-menu 
+{
+    background:#eee url(../images/hormenu_back.png) repeat-x; 
+	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+	border: 1px solid #CACACA;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 0 10px rgba(0, 0, 0, 0.1);
+	padding:3px 10px 6px 10px; 
+	height:25px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
 
 #separator
 {
@@ -71,18 +77,19 @@ body {margin:0; padding:0; color:#333;
 {
 		width:300px;
 		float:left;
-		border-radius: 10px;
-		-moz-border-radius: 10px;
-		-webkit-border-radius: 10px;
+        margin-top: 5px;
+		border-radius: 5px;
+		-moz-border-radius: 5px;
+		-webkit-border-radius: 5px;
 		box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
 
-#main-content {margin-left:320px;}
+#main-content {margin-left:310px;}
 
 .output, #main-conditions, .add-conditions, .accordionPanel 
 {
 		padding:10px;
-		margin-top:10px;
+		margin-top:5px;
 		background:#eee;
 		box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
 		height:100%; 
@@ -93,19 +100,19 @@ body {margin:0; padding:0; color:#333;
 
 .output{margin-bottom:0px;}	
 	
-#decision {margin-top:10px;}
+#decision {margin-top:5px;}
 
 #pictures { height:100px; width:20%; margin: 0 0 0 auto;}
 
 #bottom 
-{	
-	margin-bottom:-4px;	
+{
     width: 100%;
-	background: url("../images/corner.png") repeat-x scroll 0 0 transparent;
-    border-top: 1px solid #CACACA;
+    background: url("../images/corner.png") repeat-x scroll 0 0 transparent;
+    border: 1px solid #CACACA;
+    border-radius:5px;
     box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 0 10px rgba(0, 0, 0, 0.1);
     clear: left;
-    height: 39px;
+    height: 38px;
 }
 
 /***************************button*/
@@ -181,9 +188,9 @@ body {margin:0; padding:0; color:#333;
 	text-align:left;
     padding: 10px;
     cursor: pointer;
-	border-radius: 10px;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
 }
 .accordionContent
 {

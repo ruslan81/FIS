@@ -68,10 +68,10 @@
             document.getElementById('outputId').style.height = (vertHeightSTR - 30) + "px";
             document.getElementById('outputId-content').style.height = (vertHeightSTR - 30) + "px";
             if ($('#main-conditions:visible').length > 0) {
-                var h = $('#outputId').height() - $('#main-conditions').height()-30;
+                var h = $('#outputId').height() - $('#main-conditions').height()-25;
                 $('#outputId').height(h);
                 $('#outputId-content').height(h);
-            } 
+            }
         }
 
         $(window).resize(function () {

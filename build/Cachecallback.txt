@@ -11708,3 +11708,10 @@ Cache Callback: 28.04.2012 1:51:51
 Cache Callback: 28.04.2012 1:52:44
 Cache Callback: Message: Невозможно соединиться с удаленным сервером
 Cache Callback: 28.04.2012 2:03:40
+Cache Callback: 28.04.2012 23:12:20
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\MasterPage\MasterPage.master.cs(15): error CS0103: Имя 'ExitButt2' отсутствует в текущем контексте
+Cache Callback: 29.04.2012 0:40:40
+Cache Callback: 29.04.2012 0:44:20
+Cache Callback: 29.04.2012 0:48:40
+Cache Callback: 29.04.2012 0:57:40
+Cache Callback: 29.04.2012 1:02:00

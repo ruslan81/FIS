@@ -64,7 +64,7 @@
 
         function resizeSettings() {
             if ($('#decision:visible').length > 0) {
-                var h = $('#outputId').height() - $('#decision').height()-8;
+                var h = $('#outputId').height() - $('#decision').height()-5;
                 $('#outputId').height(h);
                 $('#outputId-content').height(h);
 

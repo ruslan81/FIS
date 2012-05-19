@@ -1,4 +1,4 @@
-﻿<%@ page language="C#" masterpagefile="~/MasterPage/MasterPage.Master" autoeventwireup="true" inherits="Administrator_Settings, App_Web_5u4mvsqh" %>
+﻿<%@ page language="C#" masterpagefile="~/MasterPage/MasterPage.Master" autoeventwireup="true" inherits="Administrator_Settings, App_Web_qeuh0xrn" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="Settings_UserControls/GeneralTab.ascx" TagName="GeneralTab" TagPrefix="uc1" %>
@@ -63,7 +63,7 @@
 
         function resizeSettings() {
             if ($('#decision:visible').length > 0) {
-                var h = $('#outputId').height() - $('#decision').height()-8;
+                var h = $('#outputId').height() - $('#decision').height()-5;
                 $('#outputId').height(h);
                 $('#outputId-content').height(h);
 
