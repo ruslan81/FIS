@@ -14,6 +14,9 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "- 19.05.2012" + Environment.NewLine;
+            ReportLabel.Text += @"-  Добавлен раздел Управление. Подробности в письме." + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "- 02.05.2012" + Environment.NewLine;
             ReportLabel.Text += @"-  Окончательный (последний) вариант дизайна." + Environment.NewLine;
 

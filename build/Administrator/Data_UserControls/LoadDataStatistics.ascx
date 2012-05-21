@@ -1,4 +1,4 @@
-﻿<%@ control language="C#" autoeventwireup="true" inherits="Administrator_Data_UserControls_LoadDataStatistics, App_Web_fva2fkla" %>
+﻿<%@ control language="C#" autoeventwireup="true" inherits="Administrator_Data_UserControls_LoadDataStatistics, App_Web_s5xsnfig" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
 <asp:UpdatePanel runat="server" ID="DateUpdate" UpdateMode="Conditional">

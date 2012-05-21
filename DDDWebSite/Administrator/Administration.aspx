@@ -48,6 +48,7 @@
                       tabIndex = 0;
                       radioIndex = -1;
                       loadDealersData();
+                      resizeAdmin();
                   };
                   if ($("a", ui.newHeader).text() == "Пользователи") {
                       $("#userControls").empty();
@@ -58,49 +59,51 @@
                   if ($("a", ui.newHeader).text() == "Счета") {
                       $("#userControls").empty();
                       loadInvoiceData();
+                      resizeAdmin();
                   };
                   if ($("a", ui.newHeader).text() == "Журнал") {
                       $("#userControls").empty();
                       loadJournalData();
+                      resizeAdmin();
                   };
-
               }
           });
+
+          resizeAdmin();
       });
 
-      function pageLoad() {
-          $('#accordion').bind('accordionchange', function() {
-              onACESelectedIndexChanged(null, null);
-          });
-      }
-
-      function onACESelectedIndexChanged(sender, eventArgs) {
-          var actionBtn = "<%= InvisibleAccordionButton.ClientID %>";
-          document.getElementById(actionBtn).click();
-      }
-
-      function onNewAccordionSelectedIndexChanged(accIndex) {
-          document.getElementById("<% =AccordionSelectedPane.ClientID %>").value = accIndex;
-          //  var actionBtn = "<%= InvisibleAccordionButton.ClientID %>";
-          //  document.getElementById(actionBtn).click();
-      }
-
-      function resizeReports() {
+      function resizeAdmin() {
           var vertHeightSTR = document.getElementById('vertical-menu').style.height;
           vertHeightSTR = vertHeightSTR.substr(0, vertHeightSTR.length - 2);
-          document.getElementById('outputId').style.height = (vertHeightSTR - 20) + "px";
-          var oneAccPanelHeight = document.getElementById('firstAccordionPanel').style.height;
-          oneAccPanelHeight = oneAccPanelHeight.substring(0, oneAccPanelHeight.length - 2);
-          document.getElementById('AccountsOverFlowPanel').style.height = oneAccPanelHeight - 2 + "px";
-      }
+          document.getElementById('outputId').style.height = (vertHeightSTR - 30) + "px";
+          document.getElementById('outputId-content').style.height = (vertHeightSTR - 30) + "px";
+          if ($('#userControls:visible').length > 0) {
+              var h = $('#outputId').height() - $('#main-conditions').height() - 34;
+              $('#outputId').height(h);
+              $('#outputId-content').height(h);
+          }
 
-      $(document).ready(function() {
-          resizeReports();
-      });
+          var outHeight = $("#main-content").height() - 90;
+
+          try {
+              if ($('#userControls:visible').length > 0) {
+                  outHeight -= 34;
+              }
+              document.getElementById('commonData').style.height = outHeight + "px";
+              document.getElementById('detailedData').style.height = outHeight + "px";
+              /*document.getElementById('report').style.height = outHeight - 7 - 50 + "px";
+              document.getElementById('chart').style.height = outHeight - 7 - 50 + "px";
+              document.getElementById('chart').style.width = $('#outputId').width() - 35 + "px";
+              document.getElementById('map').style.height = outHeight - 7 - 50 - 20 + "px";
+              document.getElementById('map').style.width = $('#outputId').width() - 35 + "px";*/
+          } catch (e) {
+
+          }
+      }
 
       $(window).resize(function() {
           resizeAllMaster();
-          resizeReports();
+          resizeAdmin();
           $("#accordion").accordion("resize");
       });
     
@@ -110,58 +113,103 @@
 
     <script id="tmplGeneralData" type="text/x-jquery-tmpl">
     <div id="generalDataLabels">
-        <div>
-            <div style="float:left;">Текущее подключение с </div>
-            <div> {{html connectDate}}</div>
+        <div style="margin-top:2px;">
+            <div style="float:left;margin-right:5px;">Текущее подключение с:</div>
+            <div style="font-weight:bold;"> {{html connectDate}}</div>
         </div>
-        <div>
-            <div style="float:left;">Тип лицензии </div>
-            <div> {{html licenseType}}</div>
+        <div style="margin-top:2px;">
+            <div style="float:left;margin-right:5px;">Тип лицензии:</div>
+            <div style="font-weight:bold;"> {{html licenseType}}</div>
         </div>
-        <div>
-            <div style="float:left;">Дата регистрации в системе </div>
-            <div> {{html registerDate}}</div>
+        <div style="margin-top:2px;">
+            <div style="float:left;margin-right:5px;">Дата регистрации в системе:</div>
+            <div style="font-weight:bold;"> {{html registerDate}}</div>
         </div>
-        <div>
-            <div style="float:left;">Срок окончания регистрации </div>
-            <div> {{html endDate}}</div>
+        <div style="margin-top:2px;">
+            <div style="float:left;margin-right:5px;">Срок окончания регистрации:</div>
+            <div style="font-weight:bold;"> {{html endDate}}</div>
         </div>
     </div>
     </script>
 
     <script id="tmplGeneralDetailedData" type="text/x-jquery-tmpl">
-        <table style="width: 100%;">
-        <label>Организация</label></br><div style="width: 80%;"><input id="orgName" value="{{html orgName}}"/></div></br>
-        <label>Пользователь</label></br><div style="width: 40%;"><input id="orgLogin" value="{{html orgLogin}}"/></div></br>
+        <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <label>Организация</label></br><div style="width: 300px;"><input id="orgName" value="{{html orgName}}"/></div></br>
+        <label>Пользователь</label></br><div style="width: 300px;"><input id="orgLogin" value="{{html orgLogin}}"/></div></br>
 
         <label>Дилер</label></br>
         <div style="width:50%;"><select id="dealerSelector" dealerId="{{html dealerId}}" onchange="this.dealerId=this.value;"></select></div><br>
 
-        <table style="width:81%;">
-        <tr><td><label>Пароль </label></td><td><label>Пароль (Подтверждение) </label></td></tr>
-        <tr><td><input id="pass1" value="{{html password}}"/></td><td><input id="pass2" value="{{html password}}"/></td></tr>
+        <table style="width:100%;" cellpadding="0" cellspacing="0">
+            <tr><td><label>Пароль </label></td><td><label>Пароль (Подтверждение) </label></td></tr>
+            <tr>
+                <td>
+                    <div style="width: 300px;"><input id="pass1" value="{{html password}}"/></div>
+                </td>
+                <td>
+                    <div style="width: 300px;"><input id="pass2" value="{{html password}}"/></div>
+                </td>
+            </tr>
         </table>
 
-        <hr>
+        <div style="margin:10px 0 10px 0; border-top:1px dashed #ccc;"></div>
 
-        <table style="width:100%;">
-        <tr><td><label>Страна </label></td><td><label>Город </label></td><td><label>Почтовый индекс </label></td></tr>
-        <tr><td><select id="country" countryId="{{html country}}" onchange="this.countryId=this.value;"></select></td><td>
-        <input id="city" value="{{html city}}"/></td><td><input id="index" value="{{html index}}"/></td></tr>
-        </table><br>
-
-        <label>Часовая зона</label></br>
-        <div style="width:50%;"><select id="timeZoneSelector" timeZoneId="{{html timeZone}}" onchange="this.timeZoneId=this.value;"></select></div><br>
-
-        <label>Адрес1</label><br><div style="width: 80%;"><input id="addr1" value="{{html address1}}"/></div><br>
-        <label>Адрес2</label><br><div style="width: 80%;"><input id="addr2" value="{{html address2}}"/></div><br>
-
-        <table style="width:100%;">
-        <tr><td><label>Телефон </label></td><td><label>Факс </label></td><td><label>e-mail </label></td></tr>
-        <tr><td><input id="phone" value="{{html phone}}"/></td><td><input id="fax" value="{{html fax}}"/></td><td><input id="mail" value="{{html mail}}"/></td></tr>
+        <table style="width:100%;" cellpadding="0" cellspacing="0">
+            <tr><td><label>Страна </label></td><td><label>Город </label></td><td><label>Почтовый индекс </label></td></tr>
+            <tr>
+                <td>
+                    <div style="width: 300px;"><select id="country" countryId="{{html country}}" onchange="this.countryId=this.value;"></select></div>
+                </td>
+                <td>
+                    <div style="width: 300px;"><input id="city" value="{{html city}}"/></div>
+                </td>
+                <td>
+                    <div style="width: 300px;"><input id="index" value="{{html index}}"/></div>
+                </td>
+            </tr>
         </table>
 
-        <hr>
+        <br/>
+
+        <label>Часовая зона</label>
+
+        <br/>
+
+        <div style="width:100%;"><select id="timeZoneSelector" timeZoneId="{{html timeZone}}" onchange="this.timeZoneId=this.value;"></select></div>
+
+        <br/>
+
+        <label>Адрес (Основной)</label>
+
+        <br/>
+
+        <div style="width: 500px;"><input id="addr1" value="{{html address1}}"/></div>
+
+        <br/>
+
+        <label>Адрес (Дополнительный)</label>
+
+        <br/>
+
+        <div style="width: 500px;"><input id="addr2" value="{{html address2}}"/></div>
+
+        <br/>
+
+        <table style="width:100%;" cellpadding="0" cellspacing="0">
+        <tr><td><label>Телефон </label></td><td><label>Факс </label></td><td><label>E-mail </label></td></tr>
+        <tr>
+            <td>
+                <div style="width: 300px;"><input id="phone" value="{{html phone}}"/></div>
+            </td>
+            <td>
+                <div style="width: 300px;"><input id="fax" value="{{html fax}}"/></div>
+            </td>
+            <td>
+                <div style="width: 300px;"><input id="mail" value="{{html mail}}"/></div>
+            </td>
+        </tr>
+        </table>
+
     </script>
 
     <script id="GeneralData" type="text/x-jquery-tmpl">
@@ -172,73 +220,67 @@
 	        </ul>
             <div id="tabs-1">
                 <div id="commonData" style="overflow: auto;">
-                 <table style="width:100%;">
-            <tr id="firstGeneralRow"> 
-            </tr>
-            <tr>
-                <td>
-                    <div id="statisticTableWrapper">
-                        <table id="statisticTable"  style="width:100%;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
-                            border="0" cellpadding="0" cellspacing="0">
-                            <thead id="statisticTableHeader"></thead>
-                            <tbody id="statisticTableBody" class="ui-widget-content wijmo-wijgrid-data">
-                            </tbody>
-                        </table>
-                    </div>
-                </td>
-            <td>
-                <div id="messageTableWrapper">
-                    <table id="messageTable"  style="width:100%;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
-                        border="0" cellpadding="0" cellspacing="0">
-                        <thead id="messageTableHeader"></thead>
-                        <tbody id="messageTableBody" class="ui-widget-content wijmo-wijgrid-data">
-                        </tbody>
+                    <table style="width:100%;">
+                        <tr>
+                            <td id="firstGeneralRow">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="title-section">Статистика</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="statisticTableWrapper">
+                                    <table id="statisticTable"  style="width:100%;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
+                                        border="0" cellpadding="0" cellspacing="0">
+                                        <thead id="statisticTableHeader"></thead>
+                                        <tbody id="statisticTableBody" class="ui-widget-content wijmo-wijgrid-data">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="title-section">Сообщения</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="messageTableWrapper">
+                                    <table id="messageTable"  style="width:100%;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
+                                        border="0" cellpadding="0" cellspacing="0">
+                                        <thead id="messageTableHeader"></thead>
+                                        <tbody id="messageTableBody" class="ui-widget-content wijmo-wijgrid-data">
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <button id="remove">Удалить</button>
+                                <div id="deletedialog" title="Удаление сообщений" style="display: none;">
+	                                <p>Вы действительно хотите удалить выделенные сообщения?</p>
+                                </div>
+                            </td>
+                        </tr>
                     </table>
-                    <br>
-                    <button id="remove">Удалить</button>
-                    <div id="deletedialog" title="Удаление сообщений" style="display: none;">
-	                    <p>Вы действительно хотите удалить выделенные сообщения?</p>
-                    </div>
-                </div>
-            </td></tr>
-            </table>
                 </div>
             </div>
             <div id="tabs-2">
-                <div id="detailedData" style="overflow: hidden;">
+                <div id="detailedData" style="overflow: auto;">
                 </div>
             </div>
     </div>           
     </script>
 
-    <!-- <script id="DealersData" type="text/x-jquery-tmpl">
-     <div id="tabs">
-            <ul>
-                <li><a href="#tabs-1">Общие сведения</a></li>
-		        <li><a href="#tabs-2">Детальные сведения</a></li>
-	        </ul>
-            <div id="tabs-1">
-                  <table id="dealersTable"  style="width:100%;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
-                      border="0" cellpadding="0" cellspacing="0">
-                      <thead id="dealersTableHeader"></thead>
-                      <tbody id="dealersTableBody" class="ui-widget-content wijmo-wijgrid-data">
-                      </tbody>
-                  </table>
-            </div>
-            <div id="tabs-2">
-                <div id="detailedData" style="overflow: hidden;">
-                </div>
-            </div>
-    </div>           
-    </script> -->
 
     <script id="DealersData" type="text/x-jquery-tmpl">
-                  <table id="dealersTable"  style="width:100%;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
-                      border="0" cellpadding="0" cellspacing="0">
-                      <thead id="dealersTableHeader"></thead>
-                      <tbody id="dealersTableBody" class="ui-widget-content wijmo-wijgrid-data">
-                      </tbody>
-                  </table>
+        <table id="dealersTable"  style="width:100%;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
+            border="0" cellpadding="0" cellspacing="0">
+            <thead id="dealersTableHeader"></thead>
+            <tbody id="dealersTableBody" class="ui-widget-content wijmo-wijgrid-data">
+            </tbody>
+        </table>
     </script>
 
     <script id="UsersData" type="text/x-jquery-tmpl">
@@ -248,59 +290,99 @@
 		        <li><a href="#tabs-2">Детальные сведения</a></li>
 	        </ul>
             <div id="tabs-1">
+                <div id="commonData" style="overflow: auto;">
                   <table id="usersTable"  style="width:100%;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
                       border="0" cellpadding="0" cellspacing="0">
                       <thead id="usersTableHeader"></thead>
                       <tbody id="usersTableBody" class="ui-widget-content wijmo-wijgrid-data">
                       </tbody>
                   </table>
+                </div>
             </div>
             <div id="tabs-2">
-                <div id="detailedData" style="overflow: hidden;">
+                <div id="detailedData" style="overflow: auto;">
                 </div>
             </div>
     </div>           
     </script>
 
     <script id="tmplUsersDetailedData" type="text/x-jquery-tmpl">
-        <table style="width: 100%;">
-        <label>Организация</label></br><div style="width: 80%;"><input id="orgName" value="{{html orgName}}"/></div></br>
-        <label>Пользователь</label></br><div style="width: 40%;"><input id="orgLogin" value="{{html login}}"/></div></br>
+        <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <label>Организация</label></br><div style="width: 300px;"><input id="orgName" value="{{html orgName}}"/></div></br>
+        <label>Пользователь</label></br><div style="width: 300px;"><input id="orgLogin" value="{{html login}}"/></div></br>
 
-        <label>Дилер</label></br>
-        <div style="width:50%;"><select id="dealerSelector" dealerId="{{html dealerId}}" onchange="this.dealerId=this.value;"></select></div><br>
+        <label>Дилер</label><br/>
+        <div style="width:100%;"><select id="dealerSelector" dealerId="{{html dealerId}}" onchange="this.dealerId=this.value;"></select></div><br>
 
-        <label>Роль</label></br><div style="width: 100%;"><select id="role" roleId="{{html roleId}}" onchange="this.roleId=this.value;"></select></div></br>
+        <label>Роль</label><br/>
+        <div style="width: 100%;"><select id="role" roleId="{{html roleId}}" onchange="this.roleId=this.value;"></select></div></br>
 
-        <table style="width:100%;">
+        <table style="width:100%;" cellpadding="0" cellspacing="0">
         <tr><td><label>Имя </label></td><td><label>Отчество </label></td><td><label>Фамилия </label></td></tr>
-        <tr><td><input id="name" value="{{html name}}"/></td><td><input id="patronimic" value="{{html patronimic}}"/></td><td><input id="surname" value="{{html surname}}"/></td></tr>
+        <tr>
+            <td>
+                <div style="width: 300px;"><input id="name" value="{{html name}}"/></div>
+            </td>
+            <td>
+                <div style="width: 300px;"><input id="patronimic" value="{{html patronimic}}"/></div>
+            </td>
+            <td>
+                <div style="width: 300px;"><input id="surname" value="{{html surname}}"/></div>
+            </td>
+        </tr>
 
-        <table style="width:81%;">
-        <tr><td><label>Пароль </label></td><td><label>Пароль (Подтверждение) </label></td></tr>
-        <tr><td><input id="pass1" value="{{html password}}"/></td><td><input id="pass2" value="{{html password}}"/></td></tr>
+        <table style="width:100%;" cellpadding="0" cellspacing="0">
+            <tr><td><label>Пароль </label></td><td><label>Пароль (Подтверждение) </label></td></tr>
+            <tr>
+                <td>
+                    <div style="width: 300px;"><input id="pass1" value="{{html password}}"/></div>
+                </td>
+                <td>
+                    <div style="width: 300px;"><input id="pass2" value="{{html password}}"/></div>
+                </td>
+            </tr>
         </table>
 
-        <hr>
+        <div style="margin:10px 0 10px 0; border-top:1px dashed #ccc;"></div>
 
-        <table style="width:100%;">
-        <tr><td><label>Страна </label></td><td><label>Город </label></td><td><label>Почтовый индекс </label></td></tr>
-        <tr><td><select id="country" countryId="{{html country}}" onchange="this.countryId=this.value;"></select></td><td>
-        <input id="city" value="{{html city}}"/></td><td><input id="index" value="{{html index}}"/></td></tr>
-        </table><br>
+        <table style="width:100%;" cellpadding="0" cellspacing="0">
+            <tr><td><label>Страна </label></td><td><label>Город </label></td><td><label>Почтовый индекс </label></td></tr>
+            <tr>
+                <td>
+                    <div style="width: 300px;"><select id="country" countryId="{{html country}}" onchange="this.countryId=this.value;"></select>
+                </td>
+                <td>
+                    <div style="width: 300px;"><input id="city" value="{{html city}}"/></div>
+                </td>
+                <td>
+                    <div style="width: 300px;"><input id="index" value="{{html index}}"/></div>
+                </td>
+            </tr>
+        </table>
+        
+        <br>
 
         <label>Часовая зона</label></br>
-        <div style="width:50%;"><select id="timeZoneSelector" timeZoneId="{{html timeZone}}" onchange="this.timeZoneId=this.value;"></select></div><br>
+        <div style="width:100%;"><select id="timeZoneSelector" timeZoneId="{{html timeZone}}" onchange="this.timeZoneId=this.value;"></select></div><br>
 
-        <label>Адрес1</label><br><div style="width: 80%;"><input id="addr1" value="{{html address1}}"/></div><br>
-        <label>Адрес2</label><br><div style="width: 80%;"><input id="addr2" value="{{html address2}}"/></div><br>
+        <label>Адрес (Основной)</label><br><div style="width: 500px;"><input id="addr1" value="{{html address1}}"/></div><br>
+        <label>Адрес (Дополнительно)</label><br><div style="width: 500px;"><input id="addr2" value="{{html address2}}"/></div><br>
 
-        <table style="width:100%;">
-        <tr><td><label>Телефон </label></td><td><label>Факс </label></td><td><label>e-mail </label></td></tr>
-        <tr><td><input id="phone" value="{{html phone}}"/></td><td><input id="fax" value="{{html fax}}"/></td><td><input id="mail" value="{{html mail}}"/></td></tr>
+        <table style="width:100%;" cellpadding="0" cellspacing="0">
+            <tr><td><label>Телефон </label></td><td><label>Факс </label></td><td><label>E-mail </label></td></tr>
+            <tr>
+                <td>
+                    <input id="phone" value="{{html phone}}"/>
+                </td>
+                <td>
+                    <input id="fax" value="{{html fax}}"/>
+                </td>
+                <td>
+                    <input id="mail" value="{{html mail}}"/>
+                </td>
+            </tr>
         </table>
 
-        <hr>
     </script>
 
     <!--<script id="tmplDealerDetailedData" type="text/x-jquery-tmpl">
@@ -457,7 +539,7 @@
     </script>
 
     <script id="InvoiceData" type="text/x-jquery-tmpl">
-            <div id="filter" style="border: 1px solid #0000FF;border-radius: 3px;">
+            <div id="filter">
             <table>
             <tr><td><label><h3>Фильтр</h3></label></td><td></td><td></td></tr>
             <tr><td><label>Начальная дата </label><input id="startDatePicker" type="text"/>
@@ -482,7 +564,7 @@
     
     <script id="JournalData" type="text/x-jquery-tmpl">
 
-            <div id="filter" style="border: 1px solid #0000FF;border-radius: 3px;">
+            <div id="filter">
             <table>
             <tr><td><label><h3>Фильтр</h3></label></td><td></td><td></td></tr>
             <tr><td><label>Начальная дата </label><input id="startDatePicker" type="text"/>
@@ -563,9 +645,7 @@
         <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
-                    <center>
                    Количество пользователей:
-                    </center>
                 </div>
             </td>
             <td class="wijgridtd wijdata-type-string">
@@ -579,9 +659,7 @@
          <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
-                    <center>
                    Количество водителей:
-                    </center>
                 </div>
             </td>
             <td class="wijgridtd wijdata-type-string">
@@ -595,9 +673,7 @@
          <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
-                    <center>
                    Количество машин:
-                    </center>
                 </div>
             </td>
             <td class="wijgridtd wijdata-type-string">
@@ -611,9 +687,7 @@
          <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
-                    <center>
                    Количество отчетов:
-                    </center>
                 </div>
             </td>
             <td class="wijgridtd wijdata-type-string">
@@ -668,39 +742,23 @@
         <option value="{{html Key}}">{{html Value}}</option>
     </script>
 
-        <asp:UpdatePanel ID="InvisibleUpdatePanel" runat="server" UpdateMode="Always">  
-            <ContentTemplate>
-            
-            <div style="display:none;">
-                <asp:Button ID="InvisibleAccordionButton" runat="server" CausesValidation="false"
-                    OnClick="InvisibleAccordionButton_Click" Visible="true"/>
-            </div>
-            
-            </ContentTemplate>
-        </asp:UpdatePanel>
-            
         <div id="accordion" style="width: 5">
             <h3><asp:LinkButton ID="GeneralDataAccordionPane1" runat="server" CausesValidation="false" PostBackUrl="#" OnClientClick="onNewAccordionSelectedIndexChanged(0);" Text="Общие сведения" /></h3>
                 <div id="firstAccordionPanel">                   
+                    <center>
+                        Информация о текущем пользователе.
+                        <br/>
+                        <br/>
+                        Данный раздел позволяет просматривать и редактировать информацию о текущем пользователе.
+                    </center>
                 </div>
             <h3 id="AccountsAccordionPane2_Header" runat="server"><asp:LinkButton ID="AccountsAccordionPane2" runat="server" CausesValidation="false" PostBackUrl="#" OnClientClick="onNewAccordionSelectedIndexChanged(7);" Text="Дилеры" /></h3>
                <div>
-                    <!--<div id="AccountsOverFlowPanel" style="overflow:auto; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; border: 1px solid #AFCBDE;">
-                        <asp:UpdatePanel ID="AccountsTreeUpdatePanel" runat="server" UpdateMode="Conditional">
-                            <ContentTemplate>
-                                <asp:TreeView ID="AccountsTreeView" runat="server" ForeColor="Black" HoverNodeStyle-ForeColor="Firebrick"
-                                SelectedNodeStyle-ForeColor="Firebrick" RootNodeStyle-Font-Bold="true" SelectedNodeStyle-Font-Underline="true"
-                                NodeStyle-HorizontalPadding="5" NodeIndent="20" ShowLines="true" OnSelectedNodeChanged="AccountsTreeView_NodeChanged" />    
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
-                    </div>-->
-                </div>     
+                    
+                </div>
             <h3><asp:LinkButton ID="UsersAccordionPane3" runat="server" CausesValidation="false" PostBackUrl="#" OnClientClick="onNewAccordionSelectedIndexChanged(2);" Text="Пользователи" /></h3>
                 <div>
                 </div>
-            <!--<h3><asp:LinkButton ID="ReportsAccordionPane4" runat="server" CausesValidation="false" PostBackUrl="#" OnClientClick="onNewAccordionSelectedIndexChanged(3);" Text="Отчеты" /></h3>
-                <div>
-                </div>-->
             <h3><asp:LinkButton ID="BillsAccordionPane5" runat="server" CausesValidation="false" PostBackUrl="#" OnClientClick="onNewAccordionSelectedIndexChanged(4);" Text="Счета" /></h3>
                 <div>
                 </div>
@@ -714,50 +772,6 @@
 <asp:Content ID="DataContent" ContentPlaceHolderID="Reports_PlaceHolder" runat="server">
     <div id="ContentContainer">
     </div>
-    <!--<asp:UpdatePanel id="DataContentUpdatePanel" runat="server" UpdateMode="Always"  OnDataBinding="GeneralDataLoad">
-        <ContentTemplate>
-            <script type="text/javascript">
-                Sys.WebForms.PageRequestManager.getInstance().add_endRequest(asss);
-                function asss() {
-                    $('#tabs').tabs();
-                }
-            </script>       
-        
-            <uc1:GeneralData_UserControl ID="GeneralData_UserControl1" runat="server"/>
-
-            <uc2:UsersTab_UserControl ID="UsersTab_UserControl1" runat="server"  Visible="false" />
-            <uc3:DealersTab_UserControl ID="DealersTab_X_UserControl1" runat="server"  Visible="false"/>
-            <uc4:LogTab_UserControl ID="LogTab_UserControl1" runat="server" />
-            <uc5:InvoicesTab_UserControl ID="InvoicesTab_UserControl1" runat="server" />
-            <uc6:ReportsTab_UserControl ID="ReportsTab_UserControl1" runat="server" />
-            <uc7:ClientsTab_UserControl ID="ClientsTab_X_UserControl2" runat="server" Visible="false" />
-            <uc8:AccountsTab_UserControl ID="AccountsTab_UserControl1" runat="server" />
-            
-        </ContentTemplate>
-    </asp:UpdatePanel>
-   
-           <script language="javascript">
-            function CheckOtherIsChecked(spanChk) {
-                var IsChecked = spanChk.checked;
-                var CurrentRdbID = spanChk.id;
-                var Chk = spanChk;
-                Parent = Chk.form.elements;
-                for (i = 0; i < Parent.length; i++) {
-                    if (Parent[i].id != CurrentRdbID && Parent[i].type == "radio") {
-                        if (Parent[i].checked) {
-                            Parent[i].checked = false;
-                        }
-                    }
-                }
-            }
-	        </script>
-    
-    <asp:UpdatePanel ID="StatusUpdatePanel" runat="server" UpdateMode="Conditional">
-        <ContentTemplate>
-            <asp:Label runat="server" ID="Status" Font-Size="Large" ForeColor="DarkBlue" />
-        </ContentTemplate>
-    </asp:UpdatePanel>
-        -->
 </asp:Content>
 <asp:Content ID="DecisionContent1" ContentPlaceHolderID="Decision_PlaceHolder" runat="server">
 

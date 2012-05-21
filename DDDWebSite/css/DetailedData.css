@@ -17,8 +17,13 @@
 
 #generalDataLabels
 {
+    border: 1px solid #CCC;
+    width: 350px;
+    background-color: white;
+    border-radius: 5px;
+    padding: 2px 5px 2px 5px;
 	font-family: Tahoma;
-	font-size: 12px;
+	font-size: 11px;
 }
 
 .inputField
@@ -51,6 +56,7 @@
 
 #messageTableWrapper
 {
+    margin-bottom: 10px;
 	border: 1px solid #CCC;
 	border-top: none;
 	border-bottom: none;
@@ -101,4 +107,16 @@
     height:22px;
     font-size:12px;
     width:90%;
+}
+
+#firstGeneralRow
+{
+    width: 100%;
+}
+
+.title-section
+{
+    font-size:14px;
+    font-weight: bold;
+    margin: 5px;
 }

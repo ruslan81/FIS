@@ -75,11 +75,13 @@ function loadGeneralData() {
         if (ui.index == 0) {
             tabIndex = 0;
             $("#userControls").hide();
+            resizeAdmin();
         }
         if (ui.index == 1) {
             tabIndex = 1;
             loadGeneralDetailedData();
             $("#userControls").show();
+            resizeAdmin();
         }
         return false;
     }
@@ -87,6 +89,8 @@ function loadGeneralData() {
 
     //loadGeneralDetailedData();
     $("#userControls").hide();
+
+    resizeAdmin();
 }
 
 function createStatisticTable() {
@@ -415,20 +419,26 @@ function loadUsersData() {
     '{"text": "Состояние", "style": ";"}]');
     $("#usersTable").show();
 
+    $("#tabs").tabs();
+
     loadGeneralUsersData();
 
-    $("#tabs").tabs();
+    $("#userControls").show();
+
+    resizeAdmin();
 
     $("#tabs").tabs({ show: function (e, ui) {
         if (ui.index == 0) {
             tabIndex = 0;
             loadGeneralUsersData();
             $("#userControls").show();
+            resizeAdmin();
         }
         if (ui.index == 1) {
             tabIndex = 1;
             loadUsersDetailedData();
-            //$("#userControls").show();
+            $("#userControls").show();
+            resizeAdmin();
         }
         return false;
     }
@@ -472,6 +482,8 @@ function loadInvoiceData() {
 
     loadInvoiceStatusList();
     buildInvoiceTable();
+
+    $("#userControls").hide();
 }
 
 function loadUsersControls() {
