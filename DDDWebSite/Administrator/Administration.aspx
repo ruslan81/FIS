@@ -23,14 +23,15 @@
   <script src="../js/jquery.wijmo.wijcombobox.js" type="text/javascript"></script>
   <asp:HiddenField ID="AccordionSelectedPane" Visible="true" runat="server" Value="0" /> 
   
-  <script type="text/javascript">    
+  <script type="text/javascript">
       //run on page load
+      var mode = "";
+      var tabIndex = 0;
+      var radioIndex = -1;
+      var citySelectors = null;
+      var city = null;
+          
       $(function () {
-          var mode = "";
-          var tabIndex = 0;
-          var radioIndex = -1;
-          var citySelectors = null;
-          var city = null;
           loadGeneralData();
 
           $("#accordion").accordion({
@@ -39,12 +40,14 @@
                   $("#ContentContainer").empty();
                   if ($("a", ui.newHeader).text() == "Общие сведения") {
                       $("#userControls").empty();
+                      mode = "";
                       tabIndex = 0;
                       radioIndex = -1;
                       loadGeneralData();
                   };
                   if ($("a", ui.newHeader).text() == "Дилеры") {
                       $("#userControls").empty();
+                      mode = "";
                       tabIndex = 0;
                       radioIndex = -1;
                       loadDealersData();
@@ -52,17 +55,22 @@
                   };
                   if ($("a", ui.newHeader).text() == "Пользователи") {
                       $("#userControls").empty();
+                      mode = "";
                       tabIndex = 0;
                       radioIndex = -1;
                       loadUsersData();
                   };
                   if ($("a", ui.newHeader).text() == "Счета") {
                       $("#userControls").empty();
+                      mode = "";
+                      $("#dateErrorBlock").hide();
                       loadInvoiceData();
                       resizeAdmin();
                   };
                   if ($("a", ui.newHeader).text() == "Журнал") {
                       $("#userControls").empty();
+                      mode = "";
+                      $("#dateErrorBlock").hide();
                       loadJournalData();
                       resizeAdmin();
                   };
@@ -545,8 +553,8 @@
             <tr><td><label>Начальная дата </label><input id="startDatePicker" type="text"/>
             <td><label>Конечная дата </label><input id="endDatePicker" type="text"/><td></td></tr><br>
 
-            <div id="dateErrorBlock" class="error-block">
-            <label class="error" id="dateErrorLabel"> Ошибка: Укажите начальную и конечную дату!</label>
+            <div id="dateErrorBlock" class="error-block-admin">
+            <label class="error-admin" id="dateErrorLabel"> Ошибка: Укажите начальную и конечную дату!</label>
             </div>
 
             <tr><td style="height:"><label>Тип </label><select id="invoiceStatusSelector" statusType="0" onchange="this.statusType=this.value;"></select></td>
@@ -570,8 +578,8 @@
             <tr><td><label>Начальная дата </label><input id="startDatePicker" type="text"/>
             <td><label>Конечная дата </label><input id="endDatePicker" type="text"/><td></td></tr><br>
 
-            <div id="dateErrorBlock" class="error-block">
-            <label class="error" id="dateErrorLabel"> Ошибка: Укажите начальную и конечную дату!</label>
+            <div id="dateErrorBlock" class="error-block-admin">
+            <label class="error-admin" id="dateErrorLabel"> Ошибка: Укажите начальную и конечную дату!</label>
             </div>
 
             <tr><td style="height:"><label>Событие </label><select id="eventSelector" event="-1" onchange="this.event=this.value;"></select></td>

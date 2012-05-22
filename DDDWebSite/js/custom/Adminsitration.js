@@ -135,6 +135,14 @@ function createMessageTable() {
 
     $("#remove").button();
     $("#remove").click(function () {
+        var boxes = $("#messageTable [type=checkbox]");
+        var c = 0;
+        for (var i = 0; i < boxes.length; i++) {
+            if (boxes[i].checked)
+                c++;
+        }
+        if (c == 0)
+            return false;
         $("#deletedialog").dialog({ buttons: {
             "OK": function () {
                 removeMessages();
@@ -176,6 +184,16 @@ function loadDealersData() {
     $("#cancel").button({ disabled: true });
 
     $("#edit").click(function () {
+
+        var boxes = $("#commonData [type=checkbox]");
+        var c = 0;
+        for (var i = 0; i < boxes.length; i++) {
+            if (boxes[i].checked)
+                c++;
+        }
+        if (c == 0)
+            return false;
+
         mode = "edit";
 
         $("[name=dealerCheckbox]").hide();
@@ -495,8 +513,24 @@ function loadUsersControls() {
     $("#cancel").button({ disabled: true });
 
     $("#edit").click(function () {
+        var boxes = $("#commonData [type=radio]");
+        var c = 0;
+        for (var i = 0; i < boxes.length; i++) {
+            if (boxes[i].checked)
+                c++;
+        }
+        if (c == 0)
+            return false;
+
         mode = "edit";
-        $("#tabs").tabs({ selected: 1 });
+        if (tabIndex == 0) {
+            $("#tabs").tabs({ selected: 1 });
+        } else {
+            loadUsersDetailedData();
+            $("#userControls").show();
+            resizeAdmin();
+        }
+
         return false;
     });
 
@@ -560,7 +594,7 @@ function loadJournalData() {
         buildJournalTable();
         return false;
     });
-
+    $("#dateErrorBlock").hide();
     loadEventList();
     //buildJournalTable();
 }
@@ -583,6 +617,12 @@ function buildJournalTable() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
+            if (response.d == null) {
+                $("#dateErrorBlock").show();
+                $("#journalTable").hide();
+                return;
+            }
+
             updateTable($("#journalTableBody"), $("#tmplJournalTableContent"), response.d);
         }
     });
@@ -606,6 +646,12 @@ function buildInvoiceTable() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
+            if (response.d == null) {
+                $("#dateErrorBlock").show();
+                $("#journalTable").hide();
+                return;
+            }
+
             updateTable($("#invoiceTableBody"), $("#tmplInvoiceTableContent"), response.d);
         }
     });
