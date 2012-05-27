@@ -22,7 +22,7 @@ public partial class loginPage : System.Web.UI.Page
             PasswordTextBox.Attributes.Add("onKeyPress", "javascript:if (event.keyCode == 13) __doPostBack('" + LinkButton1.ClientID + "','')");
 
             ProfilesTextBox.Focus();
-            LastUpdate.Text = "Последнее обновление 19.05.2012 21:00";
+            LastUpdate.Text = "Последнее обновление 28.05.2012 00:00";
         }
         PassRecoverStatus.Text = "";
     }

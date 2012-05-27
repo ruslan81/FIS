@@ -547,19 +547,30 @@
     </script>
 
     <script id="InvoiceData" type="text/x-jquery-tmpl">
-            <div id="filter">
-            <table>
-            <tr><td><label><h3>Фильтр</h3></label></td><td></td><td></td></tr>
-            <tr><td><label>Начальная дата </label><input id="startDatePicker" type="text"/>
-            <td><label>Конечная дата </label><input id="endDatePicker" type="text"/><td></td></tr><br>
+            <div class="title-section" style="margin:10px;">Фильтр</div>
+            <div id="filter" style="margin-left:10px;">
+                <table cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td><label>Начальная дата </label><input id="startDatePicker" type="text"/></td>
+                        <td><label>Конечная дата </label><input id="endDatePicker" type="text"/></td>
+                        <td>
+                            <div id="dateErrorBlock" class="error-block-admin">
+                                <label class="error-admin" id="dateErrorLabel"> Ошибка: Укажите начальную и конечную дату!</label>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
 
-            <div id="dateErrorBlock" class="error-block-admin">
-            <label class="error-admin" id="dateErrorLabel"> Ошибка: Укажите начальную и конечную дату!</label>
-            </div>
+                <div style="margin-top:5px;margin-bottom:5px;height:30px;">
+                    <div style="float:left;margin-right:10px;margin-top: 6px;">Тип </div>
+                    <div style="float:left;margin-right:10px;margin-top: 3px;">
+                        <select id="invoiceStatusSelector" statusType="0" onchange="this.statusType=this.value;"></select>
+                    </div>
+                    <div style="float:left;">
+                        <button id="buildButton">Применить</button>
+                    </div>
+                </div>
 
-            <tr><td style="height:"><label>Тип </label><select id="invoiceStatusSelector" statusType="0" onchange="this.statusType=this.value;"></select></td>
-            <td><button id="buildButton">Применить</button></td></tr>
-            </table>
             </div>
 
             <table id="invoiceTable"  style="border-collapse: separate;width:100%;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
@@ -571,22 +582,39 @@
     </script>
     
     <script id="JournalData" type="text/x-jquery-tmpl">
+            <div class="title-section" style="margin:10px;">Фильтр</div>
+            <div id="filter" style="margin-left:10px;">
+                <table cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td><label>Начальная дата </label><input id="startDatePicker" type="text"/></td>
+                        <td><label>Конечная дата </label><input id="endDatePicker" type="text"/><td>
+                        <td>
+                            <div id="dateErrorBlock" class="error-block-admin">
+                                <label class="error-admin" id="dateErrorLabel"> Ошибка: Укажите начальную и конечную дату!</label>
+                            </div>
+                        </td>
+                    </tr>
 
-            <div id="filter">
-            <table>
-            <tr><td><label><h3>Фильтр</h3></label></td><td></td><td></td></tr>
-            <tr><td><label>Начальная дата </label><input id="startDatePicker" type="text"/>
-            <td><label>Конечная дата </label><input id="endDatePicker" type="text"/><td></td></tr><br>
+                </table>
 
-            <div id="dateErrorBlock" class="error-block-admin">
-            <label class="error-admin" id="dateErrorLabel"> Ошибка: Укажите начальную и конечную дату!</label>
+                <div style="margin-top:5px;margin-bottom:5px;height:30px;">
+                    <div style="float:left;margin-right:10px;margin-top: 6px;">Событие </div>
+                    <div style="float:left;margin-right:10px;margin-top: 3px;">
+                        <select id="eventSelector" event="-1" onchange="this.event=this.value;"></select>
+                    </div>
+                    <div style="float:left;margin-right:10px;margin-top: 6px;">
+                        Текст в описании 
+                    </div>
+                    <div style="float:left;margin-right:10px;margin-top: 4px;">
+                        <input id="textInput" value=""/>
+                    </div>
+                    <div style="float:left;">
+                        <button id="buildButton">Применить</button>
+                    </div>
+                </div>
+
             </div>
 
-            <tr><td style="height:"><label>Событие </label><select id="eventSelector" event="-1" onchange="this.event=this.value;"></select></td>
-            <td><label>Текст в описании </label><input id="textInput" value=""/></td>
-            <td><button id="buildButton">Применить</button></td></tr>
-            </table>
-            </div>
             <table id="journalTable"  style="border-collapse: separate;width:100%;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
                 border="0" cellpadding="0" cellspacing="0">
                 <thead id="journalTableHeader"></thead>
