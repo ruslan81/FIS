@@ -611,7 +611,7 @@
             </td>
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
-                   <input value="{{html note}}" class="inputField-readonly input" readonly="readonly"/>
+                   <input value="{{html note}}" name="noteInput" class="inputField-readonly input" readonly="readonly"/>
                 </div>
             </td>
         </tr>

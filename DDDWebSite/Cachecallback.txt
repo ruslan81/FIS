@@ -11744,3 +11744,6 @@ Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProjec
 Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Administration.aspx(743): error CS1061: "ASP.administrator_administration_aspx" не содержит определение для "InvisibleAccordionButton_Click". Не удалось найти метод  расширения "InvisibleAccordionButton_Click", принимающий первый аргумент типа "ASP.administrator_administration_aspx"  (пропущено использование директивы или ссылка на сборку?)
 Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Administration.aspx(82): error CS0103: Имя 'InvisibleAccordionButton' отсутствует в текущем контексте
 Cache Callback: 22.05.2012 0:44:00
+Cache Callback: 28.05.2012 0:39:20
+Cache Callback: 28.05.2012 1:07:40
+Cache Callback: Message: Удаленный сервер возвратил ошибку: (404) Не найден.

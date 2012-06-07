@@ -624,6 +624,15 @@ function buildJournalTable() {
             }
 
             updateTable($("#journalTableBody"), $("#tmplJournalTableContent"), response.d);
+            /*var list = $("[name=noteInput]");
+            for (var i = 0; i < list.length; i++) {
+                var str = $(list[i]).attr("value");
+                str = str.replace(/&lb/gi, "<");
+                str = str.replace(/&rb/gi, ">");
+                str = str.replace(/&sl/gi, "/");
+                $(list[i]).attr("value",str);
+            }*/
+
         }
     });
 }

@@ -241,7 +241,7 @@ namespace BLL
                     if (searchString != "")//очень плохой способ. Если будет тормозить - переделать на выборку из базы или еще чего...
                     {
                         if (description.Contains(searchString))
-                            description = description.Replace(searchString, "<b><FONT COLOR=RED>" + searchString + "</FONT></b>");
+                            description = description.Replace(searchString, "&lbb&rb&lbFONT COLOR=RED&rb" + searchString + "&lb&slFONT&rb&lb&slb&rb");
                         else
                             continue;
                     }

@@ -1046,7 +1046,11 @@ public partial class Administrator_Administration : System.Web.UI.Page
                 JournalData jd = new JournalData();
                 jd.dateTime = row["Дата и время"].ToString();
                 jd.user = row["Пользователь"].ToString();
-                jd.note = row["Описание"].ToString();
+                string note = row["Описание"].ToString();
+                note=note.Replace("&lb", "<");
+                note = note.Replace("&rb", ">");
+                note = note.Replace("&sl", "/");
+                jd.note = note;
                 result.Add(jd);
             }
 
