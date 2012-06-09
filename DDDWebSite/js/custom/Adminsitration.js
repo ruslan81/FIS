@@ -615,15 +615,27 @@ function buildJournalTable() {
         url: "Administration.aspx/GetJournal",
         data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'StartDate':'" + convert(startDate) + "', 'EndDate':'" + convert(endDate) + "', 'eventType':'" + event + "', 'searchString':'" + text + "'}",
         contentType: "application/json; charset=utf-8",
-        dataType: "json",
+        dataType: "html json",
         success: function (response) {
             if (response.d == null) {
-                $("#dateErrorBlock").show();
-                $("#journalTable").hide();
-                return;
+            $("#dateErrorBlock").show();
+            $("#journalTable").hide();
+            return;
             }
 
             updateTable($("#journalTableBody"), $("#tmplJournalTableContent"), response.d);
+            /*var list = $("[name=noteInput]");
+            alert(list.length);
+
+            var convert = function (convert) {
+                return $("<span />", { html: convert }).text();
+            };
+
+            for (var i = 0; i < list.length; i++) {
+                var str = $(list[i]).attr("value");
+                $(list[i]).attr("value", convert(str));
+            }*/
+
         }
     });
 }
