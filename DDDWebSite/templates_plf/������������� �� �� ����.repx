@@ -8,11 +8,11 @@ namespace XtraReportSerialization {
     
     public class Report1 : DevExpress.XtraReports.UI.XtraReport {
         private DevExpress.XtraReports.UI.TopMarginBand TopMargin;
+        private DevExpress.XtraReports.UI.XRLabel label1;
         private DevExpress.XtraReports.UI.DetailBand Detail;
         private DevExpress.XtraReports.UI.BottomMarginBand BottomMargin;
+        private DevExpress.XtraReports.UI.XRPageInfo pageInfo2;
         private DevExpress.XtraReports.UI.PageHeaderBand PageHeader;
-        private DevExpress.XtraReports.UI.XRLabel label1;
-        private DevExpress.XtraReports.UI.GroupHeaderBand GroupHeader1;
         private DevExpress.XtraReports.UI.XRTable table1;
         private DevExpress.XtraReports.UI.XRTableRow tableRow1;
         private DevExpress.XtraReports.UI.XRTableCell tableCell1;
@@ -25,16 +25,7 @@ namespace XtraReportSerialization {
         private DevExpress.XtraReports.UI.XRTableCell tableCell8;
         private DevExpress.XtraReports.UI.XRTableCell tableCell9;
         private DevExpress.XtraReports.UI.XRTableCell tableCell10;
-        private DevExpress.XtraReports.UI.XRLabel label10;
-        private DevExpress.XtraReports.UI.XRLabel label9;
-        private DevExpress.XtraReports.UI.XRLabel label8;
-        private DevExpress.XtraReports.UI.XRLabel label7;
-        private DevExpress.XtraReports.UI.XRLabel label6;
-        private DevExpress.XtraReports.UI.XRLabel label5;
-        private DevExpress.XtraReports.UI.XRLabel label4;
-        private DevExpress.XtraReports.UI.XRLabel label2;
-        private DevExpress.XtraReports.UI.PageFooterBand PageFooter;
-        private DevExpress.XtraReports.UI.XRPageInfo pageInfo2;
+        private DevExpress.XtraReports.UI.GroupHeaderBand GroupHeader1;
         private DevExpress.XtraReports.UI.DetailReportBand DetailReport;
         private DevExpress.XtraReports.UI.DetailBand Detail1;
         private DevExpress.XtraReports.UI.GroupHeaderBand GroupHeader2;
@@ -51,9 +42,17 @@ namespace XtraReportSerialization {
         private DevExpress.XtraReports.UI.XRTableCell tableCell19;
         private DevExpress.XtraReports.UI.XRTableCell tableCell20;
         private DevExpress.XtraReports.UI.ReportFooterBand ReportFooter;
-        private DevExpress.XtraReports.UI.XRLabel label12;
         private DevExpress.XtraReports.UI.XRPageInfo pageInfo1;
-        private DevExpress.XtraReports.UI.XRControlStyle Неч_стр;
+        private DevExpress.XtraReports.UI.XRLabel label12;
+        private DevExpress.XtraReports.UI.ReportHeaderBand ReportHeader;
+        private DevExpress.XtraReports.UI.XRLabel label2;
+        private DevExpress.XtraReports.UI.XRLabel label4;
+        private DevExpress.XtraReports.UI.XRLabel label5;
+        private DevExpress.XtraReports.UI.XRLabel label6;
+        private DevExpress.XtraReports.UI.XRLabel label7;
+        private DevExpress.XtraReports.UI.XRLabel label8;
+        private DevExpress.XtraReports.UI.XRLabel label9;
+        private DevExpress.XtraReports.UI.XRLabel label10;
         private DevExpress.XtraReports.UI.CalculatedField calculatedField1;
         private DevExpress.XtraReports.UI.CalculatedField calculatedField2;
         private System.Resources.ResourceManager _resources;
@@ -66,65 +65,53 @@ namespace XtraReportSerialization {
                     string resourceString = "zsrvvgEAAACRAAAAbFN5c3RlbS5SZXNvdXJjZXMuUmVzb3VyY2VSZWFkZXIsIG1zY29ybGliLCBWZXJza" +
                         "W9uPTIuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4O" +
                         "SNTeXN0ZW0uUmVzb3VyY2VzLlJ1bnRpbWVSZXNvdXJjZVNldAIAAAABAAAAAAAAAFBBRFBBRFBIXnLBA" +
-                        "AAAAOcAAAAmJAB0AGgAaQBzAC4AUwBjAHIAaQBwAHQAcwBTAG8AdQByAGMAZQAAAAAAAfsaDQpTeXN0Z" +
-                        "W0uRG91YmxlIGRUaW1lSW5Nb3Rpb24gPSAwLjA7DQpTeXN0ZW0uRG91YmxlIGRUaW1lSW5Nb3Rpb24xN" +
-                        "yA9IDAuMDsNCg0KU3lzdGVtLkRhdGVUaW1lIGR0TWluID0gRGF0ZVRpbWUuTWF4VmFsdWU7DQpTeXN0Z" +
-                        "W0uRGF0ZVRpbWUgZHRNYXggPSBEYXRlVGltZS5NaW5WYWx1ZTsNClN5c3RlbS5EYXRlVGltZSBkdE1pb" +
-                        "jE3ID0gRGF0ZVRpbWUuTWF4VmFsdWU7DQpTeXN0ZW0uRGF0ZVRpbWUgZHRNYXgxNyA9IERhdGVUaW1lL" +
-                        "k1pblZhbHVlOw0KDQpTeXN0ZW0uRG91YmxlIGRGdWVsVm9sdW1lID0gMC4wOw0KU3lzdGVtLkRvdWJsZ" +
-                        "SBkRnVlbFZvbHVtZVByZXYgPSAwLjA7DQoNCnByaXZhdGUgdm9pZCB0YWJsZUNlbGwxNV9TdW1tYXJ5U" +
-                        "mVzZXQob2JqZWN0IHNlbmRlciwgU3lzdGVtLkV2ZW50QXJncyBlKSB7DQovL1N5c3RlbS5XaW5kb3dzL" +
-                        "kZvcm1zLk1lc3NhZ2VCb3guU2hvdygidGFibGVDZWxsMTVfU3VtbWFyeVJlc2V0Iik7DQoJZHRNaW4gP" +
-                        "SBEYXRlVGltZS5NYXhWYWx1ZTsNCglkdE1heCA9IERhdGVUaW1lLk1pblZhbHVlOw0KfQ0KDQpwcml2Y" +
-                        "XRlIHZvaWQgdGFibGVDZWxsMTVfU3VtbWFyeVJvd0NoYW5nZWQob2JqZWN0IHNlbmRlciwgU3lzdGVtL" +
-                        "kV2ZW50QXJncyBlKSB7DQovL1N5c3RlbS5XaW5kb3dzLkZvcm1zLk1lc3NhZ2VCb3guU2hvdygidGFib" +
-                        "GVDZWxsMTVfU3VtbWFyeVJvd0NoYW5nZWQiKTsNCgkvL1N5c3RlbS5XaW5kb3dzLkZvcm1zLk1lc3NhZ" +
-                        "2VCb3guU2hvdyhDb252ZXJ0LlRvU3RyaW5nKERldGFpbFJlcG9ydC5HZXRDdXJyZW50Q29sdW1uVmFsd" +
-                        "WUoItCU0LDRgtCw0JLRgNC10LzRjyIpKSk7DQoJU3lzdGVtLkRhdGVUaW1lIGR0ID0gU3lzdGVtLkRhd" +
-                        "GVUaW1lLlBhcnNlKENvbnZlcnQuVG9TdHJpbmcoRGV0YWlsUmVwb3J0LkdldEN1cnJlbnRDb2x1bW5WY" +
-                        "Wx1ZSgi0JTQsNGC0LDQktGA0LXQvNGPIikpKTsNCglpZiAoZHQgPCBkdE1pbikNCgkJZHRNaW4gPSBkd" +
-                        "DsNCglpZiAoZHQgPiBkdE1heCkNCgkJZHRNYXggPSBkdDsNCn0NCg0KcHJpdmF0ZSB2b2lkIHRhYmxlQ" +
-                        "2VsbDE1X1N1bW1hcnlHZXRSZXN1bHQob2JqZWN0IHNlbmRlciwgRGV2RXhwcmVzcy5YdHJhUmVwb3J0c" +
-                        "y5VSS5TdW1tYXJ5R2V0UmVzdWx0RXZlbnRBcmdzIGUpIHsNCi8vU3lzdGVtLldpbmRvd3MuRm9ybXMuT" +
-                        "WVzc2FnZUJveC5TaG93KCJ0YWJsZUNlbGwxNV9TdW1tYXJ5R2V0UmVzdWx0Iik7DQovLyAgICBlLlJlc" +
-                        "3VsdCA9IGR0TWF4IC0gZHRNaW4gKyBUaW1lU3Bhbi5Gcm9tTWludXRlcygxKTsJLy8gKzEgbWluIC0g0" +
-                        "LTQu9C40YLQtdC70YzQvdC+0YHRgtGMIDEt0LPQviDQvtGC0YfQtdGC0LAg0LIg0YHRg9GC0LrQsNGFD" +
-                        "QogICAgZS5SZXN1bHQgPSBUaW1lU3Bhbi5Gcm9tTWludXRlcygxKSArIChkdE1heCAtIGR0TWluKTsNC" +
-                        "mR0TWF4MTcgPSBkdE1heDsNCmR0TWluMTcgPSBkdE1pbjsNCiAgICBlLkhhbmRsZWQgPSB0cnVlOw0Kf" +
-                        "Q0KDQpwcml2YXRlIHZvaWQgdGFibGVDZWxsMTZfU3VtbWFyeVJlc2V0KG9iamVjdCBzZW5kZXIsIFN5c" +
-                        "3RlbS5FdmVudEFyZ3MgZSkgew0KCWRUaW1lSW5Nb3Rpb24gPSAwLjA7DQp9DQoNCnByaXZhdGUgdm9pZ" +
-                        "CB0YWJsZUNlbGwxNl9TdW1tYXJ5Um93Q2hhbmdlZChvYmplY3Qgc2VuZGVyLCBTeXN0ZW0uRXZlbnRBc" +
-                        "mdzIGUpIHsNCi8vU3lzdGVtLldpbmRvd3MuRm9ybXMuTWVzc2FnZUJveC5TaG93KCJ0YWJsZUNlbGwxN" +
-                        "l9TdW1tYXJ5Um93Q2hhbmdlZCIpOw0KCVN5c3RlbS5Eb3VibGUgZFRJTSA9IDAuMDsNCglTeXN0ZW0uR" +
-                        "G91YmxlIGRTcGVlZCA9IENvbnZlcnQuVG9Eb3VibGUoRGV0YWlsUmVwb3J0LkdldEN1cnJlbnRDb2x1b" +
-                        "W5WYWx1ZSgi0KHQutC+0YDQvtGB0YLRjCIpKTsNCglpZiAoZFNwZWVkID4gMCkNCgkJZFRJTSA9IENvb" +
-                        "nZlcnQuVG9Eb3VibGUoRGV0YWlsUmVwb3J0LkdldEN1cnJlbnRDb2x1bW5WYWx1ZSgi0J/Rg9GC0YwiK" +
-                        "SkgLyBkU3BlZWQ7DQoJZFRpbWVJbk1vdGlvbiArPSBkVElNOw0KfQ0KDQpwcml2YXRlIHZvaWQgdGFib" +
-                        "GVDZWxsMTZfU3VtbWFyeUdldFJlc3VsdChvYmplY3Qgc2VuZGVyLCBEZXZFeHByZXNzLlh0cmFSZXBvc" +
-                        "nRzLlVJLlN1bW1hcnlHZXRSZXN1bHRFdmVudEFyZ3MgZSkgew0KLy9TeXN0ZW0uV2luZG93cy5Gb3Jtc" +
-                        "y5NZXNzYWdlQm94LlNob3coInRhYmxlQ2VsbDE2X1N1bW1hcnlHZXRSZXN1bHQiKTsNCgkvL2RUaW1lS" +
-                        "W5Nb3Rpb24gPSBNYXRoLk1heCgwLCBkVGltZUluTW90aW9uIC0gNjAuMCAvIDM2MDApOw0KCWRUaW1lS" +
-                        "W5Nb3Rpb24xNyA9IGRUaW1lSW5Nb3Rpb247DQoJZS5SZXN1bHQgPSBUaW1lU3Bhbi5Gcm9tU2Vjb25kc" +
-                        "ygoaW50KSgzNjAwICogZFRpbWVJbk1vdGlvbikpOw0KCWUuSGFuZGxlZCA9IHRydWU7DQp9DQoNCnBya" +
-                        "XZhdGUgdm9pZCB0YWJsZUNlbGwxN19TdW1tYXJ5R2V0UmVzdWx0KG9iamVjdCBzZW5kZXIsIERldkV4c" +
-                        "HJlc3MuWHRyYVJlcG9ydHMuVUkuU3VtbWFyeUdldFJlc3VsdEV2ZW50QXJncyBlKSB7DQovL1N5c3Rlb" +
-                        "S5XaW5kb3dzLkZvcm1zLk1lc3NhZ2VCb3guU2hvdygidGFibGVDZWxsMTdfU3VtbWFyeUdldFJlc3Vsd" +
-                        "CIpOw0KCS8vZFRpbWVJbk1vdGlvbjE3ID0gTWF0aC5NYXgoMCwgZFRpbWVJbk1vdGlvbjE3IC0gNjAuM" +
-                        "CAvIDM2MDApOw0KCS8vZS5SZXN1bHQgPSBuZXcgVGltZVNwYW4oKGR0TWF4MTcgLSBkdE1pbjE3KS5Ib" +
-                        "3VycywgKGR0TWF4MTcgLSBkdE1pbjE3KS5NaW51dGVzLCANCgkvLwkoZHRNYXgxNyAtIGR0TWluMTcpL" +
-                        "lNlY29uZHMgLSAoaW50KSgzNjAwICogZFRpbWVJbk1vdGlvbjE3KSk7DQoJZS5SZXN1bHQgPSBUaW1lU" +
-                        "3Bhbi5Gcm9tU2Vjb25kcygoZHRNYXgxNyAtIGR0TWluMTcpLlRvdGFsU2Vjb25kcyAtIChpbnQpKDM2M" +
-                        "DAgKiBkVGltZUluTW90aW9uMTcgLSA2MCkpOw0KCWUuSGFuZGxlZCA9IHRydWU7DQp9DQoNCnByaXZhd" +
-                        "GUgdm9pZCB0YWJsZUNlbGwyMF9TdW1tYXJ5UmVzZXQob2JqZWN0IHNlbmRlciwgU3lzdGVtLkV2ZW50Q" +
-                        "XJncyBlKSB7DQoJZEZ1ZWxWb2x1bWUgPSAwLjA7DQp9DQoNCnByaXZhdGUgdm9pZCB0YWJsZUNlbGwyM" +
-                        "F9TdW1tYXJ5Um93Q2hhbmdlZChvYmplY3Qgc2VuZGVyLCBTeXN0ZW0uRXZlbnRBcmdzIGUpIHsNCglTe" +
-                        "XN0ZW0uRG91YmxlIGRGVk5vdyA9IENvbnZlcnQuVG9Eb3VibGUoRGV0YWlsUmVwb3J0LkdldEN1cnJlb" +
-                        "nRDb2x1bW5WYWx1ZSgi0KPRgNC+0LLQtdC90Ywg0YLQvtC/0LvQuNCy0LAiKSk7DQoJaWYgKGRGdWVsV" +
-                        "m9sdW1lUHJldiA+IGRGVk5vdykNCgkJZEZ1ZWxWb2x1bWUgKz0gKGRGdWVsVm9sdW1lUHJldiAtIGRGV" +
-                        "k5vdyk7DQoJZEZ1ZWxWb2x1bWVQcmV2ID0gZEZWTm93Ow0KfQ0KDQpwcml2YXRlIHZvaWQgdGFibGVDZ" +
-                        "WxsMjBfU3VtbWFyeUdldFJlc3VsdChvYmplY3Qgc2VuZGVyLCBEZXZFeHByZXNzLlh0cmFSZXBvcnRzL" +
-                        "lVJLlN1bW1hcnlHZXRSZXN1bHRFdmVudEFyZ3MgZSkgew0KCWUuUmVzdWx0ID0gZEZ1ZWxWb2x1bWU7D" +
-                        "QoJZS5IYW5kbGVkID0gdHJ1ZTsNCn0NCg==";
+                        "AAAAOcAAAAmJAB0AGgAaQBzAC4AUwBjAHIAaQBwAHQAcwBTAG8AdQByAGMAZQAAAAAAAckVaW50IG5Sb" +
+                        "3dOdW0gPSAwOw0KDQpTeXN0ZW0uRG91YmxlIGRUaW1lSW5Nb3Rpb24gPSAwLjA7DQpTeXN0ZW0uRG91Y" +
+                        "mxlIGRUaW1lSW5Nb3Rpb24xNyA9IDAuMDsNCg0KU3lzdGVtLkRhdGVUaW1lIGR0TWluID0gRGF0ZVRpb" +
+                        "WUuTWF4VmFsdWU7DQpTeXN0ZW0uRGF0ZVRpbWUgZHRNYXggPSBEYXRlVGltZS5NaW5WYWx1ZTsNClN5c" +
+                        "3RlbS5EYXRlVGltZSBkdE1pbjE3ID0gRGF0ZVRpbWUuTWF4VmFsdWU7DQpTeXN0ZW0uRGF0ZVRpbWUgZ" +
+                        "HRNYXgxNyA9IERhdGVUaW1lLk1pblZhbHVlOw0KDQpTeXN0ZW0uRG91YmxlIGRGdWVsVm9sdW1lID0gM" +
+                        "C4wOw0KU3lzdGVtLkRvdWJsZSBkRnVlbFZvbHVtZVByZXYgPSAwLjA7DQoNCnByaXZhdGUgdm9pZCB0Y" +
+                        "WJsZUNlbGwxNV9TdW1tYXJ5UmVzZXQob2JqZWN0IHNlbmRlciwgU3lzdGVtLkV2ZW50QXJncyBlKSB7D" +
+                        "QoJZHRNaW4gPSBEYXRlVGltZS5NYXhWYWx1ZTsNCglkdE1heCA9IERhdGVUaW1lLk1pblZhbHVlOw0Kf" +
+                        "Q0KDQpwcml2YXRlIHZvaWQgdGFibGVDZWxsMTVfU3VtbWFyeVJvd0NoYW5nZWQob2JqZWN0IHNlbmRlc" +
+                        "iwgU3lzdGVtLkV2ZW50QXJncyBlKSB7DQoJU3lzdGVtLkRhdGVUaW1lIGR0ID0gU3lzdGVtLkRhdGVUa" +
+                        "W1lLlBhcnNlKENvbnZlcnQuVG9TdHJpbmcoRGV0YWlsUmVwb3J0LkdldEN1cnJlbnRDb2x1bW5WYWx1Z" +
+                        "Sgi0JTQsNGC0LDQktGA0LXQvNGPIikpKTsNCglpZiAoZHQgPCBkdE1pbikNCgkJZHRNaW4gPSBkdDsNC" +
+                        "glpZiAoZHQgPiBkdE1heCkNCgkJZHRNYXggPSBkdDsNCn0NCg0KcHJpdmF0ZSB2b2lkIHRhYmxlQ2Vsb" +
+                        "DE1X1N1bW1hcnlHZXRSZXN1bHQob2JqZWN0IHNlbmRlciwgRGV2RXhwcmVzcy5YdHJhUmVwb3J0cy5VS" +
+                        "S5TdW1tYXJ5R2V0UmVzdWx0RXZlbnRBcmdzIGUpIHsNCgllLlJlc3VsdCA9IFRpbWVTcGFuLkZyb21Na" +
+                        "W51dGVzKDEpICsgKGR0TWF4IC0gZHRNaW4pOw0KCWR0TWF4MTcgPSBkdE1heDsNCglkdE1pbjE3ID0gZ" +
+                        "HRNaW47DQoJZS5IYW5kbGVkID0gdHJ1ZTsNCn0NCg0KcHJpdmF0ZSB2b2lkIHRhYmxlQ2VsbDE2X1N1b" +
+                        "W1hcnlSZXNldChvYmplY3Qgc2VuZGVyLCBTeXN0ZW0uRXZlbnRBcmdzIGUpIHsNCglkVGltZUluTW90a" +
+                        "W9uID0gMC4wOw0KfQ0KDQpwcml2YXRlIHZvaWQgdGFibGVDZWxsMTZfU3VtbWFyeVJvd0NoYW5nZWQob" +
+                        "2JqZWN0IHNlbmRlciwgU3lzdGVtLkV2ZW50QXJncyBlKSB7DQoJU3lzdGVtLkRvdWJsZSBkVElNID0gM" +
+                        "C4wOw0KCVN5c3RlbS5Eb3VibGUgZFNwZWVkID0gQ29udmVydC5Ub0RvdWJsZShEZXRhaWxSZXBvcnQuR" +
+                        "2V0Q3VycmVudENvbHVtblZhbHVlKCLQodC60L7RgNC+0YHRgtGMIikpOw0KCWlmIChkU3BlZWQgPiAwK" +
+                        "Q0KCQlkVElNID0gQ29udmVydC5Ub0RvdWJsZShEZXRhaWxSZXBvcnQuR2V0Q3VycmVudENvbHVtblZhb" +
+                        "HVlKCLQn9GD0YLRjCIpKSAvIGRTcGVlZDsNCglkVGltZUluTW90aW9uICs9IGRUSU07DQp9DQoNCnBya" +
+                        "XZhdGUgdm9pZCB0YWJsZUNlbGwxNl9TdW1tYXJ5R2V0UmVzdWx0KG9iamVjdCBzZW5kZXIsIERldkV4c" +
+                        "HJlc3MuWHRyYVJlcG9ydHMuVUkuU3VtbWFyeUdldFJlc3VsdEV2ZW50QXJncyBlKSB7DQoJZFRpbWVJb" +
+                        "k1vdGlvbjE3ID0gZFRpbWVJbk1vdGlvbjsNCgllLlJlc3VsdCA9IFRpbWVTcGFuLkZyb21TZWNvbmRzK" +
+                        "ChpbnQpKDM2MDAgKiBkVGltZUluTW90aW9uKSk7DQoJZS5IYW5kbGVkID0gdHJ1ZTsNCn0NCg0KcHJpd" +
+                        "mF0ZSB2b2lkIHRhYmxlQ2VsbDE3X1N1bW1hcnlHZXRSZXN1bHQob2JqZWN0IHNlbmRlciwgRGV2RXhwc" +
+                        "mVzcy5YdHJhUmVwb3J0cy5VSS5TdW1tYXJ5R2V0UmVzdWx0RXZlbnRBcmdzIGUpIHsNCgllLlJlc3Vsd" +
+                        "CA9IFRpbWVTcGFuLkZyb21TZWNvbmRzKChkdE1heDE3IC0gZHRNaW4xNykuVG90YWxTZWNvbmRzIC0gK" +
+                        "GludCkoMzYwMCAqIGRUaW1lSW5Nb3Rpb24xNyAtIDYwKSk7DQoJZS5IYW5kbGVkID0gdHJ1ZTsNCn0NC" +
+                        "g0KcHJpdmF0ZSB2b2lkIHRhYmxlQ2VsbDIwX1N1bW1hcnlSZXNldChvYmplY3Qgc2VuZGVyLCBTeXN0Z" +
+                        "W0uRXZlbnRBcmdzIGUpIHsNCglkRnVlbFZvbHVtZSA9IDAuMDsNCn0NCg0KcHJpdmF0ZSB2b2lkIHRhY" +
+                        "mxlQ2VsbDIwX1N1bW1hcnlSb3dDaGFuZ2VkKG9iamVjdCBzZW5kZXIsIFN5c3RlbS5FdmVudEFyZ3MgZ" +
+                        "Skgew0KCVN5c3RlbS5Eb3VibGUgZEZWTm93ID0gQ29udmVydC5Ub0RvdWJsZShEZXRhaWxSZXBvcnQuR" +
+                        "2V0Q3VycmVudENvbHVtblZhbHVlKCLQo9GA0L7QstC10L3RjCDRgtC+0L/Qu9C40LLQsCIpKTsNCglpZ" +
+                        "iAoZEZ1ZWxWb2x1bWVQcmV2ID4gZEZWTm93KQ0KCQlkRnVlbFZvbHVtZSArPSAoZEZ1ZWxWb2x1bWVQc" +
+                        "mV2IC0gZEZWTm93KTsNCglkRnVlbFZvbHVtZVByZXYgPSBkRlZOb3c7DQp9DQoNCnByaXZhdGUgdm9pZ" +
+                        "CB0YWJsZUNlbGwyMF9TdW1tYXJ5R2V0UmVzdWx0KG9iamVjdCBzZW5kZXIsIERldkV4cHJlc3MuWHRyY" +
+                        "VJlcG9ydHMuVUkuU3VtbWFyeUdldFJlc3VsdEV2ZW50QXJncyBlKSB7DQoJZS5SZXN1bHQgPSBkRnVlb" +
+                        "FZvbHVtZTsNCgllLkhhbmRsZWQgPSB0cnVlOw0KfQ0KDQpwcml2YXRlIHZvaWQgdGFibGUyX0JlZm9yZ" +
+                        "VByaW50KG9iamVjdCBzZW5kZXIsIFN5c3RlbS5EcmF3aW5nLlByaW50aW5nLlByaW50RXZlbnRBcmdzI" +
+                        "GUpIHsNCglEZXZFeHByZXNzLlh0cmFSZXBvcnRzLlVJLlhSVGFibGUgcm93ID0gKERldkV4cHJlc3MuW" +
+                        "HRyYVJlcG9ydHMuVUkuWFJUYWJsZSlzZW5kZXI7DQoJcm93LkJhY2tDb2xvciA9ICgwICE9ICgrK25Sb" +
+                        "3dOdW0gJSAyKSkgPyBDb2xvci5HYWluc2Jvcm8gOiBDb2xvci5UcmFuc3BhcmVudDsNCn0NCg==";
                     this._resources = new DevExpress.XtraReports.Serialization.XRResourceManager(resourceString);
                 }
                 return this._resources;
@@ -144,19 +131,11 @@ namespace XtraReportSerialization {
             this.BottomMargin = new DevExpress.XtraReports.UI.BottomMarginBand();
             this.PageHeader = new DevExpress.XtraReports.UI.PageHeaderBand();
             this.GroupHeader1 = new DevExpress.XtraReports.UI.GroupHeaderBand();
-            this.PageFooter = new DevExpress.XtraReports.UI.PageFooterBand();
             this.DetailReport = new DevExpress.XtraReports.UI.DetailReportBand();
-            this.ReportFooter = new DevExpress.XtraReports.UI.ReportFooterBand();
+            this.ReportHeader = new DevExpress.XtraReports.UI.ReportHeaderBand();
             this.label1 = new DevExpress.XtraReports.UI.XRLabel();
+            this.pageInfo2 = new DevExpress.XtraReports.UI.XRPageInfo();
             this.table1 = new DevExpress.XtraReports.UI.XRTable();
-            this.label10 = new DevExpress.XtraReports.UI.XRLabel();
-            this.label9 = new DevExpress.XtraReports.UI.XRLabel();
-            this.label8 = new DevExpress.XtraReports.UI.XRLabel();
-            this.label7 = new DevExpress.XtraReports.UI.XRLabel();
-            this.label6 = new DevExpress.XtraReports.UI.XRLabel();
-            this.label5 = new DevExpress.XtraReports.UI.XRLabel();
-            this.label4 = new DevExpress.XtraReports.UI.XRLabel();
-            this.label2 = new DevExpress.XtraReports.UI.XRLabel();
             this.tableRow1 = new DevExpress.XtraReports.UI.XRTableRow();
             this.tableCell1 = new DevExpress.XtraReports.UI.XRTableCell();
             this.tableCell2 = new DevExpress.XtraReports.UI.XRTableCell();
@@ -168,9 +147,9 @@ namespace XtraReportSerialization {
             this.tableCell8 = new DevExpress.XtraReports.UI.XRTableCell();
             this.tableCell9 = new DevExpress.XtraReports.UI.XRTableCell();
             this.tableCell10 = new DevExpress.XtraReports.UI.XRTableCell();
-            this.pageInfo2 = new DevExpress.XtraReports.UI.XRPageInfo();
             this.Detail1 = new DevExpress.XtraReports.UI.DetailBand();
             this.GroupHeader2 = new DevExpress.XtraReports.UI.GroupHeaderBand();
+            this.ReportFooter = new DevExpress.XtraReports.UI.ReportFooterBand();
             this.table2 = new DevExpress.XtraReports.UI.XRTable();
             this.tableRow2 = new DevExpress.XtraReports.UI.XRTableRow();
             this.tableCell11 = new DevExpress.XtraReports.UI.XRTableCell();
@@ -183,9 +162,16 @@ namespace XtraReportSerialization {
             this.tableCell18 = new DevExpress.XtraReports.UI.XRTableCell();
             this.tableCell19 = new DevExpress.XtraReports.UI.XRTableCell();
             this.tableCell20 = new DevExpress.XtraReports.UI.XRTableCell();
-            this.label12 = new DevExpress.XtraReports.UI.XRLabel();
             this.pageInfo1 = new DevExpress.XtraReports.UI.XRPageInfo();
-            this.Неч_стр = new DevExpress.XtraReports.UI.XRControlStyle();
+            this.label12 = new DevExpress.XtraReports.UI.XRLabel();
+            this.label2 = new DevExpress.XtraReports.UI.XRLabel();
+            this.label4 = new DevExpress.XtraReports.UI.XRLabel();
+            this.label5 = new DevExpress.XtraReports.UI.XRLabel();
+            this.label6 = new DevExpress.XtraReports.UI.XRLabel();
+            this.label7 = new DevExpress.XtraReports.UI.XRLabel();
+            this.label8 = new DevExpress.XtraReports.UI.XRLabel();
+            this.label9 = new DevExpress.XtraReports.UI.XRLabel();
+            this.label10 = new DevExpress.XtraReports.UI.XRLabel();
             this.calculatedField1 = new DevExpress.XtraReports.UI.CalculatedField();
             this.calculatedField2 = new DevExpress.XtraReports.UI.CalculatedField();
             ((System.ComponentModel.ISupportInitialize)(this.table1)).BeginInit();
@@ -194,6 +180,8 @@ namespace XtraReportSerialization {
             // 
             // TopMargin
             // 
+            this.TopMargin.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+                        this.label1});
             this.TopMargin.HeightF = 50F;
             this.TopMargin.Name = "TopMargin";
             // 
@@ -204,66 +192,72 @@ namespace XtraReportSerialization {
             // 
             // BottomMargin
             // 
-            this.BottomMargin.HeightF = 3F;
+            this.BottomMargin.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+                        this.pageInfo2});
+            this.BottomMargin.HeightF = 45F;
             this.BottomMargin.Name = "BottomMargin";
             // 
             // PageHeader
             // 
             this.PageHeader.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
-                        this.label1});
-            this.PageHeader.HeightF = 50.00001F;
+                        this.table1});
+            this.PageHeader.HeightF = 75F;
             this.PageHeader.Name = "PageHeader";
             // 
             // GroupHeader1
             // 
-            this.GroupHeader1.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
-                        this.table1,
-                        this.label10,
-                        this.label9,
-                        this.label8,
-                        this.label7,
-                        this.label6,
-                        this.label5,
-                        this.label4,
-                        this.label2});
-            this.GroupHeader1.HeightF = 170.8333F;
+            this.GroupHeader1.HeightF = 0F;
             this.GroupHeader1.Name = "GroupHeader1";
-            // 
-            // PageFooter
-            // 
-            this.PageFooter.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
-                        this.pageInfo2});
-            this.PageFooter.HeightF = 45.99997F;
-            this.PageFooter.Name = "PageFooter";
             // 
             // DetailReport
             // 
             this.DetailReport.Bands.AddRange(new DevExpress.XtraReports.UI.Band[] {
                         this.Detail1,
-                        this.GroupHeader2});
+                        this.GroupHeader2,
+                        this.ReportFooter});
             this.DetailReport.DataMember = "PLFReport_FullCalendar";
             this.DetailReport.Level = 0;
             this.DetailReport.Name = "DetailReport";
             // 
-            // ReportFooter
+            // ReportHeader
             // 
-            this.ReportFooter.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
-                        this.label12,
-                        this.pageInfo1});
-            this.ReportFooter.HeightF = 35.4167F;
-            this.ReportFooter.Name = "ReportFooter";
+            this.ReportHeader.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+                        this.label2,
+                        this.label4,
+                        this.label5,
+                        this.label6,
+                        this.label7,
+                        this.label8,
+                        this.label9,
+                        this.label10});
+            this.ReportHeader.HeightF = 120F;
+            this.ReportHeader.Name = "ReportHeader";
             // 
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.Blue;
-            this.label1.LocationFloat = new DevExpress.Utils.PointFloat(0F, 20.83333F);
+            this.label1.LocationFloat = new DevExpress.Utils.PointFloat(0F, 30.83331F);
             this.label1.Name = "label1";
             this.label1.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
             this.label1.SizeF = new System.Drawing.SizeF(376.0417F, 19.16669F);
             this.label1.StylePriority.UseFont = false;
             this.label1.StylePriority.UseForeColor = false;
             this.label1.Text = "Эффективность использования ТС по дням";
+            // 
+            // pageInfo2
+            // 
+            this.pageInfo2.Font = new System.Drawing.Font("Tahoma", 9F);
+            this.pageInfo2.ForeColor = System.Drawing.Color.Blue;
+            this.pageInfo2.Format = "Страница {0} из {1}";
+            this.pageInfo2.LocationFloat = new DevExpress.Utils.PointFloat(507.9165F, 0F);
+            this.pageInfo2.Name = "pageInfo2";
+            this.pageInfo2.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.pageInfo2.SizeF = new System.Drawing.SizeF(292.0835F, 22.99998F);
+            this.pageInfo2.StylePriority.UseFont = false;
+            this.pageInfo2.StylePriority.UseForeColor = false;
+            this.pageInfo2.StylePriority.UseTextAlignment = false;
+            this.pageInfo2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
             // 
             // table1
             // 
@@ -274,122 +268,17 @@ namespace XtraReportSerialization {
                         | DevExpress.XtraPrinting.BorderSide.Bottom)));
             this.table1.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
             this.table1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.table1.LocationFloat = new DevExpress.Utils.PointFloat(0F, 127.0833F);
+            this.table1.LocationFloat = new DevExpress.Utils.PointFloat(0F, 31.25001F);
             this.table1.Name = "table1";
             this.table1.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
                         this.tableRow1});
-            this.table1.SizeF = new System.Drawing.SizeF(649.7919F, 43.74999F);
+            this.table1.SizeF = new System.Drawing.SizeF(800.0001F, 43.74999F);
             this.table1.StylePriority.UseBackColor = false;
             this.table1.StylePriority.UseBorders = false;
             this.table1.StylePriority.UseFont = false;
             this.table1.StylePriority.UseForeColor = false;
             this.table1.StylePriority.UseTextAlignment = false;
             this.table1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
-            // 
-            // label10
-            // 
-            this.label10.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.label10.LocationFloat = new DevExpress.Utils.PointFloat(143.75F, 79.00003F);
-            this.label10.Name = "label10";
-            this.label10.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.label10.SizeF = new System.Drawing.SizeF(256.25F, 22.99998F);
-            this.label10.StylePriority.UseFont = false;
-            this.label10.StylePriority.UseForeColor = false;
-            this.label10.Text = "с [PlfHeader_1.С] по [PlfHeader_1.По]";
-            // 
-            // label9
-            // 
-            this.label9.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.label9.LocationFloat = new DevExpress.Utils.PointFloat(0F, 79.00002F);
-            this.label9.Name = "label9";
-            this.label9.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.label9.SizeF = new System.Drawing.SizeF(137.5F, 23F);
-            this.label9.StylePriority.UseFont = false;
-            this.label9.StylePriority.UseForeColor = false;
-            this.label9.StylePriority.UseTextAlignment = false;
-            this.label9.Text = "Выбранный период:";
-            this.label9.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight;
-            // 
-            // label8
-            // 
-            this.label8.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.label8.LocationFloat = new DevExpress.Utils.PointFloat(143.75F, 56.00001F);
-            this.label8.Name = "label8";
-            this.label8.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.label8.SizeF = new System.Drawing.SizeF(256.25F, 23F);
-            this.label8.StylePriority.UseFont = false;
-            this.label8.StylePriority.UseForeColor = false;
-            this.label8.Text = "[PlfHeader_1.Имя водителя] ([PlfHeader_1.Регистрационный номер])";
-            // 
-            // label7
-            // 
-            this.label7.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.label7.LocationFloat = new DevExpress.Utils.PointFloat(0F, 56.00001F);
-            this.label7.Name = "label7";
-            this.label7.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.label7.SizeF = new System.Drawing.SizeF(137.5F, 23F);
-            this.label7.StylePriority.UseFont = false;
-            this.label7.StylePriority.UseForeColor = false;
-            this.label7.StylePriority.UseTextAlignment = false;
-            this.label7.Text = "ТС:";
-            this.label7.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight;
-            // 
-            // label6
-            // 
-            this.label6.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.label6.LocationFloat = new DevExpress.Utils.PointFloat(143.75F, 33.00002F);
-            this.label6.Name = "label6";
-            this.label6.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.label6.SizeF = new System.Drawing.SizeF(256.25F, 23F);
-            this.label6.StylePriority.UseFont = false;
-            this.label6.StylePriority.UseForeColor = false;
-            this.label6.Text = "Тест1";
-            // 
-            // label5
-            // 
-            this.label5.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.label5.LocationFloat = new DevExpress.Utils.PointFloat(0F, 33.00001F);
-            this.label5.Name = "label5";
-            this.label5.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.label5.SizeF = new System.Drawing.SizeF(137.5F, 23F);
-            this.label5.StylePriority.UseFont = false;
-            this.label5.StylePriority.UseForeColor = false;
-            this.label5.StylePriority.UseTextAlignment = false;
-            this.label5.Text = "Автопарк:";
-            this.label5.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight;
-            // 
-            // label4
-            // 
-            this.label4.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "PlfHeader_1.Название организации")});
-            this.label4.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.label4.LocationFloat = new DevExpress.Utils.PointFloat(143.75F, 10.00001F);
-            this.label4.Name = "label4";
-            this.label4.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.label4.SizeF = new System.Drawing.SizeF(256.25F, 23F);
-            this.label4.StylePriority.UseFont = false;
-            this.label4.StylePriority.UseForeColor = false;
-            // 
-            // label2
-            // 
-            this.label2.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.label2.LocationFloat = new DevExpress.Utils.PointFloat(0F, 10.00001F);
-            this.label2.Name = "label2";
-            this.label2.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.label2.SizeF = new System.Drawing.SizeF(137.5F, 23F);
-            this.label2.StylePriority.UseFont = false;
-            this.label2.StylePriority.UseForeColor = false;
-            this.label2.StylePriority.UseTextAlignment = false;
-            this.label2.Text = "Организация:";
-            this.label2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight;
             // 
             // tableRow1
             // 
@@ -412,7 +301,7 @@ namespace XtraReportSerialization {
             this.tableCell1.CanGrow = false;
             this.tableCell1.Name = "tableCell1";
             this.tableCell1.Text = "Дата";
-            this.tableCell1.Weight = 0.3832038868721615;
+            this.tableCell1.Weight = 0.427761873173837;
             // 
             // tableCell2
             // 
@@ -420,77 +309,63 @@ namespace XtraReportSerialization {
             this.tableCell2.Name = "tableCell2";
             this.tableCell2.Scripts.OnSummaryReset = "tableCell2_SummaryReset";
             this.tableCell2.Text = "День";
-            this.tableCell2.Weight = 0.1930867235830708;
+            this.tableCell2.Weight = 0.23764549857943421;
             // 
             // tableCell3
             // 
             this.tableCell3.CanGrow = false;
             this.tableCell3.Name = "tableCell3";
             this.tableCell3.Text = "Начало";
-            this.tableCell3.Weight = 0.25051935623118105;
+            this.tableCell3.Weight = 0.38023278957366763;
             // 
             // tableCell4
             // 
             this.tableCell4.CanGrow = false;
             this.tableCell4.Name = "tableCell4";
-            this.tableCell4.Text = "Оконча-ние";
-            this.tableCell4.Weight = 0.27230064026552081;
+            this.tableCell4.Text = "Окончание";
+            this.tableCell4.Weight = 0.38023278306705433;
             // 
             // tableCell5
             // 
             this.tableCell5.CanGrow = false;
             this.tableCell5.Name = "tableCell5";
             this.tableCell5.Text = "Общая длительность";
-            this.tableCell5.Weight = 0.44954809253594757;
+            this.tableCell5.Weight = 0.47529097836327006;
             // 
             // tableCell6
             // 
             this.tableCell6.CanGrow = false;
             this.tableCell6.Name = "tableCell6";
             this.tableCell6.Text = "Движение";
-            this.tableCell6.Weight = 0.33270371998778908;
+            this.tableCell6.Weight = 0.38023278263694715;
             // 
             // tableCell7
             // 
             this.tableCell7.CanGrow = false;
             this.tableCell7.Name = "tableCell7";
             this.tableCell7.Text = "Стоянка";
-            this.tableCell7.Weight = 0.35646826113127439;
+            this.tableCell7.Weight = 0.38023277432494107;
             // 
             // tableCell8
             // 
             this.tableCell8.CanGrow = false;
             this.tableCell8.Name = "tableCell8";
             this.tableCell8.Text = "Путь";
-            this.tableCell8.Weight = 0.29356545475239126;
+            this.tableCell8.Weight = 0.33270369433708397;
             // 
             // tableCell9
             // 
             this.tableCell9.CanGrow = false;
             this.tableCell9.Name = "tableCell9";
-            this.tableCell9.Text = "Спидо-метр";
-            this.tableCell9.Weight = 0.25035976865801013;
+            this.tableCell9.Text = "Спидо метр";
+            this.tableCell9.Weight = 0.42776188013666294;
             // 
             // tableCell10
             // 
             this.tableCell10.CanGrow = false;
             this.tableCell10.Name = "tableCell10";
             this.tableCell10.Text = "Топливо";
-            this.tableCell10.Weight = 0.306646302617888;
-            // 
-            // pageInfo2
-            // 
-            this.pageInfo2.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.pageInfo2.ForeColor = System.Drawing.Color.Blue;
-            this.pageInfo2.Format = "Страница {0} из {1}";
-            this.pageInfo2.LocationFloat = new DevExpress.Utils.PointFloat(357.2916F, 0F);
-            this.pageInfo2.Name = "pageInfo2";
-            this.pageInfo2.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.pageInfo2.SizeF = new System.Drawing.SizeF(292.0835F, 22.99998F);
-            this.pageInfo2.StylePriority.UseFont = false;
-            this.pageInfo2.StylePriority.UseForeColor = false;
-            this.pageInfo2.StylePriority.UseTextAlignment = false;
-            this.pageInfo2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            this.tableCell10.Weight = 0.38023314878032988;
             // 
             // Detail1
             // 
@@ -506,6 +381,14 @@ namespace XtraReportSerialization {
             this.GroupHeader2.HeightF = 25F;
             this.GroupHeader2.Name = "GroupHeader2";
             // 
+            // ReportFooter
+            // 
+            this.ReportFooter.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+                        this.pageInfo1,
+                        this.label12});
+            this.ReportFooter.HeightF = 45F;
+            this.ReportFooter.Name = "ReportFooter";
+            // 
             // table2
             // 
             this.table2.Borders = ((DevExpress.XtraPrinting.BorderSide)(((DevExpress.XtraPrinting.BorderSide.Left | DevExpress.XtraPrinting.BorderSide.Right) 
@@ -515,7 +398,8 @@ namespace XtraReportSerialization {
             this.table2.Name = "table2";
             this.table2.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
                         this.tableRow2});
-            this.table2.SizeF = new System.Drawing.SizeF(649.7919F, 25F);
+            this.table2.Scripts.OnBeforePrint = "table2_BeforePrint";
+            this.table2.SizeF = new System.Drawing.SizeF(800.0001F, 25F);
             this.table2.StylePriority.UseBorders = false;
             this.table2.StylePriority.UseFont = false;
             this.table2.StylePriority.UseTextAlignment = false;
@@ -547,7 +431,7 @@ namespace XtraReportSerialization {
             this.tableCell11.Summary = summary1;
             this.tableCell11.Text = "tableCell11";
             this.tableCell11.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
-            this.tableCell11.Weight = 0.26875028153235292;
+            this.tableCell11.Weight = 0.30000090696575693;
             // 
             // tableCell12
             // 
@@ -557,7 +441,7 @@ namespace XtraReportSerialization {
             this.tableCell12.StylePriority.UseTextAlignment = false;
             this.tableCell12.Text = "tableCell12";
             this.tableCell12.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
-            this.tableCell12.Weight = 0.13541651324966805;
+            this.tableCell12.Weight = 0.16666712596737732;
             this.tableCell12.XlsxFormatString = "{0:ddd}";
             // 
             // tableCell13
@@ -573,7 +457,7 @@ namespace XtraReportSerialization {
             this.tableCell13.Summary = summary2;
             this.tableCell13.Text = "[ДатаВремя]";
             this.tableCell13.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
-            this.tableCell13.Weight = 0.17569541921693294;
+            this.tableCell13.Weight = 0.26666740305045317;
             this.tableCell13.XlsxFormatString = "";
             // 
             // tableCell14
@@ -589,7 +473,7 @@ namespace XtraReportSerialization {
             this.tableCell14.Summary = summary3;
             this.tableCell14.Text = "tableCell14";
             this.tableCell14.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
-            this.tableCell14.Weight = 0.19097127177482717;
+            this.tableCell14.Weight = 0.26666752277122713;
             // 
             // tableCell15
             // 
@@ -607,7 +491,7 @@ namespace XtraReportSerialization {
             this.tableCell15.Summary = summary4;
             this.tableCell15.Text = "tableCell15";
             this.tableCell15.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
-            this.tableCell15.Weight = 0.31527923583534717;
+            this.tableCell15.Weight = 0.33333430164859096;
             this.tableCell15.XlsxFormatString = "";
             // 
             // tableCell16
@@ -625,7 +509,7 @@ namespace XtraReportSerialization {
             this.tableCell16.Summary = summary5;
             this.tableCell16.Text = "tableCell16";
             this.tableCell16.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
-            this.tableCell16.Weight = 0.233333345679476;
+            this.tableCell16.Weight = 0.26666733596921782;
             // 
             // tableCell17
             // 
@@ -640,7 +524,7 @@ namespace XtraReportSerialization {
             this.tableCell17.Summary = summary6;
             this.tableCell17.Text = "tableCell17";
             this.tableCell17.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
-            this.tableCell17.Weight = 0.25000000702966957;
+            this.tableCell17.Weight = 0.26666718019426666;
             // 
             // tableCell18
             // 
@@ -653,14 +537,14 @@ namespace XtraReportSerialization {
             this.tableCell18.Summary = summary7;
             this.tableCell18.Text = "tableCell18";
             this.tableCell18.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
-            this.tableCell18.Weight = 0.20588490532331735;
+            this.tableCell18.Weight = 0.23333442813037969;
             // 
             // tableCell19
             // 
             this.tableCell19.Name = "tableCell19";
             this.tableCell19.StylePriority.UseTextAlignment = false;
             this.tableCell19.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
-            this.tableCell19.Weight = 0.17558329116293689;
+            this.tableCell19.Weight = 0.3000005657621912;
             // 
             // tableCell20
             // 
@@ -678,30 +562,14 @@ namespace XtraReportSerialization {
             this.tableCell20.Summary = summary8;
             this.tableCell20.Text = "tableCell20";
             this.tableCell20.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
-            this.tableCell20.Weight = 0.21505865585257084;
-            // 
-            // label12
-            // 
-            this.label12.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "PlfHeader_1.Имя пользователя", "Отчет сформировал:   {0:}")});
-            this.label12.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.label12.ForeColor = System.Drawing.Color.Blue;
-            this.label12.LocationFloat = new DevExpress.Utils.PointFloat(10.00001F, 12.41671F);
-            this.label12.Name = "label12";
-            this.label12.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.label12.SizeF = new System.Drawing.SizeF(294.5837F, 22.99998F);
-            this.label12.StylePriority.UseFont = false;
-            this.label12.StylePriority.UseForeColor = false;
-            this.label12.StylePriority.UseTextAlignment = false;
-            this.label12.Text = "[PlfHeader_1.Имя пользователя]";
-            this.label12.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
+            this.tableCell20.Weight = 0.26666789692554171;
             // 
             // pageInfo1
             // 
             this.pageInfo1.Font = new System.Drawing.Font("Tahoma", 9F);
             this.pageInfo1.ForeColor = System.Drawing.Color.Blue;
-            this.pageInfo1.Format = "Дата:   {0:dd MM yyyy HH:mm}";
-            this.pageInfo1.LocationFloat = new DevExpress.Utils.PointFloat(357.2916F, 12.41669F);
+            this.pageInfo1.Format = "Дата:   {0:dd.MM.yyyy HH:mm}";
+            this.pageInfo1.LocationFloat = new DevExpress.Utils.PointFloat(507.9165F, 9.999974F);
             this.pageInfo1.Name = "pageInfo1";
             this.pageInfo1.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
             this.pageInfo1.PageInfo = DevExpress.XtraPrinting.PageInfo.DateTime;
@@ -711,10 +579,126 @@ namespace XtraReportSerialization {
             this.pageInfo1.StylePriority.UseTextAlignment = false;
             this.pageInfo1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
             // 
-            // Неч_стр
+            // label12
             // 
-            this.Неч_стр.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.Неч_стр.Name = "Неч_стр";
+            this.label12.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "PlfHeader_1.Имя пользователя", "Отчет сформировал:   {0:}")});
+            this.label12.Font = new System.Drawing.Font("Tahoma", 9F);
+            this.label12.ForeColor = System.Drawing.Color.Blue;
+            this.label12.LocationFloat = new DevExpress.Utils.PointFloat(10.00001F, 9.999974F);
+            this.label12.Name = "label12";
+            this.label12.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.label12.SizeF = new System.Drawing.SizeF(294.5837F, 22.99998F);
+            this.label12.StylePriority.UseFont = false;
+            this.label12.StylePriority.UseForeColor = false;
+            this.label12.StylePriority.UseTextAlignment = false;
+            this.label12.Text = "[PlfHeader_1.Имя пользователя]";
+            this.label12.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
+            // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.label2.LocationFloat = new DevExpress.Utils.PointFloat(0F, 22F);
+            this.label2.Name = "label2";
+            this.label2.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.label2.SizeF = new System.Drawing.SizeF(137.5F, 23F);
+            this.label2.StylePriority.UseFont = false;
+            this.label2.StylePriority.UseForeColor = false;
+            this.label2.StylePriority.UseTextAlignment = false;
+            this.label2.Text = "Организация:";
+            this.label2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight;
+            // 
+            // label4
+            // 
+            this.label4.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "PlfHeader_1.Название организации")});
+            this.label4.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.label4.LocationFloat = new DevExpress.Utils.PointFloat(143.75F, 22F);
+            this.label4.Name = "label4";
+            this.label4.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.label4.SizeF = new System.Drawing.SizeF(256.25F, 23F);
+            this.label4.StylePriority.UseFont = false;
+            this.label4.StylePriority.UseForeColor = false;
+            // 
+            // label5
+            // 
+            this.label5.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.label5.LocationFloat = new DevExpress.Utils.PointFloat(0F, 45F);
+            this.label5.Name = "label5";
+            this.label5.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.label5.SizeF = new System.Drawing.SizeF(137.5F, 23F);
+            this.label5.StylePriority.UseFont = false;
+            this.label5.StylePriority.UseForeColor = false;
+            this.label5.StylePriority.UseTextAlignment = false;
+            this.label5.Text = "Автопарк:";
+            this.label5.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight;
+            // 
+            // label6
+            // 
+            this.label6.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.label6.LocationFloat = new DevExpress.Utils.PointFloat(143.75F, 45F);
+            this.label6.Name = "label6";
+            this.label6.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.label6.SizeF = new System.Drawing.SizeF(256.25F, 23F);
+            this.label6.StylePriority.UseFont = false;
+            this.label6.StylePriority.UseForeColor = false;
+            this.label6.Text = "Тест1";
+            // 
+            // label7
+            // 
+            this.label7.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.label7.LocationFloat = new DevExpress.Utils.PointFloat(0F, 68F);
+            this.label7.Name = "label7";
+            this.label7.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.label7.SizeF = new System.Drawing.SizeF(137.5F, 23F);
+            this.label7.StylePriority.UseFont = false;
+            this.label7.StylePriority.UseForeColor = false;
+            this.label7.StylePriority.UseTextAlignment = false;
+            this.label7.Text = "ТС:";
+            this.label7.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight;
+            // 
+            // label8
+            // 
+            this.label8.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.label8.LocationFloat = new DevExpress.Utils.PointFloat(143.75F, 68F);
+            this.label8.Name = "label8";
+            this.label8.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.label8.SizeF = new System.Drawing.SizeF(256.25F, 23F);
+            this.label8.StylePriority.UseFont = false;
+            this.label8.StylePriority.UseForeColor = false;
+            this.label8.Text = "[PlfHeader_1.Имя водителя] ([PlfHeader_1.Регистрационный номер])";
+            // 
+            // label9
+            // 
+            this.label9.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.label9.LocationFloat = new DevExpress.Utils.PointFloat(0F, 91F);
+            this.label9.Name = "label9";
+            this.label9.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.label9.SizeF = new System.Drawing.SizeF(137.5F, 23F);
+            this.label9.StylePriority.UseFont = false;
+            this.label9.StylePriority.UseForeColor = false;
+            this.label9.StylePriority.UseTextAlignment = false;
+            this.label9.Text = "Выбранный период:";
+            this.label9.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight;
+            // 
+            // label10
+            // 
+            this.label10.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.label10.LocationFloat = new DevExpress.Utils.PointFloat(143.75F, 91F);
+            this.label10.Name = "label10";
+            this.label10.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.label10.SizeF = new System.Drawing.SizeF(256.25F, 22.99998F);
+            this.label10.StylePriority.UseFont = false;
+            this.label10.StylePriority.UseForeColor = false;
+            this.label10.Text = "с [PlfHeader_1.С] по [PlfHeader_1.По]";
             // 
             // calculatedField1
             // 
@@ -727,7 +711,8 @@ namespace XtraReportSerialization {
             // calculatedField2
             // 
             this.calculatedField2.DataMember = "PLFReport_FullCalendar";
-            this.calculatedField2.Expression = "AddMinutes([ДатаВремя], -1)";
+            this.calculatedField2.Expression = "AddMinutes([ДатаВремя], Iif(GetHour([ДатаВремя]) > 0 Or GetMinute([ДатаВремя]) > " +
+                "1,  -1, 0))";
             this.calculatedField2.FieldType = DevExpress.XtraReports.UI.FieldType.DateTime;
             this.calculatedField2.Name = "calculatedField2";
             // 
@@ -739,20 +724,18 @@ namespace XtraReportSerialization {
                         this.BottomMargin,
                         this.PageHeader,
                         this.GroupHeader1,
-                        this.PageFooter,
                         this.DetailReport,
-                        this.ReportFooter});
+                        this.ReportHeader});
             this.CalculatedFields.AddRange(new DevExpress.XtraReports.UI.CalculatedField[] {
                         this.calculatedField1,
                         this.calculatedField2});
-            this.Margins = new System.Drawing.Printing.Margins(100, 100, 50, 3);
+            this.Landscape = true;
+            this.Margins = new System.Drawing.Printing.Margins(100, 100, 50, 45);
             this.Name = "Report1";
-            this.PageHeight = 1100;
-            this.PageWidth = 850;
+            this.PageHeight = 850;
+            this.PageWidth = 1100;
             this.RequestParameters = false;
             this.ScriptsSource = resources.GetString("$this.ScriptsSource");
-            this.StyleSheet.AddRange(new DevExpress.XtraReports.UI.XRControlStyle[] {
-                        this.Неч_стр});
             this.Version = "11.2";
             this.XmlDataPath = "D:\\Work\\SmartFIS\\myDataSourceSchema.xml";
             ((System.ComponentModel.ISupportInitialize)(this.table1)).EndInit();

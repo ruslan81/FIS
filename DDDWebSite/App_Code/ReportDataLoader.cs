@@ -44,22 +44,22 @@ public class ReportDataLoader
         DataTable dt = new DataTable("VehicleOverSpeedingData");
         DataRow dr;
 
-        dt.Columns.Add(new DataColumn("Дата начала", typeof(DateTime)));
-        dt.Columns.Add(new DataColumn("Дата окончания", typeof(DateTime)));
+        dt.Columns.Add(new DataColumn("Дата начала", typeof(string)));
+        dt.Columns.Add(new DataColumn("Дата окончания", typeof(string)));
         dt.Columns.Add(new DataColumn("Имя водителя", typeof(string)));
         dt.Columns.Add(new DataColumn("Максимальная скорость", typeof(int)));
         dt.Columns.Add(new DataColumn("Средняя скорость", typeof(int)));
         dt.Columns.Add(new DataColumn("Причина регистрации", typeof(string)));
 
-        if (data.Count == 0)
-            throw new Exception("нет ни одного нарушения!");
+        /*if (data.Count == 0)
+            throw new Exception("нет ни одного нарушения!");*/
 
         foreach (DDDClass.VuOverSpeedingEventRecord item in data)
         {
             dr = dt.NewRow();
-            dr["Дата начала"] = item.eventBeginTime.getTimeRealDate();
-            dr["Дата окончания"] = item.eventEndTime.getTimeRealDate();
-            dr["Имя водителя"] = "UNKNOWN";
+            dr["Дата начала"] = item.eventBeginTime.getTimeRealDate().ToString("dd.MM.yyyy HH:mm:ss");
+            dr["Дата окончания"] = item.eventEndTime.getTimeRealDate().ToString("dd.MM.yyyy HH:mm:ss");
+            //dr["Имя водителя"] = "UNKNOWN";
             dr["Максимальная скорость"] = item.maxSpeedValue.speed;
             dr["Средняя скорость"] = item.averageSpeedValue.speed;
             dr["Причина регистрации"] = item.eventRecordPurpose.ToString();
@@ -401,16 +401,16 @@ public class ReportDataLoader
     {
         DataTable activityTable = new DataTable("VehiclesDailyData");
         DataRow dr;
-        activityTable.Columns.Add(new DataColumn("Дата", typeof(DateTime)));
-        activityTable.Columns.Add(new DataColumn("Время начала", typeof(TimeSpan)));
-        activityTable.Columns.Add(new DataColumn("Время окончания", typeof(TimeSpan)));
-        activityTable.Columns.Add(new DataColumn("Время вождения", typeof(TimeSpan)));
-        activityTable.Columns.Add(new DataColumn("Время без вождения", typeof(TimeSpan)));
+        activityTable.Columns.Add(new DataColumn("Дата", typeof(string)));
+        activityTable.Columns.Add(new DataColumn("Время начала", typeof(string)));
+        activityTable.Columns.Add(new DataColumn("Время окончания", typeof(string)));
+        activityTable.Columns.Add(new DataColumn("Время вождения", typeof(string)));
+        activityTable.Columns.Add(new DataColumn("Время без вождения", typeof(string)));
         activityTable.Columns.Add(new DataColumn("Дистанция", typeof(int)));
         activityTable.Columns.Add(new DataColumn("Средняя скорость", typeof(Double)));
         activityTable.Columns.Add(new DataColumn("Расход топлива", typeof(Double)));
         activityTable.Columns.Add(new DataColumn("Средний расход", typeof(Double)));
-        activityTable.Columns.Add(new DataColumn("Код активности", typeof(String)));
+        activityTable.Columns.Add(new DataColumn("Код активности", typeof(string)));
         activityTable.Columns.Add(new DataColumn("Одометр Старт", typeof(int)));
 
 
@@ -423,16 +423,15 @@ public class ReportDataLoader
             if (day.vuActivityDailyData.activityChangeInfo.Count == 0)
             {
                 dr = activityTable.NewRow();
-                dr["Дата"] = new DateTime();
-                dr["Время начала"] = new TimeSpan();
-                dr["Время окончания"] = new TimeSpan();
-                dr["Время вождения"] = new TimeSpan();
-                dr["Время без вождения"] = new TimeSpan();
+                dr["Дата"] = todaysDate.ToString("dd.MM.yyyy HH:mm:ss");
+                dr["Время начала"] = new TimeSpan().ToString();
+                dr["Время окончания"] = new TimeSpan().ToString();
+                dr["Время вождения"] = new TimeSpan().ToString();
+                dr["Время без вождения"] = new TimeSpan().ToString();
                 dr["Дистанция"] = 0;
                 dr["Средняя скорость"] = 0;
                 dr["Расход топлива"] = 0;
                 dr["Средний расход"] = 0;
-                dr["Дата"] = todaysDate;
                 activityTable.Rows.Add(dr);
             }
             else
@@ -441,23 +440,23 @@ public class ReportDataLoader
                 {
                     itemIndex = day.vuActivityDailyData.activityChangeInfo.IndexOf(record);
                     dr = activityTable.NewRow();
-                    dr["Время начала"] = day.vuActivityDailyData.getActivityStartTime(itemIndex);
-                    dr["Время окончания"] = day.vuActivityDailyData.getActivityEndTime(itemIndex);
+                    dr["Время начала"] = day.vuActivityDailyData.getActivityStartTime(itemIndex).ToString();
+                    dr["Время окончания"] = day.vuActivityDailyData.getActivityEndTime(itemIndex).ToString();
 
-                    dr["Время вождения"] = new TimeSpan();
-                    dr["Время без вождения"] = new TimeSpan();
-                    dr["Дата"] = todaysDate;
+                    dr["Время вождения"] = new TimeSpan().ToString();
+                    dr["Время без вождения"] = new TimeSpan().ToString();
+                    dr["Дата"] = todaysDate.ToString("dd.MM.yyyy HH:mm:ss");
 
                     if (record.ToString() == "driving")
                     {
-                        dr["Время вождения"] = day.vuActivityDailyData.getActivityEndTime(itemIndex).Subtract(day.vuActivityDailyData.getActivityStartTime(itemIndex));
+                        dr["Время вождения"] = day.vuActivityDailyData.getActivityEndTime(itemIndex).Subtract(day.vuActivityDailyData.getActivityStartTime(itemIndex)).ToString();
                         //dr["Время вождения"] = day.vuActivityDailyData.getActivityDuration(itemIndex);
                         dr["Код активности"] = "D";
                     }
                     else
                     {
                         //dr["Время без вождения"] = day.vuActivityDailyData.getActivityDuration(itemIndex);
-                        dr["Время без вождения"] = day.vuActivityDailyData.getActivityEndTime(itemIndex).Subtract(day.vuActivityDailyData.getActivityStartTime(itemIndex));
+                        dr["Время без вождения"] = day.vuActivityDailyData.getActivityEndTime(itemIndex).Subtract(day.vuActivityDailyData.getActivityStartTime(itemIndex)).ToString();
                         if (record.ToString() == "work")
                             dr["Код активности"] = "W";
                         if (record.ToString() == "availability")

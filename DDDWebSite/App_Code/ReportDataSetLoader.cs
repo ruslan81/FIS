@@ -60,6 +60,7 @@ public class ReportDataSetLoader
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        dataBlock.OpenConnection();
 
         List<DDDClass.VuOverSpeedingEventRecord> vuOverSpeedingEventRecords = new List<DDDClass.VuOverSpeedingEventRecord>();
         vuOverSpeedingEventRecords = dataBlock.vehicleUnitInfo.Get_VehicleEventsAndFaults_VuOverSpeedingEventData(dataBlockIds, from, to);
@@ -67,6 +68,8 @@ public class ReportDataSetLoader
         DataSet dataset = new DataSet();
         dataset.Tables.Add(PlfReportsDataTables.Get_VehicleHeader_1(VehicleId, from, to, curUserId));
         dataset.Tables.Add(ReportDataLoader.VehicleOverSpeedingData(vuOverSpeedingEventRecords));
+
+        dataBlock.CloseConnection();
 
         return dataset;
     }
@@ -209,6 +212,8 @@ public class ReportDataSetLoader
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        dataBlock.OpenConnection();
+
         DataTable activityReport = new DataTable();
         DataSet dataset = new DataSet("VehiclesDailyData");
 
@@ -218,9 +223,35 @@ public class ReportDataSetLoader
         dataset.Tables.Add(PlfReportsDataTables.Get_VehicleHeader_1(VehicleId, from, to, curUserId));
         dataset.Tables.Add(ReportDataLoader.VehicleActivityReport_Data(vehicleActivitiesList));
 
+        dataBlock.CloseConnection();
+
         return dataset;
     }
 
+    public static DataSet Get_Vehicle_ALLDate(int VehicleId, List<int> dataBlockIds, DateTime from, DateTime to, int curUserId)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        dataBlock.OpenConnection();
+
+        DataTable activityReport = new DataTable();
+        DataSet dataset = new DataSet("VehiclesAllData");
+
+        List<VehichleUnit.Vehicle_Activities> vehicleActivitiesList = new List<VehichleUnit.Vehicle_Activities>();
+        vehicleActivitiesList = dataBlock.vehicleUnitInfo.Get_VehicleActivities_AllInOne(dataBlockIds, from, to);
+
+        dataset.Tables.Add(PlfReportsDataTables.Get_VehicleHeader_1(VehicleId, from, to, curUserId));
+        dataset.Tables.Add(ReportDataLoader.VehicleActivityReport_Data(vehicleActivitiesList));
+
+        List<DDDClass.VuOverSpeedingEventRecord> vuOverSpeedingEventRecords = new List<DDDClass.VuOverSpeedingEventRecord>();
+        vuOverSpeedingEventRecords = dataBlock.vehicleUnitInfo.Get_VehicleEventsAndFaults_VuOverSpeedingEventData(dataBlockIds, from, to);
+
+        dataset.Tables.Add(ReportDataLoader.VehicleOverSpeedingData(vuOverSpeedingEventRecords));
+
+        dataBlock.CloseConnection();
+
+        return dataset;
+    }
     public static DataSet Get_PLF_ALLData(List<int> dataBlockIds, DateTime from, DateTime to, int DriversCardId, int curUserId, ref List<PLFUnit.PLFRecord> records)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];

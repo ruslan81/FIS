@@ -19,11 +19,11 @@ public partial class Administrator_Report : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        CalendarApplyButton2.ButtOnClick += new EventHandler(ShowReport);
+        /*CalendarApplyButton2.ButtOnClick += new EventHandler(ShowReport);
         Export_OK_Button.ButtOnClick += new EventHandler(ExportButton_Click);
-        SendByEmail.ButtOnClick += new EventHandler(SendReportByEmail);
+        SendByEmail.ButtOnClick += new EventHandler(SendReportByEmail);*/
         
-        object postBackObject = Global.GetPostBackControl(this);
+        /*object postBackObject = Global.GetPostBackControl(this);
         if (postBackObject != null)
         {
             if ("Stimulsoft.Report.Web.StiNextToolButton" == postBackObject.ToString()
@@ -36,20 +36,18 @@ public partial class Administrator_Report : System.Web.UI.Page
             {
                 return;
             }
-        }
+        }*/
         #region "!IsPostBack"
         if (!IsPostBack)
         {           
             try
             {
-                Session["AnyChartStockSession_1"] = null;
-                //((LinkButton)Page.Master.FindControl("ReportsMasterButt")).Enabled = false;
+                /*Session["AnyChartStockSession_1"] = null;
                 UserControlsForAll_BlueButton pan = ((UserControlsForAll_BlueButton)Page.Master.FindControl("ReportsMasterButt"));
-                pan.Enabled = false;
-                //((LinkButton)pan.FindControl("blueButtonLink")).Enabled = false;
+                pan.Enabled = false;*/
 
 
-                Session["maxRecordsCount"] = 1500;
+                //Session["maxRecordsCount"] = 1500;
 
                 string connectionString = System.Configuration.ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
                 BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_EN");
@@ -74,19 +72,19 @@ public partial class Administrator_Report : System.Web.UI.Page
                 Response.Cookies["CURRENT_ORG_ID"].Value = Convert.ToString(orgId);
                 Response.Cookies["CURRENT_USERNAME"].Value = User.Identity.Name;
 
-                Load_Vehicles();
+                /*Load_Vehicles();
                 Load_ReportsList();
                 Load_PLFAndDrivers();
-                LoadPrintExportsLists();
+                LoadPrintExportsLists();*/
             }
             catch (Exception ex)
             {
-                resultActionLabel.Text += " " + ex.Message + " in Page_Load ";
+                throw ex;
             }
         }
         #endregion
         //MasterPage m = (MasterPage)Page.Master;
-        contentPX = 523;
+        /*contentPX = 523;
         //m.ResizeReportDiv(contentPX);
         // FCLiteral.Text = "";
         ChartLiteral.Text = "";
@@ -118,7 +116,7 @@ public partial class Administrator_Report : System.Web.UI.Page
             {
                 PlfReportsRadioButtonList.Items.Remove(PlfReportsRadioButtonList.Items.FindByValue("no report"));
             }
-        }
+        }*/
     }
 
 
@@ -207,14 +205,14 @@ public partial class Administrator_Report : System.Web.UI.Page
     }
 
     /// <summary>
-    ///Получить типы отчетов
+    ///Получить типы отчетов для генерации из plf файлов
     /// </summary>
     /// <returns></returns>
     [System.Web.Services.WebMethod]
-    public static string[] GetReportTypes()
+    public static string[] GetPLFReportTypes()
     {
         //load needed template
-        string[] filePaths = Directory.GetFiles(HttpContext.Current.Server.MapPath("~/templates"));
+        string[] filePaths = Directory.GetFiles(HttpContext.Current.Server.MapPath("~/templates_plf"));
         string[] fileNames = new string[filePaths.Length];
         for (int i = 0; i < filePaths.Length; i++)
         {
@@ -224,11 +222,11 @@ public partial class Administrator_Report : System.Web.UI.Page
     }
 
      /// <summary>
-    ///Получить элементы дерева в разделе "PLF Файлы"
+    ///Получить отчет в разделе "PLF Файлы"
     /// </summary>
     /// <returns></returns>
     [System.Web.Services.WebMethod]
-    public static Report GetReport(String CardID, String PLFID, String UserName, String ReportType)
+    public static Report GetPLFReport(String CardID, String PLFID, String UserName, String ReportType)
     {
         int dataBlockId = int.Parse(PLFID);
         List<int> dataBlockIDS = new List<int>();
@@ -257,11 +255,11 @@ public partial class Administrator_Report : System.Web.UI.Page
         dataBlock.CloseConnection();
 
         //load needed template
-        string path = HttpContext.Current.Server.MapPath("~/templates") + "\\";
+        string path = HttpContext.Current.Server.MapPath("~/templates_plf") + "\\";
         XtraReport report = new XtraReport();
         if (string.IsNullOrEmpty(ReportType))
         {
-            ReportType = "FullReport";
+            ReportType = "Полный отчет";
         }
         report.LoadLayout(path + ReportType+".repx");
         report.DataSource = dataset;
@@ -306,8 +304,132 @@ public partial class Administrator_Report : System.Web.UI.Page
         return r;
     }
 
+    /// <summary>
+    ///Получить элементы дерева в разделе "Транспортные средства"
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static List<VehiclesTreeItem> GetVehiclesTree(String OrgID)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
 
-    DataTable CreateDataSource(List<string> data, int header) //0 - Водители, 1 - ТС, 2 - plf
+        int orgId = Convert.ToInt32(OrgID);
+
+        dataBlock.OpenConnection();
+
+        List<int> cardsList = dataBlock.cardsTable.GetAllCardIds(orgId, dataBlock.cardsTable.vehicleCardTypeId);
+        List<VehiclesTreeItem> vehicles = new List<VehiclesTreeItem>();
+
+        foreach (int cardId in cardsList)
+        {
+            string name = dataBlock.cardsTable.GetCardName(cardId);
+            int vehicleId = dataBlock.vehiclesTables.GetVehicle_byCardId(cardId);
+            string vehicleVin = dataBlock.vehiclesTables.GetVehicleVin(vehicleId);
+
+            VehiclesTreeItem vehiclesTreeItem = new VehiclesTreeItem();
+            vehiclesTreeItem.Name=name;
+            vehiclesTreeItem.VehicleID = vehicleId;
+            vehiclesTreeItem.VehicleVin = vehicleVin;
+            vehiclesTreeItem.Files = new List<VehiclesTreeFileItem>();
+
+            List<int> vehDataBlocks = dataBlock.cardsTable.GetAllDataBlockIds_byCardId(cardId);
+            foreach (int dataBlockId in vehDataBlocks)
+            {
+                List<DateTime> vehsCardPeriod = dataBlock.vehicleUnitInfo.Get_StartEndPeriod(dataBlockId);
+                string fileName=dataBlock.GetDataBlock_FileName(dataBlockId);
+
+                VehiclesTreeFileItem vehiclesTreeFileItem = new VehiclesTreeFileItem();
+                vehiclesTreeFileItem.DataBlockID = dataBlockId;
+                vehiclesTreeFileItem.FileName= dataBlock.GetDataBlock_FileName(dataBlockId);
+                vehiclesTreeFileItem.VehicleCardPeriodBegin = vehsCardPeriod[0].ToShortDateString();
+                vehiclesTreeFileItem.VehicleCardPeriodEnd = vehsCardPeriod[1].ToShortDateString();
+
+                vehiclesTreeItem.Files.Add(vehiclesTreeFileItem);
+            }
+
+            vehicles.Add(vehiclesTreeItem);
+        }
+
+        dataBlock.vehiclesTables.CloseConnection();
+
+
+        return vehicles;
+    }
+
+    /// <summary>
+    ///Получить типы отчетов для генерации из plf файлов
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static string[] GetDDDReportTypes()
+    {
+        //load needed template
+        string[] filePaths = Directory.GetFiles(HttpContext.Current.Server.MapPath("~/templates_ddd"));
+        string[] fileNames = new string[filePaths.Length];
+        for (int i = 0; i < filePaths.Length; i++)
+        {
+            fileNames[i] = Path.GetFileNameWithoutExtension(filePaths[i]);
+        }
+        return fileNames;
+    }
+
+    /// <summary>
+    ///Получить отчет в разделе "Транспортные средства"
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static String GetDDDReport(String DataBlockID, String UserName, String ReportType)
+    {
+        int dataBlockId = int.Parse(DataBlockID);
+        List<int> dataBlockIDS = new List<int>();
+        dataBlockIDS.Add(dataBlockId);
+        throw(new Exception("bla-bla"));
+
+        string connectionString = System.Configuration.ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        dataBlock.OpenConnection();
+
+        DataSet dataset = new DataSet();
+
+        string VIN = dataBlock.vehicleUnitInfo.Get_VehicleOverview_IdentificationNumber(dataBlockId).ToString();
+        string RegNumb = dataBlock.vehicleUnitInfo.Get_VehicleOverview_RegistrationIdentification(dataBlockId).vehicleRegistrationNumber.ToString();
+        int vehicleId = dataBlock.vehiclesTables.GetVehicleId_byVinRegNumbers(VIN, RegNumb);
+
+        List<DateTime> vehsCardPeriod = dataBlock.vehicleUnitInfo.Get_StartEndPeriod(dataBlockId);
+
+        int userId = dataBlock.usersTable.Get_UserID_byName(UserName);
+
+        dataset = ReportDataSetLoader.Get_Vehicle_ALLDate(vehicleId,
+            dataBlockIDS, vehsCardPeriod[0], vehsCardPeriod[1], userId);
+
+        dataBlock.CloseConnection();
+
+        //load needed template
+        string path = HttpContext.Current.Server.MapPath("~/templates_ddd") + "\\";
+        XtraReport report = new XtraReport();
+        if (string.IsNullOrEmpty(ReportType))
+        {
+            ReportType = "Полный отчет";
+        }
+        report.LoadLayout(path + ReportType + ".repx");
+        report.DataSource = dataset;
+        MemoryStream reportStream = new MemoryStream();
+        report.ExportToHtml(reportStream);
+        reportStream.Seek(0, SeekOrigin.Begin);
+
+        // convert stream to string
+        StreamReader reader = new StreamReader(reportStream);
+        string textReport = reader.ReadToEnd();
+
+        return textReport;
+    }
+
+
+    //AJAX END
+
+
+    /*DataTable CreateDataSource(List<string> data, int header) //0 - Водители, 1 - ТС, 2 - plf
     {
         DataTable dt = new DataTable();
         DataRow dr;
@@ -327,11 +449,11 @@ public partial class Administrator_Report : System.Web.UI.Page
             dt.Rows.Add(dr);
         }
         return dt;
-    }
+    }*/
 
-    private void Load_Vehicles()
+    /*private void Load_Vehicles()
     {
-      /*  string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
+        string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
         dataBlock.OpenConnection();
         int userID = dataBlock.usersTable.Get_UserID_byName(User.Identity.Name);
@@ -357,11 +479,11 @@ public partial class Administrator_Report : System.Web.UI.Page
             }
         }
         dataBlock.vehiclesTables.CloseConnection();
-        *///Все убрал, пока не разберусь с подключениями
-        VehiclesTreeView.CollapseAll();
-    }
+        ///Все убрал, пока не разберусь с подключениями
+        //VehiclesTreeView.CollapseAll();
+    }*/
 
-    private void Load_PLFAndDrivers()
+    /*private void Load_PLFAndDrivers()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
@@ -429,14 +551,14 @@ public partial class Administrator_Report : System.Web.UI.Page
         dataBlock.CloseConnection();
         DriversTreeView.CollapseAll();
         PLFTreeView.CollapseAll();
-    }
+    }*/
 
-    private void Load_ReportsList()
+    /*private void Load_ReportsList()
     {
         PlfReportsPickUpdatePanel1.Update();
-    }
+    }*/
 
-    private void LoadPlfReports()
+    /*private void LoadPlfReports()
     {
         PlfReportsRadioButtonList.Items.Clear();
         //PlfReportsRadioButtonList.RepeatColumns = 3;
@@ -447,9 +569,9 @@ public partial class Administrator_Report : System.Web.UI.Page
         PlfReportsRadioButtonList.Items.Add(new ListItem("Отчет за период", "Отчет за период"));
         PlfReportsRadioButtonList.Items.Add(new ListItem("Не показывать таблицы", "Не показывать таблицы"));
         PlfReportsPickUpdatePanel1.Update();
-    }
+    }*/
 
-    private void LoadDriversReports()
+    /*private void LoadDriversReports()
     {
         PlfReportsRadioButtonList.Items.Clear();
         //PlfReportsRadioButtonList.RepeatColumns = 3;
@@ -466,16 +588,16 @@ public partial class Administrator_Report : System.Web.UI.Page
         MasterPage m = (MasterPage)Page.Master;
         m.ResizeAdditionalConditionsDiv(panelHeight);
 
-    }
+    }*/
 
-    private void LoadMultiDriversReports()
+    /*private void LoadMultiDriversReports()
     {
         PlfReportsRadioButtonList.Items.Clear();
         //PlfReportsRadioButtonList.RepeatColumns = 4;
         PlfReportsRadioButtonList.Items.Add(new ListItem("Итоги по активности(Activity Summary)", "MultiDrivers_ActivitySummary"));
-    }
+    }*/
 
-    private void LoadVehiclesReports()
+    /*private void LoadVehiclesReports()
     {
         PlfReportsRadioButtonList.Items.Clear();
         //PlfReportsRadioButtonList.RepeatColumns = 4;
@@ -483,9 +605,9 @@ public partial class Administrator_Report : System.Web.UI.Page
         PlfReportsRadioButtonList.Items.Add(new ListItem("Превышение скорости", "Vehicle_DriverOverSpeeding"));
         PlfReportsRadioButtonList.Items.Add(new ListItem("Активность ТС", "Vehicle_DailyVehicleActivityProtocol"));
         PlfReportsPickUpdatePanel1.Update();
-    }
+    }*/
 
-    private void LoadPrintExportsLists()
+    /*private void LoadPrintExportsLists()
     {
         ReportsExport_RadioButtonList.Items.Clear();
         ReportsExport_RadioButtonList.Items.Add(new ListItem("PDF", "PDF"));
@@ -495,9 +617,9 @@ public partial class Administrator_Report : System.Web.UI.Page
         ReportsExport_RadioButtonList.Items.Add(new ListItem("Текст (.txt)", "Txt"));
         ReportsExport_RadioButtonList.Items.Add(new ListItem("Изображение (.jpg)", "Jpg"));
         ReportsExport_RadioButtonList.Items[0].Selected = true;
-    }
+    }*/
 
-    protected void DriversTreeView_SelectedNodeChanged(Object sender, EventArgs e)
+    /*protected void DriversTreeView_SelectedNodeChanged(Object sender, EventArgs e)
     {
         resultActionLabel.Text = "";
         ChartsCheckBoxList.Visible = false;
@@ -560,9 +682,6 @@ public partial class Administrator_Report : System.Web.UI.Page
 
             CalendarFromExtender.SelectedDate = startDateList[0];
             CalendarToExtender.SelectedDate = endDateList[endDateList.Count - 1];
-         /*   System.Web.UI.HtmlControls.HtmlGenericControl outputDiv = (System.Web.UI.HtmlControls.HtmlGenericControl)Page.Master.FindControl("outputId");
-            if (outputDiv != null)
-                outputDiv.Style.Add("height", "400px");*/
         }
         catch (Exception ex)
         {
@@ -576,9 +695,9 @@ public partial class Administrator_Report : System.Web.UI.Page
             //ReportUpdatePanel.Update();
            OutputUpdatePanel.Update();
         }
-    }
+    }*/
 
-    protected void ShowReport(object sender, EventArgs e)
+    /*protected void ShowReport(object sender, EventArgs e)
     {
         resultActionLabel.Text = "";
         Exception noSelectedDriver = new Exception("Не выбран объект для отчета!");
@@ -686,7 +805,7 @@ public partial class Administrator_Report : System.Web.UI.Page
                             dataBlock.OpenConnection();
                             string VIN = dataBlock.vehicleUnitInfo.Get_VehicleOverview_IdentificationNumber(dataBlockId).ToString();
                             string RegNumb = dataBlock.vehicleUnitInfo.Get_VehicleOverview_RegistrationIdentification(dataBlockId).vehicleRegistrationNumber.ToString();
-                            int vehicleId = dataBlock.vehiclesTables.GetVehicleId_byVinRegNumbers(VIN, RegNumb);                            
+                            int vehicleId = dataBlock.vehiclesTables.GetVehicleId_byVinRegNumbers(VIN, RegNumb);
                             int cardId = dataBlock.cardsTable.GetCardId(RegNumb, VIN, dataBlock.cardsTable.vehicleCardTypeId);
                             dataBlock.CloseConnection();
                             switch (VehiclesReportType)
@@ -755,8 +874,7 @@ public partial class Administrator_Report : System.Web.UI.Page
                                 PlfReportType = "Выберите тип отчета";
                             else
                                 PlfReportType = Selected_PlfReportsDataGrid_Index.Value;
-                            /*  foreach (TreeNode treeNode in PLFTreeView.SelectedNode.Parent.ChildNodes) //Старая версия с отдельными файлами
-                                  dataBlockIDS.Add(Convert.ToInt32(treeNode.Value)); */
+                            
                             dataBlockIDS = getIdList();
                             if (PLFTreeView.SelectedNode.Parent == null)
                                 throw noSelectedDriver;
@@ -802,9 +920,9 @@ public partial class Administrator_Report : System.Web.UI.Page
                                     {
                                         string filePath;
                                         //PHOTO
-                                       /* int vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.VehiclePhotoAddress);
-                                        string filePath = dataBlock.vehiclesTables.GetVehicleInfoValue(selectedVehID, vehInfoId);
-                                        if (filePath == "")*/
+                                        //int vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.VehiclePhotoAddress);
+                                        //string filePath = dataBlock.vehiclesTables.GetVehicleInfoValue(selectedVehID, vehInfoId);
+                                        //if (filePath == "")
                                         filePath = "~/images/unknown_vehicle.jpg";
                                         dataset = ReportDataSetLoader.Get_PlfUnitsByDays(dataBlockIDS, from, to, cardId, userId, ref records, filePath);
                                         LoadStiReport(dataset, "Reports/PLFReports/PlfUnitsByDays.mrt");
@@ -836,11 +954,11 @@ public partial class Administrator_Report : System.Web.UI.Page
                                 if (ChartsCheckBoxList.SelectedValue != null && ChartsCheckBoxList.SelectedValue != "")
                                 {
                                     //Для теста приближения, не забыть убрать потом!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                              /*      for (int i = 0; i < records.Count; i++)
-                                    {
-                                        records[i].FUEL_COUNTER = records[i].FUEL_VOLUME1;
-                                    }
-                                    PLFUnit.PLFUnitClass.FFT_Fuel(ref records);*/
+                                    //for (int i = 0; i < records.Count; i++)
+                                    //{
+                                    //    records[i].FUEL_COUNTER = records[i].FUEL_VOLUME1;
+                                    //}
+                                    //PLFUnit.PLFUnitClass.FFT_Fuel(ref records);
                                     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                                     AnycahrtPanel.Visible = true;
                                     string xmlName = "";
@@ -877,21 +995,15 @@ public partial class Administrator_Report : System.Web.UI.Page
         {            
             ModalPopupExtender1.Hide();
         }
-    }
+    }*/
 
-    private void LoadStiReport(DataSet dataset, string Path)
+    /*private void LoadStiReport(DataSet dataset, string Path)
     {
         NavigationReportControl1.Visible = true;
         NavigationReportControl1.SetReportData(dataset, Path);
+    }*/
 
-       /* Stimulsoft.Report.StiReport report = new Stimulsoft.Report.StiReport();
-        report.Load(Server.MapPath(Path));
-        report.RegData(dataset);
-        StiWebViewer1.Report = report;
-        StiWebViewer1.Visible = true;*/
-    }
-
-    private Stimulsoft.Report.StiExportFormat getExportFormat()
+    /*private Stimulsoft.Report.StiExportFormat getExportFormat()
     {
         Stimulsoft.Report.StiExportFormat exportFormat;
         switch (ReportsExport_RadioButtonList_SelectedValHiddenField.Value)
@@ -912,9 +1024,9 @@ public partial class Administrator_Report : System.Web.UI.Page
                 { exportFormat = Stimulsoft.Report.StiExportFormat.Text; } break;
         }
         return exportFormat;
-    }
+    }*/
 
-    protected void ExportButton_Click(object s, EventArgs e)
+    /*protected void ExportButton_Click(object s, EventArgs e)
     {
         try
         {
@@ -929,9 +1041,9 @@ public partial class Administrator_Report : System.Web.UI.Page
             resultActionLabel.Text = ex.Message;
             HiddenFieldUpdatePanel.Update();
         }
-    }
+    }*/
 
-    public Stimulsoft.Report.StiPagesRange GetPagesRange(int reportCurrentPage, int reportPagesCount)
+    /*public Stimulsoft.Report.StiPagesRange GetPagesRange(int reportCurrentPage, int reportPagesCount)
     {
         Stimulsoft.Report.StiPagesRange pagesRange = new Stimulsoft.Report.StiPagesRange();
         bool shit = CustomPages_RadioButton.Checked;
@@ -951,9 +1063,9 @@ public partial class Administrator_Report : System.Web.UI.Page
                 }
 
         return pagesRange;
-    }
+    }*/
 
-    protected void SendReportByEmail(object sender, EventArgs e)
+    /*protected void SendReportByEmail(object sender, EventArgs e)
     {
         try
         {
@@ -979,9 +1091,9 @@ public partial class Administrator_Report : System.Web.UI.Page
             resultActionLabel.Text = ex.Message;
             HiddenFieldUpdatePanel.Update();
         }
-    }
+    }*/
 
-    protected void VehTree_SelectedNodeChanged(object sender, EventArgs e)
+    /*protected void VehTree_SelectedNodeChanged(object sender, EventArgs e)
     {
         resultActionLabel.Text = "";
         ChartsCheckBoxList.Visible = false;
@@ -1040,9 +1152,7 @@ public partial class Administrator_Report : System.Web.UI.Page
 
             CalendarFromExtender.SelectedDate = startDateList[0];
             CalendarToExtender.SelectedDate = endDateList[endDateList.Count - 1];
-         /*   System.Web.UI.HtmlControls.HtmlGenericControl outputDiv = (System.Web.UI.HtmlControls.HtmlGenericControl)Page.Master.FindControl("outputId");
-            if (outputDiv != null)
-                outputDiv.Style.Add("height", "420px");*/
+         
         }
         catch (Exception ex)
         {
@@ -1056,9 +1166,9 @@ public partial class Administrator_Report : System.Web.UI.Page
             //ReportUpdatePanel.Update();
             OutputUpdatePanel.Update();
         }
-    }
+    }*/
 
-    protected void PLFTree_SelectedNodeChanged(object sender, EventArgs e)
+    /*protected void PLFTree_SelectedNodeChanged(object sender, EventArgs e)
     {
         ChartsCheckBoxList.Visible = false;
         resultActionLabel.Text = "";
@@ -1146,11 +1256,6 @@ public partial class Administrator_Report : System.Web.UI.Page
                 Selected_PlfReportsDataGrid_Index.Value = "";
                 ReportNameLabel.Text = "Выберите отчет";
 
-               /* System.Web.UI.HtmlControls.HtmlGenericControl outputDiv = (System.Web.UI.HtmlControls.HtmlGenericControl)Page.Master.FindControl("outputId");
-                if (outputDiv != null)
-                    outputDiv.Style.Add("height", "400px");*/
-
-
                 HiddenFieldUpdatePanel.Update();
                 ChoisesUpdatePanel.Update();
                 ChartsCheckBoxListUpdatePanel.Update();
@@ -1162,9 +1267,9 @@ public partial class Administrator_Report : System.Web.UI.Page
         {
             resultActionLabel.Text = ex.Message;
         }
-    }
+    }*/
 
-    private string MultiDriversCharts(List<List<int>> data, List<string> driverNames, string ChartName)
+    /*private string MultiDriversCharts(List<List<int>> data, List<string> driverNames, string ChartName)
     {
         List<int> dataBlockIds = new List<int>();
         dataBlockIds = getIdList();
@@ -1199,9 +1304,9 @@ public partial class Administrator_Report : System.Web.UI.Page
         string chartId = "product" + new Random().Next() + new Random().Next();
         //Create the chart - Column 3D Chart with data contained in strXML
         return FusionCharts.RenderChart("../FusionCharts/FCF_MSColumn3D.swf", "", strXML, chartId, "800", "400", false, false);
-    }
+    }*/
 
-    private void compareMultiDates(ref DateTime from, ref DateTime to, DateTime fromComp, DateTime toComp)
+    /*private void compareMultiDates(ref DateTime from, ref DateTime to, DateTime fromComp, DateTime toComp)
     {
         try
         {
@@ -1214,9 +1319,9 @@ public partial class Administrator_Report : System.Web.UI.Page
         {
             throw ex;
         }
-    }
+    }*/
 
-    private List<int> getIdList()
+    /*private List<int> getIdList()
     {
         List<int> dataBlockIds = new List<int>();
         try
@@ -1233,9 +1338,9 @@ public partial class Administrator_Report : System.Web.UI.Page
             throw ex;
         }
         return dataBlockIds;
-    }
+    }*/
 
-    private List<int> getIdList(string input)
+    /*private List<int> getIdList(string input)
     {
         List<int> dataBlockIds = new List<int>();
         try
@@ -1252,9 +1357,9 @@ public partial class Administrator_Report : System.Web.UI.Page
             throw ex;
         }
         return dataBlockIds;
-    }
+    }*/
 
-    protected void MultiDrivers_SelectedIndexChanged(object sender, EventArgs e)
+    /*protected void MultiDrivers_SelectedIndexChanged(object sender, EventArgs e)
     {
         resultActionLabel.Text = "";
         ChartsCheckBoxList.Visible = false;
@@ -1320,9 +1425,9 @@ public partial class Administrator_Report : System.Web.UI.Page
             ChartsCheckBoxListUpdatePanel.Update();
             ReportUpdatePanel.Update();
         }
-    }
+    }*/
 
-    protected void SelectAllMultiDrivers(object sender, EventArgs e)
+    /*protected void SelectAllMultiDrivers(object sender, EventArgs e)
     {
         bool setSelected = true;
 
@@ -1335,18 +1440,18 @@ public partial class Administrator_Report : System.Web.UI.Page
         }
 
         MultiDrivers_SelectedIndexChanged(sender, e);
-    }
+    }*/
 
-    protected void DriverSearchMade(object sender, EventArgs e)
+    /*protected void DriverSearchMade(object sender, EventArgs e)
     {
         DriversTreeView.CollapseAll();
         if (FindNodeByValue(DriversTreeView.Nodes, drSearch.SelectedItem.Text))
         {
             DriversTreeView_SelectedNodeChanged(null, null);
         }
-    }
+    }*/
 
-    private bool FindNodeByValue(TreeNodeCollection n, string name)
+    /*private bool FindNodeByValue(TreeNodeCollection n, string name)
     {
 
         for (int i = 0; i < n.Count; i++)
@@ -1359,18 +1464,18 @@ public partial class Administrator_Report : System.Web.UI.Page
             }
         }
         return false;
-    }
+    }*/
 
-    protected void PlfDriverSearchMade(object sender, EventArgs e)
+    /*protected void PlfDriverSearchMade(object sender, EventArgs e)
     {
         PLFTreeView.CollapseAll();
         if (FindNodeByValue(PLFTreeView.Nodes, plfDrSearch.SelectedItem.Text))
         {
             PLFTree_SelectedNodeChanged(null, null);
         }
-    }
+    }*/
 
-    protected void ChartsCheckBoxList_SelectedIndexChanged(object sender, EventArgs e)
+    /*protected void ChartsCheckBoxList_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (false)
         {
@@ -1404,9 +1509,9 @@ public partial class Administrator_Report : System.Web.UI.Page
                     }
                 }
         }
-    }
+    }*/
 
-    private DateTime getDate(string textBoxName)
+    /*private DateTime getDate(string textBoxName)
     {
         DateTime createdDateTime = new DateTime();
         try
@@ -1420,9 +1525,9 @@ public partial class Administrator_Report : System.Web.UI.Page
             throw new Exception("Укажите временной интервал");
         }
         return createdDateTime;
-    }
+    }*/
 
-    void ShowGraphClick(List<PLFUnit.PLFRecord> plfTable)
+    /*void ShowGraphClick(List<PLFUnit.PLFRecord> plfTable)
     {
         try
         {
@@ -1638,9 +1743,9 @@ public partial class Administrator_Report : System.Web.UI.Page
         {
             resultActionLabel.Text = ex.Message;
         }
-    }
+    }*/
 
-    private string AnyChartShow(List<PLFUnit.PLFRecord> plfTable)
+    /*private string AnyChartShow(List<PLFUnit.PLFRecord> plfTable)
     {
         List<string> selectedCharts = new List<string>();
         for (int i = 0; i < ChartsCheckBoxList.Items.Count; i++)
@@ -1651,9 +1756,9 @@ public partial class Administrator_Report : System.Web.UI.Page
             }
         }
         return AnyChartStockXml.AnyChartMultiYChart(plfTable, selectedCharts);
-    }
+    }*/
 
-    private string CreateChart(List<int> arrayInput, List<DateTime> date, string name, string xName, string yName, int width, string color )
+    /*private string CreateChart(List<int> arrayInput, List<DateTime> date, string name, string xName, string yName, int width, string color )
     {
         List<int> array = new List<int>();
         
@@ -1712,9 +1817,9 @@ public partial class Administrator_Report : System.Web.UI.Page
         }
         else 
             return "<b>Нет значений для графика!</b>";
-    }
+    }*/
 
-    private string CreateAnyChart(List<int> arrayInput, List<DateTime> date, string name, string xName, string yName, int width, string color)
+    /*private string CreateAnyChart(List<int> arrayInput, List<DateTime> date, string name, string xName, string yName, int width, string color)
     {
         List<int> array = new List<int>();
 
@@ -1823,9 +1928,9 @@ public partial class Administrator_Report : System.Web.UI.Page
         string chartId = Guid.NewGuid().ToString().Substring(0, 8);
         var xxx = FusionCharts.RenderChartHTML("../FusionCharts/MultiAxisLine.swf", "", strXML, chartId, width.ToString(), "400", false, false, true);
         return xxx;
-    }
+    }*/
 
-    private List<int> ApllyStepsToArray(List<int> array, int step)
+    /*private List<int> ApllyStepsToArray(List<int> array, int step)
     {
         List<int> returnArray = new List<int>();
         int i = step;
@@ -1840,9 +1945,9 @@ public partial class Administrator_Report : System.Web.UI.Page
                 i++;
         }
         return returnArray;
-    }
+    }*/
 
-    private List<DateTime> ApllyStepsToArray(List<DateTime> array, int step)
+    /*private List<DateTime> ApllyStepsToArray(List<DateTime> array, int step)
     {
         List<DateTime> returnArray = new List<DateTime>();
         int i = step;
@@ -1857,23 +1962,23 @@ public partial class Administrator_Report : System.Web.UI.Page
                 i++;
         }
         return returnArray;
-    }
+    }*/
 
-    protected void MakeMax(object sender, EventArgs e)
+    /*protected void MakeMax(object sender, EventArgs e)
     {
         Session["maxRecordsCount"] = 1500;
-    }
+    }*/
 
-    protected void PlfReportsDataGrid_RadioButton_Checked(object sender, EventArgs e)
+    /*protected void PlfReportsDataGrid_RadioButton_Checked(object sender, EventArgs e)
     {
         Selected_PlfReportsDataGrid_Index.Value = PlfReportsRadioButtonList.SelectedValue;
         ReportNameLabel.Text = PlfReportsRadioButtonList.SelectedItem.Text;
         ChoisesUpdatePanel.Update();
         PlfReportsPickUpdatePanel1.Update();
        // ReportUpdatePanel.Update();
-    }
+    }*/
 
-    [System.Web.Services.WebMethod]
+    /*[System.Web.Services.WebMethod]
     public static void DeleteMethod(string objectValue)
     {
         try
@@ -1887,5 +1992,5 @@ public partial class Administrator_Report : System.Web.UI.Page
         {
            // resultActionLabel.Text = ex.Message;
         }
-    }
+    }*/
 }

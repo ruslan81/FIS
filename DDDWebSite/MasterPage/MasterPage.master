@@ -29,6 +29,8 @@
     <script type="text/javascript" src="../js/jquery.glob.min.js"></script>
     <script type="text/javascript" src="../js/jquery.wijmo.wijdatasource.js"></script>
     <script type="text/javascript" src="../js/jquery.wijmo.wijgrid.js"></script>
+    <script type="text/javascript" src="../js/custom/errors.js"></script>
+    <script type="text/javascript" src="../js/custom/json.js"></script>
 
     <script type="text/javascript">
         Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function(sender, args) {
@@ -106,10 +108,19 @@
     </script>
 	
     <script type="text/javascript">
-        $(function() {
+        $(function () {
             resizeAllMaster();
             constructor();
             $("#accordion").accordion("resize");
+
+            //process ajax events
+            $(".ajax-loader").bind("ajaxSend", function (event, jqXHR, ajaxOptions) {
+                $(this).show();
+            }).bind("ajaxComplete", function (event, jqXHR, ajaxOptions) {
+                if ($.active == 1) {
+                    $(this).hide();
+                }
+            });
         });
 	</script>
 
@@ -117,6 +128,21 @@
 
 </head>
 <body>
+
+    <div style="display: none">
+
+        <div id="error-dialog-message" title="SmartFIS">
+            <div style="margin-top: 10px;">
+                <h4>
+                    Внимание! Что-то пошло не так...
+                </h4>
+            </div>
+            <div style="margin-top: 20px;">
+                Причина: <span id="errorThrown"></span>
+            </div>
+        </div>
+    </div>
+
     <form id="form1" enctype="multipart/form-data" runat="server">
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" AsyncPostBackTimeout="9999999"
         EnableScriptGlobalization="true" EnableScriptLocalization="true" EnablePageMethods="true" />
@@ -232,8 +258,21 @@
         <div style="padding: 0px;margin-left:5px;margin-right:5px;">
             <div id="bottom">
                 <div style="padding: 0px 15px;">
-			        <asp:ContentPlaceHolder ID="Bottom_PlaceHolder" runat="server">
-                    </asp:ContentPlaceHolder>
+			        <!--<asp:ContentPlaceHolder ID="Bottom_PlaceHolder" runat="server">
+                    </asp:ContentPlaceHolder>-->
+                    <div title="Идет загрузка...Пожалуйста, подождите." class="ajax-loader" style="float: right;display:none;margin-top: 12px;">
+                    </div>
+                    <div style="float: left;margin-top: 12px;">
+                        SmartFIS build number: 
+                        <b>
+                        <%System.Reflection.Assembly web = System.Reflection.Assembly.Load("App_Code");
+                          System.Reflection.AssemblyName webName = web.GetName();
+                          string myVersion = webName.Version.ToString(); 
+                        %>
+                        <%=myVersion %>
+                        (<%=System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location).ToShortDateString()%>)
+                        </b>
+                    </div>
                 </div>
 		    </div>
 		</div>

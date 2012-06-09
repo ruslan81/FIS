@@ -74,7 +74,7 @@
     
     <script id="tmplGeneralSettings" type="text/x-jquery-tmpl">
         <tr>
-            <td class="key" key="${Key}" style="font-size:12px;">
+            <td class="key" key="${Key}" style="font-size:12px;width:200px;">
                 ${Value.Key}
             </td>
             <td class="value" style="padding-left:50px;">
@@ -562,7 +562,7 @@
 <asp:Content ID="DataContent" ContentPlaceHolderID="Reports_PlaceHolder" runat="server">
     <div>
     
-        <table cellpadding="5" style="margin-left:30px; width: 90%">
+        <table cellpadding="2" style="margin-left:30px; width: 800px">
             <tbody id="contentSettings">
             </tbody>
         </table>

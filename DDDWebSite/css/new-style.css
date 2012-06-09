@@ -290,3 +290,10 @@ input
 .infowindow {
     margin:5px;
 }
+
+.ajax-loader
+{
+    background-image: url(icons/ajax-loader.gif);
+    width:125px;
+    height:15px;
+}
