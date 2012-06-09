@@ -384,7 +384,6 @@ public partial class Administrator_Report : System.Web.UI.Page
         int dataBlockId = int.Parse(DataBlockID);
         List<int> dataBlockIDS = new List<int>();
         dataBlockIDS.Add(dataBlockId);
-        throw(new Exception("bla-bla"));
 
         string connectionString = System.Configuration.ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");

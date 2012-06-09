@@ -16,6 +16,7 @@
     <link type="text/css" href="../css/custom-theme/jquery.wijmo.wijtree.css" rel="stylesheet" />
     <link type="text/css" href="../css/custom-theme/jquery.wijmo.wijgrid.css" rel="stylesheet" />
     <link type="text/css" href="../css/new-style.css" rel="stylesheet" />
+    <link type="text/css" href="../css/basic-jquery-slider.css" rel="stylesheet" />
 
     <script type="text/javascript" src="../js/jquery-1.5.1.min.js"></script>
     <script type="text/javascript" src="../js/highcharts.src.js"></script>
@@ -31,6 +32,7 @@
     <script type="text/javascript" src="../js/jquery.wijmo.wijgrid.js"></script>
     <script type="text/javascript" src="../js/custom/errors.js"></script>
     <script type="text/javascript" src="../js/custom/json.js"></script>
+    <script type="text/javascript" src="../js/basic-jquery-slider.min.js"></script>
 
     <script type="text/javascript">
         Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function(sender, args) {
@@ -121,6 +123,16 @@
                     $(this).hide();
                 }
             });
+
+            //slider
+            $('#banner').bjqs({
+                'width': 600,
+                'height': 60,
+                'showMarkers': false,
+                'showControls': true,
+                nextText: 'далее →',
+                prevText: '← назад'
+            });
         });
 	</script>
 
@@ -147,16 +159,34 @@
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" AsyncPostBackTimeout="9999999"
         EnableScriptGlobalization="true" EnableScriptLocalization="true" EnablePageMethods="true" />
     <div id="all">
+            <div id="container">
+                <div id="banner">
+                    <ul class="bjqs">
+                    <li>
+                        <div class="check slider-title">Реальность</div>
+                        Внедрение цифровых тахографов привело к необходимости нового подхода к анализу накопленных данных как на картах водителя и памяти самого цифрового тахографа.
+                    </li>
+                    <li>
+                        <div class="check slider-title">Возможности</div>
+                        Имея у себя возможность считывать данные с цифровых тахографов менеджеры автопредприятий нуждаются в расшифровке данных карт тахографа и самого устройства.
+                    </li>
+                    <li>
+                        <div class="check slider-title">Предложение</div>
+                        Программный комплекс <b>SmartFIS</b> в полной мере способен помочь в анализе данных цифрового тахографа.
+                    </li>
+                    </ul>
+                </div>
+            </div>
         <div id="top">
             <div id="logo" style="margin-top:0px;">
                 <!--1 Логотип-->
                 <asp:Image ImageUrl="~/images/SmartFIS_logo2.png" ID="SmartFisLogo" 
                     runat="server" />
             </div>
+
             <div id="client-banner-sinfo">
-                <div id="client-banner">
-                    <div id="banner" style="float:right; margin-right:0px;">
-                        <!--4 Баннер-->
+                <div>
+                    <div style="float:right; margin-right:0px;">
                         <uc2:BlueButton ID="ExitButt2" Text="Выход" runat="server" BtnWidth="60" CausesValidation="false" />
                     </div>
 
@@ -264,6 +294,7 @@
                     </div>
                     <div style="float: left;margin-top: 12px;">
                         SmartFIS build number: 
+                        <a href="../WhatsNew.aspx">
                         <b>
                         <%System.Reflection.Assembly web = System.Reflection.Assembly.Load("App_Code");
                           System.Reflection.AssemblyName webName = web.GetName();
@@ -272,6 +303,7 @@
                         <%=myVersion %>
                         (<%=System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location).ToShortDateString()%>)
                         </b>
+                        </a>
                     </div>
                 </div>
 		    </div>

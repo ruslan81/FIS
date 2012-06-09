@@ -297,3 +297,25 @@ input
     width:125px;
     height:15px;
 }
+
+.wijmo-wijlist-ul 
+{
+    border: none;
+}
+
+.wijmo-wijcombobox-list
+{
+    border: 1px solid #ccc;
+}
+
+.check
+{
+    background: url(icons/check.png) no-repeat;
+    width:22px;
+    height:17px;
+}
+
+.slider-title
+{
+    padding-left:30px;margin-bottom:5px;font-size:14px;font-weight:bold;
+}
