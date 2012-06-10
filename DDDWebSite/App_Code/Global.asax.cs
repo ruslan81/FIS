@@ -294,7 +294,7 @@ namespace TestCacheTimeout
                                                 if (Convert.ToDouble(record.SPEED.Replace('.', ',')) > oneCriteria.MaxValue)
                                                 {
                                                     flag = true;
-                                                    text = text + ";\n" + record.SYSTEM_TIME.systemTime + " - " + record.SPEED;
+                                                    text = text + ";\n" + record.SYSTEM_TIME.GetSystemTime().ToString("dd.MM.yyyy hh:mm") + " - " + record.SPEED;
                                                 }
                                             }
                                             if (flag)
@@ -319,7 +319,7 @@ namespace TestCacheTimeout
                                                 if (Convert.ToDouble(record.ENGINE_RPM.Replace('.', ',')) > oneCriteria.MaxValue)
                                                 {
                                                     flag = true;
-                                                    text = text + ";\n" + record.SYSTEM_TIME.systemTime + " - " + record.ENGINE_RPM;
+                                                    text = text + ";\n" + record.SYSTEM_TIME.GetSystemTime().ToString("dd.MM.yyyy hh:mm") + " - " + record.ENGINE_RPM;
                                                 }
                                             }
                                             if (flag)

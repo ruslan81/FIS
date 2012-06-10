@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using DB.SQL;
 using System.Data;
+using System.Text.RegularExpressions;
 
 namespace BLL
 {
@@ -240,8 +241,15 @@ namespace BLL
                     description =  GetActionString(actionId) + ". " + GetHistoryNote(userId, actionId, tableId, date) + ".";
                     if (searchString != "")//очень плохой способ. Если будет тормозить - переделать на выборку из базы или еще чего...
                     {
-                        if (description.Contains(searchString))
+                        //if (description.Contains(searchString))
+                        if (description.ToLower().Contains(searchString.ToLower()))
+                        {
+                            //description = Regex.Replace(description, searchString, "&lbb&rb&lbFONT COLOR=RED&rb" + searchString + "&lb&slFONT&rb&lb&slb&rb", RegexOptions.IgnoreCase);
                             description = description.Replace(searchString, "&lbb&rb&lbFONT COLOR=RED&rb" + searchString + "&lb&slFONT&rb&lb&slb&rb");
+                            description = description.Replace(searchString.ToLower(), "&lbb&rb&lbFONT COLOR=RED&rb" + searchString.ToLower() + "&lb&slFONT&rb&lb&slb&rb");
+                            String s=searchString.Substring(0,1).ToUpper()+searchString.Substring(1);
+                            description = description.Replace(s, "&lbb&rb&lbFONT COLOR=RED&rb" + s + "&lb&slFONT&rb&lb&slb&rb");
+                        }
                         else
                             continue;
                     }
