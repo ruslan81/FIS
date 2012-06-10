@@ -14,6 +14,17 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "- 10.06.2012" + Environment.NewLine;
+            ReportLabel.Text += @"-  Решены проблемы с DDD-файлами. Создан шаблон для отчетов. В разделе Отчеты отображаются соответствующие отчеты по ранее загруженным DDD-файлам." + Environment.NewLine;
+            ReportLabel.Text += @"-  Добавлен индикатор ajax-запросов." + Environment.NewLine;
+            ReportLabel.Text += @"-  Добавлена обработка ajax-ошибок и их отображение в случае появления таковых." + Environment.NewLine;
+            ReportLabel.Text += @"-  Добавлен баннер в шапке." + Environment.NewLine;
+            ReportLabel.Text += @"-  Решены проблемы с форматом времени в Напоминаниях в отправляемых письмах." + Environment.NewLine;
+            ReportLabel.Text += @"-  Решены некоторые проблемы с поиском в Журнале Управления." + Environment.NewLine;
+            ReportLabel.Text += @"-  Поправлены стили Фильтра Журнала." + Environment.NewLine;
+            ReportLabel.Text += @"-  В фильтре Счета добавлен пункт Все." + Environment.NewLine;
+            ReportLabel.Text += @"-  Поправлены стили в разделе Общее Управления." + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "- 28.05.2012" + Environment.NewLine;
             ReportLabel.Text += @"-  Исправлены стили в счетах и журнале в Управлении. Поправлены множество (порядка 10) других недочетов в Управлении." + Environment.NewLine;
 

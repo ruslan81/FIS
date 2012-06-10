@@ -74,11 +74,11 @@
           var vertHeightSTR = document.getElementById('vertical-menu').style.height;
           vertHeightSTR = vertHeightSTR.substr(0, vertHeightSTR.length - 2);
           document.getElementById('outputId').style.height = (vertHeightSTR - 30) + "px";
-          document.getElementById('outputId-content').style.height = (vertHeightSTR - 30) + "px";
+          document.getElementById('outputId-content').style.height = (vertHeightSTR - 30+5) + "px";
           if ($('#userControls:visible').length > 0) {
               var h = $('#outputId').height() - $('#main-conditions').height() - 34;
               $('#outputId').height(h);
-              $('#outputId-content').height(h);
+              $('#outputId-content').height(h+5);
           }
 
           var outHeight = $("#main-content").height() - 90;
