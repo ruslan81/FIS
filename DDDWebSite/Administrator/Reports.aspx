@@ -1,9 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage/MasterPage.Master" AutoEventWireup="true"
     CodeFile="Reports.aspx.cs" Inherits="Administrator_Report" %>
 
-<%@ Register Assembly="StatefullScrollPanel" Namespace="CustomControls" TagPrefix="asp" %>
-<%@ Register Src="Reports_UserControls/NavigationReportControl.ascx" TagName="NavigationReportControl"
-    TagPrefix="uc1" %>
 <%@ Register src="../UserControlsForAll/BlueButton.ascx" tagname="BlueButton" tagprefix="uc2" %>
 
 <asp:Content ID="HeaderContent" ContentPlaceHolderID="HeadContentPlaceHolder" runat="server">

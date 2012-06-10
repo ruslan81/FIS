@@ -840,7 +840,7 @@ function loadGeneralDetailedData() {
 function loadDealersDetailedData() {
     $("#detailedData").empty();
     if (radioIndex == -1) {
-        $("#detailedData").append("<font color='#FF0000' size='5'>Выберите объект для отображения детальных сведений!<font>");
+        $("#detailedData").append("<div style='color:#a60000;font-weight:bold;text-align:center;'>Выберите объект для отображения детальных сведений</div>");
         return;
     }
 }
@@ -848,7 +848,7 @@ function loadDealersDetailedData() {
 function loadUsersDetailedData() {
     $("#detailedData").empty();
     if (radioIndex == -1 && mode != "create") {
-        $("#detailedData").append("<font color='#FF0000' size='5'>Выберите объект для отображения детальных сведений!<font>");
+        $("#detailedData").append("<div style='color:#a60000;font-weight:bold;text-align:center;'>Выберите объект для отображения детальных сведений</div>");
         return;
     }
     $.ajax({

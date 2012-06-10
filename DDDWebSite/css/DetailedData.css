@@ -77,6 +77,39 @@
 	overflow: hidden;
 }
 
+#userTableWrapper
+{
+    border: 1px solid #CCC;
+    border-top: none;
+    border-bottom: none;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    overflow: hidden;
+}
+
+#invoiceTableWrapper
+{
+    border: 1px solid #CCC;
+    border-top: none;
+    border-bottom: none;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    overflow: hidden;
+}
+
+#journalTableWrapper
+{
+    border: 1px solid #CCC;
+    border-top: none;
+    border-bottom: none;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    overflow: hidden;
+}
+
 #outputId .wijmo-wijgrid-datarow input
 {
 	font-family: Tahoma;
