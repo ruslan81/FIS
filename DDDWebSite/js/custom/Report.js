@@ -92,8 +92,11 @@ function loadPLFFilesTree() {
                 onPLFFilesNodeSelected(e, data);
             }
             });
-            
-        }
+
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+        showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+    }
     });
 }
 
@@ -163,6 +166,9 @@ function onPLFFilesNodeSelected(e, data) {
                                 $("#report").empty();
 
                                 $('#report').html(result.d.report);
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
                             }
                         });
                     },
@@ -178,6 +184,9 @@ function onPLFFilesNodeSelected(e, data) {
                             break;
                         }
                     }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
                 }
             });
 
@@ -228,6 +237,9 @@ function onPLFFilesNodeSelected(e, data) {
                     if (currentTab == 2) {
                         createMap(plfData);
                     }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
                 }
             });
         } else {
@@ -664,7 +676,10 @@ function loadVehiclesTree() {
                 onVehiclesNodeSelected(e, data);
                 }
             });
-        }
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+        showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+    }
     });
 }
 
@@ -736,6 +751,9 @@ function onVehiclesNodeSelected(e, data) {
                                 $('#report-tabs').html("<center><div style='background:#fff;padding:20px 0 20px 0;'>" +
                                     result.d +
                                     "</div></center>");
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
                             }
                         });
                     },
@@ -751,6 +769,9 @@ function onVehiclesNodeSelected(e, data) {
                             break;
                         }
                     }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
                 }
             });
 

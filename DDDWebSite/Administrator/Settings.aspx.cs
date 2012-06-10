@@ -106,7 +106,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            return null;
+            throw ex;
+            //return null;
         }
         finally
         {
@@ -136,7 +137,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            return false;
+            throw ex;
+            //return false;
         }
         finally
         {
@@ -176,7 +178,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            return null;
+            throw ex;
+            //return null;
         }
         finally
         {
@@ -206,7 +209,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            return false;
+            throw ex;
+            //return false;
         }
         finally
         {
@@ -236,7 +240,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            return false;
+            throw ex;
+            //return false;
         }
         finally
         {
@@ -266,7 +271,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            return false;
+            throw ex;
+            //return false;
         }
         finally
         {
@@ -307,7 +313,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            return null;
+            throw ex;
+            //return null;
         }
         finally
         {
@@ -340,7 +347,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            return false;
+            throw ex;
+            //return false;
         }
         finally
         {
@@ -370,7 +378,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            return false;
+            throw ex;
+            //return false;
         }
         finally
         {
@@ -411,7 +420,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            return null;
+            throw ex;
+            //return null;
         }
         finally
         {
@@ -444,7 +454,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            return false;
+            throw ex;
+            //return false;
         }
         finally
         {
@@ -474,7 +485,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            return false;
+            throw ex;
+            //return false;
         }
         finally
         {
@@ -507,7 +519,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            return null;
+            throw ex;
+            //return null;
         }
         finally
         {
@@ -541,7 +554,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            return null;
+            throw ex;
+            //return null;
         }
         finally
         {
@@ -570,7 +584,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            return false;
+            throw ex;
+            //return false;
         }
         finally
         {
@@ -599,7 +614,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            return false;
+            throw ex;
+            //return false;
         }
         finally
         {
@@ -645,7 +661,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            return null;
+            throw ex;
+            //return null;
         }
         finally
         {
@@ -674,7 +691,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            return;
+            throw ex;
+            //return;
         }
         finally
         {
@@ -715,7 +733,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            return null;
+            throw ex;
+            //return null;
         }
         finally
         {
@@ -763,7 +782,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            return null;
+            throw ex;
+            //return null;
         }
         finally
         {
@@ -792,7 +812,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            return null;
+            throw ex;
+            //return null;
         }
         finally
         {
@@ -822,7 +843,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            return null;
+            throw ex;
+            //return null;
         }
         finally
         {
@@ -853,7 +875,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            return false;
+            throw ex;
+            //return false;
         }
         finally
         {
@@ -885,7 +908,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            return false;
+            throw ex;
+            //return false;
         }
         finally
         {
@@ -912,7 +936,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            return false;
+            throw ex;
+            //return false;
         }
         finally
         {

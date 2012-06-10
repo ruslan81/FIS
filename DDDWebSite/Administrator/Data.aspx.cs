@@ -147,7 +147,8 @@ public partial class Administrator_Data : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            return null;
+            throw ex;
+            //return null;
         }
     }
 
@@ -172,7 +173,8 @@ public partial class Administrator_Data : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            return false;
+            throw ex;
+            //return false;
         }
     }
 
@@ -223,7 +225,8 @@ public partial class Administrator_Data : System.Web.UI.Page
         {
             dataBlock.RollbackConnection();
             dataBlock.CloseConnection();
-            return false;
+            throw ex;
+            //return false;
         }
        
     }
@@ -257,7 +260,8 @@ public partial class Administrator_Data : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            return null;
+            throw ex;
+            //return null;
         }
         return data;
     }
@@ -290,7 +294,8 @@ public partial class Administrator_Data : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            return null;
+            throw ex;
+            //return null;
         }
         return data;
     }
@@ -411,8 +416,9 @@ public partial class Administrator_Data : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            drivTree.OrgName = ex.Message;
-            return drivTree;
+            //drivTree.OrgName = ex.Message;
+            throw ex;
+            //return drivTree;
         }
         return drivTree;
     }
@@ -454,7 +460,8 @@ public partial class Administrator_Data : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            return null;
+            throw ex;
+            //return null;
         }
         return vehTree;
     }
@@ -631,10 +638,11 @@ public partial class Administrator_Data : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            YearData d = new YearData();
+            /*YearData d = new YearData();
             d.YearName = ex.Message;
-            result.Add(d);
-            return null;
+            result.Add(d);*/
+            throw ex;
+            //return null;
         }
         return result;
     }
@@ -710,10 +718,11 @@ public partial class Administrator_Data : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            YearData d = new YearData();
+            /*YearData d = new YearData();
             d.YearName = ex.Message;
-            result.Add(d);
-            return null;
+            result.Add(d);*/
+            throw ex;
+            //return null;
         }
         return result;
     }

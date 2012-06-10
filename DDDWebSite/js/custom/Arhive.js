@@ -23,6 +23,9 @@ function loadRecoverUserDriversTree() {
             $("#tmplTreeItem").tmpl(response.d).appendTo("#DriversTree");
 
             loadRecoverUserTransportTree();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -50,7 +53,10 @@ function loadRecoverUserTransportTree() {
                 onRecoverUserNodeSelected(e, data);
             }
             });
-        }
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+        showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+    }
     });
 }
 
@@ -90,6 +96,9 @@ function loadRecoverUserNodeData() {
         dataType: "json",
         success: function (result) {
             updateTable($("#contentTableBody"), $("#tmplDriversTable"), result.d);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 
@@ -184,49 +193,12 @@ function loadOverlookDriverTree() {
                 onOverlookNodeSelected(e, data);
             }
             });
-        }
-    });
-}
-
-//Событие при выделении узла дерева
-/*function onOverlookDriverSelected(e, data) {
-    isSelected = $("div", data.element).attr("aria-selected");
-    cardID = $("a span", data.element).attr("key");
-    if (cardID == "None")
-        return;
-    cardID = "136";
-    if (isSelected == "true") {
-        loadOverlookDriverNodeData()
-    } else {
-        $("#contentTableBody").empty();
-        $("#contentTable").hide();
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+        showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
     }
-}
-
-//Загрузить данные для выбранного элемента дерева в разделе "Просмотреть(Водитель)"
-function loadOverlookDriverNodeData() {
-    $("#contentTable").show();
-    //create table header
-    createTableHeader($("#contentTableHeader"), $("#tmplHeadColumn"),
-    '[{"text": "Год", "style": "width: 60px;"},' +
-    '{"text": "Месяц", "style": "width: 60px;"},' +
-    '{"text": "Число", "style": "width: 60px;"},' +
-    '{"text": "Процент данных", "style": "width: 60px;"},' +
-    '{"text": "Прогресс", "style": ""}]');
-
-    $.ajax({
-        type: "POST",
-        //Page Name (in which the method should be called) and method name
-        url: "Data.aspx/GetOverlookDriverNodeData",
-        data: "{'CardID':'" + cardID + "', 'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (result) {
-            updateTable($("#contentTableBody"), $("#tmplOverlookTable"), result.d);
-            refreshProgressBars();
-        }
     });
-}*/
+}
 
 //FROM HERE OVERLOOK(VEHICLE) STARTS
 
@@ -253,7 +225,10 @@ function loadOverlookVehicleTree() {
                 onOverlookNodeSelected(e, data);
             }
             });
-        }
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+        showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+    }
     });
 }
 
@@ -320,6 +295,9 @@ function onClickBuildReport() {
                 }
                 updateTable($("#contentTableBody"), $("#tmplOverlookTable"), result.d);
                 refreshProgressBars();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
             }
         });
     }
@@ -338,6 +316,9 @@ function onClickBuildReport() {
                 }
                 updateTable($("#contentTableBody"), $("#tmplOverlookTable"), result.d);
                 refreshProgressBars();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
             }
         });
     }
@@ -439,12 +420,18 @@ function loadUnparsedDataBlocks() {
                         dataType: "json",
                         success: function (result) {
                             loadUnparsedDataBlocks();
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
                         }
                     });
                 });
 
                 createParseControls();
             }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -470,11 +457,11 @@ function createParseControls() {
                 loadUnparsedDataBlocks();
                 return false;
             },
-            error: function (result) {
-                alert("Внимание! На сервере произошла ошибка.");
-                $("#parsing-dialog").dialog("close");
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+            $("#parsing-dialog").dialog("close");
                 return false;
-            }
+        }
         });
         return false;
     });
