@@ -795,17 +795,40 @@
                     </center>
                 </div>
             <h3 id="AccountsAccordionPane2_Header" runat="server"><asp:LinkButton ID="AccountsAccordionPane2" runat="server" CausesValidation="false" PostBackUrl="#" Text="Дилеры" /></h3>
-               <div>
-                    
+              <div id="secondAccordionPanel">                   
+                    <center>
+                        Информация о дилерах текущей организации.
+                        <br/>
+                        <br/>
+                        Данный раздел позволяет просматривать и редактировать информацию о дилерах в рамках текущей организации.
+                    </center>
                 </div>
             <h3><asp:LinkButton ID="UsersAccordionPane3" runat="server" CausesValidation="false" PostBackUrl="#" Text="Пользователи" /></h3>
-                <div>
+                <div id="thirdAccordionPanel">                   
+                    <center>
+                        Информация о пользователях текущей организации.
+                        <br/>
+                        <br/>
+                        Данный раздел позволяет просматривать и редактировать информацию о пользователях в рамках текущей организации.
+                    </center>
                 </div>
             <h3><asp:LinkButton ID="BillsAccordionPane5" runat="server" CausesValidation="false" PostBackUrl="#" Text="Счета" /></h3>
-                <div>
+                <div id="fourthAccordionPanel">                   
+                    <center>
+                        Информация о счетах текущей организации.
+                        <br/>
+                        <br/>
+                        Данный раздел позволяет просматривать информацию о счетах в рамках текущей организации.
+                    </center>
                 </div>
             <h3><asp:LinkButton ID="LogAccordionPane6" runat="server" CausesValidation="false" PostBackUrl="#" Text="Журнал" /></h3>
-                <div>
+                <div id="fifthAccordionPanel">                   
+                    <center>
+                        Информация о событиях журнала текущей организации.
+                        <br/>
+                        <br/>
+                        Данный раздел позволяет просматривать информацию о действиях пользователей в рамках текущей организации.
+                    </center>
                 </div>
         </div>
             

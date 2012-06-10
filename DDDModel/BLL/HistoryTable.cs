@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using DB.SQL;
 using System.Data;
+using System.Text.RegularExpressions;
 
 namespace BLL
 {
@@ -243,6 +244,7 @@ namespace BLL
                         //if (description.Contains(searchString))
                         if (description.ToLower().Contains(searchString.ToLower()))
                         {
+                            //description = Regex.Replace(description, searchString, "&lbb&rb&lbFONT COLOR=RED&rb" + searchString + "&lb&slFONT&rb&lb&slb&rb", RegexOptions.IgnoreCase);
                             description = description.Replace(searchString, "&lbb&rb&lbFONT COLOR=RED&rb" + searchString + "&lb&slFONT&rb&lb&slb&rb");
                             description = description.Replace(searchString.ToLower(), "&lbb&rb&lbFONT COLOR=RED&rb" + searchString.ToLower() + "&lb&slFONT&rb&lb&slb&rb");
                             String s=searchString.Substring(0,1).ToUpper()+searchString.Substring(1);
