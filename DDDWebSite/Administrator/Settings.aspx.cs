@@ -14,22 +14,22 @@ public partial class Administrator_Settings : System.Web.UI.Page
     {
         try
         {
-            Choises_CANCEL_Button.ButtOnClick += new EventHandler(CancelButtonPressed);
+            /*Choises_CANCEL_Button.ButtOnClick += new EventHandler(CancelButtonPressed);
             Choises_ADD_Button.ButtOnClick += new EventHandler(AddButtonPressed);
             Choises_EDIT_Button.ButtOnClick += new EventHandler(EditButtonPressed);
             Choises_SAVE_Button.ButtOnClick += new EventHandler(SaveButtonPressed);
-            Choises_DELETE_Button.ButtOnClick += new EventHandler(DeleteButtonPressed);
+            Choises_DELETE_Button.ButtOnClick += new EventHandler(DeleteButtonPressed);*/
 
             if (!IsPostBack)
             {
                 UserControlsForAll_BlueButton pan = ((UserControlsForAll_BlueButton)Page.Master.FindControl("SettingsMasterButt"));
                 pan.Enabled = false;
                 //((LinkButton)Page.Master.FindControl("SettingsMasterButt")).Enabled = false;
-                TreeViews_LoadList();
+                /*TreeViews_LoadList();
                 ReminderTreeView.Nodes[0].Selected = true;
                 UsersTreeView.Nodes[0].Select();
                 UsersTreeView_NodeChanged(null, null);
-                Load_DriverTab();
+                Load_DriverTab();*/
 
 
                 string connectionString = System.Configuration.ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
@@ -58,16 +58,12 @@ public partial class Administrator_Settings : System.Web.UI.Page
                 ((Panel)Master.FindControl("AdditionalConditionsPanel")).Visible = false;
 
                 Session["Settings_GeneralTabException"] = null;
-                Status.Text = "";
+                //Status.Text = "";
             }
         }
         catch (Exception ex)
         {
-            Status.Text = ex.Message;
-        }
-        finally
-        {
-            StatusUpdatePanel.Update();
+            throw ex;
         }
     }
 
@@ -947,7 +943,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     }
     //AJAX END
 
-    private void TreeViews_LoadList()
+    /*private void TreeViews_LoadList()
     {
         UsersTreeView.Nodes.Add( new TreeNode("Общие", "General"));
         UsersTreeView.Nodes.Add(new TreeNode("Группы", "Groups"));
@@ -1632,7 +1628,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
         }
 
         return true;
-    }
+    } */
 
     
 }
