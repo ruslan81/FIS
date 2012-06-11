@@ -76,7 +76,16 @@ function loadGeneralData() {
 
     $("#tabs").tabs({ show: function (e, ui) {
         if (ui.index == 0) {
-            tabIndex = 0;
+            tabIndex = 0; mode = "";
+            $("#timeZoneSelector").wijcombobox({
+                disabled: true
+            });
+            $("#country").wijcombobox({
+                disabled: true
+            });
+            $("#dealerSelector").wijcombobox({
+                disabled: true
+            });
             $("#userControls").hide();
             resizeAdmin();
         }
@@ -150,8 +159,10 @@ function createMessageTable() {
             if (boxes[i].checked)
                 c++;
         }
-        if (c == 0)
+        if (c == 0) {
+            alert("Выберите сообщение для удаления!");
             return false;
+        }
         $("#deletedialog").dialog({ buttons: {
             "OK": function () {
                 removeMessages();
@@ -194,14 +205,16 @@ function loadDealersData() {
 
     $("#edit").click(function () {
 
-        var boxes = $("#commonData [type=checkbox]");
+        var boxes = $("#dealersTable [type=checkbox]");
         var c = 0;
         for (var i = 0; i < boxes.length; i++) {
             if (boxes[i].checked)
                 c++;
         }
-        if (c == 0)
+        if (c == 0) {
+            alert("Выберите дилера для редактирования!");
             return false;
+        }
 
         mode = "edit";
 
@@ -325,6 +338,8 @@ function loadDealersData() {
             $("#deletedialog").dialog("option", "closeText", '');
             $("#deletedialog").dialog("option", "resizable", false);
             $("#deletedialog").dialog("option", "modal", true);
+        } else{
+            alert("Выберите дилера для удаления!");
         }
         return false;
     });
@@ -543,11 +558,14 @@ function loadUsersControls() {
             if (boxes[i].checked)
                 c++;
         }
-        if (c == 0)
+        if (c == 0) {
+            alert("Выберите пользователя для редактирования!");
             return false;
+        }
 
         mode = "edit";
         if (tabIndex == 0) {
+            mode = "edit";
             $("#tabs").tabs({ selected: 1 });
         } else {
             loadUsersDetailedData();
@@ -566,6 +584,7 @@ function loadUsersControls() {
 
     $("#cancel").click(function () {
         mode = "";
+        tabIndex = 0;
         loadUsersData();
         return false;
     });
@@ -591,11 +610,12 @@ function loadUsersControls() {
                     $(this).dialog("close");
                 }
             }
-
             });
             $("#deletedialog").dialog("option", "closeText", '');
             $("#deletedialog").dialog("option", "resizable", false);
             $("#deletedialog").dialog("option", "modal", true);
+        } else {
+            alert("Выберите пользователя для удаления!");
         }
         return false;
     });
