@@ -1,4 +1,4 @@
-﻿<%@ control language="C#" autoeventwireup="true" inherits="Administrator_Settings_UserControls_UserGroupsTab, App_Web_sqmwtkv0" %>
+﻿<%@ control language="C#" autoeventwireup="true" inherits="Administrator_Settings_UserControls_UserGroupsTab, App_Web_ppxn5wo5" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
 <asp:Panel ID="User_Groups" runat="server" Width="100%" ScrollBars="None">

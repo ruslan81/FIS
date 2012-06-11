@@ -1,4 +1,4 @@
-﻿<%@ control language="C#" autoeventwireup="true" inherits="Administrator_GeneralTab, App_Web_sqmwtkv0" %>
+﻿<%@ control language="C#" autoeventwireup="true" inherits="Administrator_GeneralTab, App_Web_ppxn5wo5" %>
 
 <asp:Panel ID="GeneralTablePanel" runat="server">
                 <asp:Table ID="GeneralTable" runat="server" Width="75%" CellPadding="10">

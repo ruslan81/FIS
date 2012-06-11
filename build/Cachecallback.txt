@@ -11743,3 +11743,53 @@ Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProjec
 Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Administration.aspx.cs(70): error CS0103: Имя 'AccountsTreeView' отсутствует в текущем контексте
 Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Administration.aspx(743): error CS1061: "ASP.administrator_administration_aspx" не содержит определение для "InvisibleAccordionButton_Click". Не удалось найти метод  расширения "InvisibleAccordionButton_Click", принимающий первый аргумент типа "ASP.administrator_administration_aspx"  (пропущено использование директивы или ссылка на сборку?)
 Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Administration.aspx(82): error CS0103: Имя 'InvisibleAccordionButton' отсутствует в текущем контексте
+Cache Callback: 22.05.2012 0:44:00
+Cache Callback: 27.05.2012 22:50:40
+Cache Callback: 27.05.2012 23:44:00
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: 28.05.2012 0:42:40
+Cache Callback: 28.05.2012 11:49:20
+Cache Callback: 28.05.2012 12:57:40
+Cache Callback: Message: Неизвестный веб-метод test.
+Имя параметра: methodName
+Cache Callback: Message: Неизвестный веб-метод test.
+Имя параметра: methodName
+Cache Callback: 28.05.2012 15:04:20
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Reports.aspx.cs(336): error CS0029: Неявное преобразование типа 'DDDClass.VehicleRegistrationNumber' в 'string' невозможно
+Cache Callback: 28.05.2012 15:38:00
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: 28.05.2012 22:10:20
+Cache Callback: 28.05.2012 22:27:00
+Cache Callback: 28.05.2012 22:30:00
+Cache Callback: 07.06.2012 23:24:20
+Cache Callback: 08.06.2012 0:19:26
+Cache Callback: 08.06.2012 0:23:40
+Cache Callback: 08.06.2012 0:25:40
+Cache Callback: 08.06.2012 0:29:00
+Cache Callback: 08.06.2012 20:16:20
+Cache Callback: 08.06.2012 21:15:20
+Cache Callback: 09.06.2012 0:49:18
+Cache Callback: 09.06.2012 0:49:46
+Cache Callback: 09.06.2012 0:51:20
+Cache Callback: 09.06.2012 1:23:40
+Cache Callback: 09.06.2012 1:32:40
+Cache Callback: Message: Файл не существует.
+Cache Callback: 09.06.2012 2:04:00
+Cache Callback: 09.06.2012 2:28:40
+Cache Callback: 09.06.2012 2:41:20
+Cache Callback: 09.06.2012 18:44:20
+Cache Callback: 09.06.2012 18:50:40
+Cache Callback: 09.06.2012 18:56:00
+Cache Callback: 09.06.2012 21:42:20
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: Message: Сбой при отправке сообщения электронной почты.
+Cache Callback: Message: Файл не существует.
+Cache Callback: Message: Файл не существует.
+Cache Callback: 10.06.2012 21:08:40
+Cache Callback: 10.06.2012 21:21:00
+Cache Callback: 10.06.2012 21:40:20
+Cache Callback: 10.06.2012 22:10:40
+Cache Callback: 10.06.2012 22:12:40
+Cache Callback: 10.06.2012 23:01:20
+Cache Callback: 11.06.2012 1:46:00
+Cache Callback: 11.06.2012 2:34:40

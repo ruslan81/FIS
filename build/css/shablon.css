@@ -8,13 +8,11 @@ body {margin:0; padding:0; color:#333;
     margin: 0 auto;
 }
 
-#top {margin:5px;}
+#top {padding:5px;}
 
 #logo {height:65px; width:300px; float:left; text-align:center;}
 
 #client-banner-sinfo {height:65px;margin-left:300px; padding-left:20px;}
-
-#client-banner {}
 
 #client 
 {
@@ -28,8 +26,6 @@ body {margin:0; padding:0; color:#333;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 }
-
-#banner {}
 
 #systeminfo { height:50px;}
 

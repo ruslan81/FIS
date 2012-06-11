@@ -1,4 +1,4 @@
-﻿<%@ master language="C#" autoeventwireup="true" inherits="MasterPage, App_Web_ikcmj3hv" %>
+﻿<%@ master language="C#" autoeventwireup="true" inherits="MasterPage, App_Web_eqy5jvn3" %>
 
 <%@ Register src="../UserControlsForAll/BlueButton.ascx" tagname="BlueButton" tagprefix="uc2" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
@@ -16,6 +16,7 @@
     <link type="text/css" href="../css/custom-theme/jquery.wijmo.wijtree.css" rel="stylesheet" />
     <link type="text/css" href="../css/custom-theme/jquery.wijmo.wijgrid.css" rel="stylesheet" />
     <link type="text/css" href="../css/new-style.css" rel="stylesheet" />
+    <link type="text/css" href="../css/basic-jquery-slider.css" rel="stylesheet" />
 
     <script type="text/javascript" src="../js/jquery-1.5.1.min.js"></script>
     <script type="text/javascript" src="../js/highcharts.src.js"></script>
@@ -29,6 +30,9 @@
     <script type="text/javascript" src="../js/jquery.glob.min.js"></script>
     <script type="text/javascript" src="../js/jquery.wijmo.wijdatasource.js"></script>
     <script type="text/javascript" src="../js/jquery.wijmo.wijgrid.js"></script>
+    <script type="text/javascript" src="../js/custom/errors.js"></script>
+    <script type="text/javascript" src="../js/custom/json.js"></script>
+    <script type="text/javascript" src="../js/basic-jquery-slider.min.js"></script>
 
     <script type="text/javascript">
         Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function(sender, args) {
@@ -106,10 +110,29 @@
     </script>
 	
     <script type="text/javascript">
-        $(function() {
+        $(function () {
             resizeAllMaster();
             constructor();
             $("#accordion").accordion("resize");
+
+            //process ajax events
+            $(".ajax-loader").bind("ajaxSend", function (event, jqXHR, ajaxOptions) {
+                $(this).show();
+            }).bind("ajaxComplete", function (event, jqXHR, ajaxOptions) {
+                if ($.active == 1) {
+                    $(this).hide();
+                }
+            });
+
+            //slider
+            $('#banner').bjqs({
+                'width': 600,
+                'height': 60,
+                'showMarkers': false,
+                'showControls': true,
+                nextText: 'далее →',
+                prevText: '← назад'
+            });
         });
 	</script>
 
@@ -117,20 +140,53 @@
 
 </head>
 <body>
+
+    <div style="display: none">
+
+        <div id="error-dialog-message" title="SmartFIS">
+            <div style="margin-top: 10px;">
+                <h4>
+                    Внимание! Что-то пошло не так...
+                </h4>
+            </div>
+            <div style="margin-top: 20px;">
+                Причина: <span id="errorThrown"></span>
+            </div>
+        </div>
+    </div>
+
     <form id="form1" enctype="multipart/form-data" runat="server">
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" AsyncPostBackTimeout="9999999"
         EnableScriptGlobalization="true" EnableScriptLocalization="true" EnablePageMethods="true" />
     <div id="all">
+            <div id="container">
+                <div id="banner">
+                    <ul class="bjqs">
+                    <li>
+                        <div class="check slider-title">Реальность</div>
+                        Внедрение цифровых тахографов привело к необходимости нового подхода к анализу накопленных данных как на картах водителя и памяти самого цифрового тахографа.
+                    </li>
+                    <li>
+                        <div class="check slider-title">Возможности</div>
+                        Имея у себя возможность считывать данные с цифровых тахографов менеджеры автопредприятий нуждаются в расшифровке данных карт тахографа и самого устройства.
+                    </li>
+                    <li>
+                        <div class="check slider-title">Предложение</div>
+                        Программный комплекс <b>SmartFIS</b> в полной мере способен помочь в анализе данных цифрового тахографа.
+                    </li>
+                    </ul>
+                </div>
+            </div>
         <div id="top">
             <div id="logo" style="margin-top:0px;">
                 <!--1 Логотип-->
                 <asp:Image ImageUrl="~/images/SmartFIS_logo2.png" ID="SmartFisLogo" 
                     runat="server" />
             </div>
+
             <div id="client-banner-sinfo">
-                <div id="client-banner">
-                    <div id="banner" style="float:right; margin-right:0px;">
-                        <!--4 Баннер-->
+                <div>
+                    <div style="float:right; margin-right:0px;">
                         <uc2:BlueButton ID="ExitButt2" Text="Выход" runat="server" BtnWidth="60" CausesValidation="false" />
                     </div>
 
@@ -231,9 +287,24 @@
         </div>
         <div style="padding: 0px;margin-left:5px;margin-right:5px;">
             <div id="bottom">
-                <div style="padding: 0px 15px;">
-			        <asp:ContentPlaceHolder ID="Bottom_PlaceHolder" runat="server">
-                    </asp:ContentPlaceHolder>
+                <div style="margin: 0px 15px;">
+			        <!--<asp:ContentPlaceHolder ID="Bottom_PlaceHolder" runat="server">
+                    </asp:ContentPlaceHolder>-->
+                    <div title="Идет загрузка...Пожалуйста, подождите." class="ajax-loader" style="float: right;display:none;margin-top: 12px;">
+                    </div>
+                    <div style="float: left;margin-top: 12px;">
+                        SmartFIS build number: 
+                        <a href="../WhatsNew.aspx">
+                        <b>
+                        <%System.Reflection.Assembly web = System.Reflection.Assembly.Load("App_Code");
+                          System.Reflection.AssemblyName webName = web.GetName();
+                          string myVersion = webName.Version.ToString(); 
+                        %>
+                        <%=myVersion %>
+                        (<%=System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location).ToShortDateString()%>)
+                        </b>
+                        </a>
+                    </div>
                 </div>
 		    </div>
 		</div>

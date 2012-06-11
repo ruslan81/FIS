@@ -63,6 +63,9 @@ function loadGeneralData() {
         dataType: "json",
         success: function (response) {
             $($("#tmplGeneralData")).tmpl(response.d).appendTo($("#firstGeneralRow"));
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 
@@ -73,7 +76,16 @@ function loadGeneralData() {
 
     $("#tabs").tabs({ show: function (e, ui) {
         if (ui.index == 0) {
-            tabIndex = 0;
+            tabIndex = 0; mode = "";
+            $("#timeZoneSelector").wijcombobox({
+                disabled: true
+            });
+            $("#country").wijcombobox({
+                disabled: true
+            });
+            $("#dealerSelector").wijcombobox({
+                disabled: true
+            });
             $("#userControls").hide();
             resizeAdmin();
         }
@@ -108,6 +120,9 @@ function createStatisticTable() {
         dataType: "json",
         success: function (response) {
             updateTable($("#statisticTableBody"), $("#tmplStatisticTableContent"), response.d);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -129,12 +144,25 @@ function createMessageTable() {
         dataType: "json",
         success: function (response) {
             updateTable($("#messageTableBody"), $("#tmplMessageTableContent"), response.d);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
     $("#messageTable").show();
 
     $("#remove").button();
     $("#remove").click(function () {
+        var boxes = $("#messageTable [type=checkbox]");
+        var c = 0;
+        for (var i = 0; i < boxes.length; i++) {
+            if (boxes[i].checked)
+                c++;
+        }
+        if (c == 0) {
+            alert("Выберите сообщение для удаления!");
+            return false;
+        }
         $("#deletedialog").dialog({ buttons: {
             "OK": function () {
                 removeMessages();
@@ -176,6 +204,18 @@ function loadDealersData() {
     $("#cancel").button({ disabled: true });
 
     $("#edit").click(function () {
+
+        var boxes = $("#dealersTable [type=checkbox]");
+        var c = 0;
+        for (var i = 0; i < boxes.length; i++) {
+            if (boxes[i].checked)
+                c++;
+        }
+        if (c == 0) {
+            alert("Выберите дилера для редактирования!");
+            return false;
+        }
+
         mode = "edit";
 
         $("[name=dealerCheckbox]").hide();
@@ -298,6 +338,8 @@ function loadDealersData() {
             $("#deletedialog").dialog("option", "closeText", '');
             $("#deletedialog").dialog("option", "resizable", false);
             $("#deletedialog").dialog("option", "modal", true);
+        } else{
+            alert("Выберите дилера для удаления!");
         }
         return false;
     });
@@ -340,6 +382,9 @@ function deleteDealers(list) {
         dataType: "json",
         success: function (response) {
             loadDealersData();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -355,6 +400,9 @@ function deleteUser(index) {
         dataType: "json",
         success: function (response) {
             loadUsersData();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -381,6 +429,9 @@ function loadGeneralDealersData() {
             }
 
             loadCommonCountryList();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -401,6 +452,9 @@ function createNewDealer() {
         dataType: "json",
         success: function (response) {
             loadDealersData();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -458,6 +512,9 @@ function loadGeneralUsersData() {
             radioIndex = -1;
             loadUserTypesList();
             loadUsersControls();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -495,8 +552,27 @@ function loadUsersControls() {
     $("#cancel").button({ disabled: true });
 
     $("#edit").click(function () {
+        var boxes = $("#commonData [type=radio]");
+        var c = 0;
+        for (var i = 0; i < boxes.length; i++) {
+            if (boxes[i].checked)
+                c++;
+        }
+        if (c == 0) {
+            alert("Выберите пользователя для редактирования!");
+            return false;
+        }
+
         mode = "edit";
-        $("#tabs").tabs({ selected: 1 });
+        if (tabIndex == 0) {
+            mode = "edit";
+            $("#tabs").tabs({ selected: 1 });
+        } else {
+            loadUsersDetailedData();
+            $("#userControls").show();
+            resizeAdmin();
+        }
+
         return false;
     });
 
@@ -508,6 +584,7 @@ function loadUsersControls() {
 
     $("#cancel").click(function () {
         mode = "";
+        tabIndex = 0;
         loadUsersData();
         return false;
     });
@@ -533,11 +610,12 @@ function loadUsersControls() {
                     $(this).dialog("close");
                 }
             }
-
             });
             $("#deletedialog").dialog("option", "closeText", '');
             $("#deletedialog").dialog("option", "resizable", false);
             $("#deletedialog").dialog("option", "modal", true);
+        } else {
+            alert("Выберите пользователя для удаления!");
         }
         return false;
     });
@@ -560,7 +638,7 @@ function loadJournalData() {
         buildJournalTable();
         return false;
     });
-
+    $("#dateErrorBlock").hide();
     loadEventList();
     //buildJournalTable();
 }
@@ -581,9 +659,17 @@ function buildJournalTable() {
         url: "Administration.aspx/GetJournal",
         data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'StartDate':'" + convert(startDate) + "', 'EndDate':'" + convert(endDate) + "', 'eventType':'" + event + "', 'searchString':'" + text + "'}",
         contentType: "application/json; charset=utf-8",
-        dataType: "json",
+        dataType: "html json",
         success: function (response) {
+            if (response.d == null) {
+            $("#dateErrorBlock").show();
+            $("#journalTable").hide();
+            return;
+            }
             updateTable($("#journalTableBody"), $("#tmplJournalTableContent"), response.d);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -606,7 +692,15 @@ function buildInvoiceTable() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
+            if (response.d == null) {
+                $("#dateErrorBlock").show();
+                $("#journalTable").hide();
+                return;
+            }
             updateTable($("#invoiceTableBody"), $("#tmplInvoiceTableContent"), response.d);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -632,6 +726,9 @@ function loadEventList() {
                 hidingAnimation: { effect: "blind" },
                 isEditable: false
             });
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -673,6 +770,9 @@ function loadInvoiceStatusList() {
                 isEditable: false
             });
             $("#invoiceStatusSelector option [value='0']").attr("selected", "true");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -688,13 +788,14 @@ function loadGeneralDetailedData() {
         dataType: "json",
         success: function (response) {
             $("#tmplGeneralDetailedData").tmpl(response.d).appendTo("#detailedData");
-            //$("#detailedData input").removeClass("inputField");
             $("#detailedData input").addClass("inputField-readonly input");
             $("#detailedData input").attr("readonly", "readonly");
-            //$("#detailedData input").attr("style", "border: 2px solid red;");
             loadCountryList();
             loadTimeZoneList();
             loadAllDealersList();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 
@@ -759,33 +860,15 @@ function loadGeneralDetailedData() {
 function loadDealersDetailedData() {
     $("#detailedData").empty();
     if (radioIndex == -1) {
-        $("#detailedData").append("<font color='#FF0000' size='5'>Выберите объект для отображения детальных сведений!<font>");
+        $("#detailedData").append("<div style='color:#a60000;font-weight:bold;text-align:center;'>Выберите объект для отображения детальных сведений</div>");
         return;
     }
-
-    /*$.ajax({
-    type: "POST",
-    //Page Name (in which the method should be called) and method name
-    url: "Administration.aspx/GetGeneralDetailedData",
-    data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'UserName':'" + $.cookie("CURRENT_USERNAME") + "'}",
-    contentType: "application/json; charset=utf-8",
-    dataType: "json",
-    success: function (response) {
-    $("#tmplGeneralDetailedData").tmpl(response.d).appendTo("#detailedData");
-    //$("#detailedData input").removeClass("inputField");
-    $("#detailedData input").addClass("inputField-readonly input");
-    $("#detailedData input").attr("readonly", "readonly");
-    //$("#detailedData input").attr("style", "border: 2px solid red;");
-    loadCountryList();
-    loadTimeZoneList();
-    }
-    });*/
 }
 
 function loadUsersDetailedData() {
     $("#detailedData").empty();
     if (radioIndex == -1 && mode != "create") {
-        $("#detailedData").append("<font color='#FF0000' size='5'>Выберите объект для отображения детальных сведений!<font>");
+        $("#detailedData").append("<div style='color:#a60000;font-weight:bold;text-align:center;'>Выберите объект для отображения детальных сведений</div>");
         return;
     }
     $.ajax({
@@ -838,6 +921,9 @@ function loadUsersDetailedData() {
                 $("#save").button({ disabled: false });
                 $("#cancel").button({ disabled: false });
             }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -890,6 +976,9 @@ function saveGeneralDetailedData() {
             $("#detailedData input").attr("readonly", "readonly");
             $("#detailedData input").attr("style", "border: 2px solid red;");*/
             return "OK";
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -926,6 +1015,9 @@ function saveDealersData() {
         success: function (response) {
             loadDealersData();
             return "OK";
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -985,6 +1077,9 @@ function saveUsersData() {
         success: function (response) {
             loadUsersData();
             return "OK";
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -1043,6 +1138,9 @@ function createNewUser() {
         success: function (response) {
             loadUsersData();
             return "OK";
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -1072,6 +1170,9 @@ function loadCountryList() {
                     disabled: false
                 });
             }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -1101,6 +1202,9 @@ function loadAllDealersList() {
                     disabled: false
                 });
             }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -1130,6 +1234,9 @@ function loadRoleList() {
                     disabled: false
                 });
             }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -1154,6 +1261,9 @@ function loadNewCountryList() {
                 isEditable: false
             });
             loadNewCityList();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -1189,6 +1299,9 @@ function loadCommonCountryList() {
                 });
             }
             loadCommonCityList();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -1217,6 +1330,9 @@ function loadUserTypesList() {
                     disabled: true
                 });
             }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -1251,6 +1367,9 @@ function loadCityList(country, selector, disabled) {
                 isEditable: false,
                 disabled: disabled
             });
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -1280,6 +1399,9 @@ function loadTimeZoneList() {
                     disabled: false
                 });
             }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -1312,6 +1434,9 @@ function removeMessages() {
         dataType: "json",
         success: function (response) {
             loadGeneralData();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }

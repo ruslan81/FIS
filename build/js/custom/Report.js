@@ -8,6 +8,7 @@ function createPLFTab() {
     map = null;
 
     loadPLFFilesTree();
+
     $("#report-tabs").tabs({ show: function (e, ui) {
         if (ui.index == 0) {
             currentTab = 0;
@@ -37,8 +38,6 @@ function createPLFTab() {
 }
 
 function destroyPLFTab() {
-    $("#report-tabs").empty();
-
     if (chart != null) {
         chart.destroy();
     }
@@ -50,7 +49,12 @@ function destroyPLFTab() {
     map = null;
 
     plfData = null;
+
     currentTab = 0;
+
+    $("#report-tabs").tabs( "destroy" );
+
+    $("#report-tabs").empty();
 }
 
 //Загрузить элементы дерева Водителей
@@ -88,8 +92,11 @@ function loadPLFFilesTree() {
                 onPLFFilesNodeSelected(e, data);
             }
             });
-            
-        }
+
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+        showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+    }
     });
 }
 
@@ -106,7 +113,7 @@ function onPLFFilesNodeSelected(e, data) {
         if (driver != null) {
             $("#statusPanel").empty();
             $("#tmplChoosePLFFile").tmpl({ 'Driver': driver+" / "+driverNumber, 'Device': device, 'Period': period,
-                'type': 'GetReport','CardID': cardID, 'PLFID': plf, 'UserName': $.cookie("CURRENT_USERNAME")}).appendTo("#statusPanel");
+                'type': 'GetPLFReport','CardID': cardID, 'PLFID': plf, 'UserName': $.cookie("CURRENT_USERNAME")}).appendTo("#statusPanel");
 
             $("#getReport").button();
             $("#formatChooser").wijcombobox({ changed: function (e, item) {
@@ -132,7 +139,7 @@ function onPLFFilesNodeSelected(e, data) {
             $.ajax({
                 type: "POST",
                 //Page Name (in which the method should be called) and method name
-                url: "Reports.aspx/GetReportTypes",
+                url: "Reports.aspx/GetPLFReportTypes",
                 data: [],
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -146,12 +153,12 @@ function onPLFFilesNodeSelected(e, data) {
                         $("#reportType").attr("value", reportTypes.d[reportType]);
 
                         $("#report").empty();
-                        $("#tmplLoadingPLFFile").tmpl({}).appendTo("#report");
+                        $("#tmplLoading").tmpl({}).appendTo("#report");
 
                         $.ajax({
                             type: "POST",
                             //Page Name (in which the method should be called) and method name
-                            url: "Reports.aspx/GetReport",
+                            url: "Reports.aspx/GetPLFReport",
                             data: "{'CardID':'" + cardID + "', 'PLFID':'" + plf + "', 'UserName':'" + $.cookie("CURRENT_USERNAME") + "', 'ReportType':'" + ((reportTypes == null) ? "" : reportTypes.d[$("#reportChooser").attr("selectedIndex")]) + "'}",
                             contentType: "application/json; charset=utf-8",
                             dataType: "json",
@@ -159,6 +166,9 @@ function onPLFFilesNodeSelected(e, data) {
                                 $("#report").empty();
 
                                 $('#report').html(result.d.report);
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
                             }
                         });
                     },
@@ -166,7 +176,7 @@ function onPLFFilesNodeSelected(e, data) {
                     });
 
                     //default select general report
-                    var defTypeReport = "FullReport";
+                    var defTypeReport = "Полный отчет";
                     for (var i = 0; i < reportTypes.d.length; i++) {
                         if (reportTypes.d[i] == defTypeReport) {
                             $("#reportChooser").wijcombobox({ selectedIndex: i });
@@ -174,25 +184,28 @@ function onPLFFilesNodeSelected(e, data) {
                             break;
                         }
                     }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
                 }
             });
 
             $("#report").empty();
-            $("#tmplLoadingPLFFile").tmpl({}).appendTo("#report");
+            $("#tmplLoading").tmpl({}).appendTo("#report");
 
             if (chart != null) {
                 chart.destroy();
             }
             chart = null;
             $("#chart").empty();
-            $("#tmplLoadingPLFFile").tmpl({}).appendTo("#chart");
+            $("#tmplLoading").tmpl({}).appendTo("#chart");
 
             if (map != null) {
                 delete (map);
             }
             map = null;
             $("#map").empty();
-            $("#tmplLoadingPLFFile").tmpl({}).appendTo("#map");
+            $("#tmplLoading").tmpl({}).appendTo("#map");
             $("#slider").slider("disable");
             $("#slider").slider({ value: 0 });
             $("#playPath").button("disable");
@@ -203,8 +216,9 @@ function onPLFFilesNodeSelected(e, data) {
             $.ajax({
                 type: "POST",
                 //Page Name (in which the method should be called) and method name
-                url: "Reports.aspx/GetReport",
-                data: "{'CardID':'" + cardID + "', 'PLFID':'" + plf + "', 'UserName':'" + $.cookie("CURRENT_USERNAME") + "', 'ReportType':'" + ((reportTypes == null) ? "" : reportTypes.d[$("#reportChooser").attr("selectedIndex")]) + "'}",
+                url: "Reports.aspx/GetPLFReport",
+                data: "{'CardID':'" + cardID + "', 'PLFID':'" + plf + "', 'UserName':'" + $.cookie("CURRENT_USERNAME") + 
+                        "', 'ReportType':'" + ((reportTypes == null) ? "" : reportTypes.d[$("#reportChooser").attr("selectedIndex")]) + "'}",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (result) {
@@ -223,6 +237,9 @@ function onPLFFilesNodeSelected(e, data) {
                     if (currentTab == 2) {
                         createMap(plfData);
                     }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
                 }
             });
         } else {
@@ -617,5 +634,177 @@ function playPath() {
             //stop play path
             $("#playPath").click();
         }
+    }
+}
+
+//////////////////////////////////////////////////////
+
+//Создать закладку Транспортные средства
+function createVehicles() {
+    $("#report-tabs").empty();
+    $("#tmplVehiclesTab").tmpl("").appendTo("#report-tabs");
+
+    loadVehiclesTree();
+}
+
+//Загрузить элементы дерева Транспортные средства
+function loadVehiclesTree() {
+    $("#statusPanel").empty();
+    $("#tmplNoVehicles").tmpl("").appendTo("#statusPanel");
+
+    //destroy a tree
+    $("#vehiclesTree").wijtree("destroy");
+    $("#vehiclesTree").empty();
+
+    $("#report-tabs").empty();
+
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Reports.aspx/GetVehiclesTree",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#tmplVehiclesTree").tmpl(response.d).appendTo("#vehiclesTree");
+
+            //builds a tree
+            $("#vehiclesTree").wijtree();
+
+            //sets a listener to node selection
+            $("#vehiclesTree").wijtree({ selectedNodeChanged: function (e, data) {
+                onVehiclesNodeSelected(e, data);
+                }
+            });
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+        showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+    }
+    });
+}
+
+function onVehiclesNodeSelected(e, data) {
+    var isSelected = $("div", data.element).attr("aria-selected");
+    var dataBlockID = $("a span", data.element).attr("dataBlockID");
+    var file = $("a span", data.element).attr("file");
+    var period = $("a span", data.element).text();
+    var vehicleCode = $("a span", data.element).attr("code");
+    var vehicleName = $("a span", data.element).attr("name");
+
+    if (isSelected == "true") {
+        if (dataBlockID != null) {
+            $("#statusPanel").empty();
+            $("#tmplChooseDDDFile").tmpl({ 'Name': vehicleName, 'VehicleVin': vehicleCode, 'Period': period,
+                'type': 'GetDDDReport', 'UserName': $.cookie("CURRENT_USERNAME"), 'DataBlockID': dataBlockID
+            }).appendTo("#statusPanel");
+
+            $("#getReport").button();
+            $("#formatChooser").wijcombobox({ changed: function (e, item) {
+                var format = $("#formatChooser").attr("selectedIndex");
+                if (format == "0") {
+                    $("#format").attr("value", "pdf");
+                }
+                if (format == "1") {
+                    $("#format").attr("value", "html");
+                }
+                if (format == "2") {
+                    $("#format").attr("value", "rtf");
+                }
+                if (format == "3") {
+                    $("#format").attr("value", "png");
+                }
+            },
+                isEditable: false
+            });
+
+            reportTypes = null;
+
+            $.ajax({
+                type: "POST",
+                //Page Name (in which the method should be called) and method name
+                url: "Reports.aspx/GetDDDReportTypes",
+                data: [],
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (res) {
+                    reportTypes = res;
+                    $("#tmplSelect").tmpl({ 'filenames': reportTypes.d }).appendTo("#reportChooser");
+
+                    $("#reportChooser").wijcombobox({ changed: function (e, item) {
+                        var reportType = $("#reportChooser").attr("selectedIndex");
+
+                        $("#reportType").attr("value", reportTypes.d[reportType]);
+
+                        $("#report-tabs").empty();
+                        $("#tmplLoading").tmpl({}).appendTo("#report-tabs");
+
+                        $.ajax({
+                            type: "POST",
+                            //Page Name (in which the method should be called) and method name
+                            url: "Reports.aspx/GetDDDReport",
+                            data: "{'DataBlockID':'" + dataBlockID + "', 'UserName':'" + $.cookie("CURRENT_USERNAME") + "', 'ReportType':'" + ((reportTypes == null) ? "" : reportTypes.d[$("#reportChooser").attr("selectedIndex")]) + "'}",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (result) {
+                                $("#report-tabs").empty();
+
+                                $('#report-tabs').html("<center><div style='background:#fff;padding:20px 0 20px 0;'>" +
+                                    result.d +
+                                    "</div></center>");
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+                            }
+                        });
+                    },
+                        isEditable: false
+                    });
+
+                    //default select general report
+                    var defTypeReport = "Полный отчет";
+                    for (var i = 0; i < reportTypes.d.length; i++) {
+                        if (reportTypes.d[i] == defTypeReport) {
+                            $("#reportChooser").wijcombobox({ selectedIndex: i });
+                            $("#reportChooser").attr("selectedIndex", i);
+                            break;
+                        }
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+                }
+            });
+
+            $("#report-tabs").empty();
+            $("#tmplLoading").tmpl({}).appendTo("#report-tabs");
+
+            $.ajax({
+                type: "POST",
+                //Page Name (in which the method should be called) and method name
+                url: "Reports.aspx/GetDDDReport",
+                data: "{'DataBlockID':'" + dataBlockID + "', 'UserName':'" + $.cookie("CURRENT_USERNAME") + "', 'ReportType':'" + ((reportTypes == null) ? "" : reportTypes.d[$("#reportChooser").attr("selectedIndex")]) + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    $("#report-tabs").empty();
+
+                    $('#report-tabs').html("<center><div style='background:#fff;padding:20px 0 20px 0;'>" +
+                        result.d + 
+                        "</div></center>");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+                }
+            });
+            
+        } else {
+            $("#statusPanel").empty();
+            $("#tmplNoVehicles").tmpl("").appendTo("#statusPanel");
+            $("#report-tabs").empty();
+        }
+    } else {
+        $("#statusPanel").empty();
+        $("#tmplNoVehicles").tmpl("").appendTo("#statusPanel");
+        $("#report-tabs").empty();
     }
 }

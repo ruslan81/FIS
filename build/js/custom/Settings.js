@@ -197,6 +197,9 @@ function createRemindControls() {
                 dataType: "json",
                 success: function (response) {
                     loadReminds();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
                 }
             });
         }
@@ -225,6 +228,9 @@ function createRemindControls() {
                 dataType: "json",
                 success: function (response) {
                     loadReminds();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
                 }
             });
         }
@@ -327,8 +333,9 @@ function loadDriversTree(key,type) {
             $('span .ui-icon').addClass("ui-icon-triangle-1-se");
             $('span .ui-icon').removeClass("ui-icon-triangle-1-e");
             $('.wijmo-wijtree-child').css("display", "block");
-            //$("#RemindLabel2").text($("#OrgLI").attr("name"));
-            //$("#DriversTree").hide();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -414,6 +421,9 @@ function loadGeneralSettings() {
 
             resizeAllMaster();
             resizeSettings();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -463,8 +473,8 @@ function createUserControlsGeneral() {
                     return false;
                 }
             },
-            error: function () {
-                alert("Ошибка Settings.aspx/SaveGeneralSettings");
+            error: function (jqXHR, textStatus, errorThrown) {
+                showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
             }
         });
 
@@ -497,6 +507,9 @@ function loadReminds() {
 
             resizeAllMaster();
             resizeSettings();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -515,6 +528,9 @@ function loadGroupsSettings() {
             createContentTableGroups(response);
             createGroupCardTypeSelectors();
             $("#contentTable").show();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -532,6 +548,9 @@ function loadDriversSettings() {
             createContentTableDrivers(response);
             createGroupSelectorDrivers();
             $("#contentTable").show();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -549,6 +568,9 @@ function loadTransportsSettings() {
             createContentTableTransports(response);
             createGroupSelectorTransports();
             $("#contentTable").show();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -566,6 +588,9 @@ function loadDefaultSettings() {
             createUserControlsDefault();
             createContentTableDefault(response);
             $("#contentTable").show();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -699,6 +724,9 @@ function createUserControlsGroups() {
                 dataType: "json",
                 success: function (response) {
                     loadGroupsSettings();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
                 }
             });
         }
@@ -719,6 +747,9 @@ function createUserControlsGroups() {
                 dataType: "json",
                 success: function (response) {
                     loadGroupsSettings();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
                 }
             });
         }
@@ -862,6 +893,9 @@ function createUserControlsDrivers() {
                 dataType: "json",
                 success: function (response) {
                     loadDriversSettings();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
                 }
             });
         }
@@ -883,6 +917,9 @@ function createUserControlsDrivers() {
                 dataType: "json",
                 success: function (response) {
                     loadDriversSettings();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
                 }
             });
         }
@@ -1026,6 +1063,9 @@ function createUserControlsTransports() {
                 dataType: "json",
                 success: function (response) {
                     loadTransportsSettings();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
                 }
             });
         }
@@ -1047,6 +1087,9 @@ function createUserControlsTransports() {
                 dataType: "json",
                 success: function (response) {
                     loadTransportsSettings();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
                 }
             });
         }
@@ -1132,6 +1175,9 @@ function createUserControlsDefault() {
             dataType: "json",
             success: function (response) {
                 loadDefaultSettings();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
             }
         });
 
@@ -1155,6 +1201,9 @@ function deleteGroup(list) {
         dataType: "json",
         success: function (response) {
             loadGroupsSettings();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -1170,6 +1219,9 @@ function deleteRemind(list) {
         dataType: "json",
         success: function (response) {
             loadReminds();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -1185,6 +1237,9 @@ function deleteDrivers(list) {
         dataType: "json",
         success: function (response) {
             loadDriversSettings();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -1200,6 +1255,9 @@ function deleteTransports(list) {
         dataType: "json",
         success: function (response) {
             loadTransportsSettings();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -1301,7 +1359,10 @@ function createGroupSelectorDrivers() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            createSelectors(response, "groupSelector", "group");            
+            createSelectors(response, "groupSelector", "group");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -1316,6 +1377,9 @@ function createGroupSelectorTransports() {
         dataType: "json",
         success: function (response) {
             createSelectors(response, "groupSelector", "group");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -1330,6 +1394,9 @@ function createGroupSelectorDriversSingle(selector) {
         dataType: "json",
         success: function (response) {
             createSelector(selector, response, "group");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -1344,6 +1411,9 @@ function createGroupSelectorTransportsSingle(selector) {
         dataType: "json",
         success: function (response) {
             createSelector(selector, response, "group");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -1428,6 +1498,9 @@ function createRemindSelectors() {
         dataType: "json",
         success: function (response) {
             createSelectors(response, "typeSelector", "typeSel");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
     $.ajax({
@@ -1439,6 +1512,9 @@ function createRemindSelectors() {
         dataType: "json",
         success: function (response) {
             createSelectors(response, "periodSelector", "period");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
     $.ajax({
@@ -1450,6 +1526,9 @@ function createRemindSelectors() {
         dataType: "json",
         success: function (response) {
             createSelectors(response, "userSelector", "user");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -1464,6 +1543,9 @@ function createRemindSelectorsSingle() {
         dataType: "json",
         success: function (response) {
             createSelector($("#typeSelectorNew"), response, "typeSel");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
     $.ajax({
@@ -1475,6 +1557,9 @@ function createRemindSelectorsSingle() {
         dataType: "json",
         success: function (response) {
             createSelector($("#periodSelectorNew"), response, "period");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
     $.ajax({
@@ -1489,6 +1574,9 @@ function createRemindSelectorsSingle() {
             value = $("#userSelectorNew option:first").attr("value");
             $("#userSelectorNew option:first").attr("selected", "true");
             $("#userSelectorNew").attr("user",value);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
 }
@@ -1508,6 +1596,9 @@ function loadUserList() {
                 hidingAnimation: { effect: "blind" },
                 isEditable: false
             });
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });   
 }
