@@ -1193,7 +1193,7 @@ namespace DB.SQL
         public List<int> GetAllCountries()
         {
             List<int> result = new List<int>();
-            string sql = "SELECT id_country FROM country_";
+            string sql = "SELECT id_country FROM country_ ORDER BY country_name_ru";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             MySqlDataReader sdr = cmd.ExecuteReader();
             while (sdr.Read())
@@ -1221,7 +1221,7 @@ namespace DB.SQL
         public List<int> GetAllCities(int countryId)
         {
             List<int> result = new List<int>();
-            string sql = "SELECT id_city FROM city_ WHERE id_country=@COUNTRY_ID";
+            string sql = "SELECT id_city FROM city_ WHERE id_country=@COUNTRY_ID ORDER BY city_name_ru";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@COUNTRY_ID", countryId);
             MySqlDataReader sdr = cmd.ExecuteReader();
