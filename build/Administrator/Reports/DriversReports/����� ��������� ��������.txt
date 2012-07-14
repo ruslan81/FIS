@@ -1,1 +1,0 @@
-{Floor(SumTime(DriversWeeklyData.Время_вождения).Add(SumTime(DriversWeeklyData.Время_работы).Add(SumTime(DriversWeeklyData.Время_свободное))).TotalHours)}:{Format("{0:00}", SumTime(DriversWeeklyData.Время_вождения).Add(SumTime(DriversWeeklyData.Время_работы).Add(SumTime(DriversWeeklyData.Время_свободное))).Minutes)}

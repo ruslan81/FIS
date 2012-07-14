@@ -119,14 +119,14 @@
             <div style="float:left;margin-right:5px;">Тип лицензии:</div>
             <div style="font-weight:bold;"> {{html licenseType}}</div>
         </div>
-        <div style="margin-top:2px;">
+        <!--<div style="margin-top:2px;">
             <div style="float:left;margin-right:5px;">Дата регистрации в системе:</div>
             <div style="font-weight:bold;"> {{html registerDate}}</div>
         </div>
         <div style="margin-top:2px;">
             <div style="float:left;margin-right:5px;">Срок окончания регистрации:</div>
             <div style="font-weight:bold;"> {{html endDate}}</div>
-        </div>
+        </div>-->
     </div>
     </script>
 
@@ -771,6 +771,21 @@
             </td>
         </tr>
     </script>
+    <script id="tmplDealersTree" type="text/x-jquery-tmpl">
+        <li class="folder"><a><span key="None">${OrgName}</span></a>
+        <ul>
+            {{each dealers}}
+            <li class="file"><a><span key="None">${GroupName}</span></a>
+                <ul>
+                    {{each values}}
+                    <li class="file"><a><span key=${Key}>${Value}</span></a></li>
+                    {{/each}}
+                </ul>
+                </li>
+            {{/each}}
+        </ul>
+        </li>
+    </script>
 
     <script id="tmplHeadColumn" type="text/x-jquery-tmpl">
         <th class="ui-widget wijmo-c1basefield ui-state-default wijmo-c1field" style="{{html style}}height:30px;">
@@ -793,6 +808,11 @@
                         <br/>
                         Данный раздел позволяет просматривать и редактировать информацию о текущем пользователе.
                     </center>
+                    <div>
+                <ul id="dealersTree">
+                    
+                </ul>
+            </div>
                 </div>
             <h3 id="AccountsAccordionPane2_Header" runat="server"><asp:LinkButton ID="AccountsAccordionPane2" runat="server" CausesValidation="false" PostBackUrl="#" Text="Дилеры" /></h3>
               <div id="secondAccordionPanel">                   
