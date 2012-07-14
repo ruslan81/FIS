@@ -136,7 +136,7 @@
         <label>Пользователь</label></br><div style="width: 300px;"><input id="orgLogin" value="{{html orgLogin}}"/></div></br>
 
         <label>Дилер</label></br>
-        <div style="width:50%;"><select id="dealerSelector" dealerId="{{html dealerId}}" onchange="this.dealerId=this.value;"></select></div><br>
+        <div style="width:50%;"><select id="dealerSelector" style="width:100px;" dealerId="{{html dealerId}}" onchange="this.dealerId=this.value;"></select></div><br>
 
         <table style="" cellpadding="0" cellspacing="0">
             <tr><td><label>Пароль </label></td><td><label>Пароль (Подтверждение) </label></td></tr>
@@ -156,7 +156,7 @@
             <tr><td><label>Страна </label></td><td><label>Город </label></td><td><label>Почтовый индекс </label></td></tr>
             <tr>
                 <td>
-                    <div style="width: 300px;"><select id="country" countryId="{{html country}}" onchange="this.countryId=this.value;"></select></div>
+                    <div style="width: 300px;"><select id="country" style="width:170px;" countryId="{{html country}}" onchange="this.countryId=this.value;"></select></div>
                 </td>
                 <td>
                     <div style="width: 300px;"><input id="city" value="{{html city}}"/></div>
@@ -173,7 +173,7 @@
 
         <br/>
 
-        <div style="width:100%;"><select id="timeZoneSelector" timeZoneId="{{html timeZone}}" onchange="this.timeZoneId=this.value;"></select></div>
+        <div style="width:100%;"><select id="timeZoneSelector" style="width:350px;" timeZoneId="{{html timeZone}}" onchange="this.timeZoneId=this.value;"></select></div>
 
         <br/>
 
@@ -311,10 +311,10 @@
         <label>Пользователь</label></br><div style="width: 300px;"><input id="orgLogin" value="{{html login}}"/></div></br>
 
         <label>Дилер</label><br/>
-        <div style="width:100%;"><select id="dealerSelector" dealerId="{{html dealerId}}" onchange="this.dealerId=this.value;"></select></div><br>
+        <div style="width:100%;"><select id="dealerSelector" style="width:100px;" dealerId="{{html dealerId}}" onchange="this.dealerId=this.value;"></select></div><br>
 
         <label>Роль</label><br/>
-        <div style="width: 100%;"><select id="role" roleId="{{html roleId}}" onchange="this.roleId=this.value;"></select></div></br>
+        <div style="width: 100%;"><select id="role" style="width:100px;" roleId="{{html roleId}}" onchange="this.roleId=this.value;"></select></div></br>
 
         <table style="" cellpadding="0" cellspacing="0">
         <tr><td><label>Имя </label></td><td><label>Отчество </label></td><td><label>Фамилия </label></td></tr>
@@ -351,7 +351,7 @@
             <tr><td><label>Страна </label></td><td><label>Город </label></td><td><label>Почтовый индекс </label></td></tr>
             <tr>
                 <td>
-                    <div style="width: 300px;"><select id="country" countryId="{{html country}}" onchange="this.countryId=this.value;"></select>
+                    <div style="width: 300px;"><select id="country" style="width:170px;" countryId="{{html country}}" onchange="this.countryId=this.value;"></select>
                 </td>
                 <td>
                     <div style="width: 300px;"><input id="city" value="{{html city}}"/></div>
@@ -365,7 +365,7 @@
         <br>
 
         <label>Часовая зона</label></br>
-        <div style="width:100%;"><select id="timeZoneSelector" timeZoneId="{{html timeZone}}" onchange="this.timeZoneId=this.value;"></select></div><br>
+        <div style="width:100%;"><select id="timeZoneSelector" style="width:350px;" timeZoneId="{{html timeZone}}" onchange="this.timeZoneId=this.value;"></select></div><br>
 
         <label>Адрес (Основной)</label><br><div style="width: 500px;"><input id="addr1" value="{{html address1}}"/></div><br>
         <label>Адрес (Дополнительно)</label><br><div style="width: 500px;"><input id="addr2" value="{{html address2}}"/></div><br>

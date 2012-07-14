@@ -102,6 +102,17 @@ button
     padding-left: 15px;
 }
 
+.error-block-def
+{
+    background: #EEE url(../images/EnterForm/formback.png) repeat-x;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    border: 1px #CCC solid;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    padding: 2px 2px 2px 15px;
+}
+
 .error-block-status
 {   
     width: 268px;

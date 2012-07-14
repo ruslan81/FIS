@@ -8,7 +8,7 @@ body {margin:0; padding:0; color:#333;
     margin: 0 auto;
 }
 
-#top {padding:5px;}
+#top {padding:5px;position:relative; z-index:2}
 
 #logo {height:65px; width:300px; float:left; text-align:center;}
 
