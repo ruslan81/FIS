@@ -50,7 +50,39 @@ function createTableHeader(tableHeader, template, columns) {
     $(template).tmpl(jQuery.parseJSON(columns)).appendTo($(".wijmo-wijgrid-headerrow", tableHeader));
 }
 
-function loadGeneralData() {
+function buildOrgTree(param) {
+    $("#dealersTree").empty();
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Administration.aspx/GetDealersTree",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#dealersTree").wijtree("destroy");
+            $($("#tmplDealersTree")).tmpl(response.d).appendTo($("#dealersTree"));
+            $("#dealersTree").wijtree();
+            $("#dealersTree").wijtree({ selectedNodeChanged: function (e, data) {
+                onDealersTreeNodeSelected(e, data);
+            }
+            });
+            if (param != "") {
+                $("#dealersTree li [likey=" + param + "]").wijtreenode({ selected: true });
+                $('span .ui-icon').addClass("ui-icon-triangle-1-se");
+                $('span .ui-icon').removeClass("ui-icon-triangle-1-e");
+                $('.wijmo-wijtree-child').css("display", "block");
+                //$("#tabs").wijtabs('select', 2);
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
+    });
+};
+
+function loadGeneralData() {   
+
     $("#ContentContainer").empty();
     $("#ContentContainer").append($("#GeneralData").text());
 
@@ -58,7 +90,7 @@ function loadGeneralData() {
         type: "POST",
         //Page Name (in which the method should be called) and method name
         url: "Administration.aspx/GetGeneralData",
-        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'UserName':'" + $.cookie("CURRENT_USERNAME") + "'}",
+        data: "{'OrgID':'" + dealerOrgID + "', 'UserName':'" + $.cookie("CURRENT_USERNAME") + "'}",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
@@ -83,17 +115,45 @@ function loadGeneralData() {
             $("#country").wijcombobox({
                 disabled: true
             });
-            $("#dealerSelector").wijcombobox({
-                disabled: true
-            });
+            /*$("#dealerSelector").wijcombobox({
+            disabled: true
+            });*/
             $("#userControls").hide();
             resizeAdmin();
         }
-        if (ui.index == 1) {
-            tabIndex = 1;
-            loadGeneralDetailedData();
-            $("#userControls").show();
-            resizeAdmin();
+        if (ui.index == 1 || ui.index == 2) {
+            if (tabIndex == 0) {
+                tabIndex = 1;
+                loadGeneralDetailedData();
+                $("#userControls").show();
+                resizeAdmin();
+            } else {
+                //resizeAdmin();
+            }
+            if (ui.index == 1) {
+                $("#timeZoneSelector").wijcombobox("destroy");
+                $("#country").wijcombobox("destroy");
+                $("#timeZoneSelector").wijcombobox({
+                    showingAnimation: { effect: "blind" },
+                    hidingAnimation: { effect: "blind" },
+                    isEditable: false,
+                    disabled: true
+                });
+                $("#country").wijcombobox({
+                    showingAnimation: { effect: "blind" },
+                    hidingAnimation: { effect: "blind" },
+                    isEditable: false,
+                    disabled: true
+                });
+                if (mode == "edit") {
+                    $("#timeZoneSelector").wijcombobox({
+                        disabled: false
+                    });
+                    $("#country").wijcombobox({
+                        disabled: false
+                    });
+                }
+            }
         }
         return false;
     }
@@ -103,6 +163,20 @@ function loadGeneralData() {
     $("#userControls").hide();
 
     resizeAdmin();
+}
+
+//Событие при выделении узла дерева
+function onDealersTreeNodeSelected(e, data) {
+    isSelected = $("div", data.element).attr("aria-selected");
+    dealerOrgID = $("a span", data.element).attr("key");
+    dealerLevel = $("a span", data.element).attr("level");
+    if (isSelected == "true") {
+        loadGeneralData();
+        tabIndex = 0;
+    } else {
+        $("#contentTableBody").empty();
+        $("#contentTable").hide();
+    }
 }
 
 function createStatisticTable() {
@@ -115,7 +189,7 @@ function createStatisticTable() {
         type: "POST",
         //Page Name (in which the method should be called) and method name
         url: "Administration.aspx/GetStatistic",
-        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'UserName':'" + $.cookie("CURRENT_USERNAME") + "'}",
+        data: "{'OrgID':'" + dealerOrgID + "'}",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
@@ -182,7 +256,7 @@ function createMessageTable() {
 }
 
 function loadDealersData() {
-    $("#ContentContainer").empty();
+    /*$("#ContentContainer").empty();
     $("#ContentContainer").append($("#DealersData").text());
 
     createTableHeader($("#dealersTableHeader"), $("#tmplHeadColumn"),
@@ -361,7 +435,7 @@ function loadDealersData() {
         return false;
     }
     });
-
+    */
     $("#userControls").show();
 }
 
@@ -382,6 +456,25 @@ function deleteDealers(list) {
         dataType: "json",
         success: function (response) {
             loadDealersData();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
+    });
+}
+
+function deleteDealer() {
+    var order = { ID: dealerOrgID };
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Administration.aspx/DeleteDealer",
+        data: JSON.stringify(order),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            buildOrgTree(0);
+            loadGeneralData();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -778,21 +871,25 @@ function loadInvoiceStatusList() {
 }
 
 function loadGeneralDetailedData() {
-    $("#detailedData").empty();
+    $("#detailedData1").empty();
+    $("#detailedData2").empty();
     $.ajax({
         type: "POST",
         //Page Name (in which the method should be called) and method name
-        url: "Administration.aspx/GetGeneralDetailedData",
-        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'UserName':'" + $.cookie("CURRENT_USERNAME") + "'}",
+        url: "Administration.aspx/GetGeneralOrgDetailedData",
+        data: "{'OrgID':'" + dealerOrgID + "'}",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            $("#tmplGeneralDetailedData").tmpl(response.d).appendTo("#detailedData");
-            $("#detailedData input").addClass("inputField-readonly input");
-            $("#detailedData input").attr("readonly", "readonly");
+            $("#tmplGeneralOrgDetailedData1").tmpl(response.d).appendTo("#detailedData1");
+            $("#tmplGeneralOrgDetailedData2").tmpl(response.d).appendTo("#detailedData2");
+            $("#detailedData1 input").addClass("inputField-readonly input");
+            $("#detailedData1 input").attr("readonly", "readonly");
+            $("#detailedData2 input").addClass("inputField-readonly input");
+            $("#detailedData2 input").attr("readonly", "readonly");
             loadCountryList();
             loadTimeZoneList();
-            loadAllDealersList();
+            //loadAllDealersList();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -805,10 +902,15 @@ function loadGeneralDetailedData() {
     $("#userControls button").button();
     $("#save").button({ disabled: true });
     $("#cancel").button({ disabled: true });
+    if (dealerOrgID == $.cookie("CURRENT_ORG_ID")) {
+        $("#delete").button({ disabled: true });
+    }
+    if (dealerLevel == 3) {
+        $("#create").button({ disabled: true });
+    }
 
     $("#edit").click(function () {
         mode = "edit";
-
 
         $("#timeZoneSelector").wijcombobox({
             disabled: false
@@ -816,23 +918,76 @@ function loadGeneralDetailedData() {
         $("#country").wijcombobox({
             disabled: false
         });
-        $("#dealerSelector").wijcombobox({
-            disabled: false
-        });
+        /*$("#dealerSelector").wijcombobox({
+        disabled: false
+        });*/
 
-        $("#detailedData .input").removeClass("inputField-readonly");
-        $("#detailedData .input").removeAttr("readonly");
-        $("#detailedData .input").addClass("inputField");
+        $("#detailedData1 .input").removeClass("inputField-readonly");
+        $("#detailedData1 .input").removeAttr("readonly");
+        $("#detailedData1 .input").addClass("inputField");
 
-        $("#orgName").removeClass("inputField");
-        $("#orgName").addClass("inputField-readonly");
-        $("#orgName").attr("readonly", "readonly");
+        $("#detailedData2 .input").removeClass("inputField-readonly");
+        $("#detailedData2 .input").removeAttr("readonly");
+        $("#detailedData2 .input").addClass("inputField");
 
-        $("#orgLogin").removeClass("inputField");
+        if (dealerOrgID == $.cookie("CURRENT_ORG_ID")) {
+            $("#orgName").removeClass("inputField");
+            $("#orgName").addClass("inputField-readonly");
+            $("#orgName").attr("readonly", "readonly");
+        }
+
+        /*$("#orgLogin").removeClass("inputField");
         $("#orgLogin").addClass("inputField-readonly");
-        $("#orgLogin").attr("readonly", "readonly");
+        $("#orgLogin").attr("readonly", "readonly");*/
 
         $("#edit").button({ disabled: true });
+        $("#create").button({ disabled: true });
+        $("#delete").button({ disabled: true });
+        $("#save").button({ disabled: false });
+        $("#cancel").button({ disabled: false });
+        return false;
+    });
+
+    $("#create").click(function () {
+        mode = "create";
+
+        
+        $("#timeZoneSelector").wijcombobox({
+            disabled: false,
+            selectedIndex: 0
+        });
+        $("#timeZoneSelector").attr("timeZoneId", "0");
+        $("#country").wijcombobox({
+            disabled: false,
+            selectedIndex: 0
+        });
+        $("#country").attr("countryId", "0");
+        /*$("#dealerSelector").wijcombobox({
+        disabled: false
+        });*/
+
+        $("#detailedData1 .input").removeClass("inputField-readonly");
+        $("#detailedData1 .input").removeAttr("readonly");
+        $("#detailedData1 .input").addClass("inputField");
+
+        $("#detailedData1 .input").attr("value", "");
+
+        $("#detailedData2 .input").removeClass("inputField-readonly");
+        $("#detailedData2 .input").removeAttr("readonly");
+        $("#detailedData2 .input").addClass("inputField");
+
+        $("#detailedData2 .input").attr("value", "");
+        /*$("#orgName").removeClass("inputField");
+        $("#orgName").addClass("inputField-readonly");
+        $("#orgName").attr("readonly", "readonly");*/
+
+        /*$("#orgLogin").removeClass("inputField");
+        $("#orgLogin").addClass("inputField-readonly");
+        $("#orgLogin").attr("readonly", "readonly");*/
+
+        $("#edit").button({ disabled: true });
+        $("#create").button({ disabled: true });
+        $("#delete").button({ disabled: true });
         $("#save").button({ disabled: false });
         $("#cancel").button({ disabled: false });
         return false;
@@ -844,11 +999,92 @@ function loadGeneralDetailedData() {
         return false;
     });
 
+    $("#delete").click(function () {
+        $("#deletedealerdialog").dialog({ buttons: {
+            "OK": function () {
+                deleteDealer();
+                dealerOrgID = $.cookie("CURRENT_ORG_ID");
+                dealerLevel = 0;
+                $(this).dialog("close");
+            },
+            "Отмена": function () {
+                $(this).dialog("close");
+            }
+        },
+            closeText: '',
+            resizable: false,
+            modal: true
+        });
+        return false;
+    });
+
     $("#save").click(function () {
-        mode = "";
-        var res = saveGeneralDetailedData();
-        if (res == "error") {
-            return false;
+
+        if (mode == "edit") {
+            var orgName = $("#orgName").attr("value");
+            if (orgName == "") {
+                //alert("Введите название организации!");
+                $("#wrongOrgMessage").dialog({
+                    autoOpen: true,
+                    maxHeight: 500,
+                    width: 420,
+                    modal: true,
+                    closeText: '',
+                    resizable: false,
+                    draggable: false,
+                    buttons: {
+                        Ok: function () {
+                            $(this).dialog("close");
+                        }
+                    },
+                    captionButtons: {
+                        pin: { visible: false },
+                        refresh: { visible: false },
+                        toggle: { visible: false },
+                        minimize: { visible: false },
+                        maximize: { visible: false }
+                    }
+                });
+                return false;
+            }
+            mode = "";
+            var res = saveGeneralDetailedData();
+            if (res == "error") {
+                return false;
+            }
+        }
+        if (mode == "create") {
+            var orgName = $("#orgName").attr("value");
+            if (orgName == "") {
+                //alert("Введите название организации!");
+                $("#wrongOrgMessage").dialog({
+                    autoOpen: true,
+                    maxHeight: 500,
+                    width: 420,
+                    modal: true,
+                    closeText: '',
+                    resizable: false,
+                    draggable: false,
+                    buttons: {
+                        Ok: function () {
+                            $(this).dialog("close");
+                        }
+                    },
+                    captionButtons: {
+                        pin: { visible: false },
+                        refresh: { visible: false },
+                        toggle: { visible: false },
+                        minimize: { visible: false },
+                        maximize: { visible: false }
+                    }
+                });
+                return false;
+            }
+            mode = "";
+            var res = createNewOrganization();
+            if (res == "error") {
+                return false;
+            }
         }
 
         loadGeneralDetailedData();
@@ -930,17 +1166,17 @@ function loadUsersDetailedData() {
 
 function saveGeneralDetailedData() {
     var orgName = $("#orgName").attr("value");
-    var orgLogin = $("#orgLogin").attr("value");
-    var pass1 = $("#pass1").attr("value");
-    var pass2 = $("#pass2").attr("value");
+    //var orgLogin = $("#orgLogin").attr("value");
+    //var pass1 = $("#pass1").attr("value");
+    //var pass2 = $("#pass2").attr("value");
 
-    if (pass1 != pass2) {
+    /*if (pass1 != pass2) {
         alert("Введенные пароли не совпадают!");
         return "error";
-    }
+    }*/
 
     var country = $("#country").attr("countryId");
-    var dealerId = $("#dealerSelector").attr("dealerId");
+    //var dealerId = $("#dealerSelector").attr("dealerId");
     var city = $("#city").attr("value");
     var index = $("#index").attr("value");
     var timeZone = $("#timeZoneSelector").attr("timeZoneId");
@@ -950,34 +1186,80 @@ function saveGeneralDetailedData() {
     var fax = $("#fax").attr("value");
     var mail = $("#mail").attr("value");
 
-    var ud =
-    //+ "', 'orgName':'" + orgName
-           "{'orgLogin':'" + orgLogin
+
+    var ud = "{'orgName':'" + orgName
            + "', 'country':'" + country
-           + "', 'password':'" + pass1
            + "', 'city':'" + city
            + "', 'index':'" + index
            + "', 'address1':'" + address1
            + "', 'address2':'" + address2
            + "', 'timeZone':'" + timeZone
-           + "', 'dealerId':'" + dealerId
            + "', 'phone':'" + phone
            + "', 'fax':'" + fax
            + "', 'mail':'" + mail + "'}";
     $.ajax({
         type: "POST",
         //Page Name (in which the method should be called) and method name
-        url: "Administration.aspx/SaveGeneralDetailedData",
-        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'UserName':'" + $.cookie("CURRENT_USERNAME") + "', 'ud':" + ud + "}",
+        url: "Administration.aspx/SaveGeneralOrgDetailedData",
+        data: "{'OrgID':'" + dealerOrgID + "', 'ud':" + ud + "}",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            /*$("#detailedData input").addClass("inputField-readonly input");
-            $("#detailedData input").attr("readonly", "readonly");
-            $("#detailedData input").attr("style", "border: 2px solid red;");*/
             return "OK";
         },
         error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
+    });
+}
+
+function createNewOrganization() {
+    var orgName = $("#orgName").attr("value");
+    //var orgLogin = $("#orgLogin").attr("value");
+    //var pass1 = $("#pass1").attr("value");
+    //var pass2 = $("#pass2").attr("value");
+
+    /*if (pass1 != pass2) {
+    alert("Введенные пароли не совпадают!");
+    return "error";
+    }*/
+
+    var country = $("#country").attr("countryId");
+    //var dealerId = $("#dealerSelector").attr("dealerId");
+    var city = $("#city").attr("value");
+    var index = $("#index").attr("value");
+    var timeZone = $("#timeZoneSelector").attr("timeZoneId");
+    var address1 = $("#addr1").attr("value");
+    var address2 = $("#addr2").attr("value");
+    var phone = $("#phone").attr("value");
+    var fax = $("#fax").attr("value");
+    var mail = $("#mail").attr("value");
+
+    
+    var ud ="{'orgName':'" + orgName
+           + "', 'country':'" + country
+           + "', 'city':'" + city
+           + "', 'index':'" + index
+           + "', 'address1':'" + address1
+           + "', 'address2':'" + address2
+           + "', 'timeZone':'" + timeZone
+           + "', 'phone':'" + phone
+           + "', 'fax':'" + fax
+           + "', 'mail':'" + mail + "'}";
+
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Administration.aspx/CreateNewOrganization",
+        data: "{'OrgID':'" + dealerOrgID + "', 'ud':" + ud + "}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            buildOrgTree(response.d);
+            return "OK";
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert("HERE");
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });

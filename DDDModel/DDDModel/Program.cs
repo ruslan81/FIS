@@ -17,8 +17,8 @@ namespace DDDModel
        
         static void Main(string[] args)
         {
-            string connectionString = "server=localhost;port=3306;default command timeout=3000;Connection Timeout=6000;User Id=root;password = ;Persist Security Info=True;database=smartfis";
-            string connectionString1 = "server=mysql62.1gb.ru;default command timeout=600;Connection Timeout=600;database=gb_x_smartfis;User Id=gb_x_smartfis;password =5216a0af;";
+            string connectionString1 = "server=localhost;port=3306;default command timeout=3000;Connection Timeout=6000;User Id=root;password = ;Persist Security Info=True;database=smartfis";
+            string connectionString = "server=mysql62.1gb.ru;default command timeout=600;Connection Timeout=600;database=gb_x_smartfis;User Id=gb_x_smartfis;password =5216a0af;";
             string currentLanguage = "STRING_EN";
             DataBlock dataBlock = new DataBlock(connectionString, currentLanguage);
             
@@ -29,8 +29,7 @@ namespace DDDModel
 
             //MY CODE
 
-            dataBlock.usersTable.EditUserType(1,3);
-
+            dataBlock.organizationTable.DeleteOrganization(58);
             //dataBlock.organizationTable.DeleteOrganization(56);
             //System.Console.ReadKey();
 

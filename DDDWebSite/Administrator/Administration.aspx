@@ -20,19 +20,23 @@
       var radioIndex = -1;
       var citySelectors = null;
       var city = null;
-          
+      var dealerOrgID = $.cookie("CURRENT_ORG_ID");
+      var dealerLevel = 0;
+
       $(function () {
+          buildOrgTree(0);
           loadGeneralData();
 
           $("#accordion").accordion({
               change: function (event, ui) {
 
                   $("#ContentContainer").empty();
-                  if ($("a", ui.newHeader).text() == "Общие сведения") {
+                  if ($("a", ui.newHeader).text() == "Аккаунт") {
                       $("#userControls").empty();
                       mode = "";
                       tabIndex = 0;
                       radioIndex = -1;
+                      buildOrgTree(0);
                       loadGeneralData();
                   };
                   if ($("a", ui.newHeader).text() == "Дилеры") {
@@ -210,11 +214,81 @@
 
     </script>
 
+    <script id="tmplGeneralOrgDetailedData1" type="text/x-jquery-tmpl">
+        <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <label>Организация</label></br><div style="width: 300px;"><input id="orgName" value="{{html orgName}}"/></div></br>
+
+        <div style="margin:10px 0 10px 0; border-top:1px dashed #ccc;"></div>
+
+        <table style="" cellpadding="0" cellspacing="0">
+            <tr><td><label>Страна </label></td><td><label>Город </label></td><td><label>Почтовый индекс </label></td></tr>
+            <tr>
+                <td>
+                    <div style="width: 300px;"><select id="country" countryId="{{html country}}" onchange="this.countryId=this.value;"></select></div>
+                </td>
+                <td>
+                    <div style="width: 300px;"><input id="city" value="{{html city}}"/></div>
+                </td>
+                <td>
+                    <div style="width: 300px;"><input id="index" value="{{html index}}"/></div>
+                </td>
+            </tr>
+        </table>
+
+        <br/>
+
+        <label>Часовая зона</label>
+
+        <br/>
+
+        <div style="width:100%;"><select id="timeZoneSelector" timeZoneId="{{html timeZone}}" onchange="this.timeZoneId=this.value;"></select></div>
+
+    </script>
+
+    <script id="tmplGeneralOrgDetailedData2" type="text/x-jquery-tmpl">
+
+        <br/>
+
+        <label>Адрес (Основной)</label>
+
+        <br/>
+
+        <div style="width: 500px;"><input id="addr1" value="{{html address1}}"/></div>
+
+        <br/>
+
+        <label>Адрес (Дополнительный)</label>
+
+        <br/>
+
+        <div style="width: 500px;"><input id="addr2" value="{{html address2}}"/></div>
+
+        <br/>
+
+        <table style="" cellpadding="0" cellspacing="0">
+        <tr><td><label>Телефон </label></td><td><label>Факс </label></td><td><label>E-mail </label></td></tr>
+        <tr>
+            <td>
+                <div style="width: 300px;"><input id="phone" value="{{html phone}}"/></div>
+            </td>
+            <td>
+                <div style="width: 300px;"><input id="fax" value="{{html fax}}"/></div>
+            </td>
+            <td>
+                <div style="width: 300px;"><input id="mail" value="{{html mail}}"/></div>
+            </td>
+        </tr>
+        </table>
+
+    </script>
+
+
     <script id="GeneralData" type="text/x-jquery-tmpl">
      <div id="tabs">
             <ul>
                 <li><a href="#tabs-1">Общие сведения</a></li>
-		        <li><a href="#tabs-2">Детальные сведения</a></li>
+                <li><a href="#tabs-2">Краткие сведения</a></li>
+                <li><a href="#tabs-3">Детальные сведения</a></li>
 	        </ul>
             <div id="tabs-1">
                 <div id="commonData" style="overflow: auto;">
@@ -265,7 +339,11 @@
                 </div>
             </div>
             <div id="tabs-2">
-                <div id="detailedData" style="overflow: auto;">
+                <div id="detailedData1" style="overflow: auto;">
+                </div>
+            </div>
+            <div id="tabs-3">
+                <div id="detailedData2" style="overflow: auto;">
                 </div>
             </div>
     </div>           
@@ -762,7 +840,7 @@
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
                    <input value="{{html status}}" class="inputField-readonly input" readonly="readonly"/>
-                </div>
+                </div>  
             </td>
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
@@ -772,16 +850,23 @@
         </tr>
     </script>
     <script id="tmplDealersTree" type="text/x-jquery-tmpl">
-        <li class="folder"><a><span key="None">${OrgName}</span></a>
+        <li class="folder" likey="${Key}"><a><span key="${Key}" level="0">${DealerName}</span></a>
         <ul>
             {{each dealers}}
-            <li class="file"><a><span key="None">${GroupName}</span></a>
+            <li class="file" likey="${Key}"><a><span key="${Key}" level="1">${DealerName}</span></a>
                 <ul>
-                    {{each values}}
-                    <li class="file"><a><span key=${Key}>${Value}</span></a></li>
+                    {{each dealers}}
+                    <li class="file" likey="${Key}"><a><span key="${Key}" level="2">${DealerName}</span></a>
+                        <ul>
+                            {{each dealers}}
+                            <li class="file" likey="${Key}"><a><span key="${Key}" level="3">${DealerName}</span></a>
+                            </li>
+                            {{/each}}
+                        </ul>
+                    </li>
                     {{/each}}
                 </ul>
-                </li>
+            </li>
             {{/each}}
         </ul>
         </li>
@@ -800,21 +885,31 @@
     </script>
 
         <div id="accordion" style="width: 5">
-            <h3><asp:LinkButton ID="GeneralDataAccordionPane1" runat="server" CausesValidation="false" PostBackUrl="#" Text="Общие сведения" /></h3>
+            <h3><asp:LinkButton ID="GeneralDataAccordionPane1" runat="server" CausesValidation="false" PostBackUrl="#" Text="Аккаунт" /></h3>
                 <div id="firstAccordionPanel">                   
-                    <center>
+                    <!--<center>
                         Информация о текущем пользователе.
                         <br/>
                         <br/>
                         Данный раздел позволяет просматривать и редактировать информацию о текущем пользователе.
-                    </center>
-                    <div>
-                <ul id="dealersTree">
+                    </center>-->
+                   <ul id="dealersTree">
                     
-                </ul>
-            </div>
+                   </ul>
+                    <div style="display: none">
+                        <div id="wrongOrgMessage" title="SmartFIS">
+                            <div style="margin-top: 10px;">
+                                <h4>
+                                    Неверные данные
+                                </h4>
+                            </div>
+                            <div style="margin-top: 20px;">
+                                Введите название организации!
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            <h3 id="AccountsAccordionPane2_Header" runat="server"><asp:LinkButton ID="AccountsAccordionPane2" runat="server" CausesValidation="false" PostBackUrl="#" Text="Дилеры" /></h3>
+            <!--<h3 id="AccountsAccordionPane2_Header" runat="server"><asp:LinkButton ID="AccountsAccordionPane2" runat="server" CausesValidation="false" PostBackUrl="#" Text="Дилеры" /></h3>
               <div id="secondAccordionPanel">                   
                     <center>
                         Информация о дилерах текущей организации.
@@ -822,7 +917,8 @@
                         <br/>
                         Данный раздел позволяет просматривать и редактировать информацию о дилерах в рамках текущей организации.
                     </center>
-                </div>
+
+                </div>-->
             <h3><asp:LinkButton ID="UsersAccordionPane3" runat="server" CausesValidation="false" PostBackUrl="#" Text="Пользователи" /></h3>
                 <div id="thirdAccordionPanel">                   
                     <center>
@@ -862,9 +958,14 @@
 
     <script id="сontrolsGeneralDetailed" type="text/x-jquery-tmpl">
         <button id="edit">Редактировать</button>
+        <button id="delete">Удалить</button>
+        <button id="create">Создать</button>
         <div style="float:right">
             <button id="save">Сохранить</button>
             <button id="cancel">Отмена</button>
+        </div>
+        <div id="deletedealerdialog" title="Удаление" style="display: none;">
+	        <p>Вы действительно хотите удалить выделенную организацию?</p>
         </div>
     </script>
 
