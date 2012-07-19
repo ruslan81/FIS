@@ -339,6 +339,11 @@
                     <asp:PostBackTrigger ControlID="Upload_Button" />
                 </Triggers>
             </asp:UpdatePanel>
+
+            <asp:Panel ID="ErrorMessageBlock" CssClass="error-block-def" runat="server" Visible="false">
+                <asp:Label CssClass="error" ID="ErrorMessage" runat="server" />
+            </asp:Panel>
+
         </div>
 
         <!--Раздел Восстановить у пользователя-->
@@ -750,8 +755,7 @@
 <asp:Content ID="BottomContent1" ContentPlaceHolderID="Bottom_PlaceHolder" runat="server">
     <asp:UpdatePanel ID="StatusUpdatePanel" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
-            <h3>
-                <asp:Label ID="Status" runat="server" /></h3>
+            <h3><asp:Label ID="Status" runat="server" /></h3>
         </ContentTemplate>
     </asp:UpdatePanel>
     <div id="dialog2" title="Статистика загруженной информации">

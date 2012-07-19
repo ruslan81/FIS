@@ -791,7 +791,8 @@ public partial class Administrator_Data : System.Web.UI.Page
         catch (Exception ex)
         {
             LoadAllLists();
-            Status.Text = "Ошибка:" + ex.Message;
+            ErrorMessage.Text = "Ошибка: " + ex.Message;
+            ErrorMessageBlock.Visible = true;
         }
     }
     private void SelectDriverForPLF()
