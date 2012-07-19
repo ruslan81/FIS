@@ -11799,3 +11799,28 @@ Cache Callback: 08.07.2012 23:19:00
 Cache Callback: 08.07.2012 23:25:40
 Cache Callback: 08.07.2012 23:30:20
 Cache Callback: 08.07.2012 23:34:28
+Cache Callback: 12.07.2012 22:01:00
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: Message: Сбой при отправке сообщения электронной почты.
+Cache Callback: 13.07.2012 11:52:00
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: Message: Сбой при отправке сообщения электронной почты.
+Cache Callback: 14.07.2012 0:06:00
+Cache Callback: Message: Сбой при отправке сообщения электронной почты.
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: 14.07.2012 23:06:20
+Cache Callback: 15.07.2012 1:08:00
+Cache Callback: 15.07.2012 1:25:38
+Cache Callback: 17.07.2012 20:28:20
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: Message: Сбой при отправке сообщения электронной почты.
+Cache Callback: 17.07.2012 23:34:20
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: Message: Сбой при отправке сообщения электронной почты.
+Cache Callback: 18.07.2012 21:30:20
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: Message: Сбой при отправке сообщения электронной почты.
+Cache Callback: 19.07.2012 0:20:40
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: Message: Сбой при отправке сообщения электронной почты.
+Cache Callback: 19.07.2012 20:59:40

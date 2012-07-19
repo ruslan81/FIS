@@ -22,7 +22,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
                 BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_EN");
                 dataBlock.OpenConnection();
                 int userId = dataBlock.usersTable.Get_UserID_byName(User.Identity.Name);
-                
+
                 //ORG NAME сверху
                 string curOrgName = "";
                 curOrgName = dataBlock.usersTable.Get_UserOrgName(userId);
@@ -69,7 +69,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     /// </summary>
     /// <returns></returns>
     [System.Web.Services.WebMethod]
-    public static StatisticData GetStatistic(String OrgID, String UserName)
+    public static StatisticData GetStatistic(String OrgID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
@@ -78,11 +78,10 @@ public partial class Administrator_Administration : System.Web.UI.Page
         {
             dataBlock.OpenConnection();
             int orgId = Convert.ToInt32(OrgID);
-            int userId = dataBlock.usersTable.Get_UserID_byName(UserName);
             StatisticData result = new StatisticData();
 
             result.usersCount = dataBlock.usersTable.Get_AllUsersId(orgId).Count.ToString();
-            result.driversCount = dataBlock.cardsTable.GetAllCardIds(orgId,dataBlock.cardsTable.driversCardTypeId).Count.ToString();
+            result.driversCount = dataBlock.cardsTable.GetAllCardIds(orgId, dataBlock.cardsTable.driversCardTypeId).Count.ToString();
             result.vehiclesCount = dataBlock.cardsTable.GetAllCardIds(orgId, dataBlock.cardsTable.vehicleCardTypeId).Count.ToString();
             result.invoicesCount = invoiceTable.GetAllInvoices(orgId).Count.ToString();
 
@@ -117,7 +116,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
             List<MessageData> result = new List<MessageData>();
 
             List<int> ids = dataBlock.usersTable.GetAllMessagesIds(userId);
-            foreach(int id in ids)
+            foreach (int id in ids)
             {
                 MessageData md = new MessageData();
                 md.id = id;
@@ -127,7 +126,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
                 md.endDate = dataBlock.usersTable.GetMessageEndDate(id).ToShortDateString();
                 result.Add(md);
             }
-            
+
             return result;
         }
         catch (Exception ex)
@@ -178,7 +177,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
-        
+
         try
         {
             dataBlock.OpenConnection();
@@ -186,27 +185,91 @@ public partial class Administrator_Administration : System.Web.UI.Page
             //int userId = dataBlock.usersTable.Get_UserID_byName(UserName);
             List<DealerData> result = new List<DealerData>();
 
-            List<int> ids=dataBlock.organizationTable.Get_AllDealersId(orgId);
-            foreach (int id in ids) {
+            List<int> ids = dataBlock.organizationTable.Get_AllDealersId(orgId);
+            foreach (int id in ids)
+            {
                 DealerData dd = new DealerData();
                 dd.id = id;
                 dd.name = dataBlock.organizationTable.GetOrganizationName(id);
                 //dd.login = dataBlock.usersTable.Get_UserName(id);
                 dd.country = dataBlock.organizationTable.GetOrgCountryId(id).ToString();
                 dd.city = dataBlock.organizationTable.GetOrgRegionId(id).ToString();
-                
+
                 DateTime date = new DateTime();
                 if (DateTime.TryParse(dataBlock.organizationTable.GetAdditionalOrgInfo(id, 1), out date))
                 { dd.date = date.ToShortDateString(); }
                 else { dd.date = "Неизвестно"; }
                 if (DateTime.TryParse(dataBlock.organizationTable.GetAdditionalOrgInfo(id, 2), out date))
-                { dd.endDate = date.ToShortDateString();}
+                { dd.endDate = date.ToShortDateString(); }
                 else { dd.endDate = "Неизвестно"; }
 
                 result.Add(dd);
             }
 
             return result;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            //return null;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    /// Получить данные по дереву дилеров
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static SmallDealerData GetDealersTree(String OrgID)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+
+        try
+        {
+            dataBlock.OpenConnection();
+            int orgId = Convert.ToInt32(OrgID);
+
+            SmallDealerData sdd = new SmallDealerData();
+            sdd.Key = orgId;
+            sdd.DealerName = dataBlock.organizationTable.GetOrganizationName(orgId);
+            sdd.dealers = new List<SmallDealerData>();
+            sdd.level = 0;
+            List<int> ids = dataBlock.organizationTable.Get_AllDealersId(orgId);
+            foreach (int id in ids)
+            {
+                SmallDealerData sdd1 = new SmallDealerData();
+                sdd1.Key = id;
+                sdd1.DealerName = dataBlock.organizationTable.GetOrganizationName(id);
+                sdd1.dealers = new List<SmallDealerData>();
+                sdd1.level = 1;
+                List<int> ids1 = dataBlock.organizationTable.Get_AllDealersId(id);
+                foreach (int id1 in ids1)
+                {
+                    SmallDealerData sdd2 = new SmallDealerData();
+                    sdd2.Key = id1;
+                    sdd2.DealerName = dataBlock.organizationTable.GetOrganizationName(id1);
+                    sdd2.dealers = new List<SmallDealerData>();
+                    sdd2.level = 2;
+                    List<int> ids2 = dataBlock.organizationTable.Get_AllDealersId(id1);
+                    foreach (int id2 in ids2)
+                    {
+                        SmallDealerData sdd3 = new SmallDealerData();
+                        sdd3.Key = id2;
+                        sdd3.level = 3;
+                        sdd3.DealerName = dataBlock.organizationTable.GetOrganizationName(id2);
+                        //sdd3.dealers = new List<SmallDealerData>();
+                        sdd2.dealers.Add(sdd3);
+                    }
+                    sdd1.dealers.Add(sdd2);
+                }
+                sdd.dealers.Add(sdd1);
+            }
+            return sdd;
         }
         catch (Exception ex)
         {
@@ -238,7 +301,8 @@ public partial class Administrator_Administration : System.Web.UI.Page
 
             List<int> ids = dataBlock.usersTable.Get_AllUsersId(orgId);
             ids.Remove(userId);
-            foreach (int id in ids) {
+            foreach (int id in ids)
+            {
                 UserData ud = new UserData();
                 //ud.dealer = dataBlock.organizationTable.GetOrganizationName(id);
                 ud.login = dataBlock.usersTable.Get_UserName(id);
@@ -263,9 +327,9 @@ public partial class Administrator_Administration : System.Web.UI.Page
                 }
                 else
                 {
-                    ud.dealer = "-"; 
+                    ud.dealer = "-";
                 }
-                
+
                 userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Patronimic);
                 ud.patronimic = dataBlock.usersTable.GetUserInfoValue(id, userInfoId);
                 userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_RegDate);
@@ -278,10 +342,11 @@ public partial class Administrator_Administration : System.Web.UI.Page
                 {
                     ud.state = "Отключен";
                 }
-                else {
+                else
+                {
                     ud.state = "Подключен " + date.ToShortDateString() + " " + date.ToShortTimeString();
                 }
-                
+
                 result.Add(ud);
             }
 
@@ -496,7 +561,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     }
 
     /// <summary>
-    ///Получить детальные общие данные
+    ///Получить детальные общие данные по пользователю
     /// </summary>
     /// <returns></returns>
     [System.Web.Services.WebMethod]
@@ -508,12 +573,12 @@ public partial class Administrator_Administration : System.Web.UI.Page
         try
         {
             dataBlock.OpenConnection();
-            int orgId = Convert.ToInt32(OrgID);;
+            int orgId = Convert.ToInt32(OrgID); ;
             int userId = dataBlock.usersTable.Get_UserID_byName(UserName);
             UserGeneralDetailedData ud = new UserGeneralDetailedData();
 
-            int dealerId=dataBlock.usersTable.Get_UserOrgId(userId);
-            ud.orgName = dataBlock.organizationTable.GetOrganizationName(dealerId);       
+            int dealerId = dataBlock.usersTable.Get_UserOrgId(userId);
+            ud.orgName = dataBlock.organizationTable.GetOrganizationName(dealerId);
 
             //int userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Name);
             //ud.orgLogin = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
@@ -572,6 +637,55 @@ public partial class Administrator_Administration : System.Web.UI.Page
     }
 
     /// <summary>
+    ///Получить детальные общие данные по организации
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static UserGeneralDetailedData GetGeneralOrgDetailedData(String OrgID)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+
+        try
+        {
+            dataBlock.OpenConnection();
+            int orgId = Convert.ToInt32(OrgID); 
+            UserGeneralDetailedData ud = new UserGeneralDetailedData();
+
+            ud.orgName = dataBlock.organizationTable.GetOrganizationName(orgId);
+            int userInfoId = dataBlock.organizationTable.GetOrgInfoNameId(DataBaseReference.OrgInfo_Address);
+            ud.country = dataBlock.organizationTable.GetAdditionalOrgInfo(orgId, userInfoId);
+            userInfoId = dataBlock.organizationTable.GetOrgInfoNameId(DataBaseReference.OrgInfo_City);
+            ud.city = dataBlock.organizationTable.GetAdditionalOrgInfo(orgId, userInfoId);
+            userInfoId = dataBlock.organizationTable.GetOrgInfoNameId(DataBaseReference.OrgInfo_ZIP);
+            ud.index = dataBlock.organizationTable.GetAdditionalOrgInfo(orgId, userInfoId);
+            userInfoId = dataBlock.organizationTable.GetOrgInfoNameId(DataBaseReference.OrgInfo_AddressOne);
+            ud.address1 = dataBlock.organizationTable.GetAdditionalOrgInfo(orgId, userInfoId);
+            userInfoId = dataBlock.organizationTable.GetOrgInfoNameId(DataBaseReference.OrgInfo_AddressTwo);
+            ud.address2 = dataBlock.organizationTable.GetAdditionalOrgInfo(orgId, userInfoId);
+            userInfoId = dataBlock.organizationTable.GetOrgInfoNameId(DataBaseReference.OrgInfo_PhoneNumber);
+            ud.phone = dataBlock.organizationTable.GetAdditionalOrgInfo(orgId, userInfoId);
+            userInfoId = dataBlock.organizationTable.GetOrgInfoNameId(DataBaseReference.OrgInfo_Fax);
+            ud.fax = dataBlock.organizationTable.GetAdditionalOrgInfo(orgId, userInfoId);
+            userInfoId = dataBlock.organizationTable.GetOrgInfoNameId(DataBaseReference.OrgInfo_Email);
+            ud.mail = dataBlock.organizationTable.GetAdditionalOrgInfo(orgId, userInfoId);
+            userInfoId = dataBlock.organizationTable.GetOrgInfoNameId(DataBaseReference.OrgInfo_TimeZone);
+            ud.timeZone = dataBlock.organizationTable.GetAdditionalOrgInfo(orgId, userInfoId);
+
+            return ud;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            //return null;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
     ///Сохранить детальные общие данные
     /// </summary>
     /// <returns></returns>
@@ -588,8 +702,8 @@ public partial class Administrator_Administration : System.Web.UI.Page
             int userId = dataBlock.usersTable.Get_UserID_byName(UserName);
 
             int userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_DealerId);
-            dataBlock.usersTable.EditUserInfo(userId,userInfoId, ud.dealerId.ToString());
-            
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.dealerId.ToString());
+
             userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Country);
             dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.country);
             userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_City);
@@ -624,6 +738,102 @@ public partial class Administrator_Administration : System.Web.UI.Page
     }
 
     /// <summary>
+    ///Сохранить детальные общие данные для организации
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static void SaveGeneralOrgDetailedData(String OrgID, UserGeneralDetailedData ud)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+
+        try
+        {
+            dataBlock.OpenConnection();
+            int orgId = Convert.ToInt32(OrgID);
+
+            dataBlock.organizationTable.SetOrganizationName(ud.orgName,orgId);
+
+            int userInfoId = dataBlock.organizationTable.GetOrgInfoNameId(DataBaseReference.OrgInfo_Address);
+            dataBlock.organizationTable.AddOrEditAdditionalOrgInfo(orgId, userInfoId, ud.country);
+            userInfoId = dataBlock.organizationTable.GetOrgInfoNameId(DataBaseReference.OrgInfo_City);
+            dataBlock.organizationTable.AddOrEditAdditionalOrgInfo(orgId, userInfoId, ud.city);
+            userInfoId = dataBlock.organizationTable.GetOrgInfoNameId(DataBaseReference.OrgInfo_ZIP);
+            dataBlock.organizationTable.AddOrEditAdditionalOrgInfo(orgId, userInfoId, ud.index);
+            userInfoId = dataBlock.organizationTable.GetOrgInfoNameId(DataBaseReference.OrgInfo_AddressOne);
+            dataBlock.organizationTable.AddOrEditAdditionalOrgInfo(orgId, userInfoId, ud.address1);
+            userInfoId = dataBlock.organizationTable.GetOrgInfoNameId(DataBaseReference.OrgInfo_AddressTwo);
+            dataBlock.organizationTable.AddOrEditAdditionalOrgInfo(orgId, userInfoId, ud.address2);
+            userInfoId = dataBlock.organizationTable.GetOrgInfoNameId(DataBaseReference.OrgInfo_PhoneNumber);
+            dataBlock.organizationTable.AddOrEditAdditionalOrgInfo(orgId, userInfoId, ud.phone);
+            userInfoId = dataBlock.organizationTable.GetOrgInfoNameId(DataBaseReference.OrgInfo_Fax);
+            dataBlock.organizationTable.AddOrEditAdditionalOrgInfo(orgId, userInfoId, ud.fax);
+            userInfoId = dataBlock.organizationTable.GetOrgInfoNameId(DataBaseReference.OrgInfo_Email);
+            dataBlock.organizationTable.AddOrEditAdditionalOrgInfo(orgId, userInfoId, ud.mail);
+            userInfoId = dataBlock.organizationTable.GetOrgInfoNameId(DataBaseReference.OrgInfo_TimeZone);
+            dataBlock.organizationTable.AddOrEditAdditionalOrgInfo(orgId, userInfoId, ud.timeZone);
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            //return;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Сохранить детальные общие данные для организации
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static string CreateNewOrganization(String OrgID, UserGeneralDetailedData ud)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+
+        try
+        {
+            dataBlock.OpenConnection();
+            int orgId = Convert.ToInt32(OrgID);
+
+            int id = dataBlock.organizationTable.AddNewOrganization(ud.orgName, 5, 0, 0, orgId);
+
+            int userInfoId = dataBlock.organizationTable.GetOrgInfoNameId(DataBaseReference.OrgInfo_ZIP);
+            dataBlock.organizationTable.AddOrEditAdditionalOrgInfo(id, userInfoId, ud.index);
+            userInfoId = dataBlock.organizationTable.GetOrgInfoNameId(DataBaseReference.OrgInfo_Address);
+            dataBlock.organizationTable.AddOrEditAdditionalOrgInfo(id, userInfoId, ud.country);
+            userInfoId = dataBlock.organizationTable.GetOrgInfoNameId(DataBaseReference.OrgInfo_City);
+            dataBlock.organizationTable.AddOrEditAdditionalOrgInfo(id, userInfoId, ud.city);
+            userInfoId = dataBlock.organizationTable.GetOrgInfoNameId(DataBaseReference.OrgInfo_AddressOne);
+            dataBlock.organizationTable.AddOrEditAdditionalOrgInfo(id, userInfoId, ud.address1);
+            userInfoId = dataBlock.organizationTable.GetOrgInfoNameId(DataBaseReference.OrgInfo_AddressTwo);
+            dataBlock.organizationTable.AddOrEditAdditionalOrgInfo(id, userInfoId, ud.address2);
+            userInfoId = dataBlock.organizationTable.GetOrgInfoNameId(DataBaseReference.OrgInfo_PhoneNumber);
+            dataBlock.organizationTable.AddOrEditAdditionalOrgInfo(id, userInfoId, ud.phone);
+            userInfoId = dataBlock.organizationTable.GetOrgInfoNameId(DataBaseReference.OrgInfo_Fax);
+            dataBlock.organizationTable.AddOrEditAdditionalOrgInfo(id, userInfoId, ud.fax);
+            userInfoId = dataBlock.organizationTable.GetOrgInfoNameId(DataBaseReference.OrgInfo_Email);
+            dataBlock.organizationTable.AddOrEditAdditionalOrgInfo(id, userInfoId, ud.mail);
+            userInfoId = dataBlock.organizationTable.GetOrgInfoNameId(DataBaseReference.OrgInfo_TimeZone);
+            dataBlock.organizationTable.AddOrEditAdditionalOrgInfo(id, userInfoId, ud.timeZone);
+            return id.ToString();
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            //return;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();            
+        }
+    }
+
+
+    /// <summary>
     ///Сохранить данные о пользователях
     /// </summary>
     /// <returns></returns>
@@ -640,7 +850,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
             int userId = Convert.ToInt32(UserID);
 
             int userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_DealerId);
-            dataBlock.usersTable.EditUserInfo(userId,userInfoId,ud.dealerId.ToString());
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.dealerId.ToString());
             //userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Name);
             //dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.orgLogin);
             string login = dataBlock.usersTable.Get_UserName(userId);
@@ -650,7 +860,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
             {
                 dataBlock.usersTable.EditUserLogin(userId, ud.login);
             }
-            if (type!=ud.roleId)
+            if (type != ud.roleId)
             {
                 dataBlock.usersTable.EditUserType(userId, ud.roleId);
             }
@@ -701,7 +911,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     /// </summary>
     /// <returns></returns>
     [System.Web.Services.WebMethod]
-    public static void CreateNewUser(String OrgID, String UserName,  UserGeneralDetailedData ud)
+    public static void CreateNewUser(String OrgID, String UserName, UserGeneralDetailedData ud)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
@@ -711,7 +921,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
             dataBlock.OpenConnection();
             int orgId = Convert.ToInt32(OrgID);
             int curUserId = dataBlock.usersTable.Get_UserID_byName(UserName);
-            UserFromTable uf = new UserFromTable(ud.login,ud.password,"","",new DateTime(),"");
+            UserFromTable uf = new UserFromTable(ud.login, ud.password, "", "", new DateTime(), "");
 
             int userId = dataBlock.usersTable.AddNewUser(uf, ud.roleId, 1, orgId, curUserId);
 
@@ -785,7 +995,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     /// </summary>
     /// <returns></returns>
     [System.Web.Services.WebMethod]
-    public static void SaveDealersData(String OrgID,  List<DealerData> list)
+    public static void SaveDealersData(String OrgID, List<DealerData> list)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
@@ -794,8 +1004,9 @@ public partial class Administrator_Administration : System.Web.UI.Page
         {
             dataBlock.OpenConnection();
             int orgId = Convert.ToInt32(OrgID);
-            foreach(DealerData dd in list){
-                dataBlock.organizationTable.SetOrganizationName(dd.name,dd.id);
+            foreach (DealerData dd in list)
+            {
+                dataBlock.organizationTable.SetOrganizationName(dd.name, dd.id);
                 dataBlock.organizationTable.SetOrgCountryAndRegion(dd.id, Convert.ToInt32(dd.country), Convert.ToInt32(dd.city));
                 dataBlock.organizationTable.AddOrEditAdditionalOrgInfo(dd.id, 2, dd.endDate);
             }
@@ -825,7 +1036,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
         {
             dataBlock.OpenConnection();
             int orgId = Convert.ToInt32(OrgID);
-            int id=dataBlock.organizationTable.AddNewOrganization(data.name, 5, Convert.ToInt32(data.country), Convert.ToInt32(data.city),orgId);
+            int id = dataBlock.organizationTable.AddNewOrganization(data.name, 5, Convert.ToInt32(data.country), Convert.ToInt32(data.city), orgId);
             dataBlock.organizationTable.AddOrEditAdditionalOrgInfo(id, 1, data.date);
             dataBlock.organizationTable.AddOrEditAdditionalOrgInfo(id, 2, data.endDate);
         }
@@ -841,7 +1052,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     }
 
     /// <summary>
-    ///Создать нового дилера
+    ///Удалить дилеров
     /// </summary>
     /// <returns></returns>
     [System.Web.Services.WebMethod]
@@ -876,6 +1087,38 @@ public partial class Administrator_Administration : System.Web.UI.Page
     }
 
     /// <summary>
+    ///Удалить дилера
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static void DeleteDealer(String ID)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+
+        try
+        {
+            dataBlock.OpenConnection();
+            int id = Convert.ToInt32(ID);
+            dataBlock.organizationTable.DeleteOrganization(id);
+            List<int> users = dataBlock.usersTable.Get_AllUsersId(id);
+            foreach (int user in users)
+            {
+                dataBlock.usersTable.DeleteUserSoft(user);
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            //return;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
     ///Получить список стран
     /// </summary>
     /// <returns></returns>
@@ -890,9 +1133,10 @@ public partial class Administrator_Administration : System.Web.UI.Page
         {
             dataBlock.OpenConnection();
             List<int> ids = dataBlock.usersTable.GetAllCountries();
-            foreach (int id in ids) {
-                string name=dataBlock.usersTable.GetCountryName(id);
-                result.Add(new MapItem(id.ToString(),name));
+            foreach (int id in ids)
+            {
+                string name = dataBlock.usersTable.GetCountryName(id);
+                result.Add(new MapItem(id.ToString(), name));
             }
             return result;
         }
@@ -991,7 +1235,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
         try
         {
             dataBlock.OpenConnection();
-            List<KeyValuePair<string,int>> ids = dataBlock.usersTable.GetAllUsersTypes();
+            List<KeyValuePair<string, int>> ids = dataBlock.usersTable.GetAllUsersTypes();
             foreach (KeyValuePair<string, int> id in ids)
             {
                 result.Add(new MapItem(id.Value.ToString(), id.Key));
@@ -1019,7 +1263,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
         List<MapItem> result = new List<MapItem>();
         try
         {
-            int key=1;
+            int key = 1;
             foreach (TimeZoneInfo timeZone in TimeZoneInfo.GetSystemTimeZones())
             {
                 result.Add(new MapItem(key.ToString(), timeZone.DisplayName));
