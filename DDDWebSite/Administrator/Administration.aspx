@@ -224,7 +224,7 @@
             <tr><td><label>Страна </label></td><td><label>Город </label></td><td><label>Почтовый индекс </label></td></tr>
             <tr>
                 <td>
-                    <div style="width: 300px;"><select id="country" countryId="{{html country}}" onchange="this.countryId=this.value;"></select></div>
+                    <div style="width: 300px;"><select id="country" style="width:170px;" countryId="{{html country}}" onchange="this.countryId=this.value;"></select></div>
                 </td>
                 <td>
                     <div style="width: 300px;"><input id="city" value="{{html city}}"/></div>
@@ -241,7 +241,7 @@
 
         <br/>
 
-        <div style="width:100%;"><select id="timeZoneSelector" timeZoneId="{{html timeZone}}" onchange="this.timeZoneId=this.value;"></select></div>
+        <div style="width:100%;"><select id="timeZoneSelector" timeZoneId="{{html timeZone}}" style="width:350px;" onchange="this.timeZoneId=this.value;"></select></div>
 
     </script>
 
@@ -339,11 +339,11 @@
                 </div>
             </div>
             <div id="tabs-2">
-                <div id="detailedData1" style="overflow: auto;">
+                <div id="detailedData1" <!--style="overflow: auto;"-->>
                 </div>
             </div>
             <div id="tabs-3">
-                <div id="detailedData2" style="overflow: auto;">
+                <div id="detailedData2" <!--style="overflow: auto;"-->>
                 </div>
             </div>
     </div>           
