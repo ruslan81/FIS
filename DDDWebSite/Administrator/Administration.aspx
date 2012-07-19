@@ -455,12 +455,12 @@
             </td>
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
-                   <select id="country{{html id}}" dealerId="{{html id}}" countryId="{{html country}}" name="countrySelector" onchange="this.countryId=this.value;changeCountry(this);"></select>
+                   <select id="country{{html id}}" dealerId="{{html id}}" countryId="{{html country}}" name="countrySelector" style="width:180px;" onchange="this.countryId=this.value;changeCountry(this);"></select>
                 </div>
             </td>
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
-                   <select id="city{{html id}}" cityDealerId="{{html id}}" countryId="{{html country}}" cityId="{{html city}}" name="citySelector" onchange="this.cityId=this.value;"></select>
+                   <select id="city{{html id}}" cityDealerId="{{html id}}" countryId="{{html country}}" cityId="{{html city}}" name="citySelector" style="width:230px;" onchange="this.cityId=this.value;"></select>
                 </div>
             </td>
         </tr>
@@ -535,7 +535,7 @@
             </td>
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
-                <select id="role{{html id}}" roleId="{{html roleId}}" name="roleSelector" onchange="this.roleId=this.value;"></select>
+                <select id="role{{html id}}" roleId="{{html roleId}}" name="roleSelector" style="width:100px;" onchange="this.roleId=this.value;"></select>
                 </div>
             </td>
             <td class="wijgridtd wijdata-type-string">

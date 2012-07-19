@@ -87,9 +87,21 @@
        
     </div>
     <div id="bottom">
-        <asp:Label ID="LastUpdate" ForeColor="Gray" runat="server" />
-        <asp:LinkButton ID="ShowChangesBtn" runat="server" Text="Показать список изменений"
-            OnClick="ShowChangesClick" OnClientClick="aspnetForm.target ='_blank';" CausesValidation="false"/>
+        <!--<asp:Label ID="LastUpdate" ForeColor="Gray" runat="server" />-->
+        Version 
+        <a href="WhatsNew.aspx">
+        <b>
+        <%System.Reflection.Assembly web = System.Reflection.Assembly.Load("App_Code");
+            System.Reflection.AssemblyName webName = web.GetName();
+            string myVersion = webName.Version.ToString(); 
+        %>
+        <%=myVersion %>
+        (<%=System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location).ToShortDateString()%>)
+        </b>
+        </a>
+
+        <!--<asp:LinkButton ID="ShowChangesBtn" runat="server" Text="Показать список изменений"
+            OnClick="ShowChangesClick" OnClientClick="aspnetForm.target ='_blank';" CausesValidation="false"/>-->
         <em class="bb"><b>&nbsp;</b></em>
         <p></p>&copy 2011 <a href="http://smartfis.info">SmartFIS </a>Все права защищены.</p>
     </div>

@@ -239,6 +239,8 @@ function onOverlookNodeSelected(e, data) {
     $("#contentTable").hide();
     $("#periodSelection").hide();
     $("#main-conditions").hide();
+    //!TODO comment if you want standart functional without diagram
+    //$("#calendarWrapper").hide();
         
     isSelected = $("div", data.element).attr("aria-selected");
     cardID = $("a span", data.element).attr("key");
@@ -249,14 +251,22 @@ function onOverlookNodeSelected(e, data) {
     }
     //cardID = "135";
     if (isSelected == "true") {
+        //!TODO uncomment if you want standart functional without diagram
         $("#periodSelection").show();
         $("#main-conditions").show();
+
+        //!TODO comment if you want standart functional without diagram
+        //$("#calendarWrapper").show();
+
         $("#dateErrorBlock").hide();
     } else {
         $("#contentTableBody").empty();
         $("#contentTable").hide();
         $("#periodSelection").hide();
         $("#main-conditions").hide();
+
+        //!TODO comment if you want standart functional without diagram
+        //$("#calendarWrapper").hide();
     }
 
     resizeReports();
@@ -378,6 +388,9 @@ function destroyPeriodControls() {
     $("#periodSelection").hide();
     $("#contentTable").hide();
     $("#main-conditions").hide();
+    //!TODO comment if you want standart functional without diagram
+    //$("#calendarWrapper").hide();
+
     resizeReports();
 }
 
