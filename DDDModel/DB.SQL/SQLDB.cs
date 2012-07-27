@@ -1606,7 +1606,7 @@ namespace DB.SQL
         {
             List<int> gettedId = new List<int>();
 
-            string sql = "SELECT ORG_ID FROM fd_org WHERE DATE_DELETE IS NULL AND"
+            string sql = "SELECT ORG_ID FROM fd_org WHERE DATE_DELETE IS NULL AND "
                 + "ORG_TYPE_ID NOT IN (" + dealerTypeId.ToString() + "," + subDealerId.ToString() + "," + preDealerId.ToString() + ") "
                 + "AND PARENT_ORG_ID=@PARENT_ORG_ID ORDER BY ORG_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);

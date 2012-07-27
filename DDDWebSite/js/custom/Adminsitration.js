@@ -61,7 +61,7 @@ function buildOrgTree(param) {
         dataType: "json",
         success: function (response) {
             $("#dealersTree").wijtree("destroy");
-            $($("#tmplDealersTree")).tmpl(response.d).appendTo($("#dealersTree"));
+            $("#tmplDealersTree").tmpl(response.d).appendTo($("#dealersTree"));
             $("#dealersTree").wijtree();
             $("#dealersTree").wijtree({ selectedNodeChanged: function (e, data) {
                 onDealersTreeNodeSelected(e, data);
@@ -81,7 +81,38 @@ function buildOrgTree(param) {
     });
 };
 
-function loadGeneralData() {   
+function buildUserTree(param) {
+    $("#usersTree").empty();
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Administration.aspx/GetUsersTree",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#usersTree").wijtree("destroy");
+            $("#tmplUsersTree").tmpl(response.d).appendTo($("#usersTree"));
+            $("#usersTree").wijtree();
+            $("#usersTree").wijtree({ selectedNodeChanged: function (e, data) {
+                onUsersTreeNodeSelected(e, data);
+            }
+            });
+            if (param != "") {
+                $("#usersTree li [likey=" + param + "]").wijtreenode({ selected: true });
+                $('span .ui-icon').addClass("ui-icon-triangle-1-se");
+                $('span .ui-icon').removeClass("ui-icon-triangle-1-e");
+                $('.wijmo-wijtree-child').css("display", "block");
+                //$("#tabs").wijtabs('select', 2);
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
+    });
+};
+
+function loadGeneralData() {
 
     $("#ContentContainer").empty();
     $("#ContentContainer").append($("#GeneralData").text());
@@ -177,6 +208,23 @@ function onDealersTreeNodeSelected(e, data) {
         $("#contentTableBody").empty();
         $("#contentTable").hide();
     }
+}
+
+//Событие при выделении узла дерева
+function onUsersTreeNodeSelected(e, data) {
+    mode = "";
+    isSelected = $("div", data.element).attr("aria-selected");
+    radioIndex = $("a span", data.element).attr("key");
+    dealerLevel = $("a span", data.element).attr("level");
+    dealerOrgID = $("a span", data.element).attr("orgId");
+    crtype = $("a span", data.element).attr("crtype");
+    if (isSelected == "true" && dealerLevel > 0) {
+        loadUsersData();
+        tabIndex = 0;
+    } else {
+        $("#ContentContainer").empty();
+        $("#userControls").empty();
+    };
 }
 
 function createStatisticTable() {
@@ -279,160 +327,160 @@ function loadDealersData() {
 
     $("#edit").click(function () {
 
-        var boxes = $("#dealersTable [type=checkbox]");
-        var c = 0;
-        for (var i = 0; i < boxes.length; i++) {
-            if (boxes[i].checked)
-                c++;
-        }
-        if (c == 0) {
-            alert("Выберите дилера для редактирования!");
-            return false;
-        }
+    var boxes = $("#dealersTable [type=checkbox]");
+    var c = 0;
+    for (var i = 0; i < boxes.length; i++) {
+    if (boxes[i].checked)
+    c++;
+    }
+    if (c == 0) {
+    alert("Выберите дилера для редактирования!");
+    return false;
+    }
 
-        mode = "edit";
+    mode = "edit";
 
-        $("[name=dealerCheckbox]").hide();
+    $("[name=dealerCheckbox]").hide();
 
-        var checkboxes = $("#dealersTable [type='checkbox']");
-        for (var i = 0; i < checkboxes.length; i++) {
-            if (!checkboxes[i].checked)
-                continue;
-            var id = $(checkboxes[i]).attr("dealerId");
-            $("#nameinput" + id).removeClass("inputField-readonly");
-            $("#nameinput" + id).removeAttr("readonly");
-            $("#nameinput" + id).addClass("inputField");
-            $("#country" + id).wijcombobox({
-                disabled: false
-            });
-            $("#city" + id).wijcombobox({
-                disabled: false
-            });
-            $("#endDateInput" + id).datepicker("enable");
-            $("#endDateInput" + id).removeClass("inputField-readonly");
-            //$("#endDateInput" + id).removeAttr("readonly");
-            $("#endDateInput" + id).addClass("inputField");
-        }
+    var checkboxes = $("#dealersTable [type='checkbox']");
+    for (var i = 0; i < checkboxes.length; i++) {
+    if (!checkboxes[i].checked)
+    continue;
+    var id = $(checkboxes[i]).attr("dealerId");
+    $("#nameinput" + id).removeClass("inputField-readonly");
+    $("#nameinput" + id).removeAttr("readonly");
+    $("#nameinput" + id).addClass("inputField");
+    $("#country" + id).wijcombobox({
+    disabled: false
+    });
+    $("#city" + id).wijcombobox({
+    disabled: false
+    });
+    $("#endDateInput" + id).datepicker("enable");
+    $("#endDateInput" + id).removeClass("inputField-readonly");
+    //$("#endDateInput" + id).removeAttr("readonly");
+    $("#endDateInput" + id).addClass("inputField");
+    }
 
-        $("#edit").button({ disabled: true });
-        $("#delete").button({ disabled: true });
-        $("#create").button({ disabled: true });
-        $("#save").button({ disabled: false });
-        $("#cancel").button({ disabled: false });
-        return false;
+    $("#edit").button({ disabled: true });
+    $("#delete").button({ disabled: true });
+    $("#create").button({ disabled: true });
+    $("#save").button({ disabled: false });
+    $("#cancel").button({ disabled: false });
+    return false;
     });
 
     $("#create").click(function () {
-        mode = "create";
+    mode = "create";
 
-        //$("#dealersTableBody").append($("#tmplNewDealer").text());
-        var trs = $("#dealersTableBody tr");
-        $(trs[0]).before($("#tmplNewDealer").text());
+    //$("#dealersTableBody").append($("#tmplNewDealer").text());
+    var trs = $("#dealersTableBody tr");
+    $(trs[0]).before($("#tmplNewDealer").text());
 
-        $("[name=dealerCheckbox]").hide();
+    $("[name=dealerCheckbox]").hide();
 
-        var cells = $("#newRow .wijgridtd");
-        for (var j = 0; j < cells.length; j++) {
-            $(cells[j]).addClass("wijmo-wijgrid-cell-border-right");
-            $(cells[j]).addClass("wijmo-wijgrid-cell-border-bottom");
-            $(cells[j]).addClass("wijmo-wijgrid-cell");
-        }
+    var cells = $("#newRow .wijgridtd");
+    for (var j = 0; j < cells.length; j++) {
+    $(cells[j]).addClass("wijmo-wijgrid-cell-border-right");
+    $(cells[j]).addClass("wijmo-wijgrid-cell-border-bottom");
+    $(cells[j]).addClass("wijmo-wijgrid-cell");
+    }
 
-        var today = new Date();
-        var todaystr = "" + convert(today);
-        today.setMonth(today.getMonth() + 6);
-        var thenstr = "" + convert(today);
+    var today = new Date();
+    var todaystr = "" + convert(today);
+    today.setMonth(today.getMonth() + 6);
+    var thenstr = "" + convert(today);
 
-        $("#startDatePicker").datepicker();
-        $("#startDatePicker").datepicker("option", "dateFormat", "dd.mm.yy");
-        $("#startDatePicker").datepicker("setDate", todaystr);
+    $("#startDatePicker").datepicker();
+    $("#startDatePicker").datepicker("option", "dateFormat", "dd.mm.yy");
+    $("#startDatePicker").datepicker("setDate", todaystr);
 
-        $("#endDatePicker").datepicker();
-        $("#endDatePicker").datepicker("option", "dateFormat", "dd.mm.yy");
-        $("#endDatePicker").datepicker("setDate", thenstr);
+    $("#endDatePicker").datepicker();
+    $("#endDatePicker").datepicker("option", "dateFormat", "dd.mm.yy");
+    $("#endDatePicker").datepicker("setDate", thenstr);
 
-        $("#startDatePicker").datepicker($.datepicker.regional['ru']);
-        $("#endDatePicker").datepicker($.datepicker.regional['ru']);
+    $("#startDatePicker").datepicker($.datepicker.regional['ru']);
+    $("#endDatePicker").datepicker($.datepicker.regional['ru']);
 
 
-        loadNewCountryList();
+    loadNewCountryList();
 
-        $("#edit").button({ disabled: true });
-        $("#delete").button({ disabled: true });
-        $("#create").button({ disabled: true });
-        $("#save").button({ disabled: false });
-        $("#cancel").button({ disabled: false });
-        return false;
+    $("#edit").button({ disabled: true });
+    $("#delete").button({ disabled: true });
+    $("#create").button({ disabled: true });
+    $("#save").button({ disabled: false });
+    $("#cancel").button({ disabled: false });
+    return false;
     });
 
     $("#cancel").click(function () {
-        mode = "";
-        loadDealersData();
-        return false;
+    mode = "";
+    loadDealersData();
+    return false;
     });
 
     $("#save").click(function () {
-        if (mode == "edit") {
-            saveDealersData();
-        }
-        if (mode == "create") {
-            createNewDealer();
-        }
-        //loadDealersData();
-        mode = "";
-        return false;
+    if (mode == "edit") {
+    saveDealersData();
+    }
+    if (mode == "create") {
+    createNewDealer();
+    }
+    //loadDealersData();
+    mode = "";
+    return false;
     });
 
     $("#delete").click(function () {
-        var inputs = $('[name="dealerCheckbox"]');
-        var c = 0;
-        for (var i = 0; i < inputs.length; i++) {
-            if (inputs[i].checked) {
-                c++;
-            }
-        }
-        if (c > 0) {
-            $("#deletedialog").dialog({ buttons: { "OK": function () {
-                $(this).dialog("close");
-                var keys = [];
-                for (var i = 0; i < inputs.length; i++) {
-                    if (inputs[i].checked) {
-                        key = $(inputs[i]).attr("dealerId");
-                        keys.push({ Key: "", Value: key });
-                    }
-                }
-                deleteDealers(keys);
-            },
-                "Отмена": function () {
-                    $(this).dialog("close");
-                }
-            }
+    var inputs = $('[name="dealerCheckbox"]');
+    var c = 0;
+    for (var i = 0; i < inputs.length; i++) {
+    if (inputs[i].checked) {
+    c++;
+    }
+    }
+    if (c > 0) {
+    $("#deletedialog").dialog({ buttons: { "OK": function () {
+    $(this).dialog("close");
+    var keys = [];
+    for (var i = 0; i < inputs.length; i++) {
+    if (inputs[i].checked) {
+    key = $(inputs[i]).attr("dealerId");
+    keys.push({ Key: "", Value: key });
+    }
+    }
+    deleteDealers(keys);
+    },
+    "Отмена": function () {
+    $(this).dialog("close");
+    }
+    }
 
-            });
-            $("#deletedialog").dialog("option", "closeText", '');
-            $("#deletedialog").dialog("option", "resizable", false);
-            $("#deletedialog").dialog("option", "modal", true);
-        } else{
-            alert("Выберите дилера для удаления!");
-        }
-        return false;
+    });
+    $("#deletedialog").dialog("option", "closeText", '');
+    $("#deletedialog").dialog("option", "resizable", false);
+    $("#deletedialog").dialog("option", "modal", true);
+    } else{
+    alert("Выберите дилера для удаления!");
+    }
+    return false;
     });
 
 
     $("#tabs").tabs();
 
     $("#tabs").tabs({ show: function (e, ui) {
-        if (ui.index == 0) {
-            tabIndex = 0;
-            loadGeneralDealersData();
-            $("#userControls").show();
-        }
-        if (ui.index == 1) {
-            tabIndex = 1;
-            loadDealersDetailedData();
-            //$("#userControls").show();
-        }
-        return false;
+    if (ui.index == 0) {
+    tabIndex = 0;
+    loadGeneralDealersData();
+    $("#userControls").show();
+    }
+    if (ui.index == 1) {
+    tabIndex = 1;
+    loadDealersDetailedData();
+    //$("#userControls").show();
+    }
+    return false;
     }
     });
     */
@@ -492,7 +540,9 @@ function deleteUser(index) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
+            radioIndex = -1;
             loadUsersData();
+            buildUserTree(0);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -556,7 +606,7 @@ function loadUsersData() {
     $("#ContentContainer").empty();
     $("#ContentContainer").append($("#UsersData").text());
 
-    createTableHeader($("#usersTableHeader"), $("#tmplHeadColumn"),
+    /*createTableHeader($("#usersTableHeader"), $("#tmplHeadColumn"),
     '[{"text": "", "style": "width: 50px;"},' +
     '{"text": "Дилер", "style": ";"},' +
     '{"text": "Фамилия", "style": ";"},' +
@@ -564,12 +614,11 @@ function loadUsersData() {
     '{"text": "Логин", "style": ";"},' +
     '{"text": "Роль", "style": ";"},' +
     '{"text": "Состояние", "style": ";"}]');
-    $("#usersTable").show();
+    $("#usersTable").show();*/
 
     $("#tabs").tabs();
 
-    loadGeneralUsersData();
-
+    loadUsersControls();
     $("#userControls").show();
 
     resizeAdmin();
@@ -577,19 +626,34 @@ function loadUsersData() {
     $("#tabs").tabs({ show: function (e, ui) {
         if (ui.index == 0) {
             tabIndex = 0;
-            loadGeneralUsersData();
+            //loadGeneralUsersData();
+            //loadUsersDetailedData();
             $("#userControls").show();
             resizeAdmin();
+            $("#timeZoneSelector").wijcombobox("destroy");
+            $("#country").wijcombobox("destroy");
+            $("#dealerSelector").wijcombobox("destroy");
+            $("#role").wijcombobox("destroy");
+            loadAllDealersList();
+            loadRoleList();
+            loadCountryList();
+            loadTimeZoneList();
         }
         if (ui.index == 1) {
             tabIndex = 1;
-            loadUsersDetailedData();
+            //loadUsersDetailedData();
             $("#userControls").show();
             resizeAdmin();
         }
         return false;
     }
     });
+    loadUsersDetailedData();
+    if (radioIndex == -1) {
+        $("#ContentContainer").empty();
+        $("#edit").remove();
+        $("#delete").remove();
+    }
 }
 
 function loadGeneralUsersData() {
@@ -645,33 +709,69 @@ function loadUsersControls() {
     $("#cancel").button({ disabled: true });
 
     $("#edit").click(function () {
-        var boxes = $("#commonData [type=radio]");
+        /*var boxes = $("#commonData [type=radio]");
         var c = 0;
         for (var i = 0; i < boxes.length; i++) {
-            if (boxes[i].checked)
-                c++;
+        if (boxes[i].checked)
+        c++;
         }
         if (c == 0) {
-            alert("Выберите пользователя для редактирования!");
-            return false;
-        }
+        alert("Выберите пользователя для редактирования!");
+        return false;
+        }*/
 
         mode = "edit";
-        if (tabIndex == 0) {
-            mode = "edit";
-            $("#tabs").tabs({ selected: 1 });
-        } else {
-            loadUsersDetailedData();
-            $("#userControls").show();
-            resizeAdmin();
-        }
+        //if (tabIndex == 0) {
+        //    mode = "edit";
+        //$("#tabs").tabs({ selected: 1 });
+        //} else {
+        loadUsersDetailedData();
+        $("#userControls").show();
+        resizeAdmin();
+        //}
 
         return false;
     });
 
     $("#create").click(function () {
+        /*if (crtype < 1) {
+        alert("Выберите лист!");
+        }*/
         mode = "create";
-        $("#tabs").tabs({ selected: 1 });
+
+        if (radioIndex == -1) {
+            $("#ContentContainer").empty();
+            $("#ContentContainer").append($("#UsersData").text());
+
+            $("#tabs").tabs();
+
+            resizeAdmin();
+
+            $("#tabs").tabs({ show: function (e, ui) {
+                if (ui.index == 0) {
+                    tabIndex = 0;
+                    $("#userControls").show();
+                    resizeAdmin();
+                    $("#timeZoneSelector").wijcombobox("destroy");
+                    $("#country").wijcombobox("destroy");
+                    $("#dealerSelector").wijcombobox("destroy");
+                    $("#role").wijcombobox("destroy");
+                    loadAllDealersList();
+                    loadRoleList();
+                    loadCountryList();
+                    loadTimeZoneList();
+                }
+                if (ui.index == 1) {
+                    tabIndex = 1;
+                    $("#userControls").show();
+                    resizeAdmin();
+                }
+                return false;
+            }
+            });
+        };
+        loadUsersDetailedData();
+        $("#tabs").tabs({ selected: 0 });
         return false;
     });
 
@@ -684,12 +784,19 @@ function loadUsersControls() {
 
     $("#save").click(function () {
         if (mode == "edit") {
-            saveUsersData();
+            mode = "";
+            var res = saveUsersData();
+            if (res == "checkerror") {
+                mode = "edit";
+            }
         }
         if (mode == "create") {
-            createNewUser();
+            mode = "";
+            var res=createNewUser();
+            if (res == "checkerror") {
+                mode = "create";
+            }
         }
-        mode = "";
         return false;
     });
 
@@ -755,9 +862,9 @@ function buildJournalTable() {
         dataType: "html json",
         success: function (response) {
             if (response.d == null) {
-            $("#dateErrorBlock").show();
-            $("#journalTable").hide();
-            return;
+                $("#dateErrorBlock").show();
+                $("#journalTable").hide();
+                return;
             }
             updateTable($("#journalTableBody"), $("#tmplJournalTableContent"), response.d);
         },
@@ -951,7 +1058,7 @@ function loadGeneralDetailedData() {
     $("#create").click(function () {
         mode = "create";
 
-        
+
         $("#timeZoneSelector").wijcombobox({
             disabled: false,
             selectedIndex: 0
@@ -1023,30 +1130,9 @@ function loadGeneralDetailedData() {
         if (mode == "edit") {
             var orgName = $("#orgName").attr("value");
             if (orgName == "") {
-                //alert("Введите название организации!");
-                $("#wrongOrgMessage").dialog({
-                    autoOpen: true,
-                    maxHeight: 500,
-                    width: 420,
-                    modal: true,
-                    closeText: '',
-                    resizable: false,
-                    draggable: false,
-                    buttons: {
-                        Ok: function () {
-                            $(this).dialog("close");
-                        }
-                    },
-                    captionButtons: {
-                        pin: { visible: false },
-                        refresh: { visible: false },
-                        toggle: { visible: false },
-                        minimize: { visible: false },
-                        maximize: { visible: false }
-                    }
-                });
+                showWrongDataMessage("wrongOrgMessage");
                 return false;
-            }
+            };
             mode = "";
             var res = saveGeneralDetailedData();
             if (res == "error") {
@@ -1056,28 +1142,7 @@ function loadGeneralDetailedData() {
         if (mode == "create") {
             var orgName = $("#orgName").attr("value");
             if (orgName == "") {
-                //alert("Введите название организации!");
-                $("#wrongOrgMessage").dialog({
-                    autoOpen: true,
-                    maxHeight: 500,
-                    width: 420,
-                    modal: true,
-                    closeText: '',
-                    resizable: false,
-                    draggable: false,
-                    buttons: {
-                        Ok: function () {
-                            $(this).dialog("close");
-                        }
-                    },
-                    captionButtons: {
-                        pin: { visible: false },
-                        refresh: { visible: false },
-                        toggle: { visible: false },
-                        minimize: { visible: false },
-                        maximize: { visible: false }
-                    }
-                });
+                showWrongDataMessage("wrongOrgMessage");
                 return false;
             }
             mode = "";
@@ -1102,37 +1167,67 @@ function loadDealersDetailedData() {
 }
 
 function loadUsersDetailedData() {
-    $("#detailedData").empty();
-    if (radioIndex == -1 && mode != "create") {
-        $("#detailedData").append("<div style='color:#a60000;font-weight:bold;text-align:center;'>Выберите объект для отображения детальных сведений</div>");
-        return;
-    }
+    //    $("#ContentContainer").empty();
+    //$("#ContentContainer").append($("#UsersData").text());
+
+    $("#detailedData1").empty();
+    $("#detailedData2").empty();
+    /*if (radioIndex == -1 && mode != "create") {
+    $("#detailedData").append("<div style='color:#a60000;font-weight:bold;text-align:center;'>Выберите объект для отображения детальных сведений</div>");
+    return;
+    }*/
     $.ajax({
         type: "POST",
         //Page Name (in which the method should be called) and method name
         url: "Administration.aspx/GetUserDetailedData",
-        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'UserID':'" + radioIndex + "'}",
+        data: "{'UserID':'" + radioIndex + "'}",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            $("#tmplUsersDetailedData").tmpl(response.d).appendTo("#detailedData");
+
+            $("#tmplUsersDetailedData1").tmpl(response.d).appendTo("#detailedData1");
+            $("#tmplUsersDetailedData2").tmpl(response.d).appendTo("#detailedData2");
             //$("#detailedData input").removeClass("inputField");
-            $("#detailedData input").addClass("inputField-readonly input");
-            $("#detailedData input").attr("readonly", "readonly");
+            $("#detailedData1 input").addClass("inputField-readonly input");
+            $("#detailedData1 input").attr("readonly", "readonly");
+            $("#detailedData2 input").addClass("inputField-readonly input");
+            $("#detailedData2 input").attr("readonly", "readonly");
             //$("#detailedData input").attr("style", "border: 2px solid red;");
             loadCountryList();
             loadTimeZoneList();
             loadRoleList();
             loadAllDealersList();
+            var name = $("#orgLogin").attr("value");
+            if (name == $.cookie("CURRENT_USERNAME")) {
+                $("#delete").button({ disabled: true });
+            }
 
             if (mode == "edit") {
-                $("#detailedData .input").removeClass("inputField-readonly");
-                $("#detailedData .input").removeAttr("readonly");
-                $("#detailedData .input").addClass("inputField");
+                $("#detailedData1 .input").removeClass("inputField-readonly");
+                $("#detailedData1 .input").removeAttr("readonly");
+                $("#detailedData1 .input").addClass("inputField");
+                $("#detailedData2 .input").removeClass("inputField-readonly");
+                $("#detailedData2 .input").removeAttr("readonly");
+                $("#detailedData2 .input").addClass("inputField");
 
                 $("#orgName").removeClass("inputField");
                 $("#orgName").addClass("inputField-readonly");
                 $("#orgName").attr("readonly", "readonly");
+
+                var name = $("#orgLogin").attr("value");
+                if (name == $.cookie("CURRENT_USERNAME")) {
+                    $("#orgLogin").removeClass("inputField");
+                    $("#orgLogin").addClass("inputField-readonly");
+                    $("#orgLogin").attr("readonly", "readonly");
+
+                    $("#pass1").removeClass("inputField");
+                    $("#pass1").addClass("inputField-readonly");
+                    $("#pass1").attr("readonly", "readonly");
+
+                    $("#pass2").removeClass("inputField");
+                    $("#pass2").addClass("inputField-readonly");
+                    $("#pass2").attr("readonly", "readonly");
+                }
 
                 $("#edit").button({ disabled: true });
                 $("#delete").button({ disabled: true });
@@ -1141,13 +1236,19 @@ function loadUsersDetailedData() {
                 $("#cancel").button({ disabled: false });
             }
             if (mode == "create") {
-                $("#detailedData .input").removeClass("inputField-readonly");
-                $("#detailedData .input").removeAttr("readonly");
-                $("#detailedData .input").addClass("inputField");
+                $("#detailedData1 .input").removeClass("inputField-readonly");
+                $("#detailedData1 .input").removeAttr("readonly");
+                $("#detailedData1 .input").addClass("inputField");
+                $("#detailedData2 .input").removeClass("inputField-readonly");
+                $("#detailedData2 .input").removeAttr("readonly");
+                $("#detailedData2 .input").addClass("inputField");
 
                 $("#orgName").removeClass("inputField");
                 $("#orgName").addClass("inputField-readonly");
                 $("#orgName").attr("readonly", "readonly");
+
+                $("#detailedData1 .input").attr("value", "");
+                $("#detailedData2 .input").attr("value", "");
 
                 $("#orgName").attr("value", "Текущая организация");
 
@@ -1171,8 +1272,8 @@ function saveGeneralDetailedData() {
     //var pass2 = $("#pass2").attr("value");
 
     /*if (pass1 != pass2) {
-        alert("Введенные пароли не совпадают!");
-        return "error";
+    alert("Введенные пароли не совпадают!");
+    return "error";
     }*/
 
     var country = $("#country").attr("countryId");
@@ -1235,8 +1336,8 @@ function createNewOrganization() {
     var fax = $("#fax").attr("value");
     var mail = $("#mail").attr("value");
 
-    
-    var ud ="{'orgName':'" + orgName
+
+    var ud = "{'orgName':'" + orgName
            + "', 'country':'" + country
            + "', 'city':'" + city
            + "', 'index':'" + index
@@ -1259,7 +1360,6 @@ function createNewOrganization() {
             return "OK";
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            alert("HERE");
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
@@ -1312,9 +1412,19 @@ function saveUsersData() {
     var pass1 = $("#pass1").attr("value");
     var pass2 = $("#pass2").attr("value");
 
-    if (pass1 != pass2) {
-        alert("Введенные пароли не совпадают!");
-        return "error";
+    if (pass1 == "" || pass1 != pass2) {
+        showWrongDataMessage("wrongUserPassMessage");
+        return "checkerror";
+    }
+
+    if (login == "") {
+        showWrongDataMessage("wrongUserNameMessage");
+        return "checkerror";
+    }
+
+    if (role == 0) {
+        showWrongDataMessage("wrongUserRoleMessage");
+        return "checkerror";
     }
 
     var country = $("#country").attr("countryId");
@@ -1373,9 +1483,19 @@ function createNewUser() {
     var pass1 = $("#pass1").attr("value");
     var pass2 = $("#pass2").attr("value");
 
-    if (pass1 != pass2) {
-        alert("Введенные пароли не совпадают!");
-        return "error";
+    if (pass1 == "" || pass1 != pass2) {
+        showWrongDataMessage("wrongUserPassMessage");
+        return "checkerror";
+    }
+
+    if (login == "") {
+        showWrongDataMessage("wrongUserNameMessage");
+        return "checkerror";
+    }
+
+    if (role == 0) {
+        showWrongDataMessage("wrongUserRoleMessage");
+        return "checkerror";
     }
 
     var country = $("#country").attr("countryId");
@@ -1414,11 +1534,12 @@ function createNewUser() {
         type: "POST",
         //Page Name (in which the method should be called) and method name
         url: "Administration.aspx/CreateNewUser",
-        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'UserName':'" + $.cookie("CURRENT_USERNAME") + "', 'ud':" + ud + "}",
+        data: "{'OrgID':'" + dealerOrgID + "', 'UserName':'" + $.cookie("CURRENT_USERNAME") + "', 'ud':" + ud + "}",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
             loadUsersData();
+            buildUserTree(response.d);
             return "OK";
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -1447,11 +1568,18 @@ function loadCountryList() {
                 isEditable: false,
                 disabled: true
             });
-            if (mode == "edit" || mode == "create") {
+            if (mode == "edit") {
                 $("#country").wijcombobox({
                     disabled: false
                 });
-            }
+            };
+            if (mode == "create") {
+                $("#country").wijcombobox({
+                    disabled: false,
+                    selectedIndex: 0
+                });
+                $("#country").attr("countryId", "0");
+            };
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -1479,11 +1607,18 @@ function loadAllDealersList() {
                 isEditable: false,
                 disabled: true
             });
-            if (mode == "edit" || mode == "create") {
+            if (mode == "edit") {
                 $("#dealerSelector").wijcombobox({
                     disabled: false
                 });
-            }
+            };
+            if (mode == "create") {
+                $("#dealerSelector").wijcombobox({
+                    disabled: false,
+                    selectedIndex: 0
+                });
+                $("#dealerSelector").attr("dealerId", "0");
+            };
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -1511,11 +1646,30 @@ function loadRoleList() {
                 isEditable: false,
                 disabled: true
             });
-            if (mode == "edit" || mode == "create") {
+            if (mode == "edit") {
                 $("#role").wijcombobox({
                     disabled: false
                 });
-            }
+            };
+            if (mode == "create") {
+                $("#role").wijcombobox({
+                    disabled: false,
+                    selectedIndex: 0
+                });
+                $("#role").attr("roleId", "0");
+                if (crtype == 1) {
+                    $("#role").wijcombobox({
+                        selectedIndex: 3
+                    });
+                    $("#role").attr("roleId", "3");
+                }
+                if (crtype == 2) {
+                    $("#role").wijcombobox({
+                        selectedIndex: 2
+                    });
+                    $("#role").attr("roleId", "2");
+                }
+            };
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -1680,7 +1834,14 @@ function loadTimeZoneList() {
                 $("#timeZoneSelector").wijcombobox({
                     disabled: false
                 });
-            }
+            };
+            if (mode == "create") {
+                $("#timeZoneSelector").wijcombobox({
+                    disabled: false,
+                    selectedIndex: 0
+                });
+                $("#timeZoneSelector").attr("timeZoneId", "0");
+            };
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -1731,4 +1892,28 @@ function changeCountry(selector) {
     $(citySel).attr("cityId", "0");
     $(citySel).empty();
     loadCityList(country, citySel, false);
+}
+
+function showWrongDataMessage(name) {
+    $("#"+name).dialog({
+        autoOpen: true,
+        maxHeight: 500,
+        width: 420,
+        modal: true,
+        closeText: '',
+        resizable: false,
+        draggable: false,
+        buttons: {
+            Ok: function () {
+                $(this).dialog("close");
+            }
+        },
+        captionButtons: {
+            pin: { visible: false },
+            refresh: { visible: false },
+            toggle: { visible: false },
+            minimize: { visible: false },
+            maximize: { visible: false }
+        }
+    });
 }

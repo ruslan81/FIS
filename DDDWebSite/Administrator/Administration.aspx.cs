@@ -365,11 +365,11 @@ public partial class Administrator_Administration : System.Web.UI.Page
     }
 
     /// <summary>
-    ///Получить детальные данные о пользователе
+    /// Получить данные по дереву пользователей
     /// </summary>
     /// <returns></returns>
     [System.Web.Services.WebMethod]
-    public static UserGeneralDetailedData GetUserDetailedData(String OrgID, String UserID)
+    public static UsersTreeData GetUsersTree(String OrgID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
@@ -378,9 +378,66 @@ public partial class Administrator_Administration : System.Web.UI.Page
         {
             dataBlock.OpenConnection();
             int orgId = Convert.ToInt32(OrgID);
+            UsersTreeData utd = new UsersTreeData();
+            utd.orgs = new List<UsersTreeOrgData>();
+
+            List<int> orgIds = dataBlock.organizationTable.Get_AllDealersId(orgId);
+            orgIds.Insert(0,orgId);
+            foreach (int id in orgIds) {
+                UsersTreeOrgData utod = new UsersTreeOrgData();
+                utod.OrgID = id.ToString();
+                utod.admins = new List<MapItem>();
+                utod.managers = new List<MapItem>();
+                utod.OrgName = dataBlock.organizationTable.GetOrganizationName(id);
+                List<int> userIds = dataBlock.usersTable.Get_AllUsersId(id);
+                foreach (int userId in userIds) {
+                    string name = dataBlock.usersTable.Get_UserName(userId);
+                    if (dataBlock.usersTable.Get_UserTypeId(userId) == 3)
+                    {
+                        utod.admins.Add(new MapItem(userId.ToString(), name));
+                    }
+                    else 
+                    {
+                        utod.managers.Add(new MapItem(userId.ToString(), name));
+                    }
+                }
+                //if (utod.admins.Count > 0 || utod.managers.Count > 0)
+                //{
+                    utd.orgs.Add(utod);
+                //}
+            }
+            return utd;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            //return null;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Получить детальные данные о пользователе
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static UserGeneralDetailedData GetUserDetailedData(String UserID)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+
+        try
+        {
+            dataBlock.OpenConnection();
+            //int orgId = Convert.ToInt32(OrgID);
             int userId = Convert.ToInt32(UserID);
             UserGeneralDetailedData ud = new UserGeneralDetailedData();
-
+            if (userId == -1) {
+                return ud;
+            }
             //int dealerId = dataBlock.usersTable.Get_UserOrgId(userId);
             //ud.orgName = dataBlock.organizationTable.GetOrganizationName(dealerId);
 
@@ -911,7 +968,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     /// </summary>
     /// <returns></returns>
     [System.Web.Services.WebMethod]
-    public static void CreateNewUser(String OrgID, String UserName, UserGeneralDetailedData ud)
+    public static string CreateNewUser(String OrgID, String UserName, UserGeneralDetailedData ud)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
@@ -951,6 +1008,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
             dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.surname);
             userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Patronimic);
             dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.patronimic);
+            return userId.ToString();
         }
         catch (Exception ex)
         {

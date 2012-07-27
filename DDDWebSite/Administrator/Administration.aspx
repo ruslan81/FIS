@@ -22,9 +22,11 @@
       var city = null;
       var dealerOrgID = $.cookie("CURRENT_ORG_ID");
       var dealerLevel = 0;
+      var crtype = 0;
 
       $(function () {
           buildOrgTree(0);
+          //buildUserTree(0);
           loadGeneralData();
 
           $("#accordion").accordion({
@@ -39,20 +41,21 @@
                       buildOrgTree(0);
                       loadGeneralData();
                   };
-                  if ($("a", ui.newHeader).text() == "Дилеры") {
+                  /*if ($("a", ui.newHeader).text() == "Дилеры") {
                       $("#userControls").empty();
                       mode = "";
                       tabIndex = 0;
                       radioIndex = -1;
                       loadDealersData();
                       resizeAdmin();
-                  };
+                  };*/
                   if ($("a", ui.newHeader).text() == "Пользователи") {
                       $("#userControls").empty();
                       mode = "";
                       tabIndex = 0;
                       radioIndex = -1;
-                      loadUsersData();
+                      buildUserTree(0)
+                      //loadUsersData();
                   };
                   if ($("a", ui.newHeader).text() == "Счета") {
                       $("#userControls").empty();
@@ -362,10 +365,10 @@
     <script id="UsersData" type="text/x-jquery-tmpl">
      <div id="tabs">
             <ul>
-                <li><a href="#tabs-1">Общие сведения</a></li>
-		        <li><a href="#tabs-2">Детальные сведения</a></li>
+                <li><a href="#tabs-2">Краткие сведения</a></li>
+		        <li><a href="#tabs-3">Детальные сведения</a></li>
 	        </ul>
-            <div id="tabs-1">
+            <!--<div id="tabs-1">
                 <div id="commonData" style="overflow: auto;">
                     <div id="userTableWrapper">
                       <table id="usersTable"  style="width:100%;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
@@ -376,9 +379,13 @@
                       </table>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <div id="tabs-2">
-                <div id="detailedData" style="overflow: auto;">
+                <div id="detailedData1" style="overflow: auto;">
+                </div>
+            </div>
+            <div id="tabs-3">
+                <div id="detailedData2" style="overflow: auto;">
                 </div>
             </div>
     </div>           
@@ -445,6 +452,102 @@
         <label>Часовая зона</label></br>
         <div style="width:100%;"><select id="timeZoneSelector" style="width:350px;" timeZoneId="{{html timeZone}}" onchange="this.timeZoneId=this.value;"></select></div><br>
 
+        <label>Адрес (Основной)</label><br><div style="width: 500px;"><input id="addr1" value="{{html address1}}"/></div><br>
+        <label>Адрес (Дополнительно)</label><br><div style="width: 500px;"><input id="addr2" value="{{html address2}}"/></div><br>
+
+        <table style="" cellpadding="0" cellspacing="0">
+            <tr><td><label>Телефон </label></td><td><label>Факс </label></td><td><label>E-mail </label></td></tr>
+            <tr>
+                <td>
+                    <div style="width: 300px;">
+                        <input id="phone" value="{{html phone}}"/>
+                    </div>
+                </td>
+                <td>
+                    <div style="width: 300px;">
+                        <input id="fax" value="{{html fax}}"/>
+                    </div>
+                </td>
+                <td>
+                    <div style="width: 300px;">
+                        <input id="mail" value="{{html mail}}"/>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+    </script>
+
+    <script id="tmplUsersDetailedData1" type="text/x-jquery-tmpl">
+        <label>Организация</label></br><div style="width: 300px;"><input id="orgName" value="{{html orgName}}"/></div></br>
+        <label>Пользователь</label></br><div style="width: 300px;"><input id="orgLogin" value="{{html login}}"/></div></br>
+
+        <table style="" cellpadding="0" cellspacing="0">
+        <tr><td><label>Дилер </label></td><td><label>Роль </label></td></tr>
+        <tr>
+            <td>
+                <div style="width: 300px;"><select id="dealerSelector" style="width:100px;" dealerId="{{html dealerId}}" onchange="this.dealerId=this.value;"></select></div>
+            </td>
+            <td>
+                <div style="width: 300px;"><select id="role" style="width:100px;" roleId="{{html roleId}}" onchange="this.roleId=this.value;"></select></div>
+            </td>
+        </tr>
+        </table><br>
+        
+        <table style="" cellpadding="0" cellspacing="0">
+        <tr><td><label>Имя </label></td><td><label>Отчество </label></td><td><label>Фамилия </label></td></tr>
+        <tr>
+            <td>
+                <div style="width: 300px;"><input id="name" value="{{html name}}"/></div>
+            </td>
+            <td>
+                <div style="width: 300px;"><input id="patronimic" value="{{html patronimic}}"/></div>
+            </td>
+            <td>
+                <div style="width: 300px;"><input id="surname" value="{{html surname}}"/></div>
+            </td>
+        </tr>
+        </table>
+
+        <br/>
+
+        <table style="" cellpadding="0" cellspacing="0">
+            <tr><td><label>Пароль </label></td><td><label>Пароль (Подтверждение) </label></td></tr>
+            <tr>
+                <td>
+                    <div style="width: 300px;"><input id="pass1" value="{{html password}}"/></div>
+                </td>
+                <td>
+                    <div style="width: 300px;"><input id="pass2" value="{{html password}}"/></div>
+                </td>
+            </tr>
+        </table>
+
+        <div style="margin:10px 0 10px 0; border-top:1px dashed #ccc;"></div>
+
+        <table style="" cellpadding="0" cellspacing="0">
+            <tr><td><label>Страна </label></td><td><label>Город </label></td><td><label>Почтовый индекс </label></td></tr>
+            <tr>
+                <td>
+                    <div style="width: 300px;"><select id="country" style="width:170px;" countryId="{{html country}}" onchange="this.countryId=this.value;"></select>
+                </td>
+                <td>
+                    <div style="width: 300px;"><input id="city" value="{{html city}}"/></div>
+                </td>
+                <td>
+                    <div style="width: 300px;"><input id="index" value="{{html index}}"/></div>
+                </td>
+            </tr>
+        </table>
+        
+        <br>
+
+        <label>Часовая зона</label></br>
+        <div style="width:100%;"><select id="timeZoneSelector" style="width:350px;" timeZoneId="{{html timeZone}}" onchange="this.timeZoneId=this.value;"></select></div><br>
+
+    </script>
+
+    <script id="tmplUsersDetailedData2" type="text/x-jquery-tmpl">
         <label>Адрес (Основной)</label><br><div style="width: 500px;"><input id="addr1" value="{{html address1}}"/></div><br>
         <label>Адрес (Дополнительно)</label><br><div style="width: 500px;"><input id="addr2" value="{{html address2}}"/></div><br>
 
@@ -872,6 +975,31 @@
         </li>
     </script>
 
+    <script id="tmplUsersTree" type="text/x-jquery-tmpl">
+    {{each orgs}}
+        <li class="folder"><a><span level="1" key="-1" crtype="0" orgId="${OrgID}">${OrgName}</span></a>
+        <ul>
+            <li class="file"><a><span level="2" key="-1" crtype="1" orgId="${OrgID}">Администраторы</span></a>
+                <ul>
+                    {{each admins}}
+                    <li class="file" likey="${Key}"><a><span key="${Key}" level="3" crtype="1" orgId="${OrgID}">${Value}</span></a>
+                    </li>
+                    {{/each}}
+                </ul>
+            </li>
+            <li class="file"><a><span level="2" key="-1" crtype="2" orgId="${OrgID}">Менеджеры</span></a>
+                <ul>
+                    {{each managers}}
+                    <li class="file" likey="${Key}"><a><span key="${Key}" level="3" crtype="2" orgId="${OrgID}">${Value}</span></a>
+                    </li>
+                    {{/each}}
+                </ul>
+            </li>
+        </ul>
+        </li>
+    {{/each}}
+    </script>
+
     <script id="tmplHeadColumn" type="text/x-jquery-tmpl">
         <th class="ui-widget wijmo-c1basefield ui-state-default wijmo-c1field" style="{{html style}}height:30px;">
             <div class="wijmo-wijgrid-innercell">
@@ -921,12 +1049,47 @@
                 </div>-->
             <h3><asp:LinkButton ID="UsersAccordionPane3" runat="server" CausesValidation="false" PostBackUrl="#" Text="Пользователи" /></h3>
                 <div id="thirdAccordionPanel">                   
-                    <center>
+                    <!--<center>
                         Информация о пользователях текущей организации.
                         <br/>
                         <br/>
                         Данный раздел позволяет просматривать и редактировать информацию о пользователях в рамках текущей организации.
-                    </center>
+                    </center>-->
+                    <ul id="usersTree">
+                    
+                    </ul>
+                    <div style="display: none">
+                        <div id="wrongUserNameMessage" title="SmartFIS">
+                            <div style="margin-top: 10px;">
+                                <h4>
+                                    Неверные данные
+                                </h4>
+                            </div>
+                            <div style="margin-top: 20px;">
+                                Введите логин пользователя!
+                            </div>
+                        </div>
+                        <div id="wrongUserRoleMessage" title="SmartFIS">
+                            <div style="margin-top: 10px;">
+                                <h4>
+                                    Неверные данные
+                                </h4>
+                            </div>
+                            <div style="margin-top: 20px;">
+                                Укажите роль пользователя!
+                            </div>
+                        </div>
+                        <div id="wrongUserPassMessage" title="SmartFIS">
+                            <div style="margin-top: 10px;">
+                                <h4>
+                                    Неверные данные
+                                </h4>
+                            </div>
+                            <div style="margin-top: 20px;">
+                                Пароль не указан или введенные пароли не совпадают!
+                            </div>
+                        </div>
+                    </div>
                 </div>
             <h3><asp:LinkButton ID="BillsAccordionPane5" runat="server" CausesValidation="false" PostBackUrl="#" Text="Счета" /></h3>
                 <div id="fourthAccordionPanel">                   
