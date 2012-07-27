@@ -14,6 +14,19 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "- 19.07.2012" + Environment.NewLine;
+            ReportLabel.Text += @"- Добавлне раздел Управление/Аккаунт в соответствии с gui10, макс. уровень дерева, как и оговаривалось, 4" + Environment.NewLine;
+            ReportLabel.Text += @"- Убрана теперь уже не нужная закладка Дилеры" + Environment.NewLine;
+            ReportLabel.Text += @"- Выставлена фиксированная ширина селектов, где это еще не было сделано ранее" + Environment.NewLine;
+            ReportLabel.Text += @"- Убран прототип календаря, возврат к работающему варианту" + Environment.NewLine;
+
+            ReportLabel.Text += Environment.NewLine + "- 14.07.2012" + Environment.NewLine;
+            ReportLabel.Text += @"- Решена проблема повторной загрузки файлов в Архиве, отображается соответствующее ообщение" + Environment.NewLine;
+            ReportLabel.Text += @"- Решена возможные проблемы с кнопкой Выход" + Environment.NewLine;
+            ReportLabel.Text += @"- Выставлена фиксированная ширина селектов" + Environment.NewLine;
+            ReportLabel.Text += @"- Сортировка по алфавиту списков стран и городов" + Environment.NewLine;
+            ReportLabel.Text += @"- Встроен прототип календаря" + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "- 10.06.2012" + Environment.NewLine;
             ReportLabel.Text += @"-  Решены проблемы с DDD-файлами. Создан шаблон для отчетов. В разделе Отчеты отображаются соответствующие отчеты по ранее загруженным DDD-файлам." + Environment.NewLine;
             ReportLabel.Text += @"-  Добавлен индикатор ajax-запросов." + Environment.NewLine;

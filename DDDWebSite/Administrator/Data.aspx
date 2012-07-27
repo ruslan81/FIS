@@ -8,6 +8,7 @@
 <asp:Content ID="AccordionContent" ContentPlaceHolderID="VerticalOutlookMenu_PlaceHolder"
     runat="server">
     <script src="../js/custom/Arhive.js" type="text/javascript"></script>
+    <!--<script src="../js/custom/Calendar.js" type="text/javascript"></script>-->
     <script src="../js/jquery.ui.datepicker-ru.js" type="text/javascript"></script>
     <script type="text/javascript">
         //run on page load
@@ -36,6 +37,7 @@
                         destroyPeriodControls();
                         destroyParseControls();
                         loadOverlookDriver();
+
                     }
                     if ($("a", ui.newHeader).text() == "Просмотреть(ТС)") {
                         destroyPeriodControls();
@@ -44,6 +46,8 @@
                     }
                 }
             });
+
+            initCalendar();
 
             resizeReports();
             $('#dialog2').dialog({ autoOpen: false, draggable: true, resizable: true, modal: true, width: 640 });
@@ -241,6 +245,15 @@
             </div>
         </th>
     </script>
+
+    <!--<script id="tmplDiagram" type="text/x-jquery-tmpl">
+        <div style="float:left;margin:20px;">
+            <canvas id="diagram"></canvas>
+        </div>
+        <div style="margin:20px 0;">
+            Здесь будет находится информация по выбранному периоду. Формат необходимо уточнить.
+        </div>
+    </script>-->
 
     <!--Диалоговое окно, отображающее процесс разбора данных-->
     <div id="parsing-dialog" title="Разбор файлов" style="display:none;">
@@ -581,6 +594,15 @@
 
         <button id="parse-files">Разобрать файлы</button>
     </div>
+
+    <!--<div id="calendarWrapper" style="display:none;">
+        <div style="float:left;margin:20px;">
+            <canvas id="diagram"></canvas>
+        </div>
+        <div style="float:left;margin:20px 0;">
+            Здесь будет находится информация по выбранному периоду. Формат необходимо уточнить.
+        </div>
+    </div>-->
     <!--<asp:UpdatePanel ID="GridPanel" UpdateMode="Always" runat="server" Visible="false">
         <ContentTemplate>
             <asp:Panel runat="server" ID="AddGridPanel" CssClass="ui-jqgrid">
