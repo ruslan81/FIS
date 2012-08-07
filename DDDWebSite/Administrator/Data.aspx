@@ -47,16 +47,16 @@
                 }
             });
 
-            initCalendar();
+            //initCalendar();
 
             resizeReports();
             $('#dialog2').dialog({ autoOpen: false, draggable: true, resizable: true, modal: true, width: 640 });
         });
 
         function refreshProgressBars() {
-            bars = document.getElementsByName("progressbar");
-            for (var i in bars) {
-                $("#" + bars[i].id).empty();
+            var bars = document.getElementsByName("progressbar");
+            for (var i = 0; i < bars.length; i++) {
+                $("#" + bars[i].id).progressbar("destroy");
                 var val = $(bars[i]).attr("value");
                 $("#" + bars[i].id).progressbar({ value: parseInt(val) });
             }

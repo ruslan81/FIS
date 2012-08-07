@@ -8,10 +8,10 @@ using System.Web;
 /// </summary>
 public class YearData
 {
-    public String YearName { get; set; }
-    public String MonthName { get; set; }
-    public String DayName { get; set; }
-    public String Percent { get; set; }
+    public string YearName { get; set; }
+    public string MonthName { get; set; }
+    public string DayName { get; set; }
+    public string Percent { get; set; }
     public int key { get; set; }
 
     public YearData()

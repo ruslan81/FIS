@@ -718,9 +718,6 @@ public partial class Administrator_Data : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            /*YearData d = new YearData();
-            d.YearName = ex.Message;
-            result.Add(d);*/
             throw ex;
             //return null;
         }
