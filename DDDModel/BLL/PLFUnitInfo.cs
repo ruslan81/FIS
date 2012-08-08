@@ -791,6 +791,8 @@ namespace BLL
         /// <returns>double - проценты</returns>
         public double Statistics_GetYearStatistics(DateTime date, int datablockId)//Проверить функции
         {
+            SQLDB_Records sqldbRecords = new SQLDB_Records(connectionString, sqlDB.GETMYSQLCONNECTION());
+
             double stat = 0;
             int minutesInDay = 1440;
             int dayInYear = GetDaysInAYear(date.Year);
@@ -801,10 +803,15 @@ namespace BLL
 
             sensorsInstalled.SYSTEM_TIME.systemTime = "Y";
             allSensorsParamIds = Get_AllParamsSensorsId(sensorsInstalled);
-            plfUnitClassTemp.Records = Get_Records(datablockId, sensorsInstalled, allSensorsParamIds);
+            //plfUnitClassTemp.Records = Get_Records(datablockId, sensorsInstalled, allSensorsParamIds);
+
+            int dayInMonth = DateTime.DaysInMonth(date.Year, 12);
+            plfUnitClassTemp.Records = Get_Records(datablockId, new DateTime(date.Year, 1, 1), new DateTime(date.Year, 12, dayInMonth), sensorsInstalled, allSensorsParamIds, sqldbRecords);
+            
             plfUnitClassTemp.TIME_STEP = Get_TIME_STEP(datablockId);
             if (plfUnitClassTemp.TIME_STEP == " ")
                 return 0;
+            double temp = plfUnitClassTemp.Get_AllWorkingTime().TotalMinutes;
             stat = (plfUnitClassTemp.Get_AllWorkingTime().TotalMinutes / (minutesInDay * dayInYear)) * 100;
             return stat;
         }

@@ -29,9 +29,15 @@ namespace DDDModel
 
             //MY CODE
 
-            dataBlock.organizationTable.DeleteOrganization(58);
+            //dataBlock.organizationTable.DeleteOrganization(58);
             //dataBlock.organizationTable.DeleteOrganization(56);
-            //System.Console.ReadKey();
+
+            /*for (int i = 2001; i < 2020; i++)
+            {
+                System.Console.WriteLine(dataBlock.plfUnitInfo.Statistics_GetYearStatistics(new DateTime(i, 1, 1), 110));
+            }
+            System.Console.ReadKey();*/
+
 
            //SCRIPT TO ADD COMMON GROUP
             /*List<Int32> orgIds = dataBlock.organizationTable.Get_AllOrganizationsId();
