@@ -167,13 +167,13 @@ function loadGeneralData() {
                 $("#timeZoneSelector").wijcombobox({
                     showingAnimation: { effect: "blind" },
                     hidingAnimation: { effect: "blind" },
-                    isEditable: false,
+                    //isEditable: false,
                     disabled: true
                 });
                 $("#country").wijcombobox({
                     showingAnimation: { effect: "blind" },
                     hidingAnimation: { effect: "blind" },
-                    isEditable: false,
+                    //isEditable: false,
                     disabled: true
                 });
                 if (mode == "edit") {
@@ -1565,7 +1565,7 @@ function loadCountryList() {
             $("#country").wijcombobox({
                 showingAnimation: { effect: "blind" },
                 hidingAnimation: { effect: "blind" },
-                isEditable: false,
+                //isEditable: false,
                 disabled: true
             });
             if (mode == "edit") {
@@ -1604,7 +1604,7 @@ function loadAllDealersList() {
             $("#dealerSelector").wijcombobox({
                 showingAnimation: { effect: "blind" },
                 hidingAnimation: { effect: "blind" },
-                isEditable: false,
+                //isEditable: false,
                 disabled: true
             });
             if (mode == "edit") {
@@ -1643,7 +1643,7 @@ function loadRoleList() {
             $("#role").wijcombobox({
                 showingAnimation: { effect: "blind" },
                 hidingAnimation: { effect: "blind" },
-                isEditable: false,
+                //isEditable: false,
                 disabled: true
             });
             if (mode == "edit") {
@@ -1730,7 +1730,7 @@ function loadCommonCountryList() {
                 $(selectors[i]).wijcombobox({
                     showingAnimation: { effect: "blind" },
                     hidingAnimation: { effect: "blind" },
-                    isEditable: false,
+                    //isEditable: false,
                     disabled: true
                 });
             }
@@ -1762,7 +1762,7 @@ function loadUserTypesList() {
                 $(selectors[i]).wijcombobox({
                     showingAnimation: { effect: "blind" },
                     hidingAnimation: { effect: "blind" },
-                    isEditable: false,
+                    //isEditable: false,
                     disabled: true
                 });
             }
@@ -1800,7 +1800,7 @@ function loadCityList(country, selector, disabled) {
             $(selector).wijcombobox({
                 showingAnimation: { effect: "blind" },
                 hidingAnimation: { effect: "blind" },
-                isEditable: false,
+                //isEditable: false,
                 disabled: disabled
             });
         },
@@ -1827,7 +1827,7 @@ function loadTimeZoneList() {
             $("#timeZoneSelector").wijcombobox({
                 showingAnimation: { effect: "blind" },
                 hidingAnimation: { effect: "blind" },
-                isEditable: false,
+                //isEditable: false,
                 disabled: true
             });
             if (mode == "edit" || mode == "create") {
