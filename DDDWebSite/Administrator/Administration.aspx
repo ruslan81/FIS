@@ -299,15 +299,19 @@
                         <tr>
                             <td id="firstGeneralRow">
                             </td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td>
                                 <div class="title-section">Статистика</div>
                             </td>
+                            <td>
+                                <div class="title-section">Сообщения</div>
+                            </td>
                         </tr>
                         <tr>
-                            <td>
-                                <div id="statisticTableWrapper" style="width:360px;">
+                            <td style="vertical-align: top;">
+                                <div id="statisticTableWrapper">
                                     <table id="statisticTable"  style="width:100%;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
                                         border="0" cellpadding="0" cellspacing="0">
                                         <thead id="statisticTableHeader"></thead>
@@ -316,14 +320,7 @@
                                     </table>
                                 </div>
                             </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="title-section">Сообщения</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
+                            <td style="vertical-align: top;">
                                 <div id="messageTableWrapper">
                                     <table id="messageTable"  style="width:100%;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
                                         border="0" cellpadding="0" cellspacing="0">

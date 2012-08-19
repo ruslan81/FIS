@@ -48,6 +48,7 @@
 {
     position: absolute;
     overflow: hidden;
+    border: 1px solid #CCC;
 }
 .wijmo-wijcombobox-ul .wijmo-wijcombobox-item
 {

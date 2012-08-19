@@ -267,8 +267,8 @@ button
 .wijmo-wijlist-ul
 {
 	background-color: #eee;
-	border: 1px solid #ccc;
-	border-radius: 3px;
+	/*border: 1px solid #ccc;
+	border-radius: 3px;*/
 }
 
 .item-detail
