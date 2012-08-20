@@ -18,7 +18,7 @@
 #generalDataLabels
 {
     border: 1px solid #CCC;
-    width: 350px;
+    /*width: 350px;*/
     background-color: white;
     border-radius: 5px;
     padding: 2px 5px 2px 5px;
@@ -148,7 +148,7 @@
 
 #firstGeneralRow
 {
-    width: 100%;
+    width: 50%;
 }
 
 .title-section

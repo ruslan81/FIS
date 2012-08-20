@@ -14,6 +14,16 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "- 19.08.2012" + Environment.NewLine;
+            ReportLabel.Text += @"- В Управлении добавлена возможность удобного выбора значения в списках при создании/редактировании. Достаточно написать в поле первые символы и вам будут предложены соответствующие варианты." + Environment.NewLine;
+            ReportLabel.Text += @"- Поправлены стили выпадающих списков" + Environment.NewLine;
+            ReportLabel.Text += @"- Таблица Статистика размещена на уровне с таблицей Сообщения в соответствии с gui" + Environment.NewLine;
+            ReportLabel.Text += @"- Поправлены другие замеченные недочеты" + Environment.NewLine;
+
+            ReportLabel.Text += Environment.NewLine + "- 08.08.2012" + Environment.NewLine;
+            ReportLabel.Text += @"- В архиве при отображении графиков 'заполнения данных' неверно отображались % в годах, где это самый % должен был равняться нулю" + Environment.NewLine;
+            ReportLabel.Text += @"- В архиве была обнаружена js ошибка, которая непосредственно на работу никак не влияла, но 'заставляла' крутиться лоадер (справа внизу) до бесконечности" + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "- 19.07.2012" + Environment.NewLine;
             ReportLabel.Text += @"- Добавлне раздел Управление/Аккаунт в соответствии с gui10, макс. уровень дерева, как и оговаривалось, 4" + Environment.NewLine;
             ReportLabel.Text += @"- Убрана теперь уже не нужная закладка Дилеры" + Environment.NewLine;
