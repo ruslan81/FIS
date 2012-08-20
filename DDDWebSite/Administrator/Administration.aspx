@@ -25,6 +25,10 @@
       var crtype = 0;
 
       $(function () {
+          mode = "";
+          tabIndex = 0;
+          radioIndex = -1;
+
           buildOrgTree(0);
           //buildUserTree(0);
           loadGeneralData();
