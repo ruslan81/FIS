@@ -11843,3 +11843,6 @@ Cache Callback: Message: Выдано исключение типа "System.Web.
 Cache Callback: 19.08.2012 14:17:00
 Cache Callback: 20.08.2012 22:52:00
 Cache Callback: 20.08.2012 22:52:40
+Cache Callback: 21.08.2012 22:44:00
+Cache Callback: Message: Невозможно соединиться с удаленным сервером
+Cache Callback: Message: Время ожидания операции истекло.

@@ -80,6 +80,66 @@ function buildOrgTree(param) {
         }
     });
 };
+function buildOrgTreeInvoices(param) {
+    $("#dealersTree2").empty();
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Administration.aspx/GetDealersTree",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#dealersTree2").wijtree("destroy");
+            $("#tmplDealersTree").tmpl(response.d).appendTo($("#dealersTree2"));
+            $("#dealersTree2").wijtree();
+            $("#dealersTree2").wijtree({ selectedNodeChanged: function (e, data) {
+                onDealersTreeNodeSelectedInvoices(e, data);
+            }
+            });
+            if (param != "") {
+                $("#dealersTree2 li [likey=" + param + "]").wijtreenode({ selected: true });
+                $('span .ui-icon').addClass("ui-icon-triangle-1-se");
+                $('span .ui-icon').removeClass("ui-icon-triangle-1-e");
+                $('.wijmo-wijtree-child').css("display", "block");
+                //$("#tabs").wijtabs('select', 2);
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
+    });
+};
+function buildOrgTreeJournal(param) {
+    $("#dealersTree3").empty();
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Administration.aspx/GetDealersTree",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#dealersTree3").wijtree("destroy");
+            $("#tmplDealersTree").tmpl(response.d).appendTo($("#dealersTree3"));
+            $("#dealersTree3").wijtree();
+            $("#dealersTree3").wijtree({ selectedNodeChanged: function (e, data) {
+                onDealersTreeNodeSelectedJournal(e, data);
+            }
+            });
+            if (param != "") {
+                $("#dealersTree3 li [likey=" + param + "]").wijtreenode({ selected: true });
+                $('span .ui-icon').addClass("ui-icon-triangle-1-se");
+                $('span .ui-icon').removeClass("ui-icon-triangle-1-e");
+                $('.wijmo-wijtree-child').css("display", "block");
+                //$("#tabs").wijtabs('select', 2);
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
+    });
+};
 
 function buildUserTree(param) {
     $("#usersTree").empty();
@@ -209,6 +269,35 @@ function onDealersTreeNodeSelected(e, data) {
         $("#contentTable").hide();
     }
 }
+//Событие при выделении узла дерева
+function onDealersTreeNodeSelectedInvoices(e, data) {
+    isSelected = $("div", data.element).attr("aria-selected");
+    dealerOrgID = $("a span", data.element).attr("key");
+    dealerLevel = $("a span", data.element).attr("level");
+    if (isSelected == "true") {
+        //loadGeneralData();
+        loadInvoiceData();
+        //tabIndex = 0;
+    } else {
+        $("#contentTableBody").empty();
+        $("#contentTable").hide();
+    }
+}
+//Событие при выделении узла дерева
+function onDealersTreeNodeSelectedJournal(e, data) {
+    isSelected = $("div", data.element).attr("aria-selected");
+    dealerOrgID = $("a span", data.element).attr("key");
+    dealerLevel = $("a span", data.element).attr("level");
+    if (isSelected == "true") {
+        //loadGeneralData();
+        loadJournalData();
+        //tabIndex = 0;
+    } else {
+        $("#contentTableBody").empty();
+        $("#contentTable").hide();
+    }
+}
+
 
 //Событие при выделении узла дерева
 function onUsersTreeNodeSelected(e, data) {
@@ -697,6 +786,7 @@ function loadGeneralUsersData() {
 
 //INVOICE
 function loadInvoiceData() {
+    $("#ContentContainer").empty();
     $("#ContentContainer").append($("#InvoiceData").text());
     createTableHeader($("#invoiceTableHeader"), $("#tmplHeadColumn"),
     '[{"text": "Наименование", "style": ";"},' +
@@ -949,6 +1039,7 @@ function enableCreatingControls() {
 
 //JOURNAL
 function loadJournalData() {
+    $("#ContentContainer").empty();
     $("#ContentContainer").append($("#JournalData").text());
     createTableHeader($("#journalTableHeader"), $("#tmplHeadColumn"),
     '[{"text": "Дата и время", "style": "width: 150px;"},' +
@@ -981,7 +1072,7 @@ function buildJournalTable() {
         type: "POST",
         //Page Name (in which the method should be called) and method name
         url: "Administration.aspx/GetJournal",
-        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'StartDate':'" + convert(startDate) + "', 'EndDate':'" + convert(endDate) + "', 'eventType':'" + event + "', 'searchString':'" + text + "'}",
+        data: "{'OrgID':'" + dealerOrgID + "', 'StartDate':'" + convert(startDate) + "', 'EndDate':'" + convert(endDate) + "', 'eventType':'" + event + "', 'searchString':'" + text + "'}",
         contentType: "application/json; charset=utf-8",
         dataType: "html json",
         success: function (response) {
@@ -1012,7 +1103,7 @@ function buildInvoiceTable() {
         type: "POST",
         //Page Name (in which the method should be called) and method name
         url: "Administration.aspx/GetInvoices",
-        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'StartDate':'" + convert(startDate) + "', 'EndDate':'" + convert(endDate) + "', 'statusType':'" + status + "'}",
+        data: "{'OrgID':'" + dealerOrgID + "', 'StartDate':'" + convert(startDate) + "', 'EndDate':'" + convert(endDate) + "', 'statusType':'" + status + "'}",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
