@@ -80,6 +80,66 @@ function buildOrgTree(param) {
         }
     });
 };
+function buildOrgTreeInvoices(param) {
+    $("#dealersTree2").empty();
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Administration.aspx/GetDealersTree",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#dealersTree2").wijtree("destroy");
+            $("#tmplDealersTree").tmpl(response.d).appendTo($("#dealersTree2"));
+            $("#dealersTree2").wijtree();
+            $("#dealersTree2").wijtree({ selectedNodeChanged: function (e, data) {
+                onDealersTreeNodeSelectedInvoices(e, data);
+            }
+            });
+            if (param != "") {
+                $("#dealersTree2 li [likey=" + param + "]").wijtreenode({ selected: true });
+                $('span .ui-icon').addClass("ui-icon-triangle-1-se");
+                $('span .ui-icon').removeClass("ui-icon-triangle-1-e");
+                $('.wijmo-wijtree-child').css("display", "block");
+                //$("#tabs").wijtabs('select', 2);
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
+    });
+};
+function buildOrgTreeJournal(param) {
+    $("#dealersTree3").empty();
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Administration.aspx/GetDealersTree",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#dealersTree3").wijtree("destroy");
+            $("#tmplDealersTree").tmpl(response.d).appendTo($("#dealersTree3"));
+            $("#dealersTree3").wijtree();
+            $("#dealersTree3").wijtree({ selectedNodeChanged: function (e, data) {
+                onDealersTreeNodeSelectedJournal(e, data);
+            }
+            });
+            if (param != "") {
+                $("#dealersTree3 li [likey=" + param + "]").wijtreenode({ selected: true });
+                $('span .ui-icon').addClass("ui-icon-triangle-1-se");
+                $('span .ui-icon').removeClass("ui-icon-triangle-1-e");
+                $('.wijmo-wijtree-child').css("display", "block");
+                //$("#tabs").wijtabs('select', 2);
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
+    });
+};
 
 function buildUserTree(param) {
     $("#usersTree").empty();
@@ -189,7 +249,7 @@ function loadGeneralData() {
         return false;
     }
     });
-
+    $("#tabs").tabs({ selected: 0 });
     //loadGeneralDetailedData();
     $("#userControls").hide();
 
@@ -209,6 +269,35 @@ function onDealersTreeNodeSelected(e, data) {
         $("#contentTable").hide();
     }
 }
+//Событие при выделении узла дерева
+function onDealersTreeNodeSelectedInvoices(e, data) {
+    isSelected = $("div", data.element).attr("aria-selected");
+    dealerOrgID = $("a span", data.element).attr("key");
+    dealerLevel = $("a span", data.element).attr("level");
+    if (isSelected == "true") {
+        //loadGeneralData();
+        loadInvoiceData();
+        //tabIndex = 0;
+    } else {
+        $("#contentTableBody").empty();
+        $("#contentTable").hide();
+    }
+}
+//Событие при выделении узла дерева
+function onDealersTreeNodeSelectedJournal(e, data) {
+    isSelected = $("div", data.element).attr("aria-selected");
+    dealerOrgID = $("a span", data.element).attr("key");
+    dealerLevel = $("a span", data.element).attr("level");
+    if (isSelected == "true") {
+        //loadGeneralData();
+        loadJournalData();
+        //tabIndex = 0;
+    } else {
+        $("#contentTableBody").empty();
+        $("#contentTable").hide();
+    }
+}
+
 
 //Событие при выделении узла дерева
 function onUsersTreeNodeSelected(e, data) {
@@ -630,14 +719,31 @@ function loadUsersData() {
             //loadUsersDetailedData();
             $("#userControls").show();
             resizeAdmin();
-            $("#timeZoneSelector").wijcombobox("destroy");
-            $("#country").wijcombobox("destroy");
-            $("#dealerSelector").wijcombobox("destroy");
-            $("#role").wijcombobox("destroy");
-            loadAllDealersList();
-            loadRoleList();
-            loadCountryList();
-            loadTimeZoneList();
+            if (radioIndex != -1) {
+                if (mode == "edit" || mode == "create") {
+                    $("#country").wijcombobox({
+                        disabled: false
+                    });
+                    $("#dealerSelector").wijcombobox({
+                        disabled: false
+                    });
+                    $("#role").wijcombobox({
+                        disabled: false
+                    });
+                    $("#timeZoneSelector").wijcombobox({
+                        disabled: false
+                    });
+                } else {
+                    $("#timeZoneSelector").wijcombobox("destroy");
+                    $("#country").wijcombobox("destroy");
+                    $("#dealerSelector").wijcombobox("destroy");
+                    $("#role").wijcombobox("destroy");
+                    loadAllDealersList();
+                    loadRoleList();
+                    loadCountryList();
+                    loadTimeZoneList();
+                }
+            }
         }
         if (ui.index == 1) {
             tabIndex = 1;
@@ -648,7 +754,9 @@ function loadUsersData() {
         return false;
     }
     });
-    loadUsersDetailedData();
+    if (radioIndex != -1) {
+        loadUsersDetailedData();
+    }
     if (radioIndex == -1) {
         $("#ContentContainer").empty();
         $("#edit").remove();
@@ -678,6 +786,7 @@ function loadGeneralUsersData() {
 
 //INVOICE
 function loadInvoiceData() {
+    $("#ContentContainer").empty();
     $("#ContentContainer").append($("#InvoiceData").text());
     createTableHeader($("#invoiceTableHeader"), $("#tmplHeadColumn"),
     '[{"text": "Наименование", "style": ";"},' +
@@ -709,39 +818,67 @@ function loadUsersControls() {
     $("#cancel").button({ disabled: true });
 
     $("#edit").click(function () {
-        /*var boxes = $("#commonData [type=radio]");
-        var c = 0;
-        for (var i = 0; i < boxes.length; i++) {
-        if (boxes[i].checked)
-        c++;
-        }
-        if (c == 0) {
-        alert("Выберите пользователя для редактирования!");
-        return false;
-        }*/
 
         mode = "edit";
-        //if (tabIndex == 0) {
-        //    mode = "edit";
-        //$("#tabs").tabs({ selected: 1 });
-        //} else {
-        loadUsersDetailedData();
+        //loadUsersDetailedData();
         $("#userControls").show();
         resizeAdmin();
-        //}
+
+        $("#country").wijcombobox({
+            disabled: false
+        });
+        $("#dealerSelector").wijcombobox({
+            disabled: false
+        });
+        $("#role").wijcombobox({
+            disabled: false
+        });
+        $("#timeZoneSelector").wijcombobox({
+            disabled: false
+        });
+        $("#detailedData1 .input").removeClass("inputField-readonly");
+        $("#detailedData1 .input").removeAttr("readonly");
+        $("#detailedData1 .input").addClass("inputField");
+        $("#detailedData2 .input").removeClass("inputField-readonly");
+        $("#detailedData2 .input").removeAttr("readonly");
+        $("#detailedData2 .input").addClass("inputField");
+
+        $("#orgName").removeClass("inputField");
+        $("#orgName").addClass("inputField-readonly");
+        $("#orgName").attr("readonly", "readonly");
+
+        var name = $("#orgLogin").attr("value");
+        if (name == $.cookie("CURRENT_USERNAME")) {
+            $("#orgLogin").removeClass("inputField");
+            $("#orgLogin").addClass("inputField-readonly");
+            $("#orgLogin").attr("readonly", "readonly");
+
+            $("#pass1").removeClass("inputField");
+            $("#pass1").addClass("inputField-readonly");
+            $("#pass1").attr("readonly", "readonly");
+
+            $("#pass2").removeClass("inputField");
+            $("#pass2").addClass("inputField-readonly");
+            $("#pass2").attr("readonly", "readonly");
+        }
+
+        $("#edit").button({ disabled: true });
+        $("#delete").button({ disabled: true });
+        $("#create").button({ disabled: true });
+        $("#save").button({ disabled: false });
+        $("#cancel").button({ disabled: false });
 
         return false;
     });
 
     $("#create").click(function () {
-        /*if (crtype < 1) {
-        alert("Выберите лист!");
-        }*/
         mode = "create";
 
         if (radioIndex == -1) {
             $("#ContentContainer").empty();
             $("#ContentContainer").append($("#UsersData").text());
+
+            loadUsersDetailedData();
 
             $("#tabs").tabs();
 
@@ -752,14 +889,29 @@ function loadUsersControls() {
                     tabIndex = 0;
                     $("#userControls").show();
                     resizeAdmin();
-                    $("#timeZoneSelector").wijcombobox("destroy");
-                    $("#country").wijcombobox("destroy");
-                    $("#dealerSelector").wijcombobox("destroy");
-                    $("#role").wijcombobox("destroy");
-                    loadAllDealersList();
-                    loadRoleList();
-                    loadCountryList();
-                    loadTimeZoneList();
+                    if (mode == "edit" || mode == "create") {
+                        $("#country").wijcombobox({
+                            disabled: false
+                        });
+                        $("#dealerSelector").wijcombobox({
+                            disabled: false
+                        });
+                        $("#role").wijcombobox({
+                            disabled: false
+                        });
+                        $("#timeZoneSelector").wijcombobox({
+                            disabled: false
+                        });
+                    } else {
+                        $("#timeZoneSelector").wijcombobox("destroy");
+                        $("#country").wijcombobox("destroy");
+                        $("#dealerSelector").wijcombobox("destroy");
+                        $("#role").wijcombobox("destroy");
+                        loadAllDealersList();
+                        loadRoleList();
+                        loadCountryList();
+                        loadTimeZoneList();
+                    }
                 }
                 if (ui.index == 1) {
                     tabIndex = 1;
@@ -769,8 +921,11 @@ function loadUsersControls() {
                 return false;
             }
             });
-        };
-        loadUsersDetailedData();
+        }
+        else {
+            enableCreatingControls();
+        }
+
         $("#tabs").tabs({ selected: 0 });
         return false;
     });
@@ -792,7 +947,7 @@ function loadUsersControls() {
         }
         if (mode == "create") {
             mode = "";
-            var res=createNewUser();
+            var res = createNewUser();
             if (res == "checkerror") {
                 mode = "create";
             }
@@ -823,8 +978,68 @@ function loadUsersControls() {
     $("#userControls").show();
 }
 
+function enableCreatingControls() {
+    $("#detailedData1 .input").removeClass("inputField-readonly");
+    $("#detailedData1 .input").removeAttr("readonly");
+    $("#detailedData1 .input").addClass("inputField");
+    $("#detailedData2 .input").removeClass("inputField-readonly");
+    $("#detailedData2 .input").removeAttr("readonly");
+    $("#detailedData2 .input").addClass("inputField");
+
+    $("#orgName").removeClass("inputField");
+    $("#orgName").addClass("inputField-readonly");
+    $("#orgName").attr("readonly", "readonly");
+
+    $("#detailedData1 .input").attr("value", "");
+    $("#detailedData2 .input").attr("value", "");
+
+    $("#orgName").attr("value", "Текущая организация");
+
+    $("#edit").button({ disabled: true });
+    $("#delete").button({ disabled: true });
+    $("#create").button({ disabled: true });
+    $("#save").button({ disabled: false });
+    $("#cancel").button({ disabled: false });
+
+    if (radioIndex != -1) {
+        $("#country").wijcombobox({
+            disabled: false,
+            selectedIndex: 0
+        });
+        $("#country").attr("countryId", "0");
+        $("#dealerSelector").wijcombobox({
+            disabled: false,
+            selectedIndex: 0
+        });
+        $("#dealerSelector").attr("dealerId", "0");
+        $("#role").wijcombobox({
+            disabled: false,
+            selectedIndex: 0
+        });
+        $("#role").attr("roleId", "0");
+        if (crtype == 1) {
+            $("#role").wijcombobox({
+                selectedIndex: 3
+            });
+            $("#role").attr("roleId", "3");
+        }
+        if (crtype == 2) {
+            $("#role").wijcombobox({
+                selectedIndex: 2
+            });
+            $("#role").attr("roleId", "2");
+        }
+        $("#timeZoneSelector").wijcombobox({
+            disabled: false,
+            selectedIndex: 0
+        });
+        $("#timeZoneSelector").attr("timeZoneId", "0");
+    }
+}
+
 //JOURNAL
 function loadJournalData() {
+    $("#ContentContainer").empty();
     $("#ContentContainer").append($("#JournalData").text());
     createTableHeader($("#journalTableHeader"), $("#tmplHeadColumn"),
     '[{"text": "Дата и время", "style": "width: 150px;"},' +
@@ -857,7 +1072,7 @@ function buildJournalTable() {
         type: "POST",
         //Page Name (in which the method should be called) and method name
         url: "Administration.aspx/GetJournal",
-        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'StartDate':'" + convert(startDate) + "', 'EndDate':'" + convert(endDate) + "', 'eventType':'" + event + "', 'searchString':'" + text + "'}",
+        data: "{'OrgID':'" + dealerOrgID + "', 'StartDate':'" + convert(startDate) + "', 'EndDate':'" + convert(endDate) + "', 'eventType':'" + event + "', 'searchString':'" + text + "'}",
         contentType: "application/json; charset=utf-8",
         dataType: "html json",
         success: function (response) {
@@ -888,7 +1103,7 @@ function buildInvoiceTable() {
         type: "POST",
         //Page Name (in which the method should be called) and method name
         url: "Administration.aspx/GetInvoices",
-        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "', 'StartDate':'" + convert(startDate) + "', 'EndDate':'" + convert(endDate) + "', 'statusType':'" + status + "'}",
+        data: "{'OrgID':'" + dealerOrgID + "', 'StartDate':'" + convert(startDate) + "', 'EndDate':'" + convert(endDate) + "', 'statusType':'" + status + "'}",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
@@ -1167,15 +1382,6 @@ function loadDealersDetailedData() {
 }
 
 function loadUsersDetailedData() {
-    //    $("#ContentContainer").empty();
-    //$("#ContentContainer").append($("#UsersData").text());
-
-    $("#detailedData1").empty();
-    $("#detailedData2").empty();
-    /*if (radioIndex == -1 && mode != "create") {
-    $("#detailedData").append("<div style='color:#a60000;font-weight:bold;text-align:center;'>Выберите объект для отображения детальных сведений</div>");
-    return;
-    }*/
     $.ajax({
         type: "POST",
         //Page Name (in which the method should be called) and method name
@@ -1185,6 +1391,8 @@ function loadUsersDetailedData() {
         dataType: "json",
         success: function (response) {
 
+            $("#detailedData1").empty();
+            $("#detailedData2").empty();
             $("#tmplUsersDetailedData1").tmpl(response.d).appendTo("#detailedData1");
             $("#tmplUsersDetailedData2").tmpl(response.d).appendTo("#detailedData2");
             //$("#detailedData input").removeClass("inputField");
@@ -1201,62 +1409,8 @@ function loadUsersDetailedData() {
             if (name == $.cookie("CURRENT_USERNAME")) {
                 $("#delete").button({ disabled: true });
             }
-
-            if (mode == "edit") {
-                $("#detailedData1 .input").removeClass("inputField-readonly");
-                $("#detailedData1 .input").removeAttr("readonly");
-                $("#detailedData1 .input").addClass("inputField");
-                $("#detailedData2 .input").removeClass("inputField-readonly");
-                $("#detailedData2 .input").removeAttr("readonly");
-                $("#detailedData2 .input").addClass("inputField");
-
-                $("#orgName").removeClass("inputField");
-                $("#orgName").addClass("inputField-readonly");
-                $("#orgName").attr("readonly", "readonly");
-
-                var name = $("#orgLogin").attr("value");
-                if (name == $.cookie("CURRENT_USERNAME")) {
-                    $("#orgLogin").removeClass("inputField");
-                    $("#orgLogin").addClass("inputField-readonly");
-                    $("#orgLogin").attr("readonly", "readonly");
-
-                    $("#pass1").removeClass("inputField");
-                    $("#pass1").addClass("inputField-readonly");
-                    $("#pass1").attr("readonly", "readonly");
-
-                    $("#pass2").removeClass("inputField");
-                    $("#pass2").addClass("inputField-readonly");
-                    $("#pass2").attr("readonly", "readonly");
-                }
-
-                $("#edit").button({ disabled: true });
-                $("#delete").button({ disabled: true });
-                $("#create").button({ disabled: true });
-                $("#save").button({ disabled: false });
-                $("#cancel").button({ disabled: false });
-            }
             if (mode == "create") {
-                $("#detailedData1 .input").removeClass("inputField-readonly");
-                $("#detailedData1 .input").removeAttr("readonly");
-                $("#detailedData1 .input").addClass("inputField");
-                $("#detailedData2 .input").removeClass("inputField-readonly");
-                $("#detailedData2 .input").removeAttr("readonly");
-                $("#detailedData2 .input").addClass("inputField");
-
-                $("#orgName").removeClass("inputField");
-                $("#orgName").addClass("inputField-readonly");
-                $("#orgName").attr("readonly", "readonly");
-
-                $("#detailedData1 .input").attr("value", "");
-                $("#detailedData2 .input").attr("value", "");
-
-                $("#orgName").attr("value", "Текущая организация");
-
-                $("#edit").button({ disabled: true });
-                $("#delete").button({ disabled: true });
-                $("#create").button({ disabled: true });
-                $("#save").button({ disabled: false });
-                $("#cancel").button({ disabled: false });
+                enableCreatingControls();
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -1568,18 +1722,13 @@ function loadCountryList() {
                 //isEditable: false,
                 disabled: true
             });
-            if (mode == "edit") {
-                $("#country").wijcombobox({
-                    disabled: false
-                });
-            };
             if (mode == "create") {
                 $("#country").wijcombobox({
                     disabled: false,
                     selectedIndex: 0
                 });
                 $("#country").attr("countryId", "0");
-            };
+            }
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -1607,18 +1756,13 @@ function loadAllDealersList() {
                 //isEditable: false,
                 disabled: true
             });
-            if (mode == "edit") {
-                $("#dealerSelector").wijcombobox({
-                    disabled: false
-                });
-            };
             if (mode == "create") {
                 $("#dealerSelector").wijcombobox({
                     disabled: false,
                     selectedIndex: 0
                 });
                 $("#dealerSelector").attr("dealerId", "0");
-            };
+            }
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -1627,6 +1771,7 @@ function loadAllDealersList() {
 }
 
 function loadRoleList() {
+
     $.ajax({
         type: "POST",
         //Page Name (in which the method should be called) and method name
@@ -1635,6 +1780,7 @@ function loadRoleList() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
+
             $("#role").append("<option value='0'>Не указано</option>");
             $("#tmplOption").tmpl(response.d).appendTo("#role");
             var role = $("#role").attr("roleId");
@@ -1646,11 +1792,6 @@ function loadRoleList() {
                 //isEditable: false,
                 disabled: true
             });
-            if (mode == "edit") {
-                $("#role").wijcombobox({
-                    disabled: false
-                });
-            };
             if (mode == "create") {
                 $("#role").wijcombobox({
                     disabled: false,
@@ -1669,7 +1810,7 @@ function loadRoleList() {
                     });
                     $("#role").attr("roleId", "2");
                 }
-            };
+            }
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -1830,18 +1971,13 @@ function loadTimeZoneList() {
                 //isEditable: false,
                 disabled: true
             });
-            if (mode == "edit" || mode == "create") {
-                $("#timeZoneSelector").wijcombobox({
-                    disabled: false
-                });
-            };
             if (mode == "create") {
                 $("#timeZoneSelector").wijcombobox({
                     disabled: false,
                     selectedIndex: 0
                 });
                 $("#timeZoneSelector").attr("timeZoneId", "0");
-            };
+            }
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -1895,7 +2031,7 @@ function changeCountry(selector) {
 }
 
 function showWrongDataMessage(name) {
-    $("#"+name).dialog({
+    $("#" + name).dialog({
         autoOpen: true,
         maxHeight: 500,
         width: 420,

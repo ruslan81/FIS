@@ -1364,6 +1364,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
             usersIds.AddRange(dataBlock.usersTable.Get_AllUsersId(orgId, dataBlock.usersTable.DriverUserTypeId));
             usersIds.AddRange(dataBlock.usersTable.Get_AllUsersId(orgId, dataBlock.usersTable.AdministratorUserTypeId));
             usersIds.AddRange(dataBlock.usersTable.Get_AllUsersId(orgId, dataBlock.usersTable.ManagerUserTypeId));
+            usersIds.AddRange(dataBlock.usersTable.Get_AllUsersId(orgId, dataBlock.usersTable.DealerUserTypeId));
             DataTable data = historyTable.GetAllHistorysForUsers(usersIds, from, to, actionId, searchString);
             foreach (DataRow row in data.Rows)
             {

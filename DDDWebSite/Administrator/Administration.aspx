@@ -23,8 +23,12 @@
       var dealerOrgID = $.cookie("CURRENT_ORG_ID");
       var dealerLevel = 0;
       var crtype = 0;
-
+    
       $(function () {
+          mode = "";
+          tabIndex = 0;
+          radioIndex = -1;
+
           buildOrgTree(0);
           //buildUserTree(0);
           loadGeneralData();
@@ -61,14 +65,16 @@
                       $("#userControls").empty();
                       mode = "";
                       $("#dateErrorBlock").hide();
-                      loadInvoiceData();
+                      buildOrgTreeInvoices(0);
+                      //loadInvoiceData();
                       resizeAdmin();
                   };
                   if ($("a", ui.newHeader).text() == "Журнал") {
                       $("#userControls").empty();
                       mode = "";
                       $("#dateErrorBlock").hide();
-                      loadJournalData();
+                      buildOrgTreeJournal(0);
+                      //loadJournalData();
                       resizeAdmin();
                   };
               }
@@ -1090,21 +1096,27 @@
                 </div>
             <h3><asp:LinkButton ID="BillsAccordionPane5" runat="server" CausesValidation="false" PostBackUrl="#" Text="Счета" /></h3>
                 <div id="fourthAccordionPanel">                   
-                    <center>
+                    <!--<center>
                         Информация о счетах текущей организации.
                         <br/>
                         <br/>
                         Данный раздел позволяет просматривать информацию о счетах в рамках текущей организации.
-                    </center>
+                    </center>-->
+                   <ul id="dealersTree2">
+                    
+                   </ul>
                 </div>
             <h3><asp:LinkButton ID="LogAccordionPane6" runat="server" CausesValidation="false" PostBackUrl="#" Text="Журнал" /></h3>
                 <div id="fifthAccordionPanel">                   
-                    <center>
+                    <!--<center>
                         Информация о событиях журнала текущей организации.
                         <br/>
                         <br/>
                         Данный раздел позволяет просматривать информацию о действиях пользователей в рамках текущей организации.
-                    </center>
+                    </center>-->
+                    <ul id="dealersTree3">
+                    
+                   </ul>
                 </div>
         </div>
             
