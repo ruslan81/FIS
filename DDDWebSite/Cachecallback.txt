@@ -11846,3 +11846,6 @@ Cache Callback: 20.08.2012 22:52:40
 Cache Callback: 21.08.2012 22:44:00
 Cache Callback: Message: Невозможно соединиться с удаленным сервером
 Cache Callback: Message: Время ожидания операции истекло.
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: 09.09.2012 19:50:40
+Cache Callback: 09.09.2012 19:52:00
