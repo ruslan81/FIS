@@ -1193,8 +1193,6 @@ function loadInvoiceStatusList() {
 }
 
 function loadGeneralDetailedData() {
-    $("#detailedData1").empty();
-    $("#detailedData2").empty();
     $.ajax({
         type: "POST",
         //Page Name (in which the method should be called) and method name
@@ -1203,6 +1201,8 @@ function loadGeneralDetailedData() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
+            $("#detailedData1").empty();
+            $("#detailedData2").empty();
             $("#tmplGeneralOrgDetailedData1").tmpl(response.d).appendTo("#detailedData1");
             $("#tmplGeneralOrgDetailedData2").tmpl(response.d).appendTo("#detailedData2");
             $("#detailedData1 input").addClass("inputField-readonly input");
@@ -1240,9 +1240,6 @@ function loadGeneralDetailedData() {
         $("#country").wijcombobox({
             disabled: false
         });
-        /*$("#dealerSelector").wijcombobox({
-        disabled: false
-        });*/
 
         $("#detailedData1 .input").removeClass("inputField-readonly");
         $("#detailedData1 .input").removeAttr("readonly");
@@ -1258,9 +1255,6 @@ function loadGeneralDetailedData() {
             $("#orgName").attr("readonly", "readonly");
         }
 
-        /*$("#orgLogin").removeClass("inputField");
-        $("#orgLogin").addClass("inputField-readonly");
-        $("#orgLogin").attr("readonly", "readonly");*/
 
         $("#edit").button({ disabled: true });
         $("#create").button({ disabled: true });
@@ -1273,7 +1267,6 @@ function loadGeneralDetailedData() {
     $("#create").click(function () {
         mode = "create";
 
-
         $("#timeZoneSelector").wijcombobox({
             disabled: false,
             selectedIndex: 0
@@ -1284,9 +1277,6 @@ function loadGeneralDetailedData() {
             selectedIndex: 0
         });
         $("#country").attr("countryId", "0");
-        /*$("#dealerSelector").wijcombobox({
-        disabled: false
-        });*/
 
         $("#detailedData1 .input").removeClass("inputField-readonly");
         $("#detailedData1 .input").removeAttr("readonly");
@@ -1299,13 +1289,6 @@ function loadGeneralDetailedData() {
         $("#detailedData2 .input").addClass("inputField");
 
         $("#detailedData2 .input").attr("value", "");
-        /*$("#orgName").removeClass("inputField");
-        $("#orgName").addClass("inputField-readonly");
-        $("#orgName").attr("readonly", "readonly");*/
-
-        /*$("#orgLogin").removeClass("inputField");
-        $("#orgLogin").addClass("inputField-readonly");
-        $("#orgLogin").attr("readonly", "readonly");*/
 
         $("#edit").button({ disabled: true });
         $("#create").button({ disabled: true });
@@ -1367,9 +1350,42 @@ function loadGeneralDetailedData() {
             }
         }
 
-        loadGeneralDetailedData();
+        $.ajax({
+            type: "POST",
+            //Page Name (in which the method should be called) and method name
+            url: "Administration.aspx/GetGeneralOrgDetailedData",
+            data: "{'OrgID':'" + dealerOrgID + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                $("#detailedData1").empty();
+                $("#detailedData2").empty();
+                $("#tmplGeneralOrgDetailedData1").tmpl(response.d).appendTo("#detailedData1");
+                $("#tmplGeneralOrgDetailedData2").tmpl(response.d).appendTo("#detailedData2");
+                $("#detailedData1 input").addClass("inputField-readonly input");
+                $("#detailedData1 input").attr("readonly", "readonly");
+                $("#detailedData2 input").addClass("inputField-readonly input");
+                $("#detailedData2 input").attr("readonly", "readonly");
+                loadCountryList();
+                loadTimeZoneList();
+                //loadAllDealersList();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+            }
+        });
+
+        $("#save").button({ disabled: true });
+        $("#cancel").button({ disabled: true });
+        $("#delete").button({ disabled: false });
+        $("#edit").button({ disabled: false });
+        $("#create").button({ disabled: false });
+        //loadGeneralDetailedData();
+
         return false;
     });
+
+
 
 }
 
@@ -1421,17 +1437,7 @@ function loadUsersDetailedData() {
 
 function saveGeneralDetailedData() {
     var orgName = $("#orgName").attr("value");
-    //var orgLogin = $("#orgLogin").attr("value");
-    //var pass1 = $("#pass1").attr("value");
-    //var pass2 = $("#pass2").attr("value");
-
-    /*if (pass1 != pass2) {
-    alert("Введенные пароли не совпадают!");
-    return "error";
-    }*/
-
     var country = $("#country").attr("countryId");
-    //var dealerId = $("#dealerSelector").attr("dealerId");
     var city = $("#city").attr("value");
     var index = $("#index").attr("value");
     var timeZone = $("#timeZoneSelector").attr("timeZoneId");
