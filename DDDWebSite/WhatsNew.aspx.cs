@@ -14,6 +14,13 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "- 09.09.2012" + Environment.NewLine;
+            ReportLabel.Text += @"- Закладка Счета/Упрвление в соответствии с gui." + Environment.NewLine;
+            ReportLabel.Text += @"- Закладка Журнал/Упрвление в соответствии с gui." + Environment.NewLine;
+            ReportLabel.Text += @"- Убрано повторное получение данных при редактировании в разделе Пользователи, тем самым оптимизирован данный процесс." + Environment.NewLine;
+            ReportLabel.Text += @"- Поправлены различные мелочи в разделе Управление." + Environment.NewLine;
+            ReportLabel.Text += @"- Работа над поиском по деревьям." + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "- 19.08.2012" + Environment.NewLine;
             ReportLabel.Text += @"- В Управлении добавлена возможность удобного выбора значения в списках при создании/редактировании. Достаточно написать в поле первые символы и вам будут предложены соответствующие варианты." + Environment.NewLine;
             ReportLabel.Text += @"- Поправлены стили выпадающих списков" + Environment.NewLine;

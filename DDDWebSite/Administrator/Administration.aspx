@@ -748,7 +748,7 @@
                 <div style="margin-top:5px;margin-bottom:5px;height:30px;">
                     <div style="float:left;margin-right:10px;margin-top: 6px;">Тип </div>
                     <div style="float:left;margin-right:10px;margin-top: 3px;">
-                        <select id="invoiceStatusSelector" statusType="0" onchange="this.statusType=this.value;"></select>
+                        <select id="invoiceStatusSelector" statusType="0" onchange="this.statusType=this.value;" style="width:100px;"></select>
                     </div>
                     <div style="float:left;">
                         <button id="buildButton">Применить</button>
@@ -786,7 +786,7 @@
                 <div style="margin-top:5px;margin-bottom:5px;height:30px;">
                     <div style="float:left;margin-right:10px;margin-top: 6px;">Событие </div>
                     <div style="float:left;margin-right:10px;margin-top: 3px;">
-                        <select id="eventSelector" event="-1" onchange="this.event=this.value;"></select>
+                        <select id="eventSelector" event="-1" onchange="this.event=this.value;" style="width:250px;"></select>
                     </div>
                     <div style="float:left;margin-right:10px;margin-top: 6px;">
                         Текст в описании 
