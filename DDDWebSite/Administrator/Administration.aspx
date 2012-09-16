@@ -1139,9 +1139,9 @@
             <button id="save">Сохранить</button>
             <button id="cancel">Отмена</button>
         </div>
-        <div id="deletedealerdialog" title="Удаление" style="display: none;">
+        <!--<div id="deletedealerdialog" title="Удаление" style="display: none;">
 	        <p>Вы действительно хотите удалить выделенную организацию?</p>
-        </div>
+        </div>-->
     </script>
 
     <script id="сontrolsDealers" type="text/x-jquery-tmpl">
