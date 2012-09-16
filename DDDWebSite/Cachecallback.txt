@@ -11849,3 +11849,17 @@ Cache Callback: Message: Время ожидания операции истек
 Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
 Cache Callback: 09.09.2012 19:50:40
 Cache Callback: 09.09.2012 19:52:00
+Cache Callback: 09.09.2012 21:25:00
+Cache Callback: 09.09.2012 23:03:00
+Cache Callback: 11.09.2012 22:28:20
+Cache Callback: Message: Файл не существует.
+Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.
+Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.
+Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.
+Cache Callback: 16.09.2012 14:42:00
+Cache Callback: Message: Reading from the stream has failed.
+Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.
+Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.
+Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.
+Cache Callback: 16.09.2012 20:33:40
+Cache Callback: 16.09.2012 20:35:40

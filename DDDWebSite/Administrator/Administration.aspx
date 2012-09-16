@@ -7,10 +7,13 @@
 
   <link type="text/css" href="../css/custom-theme/jquery.wijmo.wijcombobox.css" rel="stylesheet" />
   <link type="text/css" href="../css/DetailedData.css" rel="stylesheet" />
+  <link type="text/css" href="../js/custom/jquery.search-tree.1.0.1.css" rel="stylesheet" />
 
   <script src="../js/custom/Adminsitration.js" type="text/javascript"></script>
   <script src="../js/jquery.ui.datepicker-ru.js" type="text/javascript"></script>
   <script src="../js/jquery.wijmo.wijcombobox.js" type="text/javascript"></script>
+  <script src="../js/custom/jquery.search-tree.1.0.1.js" type="text/javascript"></script>
+
   <asp:HiddenField ID="AccordionSelectedPane" Visible="true" runat="server" Value="0" /> 
   
   <script type="text/javascript">
