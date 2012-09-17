@@ -39,7 +39,9 @@ public partial class Administrator_Report : System.Web.UI.Page
         }*/
         #region "!IsPostBack"
         if (!IsPostBack)
-        {           
+        {
+            UserControlsForAll_BlueButton pan = ((UserControlsForAll_BlueButton)Page.Master.FindControl("ReportsMasterButt"));
+            pan.Enabled = false;
             try
             {
                 /*Session["AnyChartStockSession_1"] = null;
