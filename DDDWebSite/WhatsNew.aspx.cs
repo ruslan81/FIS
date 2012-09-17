@@ -14,6 +14,11 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "- 16.09.2012" + Environment.NewLine;
+            ReportLabel.Text += @"- Реализован поиск по дереву. Пример - Управление/Аккаунт." + Environment.NewLine;
+            ReportLabel.Text += @"- Реализован публичный сервис в тестовых целях. /DDDWebSite/PublicServices.asmx." + Environment.NewLine;
+            ReportLabel.Text += @"- Исправлены javascript ошибки, проявляющиеся при определенном сценарии поведения пользователя." + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "- 09.09.2012" + Environment.NewLine;
             ReportLabel.Text += @"- Закладка Счета/Упрвление в соответствии с gui." + Environment.NewLine;
             ReportLabel.Text += @"- Закладка Журнал/Упрвление в соответствии с gui." + Environment.NewLine;

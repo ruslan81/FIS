@@ -63,10 +63,12 @@ function buildOrgTree(param) {
             $("#dealersTree").wijtree("destroy");
             $("#tmplDealersTree").tmpl(response.d).appendTo($("#dealersTree"));
             $("#dealersTree").wijtree();
-            $("#dealersTree").wijtree({ selectedNodeChanged: function (e, data) {
-                onDealersTreeNodeSelected(e, data);
-            }
+            $("#dealersTree").wijtree({
+                selectedNodeChanged: function (e, data) {
+                    onDealersTreeNodeSelected(e, data);
+                }
             });
+            
             if (param != "") {
                 $("#dealersTree li [likey=" + param + "]").wijtreenode({ selected: true });
                 $('span .ui-icon').addClass("ui-icon-triangle-1-se");
@@ -74,6 +76,10 @@ function buildOrgTree(param) {
                 $('.wijmo-wijtree-child').css("display", "block");
                 //$("#tabs").wijtabs('select', 2);
             }
+
+            //!TODO remove
+            //test our search tree jquery plugin
+            $("#dealersTree").searchTree();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
