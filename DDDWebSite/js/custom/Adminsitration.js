@@ -221,7 +221,7 @@ function loadGeneralData() {
             } else {
                 //resizeAdmin();
             }
-            if (ui.index == 1) {
+            if (ui.index == 2) {
                 $("#timeZoneSelector").wijcombobox("destroy");
                 $("#country").wijcombobox("destroy");
                 $("#timeZoneSelector").wijcombobox({
@@ -720,28 +720,18 @@ function loadUsersData() {
             $("#userControls").show();
             resizeAdmin();
             if (radioIndex != -1) {
-                if (mode == "edit" || mode == "create") {
-                    $("#country").wijcombobox({
-                        disabled: false
-                    });
+                if (mode == "edit" || mode == "create") {                    
                     $("#dealerSelector").wijcombobox({
                         disabled: false
                     });
                     $("#role").wijcombobox({
                         disabled: false
                     });
-                    $("#timeZoneSelector").wijcombobox({
-                        disabled: false
-                    });
                 } else {
-                    $("#timeZoneSelector").wijcombobox("destroy");
-                    $("#country").wijcombobox("destroy");
                     $("#dealerSelector").wijcombobox("destroy");
                     $("#role").wijcombobox("destroy");
                     loadAllDealersList();
                     loadRoleList();
-                    loadCountryList();
-                    loadTimeZoneList();
                 }
             }
         }
@@ -750,6 +740,21 @@ function loadUsersData() {
             //loadUsersDetailedData();
             $("#userControls").show();
             resizeAdmin();
+            if (radioIndex != -1) {
+                if (mode == "edit" || mode == "create") {
+                    $("#country").wijcombobox({
+                        disabled: false
+                    });
+                    $("#timeZoneSelector").wijcombobox({
+                        disabled: false
+                    });
+                } else {
+                    $("#timeZoneSelector").wijcombobox("destroy");
+                    $("#country").wijcombobox("destroy");
+                    loadCountryList();
+                    loadTimeZoneList();
+                }
+            }
         }
         return false;
     }
@@ -1406,7 +1411,6 @@ function loadUsersDetailedData() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-
             $("#detailedData1").empty();
             $("#detailedData2").empty();
             $("#tmplUsersDetailedData1").tmpl(response.d).appendTo("#detailedData1");

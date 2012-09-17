@@ -229,7 +229,11 @@
 
         <div style="margin:10px 0 10px 0; border-top:1px dashed #ccc;"></div>
 
-        <table style="" cellpadding="0" cellspacing="0">
+    </script>
+
+    <script id="tmplGeneralOrgDetailedData2" type="text/x-jquery-tmpl">
+
+    <table style="" cellpadding="0" cellspacing="0">
             <tr><td><label>Страна </label></td><td><label>Город </label></td><td><label>Почтовый индекс </label></td></tr>
             <tr>
                 <td>
@@ -251,10 +255,6 @@
         <br/>
 
         <div style="width:100%;"><select id="timeZoneSelector" timeZoneId="{{html timeZone}}" style="width:350px;" onchange="this.timeZoneId=this.value;"></select></div>
-
-    </script>
-
-    <script id="tmplGeneralOrgDetailedData2" type="text/x-jquery-tmpl">
 
         <br/>
 
@@ -528,7 +528,10 @@
 
         <div style="margin:10px 0 10px 0; border-top:1px dashed #ccc;"></div>
 
-        <table style="" cellpadding="0" cellspacing="0">
+    </script>
+
+    <script id="tmplUsersDetailedData2" type="text/x-jquery-tmpl">
+     <table style="" cellpadding="0" cellspacing="0">
             <tr><td><label>Страна </label></td><td><label>Город </label></td><td><label>Почтовый индекс </label></td></tr>
             <tr>
                 <td>
@@ -548,9 +551,6 @@
         <label>Часовая зона</label></br>
         <div style="width:100%;"><select id="timeZoneSelector" style="width:350px;" timeZoneId="{{html timeZone}}" onchange="this.timeZoneId=this.value;"></select></div><br>
 
-    </script>
-
-    <script id="tmplUsersDetailedData2" type="text/x-jquery-tmpl">
         <label>Адрес (Основной)</label><br><div style="width: 500px;"><input id="addr1" value="{{html address1}}"/></div><br>
         <label>Адрес (Дополнительно)</label><br><div style="width: 500px;"><input id="addr2" value="{{html address2}}"/></div><br>
 
