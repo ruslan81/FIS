@@ -110,6 +110,7 @@ function buildOrgTreeInvoices(param) {
                 $('.wijmo-wijtree-child').css("display", "block");
                 //$("#tabs").wijtabs('select', 2);
             }
+            $("#dealersTree2").searchTree();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -140,6 +141,7 @@ function buildOrgTreeJournal(param) {
                 $('.wijmo-wijtree-child').css("display", "block");
                 //$("#tabs").wijtabs('select', 2);
             }
+            $("#dealersTree3").searchTree();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -171,6 +173,7 @@ function buildUserTree(param) {
                 $('.wijmo-wijtree-child').css("display", "block");
                 //$("#tabs").wijtabs('select', 2);
             }
+            $("#usersTree").searchTree();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);

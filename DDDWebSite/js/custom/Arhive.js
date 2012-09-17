@@ -21,7 +21,7 @@ function loadRecoverUserDriversTree() {
 
             $("#DriversTree").empty();
             $("#tmplTreeItem").tmpl(response.d).appendTo("#DriversTree");
-
+            $("#DriversTree").searchTree();
             loadRecoverUserTransportTree();
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -52,7 +52,8 @@ function loadRecoverUserTransportTree() {
 
                 onRecoverUserNodeSelected(e, data);
             }
-            });
+        });
+        $("#tree").searchTree();
     },
     error: function (jqXHR, textStatus, errorThrown) {
         showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -192,7 +193,8 @@ function loadOverlookDriverTree() {
             $("#OverlookDriverTree").wijtree({ selectedNodeChanged: function (e, data) {
                 onOverlookNodeSelected(e, data);
             }
-            });
+        });
+        $("#OverlookDriverTree").searchTree();
     },
     error: function (jqXHR, textStatus, errorThrown) {
         showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -224,7 +226,8 @@ function loadOverlookVehicleTree() {
             $("#OverlookVehicleTree").wijtree({ selectedNodeChanged: function (e, data) {
                 onOverlookNodeSelected(e, data);
             }
-            });
+        });
+        $("#OverlookVehicleTree").searchTree();
     },
     error: function (jqXHR, textStatus, errorThrown) {
         showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);

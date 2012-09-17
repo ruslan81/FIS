@@ -19,6 +19,9 @@
 <asp:Content ID="AccordionContent" ContentPlaceHolderID="VerticalOutlookMenu_PlaceHolder"
     runat="server">
 
+    <link type="text/css" href="../js/custom/jquery.search-tree.1.0.1.css" rel="stylesheet" />
+    <script src="../js/custom/jquery.search-tree.1.0.1.js" type="text/javascript"></script>
+
     <script type="text/javascript">
         //график
         var chart = null;

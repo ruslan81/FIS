@@ -92,7 +92,7 @@ function loadPLFFilesTree() {
                 onPLFFilesNodeSelected(e, data);
             }
             });
-
+            $("#PLFFilesTree").searchTree();
     },
     error: function (jqXHR, textStatus, errorThrown) {
         showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -675,7 +675,8 @@ function loadVehiclesTree() {
             $("#vehiclesTree").wijtree({ selectedNodeChanged: function (e, data) {
                 onVehiclesNodeSelected(e, data);
                 }
-            });
+        });
+        $("#vehiclesTree").searchTree();
     },
     error: function (jqXHR, textStatus, errorThrown) {
         showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
