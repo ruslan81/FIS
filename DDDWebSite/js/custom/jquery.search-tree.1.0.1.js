@@ -40,7 +40,7 @@ jQuery.fn.searchTree.create = function ($this) {
             $(".search-name", $this.parent()).attr("readonly", "true");
             $(".search-name", $this.parent()).addClass("search-name-readonly");
             $(".cancel-search", $this.parent()).show();
-            jQuery.fn.searchTree.search($this.children("ul"), searchRequest);
+            jQuery.fn.searchTree.search($this.children("ul"), searchRequest,false);
         }
     });
 
@@ -66,33 +66,11 @@ jQuery.fn.searchTree.create = function ($this) {
     param $this <ul> element
     param request text for search
 */
-jQuery.fn.searchTree.search = function ($this, request) {
+jQuery.fn.searchTree.search = function ($this, request, hasParentEntry) {
     var hasEntry = false;
     var children = $this.children('li');
     console.log("length: " + children.length);
     for (var i = 0; i < children.length; i++) {
-
-        if ($(children[i]).hasClass("wijmo-wijtree-parent")) {
-            var ul = $(children[i]).children("ul");
-
-            if (jQuery.fn.searchTree.search(ul, request)) {
-                /*var triangle = $("div:first > span > span.ui-icon", $(children[i]));
-                triangle.addClass("ui-icon-triangle-1-se");
-                triangle.removeClass("ui-icon-triangle-1-e");
-                ul.css("display", "block");*/
-                $(children[i]).wijtreenode({ expanded: true });
-
-                hasEntry = true;
-            } else {
-                /*var triangle = $("div:first > span > span.ui-icon", $(children[i]));
-                triangle.removeClass("ui-icon-triangle-1-se");
-                triangle.addClass("ui-icon-triangle-1-e");
-                ul.css("display", "none");*/
-                $(children[i]).wijtreenode({ expanded: false });
-
-                $(children[i]).css("display", "none");
-            }
-        }
 
         var item = $("div:first > span > a > span", $(children[i]));
         var rgxp = new RegExp(request, 'gi');
@@ -103,14 +81,41 @@ jQuery.fn.searchTree.search = function ($this, request) {
 
             item.highlight(request, "highlight");
 
-            $(children[i]).css("display", "block");
-
             hasEntry = true;
         } else {
             if (!$(children[i]).hasClass("wijmo-wijtree-parent")) {
+                //$(children[i]).css("display", "none");
+            }
+            if (!hasParentEntry) {
                 $(children[i]).css("display", "none");
             }
         }
+
+        if ($(children[i]).hasClass("wijmo-wijtree-parent")) {
+            var ul = $(children[i]).children("ul");
+            var newHasParentEntry = hasEntry ? hasEntry : hasParentEntry;
+            if (jQuery.fn.searchTree.search(ul, request, newHasParentEntry)) {
+                /*var triangle = $("div:first > span > span.ui-icon", $(children[i]));
+                triangle.addClass("ui-icon-triangle-1-se");
+                triangle.removeClass("ui-icon-triangle-1-e");
+                ul.css("display", "block");*/
+                $(children[i]).wijtreenode({ expanded: true });
+
+                $(children[i]).css("display", "block");
+
+                hasEntry = true;
+            } else {
+                /*var triangle = $("div:first > span > span.ui-icon", $(children[i]));
+                triangle.removeClass("ui-icon-triangle-1-se");
+                triangle.addClass("ui-icon-triangle-1-e");
+                ul.css("display", "none");*/
+                $(children[i]).wijtreenode({ expanded: false });
+
+                //$(children[i]).css("display", "none");
+            }
+        }
+
+
     }
     return hasEntry
 };
