@@ -230,7 +230,7 @@
         <table style="width: 100%;" cellpadding="0" cellspacing="0">
         <label>Организация</label></br><div style="width: 300px;"><input id="orgName" value="{{html orgName}}"/></div></br>
 
-        <div style="margin:10px 0 10px 0; border-top:1px dashed #ccc;"></div>
+        <!--<div style="margin:10px 0 10px 0; border-top:1px dashed #ccc;"></div>-->
 
     </script>
 
@@ -348,11 +348,11 @@
                 </div>
             </div>
             <div id="tabs-2">
-                <div id="detailedData1" <!--style="overflow: auto;"-->>
+                <div id="detailedData1">
                 </div>
             </div>
             <div id="tabs-3">
-                <div id="detailedData2" <!--style="overflow: auto;"-->>
+                <div id="detailedData2">
                 </div>
             </div>
     </div>           
@@ -529,7 +529,7 @@
             </tr>
         </table>
 
-        <div style="margin:10px 0 10px 0; border-top:1px dashed #ccc;"></div>
+        <!--<div style="margin:10px 0 10px 0; border-top:1px dashed #ccc;"></div>-->
 
     </script>
 

@@ -14,6 +14,13 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "- 23.09.2012" + Environment.NewLine;
+            ReportLabel.Text += @"- Поисковый механизм встроен во все имеющиеся деревья." + Environment.NewLine;
+            ReportLabel.Text += @"- Изменен поисковый алгоритм, устранены проблемы с дочерними узлами." + Environment.NewLine;
+            ReportLabel.Text += @"- Устранены проблемы, проявляющиеся при повторном создании дерева с поиском." + Environment.NewLine;
+            ReportLabel.Text += @"- В управлении из Кратко в Детально перенесены поля, имеющие отношение к местоположению и часовой зоне, в соответствии с gui." + Environment.NewLine;
+            ReportLabel.Text += @"- Обнаружена и устранена проблема с кнопкой Отчеты в меню." + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "- 16.09.2012" + Environment.NewLine;
             ReportLabel.Text += @"- Реализован поиск по дереву. Пример - Управление/Аккаунт." + Environment.NewLine;
             ReportLabel.Text += @"- Реализован публичный сервис в тестовых целях. /DDDWebSite/PublicServices.asmx." + Environment.NewLine;
