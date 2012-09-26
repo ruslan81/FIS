@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
+using System.Configuration;
+using BLL;
 
 /// <summary>
 /// Summary description for PublicServices
@@ -20,8 +22,27 @@ public class PublicServices : System.Web.Services.WebService {
     }
 
     [WebMethod]
-    public string HelloWorld() {
-        return "Hello World";
+    public bool Login(string Profile, string UserName, string Password)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        try
+        {
+            dataBlock.OpenConnection();
+            int orgId = dataBlock.organizationTable.GetOrgId_byOrgName(Profile);
+            if (dataBlock.usersTable.CustomAuthenticate(UserName, Password, orgId))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
     }
     
 }
