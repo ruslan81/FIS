@@ -11854,3 +11854,6 @@ Cache Callback: 17.09.2012 21:58:00
 Cache Callback: 17.09.2012 23:04:20
 Cache Callback: Message: Файл не существует.
 Cache Callback: Message: Файл не существует.
+Cache Callback: 25.09.2012 23:36:00
+Cache Callback: Message: Невозможно разрешить удаленное имя: 'www.smartfis.ru'
+Cache Callback: Message: Сбой при отправке сообщения электронной почты.
