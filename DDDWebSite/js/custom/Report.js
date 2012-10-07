@@ -52,7 +52,7 @@ function destroyPLFTab() {
 
     currentTab = 0;
 
-    $("#report-tabs").tabs( "destroy" );
+    $("#report-tabs").tabs("destroy");
 
     $("#report-tabs").empty();
 }
@@ -93,10 +93,10 @@ function loadPLFFilesTree() {
             }
             });
             $("#PLFFilesTree").searchTree();
-    },
-    error: function (jqXHR, textStatus, errorThrown) {
-        showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
-    }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
     });
 }
 
@@ -112,14 +112,15 @@ function onPLFFilesNodeSelected(e, data) {
     if (isSelected == "true") {
         if (driver != null) {
             $("#statusPanel").empty();
-            $("#tmplChoosePLFFile").tmpl({ 'Driver': driver+" / "+driverNumber, 'Device': device, 'Period': period,
-                'type': 'GetPLFReport','CardID': cardID, 'PLFID': plf, 'UserName': $.cookie("CURRENT_USERNAME")}).appendTo("#statusPanel");
+            $("#tmplChoosePLFFile").tmpl({ 'Driver': driver + " / " + driverNumber, 'Device': device, 'Period': period,
+                'type': 'GetPLFReport', 'CardID': cardID, 'PLFID': plf, 'UserName': $.cookie("CURRENT_USERNAME")
+            }).appendTo("#statusPanel");
 
             $("#getReport").button();
             $("#formatChooser").wijcombobox({ changed: function (e, item) {
                 var format = $("#formatChooser").attr("selectedIndex");
                 if (format == "0") {
-                    $("#format").attr("value","pdf");
+                    $("#format").attr("value", "pdf");
                 }
                 if (format == "1") {
                     $("#format").attr("value", "html");
@@ -217,7 +218,7 @@ function onPLFFilesNodeSelected(e, data) {
                 type: "POST",
                 //Page Name (in which the method should be called) and method name
                 url: "Reports.aspx/GetPLFReport",
-                data: "{'CardID':'" + cardID + "', 'PLFID':'" + plf + "', 'UserName':'" + $.cookie("CURRENT_USERNAME") + 
+                data: "{'CardID':'" + cardID + "', 'PLFID':'" + plf + "', 'UserName':'" + $.cookie("CURRENT_USERNAME") +
                         "', 'ReportType':'" + ((reportTypes == null) ? "" : reportTypes.d[$("#reportChooser").attr("selectedIndex")]) + "'}",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -480,7 +481,7 @@ function createMap(result) {
 
     isPlay = false;
 
-    $("#playPath").button({ icons: 
+    $("#playPath").button({ icons:
         {
             primary: "ui-icon-play"
         }
@@ -523,7 +524,7 @@ function createMap(result) {
     }
 
     //no data
-    if (!flightPlanCoordinates.length >0) {
+    if (!flightPlanCoordinates.length > 0) {
         $("#slider").slider("disable");
         $("#playPath").button("disable");
         $("#map").html("<center><br/>Нет данных.</center>");
@@ -537,7 +538,7 @@ function createMap(result) {
     };
     map = new google.maps.Map(document.getElementById("map"), myOptions);
     map.fitBounds(bounds);
-    
+
     //set path to map
     flightPath = new google.maps.Polyline({
         path: flightPlanCoordinates,
@@ -550,7 +551,7 @@ function createMap(result) {
     //create markers
     neighborhoods = [
         new google.maps.LatLng(result.d.lat[0], result.d.lng[0]),
-        new google.maps.LatLng(result.d.lat[result.d.lat.length-1], result.d.lng[result.d.lng.length-1])
+        new google.maps.LatLng(result.d.lat[result.d.lat.length - 1], result.d.lng[result.d.lng.length - 1])
     ];
     //marker icons
     markerImages = [
@@ -590,19 +591,19 @@ function createMap(result) {
 
 function drop() {
     for (var i = 0; i < neighborhoods.length; i++) {
-      setTimeout(function() {
-        addMarker();
-      }, i * 500);
+        setTimeout(function () {
+            addMarker();
+        }, i * 500);
     }
 }
 
 function addMarker() {
     markers.push(new google.maps.Marker({
-      position: neighborhoods[iterator],
-      map: map,
-      icon: markerImages[iterator],
-      draggable: false,
-      animation: google.maps.Animation.DROP
+        position: neighborhoods[iterator],
+        map: map,
+        icon: markerImages[iterator],
+        draggable: false,
+        animation: google.maps.Animation.DROP
     }));
 
     if (iterator == 0) {
@@ -674,13 +675,13 @@ function loadVehiclesTree() {
             //sets a listener to node selection
             $("#vehiclesTree").wijtree({ selectedNodeChanged: function (e, data) {
                 onVehiclesNodeSelected(e, data);
-                }
-        });
-        $("#vehiclesTree").searchTree();
-    },
-    error: function (jqXHR, textStatus, errorThrown) {
-        showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
-    }
+            }
+            });
+            $("#vehiclesTree").searchTree();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
     });
 }
 
@@ -790,14 +791,14 @@ function onVehiclesNodeSelected(e, data) {
                     $("#report-tabs").empty();
 
                     $('#report-tabs').html("<center><div style='background:#fff;padding:20px 0 20px 0;'>" +
-                        result.d + 
+                        result.d +
                         "</div></center>");
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
                 }
             });
-            
+
         } else {
             $("#statusPanel").empty();
             $("#tmplNoVehicles").tmpl("").appendTo("#statusPanel");
@@ -808,4 +809,102 @@ function onVehiclesNodeSelected(e, data) {
         $("#tmplNoVehicles").tmpl("").appendTo("#statusPanel");
         $("#report-tabs").empty();
     }
+}
+
+function loadDriverTree() {
+    $.ajax({
+        type: "POST",
+        url: "Data.aspx/GetOverlookDriversTree",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#DriversTree").wijtree("destroy");
+            $("#DriversTree").empty();
+            $("#tmplGroupTree").tmpl(response.d).appendTo("#DriversTree");
+            $("#DriversTree").wijtree();
+            $("#DriversTree").wijtree({ selectedNodeChanged: function (e, data) {
+                //onOverlookNodeSelected(e, data);
+            }
+            });
+            $("#DriversTree").searchTree();
+            loadReportTypesTree("DriversTreePlace");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
+    });
+}
+
+function loadVehicleTree() {
+    $.ajax({
+        type: "POST",
+        url: "Data.aspx/GetOverlookVehiclesTree",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#VehiclesTree").wijtree("destroy");
+            $("#VehiclesTree").empty();
+            $("#tmplGroupTree").tmpl(response.d).appendTo("#VehiclesTree");
+            $("#VehiclesTree").wijtree();
+            $("#VehiclesTree").wijtree({ selectedNodeChanged: function (e, data) {
+                //onOverlookNodeSelected(e, data);
+            }
+            });
+            $("#VehiclesTree").searchTree();
+            loadReportTypesTree("VehiclesTreePlace");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
+    });
+}
+
+function loadReportTypesTree(placeId) {
+    $("#ReportTree").wijtree("destroy");
+    $("#ReportTree").remove();
+    $("#" + placeId).empty();
+    $("#" + placeId).append($("#tmplReportTree").text());
+
+    $.ajax({
+        type: "POST",
+        url: "Reports.aspx/GetPLFReportTypes",
+        data: [],
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+
+            for (var i = 0; i < response.d.length; i++) {
+                $("#PLFSubtree").append("<li class='file'><a><span key=" + response.d[i] + ">" + response.d[i] + "</span></a></li>");
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "Reports.aspx/GetDDDReportTypes",
+                data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+
+                    for (var i = 0; i < response.d.length; i++) {
+                        $("#DDDSubtree").append("<li class='file'><a><span key=" + response.d[i] + ">" + response.d[i] + "</span></a></li>");
+                    }
+
+                    $("#ReportTree").wijtree();
+                    $("#ReportTree").wijtree({ selectedNodeChanged: function (e, data) {
+                        //onOverlookNodeSelected(e, data);
+                    }
+                    });
+                    $("#ReportTree").searchTree();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+                }
+            });
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
+    });
 }

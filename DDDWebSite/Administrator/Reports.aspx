@@ -1,27 +1,20 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage/MasterPage.Master" AutoEventWireup="true"
     CodeFile="Reports.aspx.cs" Inherits="Administrator_Report" %>
 
-<%@ Register src="../UserControlsForAll/BlueButton.ascx" tagname="BlueButton" tagprefix="uc2" %>
-
+<%@ Register Src="../UserControlsForAll/BlueButton.ascx" TagName="BlueButton" TagPrefix="uc2" %>
 <asp:Content ID="HeaderContent" ContentPlaceHolderID="HeadContentPlaceHolder" runat="server">
     <link type="text/css" href="../css/custom-theme/jquery.wijmo.wijcombobox.css" rel="stylesheet" />
-
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
     <script src="../js/custom/Report.js" type="text/javascript"></script>
     <script src="../js/jquery.wijmo.wijcombobox.js" type="text/javascript"></script>
     <script src="../js/infobubble.js" type="text/javascript"></script>
     <script src="../js/date.js" type="text/javascript"></script>
-    
 </asp:Content>
-
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
-
 <asp:Content ID="AccordionContent" ContentPlaceHolderID="VerticalOutlookMenu_PlaceHolder"
     runat="server">
-
     <link type="text/css" href="../js/custom/jquery.search-tree.1.0.1.css" rel="stylesheet" />
     <script src="../js/custom/jquery.search-tree.1.0.1.js" type="text/javascript"></script>
-
     <script type="text/javascript">
         //график
         var chart = null;
@@ -64,10 +57,24 @@
                         createPLFTab();
                     }
 
-                    //Раздел Транспортные средства
-                    if ($("a", ui.newHeader).text() == "Транспортные средства") {
+                    //Раздел Транспортные средства старый
+                    if ($("a", ui.newHeader).attr("code") == 1) {
                         destroyPLFTab();
                         createVehicles();
+                    }
+
+                    //Раздел Водители
+                    if ($("a", ui.newHeader).attr("code") == 3) {
+                        loadDriverTree();
+                        //destroyPLFTab();
+                        //createVehicles();
+                    }
+
+                    //Раздел транспортные средства
+                    if ($("a", ui.newHeader).attr("code") == 4) {
+                        loadVehicleTree();
+                        //destroyPLFTab();
+                        //createVehicles();
                     }
                 }
             });
@@ -78,22 +85,22 @@
             $("#dialog2").dialog({ autoOpen: false, draggable: true, resizable: true });
         });
 
-        $(window).resize(function() {
+        $(window).resize(function () {
             resizeAllMaster();
             $("#accordion").accordion("resize");
             resizeReports();
         });
 
         function resizeReports() {
-            var outHeight = $("#main-content").height() -155 + 37;
+            var outHeight = $("#main-content").height() - 155 + 37;
             $("#outputId").height(outHeight);
             $("#outputId-content").height(outHeight);
-            try{
+            try {
                 document.getElementById('report-tabs').style.height = outHeight - 6 + "px";
                 document.getElementById('report').style.height = outHeight - 7 - 50 + "px";
                 document.getElementById('chart').style.height = outHeight - 7 - 50 + "px";
                 document.getElementById('chart').style.width = $('#outputId').width() - 35 + "px";
-                document.getElementById('map').style.height = outHeight - 7 - 50 -20 + "px";
+                document.getElementById('map').style.height = outHeight - 7 - 50 - 20 + "px";
                 document.getElementById('map').style.width = $('#outputId').width() - 35 + "px";
             } catch (e) {
 
@@ -101,15 +108,13 @@
         }
 
         function showModal() {
-              $find('ShowModal').show();
-          }
+            $find('ShowModal').show();
+        }
 
         function acordionIndexSwitch(accIndex) {
             document.getElementById("<% =AccordionSelectedPane.ClientID %>").value = accIndex;
         }
     </script>
-
-
     <script id="tmplPLFFilesTab" type="text/x-jquery-tmpl">
         <ul>
             <li><a href="#tabs-1">Отчеты</a></li>
@@ -137,7 +142,6 @@
             </div>
         </div>
     </script>
-
     <script id="tmplPLFFilesTree" type="text/x-jquery-tmpl">
         <li class="folder"><a><span key="${ID}">${Name}</span></a>
             <ul>
@@ -153,14 +157,11 @@
             </ul>
         </li>
     </script>
-
-
     <script id="tmplNoPLFFile" type="text/x-jquery-tmpl">
         <div style="color:#a60000;font-weight:bold;text-align:center;">
             Выберите интересующий вас PLF файл
         </div>
     </script>
-
     <script id="tmplLoading" type="text/x-jquery-tmpl">
         <center>
             <div style="padding-top:20px">
@@ -169,7 +170,6 @@
             </div>
         </center>
     </script>
-
     <script id="tmplChoosePLFFile" type="text/x-jquery-tmpl">
         <div style="float:left">
             <div class="item-detail">
@@ -218,23 +218,18 @@
         </div>
         
     </script>
-
-
     <script id="tmplSelect" type="text/x-jquery-tmpl">
         {{each filenames}}
             <option value="${$value}">${$value}</option>
         {{/each}}
     </script>
-
     <!------------------------------------------------>
-
     <script id="tmplVehiclesTab" type="text/x-jquery-tmpl">
         <center>
             <div id="report" style="overflow: auto;">
             </div>
         </center>
     </script>
-
     <script id="tmplVehiclesTree" type="text/x-jquery-tmpl">
         <li class="folder"><a><span key="${VehicleID}">${Name}</span></a>
             <ul>
@@ -250,14 +245,11 @@
             </ul>
         </li>
     </script>
-
-
     <script id="tmplNoVehicles" type="text/x-jquery-tmpl">
         <div style="color:#a60000;font-weight:bold;text-align:center;">
             Выберите интересующий вас файл
         </div>
     </script>
-
     <script id="tmplChooseDDDFile" type="text/x-jquery-tmpl">
         <div style="float:left">
             <div class="item-detail">
@@ -305,15 +297,13 @@
         </div>
         
     </script>
-    
-    
-     <asp:HiddenField ID="AccordionSelectedPane" Visible="true" runat="server" Value="0" /> 
-    
+    <asp:HiddenField ID="AccordionSelectedPane" Visible="true" runat="server" Value="0" />
     <!--Боковая панель-->
     <div id="accordion">
         <!--Транспортные средства-->
         <h3>
-            <asp:LinkButton ID="AccordionHeader4_VehiclesGroup" runat="server" PostBackUrl="#" Text="Транспортные средства" />
+            <asp:LinkButton ID="AccordionHeader4_VehiclesGroup" runat="server" PostBackUrl="#"
+                Text="Транспортные средства (по старому стилю)" code="1" />
         </h3>
         <div>
             <!--Дерево-->
@@ -322,10 +312,10 @@
                 </ul>
             </div>
         </div>
-
         <!--Раздел PLF Файлы (Датчики)-->
         <h3>
-            <asp:LinkButton ID="AccordionHeader5_PLF" runat="server" PostBackUrl="#" Text="PLF Файлы (Датчики)" />
+            <asp:LinkButton ID="AccordionHeader5_PLF" runat="server" PostBackUrl="#" Text="PLF Файлы (Датчики)"
+                code="2" />
         </h3>
         <div>
             <!--Дерево-->
@@ -334,35 +324,86 @@
                 </ul>
             </div>
         </div>
-
+        <!--Водители-->
+        <h3>
+            <asp:LinkButton ID="AccordionDrivers" runat="server" PostBackUrl="#" Text="Водители"
+                code="3" />
+        </h3>
+        <div>
+            <!--Дерево-->
+            <div>
+                <ul id="DriversTree">
+                </ul>
+            </div>
+            <div id="DriversTreePlace">
+                
+            </div>
+            
+        </div>
+        <!--Транспортные средства-->
+        <h3>
+            <asp:LinkButton ID="AccordionVehicles" runat="server" PostBackUrl="#" Text="Транспортные средства"
+                code="4" />
+        </h3>
+        <div>
+            <!--Дерево-->
+            <div>
+                <ul id="VehiclesTree">
+                </ul>
+            </div>
+            <div id="VehiclesTreePlace">
+                
+            </div>
+        </div>
     </div>
     <!--Конец боковой панели-->
-
+    <script id="tmplGroupTree" type="text/x-jquery-tmpl">
+        <li class="folder"><a><span key="None">${OrgName}</span></a>
+        <ul>
+            {{each groups}}
+            <li class="file"><a><span key="None">${GroupName}</span></a>
+                <ul>
+                    {{each values}}
+                    <li class="file"><a><span key=${Key}>${Value}</span></a></li>
+                    {{/each}}
+                </ul>
+                </li>
+            {{/each}}
+        </ul>
+        </li>
+    </script>
+    <script id="tmplTreeItem" type="text/x-jquery-tmpl">
+        <li class="file"><a><span key=${Key}>${Value}</span></a></li>
+    </script>
+    <script id="tmplReportTree" type="text/x-jquery-tmpl">
+        
+                <ul id="ReportTree">
+                    <li class="folder"><a><span key="None">Отчеты</span></a>
+                        <ul>
+                            <li class="file"><a><span key="None">PLF</span></a>
+                                <ul id="PLFSubtree">
+                                </ul>
+                            </li>
+                            <li class="file"><a><span key="None">DDD</span></a>
+                                <ul id="DDDSubtree">
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+    </script>
 </asp:Content>
-
 <asp:Content ID="ChoisesContent" ContentPlaceHolderID="MainConditions_PlaceHolder"
     runat="server">
-
     <div id="statusPanel">
     </div>
 </asp:Content>
-
-
 <asp:Content ID="DataContent" ContentPlaceHolderID="Reports_PlaceHolder" runat="server">
     <!--Центральная панель-->
-
     <div id="report-tabs">
     </div>
-
 </asp:Content>
-
-
 <asp:Content ID="DecisionContent1" ContentPlaceHolderID="Decision_PlaceHolder" runat="server">
-    
 </asp:Content>
-
-
-
 <asp:Content ID="Content1" ContentPlaceHolderID="Bottom_PlaceHolder" runat="server">
-    
 </asp:Content>

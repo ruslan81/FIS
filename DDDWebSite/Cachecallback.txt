@@ -11857,3 +11857,13 @@ Cache Callback: Message: Файл не существует.
 Cache Callback: 25.09.2012 23:36:00
 Cache Callback: Message: Невозможно разрешить удаленное имя: 'www.smartfis.ru'
 Cache Callback: Message: Сбой при отправке сообщения электронной почты.
+Cache Callback: 05.10.2012 22:25:20
+Cache Callback: 05.10.2012 22:27:20
+Cache Callback: 06.10.2012 22:09:40
+Cache Callback: Message: Невозможно разрешить удаленное имя: 'www.smartfis.ru'
+Cache Callback: Message: Сбой при отправке сообщения электронной почты.
+Cache Callback: 06.10.2012 22:48:20
+Cache Callback: Message: Невозможно разрешить удаленное имя: 'www.smartfis.ru'
+Cache Callback: Message: d:\BSUIR\Other\UnitedProject\DDDWebSite\Administrator\Reports.aspx.cs(231): error CS0111: Тип 'Administrator_Report' уже определяет член с именем 'GetPLFReportTypes' с теми же типами параметров
+Cache Callback: Message: Неизвестный веб-метод GetDDDReportTypes.
+Имя параметра: methodName
