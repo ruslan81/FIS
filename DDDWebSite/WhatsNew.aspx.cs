@@ -14,6 +14,13 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "- 30.09.2012" + Environment.NewLine;
+            ReportLabel.Text += @"- Изменен публичный веб-сервис, добавлена функция загрузки UploadFile и разбора ParseFile файлов." + Environment.NewLine;
+
+            ReportLabel.Text += Environment.NewLine + "- 26.09.2012" + Environment.NewLine;
+            ReportLabel.Text += @"- Изменен публичный веб-сервис (добавлена функция логина)." + Environment.NewLine;
+            ReportLabel.Text += @"- Исправлена проблема с удалением организации в Упрвлении/Аккаунт." + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "- 23.09.2012" + Environment.NewLine;
             ReportLabel.Text += @"- Поисковый механизм встроен во все имеющиеся деревья." + Environment.NewLine;
             ReportLabel.Text += @"- Изменен поисковый алгоритм, устранены проблемы с дочерними узлами." + Environment.NewLine;
