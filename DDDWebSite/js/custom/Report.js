@@ -908,3 +908,63 @@ function loadReportTypesTree(placeId) {
         }
     });
 }
+
+function createPeriodControls() {
+    $("#main-conditions").append($("#tmplPeriodSelection").text());
+
+    var today = new Date();
+    var todaystr = "" + convert(today);
+    today.setMonth(today.getMonth() - 1);
+    var thenstr = "" + convert(today);
+
+    $("#startDatePicker").datepicker();
+    $("#startDatePicker").datepicker("option", "dateFormat", "dd.mm.yy");
+    $("#startDatePicker").datepicker("setDate", thenstr);
+
+    $("#endDatePicker").datepicker();
+    $("#endDatePicker").datepicker("option", "dateFormat", "dd.mm.yy");
+    $("#endDatePicker").datepicker("setDate", todaystr);
+
+    $("#startDatePicker").datepicker($.datepicker.regional['ru']);
+    $("#endDatePicker").datepicker($.datepicker.regional['ru']);
+
+    $("#buildButton").button();
+    $("#buildButton").click(function () {
+//        onClickBuildReport();
+        return false;
+    });
+
+    $("#periodSelection").show();
+    $("#dateErrorBlock").hide();
+    
+}
+
+function destroyPeriodControls() {
+    $("#buildButton").button("destroy");
+    //$("#contentTable").hide();
+    $("#statusPanel").hide();
+    $("#periodSelection").remove();
+    
+    //!TODO comment if you want standart functional without diagram
+    //$("#calendarWrapper").hide();
+
+    resizeReports();
+}
+
+function convert(date) {
+    res = date.getDate() + ".";
+    if (date.getMonth() < 9) res = res + "0";
+    return res + (date.getMonth() + 1) + "." + date.getFullYear();
+}
+
+function resizeReports() {
+    var vertHeightSTR = document.getElementById('vertical-menu').style.height;
+    vertHeightSTR = vertHeightSTR.substr(0, vertHeightSTR.length - 2);
+    document.getElementById('outputId').style.height = (vertHeightSTR - 30) + "px";
+    document.getElementById('outputId-content').style.height = (vertHeightSTR - 30) + "px";
+    if ($('#main-conditions:visible').length > 0) {
+        var h = $('#outputId').height() - $('#main-conditions').height() - 25;
+        $('#outputId').height(h);
+        $('#outputId-content').height(h);
+    }
+}

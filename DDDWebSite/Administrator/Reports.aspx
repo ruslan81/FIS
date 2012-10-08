@@ -54,11 +54,15 @@
                 change: function (event, ui) {
                     //Раздел PLF Файлы (Датчики)
                     if ($("a", ui.newHeader).text() == "PLF Файлы (Датчики)") {
+                        destroyPeriodControls();
+                        $("#statusPanel").show();
                         createPLFTab();
                     }
 
                     //Раздел Транспортные средства старый
                     if ($("a", ui.newHeader).attr("code") == 1) {
+                        destroyPeriodControls();
+                        $("#statusPanel").show();
                         destroyPLFTab();
                         createVehicles();
                     }
@@ -66,6 +70,8 @@
                     //Раздел Водители
                     if ($("a", ui.newHeader).attr("code") == 3) {
                         loadDriverTree();
+                        destroyPeriodControls();
+                        createPeriodControls();
                         //destroyPLFTab();
                         //createVehicles();
                     }
@@ -73,6 +79,8 @@
                     //Раздел транспортные средства
                     if ($("a", ui.newHeader).attr("code") == 4) {
                         loadVehicleTree();
+                        destroyPeriodControls();
+                        createPeriodControls();
                         //destroyPLFTab();
                         //createVehicles();
                     }
@@ -397,6 +405,17 @@
     runat="server">
     <div id="statusPanel">
     </div>
+    <script id="tmplPeriodSelection" type="text/x-jquery-tmpl">
+    <div id="periodSelection">
+        <label>Начальная дата </label><input id="startDatePicker" type="text"/>
+        <label>Конечная дата </label><input id="endDatePicker" type="text"/>
+        <button id="buildButton">Построить</button>
+        <div id="dateErrorBlock" class="error-block">
+            <label class="error" id="dateErrorLabel"> Ошибка: Укажите начальную и конечную дату!</label>
+        </div>
+        <br/><br/>
+    </div>
+    </script>
 </asp:Content>
 <asp:Content ID="DataContent" ContentPlaceHolderID="Reports_PlaceHolder" runat="server">
     <!--Центральная панель-->

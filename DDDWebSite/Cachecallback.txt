@@ -11867,3 +11867,4 @@ Cache Callback: Message: Невозможно разрешить удаленн�
 Cache Callback: Message: d:\BSUIR\Other\UnitedProject\DDDWebSite\Administrator\Reports.aspx.cs(231): error CS0111: Тип 'Administrator_Report' уже определяет член с именем 'GetPLFReportTypes' с теми же типами параметров
 Cache Callback: Message: Неизвестный веб-метод GetDDDReportTypes.
 Имя параметра: methodName
+Cache Callback: 09.10.2012 0:04:00
