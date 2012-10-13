@@ -11868,3 +11868,11 @@ Cache Callback: Message: d:\BSUIR\Other\UnitedProject\DDDWebSite\Administrator\R
 Cache Callback: Message: Неизвестный веб-метод GetDDDReportTypes.
 Имя параметра: methodName
 Cache Callback: 09.10.2012 0:04:00
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: 13.10.2012 19:41:20
+Cache Callback: 13.10.2012 22:01:20
+Cache Callback: 13.10.2012 22:21:47
+Cache Callback: 13.10.2012 23:52:20
+Cache Callback: Message: d:\BSUIR\Other\UnitedProject\DDDWebSite\Administrator\Download.aspx.cs(284): error CS0103: Имя 'cardId' отсутствует в текущем контексте
+Cache Callback: Message: d:\BSUIR\Other\UnitedProject\DDDWebSite\Administrator\Download.aspx.cs(314): error CS0103: Имя 'VIN' отсутствует в текущем контексте
+Cache Callback: Message: d:\BSUIR\Other\UnitedProject\DDDWebSite\Administrator\Download.aspx.cs(314): error CS0103: Имя 'VIN' отсутствует в текущем контексте

@@ -281,7 +281,8 @@ public class ReportDataSetLoader
         }
         else
         {
-            throw new Exception("Нельзя расчитать значения для отчета, не задан Шаг Времени");
+            throw new Exception("За указанный период нет данных");
+            //return null;
         }
 
         string vehRegNumber = dataBlock.plfUnitInfo.Get_VEHICLE(dataBlockIds[0]);

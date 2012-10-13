@@ -648,6 +648,12 @@ function createVehicles() {
     loadVehiclesTree();
 }
 
+//Создать закладку Транспортные средства
+function createDDDTab() {
+    $("#report-tabs").empty();
+    $("#tmplVehiclesTab").tmpl("").appendTo("#report-tabs");
+}
+
 //Загрузить элементы дерева Транспортные средства
 function loadVehiclesTree() {
     $("#statusPanel").empty();
@@ -824,7 +830,7 @@ function loadDriverTree() {
             $("#tmplGroupTree").tmpl(response.d).appendTo("#DriversTree");
             $("#DriversTree").wijtree();
             $("#DriversTree").wijtree({ selectedNodeChanged: function (e, data) {
-                //onOverlookNodeSelected(e, data);
+                onCardTypeNodeSelected(e, data);
             }
             });
             $("#DriversTree").searchTree();
@@ -849,7 +855,7 @@ function loadVehicleTree() {
             $("#tmplGroupTree").tmpl(response.d).appendTo("#VehiclesTree");
             $("#VehiclesTree").wijtree();
             $("#VehiclesTree").wijtree({ selectedNodeChanged: function (e, data) {
-                //onOverlookNodeSelected(e, data);
+                onCardTypeNodeSelected(e, data);
             }
             });
             $("#VehiclesTree").searchTree();
@@ -867,6 +873,13 @@ function loadReportTypesTree(placeId) {
     $("#" + placeId).empty();
     $("#" + placeId).append($("#tmplReportTree").text());
 
+    /*if (cardType == "Driver") {
+        $("#DDDSubtree").remove();
+    }
+    if (cardType == "Vehicle") {
+        $("#PLFSubtree").remove();
+    }*/
+
     $.ajax({
         type: "POST",
         url: "Reports.aspx/GetPLFReportTypes",
@@ -876,7 +889,7 @@ function loadReportTypesTree(placeId) {
         success: function (response) {
 
             for (var i = 0; i < response.d.length; i++) {
-                $("#PLFSubtree").append("<li class='file'><a><span key=" + response.d[i] + ">" + response.d[i] + "</span></a></li>");
+                $("#PLFSubtree").append("<li class='file'><a><span repform='PLF' key='" + response.d[i] + "'>" + response.d[i] + "</span></a></li>");
             }
 
             $.ajax({
@@ -888,12 +901,12 @@ function loadReportTypesTree(placeId) {
                 success: function (response) {
 
                     for (var i = 0; i < response.d.length; i++) {
-                        $("#DDDSubtree").append("<li class='file'><a><span key=" + response.d[i] + ">" + response.d[i] + "</span></a></li>");
+                        $("#DDDSubtree").append("<li class='file'><a><span repform='DDD' key='" + response.d[i] + "'>" + response.d[i] + "</span></a></li>");
                     }
 
                     $("#ReportTree").wijtree();
                     $("#ReportTree").wijtree({ selectedNodeChanged: function (e, data) {
-                        //onOverlookNodeSelected(e, data);
+                        onReportTypeNodeSelected(e, data);
                     }
                     });
                     $("#ReportTree").searchTree();
@@ -911,6 +924,27 @@ function loadReportTypesTree(placeId) {
 
 function createPeriodControls() {
     $("#main-conditions").append($("#tmplPeriodSelection").text());
+    //$("#main-conditions").append($("#tmplLoadReportControls").text());
+    //$("#LoadReportControls").empty();
+    
+    $("#getReport").button();
+    $("#formatChooser").wijcombobox({ changed: function (e, item) {
+        var format = $("#formatChooser").attr("selectedIndex");
+        if (format == "0") {
+            $("#format").attr("value", "pdf");
+        }
+        if (format == "1") {
+            $("#format").attr("value", "html");
+        }
+        if (format == "2") {
+            $("#format").attr("value", "rtf");
+        }
+        if (format == "3") {
+            $("#format").attr("value", "png");
+        }
+    },
+        isEditable: false
+    });
 
     var today = new Date();
     var todaystr = "" + convert(today);
@@ -920,31 +954,38 @@ function createPeriodControls() {
     $("#startDatePicker").datepicker();
     $("#startDatePicker").datepicker("option", "dateFormat", "dd.mm.yy");
     $("#startDatePicker").datepicker("setDate", thenstr);
+    $("#startDatePicker").change(function () { 
+        $("#LoadReportControls").remove();
+    });
 
     $("#endDatePicker").datepicker();
     $("#endDatePicker").datepicker("option", "dateFormat", "dd.mm.yy");
     $("#endDatePicker").datepicker("setDate", todaystr);
+    $("#endDatePicker").change(function () {
+        $("#LoadReportControls").remove();
+    });
+
 
     $("#startDatePicker").datepicker($.datepicker.regional['ru']);
     $("#endDatePicker").datepicker($.datepicker.regional['ru']);
 
     $("#buildButton").button();
     $("#buildButton").click(function () {
-//        onClickBuildReport();
+        buildReport();
         return false;
     });
 
     $("#periodSelection").show();
     $("#dateErrorBlock").hide();
-    
+
 }
 
 function destroyPeriodControls() {
     $("#buildButton").button("destroy");
-    //$("#contentTable").hide();
     $("#statusPanel").hide();
     $("#periodSelection").remove();
-    
+    $("#LoadReportControls").remove();
+
     //!TODO comment if you want standart functional without diagram
     //$("#calendarWrapper").hide();
 
@@ -966,5 +1007,158 @@ function resizeReports() {
         var h = $('#outputId').height() - $('#main-conditions').height() - 25;
         $('#outputId').height(h);
         $('#outputId-content').height(h);
+    }
+}
+
+//Событие при выделении узла дерева
+function onReportTypeNodeSelected(e, data) {
+    isSelected = $("div", data.element).attr("aria-selected");
+    selectedReportType = $("a span", data.element).attr("key");
+    reportFormat = $("a span", data.element).attr("repform");
+    if (isSelected != "true") {
+        selectedReportType = "None";
+        reportFormat = "None";
+    }
+    $("#LoadReportControls").remove();
+}
+
+//Событие при выделении узла дерева
+function onCardTypeNodeSelected(e, data) {
+    isSelected = $("div", data.element).attr("aria-selected");
+    selectedCardID = $("a span", data.element).attr("key");
+    if (isSelected != "true") {
+        selectedCardID = "None";
+    }
+    $("#LoadReportControls").remove();
+}
+
+
+function buildReport() {
+    $("#dateErrorBlock").hide();
+    $("#dateErrorLabel").empty();
+
+    var startDate = $("#startDatePicker").datepicker("getDate");
+    var endDate = $("#endDatePicker").datepicker("getDate");
+
+    if (endDate == null || startDate == null) {
+        $("#LoadReportControls").remove();
+        $("#dateErrorLabel").append(" Ошибка: Укажите начальную и конечную дату!");
+        $("#dateErrorBlock").show();
+        return;
+    }
+    if ((cardType == "Driver" && reportFormat=="DDD") || (cardType == "Vehicle" && reportFormat == "PLF")) {
+        $("#LoadReportControls").remove();
+        $("#dateErrorLabel").append(" Ошибка: Тип отчета не доступен для объекта!");
+        $("#dateErrorBlock").show();
+        return;
+    }
+    if (selectedCardID == "None") {
+        $("#LoadReportControls").remove();
+        $("#dateErrorLabel").append(" Ошибка: Выберите объект для отчета!");
+        $("#dateErrorBlock").show();
+        return;
+    }
+    if (reportFormat == "None" || selectedReportType == "None") {
+        $("#LoadReportControls").remove();
+        $("#dateErrorLabel").append(" Ошибка: Выберите тип отчета!");
+        $("#dateErrorBlock").show();
+        return;
+    }
+
+    if (reportFormat == "PLF") {
+        $("#report").empty();
+        $("#tmplLoading").tmpl({}).appendTo("#report");
+
+        $("#LoadReportControls").remove();
+        $("#tmplLoadReportControls").tmpl({ 'CardID': selectedCardID, 'StartDate': convert(startDate), 'EndDate': convert(endDate),
+            'type': 'GetPLFReportForPeriod', 'UserName': $.cookie("CURRENT_USERNAME"), 'ReportType': selectedReportType
+        }).appendTo("#main-conditions");
+        $("#getReport").button();
+
+        if (chart != null) {
+            chart.destroy();
+        }
+        chart = null;
+        $("#chart").empty();
+        $("#tmplLoading").tmpl({}).appendTo("#chart");
+
+        if (map != null) {
+            delete (map);
+        }
+        map = null;
+        $("#map").empty();
+        $("#tmplLoading").tmpl({}).appendTo("#map");
+        $("#slider").slider("disable");
+        $("#slider").slider({ value: 0 });
+        $("#playPath").button("disable");
+        isPlay = false;
+
+        plfData = null;
+
+
+
+        $.ajax({
+            type: "POST",
+            //Page Name (in which the method should be called) and method name
+            url: "Reports.aspx/GetPLFReportForPeriod",
+            data: "{'CardID':'" + selectedCardID + "', 'StartDate':'" + convert(startDate) + "', 'EndDate':'" + convert(endDate) + "', 'UserName':'" + $.cookie("CURRENT_USERNAME") + "', 'ReportType':'" + selectedReportType + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+
+                $("#report").empty();
+                $("#chart").empty();
+                $("#map").empty();
+
+                $('#report').html(result.d.report);
+
+                plfData = result;
+
+                if (currentTab == 1) {
+                    createCharts(plfData);
+                }
+
+                if (currentTab == 2) {
+                    createMap(plfData);
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $("#report").empty();
+                $("#chart").empty();
+                $("#map").empty();
+
+                showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+            }
+        });
+    }
+
+    if (reportFormat == "DDD") {
+        $("#report-tabs").empty();
+        $("#tmplLoading").tmpl({}).appendTo("#report-tabs");
+
+        $("#LoadReportControls").remove();
+        $("#tmplLoadReportControls").tmpl({ 'CardID': selectedCardID, 'StartDate': convert(startDate), 'EndDate': convert(endDate),
+            'type': 'GetDDDReportForPeriod', 'UserName': $.cookie("CURRENT_USERNAME"), 'ReportType': selectedReportType
+        }).appendTo("#main-conditions");
+        $("#getReport").button();
+
+        $.ajax({
+            type: "POST",
+            //Page Name (in which the method should be called) and method name
+            url: "Reports.aspx/GetDDDReportForPeriod",
+            data: "{'CardID':'" + selectedCardID + "', 'StartDate':'" + convert(startDate) + "', 'EndDate':'" + convert(endDate) + "', 'UserName':'" + $.cookie("CURRENT_USERNAME") + "', 'ReportType':'" + selectedReportType + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                $("#report-tabs").empty();
+                $('#report-tabs').html("<center><div style='background:#fff;padding:20px 0 20px 0;'>" +
+                        result.d +
+                        "</div></center>");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $("#report-tabs").empty();
+                showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+            }
+        });
     }
 }
