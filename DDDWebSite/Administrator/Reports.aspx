@@ -46,15 +46,22 @@
         var isPlay = false;
         //!important: slider "play-path" control created flag, set to false if controls destroyed
         var isSliderExist = false;
+        //play or pause flag
+        var selectedReportType = "None";
+        var selectedCardID = "None";
+        var reportFormat = "None";
+        var cardType = "";
 
         //run on page load
         $(function () {
 
             $("#accordion").accordion({
                 change: function (event, ui) {
+                    cardType = "";
                     //Раздел PLF Файлы (Датчики)
                     if ($("a", ui.newHeader).text() == "PLF Файлы (Датчики)") {
                         destroyPeriodControls();
+                        destroyPLFTab();
                         $("#statusPanel").show();
                         createPLFTab();
                     }
@@ -69,20 +76,27 @@
 
                     //Раздел Водители
                     if ($("a", ui.newHeader).attr("code") == 3) {
+                        cardType = "Driver";
+                        destroyPLFTab();
                         loadDriverTree();
                         destroyPeriodControls();
                         createPeriodControls();
+                        createPLFTab();
                         //destroyPLFTab();
                         //createVehicles();
                     }
 
                     //Раздел транспортные средства
                     if ($("a", ui.newHeader).attr("code") == 4) {
+                        cardType = "Vehicle";
+                        destroyPLFTab();
                         loadVehicleTree();
                         destroyPeriodControls();
                         createPeriodControls();
+                        createDDDTab();
+
                         //destroyPLFTab();
-                        //createVehicles();
+                        createVehicles();
                     }
                 }
             });
@@ -225,6 +239,37 @@
             выберите вид отчета:
         </div>
         
+    </script>
+    <script id="tmplLoadReportControls" type="text/x-jquery-tmpl">        
+    <div id="LoadReportControls" style="margin-top:-40px;">
+        <div style="float:right;">
+            <form method="post" action="Download.aspx">
+                <div style="float:right;">
+                    <input type="hidden" name="type" value="${type}"/>
+                    <input type="hidden" name="CardID" value="${CardID}"/>
+                    <input type="hidden" name="StartDate" value="${StartDate}"/>
+                    <input type="hidden" name="EndDate" value="${EndDate}"/>
+                    <input type="hidden" name="UserName" value="${UserName}"/>
+                    <input type="hidden" id="format" name="Format" value="pdf"/>
+                    <input type="hidden" id="reportType" name="reportType" value="${ReportType}"/>
+                    <input id="getReport" value="Получить отчет" type="submit" title="Скачать pdf-файл"/>
+                </div>
+            </form>
+        </div>
+
+        <div style="float:right;margin-right:15px;margin-left:10px;">
+            <select id="formatChooser"> 
+                <option value="pdf">pdf</option>
+                <option value="html">html</option>
+                <option value="rtf">rtf</option>
+                <option value="png">png</option>
+            </select>
+        </div>
+
+        <div style="float:right;margin-top:2px;">
+            выберите формат отчета:
+        </div>
+    </div>
     </script>
     <script id="tmplSelect" type="text/x-jquery-tmpl">
         {{each filenames}}
@@ -372,7 +417,7 @@
             <li class="file"><a><span key="None">${GroupName}</span></a>
                 <ul>
                     {{each values}}
-                    <li class="file"><a><span key=${Key}>${Value}</span></a></li>
+                    <li class="file"><a><span key="${Key}">${Value}</span></a></li>
                     {{/each}}
                 </ul>
                 </li>
@@ -381,7 +426,7 @@
         </li>
     </script>
     <script id="tmplTreeItem" type="text/x-jquery-tmpl">
-        <li class="file"><a><span key=${Key}>${Value}</span></a></li>
+        <li class="file"><a><span key="${Key}">${Value}</span></a></li>
     </script>
     <script id="tmplReportTree" type="text/x-jquery-tmpl">
         
