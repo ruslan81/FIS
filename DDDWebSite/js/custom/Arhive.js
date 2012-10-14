@@ -190,11 +190,12 @@ function loadOverlookDriverTree() {
             $("#OverlookDriverTree").empty();
             $("#tmplGroupTree").tmpl(response.d).appendTo("#OverlookDriverTree");
             $("#OverlookDriverTree").wijtree();
-            $("#OverlookDriverTree").wijtree({ selectedNodeChanged: function (e, data) {
-                onOverlookNodeSelected(e, data);
-            }
-        });
-        $("#OverlookDriverTree").searchTree();
+            $("#OverlookDriverTree").wijtree(
+                { selectedNodeChanged: function (e, data) {
+                    onOverlookNodeSelected(e, data);
+                }
+            });
+            $("#OverlookDriverTree").searchTree();
     },
     error: function (jqXHR, textStatus, errorThrown) {
         showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -243,7 +244,8 @@ function onOverlookNodeSelected(e, data) {
     $("#periodSelection").hide();
     $("#main-conditions").hide();
     //!TODO comment if you want standart functional without diagram
-    //$("#calendarWrapper").hide();
+    $('#diagram').Calendar('destroy');
+    $("#calendarWrapper").hide();
         
     isSelected = $("div", data.element).attr("aria-selected");
     cardID = $("a span", data.element).attr("key");
@@ -255,13 +257,18 @@ function onOverlookNodeSelected(e, data) {
     //cardID = "135";
     if (isSelected == "true") {
         //!TODO uncomment if you want standart functional without diagram
-        $("#periodSelection").show();
-        $("#main-conditions").show();
-
-        //!TODO comment if you want standart functional without diagram
-        //$("#calendarWrapper").show();
+        //$("#periodSelection").show();
+        //$("#main-conditions").show();
 
         $("#dateErrorBlock").hide();
+
+        //!TODO comment if you want standart functional without diagram
+        $("#calendarWrapper").show();
+        $('#diagram').Calendar({ 'height-ratio-percent': '60' });
+        $('#diagram').Calendar({ 'card-id': cardID });
+        $('#diagram').Calendar({ 'org-id': $.cookie("CURRENT_ORG_ID") });
+        $('#diagram').Calendar();
+        
     } else {
         $("#contentTableBody").empty();
         $("#contentTable").hide();
@@ -269,7 +276,8 @@ function onOverlookNodeSelected(e, data) {
         $("#main-conditions").hide();
 
         //!TODO comment if you want standart functional without diagram
-        //$("#calendarWrapper").hide();
+        $('#diagram').Calendar('destroy');
+        $("#calendarWrapper").hide();
     }
 
     resizeReports();

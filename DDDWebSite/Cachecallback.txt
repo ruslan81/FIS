@@ -11857,22 +11857,13 @@ Cache Callback: Message: Файл не существует.
 Cache Callback: 25.09.2012 23:36:00
 Cache Callback: Message: Невозможно разрешить удаленное имя: 'www.smartfis.ru'
 Cache Callback: Message: Сбой при отправке сообщения электронной почты.
-Cache Callback: 05.10.2012 22:25:20
-Cache Callback: 05.10.2012 22:27:20
-Cache Callback: 06.10.2012 22:09:40
-Cache Callback: Message: Невозможно разрешить удаленное имя: 'www.smartfis.ru'
-Cache Callback: Message: Сбой при отправке сообщения электронной почты.
-Cache Callback: 06.10.2012 22:48:20
-Cache Callback: Message: Невозможно разрешить удаленное имя: 'www.smartfis.ru'
-Cache Callback: Message: d:\BSUIR\Other\UnitedProject\DDDWebSite\Administrator\Reports.aspx.cs(231): error CS0111: Тип 'Administrator_Report' уже определяет член с именем 'GetPLFReportTypes' с теми же типами параметров
-Cache Callback: Message: Неизвестный веб-метод GetDDDReportTypes.
-Имя параметра: methodName
-Cache Callback: 09.10.2012 0:04:00
+Cache Callback: 26.09.2012 22:53:00
+Cache Callback: 26.09.2012 23:04:40
+Cache Callback: 30.09.2012 15:33:20
+Cache Callback: 10.10.2012 22:47:20
+Cache Callback: Message: Файл '/DDDWebSite/Data.aspx' не существует.
+Cache Callback: Message: Файл не существует.
+Cache Callback: Message: Файл не существует.
+Cache Callback: 13.10.2012 15:12:40
 Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
-Cache Callback: 13.10.2012 19:41:20
-Cache Callback: 13.10.2012 22:01:20
-Cache Callback: 13.10.2012 22:21:47
-Cache Callback: 13.10.2012 23:52:20
-Cache Callback: Message: d:\BSUIR\Other\UnitedProject\DDDWebSite\Administrator\Download.aspx.cs(284): error CS0103: Имя 'cardId' отсутствует в текущем контексте
-Cache Callback: Message: d:\BSUIR\Other\UnitedProject\DDDWebSite\Administrator\Download.aspx.cs(314): error CS0103: Имя 'VIN' отсутствует в текущем контексте
-Cache Callback: Message: d:\BSUIR\Other\UnitedProject\DDDWebSite\Administrator\Download.aspx.cs(314): error CS0103: Имя 'VIN' отсутствует в текущем контексте
+Cache Callback: 14.10.2012 21:00:40
