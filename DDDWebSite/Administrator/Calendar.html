@@ -1,0 +1,39 @@
+﻿<html>
+
+    <head id="Head1" runat="server">
+      
+        <title>Diagram Demo</title>
+        <script type="text/javascript" src="../js/jquery-1.5.1.min.js"></script>
+        <script type="text/javascript" src="../js/custom/Calendar.js"></script>
+
+	    <script language="javascript">
+	        function OnCalendar1Init() {
+	            $('#canv1').Calendar({'height-ratio-percent' : '50'});
+	            $('#canv1').Calendar({'card-id' : $('#CardID').val()});
+	            $('#canv1').Calendar({'org-id' : $('#OrgID').val()});
+	            $('#canv1').Calendar();
+	        }
+	        function OnCalendar1Destroy() {
+	            $('#canv1').Calendar('destroy');
+	        }
+        </script>
+
+    </head>
+
+    <body>
+		<ul>
+		    <li>
+		        <canvas id="canv1"></canvas>
+		    </li>
+		    <li>
+		        <input id="Button3" type="button" value="Init 1" onclick="OnCalendar1Init()">
+		        CardID <input id="CardID" type="text" value="110"">
+		        OrgID <input id="OrgID" type="text" value="1"">
+		    </li>
+		    <li>
+		        <input id="btn2" type="button" value="Destroy 1" onclick="OnCalendar1Destroy()">
+		    </li>
+		</ul>
+    </body>
+
+</html>
