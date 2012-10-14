@@ -29,6 +29,16 @@ public partial class Administrator_download : System.Web.UI.Page
     /// Section "Транспортные средства"
     /// </summary>
     public const string GET_DDD_REPORT = "GetDDDReport";
+    /// <summary>
+    /// Section "PLF Файлы"
+    /// </summary>
+    public const string GET_PLF_REPORT_FOR_PERIOD = "GetPLFReportForPeriod";
+    /// <summary>
+    /// Section "Транспортные средства"
+    /// </summary>
+    public const string GET_DDD_REPORT_FOR_PERIOD = "GetDDDReportForPeriod";
+
+
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -128,6 +138,70 @@ public partial class Administrator_download : System.Web.UI.Page
             Response.End();
         }
 
+        if (Type == GET_PLF_REPORT_FOR_PERIOD)
+        {
+            string CardID = Request.Form.Get("CardID");
+            string StartDate = Request.Form.Get("StartDate");
+            string EndDate = Request.Form.Get("EndDate");
+            string UserName = Request.Form.Get("UserName");
+            string Format = Request.Form.Get("Format");
+            string ReportType = Request.Form.Get("ReportType");
+            if (string.IsNullOrEmpty(ReportType))
+            {
+                ReportType = "Полный отчет";
+            }
+
+            int cardID = int.Parse(CardID);
+
+            string connectionString = System.Configuration.ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+            BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_EN");
+            dataBlock.OpenConnection();
+
+            DateTime from = DateTime.Parse(StartDate);
+            DateTime to = DateTime.Parse(EndDate);
+
+            DataSet dataset = new DataSet();
+            List<int> dataBlockIDS = dataBlock.cardsTable.GetAllDataBlockIds_byCardId(cardID);
+
+            int userId = dataBlock.usersTable.Get_UserID_byName(UserName);
+
+            List<PLFUnit.PLFRecord> records = new List<PLFUnit.PLFRecord>();
+            dataset = ReportDataSetLoader.Get_PLF_ALLData(dataBlockIDS,
+                new DateTime(from.Year, from.Month, from.Day), new DateTime(to.Year, to.Month, to.Day),
+                cardID, userId, ref records);
+
+            dataBlock.CloseConnection();
+
+            //gets table PlfHeader_1
+            DataTable dt = dataset.Tables[0];
+            //gets the first row
+            DataRow dr = dt.Rows[0];
+            string driverName = dr["Имя водителя"].ToString();
+
+            //load needed template
+            string path = HttpContext.Current.Server.MapPath("~/templates_plf") + "\\";
+            XtraReport report = new XtraReport();
+            report.LoadLayout(path + ReportType + ".repx");
+            report.DataSource = dataset;
+            MemoryStream reportStream = new MemoryStream();
+            switch (Format)
+            {
+                case "html": report.ExportToHtml(reportStream); break;
+                case "pdf": report.ExportToPdf(reportStream); break;
+                case "rtf": report.ExportToRtf(reportStream); break;
+                case "png": report.ExportToImage(reportStream, ImageFormat.Png); break;
+            }
+
+
+            Response.Clear();
+            Response.AddHeader("content-disposition", "attachment; filename=" + "Отчет " + driverName + " " +
+                new DateTime(from.Year, from.Month, from.Day).ToString("dd_MM_yyyy") + "-" + new DateTime(to.Year, to.Month, to.Day).ToString("dd_MM_yyyy") + "." + Format);
+            Response.AddHeader("Content-Length", reportStream.GetBuffer().Length.ToString());
+            Response.ContentType = "application/octet-stream";
+            Response.OutputStream.Write(reportStream.GetBuffer(), 0, reportStream.GetBuffer().Length);
+            Response.End();
+        }
+
         //Section "Транспортные средства"
         if (Type == GET_DDD_REPORT)
         {
@@ -181,6 +255,66 @@ public partial class Administrator_download : System.Web.UI.Page
             Response.Clear();
             Response.AddHeader("content-disposition", "attachment; filename=" + "Отчет " + VIN + "_" +RegNumb + " " +
                 vehsCardPeriod[0].ToString("dd_MM_yyyy") + "-" + vehsCardPeriod[1].ToString("dd_MM_yyyy") + "." + Format);
+            Response.AddHeader("Content-Length", reportStream.GetBuffer().Length.ToString());
+            Response.ContentType = "application/octet-stream";
+            Response.OutputStream.Write(reportStream.GetBuffer(), 0, reportStream.GetBuffer().Length);
+            Response.End();
+        }
+
+        //Section "Транспортные средства"
+        if (Type == GET_DDD_REPORT_FOR_PERIOD)
+        {
+            string CardID = Request.Form.Get("CardID");
+            string StartDate = Request.Form.Get("StartDate");
+            string EndDate = Request.Form.Get("EndDate");
+            string UserName = Request.Form.Get("UserName");
+            string Format = Request.Form.Get("Format");
+            string ReportType = Request.Form.Get("ReportType");
+            if (string.IsNullOrEmpty(ReportType))
+            {
+                ReportType = "Полный отчет";
+            }
+
+            string connectionString = System.Configuration.ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+            DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+            dataBlock.OpenConnection();
+
+            DataSet dataset = new DataSet();
+            int cardId = int.Parse(CardID);
+
+            string VIN = dataBlock.vehiclesTables.GetVehicleVin(cardId);
+            string RegNumb = dataBlock.vehiclesTables.GetVehicleGOSNUM(cardId);
+            
+            int vehicleId = dataBlock.vehiclesTables.GetVehicle_byCardId(cardId);
+            List<int> dataBlockIDS = dataBlock.cardsTable.GetAllDataBlockIds_byCardId(cardId);
+
+            int userId = dataBlock.usersTable.Get_UserID_byName(UserName);
+
+            DateTime from = DateTime.Parse(StartDate);
+            DateTime to = DateTime.Parse(EndDate);
+
+            dataset = ReportDataSetLoader.Get_Vehicle_ALLDate(vehicleId,
+                dataBlockIDS, from, to, userId);
+
+            dataBlock.CloseConnection();
+
+            //load needed template
+            string path = HttpContext.Current.Server.MapPath("~/templates_ddd") + "\\";
+            XtraReport report = new XtraReport();
+            report.LoadLayout(path + ReportType + ".repx");
+            report.DataSource = dataset;
+            MemoryStream reportStream = new MemoryStream();
+            switch (Format)
+            {
+                case "html": report.ExportToHtml(reportStream); break;
+                case "pdf": report.ExportToPdf(reportStream); break;
+                case "rtf": report.ExportToRtf(reportStream); break;
+                case "png": report.ExportToImage(reportStream, ImageFormat.Png); break;
+            }
+
+            Response.Clear();
+            Response.AddHeader("content-disposition", "attachment; filename=" + "Отчет " + VIN + "_" + RegNumb + " " +
+                from.ToString("dd_MM_yyyy") + "-" + to.ToString("dd_MM_yyyy") + "." + Format);
             Response.AddHeader("Content-Length", reportStream.GetBuffer().Length.ToString());
             Response.ContentType = "application/octet-stream";
             Response.OutputStream.Write(reportStream.GetBuffer(), 0, reportStream.GetBuffer().Length);

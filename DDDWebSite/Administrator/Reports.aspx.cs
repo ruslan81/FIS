@@ -223,7 +223,7 @@ public partial class Administrator_Report : System.Web.UI.Page
         return fileNames;
     }
 
-     /// <summary>
+    /// <summary>
     ///Получить отчет в разделе "PLF Файлы"
     /// </summary>
     /// <returns></returns>
@@ -246,6 +246,7 @@ public partial class Administrator_Report : System.Web.UI.Page
         to = dataBlock.plfUnitInfo.Get_END_PERIOD(dataBlockId);
 
         DataSet dataset = new DataSet();
+
 
         int userId = dataBlock.usersTable.Get_UserID_byName(UserName);
 
@@ -303,6 +304,88 @@ public partial class Administrator_Report : System.Web.UI.Page
         }
         r.period = new DateTime(from.Year, from.Month, from.Day).ToShortDateString() + " - " + new DateTime(to.Year, to.Month, to.Day).ToShortDateString();
         
+        return r;
+    }
+
+    /// <summary>
+    ///Получить отчет в разделе "PLF Файлы" за указанный период
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static Report GetPLFReportForPeriod(String CardID, String StartDate, String EndDate, String UserName, String ReportType)
+    {
+        int cardID = int.Parse(CardID);
+
+        string connectionString = System.Configuration.ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_EN");
+        dataBlock.OpenConnection();
+
+        DateTime from = DateTime.Parse(StartDate);
+        DateTime to = DateTime.Parse(EndDate);        
+
+        DataSet dataset = new DataSet();
+        List<int> dataBlockIDS = dataBlock.cardsTable.GetAllDataBlockIds_byCardId(cardID);
+
+        int userId = dataBlock.usersTable.Get_UserID_byName(UserName);
+        
+        List<PLFUnit.PLFRecord> records = new List<PLFUnit.PLFRecord>();
+        dataset = ReportDataSetLoader.Get_PLF_ALLData(dataBlockIDS,
+            new DateTime(from.Year, from.Month, from.Day), new DateTime(to.Year, to.Month, to.Day),
+            cardID, userId, ref records);
+
+        //if (dataset == null) {
+            //return null;
+        //}
+
+        dataBlock.CloseConnection();
+
+        //load needed template
+        string path = HttpContext.Current.Server.MapPath("~/templates_plf") + "\\";
+        XtraReport report = new XtraReport();
+        if (string.IsNullOrEmpty(ReportType))
+        {
+            ReportType = "Полный отчет";
+        }
+        report.LoadLayout(path + ReportType + ".repx");
+        report.DataSource = dataset;
+        MemoryStream reportStream = new MemoryStream();
+        report.ExportToHtml(reportStream);
+        reportStream.Seek(0, SeekOrigin.Begin);
+
+        // convert stream to string
+        StreamReader reader = new StreamReader(reportStream);
+        string textReport = reader.ReadToEnd();
+
+        Report r = new Report();
+        r.report = textReport;
+        r.time = new double[records.Count];
+        r.speed = new double[records.Count];
+        r.voltage = new double[records.Count];
+        r.rpm = new double[records.Count];
+        r.fuel = new double[records.Count];
+        r.lat = new double[records.Count];
+        r.lng = new double[records.Count];
+        for (int i = 0; i < records.Count; i++)
+        {
+            double t = (records[i].SYSTEM_TIME.GetSystemTime() - new DateTime(1970, 1, 1, 0, 0, 0)).TotalMilliseconds;
+            r.time[i] = t;
+            r.speed[i] = double.Parse(records[i].SPEED, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
+            r.voltage[i] = double.Parse(records[i].VOLTAGE, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
+            r.rpm[i] = double.Parse(records[i].ENGINE_RPM, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
+            r.fuel[i] = Math.Round(double.Parse(records[i].FUEL_VOLUME1), 1);
+            if (records[i].LATITUDE != null && records[i].LONGITUDE != null)
+            {
+                r.lat[i] = double.Parse(records[i].LATITUDE, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
+                r.lng[i] = double.Parse(records[i].LONGITUDE, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
+            }
+            else
+            {
+                r.lat[i] = 0;
+                r.lng[i] = 0;
+            }
+        }
+        r.period = new DateTime(from.Year, from.Month, from.Day).ToShortDateString() + " - " + new DateTime(to.Year, to.Month, to.Day).ToShortDateString();
+
         return r;
     }
 
@@ -426,6 +509,55 @@ public partial class Administrator_Report : System.Web.UI.Page
         return textReport;
     }
 
+
+    /// <summary>
+    ///Получить отчет в разделе "Транспортные средства"
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static String GetDDDReportForPeriod(String CardID, String StartDate, String EndDate, String UserName, String ReportType)
+    {
+        
+        int cardId = Int16.Parse(CardID);
+
+        string connectionString = System.Configuration.ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        dataBlock.OpenConnection();
+
+        DataSet dataset = new DataSet();
+
+        int vehicleId = dataBlock.vehiclesTables.GetVehicle_byCardId(cardId);
+        List<int> dataBlockIDS = dataBlock.cardsTable.GetAllDataBlockIds_byCardId(cardId);
+
+        int userId = dataBlock.usersTable.Get_UserID_byName(UserName);
+
+        DateTime from = DateTime.Parse(StartDate);
+        DateTime to = DateTime.Parse(EndDate);   
+
+        dataset = ReportDataSetLoader.Get_Vehicle_ALLDate(vehicleId,
+            dataBlockIDS, from, to, userId);
+
+        dataBlock.CloseConnection();
+
+        //load needed template
+        string path = HttpContext.Current.Server.MapPath("~/templates_ddd") + "\\";
+        XtraReport report = new XtraReport();
+        if (string.IsNullOrEmpty(ReportType))
+        {
+            ReportType = "Полный отчет";
+        }
+        report.LoadLayout(path + ReportType + ".repx");
+        report.DataSource = dataset;
+        MemoryStream reportStream = new MemoryStream();
+        report.ExportToHtml(reportStream);
+        reportStream.Seek(0, SeekOrigin.Begin);
+
+        // convert stream to string
+        StreamReader reader = new StreamReader(reportStream);
+        string textReport = reader.ReadToEnd();
+
+        return textReport;
+    }
 
     //AJAX END
 
