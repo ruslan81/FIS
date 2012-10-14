@@ -1041,6 +1041,13 @@ function buildReport() {
     var startDate = $("#startDatePicker").datepicker("getDate");
     var endDate = $("#endDatePicker").datepicker("getDate");
 
+    if (endDate < startDate) {
+        $("#LoadReportControls").remove();
+        $("#dateErrorLabel").append(" Ошибка: Неверно заданы даты!");
+        $("#dateErrorBlock").show();
+        return;
+    }
+
     if (endDate == null || startDate == null) {
         $("#LoadReportControls").remove();
         $("#dateErrorLabel").append(" Ошибка: Укажите начальную и конечную дату!");

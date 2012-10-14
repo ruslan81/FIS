@@ -297,7 +297,7 @@ function onClickBuildReport() {
     startDate=$("#startDatePicker").datepicker("getDate");
     endDate = $("#endDatePicker").datepicker("getDate");
 
-    if (endDate == null || startDate == null){// || !checkDate(startDate) || !checkDate(endDate)) {
+    if (endDate == null || startDate == null || endDate < startDate){
         $("#dateErrorBlock").show();
         return;
     }
