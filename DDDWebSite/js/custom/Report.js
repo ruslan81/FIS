@@ -946,7 +946,6 @@ function createPeriodControls() {
         $("#LoadReportControls").remove();
     });
 
-
     $("#startDatePicker").datepicker($.datepicker.regional['ru']);
     $("#endDatePicker").datepicker($.datepicker.regional['ru']);
 
