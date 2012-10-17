@@ -1103,8 +1103,6 @@ function buildReport() {
 
         plfData = null;
 
-
-
         $.ajax({
             type: "POST",
             //Page Name (in which the method should be called) and method name

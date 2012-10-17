@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using DB.SQL;
 using BLL;
+using PLFUnit;
 using TotalsClasses;
 using MySql.Data;
 using MySql.Data.Types;
@@ -28,33 +29,48 @@ namespace DDDModel
             ConsoleKeyInfo ch;
 
             //MY CODE
-
-            //dataBlock.organizationTable.DeleteOrganization(58);
-            //dataBlock.organizationTable.DeleteOrganization(56);
-
-            /*for (int i = 2001; i < 2020; i++)
-            {
-                System.Console.WriteLine(dataBlock.plfUnitInfo.Statistics_GetYearStatistics(new DateTime(i, 1, 1), 110));
-            }
-            System.Console.ReadKey();*/
-
-
-           //SCRIPT TO ADD COMMON GROUP
-            /*List<Int32> orgIds = dataBlock.organizationTable.Get_AllOrganizationsId();
-            int k = 0;
-            foreach (int id in orgIds) 
-            {
-                List<Int32> groupIds = dataBlock.cardsTable.GetAllGroupIds(id,0);
-                if (groupIds.Count == 0) {
-                    //k++;
-                    dataBlock.cardsTable.CreateDefaultGroup(id);
+            List<int> ids = new List<int>();
+            ids.Add(136);
+            ids.Add(137);
+            ids.Add(138);
+            ids.Add(139);
+            DateTime from = new DateTime(2001,9,18);
+            DateTime to = new DateTime(2012, 9, 18);
+            //DateTime from = new DateTime(2005, 5, 4);
+            //DateTime to = new DateTime(2005, 5, 6);
+            
+            List<PLFRecord> list=dataBlock.plfUnitInfo.Get_Records(ids,from,to,108);
+            for (int i = 0; i < list.Count; i++) {
+                if (list[i].LATITUDE != null) {
+                    Console.WriteLine("YES");
                 }
             }
+                //dataBlock.organizationTable.DeleteOrganization(58);
+                //dataBlock.organizationTable.DeleteOrganization(56);
 
-            System.Console.WriteLine(k);
-            System.Console.ReadKey();*/
+                /*for (int i = 2001; i < 2020; i++)
+                {
+                    System.Console.WriteLine(dataBlock.plfUnitInfo.Statistics_GetYearStatistics(new DateTime(i, 1, 1), 110));
+                }
+                System.Console.ReadKey();*/
 
-           return;
+
+                //SCRIPT TO ADD COMMON GROUP
+                /*List<Int32> orgIds = dataBlock.organizationTable.Get_AllOrganizationsId();
+                int k = 0;
+                foreach (int id in orgIds) 
+                {
+                    List<Int32> groupIds = dataBlock.cardsTable.GetAllGroupIds(id,0);
+                    if (groupIds.Count == 0) {
+                        //k++;
+                        dataBlock.cardsTable.CreateDefaultGroup(id);
+                    }
+                }
+
+                System.Console.WriteLine(k);
+                System.Console.ReadKey();*/
+
+                return;
    
            while (ex != true)
             {

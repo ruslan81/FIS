@@ -363,8 +363,9 @@ public partial class Administrator_Report : System.Web.UI.Page
         r.voltage = new double[records.Count];
         r.rpm = new double[records.Count];
         r.fuel = new double[records.Count];
-        r.lat = new double[records.Count];
-        r.lng = new double[records.Count];
+        List<double> lats = new List<double>();
+        List<double> lngs = new List<double>();
+
         for (int i = 0; i < records.Count; i++)
         {
             double t = (records[i].SYSTEM_TIME.GetSystemTime() - new DateTime(1970, 1, 1, 0, 0, 0)).TotalMilliseconds;
@@ -375,15 +376,19 @@ public partial class Administrator_Report : System.Web.UI.Page
             r.fuel[i] = Math.Round(double.Parse(records[i].FUEL_VOLUME1), 1);
             if (records[i].LATITUDE != null && records[i].LONGITUDE != null)
             {
-                r.lat[i] = double.Parse(records[i].LATITUDE, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
-                r.lng[i] = double.Parse(records[i].LONGITUDE, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
-            }
-            else
-            {
-                r.lat[i] = 0;
-                r.lng[i] = 0;
+                lats.Add(double.Parse(records[i].LATITUDE, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo));
+                lngs.Add(double.Parse(records[i].LONGITUDE, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo));
             }
         }
+
+        r.lat = new double[lats.Count];
+        r.lng = new double[lats.Count];
+
+        for (int i = 0; i < lats.Count; i++) {
+            r.lat[i] = lats[i];
+            r.lng[i] = lngs[i];
+        }
+
         r.period = new DateTime(from.Year, from.Month, from.Day).ToShortDateString() + " - " + new DateTime(to.Year, to.Month, to.Day).ToShortDateString();
 
         return r;

@@ -11868,3 +11868,13 @@ Cache Callback: 13.10.2012 15:12:40
 Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
 Cache Callback: 14.10.2012 21:00:40
 Cache Callback: 15.10.2012 0:35:00
+Cache Callback: 18.10.2012 0:21:00
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 18.10.2012 1:30:35
+Cache Callback: Message: Сбой при отправке сообщения электронной почты.
+Cache Callback: Message: Поток находился в процессе прерывания.
+Cache Callback: Message: Поток находился в процессе прерывания.
+Cache Callback: 18.10.2012 1:32:20
+Cache Callback: Message: Сбой при отправке сообщения электронной почты.
+Cache Callback: Message: Поток находился в процессе прерывания.
+Cache Callback: Message: Поток находился в процессе прерывания.

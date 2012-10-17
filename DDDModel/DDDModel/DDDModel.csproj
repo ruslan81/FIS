@@ -94,6 +94,10 @@
       <Project>{F83A50CA-2E3C-4EB3-8805-DE66DDD78374}</Project>
       <Name>FirebirdToMySQLConverter</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PLFUnit\PLFUnit.csproj">
+      <Project>{A788DF39-E8DD-48AD-A948-EEBBEA743AB1}</Project>
+      <Name>PLFUnit</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TotalsClasses\TotalsClasses.csproj">
       <Project>{2A4F3B33-3CE2-4BED-BF9F-566D3F1CA160}</Project>
       <Name>TotalsClasses</Name>

@@ -741,14 +741,16 @@ namespace BLL
             PLFRecord sensorsInstalled = new PLFRecord();
             Hashtable allSensorsParamIds = new Hashtable();
 
-            if (dataBlockIdsToGet.Count > 0)
+            /*if (dataBlockIdsToGet.Count > 0)
             {
                 sensorsInstalled = Get_InstalledSensors(dataBlockIdsToGet[0]);
                 allSensorsParamIds = Get_AllParamsSensorsId(sensorsInstalled);
-            }
+            }*/
 
             foreach (int id in dataBlockIdsToGet)
             {
+                sensorsInstalled = Get_InstalledSensors(id);
+                allSensorsParamIds = Get_AllParamsSensorsId(sensorsInstalled);
                 plfUnit.AddRange(Get_Records(id, startPeriod, endPeriod, sensorsInstalled, allSensorsParamIds, sqldbRecords));
             }
 
