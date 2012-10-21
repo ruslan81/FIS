@@ -15,6 +15,9 @@
     runat="server">
     <link type="text/css" href="../js/custom/jquery.search-tree.1.0.1.css" rel="stylesheet" />
     <script src="../js/custom/jquery.search-tree.1.0.1.js" type="text/javascript"></script>
+    <script src="../js/jquery.ui.datepicker-ru.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../js/custom/Calendar.js"></script>
+    
     <script type="text/javascript">
         //график
         var chart = null;
