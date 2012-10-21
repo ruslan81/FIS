@@ -14,6 +14,14 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "- 14.10.2012" + Environment.NewLine;
+            ReportLabel.Text += @"- Работы над закладкой Отчеты" + Environment.NewLine;
+            ReportLabel.Text += @"  - Переделана закладка Водители в соответствии с gui" + Environment.NewLine;
+            ReportLabel.Text += @"  - Переделана закладка Транспортные средства в соответствии с gui" + Environment.NewLine;
+            ReportLabel.Text += @"- Работы по интеграциии диаграммы в систему" + Environment.NewLine;
+            ReportLabel.Text += @"  - Выявлены замечания и доработки по диаграмме" + Environment.NewLine;
+            ReportLabel.Text += @"  - Диаграмма для демонстрации встроена в закладку Просмотреть водитель" + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "- 30.09.2012" + Environment.NewLine;
             ReportLabel.Text += @"- Изменен публичный веб-сервис, добавлена функция загрузки UploadFile и разбора ParseFile файлов." + Environment.NewLine;
 

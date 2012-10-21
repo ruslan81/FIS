@@ -11867,3 +11867,7 @@ Cache Callback: Message: Файл не существует.
 Cache Callback: 13.10.2012 15:12:40
 Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
 Cache Callback: 14.10.2012 21:00:40
+Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.
+Cache Callback: 14.10.2012 22:09:00
+Cache Callback: 14.10.2012 22:13:00
+Cache Callback: 21.10.2012 16:54:40

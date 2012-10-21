@@ -37,13 +37,13 @@
                         destroyParseControls();
                         loadRecoverUserData();
                     };
-                    if ($("a", ui.newHeader).text() == "Просмотреть(Водитель)") {
+                    if ($("a", ui.newHeader).text() == "Просмотреть (Водитель)") {
                         destroyPeriodControls();
                         destroyParseControls();
                         loadOverlookDriver();
 
                     }
-                    if ($("a", ui.newHeader).text() == "Просмотреть(ТС)") {
+                    if ($("a", ui.newHeader).text() == "Просмотреть (ТС)") {
                         destroyPeriodControls();
                         destroyParseControls();
                         loadOverlookVehicle();
@@ -397,7 +397,7 @@
 
         <!--Раздел Просмотреть(Водитель)-->
         <h3>
-            <asp:LinkButton ID="AccordionHeader3_Driver" runat="server" PostBackUrl="#" Text="Просмотреть(Водитель)" /></h3>
+            <asp:LinkButton ID="AccordionHeader3_Driver" runat="server" PostBackUrl="#" Text="Просмотреть (Водитель)" /></h3>
         <div>
             <!--<asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Always">
                 <ContentTemplate>
@@ -437,7 +437,7 @@
 
         <!--Раздел Просмотреть(ТС)-->
         <h3>
-            <asp:LinkButton ID="AccordionHeader4_Vehicle" runat="server" PostBackUrl="#" Text="Просмотреть(ТС)" />
+            <asp:LinkButton ID="AccordionHeader4_Vehicle" runat="server" PostBackUrl="#" Text="Просмотреть (ТС)" />
         </h3>
         <div>
         <!--<asp:UpdatePanel ID="UpdateP2" runat="server" UpdateMode="Always">
@@ -602,8 +602,8 @@
             <div style="display: inline-block;vertical-align: middle;">
                 <canvas id="diagram" width="200" height="200"></canvas>
             </div>
-            <div class="item-detail" style="display: inline-block;vertical-align: middle;width: 200px;">
-                Здесь будет находится информация по выбранному периоду. Формат необходимо уточнить.
+            <div class="item-detail" style="display: inline-block;vertical-align: middle;width: 200px;text-align:left;">
+                Выберите интересующий вас год
             </div>
         </center>
     </div>

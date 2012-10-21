@@ -2,10 +2,10 @@
 
     var settings = {
         'height-ratio-percent' : '33',
-        'http-request-timeout' : '60000',
+        'http-request-timeout' : '100000',
         'card-id' : '0',
         'org-id' : '0',
-        'url': 'Data.aspx/GetOverlookDriverNodeData',
+        'url': '',
         
 	'background-color-CenterOn' : "rgba(196, 219, 154, 1)",
 	'background-color-CenterOff' : "transparent",
@@ -428,14 +428,14 @@ function onClick(e)
                     m_bDays[i] = false;
                 for (var i = 0; i < MONTHS_COUNT; ++i)
                     m_bMonths[i] = false;
-		m_This.trigger({ type : 'selectyear', year : m_nYear });
+		        m_This.trigger({ type : 'selectyear', year: nYear });
                 ajax_PostData();
             }
         }
         else if (nMonth && m_bMonths[nMonth - 1]) {
             if (m_nMonth != nMonth) {
- 	       m_This.trigger({ type : 'selectmonth', month : nMonth });
-               for (var i = 0; i < DAYS_COUNT; ++i)
+                
+                for (var i = 0; i < DAYS_COUNT; ++i)
                     m_bDays[i] = false;
                 m_nMonth = nMonth;
                 m_nDay = 0;
@@ -459,15 +459,15 @@ function onClick(e)
                             m_bDays[nCurDay] = true;
                         }
                     }
-	            }
+                }
+                m_This.trigger({ type: 'selectmonth', month: nMonth < 10 ? "0" + nMonth : nMonth, year: nCurYear, value: m_dCurPercent });
             }
         }
         else if (nDay && m_bDays[nDay - 1]) {
             if (m_nDay != nDay) {
                 m_nDay = nDay;
 
-  	       m_This.trigger({ type : 'selectday', day : nDay });
-               var nCurYear = -1, nCurMonth = -1, nCurDay = 0, curyear, curmon, curday;
+                var nCurYear = -1, nCurMonth = -1, nCurDay = 0, curyear, curmon, curday;
 
 	            for (var i = 0; i < m_Results.length; i++) {
                     if (4 == m_Results[i].YearName.length && (curyear = parseInt(m_Results[i].YearName)) > -1)
@@ -481,7 +481,8 @@ function onClick(e)
 
                     if (m_nYear == nCurYear && m_nMonth == nCurMonth + 1 && m_nDay == nCurDay)
                         m_dCurPercent = m_Results[i].Percent;
-	            }
+                }
+                m_This.trigger({ type: 'selectday', day: nDay < 10 ? "0" + nDay : nDay, month: m_nMonth < 10 ? "0" + m_nMonth : m_nMonth, year: nCurYear, value: m_dCurPercent });
             }
         }
         FillSector();
