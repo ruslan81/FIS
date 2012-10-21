@@ -14,6 +14,15 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "- 21.10.2012" + Environment.NewLine;
+            ReportLabel.Text += @"- Обновлена структура раздела Отчеты" + Environment.NewLine;
+            ReportLabel.Text += @"- Стилизован combobox 'Формат отчета'" + Environment.NewLine;
+            ReportLabel.Text += @"- Локализованы календари при выборе периода" + Environment.NewLine;
+            ReportLabel.Text += @"- Добавлена проверка даты при выборе периода" + Environment.NewLine;
+            ReportLabel.Text += @"- Решены проблемы с диаграммой в Архиве при переходе на другие закладки" + Environment.NewLine;
+            ReportLabel.Text += @"- В диаграмме добавлена обработка событий при выборе дат и отображение информации в боковой панели" + Environment.NewLine;
+            ReportLabel.Text += @"- Диаграмма встроена в Просмотреть (ТС)" + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "- 14.10.2012" + Environment.NewLine;
             ReportLabel.Text += @"- Работы над закладкой Отчеты" + Environment.NewLine;
             ReportLabel.Text += @"  - Переделана закладка Водители в соответствии с gui" + Environment.NewLine;
