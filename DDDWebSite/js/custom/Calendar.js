@@ -5,7 +5,7 @@
         'http-request-timeout' : '100000',
         'card-id' : '0',
         'org-id' : '0',
-        'url': '',
+        'url' : 'http://smartfis.ru/Administrator/Data.aspx/GetOverlookDriverNodeData',
         
 	'background-color-CenterOn' : "rgba(196, 219, 154, 1)",
 	'background-color-CenterOff' : "transparent",
@@ -36,6 +36,12 @@
 
     var methods = {
         init : function(options) {
+		var oRet = this.each(function() {
+              		if ( options ) { 
+                		$.extend( settings, options );
+              		}
+            	});
+
             m_HeightRatioPercent = settings["height-ratio-percent"];
             m_HttpRequestTimeout = settings["http-request-timeout"];
             m_CardID = settings["card-id"];
@@ -71,12 +77,7 @@
             init(this.attr('id'));
 	    m_This = this;
 
-            return this.each(function() {
-              if ( options ) { 
-                $.extend( settings, options );
-              }
-
-            });
+            return oRet;
         },
         show : function() { this.show(); },
         hide : function() { this.hide(); },
@@ -287,10 +288,14 @@ function init(idCanvas) {
     m_dCurPercent = 0;
     m_nRecordCount = 0;
 
+    m_nNominalCalendarDiameter = 446;
+    m_nActualCalendarDiameter = screen.height * m_HeightRatioPercent / 100;
+    m_dFactor = 1.0 * m_nActualCalendarDiameter / m_nNominalCalendarDiameter;
+
     m_CanvasId = idCanvas;
     var canvas = document.getElementById(m_CanvasId);
-	canvas.width = m_nActualCalendarDiameter;
-	canvas.height = m_nActualCalendarDiameter;
+    canvas.width = m_nActualCalendarDiameter;
+    canvas.height = m_nActualCalendarDiameter;
     m_CanvasBounds = getBounds(canvas);
     var context = canvas.getContext('2d');
 
@@ -299,10 +304,6 @@ function init(idCanvas) {
 
     m_nCenterX = canvas.width / 2;
     m_nCenterY = canvas.height / 2;
-
-    m_nNominalCalendarDiameter = 446;
-    m_nActualCalendarDiameter = screen.height * m_HeightRatioPercent / 100;
-    m_dFactor = 1.0 * m_nActualCalendarDiameter / m_nNominalCalendarDiameter;
 
     m_nRadiusCenter = 73.0 / m_nNominalCalendarDiameter * canvas.width;
     m_nRadiusYear = 115.0 / m_nNominalCalendarDiameter * canvas.width;
@@ -428,21 +429,20 @@ function onClick(e)
                     m_bDays[i] = false;
                 for (var i = 0; i < MONTHS_COUNT; ++i)
                     m_bMonths[i] = false;
-		        m_This.trigger({ type : 'selectyear', year: nYear });
+                m_This.trigger({ type: 'selectyear', year: nYear });
                 ajax_PostData();
             }
         }
         else if (nMonth && m_bMonths[nMonth - 1]) {
             if (m_nMonth != nMonth) {
-                
-                for (var i = 0; i < DAYS_COUNT; ++i)
+               for (var i = 0; i < DAYS_COUNT; ++i)
                     m_bDays[i] = false;
                 m_nMonth = nMonth;
                 m_nDay = 0;
 
                 var nCurYear = -1, nCurMonth = -1, nCurDay = 0, curyear, curmon, curday;
 
-	            for (var i = 0; i < m_Results.length; i++) {
+                for (var i = 0; i < m_Results.length; i++) {
                     if (4 == m_Results[i].YearName.length && (curyear = parseInt(m_Results[i].YearName)) > -1)
                         nCurYear = curyear;
 
@@ -467,9 +467,9 @@ function onClick(e)
             if (m_nDay != nDay) {
                 m_nDay = nDay;
 
-                var nCurYear = -1, nCurMonth = -1, nCurDay = 0, curyear, curmon, curday;
+               var nCurYear = -1, nCurMonth = -1, nCurDay = 0, curyear, curmon, curday;
 
-	            for (var i = 0; i < m_Results.length; i++) {
+                for (var i = 0; i < m_Results.length; i++) {
                     if (4 == m_Results[i].YearName.length && (curyear = parseInt(m_Results[i].YearName)) > -1)
                         nCurYear = curyear;
 

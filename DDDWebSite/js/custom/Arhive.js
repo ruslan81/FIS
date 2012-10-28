@@ -267,10 +267,7 @@ function onOverlookNodeSelected(e, data) {
         $("#calendarWrapper").show();
         //Просмотреть (Водитель)
         if ($("#accordion").accordion("option", "active") == 2) {
-            $('#diagram').Calendar({ 'height-ratio-percent': '60' });
-            $('#diagram').Calendar({ 'url': 'Data.aspx/GetOverlookDriverNodeData' });
-            $('#diagram').Calendar({ 'card-id': cardID });
-            $('#diagram').Calendar({ 'org-id': $.cookie("CURRENT_ORG_ID") });
+            $('#diagram').Calendar({ 'height-ratio-percent': '60', 'url': 'Data.aspx/GetOverlookDriverNodeData', 'card-id': cardID, 'org-id': $.cookie("CURRENT_ORG_ID") });
             $('#diagram').bind('selectyear', function (e) {
                 $(".item-detail").html("Вы выбрали <b>" + e.year + "</b> год" +
                     "<br/>" +
@@ -282,15 +279,21 @@ function onOverlookNodeSelected(e, data) {
             $('#diagram').bind('selectday', function (e) {
                 $(".item-detail").html(e.day + "." + e.month + "." + e.year + " - доступно <b>" + e.value.toFixed(2) + "%</b> данных за день");
             });
-            $('#diagram').Calendar();
         }
         //Просмотреть (ТС)
         if ($("#accordion").accordion("option", "active") == 3) {
-            $('#diagram').Calendar({ 'height-ratio-percent': '60' });
-            $('#diagram').Calendar({ 'url': 'Data.aspx/GetOverlookVehicleNodeData' });
-            $('#diagram').Calendar({ 'card-id': cardID });
-            $('#diagram').Calendar({ 'org-id': $.cookie("CURRENT_ORG_ID") });
-            $('#diagram').Calendar();
+            $('#diagram').Calendar({ 'height-ratio-percent': '60', 'url': 'Data.aspx/GetOverlookVehicleNodeData', 'card-id': cardID, 'org-id': $.cookie("CURRENT_ORG_ID") });
+            $('#diagram').bind('selectyear', function (e) {
+                $(".item-detail").html("Вы выбрали <b>" + e.year + "</b> год" +
+                    "<br/>" +
+                    "Для получения подробной информации выберите интересующий вас месяц и день");
+            });
+            $('#diagram').bind('selectmonth', function (e) {
+                $(".item-detail").html(e.month + "." + e.year + " - доступно <b>" + e.value.toFixed(2) + "%</b> данных за месяц");
+            });
+            $('#diagram').bind('selectday', function (e) {
+                $(".item-detail").html(e.day + "." + e.month + "." + e.year + " - доступно <b>" + e.value.toFixed(2) + "%</b> данных за день");
+            });
         }
         
     } else {
