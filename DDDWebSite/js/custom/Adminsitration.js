@@ -271,9 +271,11 @@ function onDealersTreeNodeSelected(e, data) {
     dealerOrgID = $("a span", data.element).attr("key");
     dealerLevel = $("a span", data.element).attr("level");
     if (isSelected == "true") {
+        mode = "";
         loadGeneralData();
         tabIndex = 0;
     } else {
+        mode = "";
         $("#contentTableBody").empty();
         $("#contentTable").hide();
     }
