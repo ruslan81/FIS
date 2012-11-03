@@ -367,6 +367,16 @@ function createCharts(result) {
             x: x,
             y: y
         });
+        if (i < result.d.time.length - 1) {
+            var xNext = result.d.time[i + 1];
+            console.log(xNext - x);
+            if (xNext - x > 60000) {
+                data.push({
+                    x: x + 60000,
+                    y: null
+                });
+            }
+        }
     }
     chart.addSeries({
         name: 'Скорость',
@@ -383,6 +393,16 @@ function createCharts(result) {
             x: x,
             y: y
         });
+        if (i < result.d.time.length - 1) {
+            var xNext = result.d.time[i + 1];
+            console.log(xNext - x);
+            if (xNext - x > 60000) {
+                data.push({
+                    x: x + 60000,
+                    y: null
+                });
+            }
+        }
     }
     chart.addSeries({
         name: 'Напряжение',
@@ -399,6 +419,16 @@ function createCharts(result) {
             x: x,
             y: y
         });
+        if (i < result.d.time.length - 1) {
+            var xNext = result.d.time[i + 1];
+            console.log(xNext - x);
+            if (xNext - x > 60000) {
+                data.push({
+                    x: x + 60000,
+                    y: null
+                });
+            }
+        }
     }
     chart.addSeries({
         name: 'RPM',
@@ -415,6 +445,16 @@ function createCharts(result) {
             x: x,
             y: y
         });
+        if (i < result.d.time.length - 1) {
+            var xNext = result.d.time[i + 1];
+            console.log(xNext - x);
+            if (xNext - x > 60000) {
+                data.push({
+                    x: x+60000,
+                    y: null
+                });
+            }
+        }
     }
     chart.addSeries({
         name: 'Уровень топлива',

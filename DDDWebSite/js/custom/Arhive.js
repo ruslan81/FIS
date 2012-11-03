@@ -178,7 +178,7 @@ function loadOverlookDriver() {
     loadOverlookDriverTree();
 }
 
-//Загрузить элементы дерева в разделе "Просмотреть(Водитель)"
+//Загрузить элементы дерева в разделе "Просмотреть (Водитель)"
 function loadOverlookDriverTree() {
     $.ajax({
         type: "POST",
@@ -212,7 +212,7 @@ function loadOverlookVehicle() {
     loadOverlookVehicleTree();
 }
 
-//Загрузить элементы дерева в разделе "Просмотреть(ТС)"
+//Загрузить элементы дерева в разделе "Просмотреть (ТС)"
 function loadOverlookVehicleTree() {
     $.ajax({
         type: "POST",
@@ -254,7 +254,7 @@ function onOverlookNodeSelected(e, data) {
         resizeReports();
         return;
     }
-    //cardID = "135";
+    
     if (isSelected == "true") {
         //!TODO uncomment if you want standart functional without diagram
         //$("#periodSelection").show();
@@ -263,11 +263,38 @@ function onOverlookNodeSelected(e, data) {
         $("#dateErrorBlock").hide();
 
         //!TODO comment if you want standart functional without diagram
+        $(".item-detail").html("Выберите интересующий вас год");
         $("#calendarWrapper").show();
-        $('#diagram').Calendar({ 'height-ratio-percent': '60' });
-        $('#diagram').Calendar({ 'card-id': cardID });
-        $('#diagram').Calendar({ 'org-id': $.cookie("CURRENT_ORG_ID") });
-        $('#diagram').Calendar();
+        //Просмотреть (Водитель)
+        if ($("#accordion").accordion("option", "active") == 2) {
+            $('#diagram').Calendar({ 'height-ratio-percent': '60', 'url': 'Data.aspx/GetOverlookDriverNodeData', 'card-id': cardID, 'org-id': $.cookie("CURRENT_ORG_ID") });
+            $('#diagram').bind('selectyear', function (e) {
+                $(".item-detail").html("Вы выбрали <b>" + e.year + "</b> год" +
+                    "<br/>" +
+                    "Для получения подробной информации выберите интересующий вас месяц и день");
+            });
+            $('#diagram').bind('selectmonth', function (e) {
+                $(".item-detail").html(e.month + "." + e.year + " - доступно <b>" + e.value.toFixed(2) + "%</b> данных за месяц");
+            });
+            $('#diagram').bind('selectday', function (e) {
+                $(".item-detail").html(e.day + "." + e.month + "." + e.year + " - доступно <b>" + e.value.toFixed(2) + "%</b> данных за день");
+            });
+        }
+        //Просмотреть (ТС)
+        if ($("#accordion").accordion("option", "active") == 3) {
+            $('#diagram').Calendar({ 'height-ratio-percent': '60', 'url': 'Data.aspx/GetOverlookVehicleNodeData', 'card-id': cardID, 'org-id': $.cookie("CURRENT_ORG_ID") });
+            $('#diagram').bind('selectyear', function (e) {
+                $(".item-detail").html("Вы выбрали <b>" + e.year + "</b> год" +
+                    "<br/>" +
+                    "Для получения подробной информации выберите интересующий вас месяц и день");
+            });
+            $('#diagram').bind('selectmonth', function (e) {
+                $(".item-detail").html(e.month + "." + e.year + " - доступно <b>" + e.value.toFixed(2) + "%</b> данных за месяц");
+            });
+            $('#diagram').bind('selectday', function (e) {
+                $(".item-detail").html(e.day + "." + e.month + "." + e.year + " - доступно <b>" + e.value.toFixed(2) + "%</b> данных за день");
+            });
+        }
         
     } else {
         $("#contentTableBody").empty();
@@ -400,7 +427,8 @@ function destroyPeriodControls() {
     $("#contentTable").hide();
     $("#main-conditions").hide();
     //!TODO comment if you want standart functional without diagram
-    //$("#calendarWrapper").hide();
+    $('#diagram').Calendar('destroy');
+    $("#calendarWrapper").hide();
 
     resizeReports();
 }

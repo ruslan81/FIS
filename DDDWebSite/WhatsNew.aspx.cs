@@ -14,6 +14,28 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "- 28.10.2012" + Environment.NewLine;
+            ReportLabel.Text += @"- В DDDModel обнаружен и устранен critical bug, связанный с получением данных с сенсоров по периоду, где данные на какой-то момент могли отсутствовать, например, в начале периода, потом где-то в середине периода они были, а в конце, к примеру, опять отсутствовали. Дело в том, что проверялись установленные сенсоры только по первому блоку данных из списка, и если, к примеру, сенсора на широту в этом первом блоке не было, то широта обнулялась на всем периоде, даже там где он был. А тот факт, что в первых блоках для водителя сенсоров не было, а потом они появлялись, просто игнорировался, эта ситуация вообще не рассматривалась." + Environment.NewLine;
+            ReportLabel.Text += @"- Изменена модель построения графиков в Отчетах: графики теперь корректно прерываются при построении на периоде, где данные могут на каком-то участке периода присутствовать, а на каком-то отсутствовать." + Environment.NewLine;
+            ReportLabel.Text += @"- Обновлена версия диаграммы до текущей, логика закладки Просмотреть (Водитель) в части диаграммы перенесена на закладку Просмотреть (ТС)." + Environment.NewLine;
+
+            ReportLabel.Text += Environment.NewLine + "- 21.10.2012" + Environment.NewLine;
+            ReportLabel.Text += @"- Обновлена структура раздела Отчеты" + Environment.NewLine;
+            ReportLabel.Text += @"- Стилизован combobox 'Формат отчета'" + Environment.NewLine;
+            ReportLabel.Text += @"- Локализованы календари при выборе периода" + Environment.NewLine;
+            ReportLabel.Text += @"- Добавлена проверка даты при выборе периода" + Environment.NewLine;
+            ReportLabel.Text += @"- Решены проблемы с диаграммой в Архиве при переходе на другие закладки" + Environment.NewLine;
+            ReportLabel.Text += @"- В диаграмме добавлена обработка событий при выборе дат и отображение информации в боковой панели" + Environment.NewLine;
+            ReportLabel.Text += @"- Диаграмма встроена в Просмотреть (ТС)" + Environment.NewLine;
+
+            ReportLabel.Text += Environment.NewLine + "- 14.10.2012" + Environment.NewLine;
+            ReportLabel.Text += @"- Работы над закладкой Отчеты" + Environment.NewLine;
+            ReportLabel.Text += @"  - Переделана закладка Водители в соответствии с gui" + Environment.NewLine;
+            ReportLabel.Text += @"  - Переделана закладка Транспортные средства в соответствии с gui" + Environment.NewLine;
+            ReportLabel.Text += @"- Работы по интеграциии диаграммы в систему" + Environment.NewLine;
+            ReportLabel.Text += @"  - Выявлены замечания и доработки по диаграмме" + Environment.NewLine;
+            ReportLabel.Text += @"  - Диаграмма для демонстрации встроена в закладку Просмотреть водитель" + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "- 30.09.2012" + Environment.NewLine;
             ReportLabel.Text += @"- Изменен публичный веб-сервис, добавлена функция загрузки UploadFile и разбора ParseFile файлов." + Environment.NewLine;
 
