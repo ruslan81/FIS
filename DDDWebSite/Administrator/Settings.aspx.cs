@@ -74,7 +74,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     /// </summary>
     /// <returns></returns>
     [System.Web.Services.WebMethod]
-    public static List<KeyValuePair<int,MapItem>> GetGeneralSettings(String OrgID)
+    public static List<KeyValuePair<int, MapItem>> GetGeneralSettings(String OrgID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
@@ -88,14 +88,14 @@ public partial class Administrator_Settings : System.Web.UI.Page
             orgInfo = dataBlock.organizationTable.GetAllOrgInfos();
             List<KeyValuePair<int, MapItem>> generalSettings = new List<KeyValuePair<int, MapItem>>();
 
-            generalSettings.Add(new KeyValuePair<int,MapItem>(0, new MapItem("Наименование организации", dataBlock.organizationTable.GetOrganizationName(orgId))));
-            generalSettings.Add(new KeyValuePair<int,MapItem>(0, new MapItem("Страна", dataBlock.organizationTable.GetOrgCountryName(orgId))));
-            generalSettings.Add(new KeyValuePair<int,MapItem>(0, new MapItem("Регион", dataBlock.organizationTable.GetOrgRegionName(orgId))));
+            generalSettings.Add(new KeyValuePair<int, MapItem>(0, new MapItem("Наименование организации", dataBlock.organizationTable.GetOrganizationName(orgId))));
+            generalSettings.Add(new KeyValuePair<int, MapItem>(0, new MapItem("Страна", dataBlock.organizationTable.GetOrgCountryName(orgId))));
+            generalSettings.Add(new KeyValuePair<int, MapItem>(0, new MapItem("Регион", dataBlock.organizationTable.GetOrgRegionName(orgId))));
 
             foreach (KeyValuePair<string, int> pair in orgInfo)
             {
-                String value=dataBlock.organizationTable.GetAdditionalOrgInfo(orgId, pair.Value);
-                generalSettings.Add(new KeyValuePair<int, MapItem>(pair.Value, new MapItem(pair.Key,value)));
+                String value = dataBlock.organizationTable.GetAdditionalOrgInfo(orgId, pair.Value);
+                generalSettings.Add(new KeyValuePair<int, MapItem>(pair.Value, new MapItem(pair.Key, value)));
             }
 
             return generalSettings;
@@ -199,7 +199,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
             int orgID = int.Parse(OrgID);
             foreach (GroupData item in GroupSettings)
             {
-                dataBlock.cardsTable.UpdateGroup(item.grID,item.Name,item.Comment,item.cardType);
+                dataBlock.cardsTable.UpdateGroup(item.grID, item.Name, item.Comment, item.cardType);
             }
             return true;
         }
@@ -261,7 +261,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
             int orgID = int.Parse(OrgID);
             int cardType = int.Parse(CardType);
 
-            dataBlock.cardsTable.CreateGroup(orgID,Name,Comment,cardType);
+            dataBlock.cardsTable.CreateGroup(orgID, Name, Comment, cardType);
 
             return true;
         }
@@ -320,6 +320,39 @@ public partial class Administrator_Settings : System.Web.UI.Page
     }
 
     /// <summary>
+    ///Получить настройки водителя
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static CardData GetDriverSettings(String CardID)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        try
+        {
+            int cardId = int.Parse(CardID);
+
+            dataBlock.OpenConnection();
+            CardData gd = new CardData(cardId);
+            gd.Name = dataBlock.cardsTable.GetCardName(cardId);
+            gd.Number = dataBlock.cardsTable.GetCardNumber(cardId);
+            gd.Comment = dataBlock.cardsTable.GetCardNote(cardId);
+            gd.groupID = dataBlock.cardsTable.GetCardGroupID(cardId);
+            gd.groupName = dataBlock.cardsTable.GetGroupNameById(gd.groupID);
+            return gd;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            //return null;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
     ///Сохранить Настройки водителей
     /// </summary>
     /// <returns></returns>
@@ -334,7 +367,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
             int orgID = int.Parse(OrgID);
             foreach (CardData item in DriverSettings)
             {
-                dataBlock.cardsTable.ChangeCardName(item.Name,item.grID);
+                dataBlock.cardsTable.ChangeCardName(item.Name, item.grID);
                 dataBlock.cardsTable.ChangeCardNumber(item.Number, item.grID, 0);
                 dataBlock.cardsTable.ChangeCardComment(item.Comment, item.grID);
                 dataBlock.cardsTable.ChangeCardGroup(item.groupID, item.grID);
@@ -364,11 +397,22 @@ public partial class Administrator_Settings : System.Web.UI.Page
         try
         {
             dataBlock.OpenConnection();
+
             int orgID = int.Parse(OrgID);
             for (int i = 0; i < DriverIDs.Count; i++)
             {
                 int driverID = int.Parse(DriverIDs[i].Value);
+
+                String cardHolderName = dataBlock.cardsTable.GetCardHolderNameByCardId(driverID);
+                String login;
+                if (cardHolderName.Length > 10)
+                    login = cardHolderName.Substring(0, 10);
+                else
+                    login = cardHolderName;
+
+                int userId = dataBlock.usersTable.Get_UserID_byName(login);
                 dataBlock.cardsTable.DeleteCardAndAllFiles(driverID);
+                dataBlock.usersTable.DeleteUserSoft(userId);
             }
             return true;
         }
@@ -413,6 +457,40 @@ public partial class Administrator_Settings : System.Web.UI.Page
             }
             //dataBlock.CloseConnection();
             return result;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            //return null;
+        }
+        finally
+        {
+            //dataBlock.organizationTable.CloseConnection();
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Получить настройки одного ТС
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static CardData GetTransportSettings(String CardID)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        try
+        {
+            int cardId = int.Parse(CardID);
+
+            dataBlock.OpenConnection();
+            CardData gd = new CardData(cardId);
+            gd.Name = dataBlock.cardsTable.GetCardName(cardId);
+            gd.Number = dataBlock.cardsTable.GetCardNumber(cardId);
+            gd.Comment = dataBlock.cardsTable.GetCardNote(cardId);
+            gd.groupID = dataBlock.cardsTable.GetCardGroupID(cardId);
+            gd.groupName = dataBlock.cardsTable.GetGroupNameById(gd.groupID);
+            return gd;
         }
         catch (Exception ex)
         {
@@ -500,16 +578,17 @@ public partial class Administrator_Settings : System.Web.UI.Page
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
-        
+
         try
         {
             dataBlock.OpenConnection();
             int orgID = int.Parse(OrgID);
             List<MapItem> result = new List<MapItem>();
-            List<int> ids=dataBlock.cardsTable.GetAllGroupIds(orgID,dataBlock.cardsTable.driversCardTypeId);
-            foreach (int index in ids) {
+            List<int> ids = dataBlock.cardsTable.GetAllGroupIds(orgID, dataBlock.cardsTable.driversCardTypeId);
+            foreach (int index in ids)
+            {
                 string name = dataBlock.cardsTable.GetGroupNameById(index);
-                result.Add(new MapItem(Convert.ToString(index),name));
+                result.Add(new MapItem(Convert.ToString(index), name));
             }
             return result;
         }
@@ -573,9 +652,10 @@ public partial class Administrator_Settings : System.Web.UI.Page
         {
             dataBlock.OpenConnection();
             int orgID = int.Parse(OrgID);
-            int userID = int.Parse(UserID);
-            dataBlock.cardsTable.CreateNewCard(data.Name,data.Number,dataBlock.cardsTable.driversCardTypeId,orgID,data.Comment,userID, data.groupID);
-            
+            int userID = dataBlock.usersTable.Get_UserID_byName(UserID);
+            //int userID = int.Parse(UserID);
+            dataBlock.cardsTable.CreateNewCard(data.Name, data.Number, dataBlock.cardsTable.driversCardTypeId, orgID, data.Comment, userID, data.groupID);
+
             return true;
         }
         catch (Exception ex)
@@ -603,7 +683,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
         {
             dataBlock.OpenConnection();
             int orgID = int.Parse(OrgID);
-            int userID = int.Parse(UserID);
+            //int userID = int.Parse(UserID);
+            int userID = dataBlock.usersTable.Get_UserID_byName(UserID);
             dataBlock.cardsTable.CreateNewCard(data.Name, data.Number, dataBlock.cardsTable.vehicleCardTypeId, orgID, data.Comment, userID, data.groupID);
 
             return true;
@@ -630,8 +711,9 @@ public partial class Administrator_Settings : System.Web.UI.Page
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
         List<SettingsData> result = new List<SettingsData>();
-           
-        try{
+
+        try
+        {
             dataBlock.OpenConnection();
             List<KeyValuePair<string, int>> allKeys = new List<KeyValuePair<string, int>>();
             allKeys = dataBlock.criteriaTable.GetAllCriteria_Name_n_Id();
@@ -644,7 +726,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
                 oneCriteria = dataBlock.criteriaTable.LoadCriteria(key.Value);
 
                 SettingsData sd = new SettingsData(oneCriteria.KeyId);
-                sd.MeasureName=oneCriteria.MeasureName;
+                sd.MeasureName = oneCriteria.MeasureName;
                 sd.CriteriaName = oneCriteria.CriteriaName;
                 sd.CriteriaNote = oneCriteria.CriteriaNote;
                 sd.MinValue = oneCriteria.MinValue;
@@ -720,9 +802,10 @@ public partial class Administrator_Settings : System.Web.UI.Page
             users.AddRange(users3);
             users.AddRange(users4);
 
-            foreach (int id in users) {
-                string name=dataBlock.usersTable.Get_UserName(id);
-                result.Add(new MapItem(id.ToString(),name));
+            foreach (int id in users)
+            {
+                string name = dataBlock.usersTable.Get_UserName(id);
+                result.Add(new MapItem(id.ToString(), name));
             }
 
             return result;
@@ -755,17 +838,19 @@ public partial class Administrator_Settings : System.Web.UI.Page
             int orgID = int.Parse(OrgID);
 
             List<int> ids = dataBlock.remindTable.GetAllRemindIds(orgID);
-            foreach (int id in ids) {
+            foreach (int id in ids)
+            {
                 RemindData rd = new RemindData();
                 rd.date = dataBlock.remindTable.GetRemindLastDate(id).ToString();
                 rd.userId = dataBlock.remindTable.GetRemindUser(id);
                 rd.userName = dataBlock.usersTable.Get_UserName(rd.userId);
                 rd.sourceId = dataBlock.remindTable.GetRemindSource(id);
                 rd.sourceType = dataBlock.remindTable.GetRemindSourceType(id);
-                switch (rd.sourceType) {
-                    case 0: {rd.sourceName = dataBlock.cardsTable.GetCardHolderNameByCardId(rd.sourceId);break;}
-                    case 1: {rd.sourceName = dataBlock.cardsTable.GetGroupNameById(rd.sourceId);break;}
-                    case 2: {rd.sourceName = dataBlock.organizationTable.GetOrganizationName(rd.sourceId);break;}
+                switch (rd.sourceType)
+                {
+                    case 0: { rd.sourceName = dataBlock.cardsTable.GetCardHolderNameByCardId(rd.sourceId); break; }
+                    case 1: { rd.sourceName = dataBlock.cardsTable.GetGroupNameById(rd.sourceId); break; }
+                    case 2: { rd.sourceName = dataBlock.organizationTable.GetOrganizationName(rd.sourceId); break; }
                 };
                 rd.id = id;
                 rd.active = dataBlock.remindTable.GetRemindActive(id) ? 1 : 0;
@@ -797,12 +882,14 @@ public partial class Administrator_Settings : System.Web.UI.Page
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
-        try{
+        try
+        {
             dataBlock.OpenConnection();
             List<MapItem> result = new List<MapItem>();
             //for (int i = 1; i < 8; i++) {
-            for (int i = 1; i < 3; i++) {
-                result.Add(new MapItem(Convert.ToString(i),dataBlock.remindTable.GetRemindTypeName(i)));
+            for (int i = 1; i < 3; i++)
+            {
+                result.Add(new MapItem(Convert.ToString(i), dataBlock.remindTable.GetRemindTypeName(i)));
             }
             return result;
         }
@@ -897,8 +984,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
             foreach (RemindData item in RemindSettings)
             {
                 bool active = item.active == 1 ? true : false;
-                DateTime time=dataBlock.remindTable.GetRemindLastDate(item.id);
-                dataBlock.remindTable.UpdateRemind(item.id,active,item.userId,item.sourceType,item.sourceId,item.periodType,time,item.type);
+                DateTime time = dataBlock.remindTable.GetRemindLastDate(item.id);
+                dataBlock.remindTable.UpdateRemind(item.id, active, item.userId, item.sourceType, item.sourceId, item.periodType, time, item.type);
             }
             return true;
         }
@@ -927,7 +1014,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
             dataBlock.OpenConnection();
             int orgID = int.Parse(OrgID);
             bool active = data.active == 1 ? true : false;
-            dataBlock.remindTable.CreateNewRemind(orgID,active,data.userId,data.sourceType,data.sourceId,data.periodType,DateTime.Today,data.type);
+            dataBlock.remindTable.CreateNewRemind(orgID, active, data.userId, data.sourceType, data.sourceId, data.periodType, DateTime.Today, data.type);
             return true;
         }
         catch (Exception ex)
@@ -1630,5 +1717,5 @@ public partial class Administrator_Settings : System.Web.UI.Page
         return true;
     } */
 
-    
+
 }

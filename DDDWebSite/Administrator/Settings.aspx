@@ -24,6 +24,7 @@
         $(function () {
             mode = "";
             currentDriverId = "";
+            currentCardId = "";
             buildTree();
             buildRemindTree();
 
@@ -40,7 +41,28 @@
                         //createRemindControls();
                         loadReminds();
                     }
-                    if ($("a", ui.newHeader).text() == "Дополнительно") {
+                    /*if ($("a", ui.newHeader).text() == "Дополнительно") {
+                    }*/
+
+                    //Раздел Водители
+                    if ($("a", ui.newHeader).attr("code") == 3) {
+                        currentCardId = "";
+                        $("#headerSettings").empty();
+                        $("#headerSettings").text("Настройки водителя");
+                        $("#contentSettings").empty();
+                        $("#contentSettingsPlace").empty();
+                        $("#userControls").empty();
+                        loadDriversTreeSingle("", "");
+                    }
+                    //Раздел Водители
+                    if ($("a", ui.newHeader).attr("code") == 4) {
+                        currentCardId = "";
+                        $("#headerSettings").empty();
+                        $("#headerSettings").text("Настройки транспортного средства");
+                        $("#contentSettings").empty();
+                        $("#contentSettingsPlace").empty();
+                        $("#userControls").empty();
+                        loadVehiclesTreeSingle("", "");
                     }
                 }
             });
@@ -281,6 +303,46 @@
         </tr>
     </script>
 
+    <script id="tmplSingleDriverData" type="text/x-jquery-tmpl">
+        <table id="contentTable" style="border-collapse: separate;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
+                border="0" cellpadding="0" cellspacing="0">
+                <tbody id="" class="ui-widget-content wijmo-wijgrid-data">
+            <tr style="background-color:#eee;">
+            <td class="key" style="font-size:12px;width:200px;">Номер</td><td style="padding-left:50px;"><input id="numberinputSingle" value="{{html Number}}" class="inputField-readonly input" readonly="readonly"/></td>
+            </tr>
+            <tr style="background-color:#eee;">
+            <td class="key" style="font-size:12px;width:200px;">ФИО</td><td style="padding-left:50px;"><input id="nameinputSingle" value="{{html Name}}" class="inputField-readonly input" readonly="readonly"/></td>
+            </tr>
+            <tr style="background-color:#eee;">
+            <td class="key" style="font-size:12px;width:200px;">Комментарий</td><td style="padding-left:50px;"><input id="commentinputSingle" value="{{html Comment}}" class="inputField-readonly input" readonly="readonly"/></td>
+            </tr>
+            <tr style="background-color:#eee;">
+            <td class="key" style="font-size:12px;width:200px;">Группа</td><td style="padding-left:50px;"><select id="groupSelectorSingle" name="groupSelector" group="{{html groupID}}" onchange="this.group=this.value;"></select></td>
+            </tr>
+            </tbody>
+            </table>
+    </script>
+
+    <script id="tmplSingleVehicleData" type="text/x-jquery-tmpl">
+        <table id="contentTable" style="border-collapse: separate;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
+                border="0" cellpadding="0" cellspacing="0">
+                <tbody id="" class="ui-widget-content wijmo-wijgrid-data">
+            <tr style="background-color:#eee;">
+            <td class="key" style="font-size:12px;width:200px;">Номер</td><td style="padding-left:50px;"><input id="numberinputSingle" value="{{html Number}}" class="inputField-readonly input" readonly="readonly"/></td>
+            </tr>
+            <tr style="background-color:#eee;">
+            <td class="key" style="font-size:12px;width:200px;">Гос. номер</td><td style="padding-left:50px;"><input id="nameinputSingle" value="{{html Name}}" class="inputField-readonly input" readonly="readonly"/></td>
+            </tr>
+            <tr style="background-color:#eee;">
+            <td class="key" style="font-size:12px;width:200px;">Комментарий</td><td style="padding-left:50px;"><input id="commentinputSingle" value="{{html Comment}}" class="inputField-readonly input" readonly="readonly"/></td>
+            </tr>
+            <tr style="background-color:#eee;">
+            <td class="key" style="font-size:12px;width:200px;">Группа</td><td style="padding-left:50px;"><select id="groupSelectorSingle" name="groupSelector" group="{{html groupID}}" onchange="this.group=this.value;"></select></td>
+            </tr>
+            </tbody>
+            </table>
+    </script>
+
     <script id="newCard" type="text/x-jquery-tmpl">
         <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
             <td class="wijgridtd wijdata-type-string wijmo-wijgrid-cell-border-bottom wijmo-wijgrid-cell-border-right wijmo-wijgrid-cell">
@@ -459,6 +521,8 @@
         </li>
     </script>
 
+    
+
     <div id="accordion" style="width: 5">
         <h3><asp:LinkButton CausesValidation="false" runat="server" PostBackUrl="#" Text="Организация"/></h3>
         <div>
@@ -498,6 +562,44 @@
                     </ul>
                 </div>
             </div>
+            </div>
+
+        </div>
+
+        <div>
+            <h3><asp:LinkButton ID="AccordionHeader3_Drivers" CausesValidation="false" runat="server" PostBackUrl="#" Text="Водители" code="3"/></h3>
+            <div>
+
+            <div>
+                <ul id="DriversTreeSingle">
+                </ul>
+            </div>
+
+            </div>
+
+        </div>
+
+        <div>
+            <h3><asp:LinkButton ID="AccordionHeader4_Vehicles" CausesValidation="false" runat="server" PostBackUrl="#" Text="Транспортные средства" code="4"/></h3>
+            <div>
+
+            <div>
+                <ul id="VehiclesTreeSingle">
+                </ul>
+            </div>
+
+            </div>
+
+        </div>
+        <div>
+            <h3><asp:LinkButton ID="AccordionHeader5_Groups" CausesValidation="false" runat="server" PostBackUrl="#" Text="Группы" code="5"/></h3>
+            <div>
+
+            <div>
+                <ul id="GroupsTreeSingle">
+                </ul>
+            </div>
+
             </div>
 
         </div>

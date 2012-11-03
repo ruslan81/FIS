@@ -45,6 +45,7 @@ namespace DDDModel
                     Console.WriteLine("YES");
                 }
             }
+            
                 //dataBlock.organizationTable.DeleteOrganization(58);
                 //dataBlock.organizationTable.DeleteOrganization(56);
 

@@ -1,4 +1,4 @@
-﻿  //Update/create table
+﻿//Update/create table
 //tableBody - tbody tag, template - template to generate table, data - table data
 function updateTable(tableBody, template, data) {
     //очищаем tbody от предыдущих данных
@@ -59,7 +59,7 @@ function createRemindControls() {
     //$('#tabs').tabs();
     //$("#tabs-1").append($("#tmplContentTable").text());
     //loadReminds();
-    
+
     $("#userControls").empty();
     $("#userControls").append($("#userControlsGroups").text());
 
@@ -81,7 +81,6 @@ function createRemindControls() {
                 $(inputs[i]).hide();
                 if (inputs[i].checked) {
                     var key = $(inputs[i]).attr("key");
-                    
                     $("#userSelector" + key).wijcombobox({
                         disabled: false
                     });
@@ -277,7 +276,7 @@ function createRemindControls() {
 
         createRemindSelectorsSingle();
 
-        
+
         return false;
     });
 
@@ -305,7 +304,7 @@ function buildRemindTree() {
     //builds a tree
     /*$("#RemindTree").wijtree();
     $("#RemindTree").wijtree({ selectedNodeChanged: function (e, data) {
-        onRemindNodeSelected(e, data);
+    onRemindNodeSelected(e, data);
     }
     });
     $("#SpeedRemind").wijtreenode({ selected: true });
@@ -313,7 +312,7 @@ function buildRemindTree() {
     //loadDriversTree();
 }
 
-function loadDriversTree(key,type) {
+function loadDriversTree(key, type) {
     $.ajax({
         type: "POST",
         url: "Data.aspx/GetOverlookDriversTree",
@@ -330,6 +329,60 @@ function loadDriversTree(key,type) {
             }
             });
             $('#DriversTree [key="' + key + '"][li_type="' + type + '"]').wijtreenode({ selected: true });
+            $('span .ui-icon').addClass("ui-icon-triangle-1-se");
+            $('span .ui-icon').removeClass("ui-icon-triangle-1-e");
+            $('.wijmo-wijtree-child').css("display", "block");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
+    });
+}
+
+function loadDriversTreeSingle(key, type) {
+    $.ajax({
+        type: "POST",
+        url: "Data.aspx/GetOverlookDriversTree",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#DriversTreeSingle").wijtree("destroy");
+            $("#DriversTreeSingle").empty();
+            $("#tmplDriverTree").tmpl(response.d).appendTo("#DriversTreeSingle");
+            $("#DriversTreeSingle").wijtree();
+            $("#DriversTreeSingle").wijtree({ selectedNodeChanged: function (e, data) {
+                onSingleDriverNodeSelected(e, data);
+            }
+            });
+            $('#DriversTreeSingle [key="' + key + '"][li_type="' + type + '"]').wijtreenode({ selected: true });
+            $('span .ui-icon').addClass("ui-icon-triangle-1-se");
+            $('span .ui-icon').removeClass("ui-icon-triangle-1-e");
+            $('.wijmo-wijtree-child').css("display", "block");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
+    });
+}
+
+function loadVehiclesTreeSingle(key, type) {
+    $.ajax({
+        type: "POST",
+        url: "Data.aspx/GetOverlookVehiclesTree",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#VehiclesTreeSingle").wijtree("destroy");
+            $("#VehiclesTreeSingle").empty();
+            $("#tmplDriverTree").tmpl(response.d).appendTo("#VehiclesTreeSingle");
+            $("#VehiclesTreeSingle").wijtree();
+            $("#VehiclesTreeSingle").wijtree({ selectedNodeChanged: function (e, data) {
+                onSingleVehicleNodeSelected(e, data);
+            }
+            });
+            $('#VehiclesTreeSingle [key="' + key + '"][li_type="' + type + '"]').wijtreenode({ selected: true });
             $('span .ui-icon').addClass("ui-icon-triangle-1-se");
             $('span .ui-icon').removeClass("ui-icon-triangle-1-e");
             $('.wijmo-wijtree-child').css("display", "block");
@@ -363,6 +416,34 @@ function onRecoverUserNodeSelected(e, data) {
     }
 }
 
+//Событие при выделении узла дерева
+function onSingleDriverNodeSelected(e, data) {
+    isSelected = $("div", data.element).attr("aria-selected");
+    type = $("a span", data.element).attr("type");
+    $("#userControls").empty();
+    if (isSelected == "true" && type == "0") {
+        currentCardId = $("a span", data.element).attr("key");
+        loadSingleDriverSettings();
+    } else {
+        //$("#headerSettings").empty();
+        $("#contentSettings").empty();
+    }
+}
+
+//Событие при выделении узла дерева
+function onSingleVehicleNodeSelected(e, data) {
+    isSelected = $("div", data.element).attr("aria-selected");
+    type = $("a span", data.element).attr("type");
+    $("#userControls").empty();
+    if (isSelected == "true" && type == "0") {
+        currentCardId = $("a span", data.element).attr("key");
+        loadSingleVehicleSettings();
+    } else {
+        //$("#headerSettings").empty();
+        $("#contentSettings").empty();
+    }
+}
+
 function onRemindNodeSelected(e, data) {
     isSelected = $("div", data.element).attr("aria-selected");
 
@@ -385,7 +466,7 @@ function onRemindDriverNodeSelected(e, data) {
         var key = $("a span", data.element).attr("key");
         var type = $("a span", data.element).attr("type");
         var text = $(":first a span", data.element).text();
-        
+
         $(currentDriverId).attr("key", key);
         $(currentDriverId).attr("value", text);
         $(currentDriverId).attr("sourceType", type);
@@ -548,6 +629,64 @@ function loadDriversSettings() {
             createContentTableDrivers(response);
             createGroupSelectorDrivers();
             $("#contentTable").show();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
+    });
+}
+
+function loadSingleDriverSettings() {
+    $("#headerSettings").empty();
+    $("#headerSettings").text("Настройки водителя");
+    $("#contentSettings").empty();
+    $("#contentSettingsPlace").empty();
+    $("#userControls").empty();
+
+    if (currentCardId == "") {
+        return;
+    }
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Settings.aspx/GetDriverSettings",
+        data: "{'CardID':'" + currentCardId + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#tmplSingleDriverData").tmpl(response.d).appendTo("#contentSettings");
+            createGroupSelectorDrivers();
+            $("#contentTable").show();
+            createUserControlsSingleDriver();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
+    });
+}
+
+function loadSingleVehicleSettings() {
+    $("#headerSettings").empty();
+    $("#headerSettings").text("Настройки транспортного средства");
+    $("#contentSettings").empty();
+    $("#contentSettingsPlace").empty();
+    $("#userControls").empty();
+
+    if (currentCardId == "") {
+        return;
+    }
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Settings.aspx/GetTransportSettings",
+        data: "{'CardID':'" + currentCardId + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#tmplSingleVehicleData").tmpl(response.d).appendTo("#contentSettings");
+            createGroupSelectorTransports();
+            $("#contentTable").show();
+            createUserControlsSingleTransport();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -906,7 +1045,7 @@ function createUserControlsDrivers() {
             card = $("#newCardGroupSelector").attr("group");
 
             var data = { Name: name, Comment: comment, Number: number, groupID: card };
-            var order = { OrgID: $.cookie("CURRENT_ORG_ID"), data: data, UserID: 0 };
+            var order = { OrgID: $.cookie("CURRENT_ORG_ID"), data: data, UserID: $.cookie("CURRENT_USERNAME") };
 
             $.ajax({
                 type: "POST",
@@ -930,6 +1069,304 @@ function createUserControlsDrivers() {
     $("#cancel").click(function () {
         mode = "";
         loadDriversSettings();
+        return false;
+    });
+}
+
+function createUserControlsSingleDriver() {
+    $("#userControls").empty();
+    $("#userControls").append($("#userControlsGroups").text());
+
+    $("#userControls button").button();
+    $("#save").button({ disabled: true });
+    $("#cancel").button({ disabled: true });
+
+    $("#create").click(function () {
+        mode = "create";
+        $("#edit").button({ disabled: true });
+        $("#delete").button({ disabled: true });
+        $("#create").button({ disabled: true });
+        $("#save").button({ disabled: false });
+        $("#cancel").button({ disabled: false });
+
+        $("#numberinputSingle").removeClass("inputField-readonly");
+        $("#numberinputSingle").addClass("inputField");
+        $("#numberinputSingle").removeAttr("readonly");
+        $("#numberinputSingle").attr("value", "");
+        $("#nameinputSingle").removeClass("inputField-readonly");
+        $("#nameinputSingle").addClass("inputField");
+        $("#nameinputSingle").removeAttr("readonly");
+        $("#nameinputSingle").attr("value", "");
+        $("#commentinputSingle").removeClass("inputField-readonly");
+        $("#commentinputSingle").addClass("inputField");
+        $("#commentinputSingle").removeAttr("readonly");
+        $("#commentinputSingle").attr("value", "");
+        createGroupSelectorDriversSingle($("#groupSelectorSingle"));
+        $("#groupSelectorSingle").wijcombobox(
+                {
+                    disabled: false
+                });
+        return false;
+    });
+
+    $("#delete").click(function () {
+        if (currentCardId == "") {
+            return;
+        }
+        $("#deletedialog").dialog({ buttons: { "OK": function () {
+            $(this).dialog("close");
+            var keys = [];
+            keys.push({ Key: "", Value: currentCardId });
+            deleteDriversSingle(keys);
+        },
+            "Отмена": function () {
+                $(this).dialog("close");
+            }
+        }
+
+        });
+        $("#deletedialog").dialog("option", "closeText", '');
+        $("#deletedialog").dialog("option", "resizable", false);
+        $("#deletedialog").dialog("option", "modal", true);
+
+        return false;
+    });
+
+    $("#edit").click(function () {
+        mode = "edit";
+
+        $("#numberinputSingle").removeClass("inputField-readonly");
+        $("#numberinputSingle").addClass("inputField");
+        $("#numberinputSingle").removeAttr("readonly");
+        $("#nameinputSingle").removeClass("inputField-readonly");
+        $("#nameinputSingle").addClass("inputField");
+        $("#nameinputSingle").removeAttr("readonly");
+        $("#commentinputSingle").removeClass("inputField-readonly");
+        $("#commentinputSingle").addClass("inputField");
+        $("#commentinputSingle").removeAttr("readonly");
+        $("#groupSelectorSingle").wijcombobox(
+                    {
+                        disabled: false
+                    });
+
+        $("#edit").button({ disabled: true });
+        $("#delete").button({ disabled: true });
+        $("#create").button({ disabled: true });
+        $("#save").button({ disabled: false });
+        $("#cancel").button({ disabled: false });
+
+        return false;
+    });
+
+    $("#save").click(function () {
+        if (mode == "edit") {
+            var settings = [];
+            name = $("#nameinputSingle").attr("value");
+            comment = $("#commentinputSingle").attr("value");
+            number = $("#numberinputSingle").attr("value");
+            group = $("#groupSelectorSingle").attr("group");
+            settings.push({ Name: name, Comment: comment, grID: currentCardId, Number: number, groupID: group });
+
+            var order = { OrgID: $.cookie("CURRENT_ORG_ID"), DriverSettings: settings };
+
+            $.ajax({
+                type: "POST",
+                //Page Name (in which the method should be called) and method name
+                url: "Settings.aspx/SaveDriverSettings",
+                data: JSON.stringify(order),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    loadSingleDriverSettings();
+                    loadDriversTreeSingle(currentCardId, "0");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+                }
+            });
+        }
+        if (mode == "create") {
+            name = $("#nameinputSingle").attr("value");
+            comment = $("#commentinputSingle").attr("value");
+            number = $("#numberinputSingle").attr("value");
+            group = $("#groupSelectorSingle").attr("group");
+
+            var data = { Name: name, Comment: comment, Number: number, groupID: group };
+            var order = { OrgID: $.cookie("CURRENT_ORG_ID"), data: data, UserID: $.cookie("CURRENT_USERNAME") };
+
+            $.ajax({
+                type: "POST",
+                //Page Name (in which the method should be called) and method name
+                url: "Settings.aspx/CreateCardDriver",
+                data: JSON.stringify(order),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    currentCardId = "";
+                    loadSingleDriverSettings();
+                    loadDriversTreeSingle("", "");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+                }
+            });
+        }
+        mode = "";
+        return false;
+    });
+
+    $("#cancel").click(function () {
+        mode = "";
+        loadSingleDriverSettings();
+        return false;
+    });
+}
+
+function createUserControlsSingleTransport() {
+    $("#userControls").empty();
+    $("#userControls").append($("#userControlsGroups").text());
+
+    $("#userControls button").button();
+    $("#save").button({ disabled: true });
+    $("#cancel").button({ disabled: true });
+
+    $("#create").click(function () {
+        mode = "create";
+        $("#edit").button({ disabled: true });
+        $("#delete").button({ disabled: true });
+        $("#create").button({ disabled: true });
+        $("#save").button({ disabled: false });
+        $("#cancel").button({ disabled: false });
+
+        $("#numberinputSingle").removeClass("inputField-readonly");
+        $("#numberinputSingle").addClass("inputField");
+        $("#numberinputSingle").removeAttr("readonly");
+        $("#numberinputSingle").attr("value", "");
+        $("#nameinputSingle").removeClass("inputField-readonly");
+        $("#nameinputSingle").addClass("inputField");
+        $("#nameinputSingle").removeAttr("readonly");
+        $("#nameinputSingle").attr("value", "");
+        $("#commentinputSingle").removeClass("inputField-readonly");
+        $("#commentinputSingle").addClass("inputField");
+        $("#commentinputSingle").removeAttr("readonly");
+        $("#commentinputSingle").attr("value", "");
+        createGroupSelectorDriversSingle($("#groupSelectorSingle"));
+        $("#groupSelectorSingle").wijcombobox(
+                {
+                    disabled: false
+                });
+        return false;
+    });
+
+    $("#delete").click(function () {
+        if (currentCardId == "") {
+            return;
+        }
+        $("#deletedialog").dialog({ buttons: { "OK": function () {
+            $(this).dialog("close");
+            var keys = [];
+            keys.push({ Key: "", Value: currentCardId });
+            deleteTransportsSingle(keys);
+        },
+            "Отмена": function () {
+                $(this).dialog("close");
+            }
+        }
+
+        });
+        $("#deletedialog").dialog("option", "closeText", '');
+        $("#deletedialog").dialog("option", "resizable", false);
+        $("#deletedialog").dialog("option", "modal", true);
+
+        return false;
+    });
+
+    $("#edit").click(function () {
+        mode = "edit";
+
+        $("#numberinputSingle").removeClass("inputField-readonly");
+        $("#numberinputSingle").addClass("inputField");
+        $("#numberinputSingle").removeAttr("readonly");
+        $("#nameinputSingle").removeClass("inputField-readonly");
+        $("#nameinputSingle").addClass("inputField");
+        $("#nameinputSingle").removeAttr("readonly");
+        $("#commentinputSingle").removeClass("inputField-readonly");
+        $("#commentinputSingle").addClass("inputField");
+        $("#commentinputSingle").removeAttr("readonly");
+        $("#groupSelectorSingle").wijcombobox(
+                    {
+                        disabled: false
+                    });
+
+        $("#edit").button({ disabled: true });
+        $("#delete").button({ disabled: true });
+        $("#create").button({ disabled: true });
+        $("#save").button({ disabled: false });
+        $("#cancel").button({ disabled: false });
+
+        return false;
+    });
+
+    $("#save").click(function () {
+        if (mode == "edit") {
+            var settings = [];
+            name = $("#nameinputSingle").attr("value");
+            comment = $("#commentinputSingle").attr("value");
+            number = $("#numberinputSingle").attr("value");
+            group = $("#groupSelectorSingle").attr("group");
+            settings.push({ Name: name, Comment: comment, grID: currentCardId, Number: number, groupID: group });
+
+            var order = { OrgID: $.cookie("CURRENT_ORG_ID"), TransportSettings: settings };
+
+            $.ajax({
+                type: "POST",
+                //Page Name (in which the method should be called) and method name
+                url: "Settings.aspx/SaveTransportSettings",
+                data: JSON.stringify(order),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    loadSingleVehicleSettings();
+                    loadVehiclesTreeSingle(currentCardId, "0");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+                }
+            });
+        }
+        if (mode == "create") {
+            name = $("#nameinputSingle").attr("value");
+            comment = $("#commentinputSingle").attr("value");
+            number = $("#numberinputSingle").attr("value");
+            group = $("#groupSelectorSingle").attr("group");
+
+            var data = { Name: name, Comment: comment, Number: number, groupID: group };
+            var order = { OrgID: $.cookie("CURRENT_ORG_ID"), data: data, UserID: $.cookie("CURRENT_USERNAME") };
+
+            $.ajax({
+                type: "POST",
+                //Page Name (in which the method should be called) and method name
+                url: "Settings.aspx/CreateCardTransport",
+                data: JSON.stringify(order),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    currentCardId = "";
+                    loadSingleVehicleSettings();
+                    loadVehiclesTreeSingle("", "");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+                }
+            });
+        }
+        mode = "";
+        return false;
+    });
+
+    $("#cancel").click(function () {
+        mode = "";
+        loadSingleVehicleSettings();
         return false;
     });
 }
@@ -1076,7 +1513,7 @@ function createUserControlsTransports() {
             card = $("#newCardGroupSelector").attr("group");
 
             var data = { Name: name, Comment: comment, Number: number, groupID: card };
-            var order = { OrgID: $.cookie("CURRENT_ORG_ID"), data: data, UserID: 0 };
+            var order = { OrgID: $.cookie("CURRENT_ORG_ID"), data: data, UserID: $.cookie("CURRENT_USERNAME") };
 
             $.ajax({
                 type: "POST",
@@ -1244,6 +1681,26 @@ function deleteDrivers(list) {
     });
 }
 
+function deleteDriversSingle(list) {
+    var order = { OrgID: $.cookie("CURRENT_ORG_ID"), DriverIDs: list };
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Settings.aspx/DeleteDrivers",
+        data: JSON.stringify(order),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            currentCardId = "";
+            loadSingleDriverSettings();
+            loadDriversTreeSingle("", "");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
+    });
+}
+
 function deleteTransports(list) {
     var order = { OrgID: $.cookie("CURRENT_ORG_ID"), TransportIDs: list };
     $.ajax({
@@ -1255,6 +1712,26 @@ function deleteTransports(list) {
         dataType: "json",
         success: function (response) {
             loadTransportsSettings();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
+    });
+}
+
+function deleteTransportsSingle(list) {
+    var order = { OrgID: $.cookie("CURRENT_ORG_ID"), TransportIDs: list };
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Settings.aspx/DeleteTransports",
+        data: JSON.stringify(order),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            currentCardId = "";
+            loadSingleVehicleSettings();
+            loadVehiclesTreeSingle("", "");
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -1447,6 +1924,8 @@ function createSelectors(response, name, attr) {
     var selectors = [];
     selectors = $('select[name="' + name + '"]');
     for (var i = 0; i < selectors.length; i++) {
+        $(selectors[i]).wijcombobox("destroy");
+        $(selectors[i]).empty();
         $("#tmplOption").tmpl(response.d).appendTo(selectors[i]);
         var group = $(selectors[i]).attr(attr);
         //alert(group);
@@ -1573,7 +2052,7 @@ function createRemindSelectorsSingle() {
             createSelector($("#userSelectorNew"), response, "user");
             value = $("#userSelectorNew option:first").attr("value");
             $("#userSelectorNew option:first").attr("selected", "true");
-            $("#userSelectorNew").attr("user",value);
+            $("#userSelectorNew").attr("user", value);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -1600,5 +2079,5 @@ function loadUserList() {
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
-    });   
+    });
 }

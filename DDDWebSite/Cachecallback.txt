@@ -11878,3 +11878,13 @@ Cache Callback: 18.10.2012 1:32:20
 Cache Callback: Message: Сбой при отправке сообщения электронной почты.
 Cache Callback: Message: Поток находился в процессе прерывания.
 Cache Callback: Message: Поток находился в процессе прерывания.
+Cache Callback: 28.10.2012 23:04:20
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 29.10.2012 0:04:20
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 29.10.2012 10:17:00
+Cache Callback: Message: Удаленный сервер возвратил ошибку: (407) Требуется проверка подлинности посредника.
+Cache Callback: 29.10.2012 23:27:20
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 03.11.2012 20:57:40
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
