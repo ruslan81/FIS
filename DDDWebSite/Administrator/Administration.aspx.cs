@@ -1131,6 +1131,11 @@ public partial class Administrator_Administration : System.Web.UI.Page
                 {
                     dataBlock.usersTable.DeleteUserSoft(user);
                 }
+                List<int> groups = dataBlock.cardsTable.GetAllGroupIds(Convert.ToInt32(id.Value));
+                foreach (int gr in groups)
+                {
+                    dataBlock.cardsTable.DeleteGroup(Convert.ToInt32(id.Value), gr);
+                }
             }
         }
         catch (Exception ex)
@@ -1163,6 +1168,11 @@ public partial class Administrator_Administration : System.Web.UI.Page
             foreach (int user in users)
             {
                 dataBlock.usersTable.DeleteUserSoft(user);
+            }
+            List<int> groups = dataBlock.cardsTable.GetAllGroupIds(id);
+            foreach (int gr in groups)
+            {
+                dataBlock.cardsTable.DeleteGroup(id, gr);
             }
         }
         catch (Exception ex)

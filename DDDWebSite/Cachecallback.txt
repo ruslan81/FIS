@@ -11890,3 +11890,5 @@ Cache Callback: 03.11.2012 20:57:40
 Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
 Cache Callback: 03.11.2012 23:21:40
 Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 04.11.2012 0:26:20
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'

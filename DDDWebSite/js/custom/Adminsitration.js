@@ -245,13 +245,23 @@ function loadGeneralData() {
                     //isEditable: false,
                     disabled: true
                 });
-                if (mode == "edit") {
+                if (mode == "edit" || mode == "create") {
                     $("#timeZoneSelector").wijcombobox({
                         disabled: false
                     });
                     $("#country").wijcombobox({
                         disabled: false
                     });
+                    if ($("#country").attr("countryId") == 0) {
+                        $("#country").wijcombobox({
+                            selectedIndex: 0
+                        });
+                    }
+                    if ($("#timeZoneSelector").attr("timeZoneId") == 0) {
+                        $("#timeZoneSelector").wijcombobox({
+                            selectedIndex: 0
+                        });
+                    }
                 }
             }
         }
@@ -1293,7 +1303,7 @@ function loadGeneralDetailedData() {
             selectedIndex: 0
         });
         $("#country").attr("countryId", "0");
-
+        
         $("#detailedData1 .input").removeClass("inputField-readonly");
         $("#detailedData1 .input").removeAttr("readonly");
         $("#detailedData1 .input").addClass("inputField");

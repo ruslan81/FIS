@@ -1710,6 +1710,17 @@ namespace DB.SQL
                 cmd.Parameters.AddWithValue("@REGION_ID", orgRegionId);
                 cmd.Parameters.AddWithValue("@STRID_ORG_NAME", name);
                 cmd.ExecuteNonQuery();
+
+                sql = "INSERT INTO fn_groups "
+                    + " (GROUP_NAME, GROUP_COMMENT, ORG_ID, CARD_TYPE_ID) "
+                    + "VALUES (@GROUP_NAME, @GROUP_COMMENT, @ORG_ID, @CARD_TYPE_ID) ";
+                cmd = new MySqlCommand(sql, sqlConnection);
+                cmd.Parameters.AddWithValue("@GROUP_NAME", "Общая группа");
+                cmd.Parameters.AddWithValue("@GROUP_COMMENT", "Группа по умолчанию");
+                cmd.Parameters.AddWithValue("@ORG_ID", generatedId);
+                cmd.Parameters.AddWithValue("@CARD_TYPE_ID", 0);
+                cmd.ExecuteNonQuery();
+
             }
             else
             {
