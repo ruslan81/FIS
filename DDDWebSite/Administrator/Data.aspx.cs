@@ -466,6 +466,58 @@ public partial class Administrator_Data : System.Web.UI.Page
         return vehTree;
     }
 
+    /// <summary>
+    ///Получить элементы дерева в разделе "Группы"
+    /// </summary>
+    /// <returns>String</returns>
+    [System.Web.Services.WebMethod]
+    public static GroupTree GetGroupsTree(String OrgID)
+    {
+        GroupTree groupTree = new GroupTree();
+        try
+        {
+            string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+            DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+            int orgId = Convert.ToInt32(OrgID);
+            dataBlock.OpenConnection();
+            String name = dataBlock.organizationTable.GetOrganizationName(orgId);
+
+            groupTree.OrgName = name;
+
+            TreeGroup gr = new TreeGroup();
+            gr.GroupName = "Водители";
+            List<int> groupIds = dataBlock.cardsTable.GetAllGroupIds(orgId, dataBlock.cardsTable.driversCardTypeId);
+            foreach (int grId in groupIds){
+                if (dataBlock.cardsTable.GetGroupCardTypeById(grId) != 0) {
+                    String name1 = dataBlock.cardsTable.GetGroupNameById(grId);
+                    gr.addValue(grId.ToString(),name1);
+                }
+            }
+            groupTree.addGroup(gr);
+
+            gr = new TreeGroup();
+            gr.GroupName = "Транспортные средства";
+            groupIds = dataBlock.cardsTable.GetAllGroupIds(orgId, dataBlock.cardsTable.vehicleCardTypeId);
+            foreach (int grId in groupIds)
+            {
+                if (dataBlock.cardsTable.GetGroupCardTypeById(grId) != 0)
+                {
+                    String name1 = dataBlock.cardsTable.GetGroupNameById(grId);
+                    gr.addValue(grId.ToString(), name1);
+                }
+            }
+            groupTree.addGroup(gr);
+            
+            dataBlock.CloseConnection();
+            return groupTree;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            //return null;
+        }
+    }
+
     private static List<int> getYearsList(DateTime start, DateTime end)
     {
         List<int> years = new List<int>();

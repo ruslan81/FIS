@@ -54,7 +54,7 @@
                         $("#userControls").empty();
                         loadDriversTreeSingle("", "");
                     }
-                    //Раздел Водители
+                    //Раздел ТС
                     if ($("a", ui.newHeader).attr("code") == 4) {
                         currentCardId = "";
                         $("#headerSettings").empty();
@@ -63,6 +63,16 @@
                         $("#contentSettingsPlace").empty();
                         $("#userControls").empty();
                         loadVehiclesTreeSingle("", "");
+                    }
+                    //Раздел Группы
+                    if ($("a", ui.newHeader).attr("code") == 5) {
+                        currentCardId = "";
+                        $("#headerSettings").empty();
+                        $("#headerSettings").text("Настройки групп");
+                        $("#contentSettings").empty();
+                        $("#contentSettingsPlace").empty();
+                        $("#userControls").empty();
+                        loadGroupsTreeSingle("", "");
                     }
                 }
             });

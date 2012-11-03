@@ -393,6 +393,33 @@ function loadVehiclesTreeSingle(key, type) {
     });
 }
 
+function loadGroupsTreeSingle(key, type) {
+    $.ajax({
+        type: "POST",
+        url: "Data.aspx/GetGroupsTree",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#GroupsTreeSingle").wijtree("destroy");
+            $("#GroupsTreeSingle").empty();
+            $("#tmplDriverTree").tmpl(response.d).appendTo("#GroupsTreeSingle");
+            $("#GroupsTreeSingle").wijtree();
+            $("#GroupsTreeSingle").wijtree({ selectedNodeChanged: function (e, data) {
+                //onSingleVehicleNodeSelected(e, data);
+            }
+            });
+            $('#GroupsTreeSingle [key="' + key + '"][li_type="' + type + '"]').wijtreenode({ selected: true });
+            $('span .ui-icon').addClass("ui-icon-triangle-1-se");
+            $('span .ui-icon').removeClass("ui-icon-triangle-1-e");
+            $('.wijmo-wijtree-child').css("display", "block");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
+    });
+}
+
 //Событие при выделении узла дерева
 function onRecoverUserNodeSelected(e, data) {
     isSelected = $("div", data.element).attr("aria-selected");
