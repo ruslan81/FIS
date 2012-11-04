@@ -263,36 +263,36 @@ function onOverlookNodeSelected(e, data) {
         $("#dateErrorBlock").hide();
 
         //!TODO comment if you want standart functional without diagram
-        $(".item-detail").html("Выберите интересующий вас год");
+        $(".item-detail-text").html("Выберите интересующий вас год");
         $("#calendarWrapper").show();
         //Просмотреть (Водитель)
         if ($("#accordion").accordion("option", "active") == 2) {
             $('#diagram').Calendar({ 'height-ratio-percent': '60', 'url': 'Data.aspx/GetOverlookDriverNodeData', 'card-id': cardID, 'org-id': $.cookie("CURRENT_ORG_ID") });
             $('#diagram').bind('selectyear', function (e) {
-                $(".item-detail").html("Вы выбрали <b>" + e.year + "</b> год" +
+                $(".item-detail-text").html("Вы выбрали <b>" + e.year + "</b> год" + ", доступно <b>" + e.value.toFixed(2) + "%</b> данных за год" +
                     "<br/>" +
                     "Для получения подробной информации выберите интересующий вас месяц и день");
             });
             $('#diagram').bind('selectmonth', function (e) {
-                $(".item-detail").html(e.month + "." + e.year + " - доступно <b>" + e.value.toFixed(2) + "%</b> данных за месяц");
+                $(".item-detail-text").html(e.month + "." + e.year + " - доступно <b>" + e.value.toFixed(2) + "%</b> данных за месяц");
             });
             $('#diagram').bind('selectday', function (e) {
-                $(".item-detail").html(e.day + "." + e.month + "." + e.year + " - доступно <b>" + e.value.toFixed(2) + "%</b> данных за день");
+                $(".item-detail-text").html(e.day + "." + e.month + "." + e.year + " - доступно <b>" + e.value.toFixed(2) + "%</b> данных за день");
             });
         }
         //Просмотреть (ТС)
         if ($("#accordion").accordion("option", "active") == 3) {
             $('#diagram').Calendar({ 'height-ratio-percent': '60', 'url': 'Data.aspx/GetOverlookVehicleNodeData', 'card-id': cardID, 'org-id': $.cookie("CURRENT_ORG_ID") });
             $('#diagram').bind('selectyear', function (e) {
-                $(".item-detail").html("Вы выбрали <b>" + e.year + "</b> год" +
+                $(".item-detail-text").html("Вы выбрали <b>" + e.year + "</b> год" + " - доступно <b>" + e.value.toFixed(2) + "%</b> данных за год" +
                     "<br/>" +
                     "Для получения подробной информации выберите интересующий вас месяц и день");
             });
             $('#diagram').bind('selectmonth', function (e) {
-                $(".item-detail").html(e.month + "." + e.year + " - доступно <b>" + e.value.toFixed(2) + "%</b> данных за месяц");
+                $(".item-detail-text").html(e.month + "." + e.year + " - доступно <b>" + e.value.toFixed(2) + "%</b> данных за месяц");
             });
             $('#diagram').bind('selectday', function (e) {
-                $(".item-detail").html(e.day + "." + e.month + "." + e.year + " - доступно <b>" + e.value.toFixed(2) + "%</b> данных за день");
+                $(".item-detail-text").html(e.day + "." + e.month + "." + e.year + ", доступно <b>" + e.value.toFixed(2) + "%</b> данных за день");
             });
         }
         

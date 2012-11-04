@@ -603,7 +603,11 @@
                 <canvas id="diagram" width="200" height="200"></canvas>
             </div>
             <div class="item-detail" style="display: inline-block;vertical-align: middle;width: 200px;text-align:left;">
-                Выберите интересующий вас год
+                <div class="item-detail-text">Выберите интересующий вас год</div>
+                <center>
+                    <div class="loading-icon" style="display:none;margin-top:5px;">
+                    </div>
+                </center>
             </div>
         </center>
     </div>
