@@ -75,6 +75,10 @@
                         $("#userControls").empty();
                         loadGroupsTreeSingle("", "");
                     }
+                    //Раздел Настройки по умолчанию
+                    if ($("a", ui.newHeader).attr("code") == 6) {
+                        loadDefaultSettings();
+                    }
                 }
             });
 
@@ -631,6 +635,19 @@
                 </ul>
             </div>
 
+            </div>
+
+        </div>
+
+        <div>
+            <h3><asp:LinkButton ID="AccordionHeader6_Default" CausesValidation="false" runat="server" PostBackUrl="#" Text="Настройки по умолчанию" code="6"/></h3>
+            <div>
+
+            <div style="margin-top:10px;">
+                <center>
+                    Данный раздел позволяет вам редактировать настройки по умолчанию.
+                </center>
+            </div>
             </div>
 
         </div>
