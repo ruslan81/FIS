@@ -447,6 +447,7 @@ public partial class Administrator_Data : System.Web.UI.Page
                 TreeGroup gr = new TreeGroup();
                 string grName = dataBlock.cardsTable.GetGroupNameById(groupIds[i]);
                 gr.GroupName = grName;
+                gr.GroupId = groupIds[i];
                 List<int> values = dataBlock.cardsTable.GetAllCardIdsByGroupId(orgId, dataBlock.cardsTable.vehicleCardTypeId, groupIds[i]);
 
                 for (int j = 0; j < values.Count; j++)
@@ -493,10 +494,12 @@ public partial class Administrator_Data : System.Web.UI.Page
                     gr.addValue(grId.ToString(),name1);
                 }
             }
+            gr.GroupId = 1;
             groupTree.addGroup(gr);
 
             gr = new TreeGroup();
             gr.GroupName = "Транспортные средства";
+            gr.GroupId = 2;
             groupIds = dataBlock.cardsTable.GetAllGroupIds(orgId, dataBlock.cardsTable.vehicleCardTypeId);
             foreach (int grId in groupIds)
             {

@@ -185,6 +185,41 @@ public partial class Administrator_Settings : System.Web.UI.Page
     }
 
     /// <summary>
+    ///Получить настройки группы
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static GroupData GetGroupSettings(String CardID)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        try
+        {
+            dataBlock.OpenConnection();
+            int groupID = int.Parse(CardID);
+
+            int num = 0;
+            GroupData gd = new GroupData(groupID);
+            gd.Name = dataBlock.cardsTable.GetGroupNameById(groupID);
+            gd.Comment = dataBlock.cardsTable.GetGroupCommentById(groupID);
+            gd.Number = ++num;
+            gd.cardType = dataBlock.cardsTable.GetGroupCardTypeById(groupID);
+
+            return gd;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            //return null;
+        }
+        finally
+        {
+            //dataBlock.organizationTable.CloseConnection();
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
     ///Сохранить Настройки групп
     /// </summary>
     /// <returns></returns>
@@ -331,6 +366,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
         try
         {
             int cardId = int.Parse(CardID);
+            if (cardId == -1) return null;
 
             dataBlock.OpenConnection();
             CardData gd = new CardData(cardId);
@@ -482,6 +518,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
         try
         {
             int cardId = int.Parse(CardID);
+            if (cardId == -1) return null;
 
             dataBlock.OpenConnection();
             CardData gd = new CardData(cardId);
@@ -625,6 +662,37 @@ public partial class Administrator_Settings : System.Web.UI.Page
                 string name = dataBlock.cardsTable.GetGroupNameById(index);
                 result.Add(new MapItem(Convert.ToString(index), name));
             }
+            return result;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            //return null;
+        }
+        finally
+        {
+            //dataBlock.organizationTable.CloseConnection();
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Получение списка групп
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static List<MapItem> GetGroupListGroups(String OrgID)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+
+        try
+        {
+            dataBlock.OpenConnection();
+            int orgID = int.Parse(OrgID);
+            List<MapItem> result = new List<MapItem>();
+            result.Add(new MapItem(Convert.ToString(1), "Водители"));
+            result.Add(new MapItem(Convert.ToString(2), "ТС"));
             return result;
         }
         catch (Exception ex)
