@@ -19,12 +19,13 @@
     <script type="text/javascript" language="javascript">
 
         var mode = "";
-        
+        var currentCardId = "";
+        var currentDriverId = "";
+        var selectedNodeType = "-1";
+
         //run on page load
         $(function () {
             mode = "";
-            currentDriverId = "";
-            currentCardId = "";
             buildTree();
             buildRemindTree();
 
@@ -46,9 +47,9 @@
 
                     //Раздел Водители
                     if ($("a", ui.newHeader).attr("code") == 3) {
-                        currentCardId = "";
+                        currentCardId = "-1";
                         $("#headerSettings").empty();
-                        $("#headerSettings").text("Настройки водителя");
+                        $("#headerSettings").text("Настройки водителей");
                         $("#contentSettings").empty();
                         $("#contentSettingsPlace").empty();
                         $("#userControls").empty();
@@ -56,9 +57,9 @@
                     }
                     //Раздел ТС
                     if ($("a", ui.newHeader).attr("code") == 4) {
-                        currentCardId = "";
+                        currentCardId = "-1";
                         $("#headerSettings").empty();
-                        $("#headerSettings").text("Настройки транспортного средства");
+                        $("#headerSettings").text("Настройки транспортных средств");
                         $("#contentSettings").empty();
                         $("#contentSettingsPlace").empty();
                         $("#userControls").empty();
@@ -73,6 +74,10 @@
                         $("#contentSettingsPlace").empty();
                         $("#userControls").empty();
                         loadGroupsTreeSingle("", "");
+                    }
+                    //Раздел Настройки по умолчанию
+                    if ($("a", ui.newHeader).attr("code") == 6) {
+                        loadDefaultSettings();
                     }
                 }
             });
@@ -341,13 +346,34 @@
             <td class="key" style="font-size:12px;width:200px;">Номер</td><td style="padding-left:50px;"><input id="numberinputSingle" value="{{html Number}}" class="inputField-readonly input" readonly="readonly"/></td>
             </tr>
             <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;">Гос. номер</td><td style="padding-left:50px;"><input id="nameinputSingle" value="{{html Name}}" class="inputField-readonly input" readonly="readonly"/></td>
+            <td class="key" style="font-size:12px;width:200px;">Гос. Номер</td><td style="padding-left:50px;"><input id="nameinputSingle" value="{{html Name}}" class="inputField-readonly input" readonly="readonly"/></td>
             </tr>
             <tr style="background-color:#eee;">
             <td class="key" style="font-size:12px;width:200px;">Комментарий</td><td style="padding-left:50px;"><input id="commentinputSingle" value="{{html Comment}}" class="inputField-readonly input" readonly="readonly"/></td>
             </tr>
             <tr style="background-color:#eee;">
             <td class="key" style="font-size:12px;width:200px;">Группа</td><td style="padding-left:50px;"><select id="groupSelectorSingle" name="groupSelector" group="{{html groupID}}" onchange="this.group=this.value;"></select></td>
+            </tr>
+            </tbody>
+            </table>
+    </script>
+
+    <script id="tmplSingleGroupData" type="text/x-jquery-tmpl">
+        <table id="contentTable" style="border-collapse: separate;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
+                border="0" cellpadding="0" cellspacing="0">
+                <tbody id="" class="ui-widget-content wijmo-wijgrid-data">
+            <tr style="background-color:#eee;">
+            <td class="key" style="font-size:12px;width:200px;">Название группы</td><td style="padding-left:50px;"><input id="nameinputSingle" value="{{html Name}}" class="inputField-readonly input" readonly="readonly"/></td>
+            </tr>
+            <tr style="background-color:#eee;">
+            <td class="key" style="font-size:12px;width:200px;">Комментарий</td><td style="padding-left:50px;"><input id="commentinputSingle" value="{{html Comment}}" class="inputField-readonly input" readonly="readonly"/></td>
+            </tr>
+            <tr style="background-color:#eee;">
+            <td class="key" style="font-size:12px;width:200px;">Тип группы</td>
+            <td style="padding-left:50px;">
+            <select id="groupSelectorSingle" name="groupSelector" card="{{html cardType}}" onchange="this.card=this.value;">
+            </select>
+            </td>
             </tr>
             </tbody>
             </table>
@@ -575,7 +601,18 @@
             </div>
 
         </div>
+        <div>
+            <h3><asp:LinkButton ID="AccordionHeader5_Groups" CausesValidation="false" runat="server" PostBackUrl="#" Text="Группы" code="5"/></h3>
+            <div>
 
+            <div>
+                <ul id="GroupsTreeSingle">
+                </ul>
+            </div>
+
+            </div>
+
+        </div>
         <div>
             <h3><asp:LinkButton ID="AccordionHeader3_Drivers" CausesValidation="false" runat="server" PostBackUrl="#" Text="Водители" code="3"/></h3>
             <div>
@@ -601,18 +638,20 @@
             </div>
 
         </div>
+
         <div>
-            <h3><asp:LinkButton ID="AccordionHeader5_Groups" CausesValidation="false" runat="server" PostBackUrl="#" Text="Группы" code="5"/></h3>
+            <h3><asp:LinkButton ID="AccordionHeader6_Default" CausesValidation="false" runat="server" PostBackUrl="#" Text="Настройки по умолчанию" code="6"/></h3>
             <div>
 
-            <div>
-                <ul id="GroupsTreeSingle">
-                </ul>
+            <div style="margin-top:10px;">
+                <center>
+                    Данный раздел позволяет вам редактировать настройки по умолчанию.
+                </center>
             </div>
-
             </div>
 
         </div>
+        
 
                 
     </div>

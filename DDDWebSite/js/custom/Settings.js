@@ -328,10 +328,12 @@ function loadDriversTree(key, type) {
                 onRemindDriverNodeSelected(e, data);
             }
             });
+            //if (!(key == "" || type == "")) {
             $('#DriversTree [key="' + key + '"][li_type="' + type + '"]').wijtreenode({ selected: true });
             $('span .ui-icon').addClass("ui-icon-triangle-1-se");
             $('span .ui-icon').removeClass("ui-icon-triangle-1-e");
             $('.wijmo-wijtree-child').css("display", "block");
+            //}
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -355,10 +357,12 @@ function loadDriversTreeSingle(key, type) {
                 onSingleDriverNodeSelected(e, data);
             }
             });
-            $('#DriversTreeSingle [key="' + key + '"][li_type="' + type + '"]').wijtreenode({ selected: true });
-            $('span .ui-icon').addClass("ui-icon-triangle-1-se");
-            $('span .ui-icon').removeClass("ui-icon-triangle-1-e");
-            $('.wijmo-wijtree-child').css("display", "block");
+            if (!(key == "" || type == "")) {
+                $('#DriversTreeSingle [key="' + key + '"][li_type="' + type + '"]').wijtreenode({ selected: true });
+                $('span .ui-icon').addClass("ui-icon-triangle-1-se");
+                $('span .ui-icon').removeClass("ui-icon-triangle-1-e");
+                $('.wijmo-wijtree-child').css("display", "block");
+            }
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -382,10 +386,12 @@ function loadVehiclesTreeSingle(key, type) {
                 onSingleVehicleNodeSelected(e, data);
             }
             });
-            $('#VehiclesTreeSingle [key="' + key + '"][li_type="' + type + '"]').wijtreenode({ selected: true });
-            $('span .ui-icon').addClass("ui-icon-triangle-1-se");
-            $('span .ui-icon').removeClass("ui-icon-triangle-1-e");
-            $('.wijmo-wijtree-child').css("display", "block");
+            if (!(key == "" || type == "")) {
+                $('#VehiclesTreeSingle [key="' + key + '"][li_type="' + type + '"]').wijtreenode({ selected: true });
+                $('span .ui-icon').addClass("ui-icon-triangle-1-se");
+                $('span .ui-icon').removeClass("ui-icon-triangle-1-e");
+                $('.wijmo-wijtree-child').css("display", "block");
+            }
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -406,13 +412,15 @@ function loadGroupsTreeSingle(key, type) {
             $("#tmplDriverTree").tmpl(response.d).appendTo("#GroupsTreeSingle");
             $("#GroupsTreeSingle").wijtree();
             $("#GroupsTreeSingle").wijtree({ selectedNodeChanged: function (e, data) {
-                //onSingleVehicleNodeSelected(e, data);
+                onSingleGroupNodeSelected(e, data);
             }
             });
-            $('#GroupsTreeSingle [key="' + key + '"][li_type="' + type + '"]').wijtreenode({ selected: true });
-            $('span .ui-icon').addClass("ui-icon-triangle-1-se");
-            $('span .ui-icon').removeClass("ui-icon-triangle-1-e");
-            $('.wijmo-wijtree-child').css("display", "block");
+            if (!(key == "" || type == "")) {
+                $('#GroupsTreeSingle [key="' + key + '"][li_type="' + type + '"]').wijtreenode({ selected: true });
+                $('span .ui-icon').addClass("ui-icon-triangle-1-se");
+                $('span .ui-icon').removeClass("ui-icon-triangle-1-e");
+                $('.wijmo-wijtree-child').css("display", "block");
+            }
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -448,11 +456,21 @@ function onSingleDriverNodeSelected(e, data) {
     isSelected = $("div", data.element).attr("aria-selected");
     type = $("a span", data.element).attr("type");
     $("#userControls").empty();
-    if (isSelected == "true" && type == "0") {
-        currentCardId = $("a span", data.element).attr("key");
-        loadSingleDriverSettings();
+    if (isSelected == "true") {
+        if (type == "0") {
+            currentCardId = $("a span", data.element).attr("key");
+            selectedNodeType = "0";
+            loadSingleDriverSettings();
+        }
+        if (type == "1") {
+            currentCardId = "-1";
+            selectedNodeType = $("a span", data.element).attr("key");
+            loadSingleDriverSettings();
+        }
     } else {
         //$("#headerSettings").empty();
+        selectedNodeType = "-1";
+        currentCardId = "-1";
         $("#contentSettings").empty();
     }
 }
@@ -462,12 +480,47 @@ function onSingleVehicleNodeSelected(e, data) {
     isSelected = $("div", data.element).attr("aria-selected");
     type = $("a span", data.element).attr("type");
     $("#userControls").empty();
-    if (isSelected == "true" && type == "0") {
-        currentCardId = $("a span", data.element).attr("key");
-        loadSingleVehicleSettings();
+    if (isSelected == "true") {
+        if (type == "0") {
+            currentCardId = $("a span", data.element).attr("key");
+            selectedNodeType = "0";
+            loadSingleVehicleSettings();
+        }
+        if (type == "1") {
+            currentCardId = "-1";
+            selectedNodeType = $("a span", data.element).attr("key");
+            loadSingleVehicleSettings();
+        }
     } else {
         //$("#headerSettings").empty();
         $("#contentSettings").empty();
+        selectedNodeType = "-1";
+        currentCardId = "-1";
+    }
+}
+
+
+//Событие при выделении узла дерева
+function onSingleGroupNodeSelected(e, data) {
+    isSelected = $("div", data.element).attr("aria-selected");
+    type = $("a span", data.element).attr("type");
+    $("#userControls").empty();
+    if (isSelected == "true") {
+        if (type == "0") {
+            currentCardId = $("a span", data.element).attr("key");
+            selectedNodeType = "0";
+            loadSingleGroupSettings();
+        }
+        if (type == "1") {
+            currentCardId = "-1";
+            selectedNodeType = $("a span", data.element).attr("key");
+            loadSingleGroupSettings();
+        }
+    } else {
+        //$("#headerSettings").empty();
+        $("#contentSettings").empty();
+        selectedNodeType = "-1";
+        currentCardId = "-1";
     }
 }
 
@@ -665,12 +718,12 @@ function loadDriversSettings() {
 
 function loadSingleDriverSettings() {
     $("#headerSettings").empty();
-    $("#headerSettings").text("Настройки водителя");
+    $("#headerSettings").text("Настройки водителей");
     $("#contentSettings").empty();
     $("#contentSettingsPlace").empty();
     $("#userControls").empty();
 
-    if (currentCardId == "") {
+    if (currentCardId == "-1" && selectedNodeType == "0") {
         return;
     }
     $.ajax({
@@ -681,9 +734,14 @@ function loadSingleDriverSettings() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            $("#tmplSingleDriverData").tmpl(response.d).appendTo("#contentSettings");
-            createGroupSelectorDrivers();
+            if (selectedNodeType == "0") {
+                $("#tmplSingleDriverData").tmpl(response.d).appendTo("#contentSettings");
+            } else {
+                var param = { Name: "", Number: "", Comment: "", groupID: selectedNodeType };
+                $("#tmplSingleDriverData").tmpl(param).appendTo("#contentSettings");
+            }
             $("#contentTable").show();
+            createGroupSelectorDrivers();
             createUserControlsSingleDriver();
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -694,12 +752,12 @@ function loadSingleDriverSettings() {
 
 function loadSingleVehicleSettings() {
     $("#headerSettings").empty();
-    $("#headerSettings").text("Настройки транспортного средства");
+    $("#headerSettings").text("Настройки транспортных средств");
     $("#contentSettings").empty();
     $("#contentSettingsPlace").empty();
     $("#userControls").empty();
 
-    if (currentCardId == "") {
+    if (currentCardId == "-1" && selectedNodeType == "0") {
         return;
     }
     $.ajax({
@@ -710,10 +768,49 @@ function loadSingleVehicleSettings() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            $("#tmplSingleVehicleData").tmpl(response.d).appendTo("#contentSettings");
+            if (selectedNodeType == "0") {
+                $("#tmplSingleVehicleData").tmpl(response.d).appendTo("#contentSettings");
+            } else {
+                var param = { Name: "", Number: "", Comment: "", groupID: selectedNodeType };
+                $("#tmplSingleVehicleData").tmpl(param).appendTo("#contentSettings");
+            }
             createGroupSelectorTransports();
             $("#contentTable").show();
             createUserControlsSingleTransport();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
+    });
+}
+
+function loadSingleGroupSettings() {
+    $("#headerSettings").empty();
+    $("#headerSettings").text("Настройки групп");
+    $("#contentSettings").empty();
+    $("#contentSettingsPlace").empty();
+    $("#userControls").empty();
+
+    if (currentCardId == "-1" && selectedNodeType == "0") {
+        return;
+    }
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Settings.aspx/GetGroupSettings",
+        data: "{'CardID':'" + currentCardId + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if (selectedNodeType == "0") {
+                $("#tmplSingleGroupData").tmpl(response.d).appendTo("#contentSettings");
+            } else {
+                var param = { Name: "", Number: "", Comment: "", cardType: selectedNodeType };
+                $("#tmplSingleGroupData").tmpl(param).appendTo("#contentSettings");
+            }
+            createGroupSelectorGroups();
+            $("#contentTable").show();
+            createUserControlsSingleGroup();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -1107,6 +1204,10 @@ function createUserControlsSingleDriver() {
     $("#userControls button").button();
     $("#save").button({ disabled: true });
     $("#cancel").button({ disabled: true });
+    if (selectedNodeType != "0") {
+        $("#edit").button({ disabled: true });
+        $("#delete").button({ disabled: true });
+    }
 
     $("#create").click(function () {
         mode = "create";
@@ -1137,7 +1238,7 @@ function createUserControlsSingleDriver() {
     });
 
     $("#delete").click(function () {
-        if (currentCardId == "") {
+        if (currentCardId == "-1") {
             return;
         }
         $("#deletedialog").dialog({ buttons: { "OK": function () {
@@ -1229,7 +1330,8 @@ function createUserControlsSingleDriver() {
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
-                    currentCardId = "";
+                    currentCardId = "-1";
+                    selectedNodeType = "-1";
                     loadSingleDriverSettings();
                     loadDriversTreeSingle("", "");
                 },
@@ -1256,6 +1358,10 @@ function createUserControlsSingleTransport() {
     $("#userControls button").button();
     $("#save").button({ disabled: true });
     $("#cancel").button({ disabled: true });
+    if (selectedNodeType != "0") {
+        $("#edit").button({ disabled: true });
+        $("#delete").button({ disabled: true });
+    }
 
     $("#create").click(function () {
         mode = "create";
@@ -1286,7 +1392,7 @@ function createUserControlsSingleTransport() {
     });
 
     $("#delete").click(function () {
-        if (currentCardId == "") {
+        if (currentCardId == "-1") {
             return;
         }
         $("#deletedialog").dialog({ buttons: { "OK": function () {
@@ -1378,7 +1484,8 @@ function createUserControlsSingleTransport() {
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
-                    currentCardId = "";
+                    currentCardId = "-1";
+                    selectedNodeType = "-1";
                     loadSingleVehicleSettings();
                     loadVehiclesTreeSingle("", "");
                 },
@@ -1394,6 +1501,157 @@ function createUserControlsSingleTransport() {
     $("#cancel").click(function () {
         mode = "";
         loadSingleVehicleSettings();
+        return false;
+    });
+}
+
+function createUserControlsSingleGroup() {
+    $("#userControls").empty();
+    $("#userControls").append($("#userControlsGroups").text());
+
+    $("#userControls button").button();
+    $("#save").button({ disabled: true });
+    $("#cancel").button({ disabled: true });
+    if (selectedNodeType != "0") {
+        $("#edit").button({ disabled: true });
+        $("#delete").button({ disabled: true });
+    }
+
+    $("#create").click(function () {
+        mode = "create";
+        $("#edit").button({ disabled: true });
+        $("#delete").button({ disabled: true });
+        $("#create").button({ disabled: true });
+        $("#save").button({ disabled: false });
+        $("#cancel").button({ disabled: false });
+
+        $("#numberinputSingle").removeClass("inputField-readonly");
+        $("#numberinputSingle").addClass("inputField");
+        $("#numberinputSingle").removeAttr("readonly");
+        $("#numberinputSingle").attr("value", "");
+        $("#nameinputSingle").removeClass("inputField-readonly");
+        $("#nameinputSingle").addClass("inputField");
+        $("#nameinputSingle").removeAttr("readonly");
+        $("#nameinputSingle").attr("value", "");
+        $("#commentinputSingle").removeClass("inputField-readonly");
+        $("#commentinputSingle").addClass("inputField");
+        $("#commentinputSingle").removeAttr("readonly");
+        $("#commentinputSingle").attr("value", "");
+        createGroupSelectorDriversSingle($("#groupSelectorSingle"));
+        $("#groupSelectorSingle").wijcombobox(
+                {
+                    disabled: false
+                });
+        return false;
+    });
+
+    $("#delete").click(function () {
+        if (currentCardId == "-1") {
+            return;
+        }
+        $("#deletedialog").dialog({ buttons: { "OK": function () {
+            $(this).dialog("close");
+            var keys = [];
+            keys.push({ Key: "", Value: currentCardId });
+            deleteGroupSingle(keys);
+        },
+            "Отмена": function () {
+                $(this).dialog("close");
+            }
+        }
+
+        });
+        $("#deletedialog").dialog("option", "closeText", '');
+        $("#deletedialog").dialog("option", "resizable", false);
+        $("#deletedialog").dialog("option", "modal", true);
+
+        return false;
+    });
+
+    $("#edit").click(function () {
+        mode = "edit";
+
+        $("#numberinputSingle").removeClass("inputField-readonly");
+        $("#numberinputSingle").addClass("inputField");
+        $("#numberinputSingle").removeAttr("readonly");
+        $("#nameinputSingle").removeClass("inputField-readonly");
+        $("#nameinputSingle").addClass("inputField");
+        $("#nameinputSingle").removeAttr("readonly");
+        $("#commentinputSingle").removeClass("inputField-readonly");
+        $("#commentinputSingle").addClass("inputField");
+        $("#commentinputSingle").removeAttr("readonly");
+        $("#groupSelectorSingle").wijcombobox(
+                    {
+                        disabled: false
+                    });
+
+        $("#edit").button({ disabled: true });
+        $("#delete").button({ disabled: true });
+        $("#create").button({ disabled: true });
+        $("#save").button({ disabled: false });
+        $("#cancel").button({ disabled: false });
+
+        return false;
+    });
+
+    $("#save").click(function () {
+        if (mode == "edit") {
+            var settings = [];
+            name = $("#nameinputSingle").attr("value");
+            comment = $("#commentinputSingle").attr("value");
+            group = $("#groupSelectorSingle").attr("card");
+            settings.push({ Name: name, Comment: comment, grID: currentCardId, cardType: group });
+
+            var order = { OrgID: $.cookie("CURRENT_ORG_ID"), GroupSettings: settings };
+
+            $.ajax({
+                type: "POST",
+                //Page Name (in which the method should be called) and method name
+                url: "Settings.aspx/SaveGroupSettings",
+                data: JSON.stringify(order),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    loadSingleGroupSettings();
+                    loadGroupsTreeSingle(currentCardId, "0");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+                }
+            });
+        }
+        if (mode == "create") {
+            name = $("#nameinputSingle").attr("value");
+            comment = $("#commentinputSingle").attr("value");
+            group = $("#groupSelectorSingle").attr("card");
+
+            var order = { OrgID: $.cookie("CURRENT_ORG_ID"), Name: name, Comment: comment, CardType: group };
+
+            $.ajax({
+                type: "POST",
+                //Page Name (in which the method should be called) and method name
+                url: "Settings.aspx/CreateGroup",
+                data: JSON.stringify(order),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    currentCardId = "-1";
+                    selectedNodeType = "-1";
+                    loadSingleGroupSettings();
+                    loadGroupsTreeSingle("", "");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+                }
+            });
+        }
+        mode = "";
+        return false;
+    });
+
+    $("#cancel").click(function () {
+        mode = "";
+        loadSingleGroupSettings();
         return false;
     });
 }
@@ -1672,6 +1930,27 @@ function deleteGroup(list) {
     });
 }
 
+function deleteGroupSingle(list) {
+    var order = { OrgID: $.cookie("CURRENT_ORG_ID"), GroupIDs: list };
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Settings.aspx/DeleteGroups",
+        data: JSON.stringify(order),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            currentCardId = "-1";
+            selectedNodeType = "-1";
+            loadSingleGroupSettings();
+            loadGroupsTreeSingle("", "");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
+    });
+}
+
 function deleteRemind(list) {
     var order = { OrgID: $.cookie("CURRENT_ORG_ID"), RemindIDs: list };
     $.ajax({
@@ -1718,7 +1997,8 @@ function deleteDriversSingle(list) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            currentCardId = "";
+            currentCardId = "-1";
+            selectedNodeType = "-1";
             loadSingleDriverSettings();
             loadDriversTreeSingle("", "");
         },
@@ -1756,7 +2036,8 @@ function deleteTransportsSingle(list) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            currentCardId = "";
+            currentCardId = "-1";
+            selectedNodeType = "-1";
             loadSingleVehicleSettings();
             loadVehiclesTreeSingle("", "");
         },
@@ -1887,6 +2168,25 @@ function createGroupSelectorTransports() {
         }
     });
 }
+
+function createGroupSelectorGroups() {
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Settings.aspx/GetGroupListGroups",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            createSelectors(response, "groupSelector", "card");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
+    });
+}
+
+
 
 function createGroupSelectorDriversSingle(selector) {
     $.ajax({
