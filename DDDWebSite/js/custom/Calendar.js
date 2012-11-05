@@ -2,6 +2,7 @@
 
     var settings = {
         'height-ratio-percent' : '33',
+        'diagram-diameter' : '0',
         'http-request-timeout' : '100000',
         'card-id' : '0',
         'org-id' : '0',
@@ -43,6 +44,7 @@
             	});
 
             m_HeightRatioPercent = settings["height-ratio-percent"];
+            m_nActualCalendarDiameter = settings["diagram-diameter"];
             m_HttpRequestTimeout = settings["http-request-timeout"];
             m_CardID = settings["card-id"];
             m_OrgID = settings["org-id"];
@@ -123,7 +125,7 @@ function ajax_PostData() {
     }
     else {
         alert("JavaScript:ajax_PostData() - Could not create the XMLHttpRequest Object.");
-        return false;
+        return;
     } // end create XMLHttp PageRequest Object
 
     if (PageRequest) {
@@ -132,25 +134,29 @@ function ajax_PostData() {
         PageRequest.setRequestHeader("Content-type", "application/json; charset=UTF-8");
         PageRequest.send(params);
         var timeout = setTimeout( function(){ PageRequest.abort(); handleError("Time over") }, m_HttpRequestTimeout);
+        $(".loading-icon").show();
     }
 
     PageRequest.onreadystatechange = function() {
         if (4 != PageRequest.readyState)
             return;
 
+        $(".loading-icon").hide();
         m_bProcessingRequest = false;
         clearTimeout(timeout);
 
-        if (200 == PageRequest.status) {
+        if (200 == PageRequest.status)
             setDataJSON(PageRequest);
-        }
         else {
             handleError(PageRequest.statusText);
+            FillSector();
         }
     }
 
     function handleError(message) {
-      alert("Ошибка: " + message)
+        if ("" == message)
+          alert("Неизвестная ошибка");
+        else alert("Ошибка: " + message);
     }
 
     function setDataJSON(req) {
@@ -180,9 +186,9 @@ function ajax_PostData() {
                 }
             }
 	    }
+        m_This.trigger({ type : 'selectyear', year : m_nYear, value : m_dCurPercent });
         FillSector();
     }
-
 } // end ajax_PostData()
 
 function GetMonthNum(sName) {
@@ -289,7 +295,10 @@ function init(idCanvas) {
     m_nRecordCount = 0;
 
     m_nNominalCalendarDiameter = 446;
-    m_nActualCalendarDiameter = screen.height * m_HeightRatioPercent / 100;
+    if (0 == m_nActualCalendarDiameter)
+        m_nActualCalendarDiameter = screen.height * m_HeightRatioPercent / 100;
+    else if (m_nActualCalendarDiameter > screen.height)
+        m_nActualCalendarDiameter = screen.height;
     m_dFactor = 1.0 * m_nActualCalendarDiameter / m_nNominalCalendarDiameter;
 
     m_CanvasId = idCanvas;
@@ -429,8 +438,7 @@ function onClick(e)
                     m_bDays[i] = false;
                 for (var i = 0; i < MONTHS_COUNT; ++i)
                     m_bMonths[i] = false;
-                m_This.trigger({ type: 'selectyear', year: nYear });
-                ajax_PostData();
+                    ajax_PostData();
             }
         }
         else if (nMonth && m_bMonths[nMonth - 1]) {
@@ -442,7 +450,7 @@ function onClick(e)
 
                 var nCurYear = -1, nCurMonth = -1, nCurDay = 0, curyear, curmon, curday;
 
-                for (var i = 0; i < m_Results.length; i++) {
+	            for (var i = 0; i < m_Results.length; i++) {
                     if (4 == m_Results[i].YearName.length && (curyear = parseInt(m_Results[i].YearName)) > -1)
                         nCurYear = curyear;
 
@@ -459,8 +467,8 @@ function onClick(e)
                             m_bDays[nCurDay] = true;
                         }
                     }
-                }
-                m_This.trigger({ type: 'selectmonth', month: nMonth < 10 ? "0" + nMonth : nMonth, year: nCurYear, value: m_dCurPercent });
+	            }
+                m_This.trigger({ type : 'selectmonth', month : (m_nMonth < 10 ? "0" + m_nMonth : m_nMonth), year : m_nYear, value : m_dCurPercent });
             }
         }
         else if (nDay && m_bDays[nDay - 1]) {
@@ -469,7 +477,7 @@ function onClick(e)
 
                var nCurYear = -1, nCurMonth = -1, nCurDay = 0, curyear, curmon, curday;
 
-                for (var i = 0; i < m_Results.length; i++) {
+	            for (var i = 0; i < m_Results.length; i++) {
                     if (4 == m_Results[i].YearName.length && (curyear = parseInt(m_Results[i].YearName)) > -1)
                         nCurYear = curyear;
 
@@ -481,8 +489,8 @@ function onClick(e)
 
                     if (m_nYear == nCurYear && m_nMonth == nCurMonth + 1 && m_nDay == nCurDay)
                         m_dCurPercent = m_Results[i].Percent;
-                }
-                m_This.trigger({ type: 'selectday', day: nDay < 10 ? "0" + nDay : nDay, month: m_nMonth < 10 ? "0" + m_nMonth : m_nMonth, year: nCurYear, value: m_dCurPercent });
+	            }
+                m_This.trigger({ type : 'selectday', day : (nDay < 10 ? "0" + nDay : nDay), month : (m_nMonth < 10 ? "0" + m_nMonth : m_nMonth), year : m_nYear, value : m_dCurPercent });
             }
         }
         FillSector();
@@ -656,9 +664,9 @@ function DrawText(context)
     if (sDate.length) {
         context.font = 'bold ' + 14 * m_dFactor + 'px Arial';
         //sDate = m_nRecordCount + " записей";
-	if (false == m_bProcessingRequest)
-        	sDate = m_dCurPercent.toFixed(2) + " %";
-	else sDate = "Запрос";
+	//if (false == m_bProcessingRequest)
+    sDate = m_dCurPercent.toFixed(2) + " %";
+	//else sDate = "Запрос";
         context.fillText(sDate, m_nCenterX - 4 * m_dFactor * sDate.length + 5, m_nCenterY + 30 * m_dFactor);
     }
 
