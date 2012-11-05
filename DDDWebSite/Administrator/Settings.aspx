@@ -323,16 +323,16 @@
                 border="0" cellpadding="0" cellspacing="0">
                 <tbody id="" class="ui-widget-content wijmo-wijgrid-data">
             <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;">Номер</td><td style="padding-left:50px;"><input id="numberinputSingle" value="{{html Number}}" class="inputField-readonly input" readonly="readonly"/></td>
+            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Номер</td><td style="padding-left:50px;padding-top:10px;"><input id="numberinputSingle" value="{{html Number}}" class="inputField-readonly input" readonly="readonly"/></td>
             </tr>
             <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;">ФИО</td><td style="padding-left:50px;"><input id="nameinputSingle" value="{{html Name}}" class="inputField-readonly input" readonly="readonly"/></td>
+            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">ФИО</td><td style="padding-left:50px;padding-top:10px;"><input id="nameinputSingle" value="{{html Name}}" class="inputField-readonly input" readonly="readonly"/></td>
             </tr>
             <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;">Комментарий</td><td style="padding-left:50px;"><input id="commentinputSingle" value="{{html Comment}}" class="inputField-readonly input" readonly="readonly"/></td>
+            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Комментарий</td><td style="padding-left:50px;padding-top:10px;"><input id="commentinputSingle" value="{{html Comment}}" class="inputField-readonly input" readonly="readonly"/></td>
             </tr>
             <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;">Группа</td><td style="padding-left:50px;"><select id="groupSelectorSingle" name="groupSelector" group="{{html groupID}}" onchange="this.group=this.value;"></select></td>
+            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Группа</td><td style="padding-left:50px;padding-top:10px;"><select id="groupSelectorSingle" name="groupSelector" group="{{html groupID}}" onchange="this.group=this.value;"></select></td>
             </tr>
             </tbody>
             </table>
@@ -343,16 +343,16 @@
                 border="0" cellpadding="0" cellspacing="0">
                 <tbody id="" class="ui-widget-content wijmo-wijgrid-data">
             <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;">Номер</td><td style="padding-left:50px;"><input id="numberinputSingle" value="{{html Number}}" class="inputField-readonly input" readonly="readonly"/></td>
+            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Номер</td><td style="padding-left:50px;padding-top:10px;"><input id="numberinputSingle" value="{{html Number}}" class="inputField-readonly input" readonly="readonly"/></td>
             </tr>
             <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;">Гос. Номер</td><td style="padding-left:50px;"><input id="nameinputSingle" value="{{html Name}}" class="inputField-readonly input" readonly="readonly"/></td>
+            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Гос. Номер</td><td style="padding-left:50px;padding-top:10px;"><input id="nameinputSingle" value="{{html Name}}" class="inputField-readonly input" readonly="readonly"/></td>
             </tr>
             <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;">Комментарий</td><td style="padding-left:50px;"><input id="commentinputSingle" value="{{html Comment}}" class="inputField-readonly input" readonly="readonly"/></td>
+            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Комментарий</td><td style="padding-left:50px;padding-top:10px;"><input id="commentinputSingle" value="{{html Comment}}" class="inputField-readonly input" readonly="readonly"/></td>
             </tr>
             <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;">Группа</td><td style="padding-left:50px;"><select id="groupSelectorSingle" name="groupSelector" group="{{html groupID}}" onchange="this.group=this.value;"></select></td>
+            <td class="key" style="font-size:12px;padding-top:10px;">Группа</td><td style="padding-left:50px;padding-top:10px;"><select id="groupSelectorSingle" name="groupSelector" group="{{html groupID}}" onchange="this.group=this.value;"></select></td>
             </tr>
             </tbody>
             </table>
@@ -363,14 +363,14 @@
                 border="0" cellpadding="0" cellspacing="0">
                 <tbody id="" class="ui-widget-content wijmo-wijgrid-data">
             <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;">Название группы</td><td style="padding-left:50px;"><input id="nameinputSingle" value="{{html Name}}" class="inputField-readonly input" readonly="readonly"/></td>
+            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Название группы</td><td style="padding-left:50px;padding-top:10px;"><input id="nameinputSingle" value="{{html Name}}" class="inputField-readonly input" readonly="readonly"/></td>
             </tr>
             <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;">Комментарий</td><td style="padding-left:50px;"><input id="commentinputSingle" value="{{html Comment}}" class="inputField-readonly input" readonly="readonly"/></td>
+            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Комментарий</td><td style="padding-left:50px;padding-top:10px;"><input id="commentinputSingle" value="{{html Comment}}" class="inputField-readonly input" readonly="readonly"/></td>
             </tr>
             <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;">Тип группы</td>
-            <td style="padding-left:50px;">
+            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Тип группы</td>
+            <td style="padding-left:50px;padding-top:10px;">
             <select id="groupSelectorSingle" name="groupSelector" card="{{html cardType}}" onchange="this.card=this.value;">
             </select>
             </td>
@@ -578,29 +578,7 @@
                 </ul>
             </div>
         </div>
-        <div id="reminders">
-            <h3><asp:LinkButton ID="AccordionHeader2_Reminders" CausesValidation="false" runat="server" PostBackUrl="#" Text="Напоминания"/></h3>
-            <div>
-
-            <div style="margin-top:10px;">
-                <center>
-                    Данный раздел позволяет создавать и редактировать напоминания различных типов и периодичности для контроля за группами водителей или конкретными водителями.
-                    <br/>
-                    <br/>
-                    Выбранные вами напоминания будут автоматически формироваться и отправляться на e-mail адресата с заданной периодичностью.
-                </center>
-            </div>
-
-            <div id="choosedialog" title="Выбор источника" style="display: none;">
-	            <p>Выберите водителя или группу водителей:</p>
-                <div>
-                    <ul id="DriversTree">
-                    </ul>
-                </div>
-            </div>
-            </div>
-
-        </div>
+        
         <div>
             <h3><asp:LinkButton ID="AccordionHeader5_Groups" CausesValidation="false" runat="server" PostBackUrl="#" Text="Группы" code="5"/></h3>
             <div>
@@ -635,6 +613,29 @@
                 </ul>
             </div>
 
+            </div>
+
+        </div>
+        <div id="reminders">
+            <h3><asp:LinkButton ID="AccordionHeader2_Reminders" CausesValidation="false" runat="server" PostBackUrl="#" Text="Напоминания"/></h3>
+            <div>
+
+            <div style="margin-top:10px;">
+                <center>
+                    Данный раздел позволяет создавать и редактировать напоминания различных типов и периодичности для контроля за группами водителей или конкретными водителями.
+                    <br/>
+                    <br/>
+                    Выбранные вами напоминания будут автоматически формироваться и отправляться на e-mail адресата с заданной периодичностью.
+                </center>
+            </div>
+
+            <div id="choosedialog" title="Выбор источника" style="display: none;">
+	            <p>Выберите водителя или группу водителей:</p>
+                <div>
+                    <ul id="DriversTree">
+                    </ul>
+                </div>
+            </div>
             </div>
 
         </div>
