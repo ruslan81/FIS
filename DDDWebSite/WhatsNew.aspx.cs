@@ -14,6 +14,9 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "- 05.11.2012" + Environment.NewLine;
+            ReportLabel.Text += @"- Завершение работ над разделом Настройки." + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "- 04.11.2012" + Environment.NewLine;
             ReportLabel.Text += @"- Приведение в соответствие с gui раздела Настройки. Вынесение Групп, Водителей, ТС в отдельные закладки, перестраивание функционала под модель с деревьями. По данному этапу работы еще не завршены." + Environment.NewLine;
             ReportLabel.Text += @"- Завершение работ над диаграммой в Архиве. Встраивание последней версии, доработка и адаптирование под наши нужды." + Environment.NewLine;
