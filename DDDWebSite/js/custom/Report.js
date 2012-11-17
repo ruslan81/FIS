@@ -1075,8 +1075,7 @@ function onCardTypeNodeSelected(e, data) {
     $("#LoadReportControls").remove();
 }
 
-
-function buildReport() {
+function checkDate() {
     $("#dateErrorBlock").hide();
     $("#dateErrorLabel").empty();
 
@@ -1087,15 +1086,23 @@ function buildReport() {
         $("#LoadReportControls").remove();
         $("#dateErrorLabel").append(" Ошибка: Неверно заданы даты!");
         $("#dateErrorBlock").show();
-        return;
+        return "BAD";
     }
 
     if (endDate == null || startDate == null) {
         $("#LoadReportControls").remove();
         $("#dateErrorLabel").append(" Ошибка: Укажите начальную и конечную дату!");
         $("#dateErrorBlock").show();
-        return;
+        return "BAD";
     }
+    return "OK";
+}
+
+function buildReport() {
+
+    if (checkDate() != "OK")
+        return;
+
     if ((cardType == "Driver" && reportFormat=="DDD") || (cardType == "Vehicle" && reportFormat == "PLF")) {
         $("#LoadReportControls").remove();
         $("#dateErrorLabel").append(" Ошибка: Тип отчета не доступен для объекта!");

@@ -26,7 +26,7 @@
       var dealerOrgID = $.cookie("CURRENT_ORG_ID");
       var dealerLevel = 0;
       var crtype = 0;
-    
+
       $(function () {
           mode = "";
           tabIndex = 0;
@@ -47,21 +47,23 @@
                       radioIndex = -1;
                       buildOrgTree(0);
                       loadGeneralData();
+                      createPeriodControls();
                   };
                   /*if ($("a", ui.newHeader).text() == "Дилеры") {
-                      $("#userControls").empty();
-                      mode = "";
-                      tabIndex = 0;
-                      radioIndex = -1;
-                      loadDealersData();
-                      resizeAdmin();
+                  $("#userControls").empty();
+                  mode = "";
+                  tabIndex = 0;
+                  radioIndex = -1;
+                  loadDealersData();
+                  resizeAdmin();
                   };*/
                   if ($("a", ui.newHeader).text() == "Пользователи") {
                       $("#userControls").empty();
                       mode = "";
                       tabIndex = 0;
                       radioIndex = -1;
-                      buildUserTree(0)
+                      buildUserTree(0);
+                      createPeriodControls();
                       //loadUsersData();
                   };
                   if ($("a", ui.newHeader).text() == "Счета") {
@@ -124,6 +126,17 @@
     </script>
 
     <!-- TEMPLATES-->
+    <script id="tmplPeriodSelection" type="text/x-jquery-tmpl">
+        <div id="periodSelection">
+            <label>Начальная дата </label><input id="startDatePicker" type="text"/>
+            <label>Конечная дата </label><input id="endDatePicker" type="text"/>
+            <button id="buildButton">Построить</button>
+            <div id="dateErrorBlock" class="error-block">
+                <label class="error" id="dateErrorLabel"> Ошибка: Укажите начальную и конечную дату!</label>
+            </div>
+            <br/><br/>
+        </div>
+    </script>
 
     <script id="tmplGeneralData" type="text/x-jquery-tmpl">
     <div id="generalDataLabels">
@@ -601,7 +614,7 @@
                 </td>
             </tr>
         </table>
-
+        </br>
         <table style="" cellpadding="0" cellspacing="0">
             <tr><td><label>Язык (экран) </label></td><td><label>Язык (отчеты) </label></td></tr>
             <tr>
@@ -1165,6 +1178,12 @@
                 </div>
         </div>
             
+</asp:Content>
+
+<asp:Content ID="ChoisesContent" ContentPlaceHolderID="MainConditions_PlaceHolder"
+    runat="server">
+    <div id="statusPanel">
+    </div>
 </asp:Content>
 
 <asp:Content ID="DataContent" ContentPlaceHolderID="Reports_PlaceHolder" runat="server">
