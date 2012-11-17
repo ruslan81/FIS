@@ -724,6 +724,7 @@ function loadDriversSettings() {
 function loadSingleDriverSettings() {
     $("#headerSettings").empty();
     $("#headerSettings").text("Настройки водителей");
+    $("#tabs").tabs("destroy");
     $("#contentSettings").empty();
     $("#contentSettingsPlace").empty();
     //$("#userControls").empty();
@@ -745,6 +746,7 @@ function loadSingleDriverSettings() {
                 var param = { Name: "", Number: "", Comment: "", groupID: selectedNodeType };
                 $("#tmplSingleDriverData").tmpl(param).appendTo("#contentSettings");
             }
+            $("#tabs").tabs();
             $("#contentTable").show();
             createGroupSelectorDrivers();
             createUserControlsSingleDriver();
@@ -756,6 +758,7 @@ function loadSingleDriverSettings() {
 }
 
 function loadSingleVehicleSettings() {
+    $("#tabs").tabs("destroy");
     $("#headerSettings").empty();
     $("#headerSettings").text("Настройки транспортных средств");
     $("#contentSettings").empty();
@@ -779,6 +782,8 @@ function loadSingleVehicleSettings() {
                 var param = { Name: "", Number: "", Comment: "", groupID: selectedNodeType };
                 $("#tmplSingleVehicleData").tmpl(param).appendTo("#contentSettings");
             }
+            $("#tabs").tabs();
+            $("#tabs").tabs('select', 0);
             createGroupSelectorTransports();
             $("#contentTable").show();
             createUserControlsSingleTransport();
@@ -866,10 +871,16 @@ function loadDefaultSettings() {
 function createUserControlsGroups() {
     $("#headerSettings").empty();
     $("#headerSettings").text("Настройки групп");
-
-    recreateUserControls();
+    if (mode != "cancel") {
+        $("#userControls").empty();
+        $("#userControls").append($("#userControlsGroups").text());
+        $("#userControls button").button();
+    } 
+    $("#userControls button").button({ disabled: false });
     $("#save").button({ disabled: true });
     $("#cancel").button({ disabled: true });
+
+    if (mode = "cancel") {mode = "";return;}
 
     $("#create").click(function () {
         mode = "create";
@@ -1034,10 +1045,17 @@ function createUserControlsDrivers() {
     $("#headerSettings").empty();
     $("#headerSettings").text("Настройки водителей");
 
-    recreateUserControls(); 
+    if (mode != "cancel") {
+        $("#userControls").empty();
+        $("#userControls").append($("#userControlsGroups").text());
+        $("#userControls button").button();
+    } 
+    $("#userControls button").button({ disabled: false });
 
     $("#save").button({ disabled: true });
     $("#cancel").button({ disabled: true });
+
+    if (mode == "cancel") {mode = "";return;}
 
     $("#create").click(function () {
         mode = "create";
@@ -1198,13 +1216,20 @@ function createUserControlsDrivers() {
 }
 
 function createUserControlsSingleDriver() {
-    recreateUserControls();
+    if (mode != "cancel") {
+        $("#userControls").empty();
+        $("#userControls").append($("#userControlsGroups").text());
+        $("#userControls button").button();
+    }
+    $("#userControls button").button({ disabled: false });
     $("#save").button({ disabled: true });
     $("#cancel").button({ disabled: true });
     if (selectedNodeType != "0") {
         $("#edit").button({ disabled: true });
         $("#delete").button({ disabled: true });
     }
+
+    if (mode == "cancel") { mode = ""; return; }
 
     $("#create").click(function () {
         mode = "create";
@@ -1349,13 +1374,20 @@ function createUserControlsSingleDriver() {
 }
 
 function createUserControlsSingleTransport() {
-    recreateUserControls();
+    if (mode != "cancel") {
+        $("#userControls").empty();
+        $("#userControls").append($("#userControlsGroups").text());
+        $("#userControls button").button();
+    }
+    $("#userControls button").button({ disabled: false });
     $("#save").button({ disabled: true });
     $("#cancel").button({ disabled: true });
     if (selectedNodeType != "0") {
         $("#edit").button({ disabled: true });
         $("#delete").button({ disabled: true });
     }
+
+    if (mode == "cancel") { mode = ""; return; }
 
     $("#create").click(function () {
         mode = "create";
@@ -1499,7 +1531,7 @@ function createUserControlsSingleTransport() {
     });
 }
 
-function recreateUserControls() {
+/*function recreateUserControls() {
     if (mode != "cancel") {
         $("#userControls").empty();
         $("#userControls").append($("#userControlsGroups").text());
@@ -1508,16 +1540,23 @@ function recreateUserControls() {
         mode = "";
     }
     $("#userControls button").button({ disabled: false });
-}
+}*/
 
 function createUserControlsSingleGroup() {
-    recreateUserControls();
+    if (mode != "cancel") {
+        $("#userControls").empty();
+        $("#userControls").append($("#userControlsGroups").text());
+        $("#userControls button").button();
+    }
+    $("#userControls button").button({ disabled: false });
     $("#save").button({ disabled: true });
     $("#cancel").button({ disabled: true });
     if (selectedNodeType != "0") {
         $("#edit").button({ disabled: true });
         $("#delete").button({ disabled: true });
     }
+
+    if (mode == "cancel") { mode = ""; return; }
 
     $("#create").click(function () {
         mode = "create";

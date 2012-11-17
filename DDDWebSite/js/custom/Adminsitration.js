@@ -1164,13 +1164,16 @@ function loadJournalData() {
 }
 
 function buildJournalTable() {
-    $("#dateErrorBlock").hide();
+    //$("#dateErrorBlock").hide();
     var startDate = $("#startDatePicker").datepicker("getDate");
     var endDate = $("#endDatePicker").datepicker("getDate");
     var event = $("#eventSelector").attr("event");
     var text = $("#textInput").attr("value");
-    if (endDate == null || startDate == null) {
+    /*if (endDate == null || startDate == null) {
         $("#dateErrorBlock").show();
+        return;
+    }*/
+    if (checkDate() != "OK") {
         return;
     }
     $.ajax({
@@ -1195,13 +1198,11 @@ function buildJournalTable() {
 }
 
 function buildInvoiceTable() {
-    $("#dateErrorBlock").hide();
+    //$("#dateErrorBlock").hide();
     var startDate = $("#startDatePicker").datepicker("getDate");
     var endDate = $("#endDatePicker").datepicker("getDate");
     var status = $("#invoiceStatusSelector").attr("statusType");
-
-    if (endDate == null || startDate == null) {
-        $("#dateErrorBlock").show();
+    if (checkDate() != "OK") {
         return;
     }
     $.ajax({
@@ -2221,4 +2222,56 @@ function showWrongDataMessage(name) {
             maximize: { visible: false }
         }
     });
+}
+
+function checkDate() {
+    $("#dateErrorBlock").hide();
+    $("#dateErrorLabel").empty();
+
+    var startDate = $("#startDatePicker").datepicker("getDate");
+    var endDate = $("#endDatePicker").datepicker("getDate");
+
+    if (endDate < startDate) {
+        $("#dateErrorLabel").append(" Ошибка: Неверно заданы даты!");
+        $("#dateErrorBlock").show();
+        return "BAD";
+    }
+
+    if (endDate == null || startDate == null) {
+        $("#dateErrorLabel").append(" Ошибка: Укажите начальную и конечную дату!");
+        $("#dateErrorBlock").show();
+        return "BAD";
+    }
+    return "OK";
+}
+
+function createPeriodControls() {
+    $("#main-conditions").append($("#tmplPeriodSelection").text());
+    
+    var today = new Date();
+    var todaystr = "" + convert(today);
+    today.setMonth(today.getMonth() - 1);
+    var thenstr = "" + convert(today);
+
+    $("#startDatePicker").datepicker();
+    $("#startDatePicker").datepicker("option", "dateFormat", "dd.mm.yy");
+    $("#startDatePicker").datepicker("setDate", thenstr);
+    
+    $("#endDatePicker").datepicker();
+    $("#endDatePicker").datepicker("option", "dateFormat", "dd.mm.yy");
+    $("#endDatePicker").datepicker("setDate", todaystr);
+    
+    $("#startDatePicker").datepicker($.datepicker.regional['ru']);
+    $("#endDatePicker").datepicker($.datepicker.regional['ru']);
+
+    $("#buildButton").button();
+    $("#buildButton").click(function () {
+        checkDate();
+        //!TODO Here will be build function
+        return false;
+    });
+
+    $("#periodSelection").show();
+    $("#dateErrorBlock").hide();
+
 }
