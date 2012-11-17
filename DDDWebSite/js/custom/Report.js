@@ -929,7 +929,8 @@ function loadReportTypesTree(placeId) {
         success: function (response) {
 
             for (var i = 0; i < response.d.length; i++) {
-                $("#PLFSubtree").append("<li class='file'><a><span repform='PLF' key='" + response.d[i] + "'>" + response.d[i] + "</span></a></li>");
+                //$("#PLFSubtree").append("<li class='file'><a><span repform='PLF' key='" + response.d[i] + "'>" + response.d[i] + "</span></a></li>");
+                $("#ReportInsideTree").append("<li class='file'><a><span repform='PLF' key='" + response.d[i] + "'>" + response.d[i] + "</span></a></li>");
             }
 
             $.ajax({
@@ -941,7 +942,8 @@ function loadReportTypesTree(placeId) {
                 success: function (response) {
 
                     for (var i = 0; i < response.d.length; i++) {
-                        $("#DDDSubtree").append("<li class='file'><a><span repform='DDD' key='" + response.d[i] + "'>" + response.d[i] + "</span></a></li>");
+                        //$("#DDDSubtree").append("<li class='file'><a><span repform='DDD' key='" + response.d[i] + "'>" + response.d[i] + "</span></a></li>");
+                        $("#ReportInsideTree").append("<li class='file'><a><span repform='DDD' key='" + response.d[i] + "'>" + response.d[i] + "</span></a></li>");
                     }
 
                     $("#ReportTree").wijtree();

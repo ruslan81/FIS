@@ -32,12 +32,14 @@
             $("#accordion").accordion({
                 change: function (event, ui) {
                     if ($("a", ui.newHeader).text() == "Организация") {
+                        mode = "";
                         $("#contentSettingsPlace").empty();
                         $("#headerSettings").empty();
                         $("#general").wijtreenode({ selected: true });
                         loadGeneralSettings();
                     };
                     if ($("a", ui.newHeader).text() == "Напоминания") {
+                        mode = "";
                         $("#contentSettingsPlace").empty();
                         //createRemindControls();
                         loadReminds();
@@ -48,6 +50,7 @@
                     //Раздел Водители
                     if ($("a", ui.newHeader).attr("code") == 3) {
                         currentCardId = "-1";
+                        mode = "";
                         $("#headerSettings").empty();
                         $("#headerSettings").text("Настройки водителей");
                         $("#contentSettings").empty();
@@ -58,6 +61,7 @@
                     //Раздел ТС
                     if ($("a", ui.newHeader).attr("code") == 4) {
                         currentCardId = "-1";
+                        mode = "";
                         $("#headerSettings").empty();
                         $("#headerSettings").text("Настройки транспортных средств");
                         $("#contentSettings").empty();
@@ -68,6 +72,7 @@
                     //Раздел Группы
                     if ($("a", ui.newHeader).attr("code") == 5) {
                         currentCardId = "";
+                        mode = "";
                         $("#headerSettings").empty();
                         $("#headerSettings").text("Настройки групп");
                         $("#contentSettings").empty();
@@ -77,6 +82,7 @@
                     }
                     //Раздел Настройки по умолчанию
                     if ($("a", ui.newHeader).attr("code") == 6) {
+                        mode = "";
                         loadDefaultSettings();
                     }
                 }

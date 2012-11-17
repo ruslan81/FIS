@@ -590,10 +590,14 @@ function loadGeneralSettings() {
 }
 
 function createUserControlsGeneral() {
-    $("#userControls").empty();
-    $("#userControls").append($("#userControlsGeneral").text());
-
-    $("#userControls button").button();
+    if (mode != "cancel") {
+        $("#userControls").empty();
+        $("#userControls").append($("#userControlsGeneral").text());
+        $("#userControls button").button();
+    } else {
+        mode = "";
+    }
+    $("#userControls button").button({ disabled: false });
     $("#save").button({ disabled: true });
     $("#cancel").button({ disabled: true });
 
@@ -643,6 +647,7 @@ function createUserControlsGeneral() {
     });
 
     $("#cancel").click(function () {
+        mode = "cancel";
         loadGeneralSettings();
         return false;
     });
@@ -721,7 +726,7 @@ function loadSingleDriverSettings() {
     $("#headerSettings").text("Настройки водителей");
     $("#contentSettings").empty();
     $("#contentSettingsPlace").empty();
-    $("#userControls").empty();
+    //$("#userControls").empty();
 
     if (currentCardId == "-1" && selectedNodeType == "0") {
         return;
@@ -755,7 +760,7 @@ function loadSingleVehicleSettings() {
     $("#headerSettings").text("Настройки транспортных средств");
     $("#contentSettings").empty();
     $("#contentSettingsPlace").empty();
-    $("#userControls").empty();
+    //$("#userControls").empty();
 
     if (currentCardId == "-1" && selectedNodeType == "0") {
         return;
@@ -789,7 +794,7 @@ function loadSingleGroupSettings() {
     $("#headerSettings").text("Настройки групп");
     $("#contentSettings").empty();
     $("#contentSettingsPlace").empty();
-    $("#userControls").empty();
+    //$("#userControls").empty();
 
     if (currentCardId == "-1" && selectedNodeType == "0") {
         return;
@@ -862,10 +867,7 @@ function createUserControlsGroups() {
     $("#headerSettings").empty();
     $("#headerSettings").text("Настройки групп");
 
-    $("#userControls").empty();
-    $("#userControls").append($("#userControlsGroups").text());
-
-    $("#userControls button").button();
+    recreateUserControls();
     $("#save").button({ disabled: true });
     $("#cancel").button({ disabled: true });
 
@@ -1022,7 +1024,7 @@ function createUserControlsGroups() {
     });
 
     $("#cancel").click(function () {
-        mode = "";
+        mode = "cancel";
         loadGroupsSettings();
         return false;
     });
@@ -1032,10 +1034,8 @@ function createUserControlsDrivers() {
     $("#headerSettings").empty();
     $("#headerSettings").text("Настройки водителей");
 
-    $("#userControls").empty();
-    $("#userControls").append($("#userControlsGroups").text());
+    recreateUserControls(); 
 
-    $("#userControls button").button();
     $("#save").button({ disabled: true });
     $("#cancel").button({ disabled: true });
 
@@ -1191,17 +1191,14 @@ function createUserControlsDrivers() {
     });
 
     $("#cancel").click(function () {
-        mode = "";
+        mode = "cancel";
         loadDriversSettings();
         return false;
     });
 }
 
 function createUserControlsSingleDriver() {
-    $("#userControls").empty();
-    $("#userControls").append($("#userControlsGroups").text());
-
-    $("#userControls button").button();
+    recreateUserControls();
     $("#save").button({ disabled: true });
     $("#cancel").button({ disabled: true });
     if (selectedNodeType != "0") {
@@ -1345,17 +1342,14 @@ function createUserControlsSingleDriver() {
     });
 
     $("#cancel").click(function () {
-        mode = "";
+        mode = "cancel";
         loadSingleDriverSettings();
         return false;
     });
 }
 
 function createUserControlsSingleTransport() {
-    $("#userControls").empty();
-    $("#userControls").append($("#userControlsGroups").text());
-
-    $("#userControls button").button();
+    recreateUserControls();
     $("#save").button({ disabled: true });
     $("#cancel").button({ disabled: true });
     if (selectedNodeType != "0") {
@@ -1499,17 +1493,25 @@ function createUserControlsSingleTransport() {
     });
 
     $("#cancel").click(function () {
-        mode = "";
+        mode = "cancel";
         loadSingleVehicleSettings();
         return false;
     });
 }
 
-function createUserControlsSingleGroup() {
-    $("#userControls").empty();
-    $("#userControls").append($("#userControlsGroups").text());
+function recreateUserControls() {
+    if (mode != "cancel") {
+        $("#userControls").empty();
+        $("#userControls").append($("#userControlsGroups").text());
+        $("#userControls button").button();
+    } else {
+        mode = "";
+    }
+    $("#userControls button").button({ disabled: false });
+}
 
-    $("#userControls button").button();
+function createUserControlsSingleGroup() {
+    recreateUserControls();
     $("#save").button({ disabled: true });
     $("#cancel").button({ disabled: true });
     if (selectedNodeType != "0") {
@@ -1650,7 +1652,7 @@ function createUserControlsSingleGroup() {
     });
 
     $("#cancel").click(function () {
-        mode = "";
+        mode = "cancel";
         loadSingleGroupSettings();
         return false;
     });

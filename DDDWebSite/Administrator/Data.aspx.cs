@@ -106,7 +106,6 @@ public partial class Administrator_Data : System.Web.UI.Page
 
     //AJAX BEGIN
 
-
     /// <summary>
     ///Получить список неразобранных файлов в разделе "Загрузить на сервер"
     /// </summary>

@@ -763,12 +763,26 @@ function loadUsersData() {
             resizeAdmin();
             if (radioIndex != -1) {
                 if (mode == "edit" || mode == "create") {
+                    $("#country").wijcombobox("destroy");
+                    $("#timeZoneSelector").wijcombobox("destroy");
+                    $("#timeZoneSelector").wijcombobox({
+                        showingAnimation: { effect: "blind" },
+                        hidingAnimation: { effect: "blind" },
+                        isEditable: false,
+                        disabled: false
+                    });
                     $("#country").wijcombobox({
+                        showingAnimation: { effect: "blind" },
+                        hidingAnimation: { effect: "blind" },
+                        isEditable : false,
+                        disabled: false
+                    });
+                    /*$("#country").wijcombobox({
                         disabled: false
                     });
                     $("#timeZoneSelector").wijcombobox({
                         disabled: false
-                    });
+                    });**/
                 } else {
                     $("#timeZoneSelector").wijcombobox("destroy");
                     $("#country").wijcombobox("destroy");
@@ -836,10 +850,14 @@ function loadInvoiceData() {
 }
 
 function loadUsersControls() {
-    $("#userControls").empty();
-    $("#userControls").append($("#controlsUsers").text());
-    $("#userControls button").button();
-
+    if (mode != "cancel") {
+        $("#userControls").empty();
+        $("#userControls").append($("#controlsUsers").text());
+        $("#userControls button").button();
+    } else {
+        mode = "";
+    }
+    $("#userControls button").button({ disabled: false });
     $("#save").button({ disabled: true });
     $("#cancel").button({ disabled: true });
 
@@ -957,7 +975,7 @@ function loadUsersControls() {
     });
 
     $("#cancel").click(function () {
-        mode = "";
+        mode = "cancel";
         tabIndex = 0;
         loadUsersData();
         return false;
@@ -1244,10 +1262,15 @@ function loadGeneralDetailedData() {
         }
     });
 
-    $("#userControls").empty();
-    $("#userControls").append($("#сontrolsGeneralDetailed").text());
+    if (mode != "cancel") {
+        $("#userControls").empty();
+        $("#userControls").append($("#сontrolsGeneralDetailed").text());
+        $("#userControls button").button();
+    } else {
+        mode = "";
+    }
+    $("#userControls button").button({ disabled: false });
 
-    $("#userControls button").button();
     $("#save").button({ disabled: true });
     $("#cancel").button({ disabled: true });
     if (dealerOrgID == $.cookie("CURRENT_ORG_ID")) {
@@ -1325,7 +1348,7 @@ function loadGeneralDetailedData() {
     });
 
     $("#cancel").click(function () {
-        mode = "";
+        mode = "cancel";
         loadGeneralDetailedData();
         return false;
     });

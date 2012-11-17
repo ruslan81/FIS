@@ -80,6 +80,8 @@
                     //Раздел Водители
                     if ($("a", ui.newHeader).attr("code") == 3) {
                         cardType = "Driver";
+                        reportFormat = "None";
+                        selectedCardID = "None";
                         destroyPLFTab();
                         loadDriverTree();
                         destroyPeriodControls();
@@ -92,6 +94,8 @@
                     //Раздел транспортные средства
                     if ($("a", ui.newHeader).attr("code") == 4) {
                         cardType = "Vehicle";
+                        reportFormat = "None";
+                        selectedCardID = "None";
                         destroyPLFTab();
                         loadVehicleTree();
                         destroyPeriodControls();
@@ -104,7 +108,13 @@
                 }
             });
 
-            createVehicles();
+            //createVehicles();
+            cardType = "Driver";
+            destroyPLFTab();
+            loadDriverTree();
+            destroyPeriodControls();
+            createPeriodControls();
+            createPLFTab();
 
             $("#dialog").dialog();
             $("#dialog2").dialog({ autoOpen: false, draggable: true, resizable: true });
@@ -149,7 +159,7 @@
         <div id="tabs-1">
             <center>
             <div id="report" style="overflow: auto;">
-            </div>
+            </div>r
             </center>
         </div>
         <div id="tabs-2">
@@ -357,30 +367,27 @@
     <!--Боковая панель-->
     <div id="accordion">
         <!--Транспортные средства-->
-        <h3>
+        <!--<h3>
             <asp:LinkButton ID="AccordionHeader4_VehiclesGroup" runat="server" PostBackUrl="#"
                 Text="Транспортные средства (по старому стилю)" code="1" />
         </h3>
         <div>
-            <!--Дерево-->
             <div>
                 <ul id="vehiclesTree">
                 </ul>
             </div>
-        </div>
+        </div>-->
         <!--Раздел PLF Файлы (Датчики)-->
-        <h3>
+        <!--<h3>
             <asp:LinkButton ID="AccordionHeader5_PLF" runat="server" PostBackUrl="#" Text="PLF Файлы (Датчики)"
-                code="2" />
+                code="2" hidden="true"/>
         </h3>
         <div>
-            <!--Дерево-->
             <div>
                 <ul id="PLFFilesTree">
                 </ul>
             </div>
-        </div>
-        <!--Водители-->
+        </div>-->
         <h3>
             <asp:LinkButton ID="AccordionDrivers" runat="server" PostBackUrl="#" Text="Водители"
                 code="3" />
@@ -431,7 +438,7 @@
     <script id="tmplTreeItem" type="text/x-jquery-tmpl">
         <li class="file"><a><span key="${Key}">${Value}</span></a></li>
     </script>
-    <script id="tmplReportTree" type="text/x-jquery-tmpl">
+    <script id="tmplReportTree1" type="text/x-jquery-tmpl">
         
                 <ul id="ReportTree">
                     <li class="folder"><a><span key="None">Отчеты</span></a>
@@ -444,6 +451,15 @@
                                 <ul id="DDDSubtree">
                                 </ul>
                             </li>
+                        </ul>
+                    </li>
+                </ul>
+    </script>
+    <script id="tmplReportTree" type="text/x-jquery-tmpl">
+        
+                <ul id="ReportTree">
+                    <li class="folder"><a><span key="None">Отчеты</span></a>
+                        <ul id="ReportInsideTree">
                         </ul>
                     </li>
                 </ul>
