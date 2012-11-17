@@ -227,9 +227,20 @@
     </script>
 
     <script id="tmplGeneralOrgDetailedData1" type="text/x-jquery-tmpl">
+        
         <table style="width: 100%;" cellpadding="0" cellspacing="0">
-        <label>Организация</label></br><div style="width: 300px;"><input id="orgName" value="{{html orgName}}"/></div></br>
+        <tr>
+        <td><label>Организация</label></td><td></td>
+        </tr>
+        <tr>
+        <td style="width: 300px;"><input id="orgName" value="{{html orgName}}"/></td>
+        <td style="width: 300px;"><input style="width:20px;float:left;" id="boxOnOff" type="checkbox" checked="true" disabled="true" class="unused"/>
+        <label class="unused">Включен</label></td>
+        </tr>
+        </br>
 
+        </tr>
+        </table>
         <!--<div style="margin:10px 0 10px 0; border-top:1px dashed #ccc;"></div>-->
 
     </script>
@@ -271,26 +282,26 @@
 
         <label>Адрес (Дополнительный)</label>
 
-        <br/>
-
-        <div style="width: 500px;"><input id="addr2" value="{{html address2}}"/></div>
-
-        <br/>
+        <br/><br/>
 
         <table style="" cellpadding="0" cellspacing="0">
-        <tr><td><label>Телефон </label></td><td><label>Факс </label></td><td><label>E-mail </label></td></tr>
-        <tr>
-            <td>
-                <div style="width: 300px;"><input id="phone" value="{{html phone}}"/></div>
-            </td>
-            <td>
-                <div style="width: 300px;"><input id="fax" value="{{html fax}}"/></div>
-            </td>
-            <td>
-                <div style="width: 300px;"><input id="mail" value="{{html mail}}"/></div>
-            </td>
-        </tr>
+            <tr><td><label>Язык (экран) </label></td><td><label>Язык (отчеты) </label></td></tr>
+            <tr>
+                <td>
+                    <div style="width: 300px;"><select id="lang_screen" style="width:170px;" langId="0" onchange="this.langId=this.value;">
+                        <option value="0">Русский</option>
+                        <option value="1">English</option>
+                    </select></div>
+                </td>
+                <td>
+                    <div style="width: 300px;"><select id="lang_report" style="width:170px;" langId="0" onchange="this.langId=this.value;">
+                        <option value="0">Русский</option>
+                        <option value="1">English</option>
+                    </select></div>
+                </td>
+            </tr>
         </table>
+
 
     </script>
 
@@ -486,8 +497,21 @@
 
     <script id="tmplUsersDetailedData1" type="text/x-jquery-tmpl">
         <label>Организация</label></br><div style="width: 300px;"><input id="orgName" value="{{html orgName}}"/></div></br>
-        <label>Пользователь</label></br><div style="width: 300px;"><input id="orgLogin" value="{{html login}}"/></div></br>
 
+        <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+        <td><label>Пользователь</label></td><td></td>
+        </tr>
+        <tr>
+        <td><div style="width: 300px;"><input id="orgLogin" value="{{html login}}"/></div></td>
+        <td><div  style="width: 300px;"><input style="width:20px;float:left;" id="boxOnOff" type="checkbox" checked="true" disabled="true" class="unused"/>
+        <label class="unused">Включен</label></div></td>
+        </tr>
+        </tr>
+        </table>
+
+        </br>
+        
         <table style="" cellpadding="0" cellspacing="0">
         <tr><td><label>Дилер </label></td><td><label>Роль </label></td></tr>
         <tr>
@@ -574,6 +598,24 @@
                     <div style="width: 300px;">
                         <input id="mail" value="{{html mail}}"/>
                     </div>
+                </td>
+            </tr>
+        </table>
+
+        <table style="" cellpadding="0" cellspacing="0">
+            <tr><td><label>Язык (экран) </label></td><td><label>Язык (отчеты) </label></td></tr>
+            <tr>
+                <td>
+                    <div style="width: 300px;"><select id="lang_screen" style="width:170px;" langId="0" onchange="this.langId=this.value;">
+                        <option value="0">Русский</option>
+                        <option value="1">English</option>
+                    </select></div>
+                </td>
+                <td>
+                    <div style="width: 300px;"><select id="lang_report" style="width:170px;" langId="0" onchange="this.langId=this.value;">
+                        <option value="0">Русский</option>
+                        <option value="1">English</option>
+                    </select></div>
                 </td>
             </tr>
         </table>

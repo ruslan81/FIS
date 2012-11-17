@@ -68,7 +68,7 @@ function buildOrgTree(param) {
                     onDealersTreeNodeSelected(e, data);
                 }
             });
-            
+
             if (param != "") {
                 $("#dealersTree li [likey=" + param + "]").wijtreenode({ selected: true });
                 $('span .ui-icon').addClass("ui-icon-triangle-1-se");
@@ -233,23 +233,40 @@ function loadGeneralData() {
             if (ui.index == 2) {
                 $("#timeZoneSelector").wijcombobox("destroy");
                 $("#country").wijcombobox("destroy");
+                $("#lang_screen").wijcombobox("destroy");
+                $("#lang_report").wijcombobox("destroy");
                 $("#timeZoneSelector").wijcombobox({
                     showingAnimation: { effect: "blind" },
                     hidingAnimation: { effect: "blind" },
-                    //isEditable: false,
                     disabled: true
                 });
                 $("#country").wijcombobox({
                     showingAnimation: { effect: "blind" },
                     hidingAnimation: { effect: "blind" },
-                    //isEditable: false,
                     disabled: true
                 });
+                $("#lang_screen").wijcombobox({
+                    showingAnimation: { effect: "blind" },
+                    hidingAnimation: { effect: "blind" },
+                    disabled: true
+                });
+                $("#lang_report").wijcombobox({
+                    showingAnimation: { effect: "blind" },
+                    hidingAnimation: { effect: "blind" },
+                    disabled: true
+                });
+                
                 if (mode == "edit" || mode == "create") {
                     $("#timeZoneSelector").wijcombobox({
                         disabled: false
                     });
                     $("#country").wijcombobox({
+                        disabled: false
+                    });
+                    $("#lang_screen").wijcombobox({
+                        disabled: false
+                    });
+                    $("#lang_report").wijcombobox({
                         disabled: false
                     });
                     if ($("#country").attr("countryId") == 0) {
@@ -259,6 +276,16 @@ function loadGeneralData() {
                     }
                     if ($("#timeZoneSelector").attr("timeZoneId") == 0) {
                         $("#timeZoneSelector").wijcombobox({
+                            selectedIndex: 0
+                        });
+                    }
+                    if ($("#lang_screen").attr("langId") == 0) {
+                        $("#lang_screen").wijcombobox({
+                            selectedIndex: 0
+                        });
+                    }
+                    if ($("#lang_report").attr("langId") == 0) {
+                        $("#lang_report").wijcombobox({
                             selectedIndex: 0
                         });
                     }
@@ -741,7 +768,7 @@ function loadUsersData() {
             $("#userControls").show();
             resizeAdmin();
             if (radioIndex != -1) {
-                if (mode == "edit" || mode == "create") {                    
+                if (mode == "edit" || mode == "create") {
                     $("#dealerSelector").wijcombobox({
                         disabled: false
                     });
@@ -765,29 +792,36 @@ function loadUsersData() {
                 if (mode == "edit" || mode == "create") {
                     $("#country").wijcombobox("destroy");
                     $("#timeZoneSelector").wijcombobox("destroy");
+                    $("#lang_screen").wijcombobox("destroy");
+                    $("#lang_report").wijcombobox("destroy");
                     $("#timeZoneSelector").wijcombobox({
                         showingAnimation: { effect: "blind" },
                         hidingAnimation: { effect: "blind" },
-                        isEditable: false,
                         disabled: false
                     });
                     $("#country").wijcombobox({
                         showingAnimation: { effect: "blind" },
                         hidingAnimation: { effect: "blind" },
-                        isEditable : false,
                         disabled: false
                     });
-                    /*$("#country").wijcombobox({
+                    $("#lang_screen").wijcombobox({
+                        showingAnimation: { effect: "blind" },
+                        hidingAnimation: { effect: "blind" },
                         disabled: false
                     });
-                    $("#timeZoneSelector").wijcombobox({
+                    $("#lang_report").wijcombobox({
+                        showingAnimation: { effect: "blind" },
+                        hidingAnimation: { effect: "blind" },
                         disabled: false
-                    });**/
+                    });
                 } else {
                     $("#timeZoneSelector").wijcombobox("destroy");
                     $("#country").wijcombobox("destroy");
+                    $("#lang_screen").wijcombobox("destroy");
+                    $("#lang_report").wijcombobox("destroy");
                     loadCountryList();
                     loadTimeZoneList();
+                    loadLangList();
                 }
             }
         }
@@ -880,6 +914,13 @@ function loadUsersControls() {
         $("#timeZoneSelector").wijcombobox({
             disabled: false
         });
+        $("#lang_screen").wijcombobox({
+            disabled: false
+        });
+        $("#lang_report").wijcombobox({
+            disabled: false
+        });
+
         $("#detailedData1 .input").removeClass("inputField-readonly");
         $("#detailedData1 .input").removeAttr("readonly");
         $("#detailedData1 .input").addClass("inputField");
@@ -904,6 +945,8 @@ function loadUsersControls() {
             $("#pass2").removeClass("inputField");
             $("#pass2").addClass("inputField-readonly");
             $("#pass2").attr("readonly", "readonly");
+        } else {
+            $("#boxOnOff").removeAttr("disabled");
         }
 
         $("#edit").button({ disabled: true });
@@ -944,6 +987,12 @@ function loadUsersControls() {
                             disabled: false
                         });
                         $("#timeZoneSelector").wijcombobox({
+                            disabled: false
+                        });
+                        $("#lang_screen").wijcombobox({
+                            disabled: false
+                        });
+                        $("#lang_report").wijcombobox({
                             disabled: false
                         });
                     } else {
@@ -1039,6 +1088,8 @@ function enableCreatingControls() {
 
     $("#orgName").attr("value", "Текущая организация");
 
+    $("#boxOnOff").removeAttr("disabled");
+
     $("#edit").button({ disabled: true });
     $("#delete").button({ disabled: true });
     $("#create").button({ disabled: true });
@@ -1078,6 +1129,16 @@ function enableCreatingControls() {
             selectedIndex: 0
         });
         $("#timeZoneSelector").attr("timeZoneId", "0");
+        $("#lang_screen").wijcombobox({
+            disabled: false,
+            selectedIndex: 0
+        });
+        $("#lang_screen").attr("langId", "0");
+        $("#lang_report").wijcombobox({
+            disabled: false,
+            selectedIndex: 0
+        });
+        $("#lang_report").attr("langId", "0");
     }
 }
 
@@ -1255,6 +1316,7 @@ function loadGeneralDetailedData() {
             $("#detailedData2 input").attr("readonly", "readonly");
             loadCountryList();
             loadTimeZoneList();
+            loadLangList();
             //loadAllDealersList();
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -1289,6 +1351,14 @@ function loadGeneralDetailedData() {
         $("#country").wijcombobox({
             disabled: false
         });
+        $("#lang_screen").wijcombobox({
+            disabled: false
+        });
+        $("#lang_report").wijcombobox({
+            disabled: false
+        });
+
+
 
         $("#detailedData1 .input").removeClass("inputField-readonly");
         $("#detailedData1 .input").removeAttr("readonly");
@@ -1298,12 +1368,14 @@ function loadGeneralDetailedData() {
         $("#detailedData2 .input").removeAttr("readonly");
         $("#detailedData2 .input").addClass("inputField");
 
+
         if (dealerOrgID == $.cookie("CURRENT_ORG_ID")) {
             $("#orgName").removeClass("inputField");
             $("#orgName").addClass("inputField-readonly");
             $("#orgName").attr("readonly", "readonly");
+        } else {
+            $("#boxOnOff").removeAttr("disabled");
         }
-
 
         $("#edit").button({ disabled: true });
         $("#create").button({ disabled: true });
@@ -1326,7 +1398,17 @@ function loadGeneralDetailedData() {
             selectedIndex: 0
         });
         $("#country").attr("countryId", "0");
-        
+        $("#lang_screen").wijcombobox({
+            disabled: false,
+            selectedIndex: 0
+        });
+        $("#lang_screen").attr("langId", "0");
+        $("#lang_report").wijcombobox({
+            selectedIndex: 0,
+            disabled: false
+        });
+        $("#lang_report").attr("langId", "0");
+
         $("#detailedData1 .input").removeClass("inputField-readonly");
         $("#detailedData1 .input").removeAttr("readonly");
         $("#detailedData1 .input").addClass("inputField");
@@ -1338,6 +1420,8 @@ function loadGeneralDetailedData() {
         $("#detailedData2 .input").addClass("inputField");
 
         $("#detailedData2 .input").attr("value", "");
+
+        $("#boxOnOff").removeAttr("disabled");
 
         $("#edit").button({ disabled: true });
         $("#create").button({ disabled: true });
@@ -1469,6 +1553,7 @@ function loadUsersDetailedData() {
             loadTimeZoneList();
             loadRoleList();
             loadAllDealersList();
+            loadLangList();
             var name = $("#orgLogin").attr("value");
             if (name == $.cookie("CURRENT_USERNAME")) {
                 $("#delete").button({ disabled: true });
@@ -1773,7 +1858,6 @@ function loadCountryList() {
             $("#country").wijcombobox({
                 showingAnimation: { effect: "blind" },
                 hidingAnimation: { effect: "blind" },
-                //isEditable: false,
                 disabled: true
             });
             if (mode == "create") {
@@ -1788,6 +1872,37 @@ function loadCountryList() {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
+}
+
+function loadLangList() {
+
+    //AJAX HERE
+    $("#lang_screen").wijcombobox({
+        showingAnimation: { effect: "blind" },
+        hidingAnimation: { effect: "blind" },
+        disabled: true
+    });
+    if (mode == "create") {
+        $("#lang_screen").wijcombobox({
+            disabled: false,
+            selectedIndex: 0
+        });
+        $("#lang_screen").attr("langId", "0");
+    }
+    //AJAX HERE
+    $("#lang_report").wijcombobox({
+        showingAnimation: { effect: "blind" },
+        hidingAnimation: { effect: "blind" },
+        disabled: true
+    });
+    if (mode == "create") {
+        $("#lang_report").wijcombobox({
+            disabled: false,
+            selectedIndex: 0
+        });
+        $("#lang_report").attr("langId", "0");
+    }
+
 }
 
 function loadAllDealersList() {
