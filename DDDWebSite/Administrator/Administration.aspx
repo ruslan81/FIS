@@ -100,6 +100,9 @@
           }
 
           var outHeight = $("#main-content").height() - 90;
+          if ($('.add-info-block:visible').length > 0) {
+              outHeight = outHeight - 55;
+          }
 
           try {
               if ($('#userControls:visible').length > 0) {
@@ -241,13 +244,13 @@
 
     <script id="tmplGeneralOrgDetailedData1" type="text/x-jquery-tmpl">
         
-        <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <table style="" cellpadding="0" cellspacing="0">
         <tr>
         <td><label>Организация</label></td><td></td>
         </tr>
         <tr>
         <td style="width: 300px;"><input id="orgName" value="{{html orgName}}"/></td>
-        <td style="width: 300px;"><input style="width:20px;float:left;" id="boxOnOff" type="checkbox" checked="true" disabled="true" class="unused"/>
+        <td style="width: 300px;"><input style="width:20px;float:left;margin-top: -3px;" id="boxOnOff" type="checkbox" checked="true" disabled="true" class="unused"/>
         <label class="unused">Включен</label></td>
         </tr>
         </br>
@@ -320,6 +323,8 @@
 
 
     <script id="GeneralData" type="text/x-jquery-tmpl">
+     <div class="add-info-block">
+     </div>
      <div id="tabs">
             <ul>
                 <li><a href="#tabs-1">Общие сведения</a></li>
@@ -511,13 +516,13 @@
     <script id="tmplUsersDetailedData1" type="text/x-jquery-tmpl">
         <label>Организация</label></br><div style="width: 300px;"><input id="orgName" value="{{html orgName}}"/></div></br>
 
-        <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <table style="" cellpadding="0" cellspacing="0">
         <tr>
         <td><label>Пользователь</label></td><td></td>
         </tr>
         <tr>
         <td><div style="width: 300px;"><input id="orgLogin" value="{{html login}}"/></div></td>
-        <td><div  style="width: 300px;"><input style="width:20px;float:left;" id="boxOnOff" type="checkbox" checked="true" disabled="true" class="unused"/>
+        <td><div  style="width: 300px;"><input style="width:20px;float:left;margin-top: -3px;" id="boxOnOff" type="checkbox" checked="true" disabled="true" class="unused"/>
         <label class="unused">Включен</label></div></td>
         </tr>
         </tr>

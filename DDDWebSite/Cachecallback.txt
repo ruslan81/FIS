@@ -11911,3 +11911,7 @@ Cache Callback: Message: Файл '/DDDWebSite/Administrator/Report.aspx' не �
 Cache Callback: 17.11.2012 20:37:20
 Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
 Cache Callback: 18.11.2012 15:24:20
+Cache Callback: 18.11.2012 18:04:07
+Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.
+Cache Callback: 18.11.2012 18:06:40
+Cache Callback: 18.11.2012 18:58:40
