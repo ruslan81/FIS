@@ -11904,3 +11904,10 @@ Cache Callback: 05.11.2012 0:43:04
 Cache Callback: 05.11.2012 12:25:01
 Cache Callback: Message: Невозможно соединиться с удаленным сервером
 Cache Callback: 05.11.2012 13:28:20
+Cache Callback: 17.11.2012 19:41:40
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\loginPage.aspx.cs(25): error CS0103: Имя 'LastUpdate' отсутствует в текущем контексте
+Cache Callback: 17.11.2012 20:12:40
+Cache Callback: Message: Файл '/DDDWebSite/Administrator/Report.aspx' не существует.
+Cache Callback: 17.11.2012 20:37:20
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: 18.11.2012 15:24:20

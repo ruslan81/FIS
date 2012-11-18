@@ -21,7 +21,7 @@ public partial class _Default : System.Web.UI.Page
         url = "~/loginPage.aspx";
         if (User.IsInRole("Administrator"))
         {
-            url = "~/Administrator/Data.aspx";
+            url = "~/Administrator/Reports.aspx";
         }
         if (User.IsInRole("SuperAdministrator"))
         {

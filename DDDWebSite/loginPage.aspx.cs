@@ -22,7 +22,6 @@ public partial class loginPage : System.Web.UI.Page
             PasswordTextBox.Attributes.Add("onKeyPress", "javascript:if (event.keyCode == 13) __doPostBack('" + LinkButton1.ClientID + "','')");
 
             ProfilesTextBox.Focus();
-            LastUpdate.Text = "Последнее обновление 28.05.2012 00:00";
         }
         PassRecoverStatus.Text = "";
     }
@@ -33,7 +32,7 @@ public partial class loginPage : System.Web.UI.Page
     /// <param name="e"></param>
     protected void OnLogin_Click(object sender, EventArgs e)
     {        
-        string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
         try
         {
@@ -62,8 +61,9 @@ public partial class loginPage : System.Web.UI.Page
             else
             {
                 errorBlock.Style.Add("display","block");
-                result.Text = "Введите корректные логин и пароль!";
-                throw new Exception("Введите корректные логин и пароль!");
+                string errorMessage = "Неверные логин и/или пароль";
+                result.Text = errorMessage;
+                throw new Exception(errorMessage);
             }
         }
         catch (Exception ex)
@@ -83,7 +83,6 @@ public partial class loginPage : System.Web.UI.Page
     /// <param name="e"></param>
     protected void ShowChangesClick(object sender, EventArgs e)
     {
-       // Response.Write("<script>window.open('WhatsNew.aspx', 'WhatsNewWindow', 'width=400; height=300')</script>");
         Response.Redirect("WhatsNew.aspx");
     }
     /// <summary>

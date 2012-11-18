@@ -593,9 +593,9 @@
             <tbody id="contentTableBody" class="ui-widget-content wijmo-wijgrid-data">
             </tbody>
         </table>
-
-        <button id="parse-files">Разобрать файлы</button>
     </div>
+
+    <button id="parse-files">Разобрать файлы</button>
 
     <div id="calendarWrapper" style="display:none;margin:20px 0 0 0;">
         <center>

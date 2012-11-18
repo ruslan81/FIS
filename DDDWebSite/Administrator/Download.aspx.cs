@@ -58,9 +58,9 @@ public partial class Administrator_download : System.Web.UI.Page
                 dataBlock.CloseConnection();
 
                 Response.Clear();
-                Response.AddHeader("content-disposition", "attachment; filename=" + fileName);
-                Response.AddHeader("Content-Length", fileBytes.Length.ToString());
                 Response.ContentType = "application/octet-stream";
+                Response.AddHeader("Content-Disposition", "filename=\"" + fileName + "\"");
+                Response.AddHeader("Content-Length", fileBytes.Length.ToString());
                 Response.OutputStream.Write(fileBytes, 0, fileBytes.Length);
                 Response.End();
             }
@@ -130,9 +130,9 @@ public partial class Administrator_download : System.Web.UI.Page
             
 
             Response.Clear();
-            Response.AddHeader("content-disposition", "attachment; filename=" + "Отчет "+driverName+" "+
+            Response.AddHeader("Content-disposition", "filename=\"" + "Отчет " + driverName + " " +
                 new DateTime(from.Year, from.Month, from.Day).ToString("dd_MM_yyyy") + "-" + new DateTime(to.Year, to.Month, to.Day).ToString("dd_MM_yyyy")+"."+Format);
-            Response.AddHeader("Content-Length", reportStream.GetBuffer().Length.ToString());
+            Response.AddHeader("Content-Length", reportStream.GetBuffer().Length.ToString() + "\"");
             Response.ContentType = "application/octet-stream";
             Response.OutputStream.Write(reportStream.GetBuffer(), 0, reportStream.GetBuffer().Length);
             Response.End();
@@ -194,9 +194,9 @@ public partial class Administrator_download : System.Web.UI.Page
 
 
             Response.Clear();
-            Response.AddHeader("content-disposition", "attachment; filename=" + "Отчет " + driverName + " " +
+            Response.AddHeader("Content-disposition", "filename=\"" + "Отчет " + driverName + " " +
                 new DateTime(from.Year, from.Month, from.Day).ToString("dd_MM_yyyy") + "-" + new DateTime(to.Year, to.Month, to.Day).ToString("dd_MM_yyyy") + "." + Format);
-            Response.AddHeader("Content-Length", reportStream.GetBuffer().Length.ToString());
+            Response.AddHeader("Content-Length", reportStream.GetBuffer().Length.ToString() + "\"");
             Response.ContentType = "application/octet-stream";
             Response.OutputStream.Write(reportStream.GetBuffer(), 0, reportStream.GetBuffer().Length);
             Response.End();
@@ -253,9 +253,9 @@ public partial class Administrator_download : System.Web.UI.Page
 
 
             Response.Clear();
-            Response.AddHeader("content-disposition", "attachment; filename=" + "Отчет " + VIN + "_" +RegNumb + " " +
+            Response.AddHeader("Content-disposition", "filename=\"" + "Отчет " + VIN + "_" + RegNumb + " " +
                 vehsCardPeriod[0].ToString("dd_MM_yyyy") + "-" + vehsCardPeriod[1].ToString("dd_MM_yyyy") + "." + Format);
-            Response.AddHeader("Content-Length", reportStream.GetBuffer().Length.ToString());
+            Response.AddHeader("Content-Length", reportStream.GetBuffer().Length.ToString() + "\"");
             Response.ContentType = "application/octet-stream";
             Response.OutputStream.Write(reportStream.GetBuffer(), 0, reportStream.GetBuffer().Length);
             Response.End();
@@ -313,9 +313,9 @@ public partial class Administrator_download : System.Web.UI.Page
             }
 
             Response.Clear();
-            Response.AddHeader("content-disposition", "attachment; filename=" + "Отчет " + VIN + "_" + RegNumb + " " +
+            Response.AddHeader("Content-disposition", "filename=\"" + "Отчет " + VIN + "_" + RegNumb + " " +
                 from.ToString("dd_MM_yyyy") + "-" + to.ToString("dd_MM_yyyy") + "." + Format);
-            Response.AddHeader("Content-Length", reportStream.GetBuffer().Length.ToString());
+            Response.AddHeader("Content-Length", reportStream.GetBuffer().Length.ToString() + "\"");
             Response.ContentType = "application/octet-stream";
             Response.OutputStream.Write(reportStream.GetBuffer(), 0, reportStream.GetBuffer().Length);
             Response.End();

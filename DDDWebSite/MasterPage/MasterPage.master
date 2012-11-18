@@ -54,6 +54,9 @@
 
         function resizeAllMaster() {
             var curHeight = getClientHeight();
+            if (curHeight <= 500) {
+                curHeight = 500;
+            }
             var contentHeight = curHeight - 65 - 55;
             var mainContent = contentHeight - 35;
             var outputHeight = mainContent - 88 - 30;
@@ -126,7 +129,7 @@
 
             //slider
             $('#banner').bjqs({
-                'width': 600,
+                'width': 500,
                 'height': 60,
                 'showMarkers': false,
                 'showControls': true,
@@ -159,24 +162,9 @@
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" AsyncPostBackTimeout="9999999"
         EnableScriptGlobalization="true" EnableScriptLocalization="true" EnablePageMethods="true" />
     <div id="all">
-        <div id="container">
-            <div id="banner">
-                <ul class="bjqs">
-                <li>
-                    <div class="check slider-title">Реальность</div>
-                    Внедрение цифровых тахографов привело к необходимости нового подхода к анализу накопленных данных как на картах водителя и памяти самого цифрового тахографа.
-                </li>
-                <li>
-                    <div class="check slider-title">Возможности</div>
-                    Имея у себя возможность считывать данные с цифровых тахографов менеджеры автопредприятий нуждаются в расшифровке данных карт тахографа и самого устройства.
-                </li>
-                <li>
-                    <div class="check slider-title">Предложение</div>
-                    Программный комплекс <b>SmartFIS</b> в полной мере способен помочь в анализе данных цифрового тахографа.
-                </li>
-                </ul>
-            </div>
-        </div>
+        <!--<div id="container">
+            
+        </div>-->
         <div id="top">
             <div id="logo" style="margin-top:0px;">
                 <!--1 Логотип-->
@@ -185,6 +173,22 @@
             </div>
 
             <div id="client-banner-sinfo">
+                <div id="banner">
+                    <ul class="bjqs">
+                    <li>
+                        <div class="check slider-title">Реальность</div>
+                        Внедрение цифровых тахографов привело к необходимости нового подхода к анализу накопленных данных как на картах водителя и памяти самого цифрового тахографа.
+                    </li>
+                    <li>
+                        <div class="check slider-title">Возможности</div>
+                        Имея у себя возможность считывать данные с цифровых тахографов менеджеры автопредприятий нуждаются в расшифровке данных карт тахографа и самого устройства.
+                    </li>
+                    <li>
+                        <div class="check slider-title">Предложение</div>
+                        Программный комплекс <b>SmartFIS</b> в полной мере способен помочь в анализе данных цифрового тахографа.
+                    </li>
+                    </ul>
+                </div>
                 <div>
                     <div style="float:right; margin-right:0px;">
                         <uc2:BlueButton ID="ExitButt2" Text="Выход" runat="server" BtnWidth="60" CausesValidation="false" />
@@ -294,7 +298,6 @@
                     </div>
                     <div style="float: left;margin-top: 12px;">
                         SmartFIS build number: 
-                        <a href="../WhatsNew.aspx">
                         <b>
                         <%System.Reflection.Assembly web = System.Reflection.Assembly.Load("App_Code");
                           System.Reflection.AssemblyName webName = web.GetName();
@@ -303,7 +306,6 @@
                         <%=myVersion %>
                         (<%=System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location).ToShortDateString()%>)
                         </b>
-                        </a>
                     </div>
                 </div>
 		    </div>

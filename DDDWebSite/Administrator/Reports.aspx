@@ -432,21 +432,21 @@
         <li class="file"><a><span key="${Key}">${Value}</span></a></li>
     </script>
     <script id="tmplReportTree" type="text/x-jquery-tmpl">
-        
-                <ul id="ReportTree">
-                    <li class="folder"><a><span key="None">Отчеты</span></a>
-                        <ul>
-                            <li class="file"><a><span key="None">PLF</span></a>
-                                <ul id="PLFSubtree">
-                                </ul>
-                            </li>
-                            <li class="file"><a><span key="None">DDD</span></a>
-                                <ul id="DDDSubtree">
-                                </ul>
-                            </li>
+        <div style="height:1px;border-top:1px solid #eee;"></div>
+        <ul id="ReportTree">
+            <li class="folder"><a><span key="None"><b>Отчеты</b></span></a>
+                <ul>
+                    <li class="file"><a><span key="None">PLF</span></a>
+                        <ul id="PLFSubtree">
+                        </ul>
+                    </li>
+                    <li class="file"><a><span key="None">DDD</span></a>
+                        <ul id="DDDSubtree">
                         </ul>
                     </li>
                 </ul>
+            </li>
+        </ul>
     </script>
 </asp:Content>
 <asp:Content ID="ChoisesContent" ContentPlaceHolderID="MainConditions_PlaceHolder"

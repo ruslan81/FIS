@@ -1,8 +1,18 @@
 /* CSS Document */
 
-html {margin:0; padding:0;} 
-body {margin:0; padding:0; color:#333;
-		background:#FFF url(../images/back2.png) left top no-repeat; overflow:hidden;}
+html 
+{
+    margin:0;
+    padding:0;
+    min-width:1200px;
+	min-height:500px;} 
+body 
+{
+    margin:0;
+    padding:0;
+    color:#333;
+	background:#FFF url(../images/back2.png) left top no-repeat;
+}
 
 #all {
     margin: 0 auto;
@@ -12,7 +22,7 @@ body {margin:0; padding:0; color:#333;
 
 #logo {height:65px; width:300px; float:left; text-align:center;}
 
-#client-banner-sinfo {height:65px;margin-left:300px; padding-left:20px;}
+#client-banner-sinfo {height:65px;margin-left:300px;}
 
 #client 
 {

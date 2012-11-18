@@ -949,7 +949,7 @@ function loadReportTypesTree(placeId) {
                         onReportTypeNodeSelected(e, data);
                     }
                     });
-                    $("#ReportTree").searchTree();
+                    //$("#ReportTree").searchTree();
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
