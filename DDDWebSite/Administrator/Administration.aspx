@@ -35,6 +35,7 @@
           buildOrgTree(0);
           //buildUserTree(0);
           loadGeneralData();
+          createPeriodControls();
 
           $("#accordion").accordion({
               change: function (event, ui) {
@@ -133,7 +134,6 @@
         <div id="periodSelection">
             <label>Начальная дата </label><input id="startDatePicker" type="text"/>
             <label>Конечная дата </label><input id="endDatePicker" type="text"/>
-            <button id="buildButton">Построить</button>
             <div id="dateErrorBlock" class="error-block">
                 <label class="error" id="dateErrorLabel"> Ошибка: Укажите начальную и конечную дату!</label>
             </div>

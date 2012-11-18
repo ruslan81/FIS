@@ -11915,3 +11915,5 @@ Cache Callback: 18.11.2012 18:04:07
 Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.
 Cache Callback: 18.11.2012 18:06:40
 Cache Callback: 18.11.2012 18:58:40
+Cache Callback: 18.11.2012 21:06:00
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'

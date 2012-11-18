@@ -102,7 +102,6 @@
                 var h = $('#outputId').height() - $('#decision').height()-5;
                 $('#outputId').height(h);
                 $('#outputId-content').height(h);
-
             }
         }
     </script>  

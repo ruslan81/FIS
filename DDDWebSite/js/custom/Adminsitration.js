@@ -741,6 +741,7 @@ function createNewDealer() {
 
 function loadUsersData() {
     $("#ContentContainer").empty();
+    createPeriodControls();
     $("#ContentContainer").append($("#UsersData").text());
 
     /*createTableHeader($("#usersTableHeader"), $("#tmplHeadColumn"),
@@ -833,6 +834,7 @@ function loadUsersData() {
     }
     if (radioIndex == -1) {
         $("#ContentContainer").empty();
+        createPeriodControls();
         $("#edit").remove();
         $("#delete").remove();
     }
@@ -920,6 +922,8 @@ function loadUsersControls() {
         $("#lang_report").wijcombobox({
             disabled: false
         });
+        $("#startDatePicker").datepicker('enable');
+        $("#endDatePicker").datepicker('enable');
 
         $("#detailedData1 .input").removeClass("inputField-readonly");
         $("#detailedData1 .input").removeAttr("readonly");
@@ -960,9 +964,12 @@ function loadUsersControls() {
 
     $("#create").click(function () {
         mode = "create";
+        $("#startDatePicker").datepicker('enable');
+        $("#endDatePicker").datepicker('enable');
 
         if (radioIndex == -1) {
             $("#ContentContainer").empty();
+            createPeriodControls();
             $("#ContentContainer").append($("#UsersData").text());
 
             loadUsersDetailedData();
@@ -1085,6 +1092,9 @@ function enableCreatingControls() {
 
     $("#detailedData1 .input").attr("value", "");
     $("#detailedData2 .input").attr("value", "");
+
+    $("#startDatePicker").datepicker('enable');
+    $("#endDatePicker").datepicker('enable');    
 
     $("#orgName").attr("value", "Текущая организация");
 
@@ -1315,6 +1325,8 @@ function loadGeneralDetailedData() {
             $("#detailedData1 input").attr("readonly", "readonly");
             $("#detailedData2 input").addClass("inputField-readonly input");
             $("#detailedData2 input").attr("readonly", "readonly");
+            $("#startDatePicker").datepicker('disable');
+            $("#endDatePicker").datepicker('disable');
             loadCountryList();
             loadTimeZoneList();
             loadLangList();
@@ -1359,7 +1371,8 @@ function loadGeneralDetailedData() {
             disabled: false
         });
 
-
+        $("#startDatePicker").datepicker('enable');
+        $("#endDatePicker").datepicker('enable');
 
         $("#detailedData1 .input").removeClass("inputField-readonly");
         $("#detailedData1 .input").removeAttr("readonly");
@@ -1409,6 +1422,8 @@ function loadGeneralDetailedData() {
             disabled: false
         });
         $("#lang_report").attr("langId", "0");
+        $("#startDatePicker").datepicker('enable');
+        $("#endDatePicker").datepicker('enable');
 
         $("#detailedData1 .input").removeClass("inputField-readonly");
         $("#detailedData1 .input").removeAttr("readonly");
@@ -2246,7 +2261,10 @@ function checkDate() {
 }
 
 function createPeriodControls() {
-    $("#main-conditions").append($("#tmplPeriodSelection").text());
+
+    $(".add-info-block").remove();
+    $("#ContentContainer").prepend("<div class='add-info-block'></div>");
+    $(".add-info-block").append($("#tmplPeriodSelection").text());
     
     var today = new Date();
     var todaystr = "" + convert(today);
@@ -2264,12 +2282,15 @@ function createPeriodControls() {
     $("#startDatePicker").datepicker($.datepicker.regional['ru']);
     $("#endDatePicker").datepicker($.datepicker.regional['ru']);
 
-    $("#buildButton").button();
+    $("#startDatePicker").datepicker('disable');
+    $("#endDatePicker").datepicker('disable');
+
+    /*$("#buildButton").button();
     $("#buildButton").click(function () {
         checkDate();
         //!TODO Here will be build function
         return false;
-    });
+    });*/
 
     $("#periodSelection").show();
     $("#dateErrorBlock").hide();

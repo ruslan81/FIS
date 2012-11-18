@@ -1100,6 +1100,9 @@ function checkDate() {
 
 function buildReport() {
 
+    var startDate = $("#startDatePicker").datepicker("getDate");
+    var endDate = $("#endDatePicker").datepicker("getDate");
+
     if (checkDate() != "OK")
         return;
 
