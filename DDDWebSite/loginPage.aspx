@@ -25,7 +25,7 @@
                 $('#PassRecoverOkButton').addClass("disable");
                 $('#errorStatus').fadeOut(200);
             });
-        };    
+        };
     </script>
     
     <link rel="stylesheet" type="text/css" href="css/form-enter.css" />
@@ -45,16 +45,18 @@
             <asp:UpdatePanel ID="LoginUpdatePanel" runat="server">
                 <ContentTemplate>
                     <div id="logo">
-        	            <a href="http://smartfis.info"><img src="images/EnterForm/logo.png" style="margin:70px 20px 0 0;  border:none;"/></a>
+        	            <a href="http://smartfis.info">
+                            <img alt="smartfis.info" title="Узнайте о нашем продукте больше!" src="images/EnterForm/logo.png"/>
+                        </a>
                     </div>
                     <asp:Panel ID="enterFormPanel" runat="server">
                     <div id="form">
                         <div id="profiles">
                             <p>Профиль</p>
                             <asp:TextBox ID="ProfilesTextBox" runat="server" CssClass="searchBox" TabIndex="1"/>
-                            &nbsp;&nbsp;   
-                        </div>                     
-                        <div id="username">                           
+                            &nbsp;&nbsp;
+                        </div>
+                        <div id="username">
                             <p>Пользователь</p>
                             <asp:TextBox ID="UserNameTextBox" runat="server" CssClass="searchBox" TabIndex="2"/>
                             &nbsp;&nbsp;
@@ -87,9 +89,7 @@
        
     </div>
     <div id="bottom">
-        <!--<asp:Label ID="LastUpdate" ForeColor="Gray" runat="server" />-->
         Version 
-        <a href="WhatsNew.aspx">
         <b>
         <%System.Reflection.Assembly web = System.Reflection.Assembly.Load("App_Code");
             System.Reflection.AssemblyName webName = web.GetName();
@@ -98,28 +98,23 @@
         <%=myVersion %>
         (<%=System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location).ToShortDateString()%>)
         </b>
-        </a>
-
-        <!--<asp:LinkButton ID="ShowChangesBtn" runat="server" Text="Показать список изменений"
-            OnClick="ShowChangesClick" OnClientClick="aspnetForm.target ='_blank';" CausesValidation="false"/>-->
-        <em class="bb"><b>&nbsp;</b></em>
-        <p></p>&copy 2011 <a href="http://smartfis.info">SmartFIS </a>Все права защищены.</p>
+        <p>&copy 2009-2012 FIS Все права защищены.</p>
     </div>
 
     <script type="text/javascript">
           function recoverTextBoxChanged() {
               var currentTextBoxVal = document.getElementById("<% =PassRecoverTextBox.ClientID %>").value;
+              alert(currentTextBoxVal);
               document.getElementById("<% =RecoveryEmailHiddenField.ClientID %>").value = currentTextBoxVal;
-              //alert(document.getElementById("<% =RecoveryEmailHiddenField.ClientID %>").value);
           }
     </script>
 
         <asp:HiddenField runat="server" ID="RecoveryEmailHiddenField" />
     
-    <div id="dialog" title="Восстановление пароля">      
-        <asp:Label runat="server" ID="PassRecoverLabel" Text="Введите ваш адрес электронной почты, на нее будет выслан пароль:" />
+    <div id="dialog" title="Восстановление пароля">
+        <asp:Label runat="server" ID="PassRecoverLabel" Text="Введите адрес вашей электронной почты, на нее будет выслан ваш пароль:" />
         <br /><br />
-        <asp:TextBox ID="PassRecoverTextBox" Width="270px" runat="server" onchange="recoverTextBoxChanged();"   />         
+        <asp:TextBox ID="PassRecoverTextBox" Width="270px" runat="server" onchange="recoverTextBoxChanged();"/>
         <br /><br />
         <asp:UpdatePanel ID="PassRecoverUpdatePanel" runat="server" UpdateMode="Conditional">
             <ContentTemplate>
@@ -140,7 +135,7 @@
                     <asp:Label ID="PassRecoverStatus" runat="server" CssClass="error"/>
                 </div>
             </ContentTemplate>
-        </asp:UpdatePanel>            
+        </asp:UpdatePanel>
     </div>
     
     </form>

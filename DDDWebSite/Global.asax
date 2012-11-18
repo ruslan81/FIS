@@ -6,7 +6,7 @@
 
     void Application_AuthenticateRequest(Object sender, EventArgs e)
     {        
-        string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         HttpApplication app = (HttpApplication)sender;
         string rolе;
         BLL.UsersTables userCheck = new BLL.UsersTables(connectionString, "STRING_EN", new DB.SQL.SQLDB(connectionString));

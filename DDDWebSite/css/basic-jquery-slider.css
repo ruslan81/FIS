@@ -13,22 +13,10 @@ p.bjqs-caption{display:block;width:96%;margin:0;padding:2%;position:absolute;bot
 /* demo styles */
 
 
-#container{
-  width:100%;
-  margin:0 auto;
-  overflow:hidden;
-  position: absolute;
-}
 
 #banner {
-  height:50px;
-  width:500px;
-  margin:0 auto;
   position:relative;
-  /*background:#fff;
-  box-shadow:0 0 50px rgba(0,0,0,0.5);
-  border: 1px solid #EEE;*/
-  padding: 8px;
+  float: left;
 }
 
  ul.bjqs-controls li a{
