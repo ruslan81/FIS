@@ -82,8 +82,6 @@ button
     text-shadow: 1px 1px 1px white; 
 }
 
-
-
 /* Errors */
 
 .error-block
@@ -321,4 +319,9 @@ input
 .slider-title
 {
     padding-left:30px;margin-bottom:5px;font-size:14px;font-weight:bold;
+}
+
+.unused
+{
+	/*background-color:Blue;*/
 }

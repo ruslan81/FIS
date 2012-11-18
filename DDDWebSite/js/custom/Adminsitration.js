@@ -68,7 +68,7 @@ function buildOrgTree(param) {
                     onDealersTreeNodeSelected(e, data);
                 }
             });
-            
+
             if (param != "") {
                 $("#dealersTree li [likey=" + param + "]").wijtreenode({ selected: true });
                 $('span .ui-icon').addClass("ui-icon-triangle-1-se");
@@ -233,23 +233,40 @@ function loadGeneralData() {
             if (ui.index == 2) {
                 $("#timeZoneSelector").wijcombobox("destroy");
                 $("#country").wijcombobox("destroy");
+                $("#lang_screen").wijcombobox("destroy");
+                $("#lang_report").wijcombobox("destroy");
                 $("#timeZoneSelector").wijcombobox({
                     showingAnimation: { effect: "blind" },
                     hidingAnimation: { effect: "blind" },
-                    //isEditable: false,
                     disabled: true
                 });
                 $("#country").wijcombobox({
                     showingAnimation: { effect: "blind" },
                     hidingAnimation: { effect: "blind" },
-                    //isEditable: false,
                     disabled: true
                 });
+                $("#lang_screen").wijcombobox({
+                    showingAnimation: { effect: "blind" },
+                    hidingAnimation: { effect: "blind" },
+                    disabled: true
+                });
+                $("#lang_report").wijcombobox({
+                    showingAnimation: { effect: "blind" },
+                    hidingAnimation: { effect: "blind" },
+                    disabled: true
+                });
+                
                 if (mode == "edit" || mode == "create") {
                     $("#timeZoneSelector").wijcombobox({
                         disabled: false
                     });
                     $("#country").wijcombobox({
+                        disabled: false
+                    });
+                    $("#lang_screen").wijcombobox({
+                        disabled: false
+                    });
+                    $("#lang_report").wijcombobox({
                         disabled: false
                     });
                     if ($("#country").attr("countryId") == 0) {
@@ -259,6 +276,16 @@ function loadGeneralData() {
                     }
                     if ($("#timeZoneSelector").attr("timeZoneId") == 0) {
                         $("#timeZoneSelector").wijcombobox({
+                            selectedIndex: 0
+                        });
+                    }
+                    if ($("#lang_screen").attr("langId") == 0) {
+                        $("#lang_screen").wijcombobox({
+                            selectedIndex: 0
+                        });
+                    }
+                    if ($("#lang_report").attr("langId") == 0) {
+                        $("#lang_report").wijcombobox({
                             selectedIndex: 0
                         });
                     }
@@ -741,7 +768,7 @@ function loadUsersData() {
             $("#userControls").show();
             resizeAdmin();
             if (radioIndex != -1) {
-                if (mode == "edit" || mode == "create") {                    
+                if (mode == "edit" || mode == "create") {
                     $("#dealerSelector").wijcombobox({
                         disabled: false
                     });
@@ -763,17 +790,38 @@ function loadUsersData() {
             resizeAdmin();
             if (radioIndex != -1) {
                 if (mode == "edit" || mode == "create") {
-                    $("#country").wijcombobox({
+                    $("#country").wijcombobox("destroy");
+                    $("#timeZoneSelector").wijcombobox("destroy");
+                    $("#lang_screen").wijcombobox("destroy");
+                    $("#lang_report").wijcombobox("destroy");
+                    $("#timeZoneSelector").wijcombobox({
+                        showingAnimation: { effect: "blind" },
+                        hidingAnimation: { effect: "blind" },
                         disabled: false
                     });
-                    $("#timeZoneSelector").wijcombobox({
+                    $("#country").wijcombobox({
+                        showingAnimation: { effect: "blind" },
+                        hidingAnimation: { effect: "blind" },
+                        disabled: false
+                    });
+                    $("#lang_screen").wijcombobox({
+                        showingAnimation: { effect: "blind" },
+                        hidingAnimation: { effect: "blind" },
+                        disabled: false
+                    });
+                    $("#lang_report").wijcombobox({
+                        showingAnimation: { effect: "blind" },
+                        hidingAnimation: { effect: "blind" },
                         disabled: false
                     });
                 } else {
                     $("#timeZoneSelector").wijcombobox("destroy");
                     $("#country").wijcombobox("destroy");
+                    $("#lang_screen").wijcombobox("destroy");
+                    $("#lang_report").wijcombobox("destroy");
                     loadCountryList();
                     loadTimeZoneList();
+                    loadLangList();
                 }
             }
         }
@@ -836,10 +884,14 @@ function loadInvoiceData() {
 }
 
 function loadUsersControls() {
-    $("#userControls").empty();
-    $("#userControls").append($("#controlsUsers").text());
-    $("#userControls button").button();
-
+    if (mode != "cancel") {
+        $("#userControls").empty();
+        $("#userControls").append($("#controlsUsers").text());
+        $("#userControls button").button();
+    } else {
+        mode = "";
+    }
+    $("#userControls button").button({ disabled: false });
     $("#save").button({ disabled: true });
     $("#cancel").button({ disabled: true });
 
@@ -862,6 +914,13 @@ function loadUsersControls() {
         $("#timeZoneSelector").wijcombobox({
             disabled: false
         });
+        $("#lang_screen").wijcombobox({
+            disabled: false
+        });
+        $("#lang_report").wijcombobox({
+            disabled: false
+        });
+
         $("#detailedData1 .input").removeClass("inputField-readonly");
         $("#detailedData1 .input").removeAttr("readonly");
         $("#detailedData1 .input").addClass("inputField");
@@ -886,6 +945,8 @@ function loadUsersControls() {
             $("#pass2").removeClass("inputField");
             $("#pass2").addClass("inputField-readonly");
             $("#pass2").attr("readonly", "readonly");
+        } else {
+            $("#boxOnOff").removeAttr("disabled");
         }
 
         $("#edit").button({ disabled: true });
@@ -928,6 +989,12 @@ function loadUsersControls() {
                         $("#timeZoneSelector").wijcombobox({
                             disabled: false
                         });
+                        $("#lang_screen").wijcombobox({
+                            disabled: false
+                        });
+                        $("#lang_report").wijcombobox({
+                            disabled: false
+                        });
                     } else {
                         $("#timeZoneSelector").wijcombobox("destroy");
                         $("#country").wijcombobox("destroy");
@@ -957,7 +1024,7 @@ function loadUsersControls() {
     });
 
     $("#cancel").click(function () {
-        mode = "";
+        mode = "cancel";
         tabIndex = 0;
         loadUsersData();
         return false;
@@ -1021,6 +1088,8 @@ function enableCreatingControls() {
 
     $("#orgName").attr("value", "Текущая организация");
 
+    $("#boxOnOff").removeAttr("disabled");
+
     $("#edit").button({ disabled: true });
     $("#delete").button({ disabled: true });
     $("#create").button({ disabled: true });
@@ -1060,6 +1129,16 @@ function enableCreatingControls() {
             selectedIndex: 0
         });
         $("#timeZoneSelector").attr("timeZoneId", "0");
+        $("#lang_screen").wijcombobox({
+            disabled: false,
+            selectedIndex: 0
+        });
+        $("#lang_screen").attr("langId", "0");
+        $("#lang_report").wijcombobox({
+            disabled: false,
+            selectedIndex: 0
+        });
+        $("#lang_report").attr("langId", "0");
     }
 }
 
@@ -1085,13 +1164,16 @@ function loadJournalData() {
 }
 
 function buildJournalTable() {
-    $("#dateErrorBlock").hide();
+    //$("#dateErrorBlock").hide();
     var startDate = $("#startDatePicker").datepicker("getDate");
     var endDate = $("#endDatePicker").datepicker("getDate");
     var event = $("#eventSelector").attr("event");
     var text = $("#textInput").attr("value");
-    if (endDate == null || startDate == null) {
+    /*if (endDate == null || startDate == null) {
         $("#dateErrorBlock").show();
+        return;
+    }*/
+    if (checkDate() != "OK") {
         return;
     }
     $.ajax({
@@ -1116,13 +1198,11 @@ function buildJournalTable() {
 }
 
 function buildInvoiceTable() {
-    $("#dateErrorBlock").hide();
+    //$("#dateErrorBlock").hide();
     var startDate = $("#startDatePicker").datepicker("getDate");
     var endDate = $("#endDatePicker").datepicker("getDate");
     var status = $("#invoiceStatusSelector").attr("statusType");
-
-    if (endDate == null || startDate == null) {
-        $("#dateErrorBlock").show();
+    if (checkDate() != "OK") {
         return;
     }
     $.ajax({
@@ -1237,6 +1317,7 @@ function loadGeneralDetailedData() {
             $("#detailedData2 input").attr("readonly", "readonly");
             loadCountryList();
             loadTimeZoneList();
+            loadLangList();
             //loadAllDealersList();
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -1244,10 +1325,15 @@ function loadGeneralDetailedData() {
         }
     });
 
-    $("#userControls").empty();
-    $("#userControls").append($("#сontrolsGeneralDetailed").text());
+    if (mode != "cancel") {
+        $("#userControls").empty();
+        $("#userControls").append($("#сontrolsGeneralDetailed").text());
+        $("#userControls button").button();
+    } else {
+        mode = "";
+    }
+    $("#userControls button").button({ disabled: false });
 
-    $("#userControls button").button();
     $("#save").button({ disabled: true });
     $("#cancel").button({ disabled: true });
     if (dealerOrgID == $.cookie("CURRENT_ORG_ID")) {
@@ -1266,6 +1352,14 @@ function loadGeneralDetailedData() {
         $("#country").wijcombobox({
             disabled: false
         });
+        $("#lang_screen").wijcombobox({
+            disabled: false
+        });
+        $("#lang_report").wijcombobox({
+            disabled: false
+        });
+
+
 
         $("#detailedData1 .input").removeClass("inputField-readonly");
         $("#detailedData1 .input").removeAttr("readonly");
@@ -1275,12 +1369,14 @@ function loadGeneralDetailedData() {
         $("#detailedData2 .input").removeAttr("readonly");
         $("#detailedData2 .input").addClass("inputField");
 
+
         if (dealerOrgID == $.cookie("CURRENT_ORG_ID")) {
             $("#orgName").removeClass("inputField");
             $("#orgName").addClass("inputField-readonly");
             $("#orgName").attr("readonly", "readonly");
+        } else {
+            $("#boxOnOff").removeAttr("disabled");
         }
-
 
         $("#edit").button({ disabled: true });
         $("#create").button({ disabled: true });
@@ -1303,7 +1399,17 @@ function loadGeneralDetailedData() {
             selectedIndex: 0
         });
         $("#country").attr("countryId", "0");
-        
+        $("#lang_screen").wijcombobox({
+            disabled: false,
+            selectedIndex: 0
+        });
+        $("#lang_screen").attr("langId", "0");
+        $("#lang_report").wijcombobox({
+            selectedIndex: 0,
+            disabled: false
+        });
+        $("#lang_report").attr("langId", "0");
+
         $("#detailedData1 .input").removeClass("inputField-readonly");
         $("#detailedData1 .input").removeAttr("readonly");
         $("#detailedData1 .input").addClass("inputField");
@@ -1316,6 +1422,8 @@ function loadGeneralDetailedData() {
 
         $("#detailedData2 .input").attr("value", "");
 
+        $("#boxOnOff").removeAttr("disabled");
+
         $("#edit").button({ disabled: true });
         $("#create").button({ disabled: true });
         $("#delete").button({ disabled: true });
@@ -1325,7 +1433,7 @@ function loadGeneralDetailedData() {
     });
 
     $("#cancel").click(function () {
-        mode = "";
+        mode = "cancel";
         loadGeneralDetailedData();
         return false;
     });
@@ -1446,6 +1554,7 @@ function loadUsersDetailedData() {
             loadTimeZoneList();
             loadRoleList();
             loadAllDealersList();
+            loadLangList();
             var name = $("#orgLogin").attr("value");
             if (name == $.cookie("CURRENT_USERNAME")) {
                 $("#delete").button({ disabled: true });
@@ -1750,7 +1859,6 @@ function loadCountryList() {
             $("#country").wijcombobox({
                 showingAnimation: { effect: "blind" },
                 hidingAnimation: { effect: "blind" },
-                //isEditable: false,
                 disabled: true
             });
             if (mode == "create") {
@@ -1765,6 +1873,37 @@ function loadCountryList() {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
+}
+
+function loadLangList() {
+
+    //AJAX HERE
+    $("#lang_screen").wijcombobox({
+        showingAnimation: { effect: "blind" },
+        hidingAnimation: { effect: "blind" },
+        disabled: true
+    });
+    if (mode == "create") {
+        $("#lang_screen").wijcombobox({
+            disabled: false,
+            selectedIndex: 0
+        });
+        $("#lang_screen").attr("langId", "0");
+    }
+    //AJAX HERE
+    $("#lang_report").wijcombobox({
+        showingAnimation: { effect: "blind" },
+        hidingAnimation: { effect: "blind" },
+        disabled: true
+    });
+    if (mode == "create") {
+        $("#lang_report").wijcombobox({
+            disabled: false,
+            selectedIndex: 0
+        });
+        $("#lang_report").attr("langId", "0");
+    }
+
 }
 
 function loadAllDealersList() {
@@ -2083,4 +2222,56 @@ function showWrongDataMessage(name) {
             maximize: { visible: false }
         }
     });
+}
+
+function checkDate() {
+    $("#dateErrorBlock").hide();
+    $("#dateErrorLabel").empty();
+
+    var startDate = $("#startDatePicker").datepicker("getDate");
+    var endDate = $("#endDatePicker").datepicker("getDate");
+
+    if (endDate < startDate) {
+        $("#dateErrorLabel").append(" Ошибка: Неверно заданы даты!");
+        $("#dateErrorBlock").show();
+        return "BAD";
+    }
+
+    if (endDate == null || startDate == null) {
+        $("#dateErrorLabel").append(" Ошибка: Укажите начальную и конечную дату!");
+        $("#dateErrorBlock").show();
+        return "BAD";
+    }
+    return "OK";
+}
+
+function createPeriodControls() {
+    $("#main-conditions").append($("#tmplPeriodSelection").text());
+    
+    var today = new Date();
+    var todaystr = "" + convert(today);
+    today.setMonth(today.getMonth() - 1);
+    var thenstr = "" + convert(today);
+
+    $("#startDatePicker").datepicker();
+    $("#startDatePicker").datepicker("option", "dateFormat", "dd.mm.yy");
+    $("#startDatePicker").datepicker("setDate", thenstr);
+    
+    $("#endDatePicker").datepicker();
+    $("#endDatePicker").datepicker("option", "dateFormat", "dd.mm.yy");
+    $("#endDatePicker").datepicker("setDate", todaystr);
+    
+    $("#startDatePicker").datepicker($.datepicker.regional['ru']);
+    $("#endDatePicker").datepicker($.datepicker.regional['ru']);
+
+    $("#buildButton").button();
+    $("#buildButton").click(function () {
+        checkDate();
+        //!TODO Here will be build function
+        return false;
+    });
+
+    $("#periodSelection").show();
+    $("#dateErrorBlock").hide();
+
 }

@@ -32,12 +32,14 @@
             $("#accordion").accordion({
                 change: function (event, ui) {
                     if ($("a", ui.newHeader).text() == "Организация") {
+                        mode = "";
                         $("#contentSettingsPlace").empty();
                         $("#headerSettings").empty();
                         $("#general").wijtreenode({ selected: true });
                         loadGeneralSettings();
                     };
                     if ($("a", ui.newHeader).text() == "Напоминания") {
+                        mode = "";
                         $("#contentSettingsPlace").empty();
                         //createRemindControls();
                         loadReminds();
@@ -48,6 +50,7 @@
                     //Раздел Водители
                     if ($("a", ui.newHeader).attr("code") == 3) {
                         currentCardId = "-1";
+                        mode = "";
                         $("#headerSettings").empty();
                         $("#headerSettings").text("Настройки водителей");
                         $("#contentSettings").empty();
@@ -58,6 +61,7 @@
                     //Раздел ТС
                     if ($("a", ui.newHeader).attr("code") == 4) {
                         currentCardId = "-1";
+                        mode = "";
                         $("#headerSettings").empty();
                         $("#headerSettings").text("Настройки транспортных средств");
                         $("#contentSettings").empty();
@@ -68,6 +72,7 @@
                     //Раздел Группы
                     if ($("a", ui.newHeader).attr("code") == 5) {
                         currentCardId = "";
+                        mode = "";
                         $("#headerSettings").empty();
                         $("#headerSettings").text("Настройки групп");
                         $("#contentSettings").empty();
@@ -77,6 +82,7 @@
                     }
                     //Раздел Настройки по умолчанию
                     if ($("a", ui.newHeader).attr("code") == 6) {
+                        mode = "";
                         loadDefaultSettings();
                     }
                 }
@@ -319,27 +325,52 @@
     </script>
 
     <script id="tmplSingleDriverData" type="text/x-jquery-tmpl">
-        <table id="contentTable" style="border-collapse: separate;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
-                border="0" cellpadding="0" cellspacing="0">
-                <tbody id="" class="ui-widget-content wijmo-wijgrid-data">
-            <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Номер</td><td style="padding-left:50px;padding-top:10px;"><input id="numberinputSingle" value="{{html Number}}" class="inputField-readonly input" readonly="readonly"/></td>
-            </tr>
-            <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">ФИО</td><td style="padding-left:50px;padding-top:10px;"><input id="nameinputSingle" value="{{html Name}}" class="inputField-readonly input" readonly="readonly"/></td>
-            </tr>
-            <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Комментарий</td><td style="padding-left:50px;padding-top:10px;"><input id="commentinputSingle" value="{{html Comment}}" class="inputField-readonly input" readonly="readonly"/></td>
-            </tr>
-            <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Группа</td><td style="padding-left:50px;padding-top:10px;"><select id="groupSelectorSingle" name="groupSelector" group="{{html groupID}}" onchange="this.group=this.value;"></select></td>
-            </tr>
-            </tbody>
-            </table>
+    <div id="tabs" style="background: transparent;">                
+            <ul style="height:30px;">
+    		    <li><asp:LinkButton ID="GeneralTab" runat="server" Text="Основные" href="#tabs-1"/></li>
+		        <li><asp:LinkButton ID="PrivateTab" runat="server" Text="Личные" href="#tabs-2"/></li>
+                <li><asp:LinkButton ID="CardTab" runat="server" Text="Карта" href="#tabs-3"/></li>
+	        </ul>
+            <div id="tabs-1">
+                <table id="contentTable" style="border-collapse: separate;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
+                    border="0" cellpadding="0" cellspacing="0">
+                    <tbody id="" class="ui-widget-content wijmo-wijgrid-data">
+                <tr style="background-color:#eee;">
+                <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Номер</td><td style="padding-left:50px;padding-    top:10px;"><input id="numberinputSingle" value="{{html Number}}" class="inputField-readonly input" readonly="readonly"/></td>
+                </tr>
+                <tr style="background-color:#eee;">
+                <td class="key" style="font-size:12px;width:200px;padding-top:10px;">ФИО</td><td style="padding-left:50px;padding-  top:10px;"><input id="nameinputSingle" value="{{html Name}}" class="inputField-readonly input" readonly="readonly"/></td>
+                </tr>
+                <tr style="background-color:#eee;">
+                <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Комментарий</td><td style="padding-left:50px;padding-  top:10px;"><input id="commentinputSingle" value="{{html Comment}}" class="inputField-readonly input" readonly="readonly"/></td>
+                </tr>
+                <tr style="background-color:#eee;">
+                <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Группа</td><td style="padding-left:50px;padding-   top:10px;"><select id="groupSelectorSingle" name="groupSelector" group="{{html groupID}}" onchange="this.group=this.value;"></select></td>
+                </tr>
+                </tbody>
+                </table>
+                </div>
+            <div id="tabs-2">
+     
+            </div>
+            <div id="tabs-3">
+     
+            </div>
+     </div>
+
+        
     </script>
 
     <script id="tmplSingleVehicleData" type="text/x-jquery-tmpl">
-        <table id="contentTable" style="border-collapse: separate;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
+        <div id="tabs" style="background: transparent;">                
+            <ul style="height:30px;">
+    		    <li><asp:LinkButton ID="GeneralVehicleTab" runat="server" Text="Основные" href="#tabs-1"/></li>
+		        <li><asp:LinkButton ID="AdditionalTab" runat="server" Text="Дополнительные" href="#tabs-2"/></li>
+                <li><asp:LinkButton ID="EquipmentTab" runat="server" Text="Оборудование" href="#tabs-3"/></li>
+                <li><asp:LinkButton ID="CoefficientTab" runat="server" Text="Коэффициенты" href="#tabs-4"/></li>
+	        </ul>
+            <div id="tabs-1">
+             <table id="contentTable" style="border-collapse: separate;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
                 border="0" cellpadding="0" cellspacing="0">
                 <tbody id="" class="ui-widget-content wijmo-wijgrid-data">
             <tr style="background-color:#eee;">
@@ -356,6 +387,15 @@
             </tr>
             </tbody>
             </table>
+            </div>
+
+            <div id="tabs-2">
+            </div>
+            <div id="tabs-3">
+            </div>
+            <div id="tabs-4">
+            </div>
+        </div>
     </script>
 
     <script id="tmplSingleGroupData" type="text/x-jquery-tmpl">
