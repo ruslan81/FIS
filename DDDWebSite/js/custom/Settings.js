@@ -1433,6 +1433,15 @@ function createUserControlsSingleTransport() {
         $("#delete").button({ disabled: true });
     }
 
+    var today = new Date();
+    var todaystr = "" + convert(today);
+
+    $("#tabs .datepicker").datepicker();
+    $("#tabs .datepicker").datepicker("option", "dateFormat", "dd.mm.yy");
+    $("#tabs .datepicker").datepicker("setDate", todaystr);
+    $("#tabs .datepicker").datepicker($.datepicker.regional['ru']);
+    $("#tabs .datepicker").datepicker('disable');
+
     if (mode == "cancel") { mode = ""; return; }
 
     $("#create").click(function () {
@@ -1443,18 +1452,16 @@ function createUserControlsSingleTransport() {
         $("#save").button({ disabled: false });
         $("#cancel").button({ disabled: false });
 
-        $("#numberinputSingle").removeClass("inputField-readonly");
-        $("#numberinputSingle").addClass("inputField");
-        $("#numberinputSingle").removeAttr("readonly");
-        $("#numberinputSingle").attr("value", "");
-        $("#nameinputSingle").removeClass("inputField-readonly");
-        $("#nameinputSingle").addClass("inputField");
-        $("#nameinputSingle").removeAttr("readonly");
-        $("#nameinputSingle").attr("value", "");
-        $("#commentinputSingle").removeClass("inputField-readonly");
-        $("#commentinputSingle").addClass("inputField");
-        $("#commentinputSingle").removeAttr("readonly");
-        $("#commentinputSingle").attr("value", "");
+        $("#tabs .input").removeClass("inputField-readonly");
+        $("#tabs .input").addClass("inputField");
+        $("#tabs .input").removeAttr("readonly");
+        $("#tabs .input").attr("value", "");
+
+        var today = new Date();
+        var todaystr = "" + convert(today);
+        $("#tabs .datepicker").datepicker("setDate", todaystr);
+        $("#tabs .datepicker").datepicker('enable');
+
         createGroupSelectorDriversSingle($("#groupSelectorSingle"));
         $("#groupSelectorSingle").wijcombobox(
                 {
@@ -1489,15 +1496,11 @@ function createUserControlsSingleTransport() {
     $("#edit").click(function () {
         mode = "edit";
 
-        $("#numberinputSingle").removeClass("inputField-readonly");
-        $("#numberinputSingle").addClass("inputField");
-        $("#numberinputSingle").removeAttr("readonly");
-        $("#nameinputSingle").removeClass("inputField-readonly");
-        $("#nameinputSingle").addClass("inputField");
-        $("#nameinputSingle").removeAttr("readonly");
-        $("#commentinputSingle").removeClass("inputField-readonly");
-        $("#commentinputSingle").addClass("inputField");
-        $("#commentinputSingle").removeAttr("readonly");
+        $("#tabs .input").removeClass("inputField-readonly");
+        $("#tabs .input").addClass("inputField");
+        $("#tabs .input").removeAttr("readonly");
+        $("#tabs .datepicker").datepicker("enable");
+
         $("#groupSelectorSingle").wijcombobox(
                     {
                         disabled: false
