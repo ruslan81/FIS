@@ -1094,7 +1094,7 @@ function enableCreatingControls() {
     $("#detailedData2 .input").attr("value", "");
 
     $("#startDatePicker").datepicker('enable');
-    $("#endDatePicker").datepicker('enable');    
+    $("#endDatePicker").datepicker('enable');
 
     $("#orgName").attr("value", "Текущая организация");
 

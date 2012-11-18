@@ -747,6 +747,31 @@ function loadSingleDriverSettings() {
                 $("#tmplSingleDriverData").tmpl(param).appendTo("#contentSettings");
             }
             $("#tabs").tabs();
+            $("#tabs").tabs({ show: function (e, ui) {
+                if (ui.index == 0) {
+                }
+                if (ui.index == 1) {
+                    $("#lang").wijcombobox("destroy");
+                    $("#lang").wijcombobox({
+                        showingAnimation: { effect: "blind" },
+                        hidingAnimation: { effect: "blind" },
+                        disabled: true
+                    });
+                    if (mode == "edit" || mode == "create") {
+                        $("#lang").wijcombobox({
+                            disabled: false
+                        });
+                        if ($("#lang").attr("langId") == 0) {
+                            $("#lang").wijcombobox({
+                                selectedIndex: 0
+                            });
+                        }
+                    }
+                }
+                return false;
+            }
+            });
+            //loadLangList();
             $("#contentTable").show();
             createGroupSelectorDrivers();
             createUserControlsSingleDriver();
@@ -875,12 +900,12 @@ function createUserControlsGroups() {
         $("#userControls").empty();
         $("#userControls").append($("#userControlsGroups").text());
         $("#userControls button").button();
-    } 
+    }
     $("#userControls button").button({ disabled: false });
     $("#save").button({ disabled: true });
     $("#cancel").button({ disabled: true });
 
-    if (mode = "cancel") {mode = "";return;}
+    if (mode = "cancel") { mode = ""; return; }
 
     $("#create").click(function () {
         mode = "create";
@@ -1049,13 +1074,13 @@ function createUserControlsDrivers() {
         $("#userControls").empty();
         $("#userControls").append($("#userControlsGroups").text());
         $("#userControls button").button();
-    } 
+    }
     $("#userControls button").button({ disabled: false });
 
     $("#save").button({ disabled: true });
     $("#cancel").button({ disabled: true });
 
-    if (mode == "cancel") {mode = "";return;}
+    if (mode == "cancel") { mode = ""; return; }
 
     $("#create").click(function () {
         mode = "create";
@@ -1229,6 +1254,15 @@ function createUserControlsSingleDriver() {
         $("#delete").button({ disabled: true });
     }
 
+    var today = new Date();
+    var todaystr = "" + convert(today);
+
+    $("#tabs .datepicker").datepicker();
+    $("#tabs .datepicker").datepicker("option", "dateFormat", "dd.mm.yy");
+    $("#tabs .datepicker").datepicker("setDate", todaystr);
+    $("#tabs .datepicker").datepicker($.datepicker.regional['ru']);
+    $("#tabs .datepicker").datepicker('disable');
+
     if (mode == "cancel") { mode = ""; return; }
 
     $("#create").click(function () {
@@ -1239,23 +1273,30 @@ function createUserControlsSingleDriver() {
         $("#save").button({ disabled: false });
         $("#cancel").button({ disabled: false });
 
-        $("#numberinputSingle").removeClass("inputField-readonly");
-        $("#numberinputSingle").addClass("inputField");
-        $("#numberinputSingle").removeAttr("readonly");
-        $("#numberinputSingle").attr("value", "");
-        $("#nameinputSingle").removeClass("inputField-readonly");
-        $("#nameinputSingle").addClass("inputField");
-        $("#nameinputSingle").removeAttr("readonly");
-        $("#nameinputSingle").attr("value", "");
-        $("#commentinputSingle").removeClass("inputField-readonly");
-        $("#commentinputSingle").addClass("inputField");
-        $("#commentinputSingle").removeAttr("readonly");
-        $("#commentinputSingle").attr("value", "");
+        $("#tabs .input").removeClass("inputField-readonly");
+        $("#tabs .input").addClass("inputField");
+        $("#tabs .input").removeAttr("readonly");
+        $("#tabs .input").attr("value", "");
+
         createGroupSelectorDriversSingle($("#groupSelectorSingle"));
         $("#groupSelectorSingle").wijcombobox(
                 {
                     disabled: false
                 });
+
+        var today = new Date();
+        var todaystr = "" + convert(today);
+        $("#tabs .datepicker").datepicker("setDate", todaystr);
+        $("#tabs .datepicker").datepicker('enable');
+
+        $("#lang").wijcombobox({
+            disabled: false
+        });
+        if ($("#lang").attr("langId") == 0) {
+            $("#lang").wijcombobox({
+                selectedIndex: 0
+            });
+        }
         return false;
     });
 
@@ -1285,15 +1326,10 @@ function createUserControlsSingleDriver() {
     $("#edit").click(function () {
         mode = "edit";
 
-        $("#numberinputSingle").removeClass("inputField-readonly");
-        $("#numberinputSingle").addClass("inputField");
-        $("#numberinputSingle").removeAttr("readonly");
-        $("#nameinputSingle").removeClass("inputField-readonly");
-        $("#nameinputSingle").addClass("inputField");
-        $("#nameinputSingle").removeAttr("readonly");
-        $("#commentinputSingle").removeClass("inputField-readonly");
-        $("#commentinputSingle").addClass("inputField");
-        $("#commentinputSingle").removeAttr("readonly");
+        $("#tabs .input").removeClass("inputField-readonly");
+        $("#tabs .input").addClass("inputField");
+        $("#tabs .input").removeAttr("readonly");
+
         $("#groupSelectorSingle").wijcombobox(
                     {
                         disabled: false
@@ -1304,6 +1340,16 @@ function createUserControlsSingleDriver() {
         $("#create").button({ disabled: true });
         $("#save").button({ disabled: false });
         $("#cancel").button({ disabled: false });
+
+        $("#tabs .datepicker").datepicker('enable');
+        $("#lang").wijcombobox({
+            disabled: false
+        });
+        if ($("#lang").attr("langId") == 0) {
+            $("#lang").wijcombobox({
+                selectedIndex: 0
+            });
+        }
 
         return false;
     });
@@ -1532,14 +1578,14 @@ function createUserControlsSingleTransport() {
 }
 
 /*function recreateUserControls() {
-    if (mode != "cancel") {
-        $("#userControls").empty();
-        $("#userControls").append($("#userControlsGroups").text());
-        $("#userControls button").button();
-    } else {
-        mode = "";
-    }
-    $("#userControls button").button({ disabled: false });
+if (mode != "cancel") {
+$("#userControls").empty();
+$("#userControls").append($("#userControlsGroups").text());
+$("#userControls button").button();
+} else {
+mode = "";
+}
+$("#userControls button").button({ disabled: false });
 }*/
 
 function createUserControlsSingleGroup() {
@@ -2448,4 +2494,26 @@ function loadUserList() {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
+}
+
+function loadLangList() {
+    //AJAX HERE
+    $("#lang").wijcombobox({
+        showingAnimation: { effect: "blind" },
+        hidingAnimation: { effect: "blind" },
+        disabled: true
+    });
+    if (mode == "create") {
+        $("#lang").wijcombobox({
+            disabled: false,
+            selectedIndex: 0
+        });
+        $("#lang").attr("langId", "0");
+    }
+}
+
+function convert(date) {
+    res = date.getDate() + ".";
+    if (date.getMonth() < 9) res = res + "0";
+    return res + (date.getMonth() + 1) + "." + date.getFullYear();
 }
