@@ -35,7 +35,7 @@
           buildOrgTree(0);
           //buildUserTree(0);
           loadGeneralData();
-          createPeriodControls();
+          //createPeriodControls();
 
           $("#accordion").accordion({
               change: function (event, ui) {
@@ -48,7 +48,7 @@
                       radioIndex = -1;
                       buildOrgTree(0);
                       loadGeneralData();
-                      createPeriodControls();
+                      //createPeriodControls();
                   };
                   /*if ($("a", ui.newHeader).text() == "Дилеры") {
                   $("#userControls").empty();
@@ -137,7 +137,6 @@
             <div id="dateErrorBlock" class="error-block">
                 <label class="error" id="dateErrorLabel"> Ошибка: Укажите начальную и конечную дату!</label>
             </div>
-            <br/><br/>
         </div>
     </script>
 
@@ -323,8 +322,6 @@
 
 
     <script id="GeneralData" type="text/x-jquery-tmpl">
-     <div class="add-info-block">
-     </div>
      <div id="tabs">
             <ul>
                 <li><a href="#tabs-1">Общие сведения</a></li>

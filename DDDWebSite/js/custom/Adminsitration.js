@@ -184,6 +184,7 @@ function buildUserTree(param) {
 function loadGeneralData() {
 
     $("#ContentContainer").empty();
+    createPeriodControls();
     $("#ContentContainer").append($("#GeneralData").text());
 
     $.ajax({
@@ -1325,6 +1326,9 @@ function loadGeneralDetailedData() {
             $("#detailedData1 input").attr("readonly", "readonly");
             $("#detailedData2 input").addClass("inputField-readonly input");
             $("#detailedData2 input").attr("readonly", "readonly");
+            $("#boxOnOff").removeClass("inputField-readonly");
+            $("#boxOnOff").removeAttr("readonly");
+
             $("#startDatePicker").datepicker('disable');
             $("#endDatePicker").datepicker('disable');
             loadCountryList();
@@ -1564,6 +1568,8 @@ function loadUsersDetailedData() {
             $("#detailedData1 input").attr("readonly", "readonly");
             $("#detailedData2 input").addClass("inputField-readonly input");
             $("#detailedData2 input").attr("readonly", "readonly");
+            $("#boxOnOff").removeClass("inputField-readonly");
+            $("#boxOnOff").removeAttr("readonly");
             //$("#detailedData input").attr("style", "border: 2px solid red;");
             loadCountryList();
             loadTimeZoneList();
