@@ -933,6 +933,10 @@ function loadUsersControls() {
         $("#detailedData2 .input").removeAttr("readonly");
         $("#detailedData2 .input").addClass("inputField");
 
+        $("#subdealerinput").removeClass("inputField-readonly");
+        $("#subdealerinput").removeAttr("readonly");
+        $("#subdealerinput").addClass("inputField");
+
         $("#orgName").removeClass("inputField");
         $("#orgName").addClass("inputField-readonly");
         $("#orgName").attr("readonly", "readonly");
@@ -1086,6 +1090,10 @@ function enableCreatingControls() {
     $("#detailedData2 .input").removeClass("inputField-readonly");
     $("#detailedData2 .input").removeAttr("readonly");
     $("#detailedData2 .input").addClass("inputField");
+
+    $("#subdealerinput").removeClass("inputField-readonly");
+    $("#subdealerinput").removeAttr("readonly");
+    $("#subdealerinput").addClass("inputField");
 
     $("#orgName").removeClass("inputField");
     $("#orgName").addClass("inputField-readonly");
@@ -1328,7 +1336,6 @@ function loadGeneralDetailedData() {
             $("#detailedData2 input").attr("readonly", "readonly");
             $("#boxOnOff").removeClass("inputField-readonly");
             $("#boxOnOff").removeAttr("readonly");
-
             $("#startDatePicker").datepicker('disable');
             $("#endDatePicker").datepicker('disable');
             loadCountryList();
@@ -1359,6 +1366,10 @@ function loadGeneralDetailedData() {
         $("#create").button({ disabled: true });
     }
 
+    $("#subdealerinput").removeClass("inputField");
+    $("#subdealerinput").attr("readonly", "readonly");
+    $("#subdealerinput").addClass("inputField-readonly input");
+
     $("#edit").click(function () {
         mode = "edit";
 
@@ -1386,6 +1397,9 @@ function loadGeneralDetailedData() {
         $("#detailedData2 .input").removeAttr("readonly");
         $("#detailedData2 .input").addClass("inputField");
 
+        $("#subdealerinput").removeClass("inputField-readonly");
+        $("#subdealerinput").removeAttr("readonly");
+        $("#subdealerinput").addClass("inputField");
 
         if (dealerOrgID == $.cookie("CURRENT_ORG_ID")) {
             $("#orgName").removeClass("inputField");
@@ -1438,6 +1452,10 @@ function loadGeneralDetailedData() {
         $("#detailedData2 .input").removeClass("inputField-readonly");
         $("#detailedData2 .input").removeAttr("readonly");
         $("#detailedData2 .input").addClass("inputField");
+
+        $("#subdealerinput").removeClass("inputField-readonly");
+        $("#subdealerinput").removeAttr("readonly");
+        $("#subdealerinput").addClass("inputField");
 
         $("#detailedData2 .input").attr("value", "");
 

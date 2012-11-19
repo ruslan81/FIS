@@ -109,7 +109,7 @@
     
     <script id="tmplGeneralSettings" type="text/x-jquery-tmpl">
         <tr>
-            <td class="key" key="${Key}" style="font-size:12px;width:200px;">
+            <td class="key" key="${Key}" style="font-size:12px;width:300px;padding-top:10px;padding-left:50px;">
                 ${Value.Key}
             </td>
             <td class="value" style="padding-left:50px;">
@@ -323,8 +323,7 @@
             </td>
         </tr>
     </script>
-
- <script id="tmplSingleDriverData" type="text/x-jquery-tmpl">
+<script id="tmplSingleDriverData" type="text/x-jquery-tmpl">
   <div id="tabs" style="background: transparent;">
     <ul style="height:30px;">
       <li>
@@ -342,49 +341,49 @@
           border="0" cellpadding="0" cellspacing="0">
         <tbody id="" class="ui-widget-content wijmo-wijgrid-data">
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Фамилия</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Фамилия</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="surnameinputSingle" value="{{html Surname}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Имя</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Имя</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="nameinputSingle" value="{{html Name}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Отчество</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Отчество</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="patronymicinputSingle" value="{{html Patronymic}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Водительское удостоверение</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Водительское удостоверение</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="licenseinputSingle" value="{{html License}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Кто выдал</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Кто выдал</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="licGiverinputSingle" value="{{html LicGiver}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">ТС</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">ТС</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="vehicleinputSingle" value="{{html Vehicle}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Комментарий</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Комментарий</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="commentinputSingle" value="{{html Comment}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Группа</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Группа</td>
             <td style="padding-left:50px;padding-top:10px;">
               <select id="groupSelectorSingle" name="groupSelector" group="{{html groupID}}" onchange="this.group=this.value;"></select>
             </td>
@@ -397,19 +396,19 @@
                      border="0" cellpadding="0" cellspacing="0">
         <tbody id="" class="ui-widget-content wijmo-wijgrid-data">
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Телефон моб.</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Телефон моб.</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="phoneinputSingle" value="{{html Phone}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Дата рождения</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Дата рождения</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="birthdateinputSingle" value="{{html BirthDate}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Язык</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Язык</td>
             <td style="padding-left:50px;padding-top:10px;">
               <select id="lang" style="width:170px;" langId="0" onchange="this.langId=this.value;">
                 <option value="0">Русский</option>
@@ -425,42 +424,42 @@
                        border="0" cellpadding="0" cellspacing="0">
         <tbody id="" class="ui-widget-content wijmo-wijgrid-data">
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Номер карты</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Номер карты</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="numberinputSingle" value="{{html Number}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Кто выдал</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Кто выдал</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="cardGiverinputSingle" value="{{html CardGiver}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Страна</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Страна</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="countryinputSingle" value="{{html CardGiver}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Дата выдачи</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Дата выдачи</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="givenDateinputSingle" value="{{html GivenDate}}" class="datepicker"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Действительна с/по</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Действительна с/по</td>
             <td style="padding-left:50px;padding-top:10px;">
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Начало</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Начало</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="fromDateinputSingle" value="{{html FromDate}}" class="datepicker"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Окончание</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Окончание</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="toDateinputSingle" value="{{html ToDate}}" class="datepicker"/>
             </td>
@@ -471,7 +470,7 @@
   </div>
 </script>
 
-    <script id="tmplSingleVehicleData" type="text/x-jquery-tmpl">
+<script id="tmplSingleVehicleData" type="text/x-jquery-tmpl">
   <div id="tabs" style="background: transparent;">
     <ul style="height:30px;">
       <li>
@@ -492,31 +491,31 @@
          border="0" cellpadding="0" cellspacing="0">
         <tbody id="" class="ui-widget-content wijmo-wijgrid-data">
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">VIN</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">VIN</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="numberinputSingle" value="{{html Number}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Гос. Номер</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Гос. Номер</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="nameinputSingle" value="{{html Name}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Гаражный номер</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Гаражный номер</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="garageinputSingle" value="{{html GarageNumber}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Год выпуска</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Год выпуска</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="makeYearinputSingle" value="{{html MakeYear}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
-           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Комментарий</td>
+          <tr style="background-color:#eee;">
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Комментарий</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="commentinputSingle" value="{{html Comment}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
@@ -531,41 +530,41 @@
       </table>
     </div>
     <div id="tabs-2">
-          <table id="contentTable2" style="border-collapse: separate;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
-         border="0" cellpadding="0" cellspacing="0">
+      <table id="contentTable2" style="border-collapse: separate;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
+     border="0" cellpadding="0" cellspacing="0">
         <tbody id="" class="ui-widget-content wijmo-wijgrid-data">
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Бак 1</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Бак 1</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="tank1inputSingle" value="{{html Tank1}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Бак 2</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Бак 2</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="tank2inputSingle" value="{{html Tank2}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Грузоподъемность</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Грузоподъемность</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="capacityinputSingle" value="{{html Capacity}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Тип топлива</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Тип топлива</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="fuelTypeinputSingle" value="{{html FuelType}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">ТО 1</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">ТО 1</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="to1inputSingle" value="{{html TO1}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">ТО 2</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">ТО 2</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="to2inputSingle" value="{{html TO2}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
@@ -574,47 +573,47 @@
       </table>
     </div>
     <div id="tabs-3">
-     <table id="contentTable3" style="border-collapse: separate;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
-         border="0" cellpadding="0" cellspacing="0">
+      <table id="contentTable3" style="border-collapse: separate;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
+          border="0" cellpadding="0" cellspacing="0">
         <tbody id="" class="ui-widget-content wijmo-wijgrid-data">
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Тип оборудования</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Тип оборудования</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="eqtypeinputSingle" value="{{html EquipmentType}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Серийный номер</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Серийный номер</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="serialinputSingle" value="{{html Serial}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Последнее считывание</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Последнее считывание</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="lastReadDateinputSingle" value="{{html LastReadDate}}" class="datepicker"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Причина последней калибровки</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Причина последней калибровки</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="calibrReasoninputSingle" value="{{html CalibrReason}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Кто калибровал</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Кто калибровал</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="calibratorinputSingle" value="{{html Calibrator}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Номер карты калибровщика</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Номер карты калибровщика</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="calibratorCardinputSingle" value="{{html CalibratorCard}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
-         <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Следующая калибровка</td>
+          <tr style="background-color:#eee;">
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Следующая калибровка</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="nextCalibrinputSingle" value="{{html NextCalibrDate}}" class="datepicker"/>
             </td>
@@ -623,53 +622,53 @@
       </table>
     </div>
     <div id="tabs-4">
-    <table id="contentTable4" style="border-collapse: separate;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
-         border="0" cellpadding="0" cellspacing="0">
+      <table id="contentTable4" style="border-collapse: separate;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
+           border="0" cellpadding="0" cellspacing="0">
         <tbody id="" class="ui-widget-content wijmo-wijgrid-data">
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Номинальные обороты</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Номинальные обороты</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="turninputSingle" value="{{html Turns}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Максимальная скорость</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Максимальная скорость</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="maxVelocityinputSingle" value="{{html MaxVelocity}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Маневрирование</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Маневрирование</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="manevringinputSingle" value="{{html Manevring}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Город</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Город</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="cityinputSingle" value="{{html City}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Магистраль</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Магистраль</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="magistralinputSingle" value="{{html Magistral}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Номинальный расход</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Номинальный расход</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="consumptioninputSingle" value="{{html Consumption}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Холодный старт</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Холодный старт</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="coldstartinputSingle" value="{{html ColdStart}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Горячий стоп</td>
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Горячий стоп</td>
             <td style="padding-left:50px;padding-top:10px;">
               <input id="hotstopinputSingle" value="{{html HotStop}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
@@ -680,26 +679,32 @@
   </div>
 </script>
 
-    <script id="tmplSingleGroupData" type="text/x-jquery-tmpl">
-        <table id="contentTable" style="border-collapse: separate;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
-                border="0" cellpadding="0" cellspacing="0">
-                <tbody id="" class="ui-widget-content wijmo-wijgrid-data">
-            <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Название группы</td><td style="padding-left:50px;padding-top:10px;"><input id="nameinputSingle" value="{{html Name}}" class="inputField-readonly input" readonly="readonly"/></td>
-            </tr>
-            <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Комментарий</td><td style="padding-left:50px;padding-top:10px;"><input id="commentinputSingle" value="{{html Comment}}" class="inputField-readonly input" readonly="readonly"/></td>
-            </tr>
-            <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:200px;padding-top:10px;">Тип группы</td>
-            <td style="padding-left:50px;padding-top:10px;">
-            <select id="groupSelectorSingle" name="groupSelector" card="{{html cardType}}" onchange="this.card=this.value;">
-            </select>
-            </td>
-            </tr>
-            </tbody>
-            </table>
-    </script>
+<script id="tmplSingleGroupData" type="text/x-jquery-tmpl">
+  <table id="contentTable" style="border-collapse: separate;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
+          border="0" cellpadding="0" cellspacing="0">
+    <tbody id="" class="ui-widget-content wijmo-wijgrid-data">
+      <tr style="background-color:#eee;">
+        <td class="key" style="font-size:12px;width:300px;padding-top:10px;padding-left:50px;">Название группы</td>
+        <td style="padding-left:50px;padding-top:10px;">
+          <input id="nameinputSingle" value="{{html Name}}" class="inputField-readonly input" readonly="readonly"/>
+        </td>
+      </tr>
+      <tr style="background-color:#eee;">
+        <td class="key" style="font-size:12px;width:300px;padding-top:10px;padding-left:50px;">Комментарий</td>
+        <td style="padding-left:50px;padding-top:10px;">
+          <input id="commentinputSingle" value="{{html Comment}}" class="inputField-readonly input" readonly="readonly"/>
+        </td>
+      </tr>
+      <tr style="background-color:#eee;">
+        <td class="key" style="font-size:12px;width:300px;padding-top:10px;padding-left:50px;">Тип группы</td>
+        <td style="padding-left:50px;padding-top:10px;">
+          <select id="groupSelectorSingle" name="groupSelector" card="{{html cardType}}" onchange="this.card=this.value;">
+          </select>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</script>
 
     <script id="newCard" type="text/x-jquery-tmpl">
         <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
@@ -887,7 +892,7 @@
 
             <div>
                 <ul id="tree">
-                    <li class="folder" id="general"><a><span key="General">Общие</span></a>
+                    <!--<li class="folder" id="general"><a><span key="General">Общие</span></a>
                     </li>
                     <li class="folder"><a><span key="Groups">Группы</span></a>
                     </li>
@@ -896,7 +901,7 @@
                     <li class="folder"><a><span key="Transport">ТС</span></a>
                     </li>
                     <li class="folder"><a><span key="Default">Установки по умолчанию</span></a>
-                    </li>
+                    </li>-->
                 </ul>
             </div>
         </div>
@@ -965,18 +970,13 @@
         <div>
             <h3><asp:LinkButton ID="AccordionHeader6_Default" CausesValidation="false" runat="server" PostBackUrl="#" Text="Настройки по умолчанию" code="6"/></h3>
             <div>
-
             <div style="margin-top:10px;">
                 <center>
                     Данный раздел позволяет вам редактировать настройки по умолчанию.
                 </center>
             </div>
             </div>
-
-        </div>
-        
-
-                
+        </div>  
     </div>
 </asp:Content>
 <asp:Content ID="ChoisesContent" ContentPlaceHolderID="MainConditions_PlaceHolder" runat="server">
@@ -987,11 +987,12 @@
 </asp:Content>
 <asp:Content ID="DataContent" ContentPlaceHolderID="Reports_PlaceHolder" runat="server">
     <div>
-    
-        <table cellpadding="2" style="margin-left:30px; width: 800px">
+        <!--<table cellpadding="2" style="margin-left:30px; width: 800px">
             <tbody id="contentSettings">
             </tbody>
-        </table>
+        </table>-->
+        <div id="contentSettings">
+        </div>
     </div>
     <div id="contentSettingsPlace">
     </div>

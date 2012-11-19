@@ -134,6 +134,7 @@
         <div id="periodSelection">
             <label>Начальная дата </label><input id="startDatePicker" type="text"/>
             <label>Конечная дата </label><input id="endDatePicker" type="text"/>
+            <input id="subdealerinput" value="Субдилер" class="inputField-readonly input" readonly="readonly" style="width:200px;"/>
             <div id="dateErrorBlock" class="error-block">
                 <label class="error" id="dateErrorLabel"> Ошибка: Укажите начальную и конечную дату!</label>
             </div>
