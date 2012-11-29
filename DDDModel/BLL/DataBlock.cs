@@ -101,7 +101,7 @@ namespace BLL
         /// <summary>
         /// Язык
         /// </summary>
-        private string CurrentLanguage;//STRING_RU,STRING_ENG etc.
+        private string CurrentLanguage;//STRING_RU,STRING_RUG etc.
         /// <summary>
         /// Обьект записи 
         /// </summary>

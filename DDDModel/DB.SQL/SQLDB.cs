@@ -671,11 +671,11 @@ namespace DB.SQL
         }
         public int GetStringId(string stringValue)
         {
-            return GetStringId(stringValue, "STRING_EN");
+            return GetStringId(stringValue, "STRING_RU");
         }
-        public int AddOrGetString(string STRING_EN)
+        public int AddOrGetString(string STRING_RU)
         {
-            int stringId = AddOrGetString(STRING_EN, "STRING_EN");
+            int stringId = AddOrGetString(STRING_RU, "STRING_RU");
             return stringId;
         }
         public int AddOrGetString(string stringValue, string Language)
@@ -710,14 +710,14 @@ namespace DB.SQL
 
             //ENGLISH FIRST
             sql = "INSERT INTO fd_string "
-               + "(STRING_ID, STRING_EN )"
-               + "VALUES (@STRING_ID, @STRING_EN )";
+               + "(STRING_ID, STRING_RU )"
+               + "VALUES (@STRING_ID, @STRING_RU )";
             cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@STRING_ID", stringId);
-            cmd.Parameters.AddWithValue("@STRING_EN", stringValue);
+            cmd.Parameters.AddWithValue("@STRING_RU", stringValue);
             cmd.ExecuteNonQuery();
             ///////////////Other Language
-            if (Language != "STRING_EN")
+            if (Language != "STRING_RU")
             {
                 TranslateString(stringValue, Language, stringId);
             }
@@ -1852,7 +1852,7 @@ namespace DB.SQL
             }
             sdr.Close();
 
-            sql = "SELECT STRING_EN FROM fd_string WHERE STRING_ID=@ID";
+            sql = "SELECT STRING_RU FROM fd_string WHERE STRING_ID=@ID";
             cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@ID", strId);
             sdr = cmd.ExecuteReader();
@@ -1863,7 +1863,7 @@ namespace DB.SQL
             }
             sdr.Close();
 
-            sql = "UPDATE fd_string SET STRING_EN = @STR WHERE STRING_ID=@ID";
+            sql = "UPDATE fd_string SET STRING_RU = @STR WHERE STRING_ID=@ID";
             cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@STR", "###" + value);
             cmd.Parameters.AddWithValue("@ID", strId);
@@ -4436,11 +4436,11 @@ namespace DB.SQL
         {
             MySqlCommand cmd = new MySqlCommand();
             string sql = "INSERT INTO fd_string "
-                    + "(STRING_ID, STRING_EN)"
-                    + "VALUES (@STRING_ID, @STRING_EN)";
+                    + "(STRING_ID, STRING_RU)"
+                    + "VALUES (@STRING_ID, @STRING_RU)";
             cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@STRING_ID", 0);
-            cmd.Parameters.AddWithValue("@STRING_EN", "");
+            cmd.Parameters.AddWithValue("@STRING_RU", "");
             cmd.ExecuteNonQuery();
 
             //dataBlockStates
@@ -4517,7 +4517,7 @@ namespace DB.SQL
             InitTable_ID_String("fd_org_type", "ORG_TYPE_ID", "STRID_ORG_TYPE_NAME", "Anything else transportation");
 
             //FD_ORG
-            generatedId = AddNewOrganization("Init Organization", 1, 1, 1, "Init Organization", "STRING_EN");
+            generatedId = AddNewOrganization("Init Organization", 1, 1, 1, "Init Organization", "STRING_RU");
             CreateNewCard("Init Organization ORG", "000", orgInitCardTypeId, generatedId, "Карта организации " + "Init Organization" + " для неразобранных блоков данных", 1);
 
             //fd_param
@@ -4532,13 +4532,13 @@ namespace DB.SQL
             cmd.ExecuteNonQuery();
 
             //fd_user_info_set and fd_user_info
-            AddUserInfoName("Surname", "STRING_EN");
-            AddUserInfoName("Name", "STRING_EN");
-            AddUserInfoName("Patronimic", "STRING_EN");
-            AddUserInfoName("Drivers certificate", "STRING_EN");
-            AddUserInfoName("Card number", "STRING_EN");
-            AddUserInfoName("Phone number", "STRING_EN");
-            AddUserInfoName("Birthday", "STRING_EN");
+            AddUserInfoName("Surname", "STRING_RU");
+            AddUserInfoName("Name", "STRING_RU");
+            AddUserInfoName("Patronimic", "STRING_RU");
+            AddUserInfoName("Drivers certificate", "STRING_RU");
+            AddUserInfoName("Card number", "STRING_RU");
+            AddUserInfoName("Phone number", "STRING_RU");
+            AddUserInfoName("Birthday", "STRING_RU");
 
 
             //fd_user_rights

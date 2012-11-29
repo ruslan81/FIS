@@ -29,7 +29,7 @@ public partial class Administrator_Adminisration_UserControls_ReportsTab_UserCon
     protected void ReportsDataGrid_RadioButton_Checked(object sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
@@ -83,7 +83,7 @@ public partial class Administrator_Adminisration_UserControls_ReportsTab_UserCon
     public void LoadReportsTable()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
         List<int> reportsIds = new List<int>();
 
@@ -188,7 +188,7 @@ public partial class Administrator_Adminisration_UserControls_ReportsTab_UserCon
     protected void ReportsTab_AddReportButton_Click(object sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             dataBlock.OpenConnection();
@@ -221,7 +221,7 @@ public partial class Administrator_Adminisration_UserControls_ReportsTab_UserCon
     protected void ReportsTab_DelReportButton_only4Test_Click(object sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
@@ -247,7 +247,7 @@ public partial class Administrator_Adminisration_UserControls_ReportsTab_UserCon
     protected void AccessTab_SaveButton_Click(object sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
         int userRoleId = -1;
         bool isActive = false;

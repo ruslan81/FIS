@@ -22,7 +22,7 @@ public class ReportDataSetLoader
     public static DataSet Get_Driver_DriverDailyActivityData(List<int> dataBlockIds, DateTime from, DateTime to, int DriversCardId, int curUserId)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         int dataBlockId = dataBlockIds[0];
         List<DDDClass.CardActivityDailyRecord> cardActivity = new List<DDDClass.CardActivityDailyRecord>();
         dataBlock.OpenConnection();
@@ -38,7 +38,7 @@ public class ReportDataSetLoader
     public static DataSet Get_Driver_DriverWeeklyActivityData(List<int> dataBlockIds, DateTime from, DateTime to, int DriversCardId, int curUserId)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         int dataBlockId = dataBlockIds[0];
         dataBlock.OpenConnection();
@@ -59,7 +59,7 @@ public class ReportDataSetLoader
     public static DataSet Get_VehicleEventsAndFaults_VuOverSpeedingEventData(int VehicleId, List<int> dataBlockIds, DateTime from, DateTime to, int curUserId)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         dataBlock.OpenConnection();
 
         List<DDDClass.VuOverSpeedingEventRecord> vuOverSpeedingEventRecords = new List<DDDClass.VuOverSpeedingEventRecord>();
@@ -77,7 +77,7 @@ public class ReportDataSetLoader
     public static DataSet Get_Driver_VehicleUsed(List<int> dataBlockIDS, DateTime from, DateTime to, int DriversCardId, int curUserId)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         dataBlock.OpenConnection();
         List<DDDClass.CardVehicleRecord> cardVehicleUsed = new List<DDDClass.CardVehicleRecord>();
         cardVehicleUsed = dataBlock.cardUnitInfo.Get_EF_Vehicles_Used(dataBlockIDS, from, to);
@@ -92,7 +92,7 @@ public class ReportDataSetLoader
     public static DataSet Get_MultiDrivers_ActivitySummary(List<int> dataBlockIds, List<int> DriversCardsIds, DateTime from, DateTime to, int curUserId)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         DataSet dataset = new DataSet();
         DataTable summaryDataTable = new DataTable("DriversSummaryData");
 
@@ -139,7 +139,7 @@ public class ReportDataSetLoader
     public static DataSet Get_Driver_InfringementReport(int dataBlockIds, DateTime from, DateTime to)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         List<List<string>> rowsForTotals = new List<List<string>>();
         DataTable infringementDataTable = new DataTable();
         infringementDataTable.Columns.AddRange(ReportDataLoader.DriverInfringementReport_DataHeader());
@@ -159,7 +159,7 @@ public class ReportDataSetLoader
     public static DataSet Get_Driver_EventsReport(int dataBlockId, DateTime from, DateTime to)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         DataTable events = new DataTable();
         events.Columns.AddRange(ReportDataLoader.DriverEventsFaults_DataHeader());
 
@@ -185,7 +185,7 @@ public class ReportDataSetLoader
     public static DataSet Get_Driver_FaultsReport(int dataBlockId, DateTime from, DateTime to)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         DataTable faults = new DataTable();
         faults.Columns.AddRange(ReportDataLoader.DriverEventsFaults_DataHeader());
 
@@ -211,7 +211,7 @@ public class ReportDataSetLoader
     public static DataSet Get_Vehicle_ActivityReport(int VehicleId, List<int> dataBlockIds, DateTime from, DateTime to, int curUserId)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         dataBlock.OpenConnection();
 
         DataTable activityReport = new DataTable();
@@ -231,7 +231,7 @@ public class ReportDataSetLoader
     public static DataSet Get_Vehicle_ALLDate(int VehicleId, List<int> dataBlockIds, DateTime from, DateTime to, int curUserId)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         dataBlock.OpenConnection();
 
         DataTable activityReport = new DataTable();
@@ -255,7 +255,7 @@ public class ReportDataSetLoader
     public static DataSet Get_PLF_ALLData(List<int> dataBlockIds, DateTime from, DateTime to, int DriversCardId, int curUserId, ref List<PLFUnit.PLFRecord> records)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         PLFUnit.PLFUnitClass plf = new PLFUnit.PLFUnitClass();
         dataBlock.OpenConnection();
@@ -322,7 +322,7 @@ public class ReportDataSetLoader
     public static DataSet Get_PlfUnitsByDays(List<int> dataBlockIds, DateTime from, DateTime to, int DriversCardId, int curUserId, ref List<PLFUnit.PLFRecord> records, string VehiclePhotoPath)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         PLFUnit.PLFUnitClass plf = new PLFUnit.PLFUnitClass();
         dataBlock.OpenConnection();
@@ -351,7 +351,7 @@ public class ReportDataSetLoader
     public static DataSet Get_PlfUnitsEficienty(List<int> dataBlockIds, DateTime from, DateTime to, int DriversCardId, int curUserId, ref List<PLFUnit.PLFRecord> records)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         DataTable activityReport = new DataTable();
         DataSet dataset = new DataSet(Guid.NewGuid().ToString());
         dataset.DataSetName = Guid.NewGuid().ToString();
@@ -383,7 +383,7 @@ public class ReportDataSetLoader
     public static DataSet Get_PlfReportByPeriod(List<int> dataBlockIds, DateTime from, DateTime to, int DriversCardId, int curUserId)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         DataTable activityReport = new DataTable();
         DataSet dataset = new DataSet();
         dataset.DataSetName = Guid.NewGuid().ToString();
@@ -419,7 +419,7 @@ public class ReportDataSetLoader
     private static DataTable Get_DriverHeader_1(int dataBlockId, DateTime from, DateTime to)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         DDDClass.CardIdentification cardIdentification = new DDDClass.CardIdentification();
         cardIdentification = dataBlock.cardUnitInfo.Get_EF_Identification_CardIdentification(dataBlockId);

@@ -33,7 +33,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
 
 
                 string connectionString = System.Configuration.ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-                BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_EN");
+                BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_RU");
                 dataBlock.OpenConnection();
                 int userId = dataBlock.usersTable.Get_UserID_byName(User.Identity.Name);
 
@@ -77,7 +77,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     public static List<KeyValuePair<int, MapItem>> GetGeneralSettings(String OrgID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         try
         {
@@ -120,7 +120,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     public static bool SaveGeneralSettings(String OrgID, List<MapItem> GeneralSettings)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             dataBlock.organizationTable.OpenConnection();
@@ -151,7 +151,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     public static List<GroupData> GetGroupsSettings(String OrgID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             List<GroupData> result = new List<GroupData>();
@@ -192,7 +192,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     public static GroupData GetGroupSettings(String CardID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             dataBlock.OpenConnection();
@@ -227,7 +227,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     public static bool SaveGroupSettings(String OrgID, List<GroupData> GroupSettings)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             dataBlock.OpenConnection();
@@ -257,7 +257,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     public static bool DeleteGroups(String OrgID, List<MapItem> GroupIDs)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             dataBlock.OpenConnection();
@@ -289,7 +289,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     public static bool CreateGroup(String OrgID, String Name, String Comment, String CardType)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             dataBlock.OpenConnection();
@@ -320,7 +320,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     public static List<CardData> GetDriversSettings(String OrgID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         List<CardData> result = new List<CardData>();
         try
         {
@@ -362,7 +362,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     public static CardData GetDriverSettings(String CardID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             int cardId = int.Parse(CardID);
@@ -396,7 +396,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     public static bool SaveDriverSettings(String OrgID, List<CardData> DriverSettings)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             dataBlock.OpenConnection();
@@ -429,7 +429,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     public static bool DeleteDrivers(String OrgID, List<MapItem> DriverIDs)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             dataBlock.OpenConnection();
@@ -472,7 +472,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     public static List<CardData> GetTransportsSettings(String OrgID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         List<CardData> result = new List<CardData>();
         try
         {
@@ -514,7 +514,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     public static CardData GetTransportSettings(String CardID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             int cardId = int.Parse(CardID);
@@ -549,7 +549,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     public static bool SaveTransportSettings(String OrgID, List<CardData> TransportSettings)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             dataBlock.OpenConnection();
@@ -582,7 +582,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     public static bool DeleteTransports(String OrgID, List<MapItem> TransportIDs)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             dataBlock.organizationTable.OpenConnection();
@@ -614,7 +614,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     public static List<MapItem> GetGroupListDrivers(String OrgID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         try
         {
@@ -649,7 +649,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     public static List<MapItem> GetGroupListTransports(String OrgID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         try
         {
@@ -684,7 +684,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     public static List<MapItem> GetGroupListGroups(String OrgID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         try
         {
@@ -715,7 +715,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     public static bool CreateCardDriver(string OrgID, string UserID, CardData data)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             dataBlock.OpenConnection();
@@ -746,7 +746,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     public static bool CreateCardTransport(string OrgID, string UserID, CardData data)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             dataBlock.OpenConnection();
@@ -777,7 +777,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     public static List<SettingsData> GetDefaultSettings()
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         List<SettingsData> result = new List<SettingsData>();
 
         try
@@ -786,7 +786,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
             List<KeyValuePair<string, int>> allKeys = new List<KeyValuePair<string, int>>();
             allKeys = dataBlock.criteriaTable.GetAllCriteria_Name_n_Id();
 
-            CriteriaTable oneCriteria = new CriteriaTable(connectionString, "STRING_EN", dataBlock.sqlDb);
+            CriteriaTable oneCriteria = new CriteriaTable(connectionString, "STRING_RU", dataBlock.sqlDb);
             dataBlock.criteriaTable.OpenConnection();
 
             foreach (KeyValuePair<string, int> key in allKeys)
@@ -826,7 +826,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     public static void SaveDefaultSettings(List<SettingsData> DefaultSettings)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             dataBlock.OpenConnection();
@@ -855,7 +855,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     public static List<MapItem> GetUserList(String OrgID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             List<MapItem> result = new List<MapItem>();
@@ -898,7 +898,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     public static List<RemindData> GetRemindList(String OrgID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             List<RemindData> result = new List<RemindData>();
@@ -949,7 +949,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     public static List<MapItem> GetRemindTypeList()
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             dataBlock.OpenConnection();
@@ -981,7 +981,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     public static List<MapItem> GetRemindPeriodTypeList()
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             dataBlock.OpenConnection();
@@ -1012,7 +1012,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     public static bool DeleteReminds(String OrgID, List<MapItem> RemindIDs)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             dataBlock.OpenConnection();
@@ -1044,7 +1044,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     public static bool SaveRemindSettings(String OrgID, List<RemindData> RemindSettings)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             dataBlock.OpenConnection();
@@ -1076,7 +1076,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     public static bool CreateRemind(string OrgID, RemindData data)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             dataBlock.OpenConnection();
@@ -1460,7 +1460,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
 
     protected void SaveButtonPressed(object sender, EventArgs e)
     {  
-        string Language = "STRING_EN";
+        string Language = "STRING_RU";
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, Language);
         dataBlock.OpenConnection();
@@ -1559,7 +1559,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
 
     protected void DeleteButtonPressed(object sender, EventArgs e)
     {
-        string Language = "STRING_EN";
+        string Language = "STRING_RU";
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, Language);
         dataBlock.OpenConnection();
@@ -1742,7 +1742,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     {
         try
         {
-            string Language = "STRING_EN";
+            string Language = "STRING_RU";
             string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
             DataBlock dataBlock = new DataBlock(connectionString, Language);
             int Org_id = -1;

@@ -42,7 +42,7 @@ public partial class AdministratorS_CreatingFormsControls_GeneralTab_CretingForm
         OrgRegionDropDownList.Items.Clear();
 
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         OrganizationFromTable uft = new OrganizationFromTable();
         uft.FillWithInfo(id, dataBlock.organizationTable);
         if (id > 0)
@@ -99,7 +99,7 @@ public partial class AdministratorS_CreatingFormsControls_GeneralTab_CretingForm
         try
         {
             string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-            DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+            DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
             bool AddingNewOrg = (bool)Session["AddingNewOrg"];
             if (AddingNewOrg == false)
             {
@@ -139,7 +139,7 @@ public partial class AdministratorS_CreatingFormsControls_GeneralTab_CretingForm
     protected void OrgCountryDropDownList_SelectedIndexChanged(object sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         int countryId = Convert.ToInt32(OrgCountryDropDownList.SelectedValue);
         OrgRegionDropDownList.Items.Clear();
 

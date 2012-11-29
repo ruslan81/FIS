@@ -12,7 +12,7 @@ namespace BLL
     /// </summary>
     public class VehiclesTable//для работы с базой данных, таблицами о транспортных средствах
     {
-        private string CurrentLanguage;//STRING_RU,STRING_ENG etc.
+        private string CurrentLanguage;//STRING_RU,STRING_RUG etc.
         private string connectionString;
         private SQLDB sqlDB;
 
@@ -266,7 +266,7 @@ namespace BLL
         public int GetVehicleKeyId_byKeyNameVehicleId(string KeyName, int VehicleId)
         {
             int vehKeyId = -1;
-            int keyNameId = sqlDB.GetStringId(KeyName, "STRING_EN");
+            int keyNameId = sqlDB.GetStringId(KeyName, "STRING_RU");
             vehKeyId = sqlDB.GetVehicleKeyId_ByVehIdAndKeyId(VehicleId, keyNameId);
             return vehKeyId;
         }

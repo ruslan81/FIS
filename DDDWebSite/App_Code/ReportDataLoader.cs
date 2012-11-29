@@ -131,7 +131,7 @@ public class ReportDataLoader
     public static DataTable DriversGeneralInfo(string driversName)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         DataTable dt = new DataTable();
         DataRow dr;
         string driversIdentificationNumber;
@@ -162,7 +162,7 @@ public class ReportDataLoader
     public static DataTable VehicleGeneralInfo(string vehicleNumber)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         DataTable dt = new DataTable();
         DataRow dr;
 

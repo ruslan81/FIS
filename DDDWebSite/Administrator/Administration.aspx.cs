@@ -19,7 +19,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
                 ((UserControlsForAll_BlueButton)Page.Master.FindControl("AdministrationMasterButt")).Enabled = false;
                 //((LinkButton)Page.Master.FindControl("AdministrationMasterButt")).Enabled = false;
                 string connectionString = System.Configuration.ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-                BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_EN");
+                BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_RU");
                 dataBlock.OpenConnection();
                 int userId = dataBlock.usersTable.Get_UserID_byName(User.Identity.Name);
 
@@ -72,8 +72,8 @@ public partial class Administrator_Administration : System.Web.UI.Page
     public static StatisticData GetStatistic(String OrgID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
-        InvoiceTable invoiceTable = new InvoiceTable(connectionString, "STRING_EN", dataBlock.sqlDb);
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        InvoiceTable invoiceTable = new InvoiceTable(connectionString, "STRING_RU", dataBlock.sqlDb);
         try
         {
             dataBlock.OpenConnection();
@@ -106,8 +106,8 @@ public partial class Administrator_Administration : System.Web.UI.Page
     public static List<MessageData> GetMessages(String UserName)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
-        InvoiceTable invoiceTable = new InvoiceTable(connectionString, "STRING_EN", dataBlock.sqlDb);
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        InvoiceTable invoiceTable = new InvoiceTable(connectionString, "STRING_RU", dataBlock.sqlDb);
         try
         {
             dataBlock.OpenConnection();
@@ -148,7 +148,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     public static void DeleteMessages(List<MapItem> messageIds)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             dataBlock.OpenConnection();
@@ -176,7 +176,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     public static List<DealerData> GetDealers(String OrgID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         try
         {
@@ -227,7 +227,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     public static SmallDealerData GetDealersTree(String OrgID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         try
         {
@@ -290,7 +290,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     public static List<UserData> GetUsers(String OrgID, String UserName)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         try
         {
@@ -372,7 +372,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     public static UsersTreeData GetUsersTree(String OrgID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         try
         {
@@ -427,7 +427,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     public static UserGeneralDetailedData GetUserDetailedData(String UserID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         try
         {
@@ -516,8 +516,8 @@ public partial class Administrator_Administration : System.Web.UI.Page
     public static List<MapItem> GetEvents()
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
-        HistoryTable historyTable = new HistoryTable(connectionString, "STRING_EN", dataBlock.sqlDb);
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        HistoryTable historyTable = new HistoryTable(connectionString, "STRING_RU", dataBlock.sqlDb);
         try
         {
             dataBlock.OpenConnection();
@@ -547,8 +547,8 @@ public partial class Administrator_Administration : System.Web.UI.Page
     public static List<MapItem> GetInvoiceStatuses()
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
-        InvoiceTable invoiceTable = new InvoiceTable(connectionString, "STRING_EN", dataBlock.sqlDb);
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        InvoiceTable invoiceTable = new InvoiceTable(connectionString, "STRING_RU", dataBlock.sqlDb);
         try
         {
             dataBlock.OpenConnection();
@@ -582,7 +582,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     public static UserGeneralData GetGeneralData(String OrgID, String UserName)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         try
         {
@@ -625,7 +625,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     public static UserGeneralDetailedData GetGeneralDetailedData(String OrgID, String UserName)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         try
         {
@@ -701,7 +701,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     public static UserGeneralDetailedData GetGeneralOrgDetailedData(String OrgID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         try
         {
@@ -750,7 +750,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     public static void SaveGeneralDetailedData(String OrgID, String UserName, UserGeneralDetailedData ud)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         try
         {
@@ -802,7 +802,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     public static void SaveGeneralOrgDetailedData(String OrgID, UserGeneralDetailedData ud)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         try
         {
@@ -849,7 +849,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     public static string CreateNewOrganization(String OrgID, UserGeneralDetailedData ud)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         try
         {
@@ -889,7 +889,6 @@ public partial class Administrator_Administration : System.Web.UI.Page
         }
     }
 
-
     /// <summary>
     ///Сохранить данные о пользователях
     /// </summary>
@@ -898,7 +897,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     public static void SaveUsersData(String OrgID, String UserID, UserGeneralDetailedData ud)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         try
         {
@@ -971,7 +970,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     public static string CreateNewUser(String OrgID, String UserName, UserGeneralDetailedData ud)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         try
         {
@@ -1029,7 +1028,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     public static void DeleteUser(String OrgID, String UserID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         try
         {
@@ -1056,7 +1055,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     public static void SaveDealersData(String OrgID, List<DealerData> list)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         try
         {
@@ -1088,7 +1087,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     public static void CreateNewDealer(String OrgID, DealerData data)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         try
         {
@@ -1117,7 +1116,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     public static void DeleteDealers(String OrgID, List<MapItem> ids)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         try
         {
@@ -1157,7 +1156,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     public static void DeleteDealer(String ID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         try
         {
@@ -1194,7 +1193,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     public static List<MapItem> GetCountries()
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         List<MapItem> result = new List<MapItem>();
         try
@@ -1227,7 +1226,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     public static List<MapItem> GetAllDealers(String OrgID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         List<MapItem> result = new List<MapItem>();
         try
@@ -1262,7 +1261,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     public static List<MapItem> GetCities(String CountryID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         List<MapItem> result = new List<MapItem>();
         try
@@ -1297,7 +1296,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
     public static List<MapItem> GetUserTypes()
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         List<MapItem> result = new List<MapItem>();
         try
@@ -1357,8 +1356,8 @@ public partial class Administrator_Administration : System.Web.UI.Page
     public static List<JournalData> GetJournal(String OrgID, String StartDate, String EndDate, String eventType, String searchString)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
-        HistoryTable historyTable = new HistoryTable(connectionString, "STRING_EN", dataBlock.sqlDb);
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        HistoryTable historyTable = new HistoryTable(connectionString, "STRING_RU", dataBlock.sqlDb);
 
         try
         {
@@ -1410,8 +1409,8 @@ public partial class Administrator_Administration : System.Web.UI.Page
     public static List<InvoiceData> GetInvoices(String OrgID, String StartDate, String EndDate, String statusType)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
-        InvoiceTable invoiceTable = new InvoiceTable(connectionString, "STRING_EN", dataBlock.sqlDb);
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        InvoiceTable invoiceTable = new InvoiceTable(connectionString, "STRING_RU", dataBlock.sqlDb);
 
         try
         {

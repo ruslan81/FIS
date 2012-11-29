@@ -11925,3 +11925,12 @@ Cache Callback: 20.11.2012 0:06:00
 Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
 Cache Callback: 20.11.2012 1:16:00
 Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 30.11.2012 0:42:20
+Cache Callback: Message: Table 'gb_x_smartfis.email_schedule' doesn't exist
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 30.11.2012 0:48:20
+Cache Callback: Message: Table 'gb_x_smartfis.email_schedule' doesn't exist
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 30.11.2012 1:00:40
+Cache Callback: Message: Table 'smartfis.email_schedule' doesn't exist
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'

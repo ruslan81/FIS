@@ -21,7 +21,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
     private DataTable createDataSource()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         DataTable newDataTable = new DataTable(Guid.NewGuid().ToString());
         try
         {
@@ -106,7 +106,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
     private void Load_EditInfo()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             string selectedIndexString = Selected_VehiclesDataGrid_Index.Value;
@@ -319,7 +319,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
     private void Load_NewInfo()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
@@ -539,7 +539,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
     public void SaveAllUpdatedInformation()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             string selectedIndexString = Selected_VehiclesDataGrid_Index.Value;
@@ -571,7 +571,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
     public void SaveAllNewInformation()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-         DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+         DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         try
         {
@@ -709,7 +709,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
     protected void Upload_Click(object Sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             if (MyFileUpload.PostedFile.FileName == "")

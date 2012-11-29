@@ -14,7 +14,7 @@ namespace BLL
         /// <summary>
         /// Текущия язык
         /// </summary>
-        private string CurrentLanguage;//STRING_RU,STRING_ENG etc.
+        private string CurrentLanguage;//STRING_RU,STRING_RUG etc.
         /// <summary>
         /// Строка подключения(в большинстве не нужна)
         /// </summary>
@@ -81,7 +81,7 @@ namespace BLL
             // sqlDBR = new SQLDB(connectionString);
             sqlDBR = sql;
             //
-            string LanguageForStatus = "STRING_EN";
+            string LanguageForStatus = "STRING_RU";
             sqlDBR.OpenConnection();
             Status_Paid = AddOrGetInvoiceStatusId("Paid", LanguageForStatus);
             Status_NotPaid = AddOrGetInvoiceStatusId("Not paid", LanguageForStatus);

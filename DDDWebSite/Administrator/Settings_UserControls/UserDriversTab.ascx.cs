@@ -21,7 +21,7 @@ public partial class Administrator_Settings_UserControls_UserDriversTab : System
     private DataTable createDataSource()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         DataTable newDataTable = new DataTable(Guid.NewGuid().ToString());
         DataRow dr;
         string Col_1 = "#";
@@ -96,7 +96,7 @@ public partial class Administrator_Settings_UserControls_UserDriversTab : System
     private void Load_EditInfo()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             //Надо, чтобы обнулялось с прошлого раза, если не все поля заполнены(если будет валидация. должно быть все окей и без этого. Может удалить.
@@ -171,7 +171,7 @@ public partial class Administrator_Settings_UserControls_UserDriversTab : System
     private void Load_NewInfo()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             radioButtonList1.Items.Clear();
@@ -248,7 +248,7 @@ public partial class Administrator_Settings_UserControls_UserDriversTab : System
     public void SaveAllUpdatedInformation()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             string selectedIndexString = Selected_DriversDataGrid_Index.Value;
@@ -277,7 +277,7 @@ public partial class Administrator_Settings_UserControls_UserDriversTab : System
     public void SaveAllNewInformation()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             string surName = Edit_SurnameTextBox.Text;
@@ -352,7 +352,7 @@ public partial class Administrator_Settings_UserControls_UserDriversTab : System
     protected void Upload_Click(object Sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             if(MyFileUpload.PostedFile==null)

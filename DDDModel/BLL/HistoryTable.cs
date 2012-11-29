@@ -16,7 +16,7 @@ namespace BLL
         /// <summary>
         /// Текущия язык
         /// </summary>
-        private string CurrentLanguage;//STRING_RU,STRING_ENG etc.
+        private string CurrentLanguage;//STRING_RU,STRING_RUG etc.
         /// <summary>
         /// Строка подключения(в большинстве не нужна)
         /// </summary>
@@ -84,7 +84,7 @@ namespace BLL
             CurrentLanguage = Current_Language;
             //sqlDb = new SQLDB(connectionString);
             sqlDb = sql;
-            string LanguageForAction = "STRING_EN";
+            string LanguageForAction = "STRING_RU";
             if (!sqlDb.IsConnectionOpened())
             {
                 sqlDb.OpenConnection();

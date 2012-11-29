@@ -13,7 +13,7 @@ namespace BLL
        // private int PARAM_ID;
         private int DATA_BLOCK_ID;
         private int paramId;
-        private string CurrentLanguage;//STRING_RU,STRING_ENG etc.
+        private string CurrentLanguage;//STRING_RU,STRING_RUG etc.
         private SQLDB sqlDB;
         
 

@@ -161,7 +161,7 @@ namespace TestCacheTimeout
             lock (locker)
             {
                 string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-                DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+                DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
                 try
                 {
                     dataBlock.OpenConnection();
@@ -243,7 +243,7 @@ namespace TestCacheTimeout
             {
                 string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
 
-                DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+                DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
                 try
                 {
                     dataBlock.OpenConnection();

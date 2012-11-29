@@ -20,7 +20,7 @@ namespace DDDModel
         {
             string connectionString1 = "server=localhost;port=3306;default command timeout=3000;Connection Timeout=6000;User Id=root;password = ;Persist Security Info=True;database=smartfis";
             string connectionString = "server=mysql62.1gb.ru;default command timeout=600;Connection Timeout=600;database=gb_x_smartfis;User Id=gb_x_smartfis;password =5216a0af;";
-            string currentLanguage = "STRING_EN";
+            string currentLanguage = "STRING_RU";
             DataBlock dataBlock = new DataBlock(connectionString, currentLanguage);
             
             dataBlock.OpenConnection();
@@ -213,7 +213,7 @@ namespace DDDModel
         /// <param name="password">пароль нужен просто, чтобы из консоли нечайно не тыкнуть. пароль = qqq</param>
         public static void DataBaseInit(string password)
         {
-            string CurrentLanguage = "STRING_EN";
+            string CurrentLanguage = "STRING_RU";
             if (password != "qqq")
                 throw new Exception("Неправильный пароль");
 
@@ -228,11 +228,11 @@ namespace DDDModel
             string sql;
 
             sql = "INSERT INTO fd_string "
-                    + "(STRING_ID, STRING_EN)"
-                    + "VALUES (@STRING_ID, @STRING_EN)";
+                    + "(STRING_ID, STRING_RU)"
+                    + "VALUES (@STRING_ID, @STRING_RU)";
             cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@STRING_ID", 0);
-            cmd.Parameters.AddWithValue("@STRING_EN", "");
+            cmd.Parameters.AddWithValue("@STRING_RU", "");
 
             sqlConnection.Open();
             sqlDb.OpenConnection();
@@ -334,13 +334,13 @@ namespace DDDModel
             cmd.ExecuteNonQuery();
 
             //fd_user_info_set and fd_user_info
-            sqlDb.AddUserInfoName("Surname", "STRING_EN");
-            sqlDb.AddUserInfoName("Name", "STRING_EN");
-            sqlDb.AddUserInfoName("Patronimic", "STRING_EN");
-            sqlDb.AddUserInfoName("Drivers certificate", "STRING_EN");
-            sqlDb.AddUserInfoName("Card number", "STRING_EN");
-            sqlDb.AddUserInfoName("Phone number", "STRING_EN");
-            sqlDb.AddUserInfoName("Birthday", "STRING_EN");
+            sqlDb.AddUserInfoName("Surname", "STRING_RU");
+            sqlDb.AddUserInfoName("Name", "STRING_RU");
+            sqlDb.AddUserInfoName("Patronimic", "STRING_RU");
+            sqlDb.AddUserInfoName("Drivers certificate", "STRING_RU");
+            sqlDb.AddUserInfoName("Card number", "STRING_RU");
+            sqlDb.AddUserInfoName("Phone number", "STRING_RU");
+            sqlDb.AddUserInfoName("Birthday", "STRING_RU");
 
 
             //fd_user_rights
@@ -358,7 +358,7 @@ namespace DDDModel
             InitTable_ID_String("fd_user_type", "USER_TYPE_ID", "STRID_USER_TYPE_NAME", "DealerUser", sqlDb, sqlConnection);
 
             //fd_user
-            UsersTables usersTable = new UsersTables(connectionString, "STRING_EN", sqlDb);
+            UsersTables usersTable = new UsersTables(connectionString, "STRING_RU", sqlDb);
             usersTable.OpenConnection();
             usersTable.OpenTransaction();
             UserFromTable userFromTable = new UserFromTable("admin", "123", "3", "1", DateTime.Now, "org");

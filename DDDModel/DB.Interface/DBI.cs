@@ -48,7 +48,7 @@ namespace DB.Interface
         bool IsParamInDataBlock( int dataBlockId, string paramName);
         //-----------------------------------------------------------------
         //----------------------fd_string---
-        string GetString(int stringId, string Language);//STRING_EN, STRING_RU
+        string GetString(int stringId, string Language);//STRING_RU, STRING_RU
         int GetStringId(string stringValue, string Language);
         int GetStringId(string stringValue);
         int AddOrGetString(string EN_STRING);

@@ -11,7 +11,7 @@ namespace BLL
     /// </summary>
     public class ReportsTable
     {
-        private string CurrentLanguage;//STRING_RU,STRING_ENG etc.
+        private string CurrentLanguage;//STRING_RU,STRING_RUG etc.
         private string connectionString;
         SQLDB sqlDBR;
         public int STRID_REPORT_NAME_Ident { get; set; }

@@ -19,7 +19,7 @@ namespace FirebirdToMySQLConverter
         FbConnection fb_con;
         string connectionString;
         string connectionStringMysql;
-        string currentLanguage = "STRING_EN";
+        string currentLanguage = "STRING_RU";
 
         public FirebirdSQLClass(string connectionStringMysqlTMP)
         {

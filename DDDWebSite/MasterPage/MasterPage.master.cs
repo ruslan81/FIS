@@ -27,7 +27,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
                 MasterPageExceptionString.Text = "";
 
                 string connectionString = System.Configuration.ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-                BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_EN");
+                BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_RU");
                 dataBlock.OpenConnection();
                 int userId = dataBlock.usersTable.Get_UserID_byName(Page.User.Identity.Name);
                 string UserType = dataBlock.usersTable.Get_UserTypeStr(userId);

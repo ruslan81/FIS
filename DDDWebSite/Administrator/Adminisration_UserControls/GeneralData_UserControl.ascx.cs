@@ -35,7 +35,7 @@ public partial class Administrator_Adminisration_UserControls_GeneralData_UserCo
     private void LoadTabContainer()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         dataBlock.OpenConnection();
         int userId = dataBlock.usersTable.Get_UserID_byName(Page.User.Identity.Name);
         int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
@@ -83,7 +83,7 @@ public partial class Administrator_Adminisration_UserControls_GeneralData_UserCo
         //Language
         string CurrentLanguage = dataBlock.organizationTable.GetAdditionalOrgInfo(orgId, DataBaseReference.OrgInfo_SiteLang);
         string Russian = "STRING_RU";
-        string English = "STRING_EN";
+        string English = "STRING_RU";
         RegistrationDataTab_LanguageDropDown.Items.Clear();
         RegistrationDataTab_LanguageDropDown.Items.Add(new ListItem("Русский", Russian));
         RegistrationDataTab_LanguageDropDown.Items.Add(new ListItem("English", English));
@@ -99,7 +99,7 @@ public partial class Administrator_Adminisration_UserControls_GeneralData_UserCo
     private void LoadStatisticGrid()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
 
         DataTable dt = new DataTable();
@@ -141,7 +141,7 @@ public partial class Administrator_Adminisration_UserControls_GeneralData_UserCo
     private void LoadMessagesGrid()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
 
         DataTable dt = new DataTable();
@@ -165,7 +165,7 @@ public partial class Administrator_Adminisration_UserControls_GeneralData_UserCo
     protected void SaveButtonPressed(object sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             int countryId = Convert.ToInt32(RegistrationDataTab_CityDropDown.SelectedValue);
@@ -198,7 +198,7 @@ public partial class Administrator_Adminisration_UserControls_GeneralData_UserCo
     protected void RegistrationDataTab_TownDropDown_SelectedIndexChanged(object sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         int countryId = Convert.ToInt32(RegistrationDataTab_CityDropDown.SelectedValue);
         RegistrationDataTab_TownDropDown.Items.Clear();
 

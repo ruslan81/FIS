@@ -29,7 +29,7 @@ public partial class Administrator_Settings_UserControls_Coefficient : System.We
 
     public void LoadKoefList()
     {
-        string CurrentLanguage = "STRING_EN";
+        string CurrentLanguage = "STRING_RU";
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, CurrentLanguage);
         List<KeyValuePair<string, int>> allKeys = new List<KeyValuePair<string, int>>();
@@ -100,7 +100,7 @@ public partial class Administrator_Settings_UserControls_Coefficient : System.We
         int MaxValue = 0;
         string Note = "";
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             foreach (object dc in KoeffGrid.Columns)

@@ -52,7 +52,7 @@ public partial class Administrator_Report : System.Web.UI.Page
                 //Session["maxRecordsCount"] = 1500;
 
                 string connectionString = System.Configuration.ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-                BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_EN");
+                BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_RU");
                 dataBlock.OpenConnection();
                 int userId = dataBlock.usersTable.Get_UserID_byName(User.Identity.Name);
                 //ORG NAME сверху
@@ -133,7 +133,7 @@ public partial class Administrator_Report : System.Web.UI.Page
     public static List<PLFFilesTreeItem> GetPLFFilesTree(String OrgID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         int orgId = Convert.ToInt32(OrgID);
         List<string> names = new List<string>();
@@ -236,7 +236,7 @@ public partial class Administrator_Report : System.Web.UI.Page
         int cardID = int.Parse(CardID);
 
         string connectionString = System.Configuration.ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_EN");
+        BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_RU");
         dataBlock.OpenConnection();
 
         DateTime from = new DateTime();
@@ -317,7 +317,7 @@ public partial class Administrator_Report : System.Web.UI.Page
         int cardID = int.Parse(CardID);
 
         string connectionString = System.Configuration.ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_EN");
+        BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_RU");
         dataBlock.OpenConnection();
 
         DateTime from = DateTime.Parse(StartDate);
@@ -402,7 +402,7 @@ public partial class Administrator_Report : System.Web.UI.Page
     public static List<VehiclesTreeItem> GetVehiclesTree(String OrgID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         int orgId = Convert.ToInt32(OrgID);
 
@@ -476,7 +476,7 @@ public partial class Administrator_Report : System.Web.UI.Page
         dataBlockIDS.Add(dataBlockId);
 
         string connectionString = System.Configuration.ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         dataBlock.OpenConnection();
 
         DataSet dataset = new DataSet();
@@ -526,7 +526,7 @@ public partial class Administrator_Report : System.Web.UI.Page
         int cardId = Int16.Parse(CardID);
 
         string connectionString = System.Configuration.ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         dataBlock.OpenConnection();
 
         DataSet dataset = new DataSet();
@@ -592,7 +592,7 @@ public partial class Administrator_Report : System.Web.UI.Page
     /*private void Load_Vehicles()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         dataBlock.OpenConnection();
         int userID = dataBlock.usersTable.Get_UserID_byName(User.Identity.Name);
         int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
@@ -624,7 +624,7 @@ public partial class Administrator_Report : System.Web.UI.Page
     /*private void Load_PLFAndDrivers()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
         List<string> names = new List<string>();
@@ -785,7 +785,7 @@ public partial class Administrator_Report : System.Web.UI.Page
 
             LoadDriversReports();
             string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-            DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+            DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
             DataTable dataTable = new DataTable();
 
             ReportNameLabel.Text = "Выберите отчет";
@@ -845,7 +845,7 @@ public partial class Administrator_Report : System.Web.UI.Page
         DateTime to = new DateTime();
         DataSet dataset = new DataSet();
         string connectionString = System.Configuration.ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_EN");
+        BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_RU");
         int dataBlockId = -1;
         bool charts = false;
         try
@@ -1255,7 +1255,7 @@ public partial class Administrator_Report : System.Web.UI.Page
             LoadVehiclesReports();
 
             string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-            DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+            DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
             DataTable dataTable = new DataTable();
 
             ReportNameLabel.Text = "Выберите отчет";
@@ -1331,7 +1331,7 @@ public partial class Administrator_Report : System.Web.UI.Page
                 DriversNameSourceLabel.Text = "Датчики: ";
 
                 string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-                DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+                DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
                 HiddenField.Value = PLFTreeView.SelectedNode.Value;
                 if (PLFTreeView.SelectedNode.ChildNodes.Count != 0)
                     DriversNameLabel.Text = PLFTreeView.SelectedNode.Text;
@@ -1518,7 +1518,7 @@ public partial class Administrator_Report : System.Web.UI.Page
             LoadMultiDriversReports();
 
             string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-            DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+            DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
             DataTable dataTable = new DataTable();
             HiddenField.Value = "";
             foreach (ListItem item in MultiDrivers.Items)
@@ -1670,7 +1670,7 @@ public partial class Administrator_Report : System.Web.UI.Page
         try
         {
             string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-            DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+            DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
             int graphCount = 0;
             int drawedAllreadyCount = 0;

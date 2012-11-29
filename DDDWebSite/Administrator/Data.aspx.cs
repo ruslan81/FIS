@@ -64,7 +64,7 @@ public partial class Administrator_Data : System.Web.UI.Page
             Session["DeleteCommmand"] = "RemoveUnparsedData";
 
             string connectionString = System.Configuration.ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-            BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_EN");
+            BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_RU");
             dataBlock.OpenConnection();
             int userId = dataBlock.usersTable.Get_UserID_byName(User.Identity.Name);
             int orgId = dataBlock.usersTable.Get_UserOrgId(userId);
@@ -116,7 +116,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         try
         {
             string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-            DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+            DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
             int orgId = Convert.ToInt32(OrgID);
 
@@ -163,7 +163,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         {
             int dataBlockID = int.Parse(DataBlockID);
             string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-            DataBlock dataBlock = new DataBlock(connectionString, dataBlockID, "STRING_EN");
+            DataBlock dataBlock = new DataBlock(connectionString, dataBlockID, "STRING_RU");
             dataBlock.DeleteDataBlockAndRecords();
 
             dataBlock.CloseConnection();
@@ -186,7 +186,7 @@ public partial class Administrator_Data : System.Web.UI.Page
     public static bool ParseDataBlocks(String OrgID, String UserName)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         PLFUnit.PLFUnitClass plfForXml = new PLFUnit.PLFUnitClass();
         List<int> dataBlockIDs = new List<int>();
         int filesCounter = 0;
@@ -242,7 +242,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         try
         {
             string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-            DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+            DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
             int orgId = Convert.ToInt32(OrgID);
             List<int> namesIds = new List<int>();
             List<string> cardNames = new List<string>();
@@ -277,7 +277,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         try
         {
             string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-            DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+            DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
             dataBlock.OpenConnection();
 
             int orgID = Convert.ToInt32(OrgID);
@@ -386,7 +386,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         try
         {
             string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-            DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+            DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
             int orgId = Convert.ToInt32(OrgID);
             dataBlock.OpenConnection();
             String name = dataBlock.organizationTable.GetOrganizationName(orgId);
@@ -433,7 +433,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         try
         {
             string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-            DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+            DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
             int orgId = Convert.ToInt32(OrgID);
             dataBlock.OpenConnection();
             String name = dataBlock.organizationTable.GetOrganizationName(orgId);
@@ -477,7 +477,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         try
         {
             string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-            DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+            DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
             int orgId = Convert.ToInt32(OrgID);
             dataBlock.OpenConnection();
             String name = dataBlock.organizationTable.GetOrganizationName(orgId);
@@ -631,7 +631,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         try
         {
             string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-            DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+            DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
             int orgId = Convert.ToInt32(OrgID);
             int cardId = Convert.ToInt32(CardID);
             dataBlock.OpenConnection();
@@ -712,7 +712,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         try
         {
             string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-            DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+            DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
             int orgId = Convert.ToInt32(OrgID);
             int cardId = Convert.ToInt32(CardID);
             dataBlock.OpenConnection();
@@ -849,7 +849,7 @@ public partial class Administrator_Data : System.Web.UI.Page
     private void SelectDriverForPLF()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         List<string> cardNamesList = new List<string>();
         List<int> CardIdsList = new List<int>();
         int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
@@ -874,7 +874,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         try
         {
             string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-            DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+            DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
             string name = CreateDriversName.Text;
             string surName = CreateDriversSurname.Text;
             string number = CreateDriversNumber.Text;
@@ -929,7 +929,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         int userID = 0;
         SelectPLFDriver.Visible = false;
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
@@ -1030,7 +1030,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         try
         {
             string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-            DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+            DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
             int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
             dataBlock.OpenConnection();
             dataBlock.AddData(orgId, _bytes, fileName);
@@ -1046,7 +1046,7 @@ public partial class Administrator_Data : System.Web.UI.Page
     private List<AddStructure> LoadAllLists()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
@@ -1124,7 +1124,7 @@ public partial class Administrator_Data : System.Web.UI.Page
     protected void AddGridCommand(object sender, DataGridCommandEventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         List<int> dataBlockIds = new List<int>();
         int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
         Status.Text = "";
@@ -1189,7 +1189,7 @@ public partial class Administrator_Data : System.Web.UI.Page
                         int number = Convert.ToInt32(e.Item.Cells[2].Text);
                         dataBlockIds = dataBlock.GetAllUnparsedDataBlockIDs(orgId);
                         int dataBlockId = dataBlockIds[number - 1];
-                        dataBlock = new DataBlock(connectionString, dataBlockId, "STRING_EN");
+                        dataBlock = new DataBlock(connectionString, dataBlockId, "STRING_RU");
                         dataBlock.DeleteDataBlockAndRecords();
                         LoadAllLists();
                     }
@@ -1222,7 +1222,7 @@ public partial class Administrator_Data : System.Web.UI.Page
                                     throw new Exception("Нет доступа к информации(или нет данных для удаления)");
                             if (rightIdToDelete != -1)
                             {
-                                dataBlock = new DataBlock(connectionString, rightIdToDelete, "STRING_EN");
+                                dataBlock = new DataBlock(connectionString, rightIdToDelete, "STRING_RU");
                                 dataBlock.DeleteDataBlockAndRecords();
                                 ManagmentLoadedInfo_SelectedNodeChanged(null, null);
                             }
@@ -1264,7 +1264,7 @@ public partial class Administrator_Data : System.Web.UI.Page
     protected void Parse_Click(object Sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         PLFUnit.PLFUnitClass plfForXml = new PLFUnit.PLFUnitClass();
         List<int> dataBlockIDs = new List<int>();
         int cardType = 0;
@@ -1286,7 +1286,7 @@ public partial class Administrator_Data : System.Web.UI.Page
             {
                 dataBlock.SetDataBlockIdForParse(blockId);
                 dataBlock.SetOrgIdForParse(orgId);
-                //dataBlock = new DataBlock(connectionString, blockId, "STRING_EN", orgId);
+                //dataBlock = new DataBlock(connectionString, blockId, "STRING_RU", orgId);
                 if (dataBlock.GetDataBlockState(blockId) == "Not parsed")
                 {
                     output = Server.MapPath("~/XML_PLF") + "\\";
@@ -1434,7 +1434,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         try
         {
             string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-            DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+            DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
             int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
             List<int> namesIds = new List<int>();
             List<string> cardNames = new List<string>();
@@ -1509,7 +1509,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         List<Driver> driversStructureList = new List<Driver>();
         int number = 0;
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         Driver driversStructureTemp;
         List<int> dataBlockIds = new List<int>();
         try
@@ -1594,7 +1594,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         FilesPreviewPanel.Visible = true;
 
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             int dataBlockId = Convert.ToInt32(onlyForInternal.Value);
@@ -1628,7 +1628,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         FilesPreviewPanel.Visible = true;
 
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             TextBoxTest.Attributes.Add("style", "overflow :hidden");
@@ -1727,7 +1727,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         int userID = 0;
         int dataBlockId = Convert.ToInt32(onlyForInternal.Value);
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         TextBoxTest.Text = "";
         dataBlock.OpenConnection();
         try
@@ -1771,7 +1771,7 @@ public partial class Administrator_Data : System.Web.UI.Page
 
         int dataBlockId = Convert.ToInt32(onlyForInternal.Value);
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         TextBoxTest.Text = "";
         dataBlock.OpenConnection();
         try
@@ -1808,7 +1808,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         int userID = 0;
         int dataBlockId = Convert.ToInt32(onlyForInternal.Value);
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         dataBlock.OpenConnection();
         TextBoxTest.Text = "";
 
@@ -1909,7 +1909,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         int userID = 0;
         int dataBlockId = Convert.ToInt32(onlyForInternal.Value);
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         dataBlock.OpenConnection();
         TextBoxTest.Text = "";
 
@@ -1980,7 +1980,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         int userID = 0;
         int dataBlockId = Convert.ToInt32(onlyForInternal.Value);
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         dataBlock.OpenConnection();
         TextBoxTest.Text = "";
 
@@ -2018,7 +2018,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         int userID = 0;
         int dataBlockId = Convert.ToInt32(onlyForInternal.Value);
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         dataBlock.OpenConnection();
         TextBoxTest.Text = "";
 
@@ -2070,7 +2070,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         int userID = 0;
         int dataBlockId = Convert.ToInt32(onlyForInternal.Value);
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         dataBlock.OpenConnection();
         TextBoxTest.Text = "";
 
@@ -2119,7 +2119,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         Places_btn.Enabled = false;
 
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             dataBlock.OpenConnection();
@@ -2174,7 +2174,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         Current_Usage_btn.Enabled = false;
 
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         try
         {
@@ -2214,7 +2214,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         ControlActivityData_btn.Enabled = false;
 
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         try
         {
@@ -2267,7 +2267,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         Specific_Conditions_btn.Enabled = false;
 
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         try
         {
@@ -2343,7 +2343,7 @@ public partial class Administrator_Data : System.Web.UI.Page
     private void LoadVehiclesEveryWhere()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
 
         try
@@ -2378,7 +2378,7 @@ public partial class Administrator_Data : System.Web.UI.Page
     protected void VehiclesSelectTree_NodeChanged(object sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             Session["DeleteCommmand"] = "ViewVehiclesFile";
@@ -2451,7 +2451,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         FilesPreviewPanel.Visible = true;
 
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             int dataBlockId = Convert.ToInt32(onlyForInternal.Value);
@@ -2484,7 +2484,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         FilesPreviewPanel.Visible = true;
 
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             int dataBlockId = Convert.ToInt32(onlyForInternal.Value);
@@ -2518,7 +2518,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         FilesPreviewPanel.Visible = true;
 
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             int dataBlockId = Convert.ToInt32(onlyForInternal.Value);
@@ -2549,7 +2549,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         FilesPreviewPanel.Visible = true;
 
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             int dataBlockId = Convert.ToInt32(onlyForInternal.Value);
@@ -2581,7 +2581,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         FilesPreviewPanel.Visible = true;
 
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             int dataBlockId = Convert.ToInt32(onlyForInternal.Value);
@@ -2614,7 +2614,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         FilesPreviewPanel.Visible = true;
 
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             int dataBlockId = Convert.ToInt32(onlyForInternal.Value);
@@ -2646,7 +2646,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         FilesPreviewPanel.Visible = true;
 
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             int dataBlockId = Convert.ToInt32(onlyForInternal.Value);
@@ -2679,7 +2679,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         FilesPreviewPanel.Visible = true;
 
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             int dataBlockId = Convert.ToInt32(onlyForInternal.Value);
@@ -2712,7 +2712,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         FilesPreviewPanel.Visible = true;
 
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             int dataBlockId = Convert.ToInt32(onlyForInternal.Value);
@@ -2745,7 +2745,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         FilesPreviewPanel.Visible = true;
 
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             int dataBlockId = Convert.ToInt32(onlyForInternal.Value);
@@ -2778,7 +2778,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         FilesPreviewPanel.Visible = true;
 
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             int dataBlockId = Convert.ToInt32(onlyForInternal.Value);
@@ -2809,7 +2809,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         FilesPreviewPanel.Visible = true;
 
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             int dataBlockId = Convert.ToInt32(onlyForInternal.Value);
@@ -2840,7 +2840,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         FilesPreviewPanel.Visible = true;
 
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             int dataBlockId = Convert.ToInt32(onlyForInternal.Value);
@@ -2870,7 +2870,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         FilesPreviewPanel.Visible = true;
 
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             int dataBlockId = Convert.ToInt32(onlyForInternal.Value);
@@ -2900,7 +2900,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         FilesPreviewPanel.Visible = true;
 
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             int dataBlockId = Convert.ToInt32(onlyForInternal.Value);
@@ -2930,7 +2930,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         FilesPreviewPanel.Visible = true;
 
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             int dataBlockId = Convert.ToInt32(onlyForInternal.Value);
@@ -2961,7 +2961,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         FilesPreviewPanel.Visible = true;
 
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             int dataBlockId = Convert.ToInt32(onlyForInternal.Value);
@@ -3049,7 +3049,7 @@ public partial class Administrator_Data : System.Web.UI.Page
             List<DeleteStructure> deleteStructureList = new List<DeleteStructure>();
             int i = 0;
             string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-            DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+            DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
             DeleteStructure deleteStructureTemp;
             List<int> dataBlockIds = new List<int>();
             dataBlock.OpenConnection();
@@ -3113,7 +3113,7 @@ public partial class Administrator_Data : System.Web.UI.Page
     protected void DelGridCommand(Object sender, DataGridCommandEventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         List<int> dataBlockIds = new List<int>();
         int cardType;
         Status.Text = "";
@@ -3151,7 +3151,7 @@ public partial class Administrator_Data : System.Web.UI.Page
                         throw new Exception("Нет доступа к информации(или нет данных для удаления)");
                 if (rightIdToDelete != -1)
                 {
-                    dataBlock = new DataBlock(connectionString, rightIdToDelete, "STRING_EN");
+                    dataBlock = new DataBlock(connectionString, rightIdToDelete, "STRING_RU");
                     dataBlock.DeleteDataBlockAndRecords();
                     LoadAllDeleteLists();
                 }
@@ -3246,7 +3246,7 @@ public partial class Administrator_Data : System.Web.UI.Page
             setNameChangeVisible(false);
 
             string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-            DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+            DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
             int cardId = Convert.ToInt32(ManagmentLoadedInfo.SelectedValue);
             List<int> arrayIds = new List<int>();
             arrayIds.Add(cardId);
@@ -3262,7 +3262,7 @@ public partial class Administrator_Data : System.Web.UI.Page
     protected void makeChangeDriversNameAndSurName(object sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         int cardId = Convert.ToInt32(ManagmentLoadedInfo.SelectedValue);
         string newName = new_DriversName.Text;
         string newSurName = new_DriversSurName.Text;
@@ -3278,7 +3278,7 @@ public partial class Administrator_Data : System.Web.UI.Page
     protected void makeChangeDriversNumber(object sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         int cardId = Convert.ToInt32(ManagmentLoadedInfo.SelectedValue);
 
         string newNumber = new_DriversCardNumber.Text;
@@ -3297,7 +3297,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         try
         {
             string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-            DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+            DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
             int cardId = Convert.ToInt32(ManagmentLoadedInfo.SelectedValue);
 
             dataBlock.cardsTable.DeleteCardAndAllFiles(cardId);
@@ -3318,7 +3318,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         //AddGrid.DataSource = null;
         //AddGrid.DataBind();
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         dataBlock.OpenConnection();
         foreach (int id in cardIds)
         {
@@ -3348,7 +3348,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         //AddGrid.DataBind();
         List<int> dataBlockIds = new List<int>();
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         dataBlock.OpenConnection();
         foreach (int id in cardIds)
         {

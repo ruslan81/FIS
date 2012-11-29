@@ -25,7 +25,7 @@ namespace BLL
         public void AddHistoryRecord(string tableName, string tableKeyFieldName, int TABLE_KEYFIELD_VALUE, int userId, int actionId, string Note, SQLDB SQLForAdding)
         {
             if (history == null)
-                history = new BLL.HistoryTable("", "STRING_EN", SQLForAdding);
+                history = new BLL.HistoryTable("", "STRING_RU", SQLForAdding);
 
             DateTime actionDate = DateTime.Now;
             if (actionDate.Second == lastActionDate.Second &&

@@ -46,7 +46,7 @@ public partial class AdministratorS_CreatingFormsControls_UserEditControl : Syst
     protected void ChangeDrName_OK_Click(object sender, ImageClickEventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             dataBlock.OpenConnection();
@@ -107,7 +107,7 @@ public partial class AdministratorS_CreatingFormsControls_UserEditControl : Syst
         UserRoleDropDownList.Items.Clear();
 
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         UserFromTable uft = new UserFromTable();
 
         dataBlock.OpenConnection();

@@ -34,7 +34,7 @@ public partial class Administrator_Adminisration_UserControls_DealersTab_UserCon
     public bool LoadDealersTable()//Возвращает False, если организация субдилер, у которой не может быть субдилеров
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
         List<int> dealersIds = new List<int>();
 
@@ -100,7 +100,7 @@ public partial class Administrator_Adminisration_UserControls_DealersTab_UserCon
     private void LoadDealerAdditionalInfo(int orgId, int userDealerId)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 
         int userInfoId = 0;
         DateTime date = new DateTime();
@@ -198,7 +198,7 @@ public partial class Administrator_Adminisration_UserControls_DealersTab_UserCon
     private void LoadAllDropDowns()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
 
         DetailedInfo_TimeZone_DropDown.Items.Clear();
@@ -213,7 +213,7 @@ public partial class Administrator_Adminisration_UserControls_DealersTab_UserCon
             DetailedInfo_Country_DropDown.Items.Add(new ListItem(country.Key, country.Value.ToString()));
         }
         string Russian = "STRING_RU";
-        string English = "STRING_EN";
+        string English = "STRING_RU";
         DetailedInfo_SiteLang_DropDown.Items.Add(new ListItem("Русский", Russian));
         DetailedInfo_SiteLang_DropDown.Items.Add(new ListItem("English", English));
         DetailedInfo_ReportsLang_DropDown.Items.Add(new ListItem("Русский", Russian));
@@ -228,7 +228,7 @@ public partial class Administrator_Adminisration_UserControls_DealersTab_UserCon
         try
         {
             string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-            DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+            DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
             foreach (DataGridItem oldrow in DealersDataGrid.Items)
             {
                 ((RadioButton)oldrow.FindControl("DealersDataGrid_RadioButton")).Checked = false;
@@ -306,7 +306,7 @@ public partial class Administrator_Adminisration_UserControls_DealersTab_UserCon
     protected void SaveDealerButton_Click(object sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
 
         try
@@ -378,7 +378,7 @@ public partial class Administrator_Adminisration_UserControls_DealersTab_UserCon
     protected void DeleteDealerButton_Click(object sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
 /*
         try
         {

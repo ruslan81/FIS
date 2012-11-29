@@ -33,7 +33,7 @@ public partial class loginPage : System.Web.UI.Page
     protected void OnLogin_Click(object sender, EventArgs e)
     {        
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_EN");
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             dataBlock.OpenConnection();
@@ -93,7 +93,7 @@ public partial class loginPage : System.Web.UI.Page
     protected void PassRecoverButtonClick(object sender, EventArgs e)
     {
         Exception noPassword = new Exception("Такой e-mail не найден");
-        string language = "STRING_EN";
+        string language = "STRING_RU";
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
         BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, language);
 

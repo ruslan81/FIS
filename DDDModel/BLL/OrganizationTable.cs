@@ -12,7 +12,7 @@ namespace BLL
     /// </summary>
     public class OrganizationTable
     {
-        private string CurrentLanguage;//STRING_RU,STRING_ENG etc.
+        private string CurrentLanguage;//STRING_RU,STRING_RUG etc.
         private string connectionString;
         SQLDB sqlDBR;
 

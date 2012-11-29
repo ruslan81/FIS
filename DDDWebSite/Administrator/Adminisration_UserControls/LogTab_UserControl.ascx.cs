@@ -24,7 +24,7 @@ public partial class Administrator_Adminisration_UserControls_LogTab_UserControl
 
     public void LoadUsersTable()
     {
-        string currentLanguage = "STRING_EN";
+        string currentLanguage = "STRING_RU";
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, currentLanguage);
         HistoryTable historyTable = new HistoryTable(connectionString, currentLanguage, dataBlock.sqlDb);
@@ -52,7 +52,7 @@ public partial class Administrator_Adminisration_UserControls_LogTab_UserControl
 
     protected void ApplyLogFilterButton_Click(object sender, EventArgs e)
     {
-        string currentLanguage = "STRING_EN";
+        string currentLanguage = "STRING_RU";
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, currentLanguage);
         HistoryTable historyTable = new HistoryTable(connectionString, currentLanguage, dataBlock.sqlDb);
