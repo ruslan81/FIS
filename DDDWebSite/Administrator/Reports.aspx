@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage/MasterPage.Master" AutoEventWireup="true"
-    CodeFile="Reports.aspx.cs" Inherits="Administrator_Report" %>
+    CodeFile="Reports.aspx.cs" Inherits="Administrator_Report" Title="Отчеты"%>
 
 <%@ Register Src="../UserControlsForAll/BlueButton.ascx" TagName="BlueButton" TagPrefix="uc2" %>
 <asp:Content ID="HeaderContent" ContentPlaceHolderID="HeadContentPlaceHolder" runat="server">

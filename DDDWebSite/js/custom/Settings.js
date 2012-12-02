@@ -573,7 +573,7 @@ function loadGeneralSettings() {
             //очищаем от предыдущих данных
             $("#contentTable").empty();
             //вставляем данные в шаблон и добавляем его к tbody
-            $("#tmplGeneralSettings").tmpl(response.d).appendTo("#contentSettings");
+            $("#tmplGeneralSettings").tmpl(response).appendTo("#contentSettings");
 
             $("#headerSettings").empty();
             $("#headerSettings").text("Общие настройки");
@@ -602,7 +602,7 @@ function createUserControlsGeneral() {
     $("#cancel").button({ disabled: true });
 
     $("#edit").click(function () {
-        var inputs = $("#contentSettings .input");
+        var inputs = $("#contentSettings input");
         for (var i = 3; i < inputs.length; i++) {
             $(inputs[i]).removeClass("inputField-readonly");
             $(inputs[i]).addClass("inputField");

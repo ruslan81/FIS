@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage/MasterPage.Master" AutoEventWireup="true"
-    CodeFile="Settings.aspx.cs" Inherits="Administrator_Settings" %>
+    CodeFile="Settings.aspx.cs" Inherits="Administrator_Settings" Title="Настройки"%>
 
 <%@ Register src="../UserControlsForAll/BlueButton.ascx" tagname="BlueButton" tagprefix="uc2" %>
 
@@ -108,14 +108,20 @@
     </script>  
     
     <script id="tmplGeneralSettings" type="text/x-jquery-tmpl">
-        <tr>
-            <td class="key" key="${Key}" style="font-size:12px;width:300px;padding-top:10px;padding-left:50px;">
-                ${Value.Key}
-            </td>
-            <td class="value" style="padding-left:50px;">
-                <input value="${Value.Value}" class="inputField-readonly" readonly="readonly"/>
-            </td>
-        </tr>
+        <table style="width:100%;">
+            <tbody>
+                {{each d}}
+                <tr>
+                    <td class="key" key="${Key}" style="font-size:12px;width:300px;padding-top:10px;padding-left:50px;">
+                        ${Value.Key}
+                    </td>
+                    <td class="value" style="padding-left:50px;">
+                        <input value="${Value.Value}" class="inputField-readonly" readonly="readonly"/>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
     </script> 
 
     <script id="userControlsGeneral" type="text/x-jquery-tmpl">

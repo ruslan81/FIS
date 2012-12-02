@@ -11934,3 +11934,55 @@ Cache Callback: Message: Невозможно определить имя про
 Cache Callback: 30.11.2012 1:00:40
 Cache Callback: Message: Table 'smartfis.email_schedule' doesn't exist
 Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 02.12.2012 12:46:20
+Cache Callback: Message: Table 'gb_x_smartfis.email_schedule' doesn't exist
+Cache Callback: 02.12.2012 12:56:40
+Cache Callback: Message: Table 'gb_x_smartfis.email_schedule' doesn't exist
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\loginPage.aspx(76): error CS1012: Превышение допустимого числа символов в символьной константе
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\loginPage.aspx(76): error CS1012: Превышение допустимого числа символов в символьной константе
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\loginPage.aspx(76): error CS1026: ожидалась )
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\loginPage.aspx.cs(36): error CS0107: Несколько модификаторов режима защиты
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\loginPage.aspx.cs(41): error CS0103: Имя 'ProfilesTextBox' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\loginPage.aspx.cs(41): error CS0103: Имя 'ProfilesTextBox' отсутствует в текущем контексте
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\loginPage.aspx.cs(144): error CS0103: Имя 'PassRecoverUpdatePanel' отсутствует в текущем контексте
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: 02.12.2012 14:14:56
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: Message: Table 'gb_x_smartfis.email_schedule' doesn't exist
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\loginPage.aspx.cs(95): error CS0103: Имя 'RecoveryEmailHiddenField' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\loginPage.aspx(114): error CS1061: "ASP.loginpage_aspx" не содержит определение для "PassRecoverButtonClick". Не удалось найти метод  расширения "PassRecoverButtonClick", принимающий первый аргумент типа "ASP.loginpage_aspx"  (пропущено использование директивы или ссылка на сборку?)
+Cache Callback: 02.12.2012 14:44:20
+Cache Callback: Message: Table 'gb_x_smartfis.email_schedule' doesn't exist
+Cache Callback: 02.12.2012 14:48:20
+Cache Callback: Message: Table 'gb_x_smartfis.email_schedule' doesn't exist
+Cache Callback: 02.12.2012 14:52:40
+Cache Callback: Message: Table 'gb_x_smartfis.email_schedule' doesn't exist
+Cache Callback: 02.12.2012 14:57:00
+Cache Callback: Message: Table 'gb_x_smartfis.email_schedule' doesn't exist
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\loginPage.aspx.cs(145): error CS0127: 'loginPage.RecoverPassword(string)' возвращает значение void, поэтому после ключевого слова return не должно задаваться выражение объекта
+Cache Callback: 02.12.2012 15:58:20
+Cache Callback: Message: Table 'gb_x_smartfis.email_schedule' doesn't exist
+Cache Callback: 02.12.2012 17:27:20
+Cache Callback: Message: Table 'gb_x_smartfis.email_schedule' doesn't exist
+Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.
+Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.

@@ -13,48 +13,64 @@ using System.Net;
 
 public partial class loginPage : System.Web.UI.Page
 {
+    public string ErrorMessage = null;
+
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
-        {
-            //Так как не работает в Файрфокс валидация панели по умолчанию, приходится отслеживать нажатие кнопки энтер.
-            UserNameTextBox.Attributes.Add("onKeyPress", "javascript:if (event.keyCode == 13) __doPostBack('" + LinkButton1.ClientID + "','')");
-            PasswordTextBox.Attributes.Add("onKeyPress", "javascript:if (event.keyCode == 13) __doPostBack('" + LinkButton1.ClientID + "','')");
+        ErrorMessage = null;
 
-            ProfilesTextBox.Focus();
+        if (Request.HttpMethod == "POST")
+        {
+            string profile = Request.Form.Get("profile");
+            string username = Request.Form.Get("username");
+            string password = Request.Form.Get("password");
+            bool persistent =false;
+            if (Request.Form.Get("persistent")!=null)
+            {
+                if (Request.Form.Get("persistent") == "on")
+                {
+                    persistent = true;
+                }
+            }
+            if (profile != null && username != null && persistent != null)
+            {
+                Login(profile,username, password, persistent);
+            }
         }
-        PassRecoverStatus.Text = "";
     }
+
     /// <summary>
-    /// Нажатии на кнопку вход
+    /// Login function
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    protected void OnLogin_Click(object sender, EventArgs e)
+    /// <param name="profile"></param>
+    /// <param name="username"></param>
+    /// <param name="password"></param>
+    /// <param name="persistent"></param>
+    private void Login(string profile, string username, string password, bool persistent)
     {        
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
         try
         {
             dataBlock.OpenConnection();
-            int orgId = dataBlock.organizationTable.GetOrgId_byOrgName(ProfilesTextBox.Text);
-            if (dataBlock.usersTable.CustomAuthenticate(UserNameTextBox.Text, PasswordTextBox.Text, orgId))
+            int orgId = dataBlock.organizationTable.GetOrgId_byOrgName(profile);
+            if (dataBlock.usersTable.CustomAuthenticate(username, password, orgId))
             {
-                string url = FormsAuthentication.GetRedirectUrl(UserNameTextBox.Text, Persistent.Checked);
+                string url = FormsAuthentication.GetRedirectUrl(username, persistent);
                 //Кнопка запомнить меня создает куки на 24 часа.
-                if (Persistent.Checked)
+                if (persistent)
                 {
                     HttpCookie cookie = Response.Cookies[FormsAuthentication.FormsCookieName];
                     cookie.Expires = DateTime.Now.AddHours(24);//куки живут сутки
-                    FormsAuthentication.SetAuthCookie(UserNameTextBox.Text, Persistent.Checked);//Раньше эта строка была перед ИФ
+                    FormsAuthentication.SetAuthCookie(username, persistent);
                 }
                 else
                 {
                     HttpCookie cookie = Response.Cookies[FormsAuthentication.FormsCookieName];
                     cookie.Expires = DateTime.Now.AddHours(2);//куки живут два часа
-                    FormsAuthentication.SetAuthCookie(UserNameTextBox.Text, Persistent.Checked);//Раньше эта строка была перед ИФ
+                    FormsAuthentication.SetAuthCookie(username, persistent);
                 }
-                int userId = dataBlock.usersTable.Get_UserID_byName(UserNameTextBox.Text);
+                int userId = dataBlock.usersTable.Get_UserID_byName(username);
                 dataBlock.usersTable.Set_TimeConnect(userId);
                 Response.Redirect(url);
             }
@@ -62,58 +78,46 @@ public partial class loginPage : System.Web.UI.Page
             {
                 errorBlock.Style.Add("display","block");
                 string errorMessage = "Неверные логин и/или пароль";
-                result.Text = errorMessage;
                 throw new Exception(errorMessage);
             }
         }
         catch (Exception ex)
         {
-            errorBlock.Style.Add("display", "block");
-            result.Text = "Ошибка: " + ex.Message;
+            ErrorMessage = "Ошибка: " + ex.Message;
         }
         finally
         {
             dataBlock.CloseConnection();
         }
     }
+    
     /// <summary>
-    /// переадресует на страницу с описанием изменений на сайте
+    /// Восстановление пароля
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    protected void ShowChangesClick(object sender, EventArgs e)
+    /// <param name="email">mail</param>
+    [System.Web.Services.WebMethod]
+    public static String RecoverPassword(string email)
     {
-        Response.Redirect("WhatsNew.aspx");
-    }
-    /// <summary>
-    /// нажатие на кнопку восстановления пароля
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    protected void PassRecoverButtonClick(object sender, EventArgs e)
-    {
-        Exception noPassword = new Exception("Такой e-mail не найден");
-        string language = "STRING_RU";
-        string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, language);
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_RU");
 
         try
         {
+            //check mail
             dataBlock.OpenConnection();
-            string mailTO = RecoveryEmailHiddenField.Value;
+            string mailTO = email;
             string userPassword = dataBlock.usersTable.Get_UserPassword(mailTO);
             if (userPassword == "")
-                throw noPassword;
+                throw new Exception("Такой e-mail не найден");
 
+            //get user information
             SQLDB sqlDb = new SQLDB(connectionString);
             sqlDb.OpenConnection();
             int stringId = sqlDb.GetStringId(mailTO);
             int userId = sqlDb.GetUserInfoUserId(stringId);
             string name=sqlDb.GetUserName(userId);
-            /*int orgId=sqlDb.GetUserOrgId(userId);
-            int orgNameId = sqlDb.GetOrgNameId(orgId);
-            string orgName=sqlDb.GetString(orgNameId, language);            */
-
+            
+            //prepare mail
             string mailSubject = "Напоминание пароля SmartFis.ru";
             string mailBody = name + ",\n\nВы запросили напоминание Вашего пароля на сайте SmartFis.ru.\n" +
                 "Если Вы этого не делали, проигнорируйте это письмо.\n\nВаш пароль: " + userPassword+"\n\n"+
@@ -137,19 +141,17 @@ public partial class loginPage : System.Web.UI.Page
             smtpClient.Send(Message);
 
             sqlDb.CloseConnection();
-            //
-            errorStatus.Style.Add("display", "block");
-            PassRecoverStatus.Text = "Пароль был выслан на указанный адрес";
+
+            //show message
+            return "Пароль был выслан на указанный адрес";
         }
         catch (Exception ex)
         {
-            errorStatus.Style.Add("display", "block");
-            PassRecoverStatus.Text = ex.Message;
+            return ex.Message;
         }
         finally
         {
             dataBlock.CloseConnection();
-            PassRecoverUpdatePanel.Update();
         }
     }
 

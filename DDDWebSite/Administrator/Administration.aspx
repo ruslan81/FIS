@@ -1,5 +1,5 @@
 <%@ Page Language="C#" MasterPageFile="~/MasterPage/MasterPage.master" AutoEventWireup="true"
-    CodeFile="Administration.aspx.cs" Inherits="Administrator_Administration" %>
+    CodeFile="Administration.aspx.cs" Inherits="Administrator_Administration" Title="”правление"%>
 
 <%@ Register src="../UserControlsForAll/BlueButton.ascx" tagname="BlueButton" tagprefix="uc2" %>
 

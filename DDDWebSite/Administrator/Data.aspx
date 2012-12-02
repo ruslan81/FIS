@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage/MasterPage.Master" AutoEventWireup="true"
-    CodeFile="Data.aspx.cs" Inherits="Administrator_Data" EnableEventValidation="false" %>
+    CodeFile="Data.aspx.cs" Inherits="Administrator_Data" EnableEventValidation="false" Title="Архив данных"%>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControlsForAll/BlueButton.ascx" TagName="BlueButton" TagPrefix="uc2" %>

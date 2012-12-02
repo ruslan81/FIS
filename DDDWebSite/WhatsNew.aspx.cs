@@ -14,6 +14,15 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "- 02.12.2012" + Environment.NewLine;
+            ReportLabel.Text += @"- Восстановлена часть функционала, сломанного при изменении структуры БД " + Environment.NewLine;
+            ReportLabel.Text += @"- Работа по плану: " + Environment.NewLine;
+            ReportLabel.Text += @"  - изменен внутренний механизм функционирования страницы логина на новый, который используется во всех остальных странрицах, что позволило добавить поддержку функции сохранения браузерами введенного логина/пароля и увеличило скорость работы" + Environment.NewLine;
+            ReportLabel.Text += @"  - исправлены проблемы с редактированием общих настроек в закладке Организация" + Environment.NewLine;
+            ReportLabel.Text += @"  - увеличены размеры полей в закладке Настройки/Организация, ранее значения некоторых полей не помещались" + Environment.NewLine;
+            ReportLabel.Text += @"  - для каждой страницы добавлены заголовки (теперь закладка браузера имеет название соответсвующее разделу)" + Environment.NewLine;
+            ReportLabel.Text += @"  - на страницы добавлен favicon" + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "- 19.11.2012" + Environment.NewLine;
             ReportLabel.Text += @"- Закрыты задания из списка #4,6,8,9,16-19. Закладки Настройки->Водители, Настройки->Транспортные средства, Управление->Аккаунт, Управление->Пользователи приведены в соответствие с GUIv10, за исключением пока фотографий и логотипов." + Environment.NewLine;
 

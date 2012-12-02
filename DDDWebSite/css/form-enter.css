@@ -1,4 +1,3 @@
-@charset "utf-8";
 /* CSS Document */
 
 html  {height:  100%;} 
@@ -192,8 +191,8 @@ width:65%;
 
 .error
 {
-    font-family: Calibri, Georgia, Times New Roman; 
-    font-size:12px;
+    font-family: Tahoma; 
+    font-size:11px;
     color: #bb0000;
     font-weight:bold;
 }                    	
@@ -207,12 +206,20 @@ width:65%;
 .remember
 {
     float:left;
+    margin: 0;
+    padding: 0;
 }
 
 .remember-text
 {
-    padding-top: 4px;
-    padding-left: 25px;
+    padding-left: 20px;
+}
+
+.recover-password
+{
+    color: #0065B2;
+    text-decoration: underline;
+    cursor:pointer;
 }
 
 .disable
