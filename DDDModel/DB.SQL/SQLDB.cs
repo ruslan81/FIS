@@ -1458,7 +1458,7 @@ namespace DB.SQL
         public List<int> GetAllMessagesIds(int userId)
         {
             List<int> result = new List<int>();
-            string sql = "SELECT MESSAGE_ID FROM fn_message WHERE USER_ID=@USER_ID";
+            string sql = "SELECT USER_MESSAGE_ID FROM fn_user_message WHERE RECIPIENT_USER_ID=@USER_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@USER_ID", userId);
             MySqlDataReader sdr = cmd.ExecuteReader();
@@ -1471,29 +1471,29 @@ namespace DB.SQL
         }
         public void DeleteMessage(int messageId)
         {
-            string sql = "DELETE FROM fn_message WHERE MESSAGE_ID=@MESS_ID";
+            string sql = "DELETE FROM fn_user_message WHERE USER_MESSAGE_ID=@MESS_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@MESS_ID", messageId);
             cmd.ExecuteNonQuery();
         }
         public string GetMessageTopic(int messageId)
         {
-            string returnValue = Convert.ToString(GetOneParameter(messageId, "MESSAGE_ID", "fn_message", "MESSAGE_TOPIC"));
+            string returnValue = Convert.ToString(GetOneParameter(messageId, "USER_MESSAGE_ID", "fn_user_message", "MESSAGE_TOPIC"));
             return returnValue;
         }
         public string GetMessageSender(int messageId)
         {
-            string returnValue = Convert.ToString(GetOneParameter(messageId, "MESSAGE_ID", "fn_message", "MESSAGE_SENDER"));
+            string returnValue = Convert.ToString(GetOneParameter(messageId, "USER_MESSAGE_ID", "fn_user_message", "SENDER_USER_ID"));
             return returnValue;
         }
         public DateTime GetMessageDate(int messageId)
         {
-            DateTime returnValue = Convert.ToDateTime(GetOneParameter(messageId, "MESSAGE_ID", "fn_message", "MESSAGE_DATE"));
+            DateTime returnValue = Convert.ToDateTime(GetOneParameter(messageId, "USER_MESSAGE_ID", "fn_user_message", "MESSAGE_BDATE"));
             return returnValue;
         }
         public DateTime GetMessageEndDate(int messageId)
         {
-            DateTime returnValue = Convert.ToDateTime(GetOneParameter(messageId, "MESSAGE_ID", "fn_message", "MESSAGE_END_DATE"));
+            DateTime returnValue = Convert.ToDateTime(GetOneParameter(messageId, "USER_MESSAGE_ID", "fn_user_message", "MESSAGE_EDATE"));
             return returnValue;
         }
         #endregion
