@@ -296,8 +296,8 @@ namespace DB.Interface
         string GetReportUserOrg_SETDATE(int reportsUserId, int orgId);
         void AddOrSetReportUserOrg_SETDATE(int reportsUserId, int orgId, bool IsActive);
         //------------------------------Email Schedule------------------------------------
-        int AddEmailSchedule(int orgId, int userId, int reportId, int cardId, int periodType, int period, string emailAddress);
-        void EditEmailSchedule(int sheduleId, int orgId, int userId, int reportId, int cardId, int period, int periodType, string emailAddress);
+        int AddEmailSchedule(int orgId, int userId, int reportId, int cardId, int periodType, int formatType, int period, string emailAddress);
+        void EditEmailSchedule(int sheduleId, int orgId, int userId, int reportId, int cardId, int period, int periodType, int formatType, string emailAddress);
         List<int> GetAllEmailScheduleIds();
         List<int> GetAllEmailScheduleIds(int orgId, int userId);
         /// <summary>
@@ -327,7 +327,7 @@ namespace DB.Interface
         void DeleteEmailShedule(int sheduleId);
         void SetEmailSheduleLastSendDate(int sheduleId);
         //Email_Format
-        List<int> GetAllEmailExportFormat();
+        //List<int> GetAllEmailExportFormat();
         /*int GetEmailExportFormatNameId();
         int AddEmailExportFormat(string formatName);*/
         //-----------------------------FORALL-------------------

@@ -11998,3 +11998,10 @@ Cache Callback: Message: Поток находился в процессе пр�
 Cache Callback: 04.12.2012 15:28:20
 Cache Callback: Message: Table 'smartfis.email_schedule' doesn't exist
 Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 04.12.2012 15:41:00
+Cache Callback: Message: Table 'smartfis.email_schedule' doesn't exist
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 04.12.2012 16:12:40
+Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
+Имя параметра: startIndex
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'

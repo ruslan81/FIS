@@ -304,7 +304,7 @@ public partial class Administrator_Settings_UserControls_EmailSheduler : System.
         {
             dataBlock.OpenConnection();
             int userId = dataBlock.usersTable.Get_UserID_byName(Page.User.Identity.Name);
-            dataBlock.emailScheduleTable.AddEmailSchedule(orgId, userId, reportId, cardId, period, periodType, destEmail);
+            dataBlock.emailScheduleTable.AddEmailSchedule(orgId, userId, reportId, cardId, period, periodType, 0, destEmail);
         }
         catch (Exception ex)
         {
@@ -337,7 +337,7 @@ public partial class Administrator_Settings_UserControls_EmailSheduler : System.
         {
             dataBlock.OpenConnection();
             int userId = dataBlock.usersTable.Get_UserID_byName(Page.User.Identity.Name);
-            dataBlock.emailScheduleTable.EditEmailSchedule(shedId ,orgId, userId, reportId, cardId, period, periodType, destEmail);
+            dataBlock.emailScheduleTable.EditEmailSchedule(shedId ,orgId, userId, reportId, cardId, period, periodType, 0, destEmail);
         }
         catch (Exception ex)
         {

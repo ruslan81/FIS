@@ -4134,17 +4134,17 @@ namespace DB.SQL
         }
         #endregion
         //------------------------------Email Schedule------------------------------------
-        public int AddEmailSchedule(int orgId, int userId, int reportId, int cardId, int periodType, int period, string emailAddress)
+        public int AddEmailSchedule(int orgId, int userId, int reportId, int cardId, int periodType, int formatType, int period, string emailAddress)
         {
             MySqlCommand cmd = new MySqlCommand();
             int generatedId;
-            generatedId = generateId("email_schedule", "EMAIL_SCHEDULE_ID");
+            generatedId = generateId("fn_email_schedule", "EMAIL_SCHEDULE_ID");
             if (generatedId == -1)
                 throw (new Exception("Can't generate EMAIL_SCHEDULE_ID"));
 
-            string sql = "INSERT INTO email_schedule "
-                + "(EMAIL_SCHEDULE_ID, ORG_ID, USER_ID, REPORT_ID, CARD_ID, RERIOD, PERIOD_TYPE, LAST_SEND_DATE, EMAIL_ADDRESS) "
-                + "VALUES (@EMAIL_SCHEDULE_ID, @ORG_ID, @USER_ID, @REPORT_ID, @CARD_ID, @RERIOD, @PERIOD_TYPE, @LAST_SEND_DATE, @EMAIL_ADDRESS)";
+            string sql = "INSERT INTO fn_email_schedule "
+                + "(EMAIL_SCHEDULE_ID, ORG_ID, USER_ID, REPORT_ID, CARD_ID, RERIOD, EMAIL_PERIOD_ID, EMAIL_FORMAT_ID, LAST_SEND_DATE, EMAIL_ADDRESS) "
+                + "VALUES (@EMAIL_SCHEDULE_ID, @ORG_ID, @USER_ID, @REPORT_ID, @CARD_ID, @RERIOD, @PERIOD_ID, @FORMAT_ID, @LAST_SEND_DATE, @EMAIL_ADDRESS)";
             cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@EMAIL_SCHEDULE_ID", generatedId);
             cmd.Parameters.AddWithValue("@ORG_ID", orgId);
@@ -4152,16 +4152,17 @@ namespace DB.SQL
             cmd.Parameters.AddWithValue("@REPORT_ID", reportId);
             cmd.Parameters.AddWithValue("@CARD_ID", cardId);
             cmd.Parameters.AddWithValue("@RERIOD", period);
-            cmd.Parameters.AddWithValue("@PERIOD_TYPE", periodType);//0-Минуты, 1-дни, 2-месяцы, 3-годы
+            cmd.Parameters.AddWithValue("@PERIOD_ID", periodType);
+            cmd.Parameters.AddWithValue("@FORMAT_ID", formatType);
             cmd.Parameters.AddWithValue("@EMAIL_ADDRESS", emailAddress);
             cmd.Parameters.AddWithValue("@LAST_SEND_DATE", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             cmd.ExecuteNonQuery();
             return generatedId;
         }
-        public void EditEmailSchedule(int sheduleId, int orgId, int userId, int reportId, int cardId, int period, int periodType, string emailAddress)
+        public void EditEmailSchedule(int sheduleId, int orgId, int userId, int reportId, int cardId, int period, int periodType, int formatType, string emailAddress)
         {
-            string sql = "UPDATE email_schedule SET ORG_ID=@ORG_ID, USER_ID=@USER_ID, REPORT_ID=@REPORT_ID, CARD_ID=@CARD_ID, "
-                + "RERIOD=@RERIOD, PERIOD_TYPE=@PERIOD_TYPE, EMAIL_ADDRESS=@EMAIL_ADDRESS "
+            string sql = "UPDATE fn_email_schedule SET ORG_ID=@ORG_ID, USER_ID=@USER_ID, REPORT_ID=@REPORT_ID, CARD_ID=@CARD_ID, "
+                + "RERIOD=@RERIOD, EMAIL_PERIOD_ID=@PERIOD_ID, EMAIL_FORMAT_ID=@FORMAT_ID, EMAIL_ADDRESS=@EMAIL_ADDRESS "
                 + "WHERE EMAIL_SCHEDULE_ID=@EMAIL_SCHEDULE_ID";
             MySqlCommand cmd = new MySqlCommand();
             cmd = new MySqlCommand(sql, sqlConnection);
@@ -4171,7 +4172,8 @@ namespace DB.SQL
             cmd.Parameters.AddWithValue("@REPORT_ID", reportId);
             cmd.Parameters.AddWithValue("@CARD_ID", cardId);
             cmd.Parameters.AddWithValue("@RERIOD", period);
-            cmd.Parameters.AddWithValue("@PERIOD_TYPE", periodType);//0-Минуты, 1-дни, 2-месяцы, 3-годы
+            cmd.Parameters.AddWithValue("@PERIOD_ID", periodType);
+            cmd.Parameters.AddWithValue("@FORMAT_ID", formatType);
             cmd.Parameters.AddWithValue("@EMAIL_ADDRESS", emailAddress);
             cmd.ExecuteNonQuery();
         }
@@ -4179,7 +4181,7 @@ namespace DB.SQL
         {
             List<int> gettedId = new List<int>();
 
-            string sql = "SELECT EMAIL_SCHEDULE_ID FROM email_schedule";
+            string sql = "SELECT EMAIL_SCHEDULE_ID FROM fn_email_schedule";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             MySqlDataReader sdr = cmd.ExecuteReader();
             while (sdr.Read())
@@ -4193,7 +4195,7 @@ namespace DB.SQL
         {
             List<int> gettedId = new List<int>();
 
-            string sql = "SELECT EMAIL_SCHEDULE_ID FROM email_schedule WHERE ORG_ID=@ORG_ID AND USER_ID=@USER_ID";
+            string sql = "SELECT EMAIL_SCHEDULE_ID FROM fn_email_schedule WHERE ORG_ID=@ORG_ID AND USER_ID=@USER_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@ORG_ID", orgId);
             cmd.Parameters.AddWithValue("@USER_ID", userId);
@@ -4223,7 +4225,7 @@ namespace DB.SQL
             int periodType = 0;
             int period = 0;
             DateTime lastSendDate = new DateTime();
-            string sql = "SELECT PERIOD_TYPE, RERIOD, LAST_SEND_DATE FROM email_schedule WHERE EMAIL_SCHEDULE_ID IN (" + IdIN + ") ORDER BY EMAIL_SCHEDULE_ID";
+            string sql = "SELECT PERIOD_TYPE, RERIOD, LAST_SEND_DATE FROM fn_email_schedule WHERE EMAIL_SCHEDULE_ID IN (" + IdIN + ") ORDER BY EMAIL_SCHEDULE_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             MySqlDataReader sdr = cmd.ExecuteReader();
             while (sdr.Read())
@@ -4268,7 +4270,8 @@ namespace DB.SQL
                 returnList.Add(sdr.GetInt32("REPORT_ID"));
                 returnList.Add(sdr.GetInt32("CARD_ID"));
                 returnList.Add(sdr.GetInt32("RERIOD"));
-                returnList.Add(sdr.GetInt32("PERIOD_TYPE"));
+                returnList.Add(sdr.GetInt32("EMAIL_PERIOD_ID"));
+                returnList.Add(sdr.GetInt32("EMAIL_FORMAT_ID"));
                 returnList.Add(sdr.GetString("LAST_SEND_DATE"));
                 returnList.Add(sdr.GetString("EMAIL_ADDRESS"));
             }
@@ -4279,17 +4282,17 @@ namespace DB.SQL
         {
             string sql;
             MySqlCommand cmd;
-            sql = "DELETE FROM email_schedule WHERE EMAIL_SCHEDULE_ID = @EMAIL_SCHEDULE_ID ";
+            sql = "DELETE FROM fn_email_schedule WHERE EMAIL_SCHEDULE_ID = @EMAIL_SCHEDULE_ID ";
             cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@EMAIL_SCHEDULE_ID", sheduleId);
             cmd.ExecuteNonQuery();
         }
         public void SetEmailSheduleLastSendDate(int sheduleId)
         {
-            SetCurrentTime("email_schedule", "EMAIL_SCHEDULE_ID", sheduleId, "LAST_SEND_DATE");
+            SetCurrentTime("fn_email_schedule", "EMAIL_SCHEDULE_ID", sheduleId, "LAST_SEND_DATE");
         }
         //Email_Format
-        public List<int> GetAllEmailExportFormat()
+        /*public List<int> GetAllEmailExportFormat()
         {
             List<int> gettedId = new List<int>();
 
@@ -4302,7 +4305,7 @@ namespace DB.SQL
             }
             sdr.Close();
             return gettedId;
-        }
+        }*/
         /*  public int GetEmailExportFormatNameId()
           {
           }

@@ -46,9 +46,9 @@ namespace BLL
         /// <param name="periodType">единицы периода. 0-Минуты, 1-часы, 2-дни, 3-месяцы, 4-годы</param>
         /// <param name="emailAddress">адрес, на который отправлять отчет(пока только один адрес)</param>
         /// <returns>ID записи отправки отчета на почту.</returns>
-        public int AddEmailSchedule(int orgId, int userId, int reportId, int cardId, int period, int periodType, string emailAddress)
+        public int AddEmailSchedule(int orgId, int userId, int reportId, int cardId, int period, int periodType, int formatType, string emailAddress)
         {
-            return sqlDb.AddEmailSchedule(orgId, userId, reportId, cardId, periodType, period, emailAddress);
+            return sqlDb.AddEmailSchedule(orgId, userId, reportId, cardId, periodType, formatType, period, emailAddress);
         }
         /// <summary>
         /// Внести изменения в существующую запись расписания рассылок
@@ -61,9 +61,9 @@ namespace BLL
         /// <param name="period">период, за который нужно отправлять отчет в единицах, заданных в periodType.</param>
         /// <param name="periodType">единицы периода. 0-Минуты, 1-часы, 2-дни, 3-месяцы, 4-годы</param>
         /// <param name="emailAddress">адрес, на который отправлять отчет(пока только один адрес)</param>
-        public void EditEmailSchedule(int sheduleId, int orgId, int userId, int reportId, int cardId, int period, int periodType, string emailAddress)
+        public void EditEmailSchedule(int sheduleId, int orgId, int userId, int reportId, int cardId, int period, int periodType, int formatType, string emailAddress)
         {
-            sqlDb.EditEmailSchedule(sheduleId, orgId, userId, reportId, cardId, period, periodType, emailAddress);
+            sqlDb.EditEmailSchedule(sheduleId, orgId, userId, reportId, cardId, period, periodType, formatType, emailAddress);
         }
         /// <summary>
         /// Возвращает список обьектов типа SingleEmailSchedule, каждый из которых представляет собой запись на очередь для отправку письма по рассылке.
