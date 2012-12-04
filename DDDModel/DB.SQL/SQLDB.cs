@@ -3895,9 +3895,9 @@ namespace DB.SQL
                 throw (new Exception("Can't generate REPORT_USER_ID"));
 
             int userNameSTRID = AddOrGetString(reportUserName, Language);
-
+            int noteSTRID = AddOrGetString(Note, Language);
             string sql = "INSERT INTO fn_report_user "
-                + "(REPORT_USER_ID, REPORT_TYPE_ID, STRID_REPORT_USER_NAME, DATE_CREATE, DATE_UPDATE, PRICE, NOTE) "
+                + "(REPORT_USER_ID, REPORT_TYPE_ID, STRID_REPORT_USER_NAME, DATE_CREATE, DATE_UPDATE, PRICE, STRID_REPORT_NOTE) "
                 + "VALUES (@REPORT_USER_ID, @REPORT_TYPE_ID, @STRID_REPORT_USER_NAME, @DATE_CREATE, @DATE_UPDATE, @PRICE, @NOTE)";
             cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@REPORT_USER_ID", generatedId);
@@ -3906,7 +3906,7 @@ namespace DB.SQL
             cmd.Parameters.AddWithValue("@DATE_CREATE", dateCreate.ToString("yyyy-MM-dd HH:mm:ss"));
             cmd.Parameters.AddWithValue("@DATE_UPDATE", dateUpdate.ToString("yyyy-MM-dd HH:mm:ss"));
             cmd.Parameters.AddWithValue("@PRICE", Price);
-            cmd.Parameters.AddWithValue("@NOTE", Note);
+            cmd.Parameters.AddWithValue("@NOTE", noteSTRID);
             cmd.ExecuteNonQuery();
             return generatedId;
         }
@@ -3965,8 +3965,8 @@ namespace DB.SQL
         }
         public string GetUserReport_Note(int reportUserId)
         {
-            string returnValue = Convert.ToString(GetOneParameter(reportUserId, "REPORT_USER_ID", "fn_report_user", "NOTE"));
-            return returnValue;
+            int returnValue = Convert.ToInt32(GetOneParameter(reportUserId, "REPORT_USER_ID", "fn_report_user", "STRID_REPORT_NOTE"));
+            return GetString(returnValue,"STRING_RU");
         }
         public string GetUserReport_TemplateName(int reportUserId)
         {
