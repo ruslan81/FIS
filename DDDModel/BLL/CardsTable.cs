@@ -265,10 +265,10 @@ namespace BLL
         /// Создание группы по умолчанию
         /// </summary>
         /// <param name="orgID">ID организации</param>
-        public void CreateDefaultGroup(int orgID)
+        /*public void CreateDefaultGroup(int orgID)
         {
             sqlDb.CreateDefaultGroup(orgID);
-        }
+        }*/
         /// <summary>
         /// получаем все имена карты
         /// </summary>
