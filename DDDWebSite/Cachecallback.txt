@@ -11986,3 +11986,15 @@ Cache Callback: 02.12.2012 17:27:20
 Cache Callback: Message: Table 'gb_x_smartfis.email_schedule' doesn't exist
 Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.
 Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.
+Cache Callback: 04.12.2012 14:59:40
+Cache Callback: Message: Table 'smartfis.email_schedule' doesn't exist
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 04.12.2012 15:14:20
+Cache Callback: Message: Table 'smartfis.email_schedule' doesn't exist
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 04.12.2012 15:26:40
+Cache Callback: Message: Table 'smartfis.email_schedule' doesn't exist
+Cache Callback: Message: Поток находился в процессе прерывания.
+Cache Callback: 04.12.2012 15:28:20
+Cache Callback: Message: Table 'smartfis.email_schedule' doesn't exist
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'

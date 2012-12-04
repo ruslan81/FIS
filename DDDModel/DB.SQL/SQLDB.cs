@@ -1193,7 +1193,7 @@ namespace DB.SQL
         public List<int> GetAllCountries()
         {
             List<int> result = new List<int>();
-            string sql = "SELECT id_country FROM country_ ORDER BY country_name_ru";
+            string sql = "SELECT country_id FROM fd_country ORDER BY STRID_COUNTRY_NAME";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             MySqlDataReader sdr = cmd.ExecuteReader();
             while (sdr.Read())
@@ -1205,14 +1205,15 @@ namespace DB.SQL
         }
         public string GetCountryName(int id)
         {
-            string sql = "SELECT country_name_ru FROM country_ WHERE id_country=@ID";
+            string sql = "SELECT STRID_COUNTRY_NAME FROM fd_country WHERE country_id=@ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@ID", id);
             MySqlDataReader sdr = cmd.ExecuteReader();
             while (sdr.Read())
             {
-                string result=sdr.GetString(0);
+                int cid=sdr.GetInt32(0);
                 sdr.Close();
+                string result = GetString(cid, "STRING_RU");
                 return result;
             }
             sdr.Close();
@@ -1221,7 +1222,7 @@ namespace DB.SQL
         public List<int> GetAllCities(int countryId)
         {
             List<int> result = new List<int>();
-            string sql = "SELECT id_city FROM city_ WHERE id_country=@COUNTRY_ID ORDER BY city_name_ru";
+            string sql = "SELECT city_id FROM fd_city WHERE country_id=@COUNTRY_ID ORDER BY STRID_CITY_NAME";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@COUNTRY_ID", countryId);
             MySqlDataReader sdr = cmd.ExecuteReader();
@@ -1234,14 +1235,15 @@ namespace DB.SQL
         }
         public string GetCityName(int id)
         {
-            string sql = "SELECT city_name_ru FROM city_ WHERE id_city=@ID";
+            string sql = "SELECT STRID_CITY_NAME FROM fd_city WHERE city_id=@ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@ID", id);
             MySqlDataReader sdr = cmd.ExecuteReader();
             while (sdr.Read())
             {
-                string result = sdr.GetString(0);
+                int cid = sdr.GetInt32(0);
                 sdr.Close();
+                string result = GetString(cid, "STRING_RU");
                 return result;
             }
             sdr.Close();
