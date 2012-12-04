@@ -3281,7 +3281,7 @@ namespace DB.SQL
         #region "RemindTables"
         public void CreateNewRemind(int orgId, bool remindActive, int userId, int sourceType, int sourceId, int period, DateTime lastDate, int remindType)
         {
-            string sql = "INSERT INTO fn_remind (ORG_ID, REMIND_ACTIVE, REMIND_USER, REMIND_SOURCE_TYPE, REMIND_SOURCE, REMIND_PERIOD, REMIND_LAST_DATE, REMIND_TYPE) VALUES (@ORG_ID, @REM_ACTIVE, @REM_USER, @REM_SOURCE_TYPE, @REM_SOURCE, @REM_PERIOD, @REM_LAST_DATE, @REM_TYPE)";
+            string sql = "INSERT INTO fn_remind (ORG_ID, REMIND_ACTIVE, REMIND_USER_ID, REMIND_SOURCE_TYPE, REMIND_SOURCE, REMIND_PERIOD_ID, REMIND_LAST_DATE, REMIND_TYPE_ID) VALUES (@ORG_ID, @REM_ACTIVE, @REM_USER, @REM_SOURCE_TYPE, @REM_SOURCE, @REM_PERIOD, @REM_LAST_DATE, @REM_TYPE)";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@ORG_ID", orgId);
             cmd.Parameters.AddWithValue("@REM_ACTIVE", remindActive ? 1 : 0);
@@ -3314,7 +3314,7 @@ namespace DB.SQL
         public List<int> GetAllHourRemindIds()
         {
             List<int> gettedNames = new List<int>();
-            string sql = "SELECT REMIND_ID FROM fn_remind WHERE REMIND_PERIOD=2 AND REMIND_ACTIVE=1 ORDER BY REMIND_ID";
+            string sql = "SELECT REMIND_ID FROM fn_remind WHERE REMIND_PERIOD_ID=2 AND REMIND_ACTIVE=1 ORDER BY REMIND_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             MySqlDataReader sdr = cmd.ExecuteReader();
             while (sdr.Read())
@@ -3331,7 +3331,7 @@ namespace DB.SQL
         public List<int> GetAllDayRemindIds()
         {
             List<int> gettedNames = new List<int>();
-            string sql = "SELECT REMIND_ID FROM fn_remind WHERE REMIND_PERIOD=3 AND REMIND_ACTIVE=1 ORDER BY REMIND_ID";
+            string sql = "SELECT REMIND_ID FROM fn_remind WHERE REMIND_PERIOD_ID=3 AND REMIND_ACTIVE=1 ORDER BY REMIND_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             MySqlDataReader sdr = cmd.ExecuteReader();
             while (sdr.Read())
@@ -3348,7 +3348,7 @@ namespace DB.SQL
         public List<int> GetAllMonthRemindIds()
         {
             List<int> gettedNames = new List<int>();
-            string sql = "SELECT REMIND_ID FROM fn_remind WHERE REMIND_PERIOD=4 AND REMIND_ACTIVE=1 ORDER BY REMIND_ID";
+            string sql = "SELECT REMIND_ID FROM fn_remind WHERE REMIND_PERIOD_ID=4 AND REMIND_ACTIVE=1 ORDER BY REMIND_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             MySqlDataReader sdr = cmd.ExecuteReader();
             while (sdr.Read())
@@ -3364,7 +3364,7 @@ namespace DB.SQL
         }
         public void UpdateRemind(int remindId, bool remindActive, int userId, int sourceType, int sourceId, int period, DateTime lastDate, int remindType)
         {
-            string sql = "UPDATE fn_remind SET REMIND_ACTIVE=@REM_ACTIVE, REMIND_USER=@REM_USER, REMIND_SOURCE_TYPE=@REM_SOURCE_TYPE, REMIND_SOURCE=@REM_SOURCE, REMIND_PERIOD=@REM_PERIOD, REMIND_LAST_DATE=@REM_LAST_DATE, REMIND_TYPE=@REM_TYPE WHERE REMIND_ID=@REM_ID";
+            string sql = "UPDATE fn_remind SET REMIND_ACTIVE=@REM_ACTIVE, REMIND_USER_ID=@REM_USER, REMIND_SOURCE_TYPE=@REM_SOURCE_TYPE, REMIND_SOURCE=@REM_SOURCE, REMIND_PERIOD_ID=@REM_PERIOD, REMIND_LAST_DATE=@REM_LAST_DATE, REMIND_TYPE_ID=@REM_TYPE WHERE REMIND_ID=@REM_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@REM_ID", remindId);
             cmd.Parameters.AddWithValue("@REM_ACTIVE", remindActive ? 1 : 0);
@@ -3398,7 +3398,7 @@ namespace DB.SQL
         }
         public int GetRemindUser(int remindId)
         {
-            int returnValue = Convert.ToInt32(GetOneParameter(remindId, "REMIND_ID", "fn_remind", "REMIND_USER"));
+            int returnValue = Convert.ToInt32(GetOneParameter(remindId, "REMIND_ID", "fn_remind", "REMIND_USER_ID"));
             return returnValue;
         }
         public int GetRemindSourceType(int remindId)
@@ -3413,12 +3413,12 @@ namespace DB.SQL
         }
         public int GetRemindPeriod(int remindId)
         {
-            int returnValue = Convert.ToInt32(GetOneParameter(remindId, "REMIND_ID", "fn_remind", "REMIND_PERIOD"));
+            int returnValue = Convert.ToInt32(GetOneParameter(remindId, "REMIND_ID", "fn_remind", "REMIND_PERIOD_ID"));
             return returnValue;
         }
         public int GetRemindType(int remindId)
         {
-            int returnValue = Convert.ToInt32(GetOneParameter(remindId, "REMIND_ID", "fn_remind", "REMIND_TYPE"));
+            int returnValue = Convert.ToInt32(GetOneParameter(remindId, "REMIND_ID", "fn_remind", "REMIND_TYPE_ID"));
             return returnValue;
         }
         public int GetRemindOrgId(int remindId)
@@ -3428,13 +3428,13 @@ namespace DB.SQL
         }
         public string GetRemindTypeName(int remindTypeId)
         {
-            string returnValue = Convert.ToString(GetOneParameter(remindTypeId, "REMIND_TYPE", "fn_remind_type", "REMIND_TYPE_NAME"));
-            return returnValue;
+            int returnValue = Convert.ToInt32(GetOneParameter(remindTypeId, "REMIND_TYPE_ID", "fd_remind_type", "STRID_REMIND_TYPE_NAME"));
+            return GetString(returnValue, "STRING_RU");
         }
         public string GetRemindPeriodName(int remindPeriodId)
         {
-            string returnValue = Convert.ToString(GetOneParameter(remindPeriodId, "REMIND_PERIOD", "fn_remind_period", "REMIND_PERIOD_NAME"));
-            return returnValue;
+            int returnValue = Convert.ToInt32(GetOneParameter(remindPeriodId, "REMIND_PERIOD_ID", "fd_remind_period", "STRID_REMIND_PERIOD_NAME"));
+            return GetString(returnValue, "STRING_RU");
         }
         public DateTime GetRemindLastDate(int remindId)
         {
