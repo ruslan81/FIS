@@ -73,7 +73,7 @@ namespace DDDModel
 
                 return;
    
-           while (ex != true)
+           /*while (ex != true)
             {
                 Console.Clear();
                 Console.WriteLine("Connection string = " + connectionString + "\r\n");
@@ -204,7 +204,7 @@ namespace DDDModel
                     case '6': ex = true;
                         break;
                 }
-            }          
+            }     */     
         }
         /// <summary>
         /// Иннициализирует базу данных стартовыми значениями.
@@ -252,7 +252,7 @@ namespace DDDModel
             InitTable_ID_String("fd_data_record_state", "DATA_RECORD_STATE_ID", "STRID_DATA_RECORD_STATE_NAME", "Not parsed", sqlDb, sqlConnection);
 
             //Card_TYPE
-            stringId = sqlDb.AddOrGetString("Card Type: Driver");
+            stringId = sqlDb.AddOrGetString("Card Type: Driver", SQLDB.userString);
             generatedId = sqlDb.generateId("fd_card_type", "CARD_TYPE_ID");
             if (generatedId == -1)
                 throw (new Exception("Can't generate CARD_TYPE_ID"));
@@ -267,7 +267,7 @@ namespace DDDModel
             cmd.Parameters.AddWithValue("@STRID_CARD_TYPE_PRINT_NAME", stringId);
             cmd.ExecuteNonQuery();
 
-            stringId = sqlDb.AddOrGetString("Card Type: Vehicle");
+            stringId = sqlDb.AddOrGetString("Card Type: Vehicle", SQLDB.userString);
             generatedId = sqlDb.generateId("fd_card_type", "CARD_TYPE_ID");
             if (generatedId == -1)
                 throw (new Exception("Can't generate CARD_TYPE_ID"));
@@ -282,7 +282,7 @@ namespace DDDModel
             cmd.Parameters.AddWithValue("@STRID_CARD_TYPE_PRINT_NAME", stringId);
             cmd.ExecuteNonQuery();
 
-            stringId = sqlDb.AddOrGetString("Card Type: Organization Init Card");
+            stringId = sqlDb.AddOrGetString("Card Type: Organization Init Card", SQLDB.userString);
             generatedId = sqlDb.generateId("fd_card_type", "CARD_TYPE_ID");
             if (generatedId == -1)
                 throw (new Exception("Can't generate CARD_TYPE_ID"));
@@ -395,7 +395,7 @@ namespace DDDModel
             sqlDb.AddNewCriteria(RPMId, "Hot stop", "критерий для горячего стопа", 1, 1);
 
             //fd_fuel_type
-            stringId = sqlDb.AddOrGetString("Unknown fuel type");
+            stringId = sqlDb.AddOrGetString("Unknown fuel type", SQLDB.userString);
 
             sql = "INSERT INTO fd_fuel_type "
                + "(FUEL_TYPE_ID, STRID_FUEL_TYPE_NAME)"
@@ -405,7 +405,7 @@ namespace DDDModel
             cmd.Parameters.AddWithValue("@STRID_FUEL_TYPE_NAME", stringId);
             cmd.ExecuteNonQuery();
 
-            stringId = sqlDb.AddOrGetString("Undefined");
+            stringId = sqlDb.AddOrGetString("Undefined", SQLDB.userString);
 
             sql = "INSERT INTO fd_vehicle_type "
                + "(VEHICLE_TYPE_ID, STRID_VEHICLE_TYPE_NAME, FUEL_TYPE_ID)"
@@ -432,7 +432,7 @@ namespace DDDModel
         private static int InitTable_ID_String(string tableName, string primaryKeyName, string stringName, string stringValue, SQLDB sqlDb, MySqlConnection sqlConnection)
         {
             MySqlCommand cmd = new MySqlCommand();
-            int stringId = sqlDb.AddOrGetString(stringValue);
+            int stringId = sqlDb.AddOrGetString(stringValue, SQLDB.userString);
             int generatedId = sqlDb.generateId(tableName, primaryKeyName);
             if (generatedId == -1)
                 throw (new Exception("Can't generate " + primaryKeyName));

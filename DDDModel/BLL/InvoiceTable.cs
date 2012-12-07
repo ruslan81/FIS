@@ -255,7 +255,7 @@ namespace BLL
         /// <returns>ID статуса счета</returns>
         private int AddOrGetInvoiceStatusId(string statusString, string Language)
         {
-            int stringId = sqlDBR.GetStringId(statusString, Language);
+            int stringId = sqlDBR.GetStringId(statusString, Language, SQLDB.userString);
             int statusId = -1;
             if (stringId > 0)
                 statusId = sqlDBR.GetInvoiceStatusId(stringId);
@@ -282,7 +282,7 @@ namespace BLL
         /// <returns>ID типа счета</returns>
         private int AddOrGetInvoiceTypeId(string typeString, string Language)
         {
-            int stringId = sqlDBR.GetStringId(typeString, Language);
+            int stringId = sqlDBR.GetStringId(typeString, Language, SQLDB.userString);
             int typeId = -1;
             if (stringId > 0)
                 typeId = sqlDBR.GetInvoiceTypeId(stringId);

@@ -1294,12 +1294,12 @@ namespace BLL
             return blockDataBlob;
         }
 
-        public int EditAnySTRIDValueTEST(string newValue, string STRID_NAME, string Language, string tableName, string primaryName, int primaryValue)
+        /*public int EditAnySTRIDValueTEST(string newValue, string STRID_NAME, string Language, string tableName, string primaryName, int primaryValue)
         {
             DBI sqlDB = new SQLDB(connectionString);
 
             return sqlDB.EditAnySTRIDValue(newValue, STRID_NAME, Language, tableName, primaryName, primaryValue);
-        }
+        }*/
 
         //------------------------static
 

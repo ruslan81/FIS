@@ -84,7 +84,7 @@ namespace BLL
         /// </summary>
         /// <param name="insertPass">пароль, чтобы нечайно не вызвать</param>
         /// <param name="iconPath">Путь к папке, где будут лежать флаги стран. Смотреть комментарии в коде. Функционал не реализован.</param>
-        public void FillCountryAndRegionsTable(string insertPass, string iconPath)
+        /*public void FillCountryAndRegionsTable(string insertPass, string iconPath)
         {
             if (insertPass == "qqq")
             {
@@ -145,7 +145,7 @@ namespace BLL
                 }
             }
             else throw new Exception("Неправильный пароль");
-        }
+        }*/
         /// <summary>
         /// Получить массив байт - картинку флага выбранной страны(не тестировал)
         /// </summary>
@@ -396,7 +396,7 @@ namespace BLL
         /// <returns>Значение дополнительного параметра</returns>
         public string GetAdditionalOrgInfo(int orgId, string ORG_INFO_NAME)
         {
-            int ORG_INFO_IDSTRID = sqlDBR.GetStringId(ORG_INFO_NAME);
+            int ORG_INFO_IDSTRID = sqlDBR.GetStringId(ORG_INFO_NAME, SQLDB.userString);
             int ORG_INFO_ID = sqlDBR.GetOrgInfoId_bySTRID(ORG_INFO_IDSTRID);
             if (ORG_INFO_ID <= 0)
                 return "Нет значения";
@@ -432,7 +432,7 @@ namespace BLL
         /// <returns>ID доп. параметра</returns>
         public int GetOrgInfoNameId(string InfoName)
         {
-            int stringId = sqlDBR.GetStringId(InfoName);
+            int stringId = sqlDBR.GetStringId(InfoName, SQLDB.userString);
             int OrgInfoId = sqlDBR.GetOrgInfoName(stringId);
 
             if (OrgInfoId > 0)

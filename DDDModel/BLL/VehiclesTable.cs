@@ -266,7 +266,7 @@ namespace BLL
         public int GetVehicleKeyId_byKeyNameVehicleId(string KeyName, int VehicleId)
         {
             int vehKeyId = -1;
-            int keyNameId = sqlDB.GetStringId(KeyName, "STRING_RU");
+            int keyNameId = sqlDB.GetStringId(KeyName, "STRING_RU",SQLDB.userString);
             vehKeyId = sqlDB.GetVehicleKeyId_ByVehIdAndKeyId(VehicleId, keyNameId);
             return vehKeyId;
         }
@@ -284,7 +284,7 @@ namespace BLL
         }
         public int GetVehicleInfoNameId(string InfoName)
         {
-            int stringId = sqlDB.GetStringId(InfoName);
+            int stringId = sqlDB.GetStringId(InfoName, SQLDB.userString);
             int VehicleInfoId = sqlDB.GetVehicleInfoName(stringId);
 
             if (VehicleInfoId > 0)

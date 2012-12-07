@@ -410,7 +410,7 @@ namespace BLL
         /// <returns>ID действия</returns>
         private int AddOrGetAction(string actionString, string Language)
         {
-            int stringId = sqlDb.GetStringId(actionString, Language);
+            int stringId = sqlDb.GetStringId(actionString, Language, SQLDB.userString);
             int actionId = -1;
             if (stringId > 0)
                 actionId = GetActionString_BySTRID(stringId);

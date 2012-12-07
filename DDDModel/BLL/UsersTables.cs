@@ -88,7 +88,7 @@ namespace BLL
         }
         public string Get_UserPassword(string userEmail)
         {
-            int stringId = sqlDb.GetStringId(userEmail);
+            int stringId = sqlDb.GetStringId(userEmail, SQLDB.userString);
             int userId = sqlDb.GetUserInfoUserId(stringId);
             return Get_UserPassword(userId);
         }
@@ -268,7 +268,7 @@ namespace BLL
         }
         public int GetUserInfoNameId(string InfoName)
         {
-            int stringId = sqlDb.GetStringId(InfoName);
+            int stringId = sqlDb.GetStringId(InfoName, SQLDB.userString);
             int UserInfoId = sqlDb.GetUserInfoName(stringId);
 
             if (UserInfoId > 0)

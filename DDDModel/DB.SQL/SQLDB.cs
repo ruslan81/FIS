@@ -18,6 +18,8 @@ namespace DB.SQL
         private string connectionString;
         private MySqlConnection sqlConnection;
         private MySqlTransaction globTransaction;
+        public const int userString = 2;
+        public const int systemString = 1;
 
         public MySqlConnection GETMYSQLCONNECTION()
         {
@@ -657,64 +659,67 @@ namespace DB.SQL
 
             return returnValue;
         }
-        public int GetStringId(string stringValue, string Language)
+        public int GetStringId(string stringValue, string Language, int owner)
         {
             MySqlCommand cmd = new MySqlCommand();
             int returnValue;
 
-            string sql = "SELECT STRING_ID FROM fd_string WHERE " + Language + " =@" + Language;
+            string sql = "SELECT STRING_ID FROM fd_string WHERE " + Language + " =@" + Language+" AND OWNER=@OWNER";
             cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@" + Language, stringValue);
+            cmd.Parameters.AddWithValue("@OWNER", owner);
             returnValue = Convert.ToInt32(cmd.ExecuteScalar());
 
             return returnValue;
         }
-        public int GetStringId(string stringValue)
+        public int GetStringId(string stringValue,int owner)
         {
-            return GetStringId(stringValue, "STRING_RU");
+            return GetStringId(stringValue, "STRING_RU", owner);
         }
-        public int AddOrGetString(string STRING_RU)
+        public int AddOrGetString(string STRING_RU, int owner)
         {
-            int stringId = AddOrGetString(STRING_RU, "STRING_RU");
+            int stringId = AddOrGetString(STRING_RU, "STRING_RU", owner);
             return stringId;
         }
-        public int AddOrGetString(string stringValue, string Language)
+        public int AddOrGetString(string stringValue, string Language, int owner)
         {
             int stringId = 0;
             MySqlCommand cmd = new MySqlCommand();
             string sql = "";
 
-            sql = "SELECT STRING_ID FROM fd_string WHERE " + Language + "=" + "@" + Language;
+            sql = "SELECT STRING_ID FROM fd_string WHERE " + Language + " =@" + Language + " AND OWNER=@OWNER";
             cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@" + Language, stringValue);
+            cmd.Parameters.AddWithValue("@OWNER", owner);
             stringId = Convert.ToInt32(cmd.ExecuteScalar());
             if (stringId == 0)
             {
-                stringId = AddString(stringValue, Language);
+                stringId = AddString(stringValue, Language, owner);
             }
             return stringId;
         }
-        public int AddString(string stringValue, string Language)
+        public int AddString(string stringValue, string Language, int owner)
         {
             int stringId = 0;
             stringId = generateId("fd_string", "STRING_ID");
             if (stringId == -1)
                 throw (new Exception("Can't generate STRING_ID"));
 
-            return AddString(stringValue, stringId, Language);
+            return AddString(stringValue, stringId, Language, owner);
         }
-        public int AddString(string stringValue, int stringId, string Language)//используется для редактирования строк. 
+        public int AddString(string stringValue, int stringId, string Language, int owner)//используется для редактирования строк. 
         {
             MySqlCommand cmd = new MySqlCommand();
             string sql = "";
 
             //ENGLISH FIRST
             sql = "INSERT INTO fd_string "
-               + "(STRING_ID, STRING_RU )"
-               + "VALUES (@STRING_ID, @STRING_RU )";
+               + "(STRING_ID, STRING_RU, OWNER )"
+               + "VALUES (@STRING_ID, @STRING_RU, @OWNER )";
             cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@STRING_ID", stringId);
             cmd.Parameters.AddWithValue("@STRING_RU", stringValue);
+            cmd.Parameters.AddWithValue("@OWNER", owner);
             cmd.ExecuteNonQuery();
             ///////////////Other Language
             if (Language != "STRING_RU")
@@ -742,11 +747,11 @@ namespace DB.SQL
             cmd.Parameters.AddWithValue("@STRING_ID", stringId);
             cmd.ExecuteNonQuery();
         }
-        public int EditAnySTRIDValue(string newValue, string STRID_NAME, string Language, string tableName, string primaryName, int primaryValue)
+        public int EditAnySTRIDValue(string newValue, string STRID_NAME, string Language, string tableName, string primaryName, int primaryValue, int owner)
         {
             bool toTranslate = true;
             int oldStringId = Convert.ToInt32(GetOneParameter(primaryValue, primaryName, tableName, STRID_NAME));
-            int newStringId = GetStringId(newValue, Language);
+            int newStringId = GetStringId(newValue, Language, owner);
             if (oldStringId == 0)
                 oldStringId = -1;
             if (newStringId != 0)
@@ -779,14 +784,14 @@ namespace DB.SQL
                 {
                     //newStringId = GetStringId(newValue, Language); *звездочки - убрать коменты, если newstring надо будет спецом еще инициализировать.
                     if (newStringId == 0)
-                        newStringId = AddString(newValue, oldStringId, Language);
+                        newStringId = AddString(newValue, oldStringId, Language,owner);
                     //else *
                     //    newStringId = AddOrGetString(newValue, Language); *
                 }
                 else
                 {
                     if (newStringId == 0)
-                        newStringId = AddOrGetString(newValue, Language);
+                        newStringId = AddOrGetString(newValue, Language,owner);
                     //тут тоже самое. внимательно просмотреть при проблемах!
                 }
                 //Перевод всех строк
@@ -827,11 +832,11 @@ namespace DB.SQL
         /// Этот метод для таблиц - расширенная информация пользователе(или тс). Все таблицы с составным первичным ключем(айди пользователя и айди параметра например).
         /// </summary>
         public int EditAnySTRIDValue(string newValue, string STRID_NAME, string Language, string tableName,
-            string primaryNameOne, int primaryValueOne, string primaryNameTwo, int primaryValueTwo)
+            string primaryNameOne, int primaryValueOne, string primaryNameTwo, int primaryValueTwo, int owner)
         {
             bool toTranslate = true;
             int oldStringId = Convert.ToInt32(GetOneParameter(primaryValueOne, primaryNameOne, primaryValueTwo, primaryNameTwo, tableName, STRID_NAME));
-            int newStringId = GetStringId(newValue, Language);
+            int newStringId = GetStringId(newValue, Language,owner);
             if (oldStringId == 0)
                 oldStringId = -1;
             if (newStringId != 0)
@@ -866,14 +871,14 @@ namespace DB.SQL
                 {
                     //newStringId = GetStringId(newValue, Language); *звездочки - убрать коменты, если newstring надо будет спецом еще инициализировать.
                     if (newStringId == 0)
-                        newStringId = AddString(newValue, oldStringId, Language);
+                        newStringId = AddString(newValue, oldStringId, Language,owner);
                     //else *
                     //    newStringId = AddOrGetString(newValue, Language); *
                 }
                 else
                 {
                     if (newStringId == 0)
-                        newStringId = AddOrGetString(newValue, Language);
+                        newStringId = AddOrGetString(newValue, Language,owner);
                     //тут тоже самое. внимательно просмотреть при проблемах!
                 }
                 //Перевод всех строк
@@ -1415,7 +1420,7 @@ namespace DB.SQL
         }
         public int AddUserInfoName(string InfoName, string Language)
         {
-            int stringId = AddOrGetString(InfoName);
+            int stringId = AddOrGetString(InfoName,userString);
             // TranslateString(InfoName, Language, stringId);
 
             MySqlCommand cmd = new MySqlCommand();
@@ -1435,7 +1440,7 @@ namespace DB.SQL
         }
         public void AddUserInfoValue(int userId, int UserInfoId, string value, string Language)
         {
-            int stringId = AddOrGetString(value, Language);
+            int stringId = AddOrGetString(value, Language,userString);
             MySqlCommand cmd = new MySqlCommand();
             string sql = "INSERT INTO fd_user_info_set "
                 + "(USER_ID, USER_INFO_ID, STRID_USER_INFO_VALUE)"
@@ -1448,7 +1453,7 @@ namespace DB.SQL
         }
         public void EditUserInfo(int userId, int UserInfoId, string newValue, string Language)
         {
-            EditAnySTRIDValue(newValue, "STRID_USER_INFO_VALUE", Language, "fd_user_info_set", "USER_INFO_ID", UserInfoId, "USER_ID", userId);
+            EditAnySTRIDValue(newValue, "STRID_USER_INFO_VALUE", Language, "fd_user_info_set", "USER_INFO_ID", UserInfoId, "USER_ID", userId,userString);
         }
         public int GetUserInfoUserId(int valueStrId)
         {
@@ -1512,7 +1517,7 @@ namespace DB.SQL
         public int GetOrgId_byOrgNameStr(string name, string language)
         {
             OpenConnection();
-            int nameId = GetStringId(name, language);
+            int nameId = GetStringId(name, language,userString);
             MySqlCommand cmd = new MySqlCommand();
             int returnValue;
             string sql = "SELECT ORG_ID FROM fd_org WHERE STRID_ORG_NAME=@STRID_ORG_NAME";
@@ -1523,7 +1528,7 @@ namespace DB.SQL
         }
         public void SetOrgName(string name, int ORG_ID, string Language)
         {
-            EditAnySTRIDValue(name, "STRID_ORG_NAME", Language, "fd_org", "ORG_ID", ORG_ID);
+            EditAnySTRIDValue(name, "STRID_ORG_NAME", Language, "fd_org", "ORG_ID", ORG_ID,userString);
         }
         public int GetOrgTypeNameId(int orgTypeId)
         {
@@ -1690,7 +1695,7 @@ namespace DB.SQL
             string findName = newName;
             if (newName != oldName)
                 findName = oldName;
-            int name = GetStringId(findName, language);
+            int name = GetStringId(findName, language,userString);
             sql = "SELECT ORG_ID FROM fd_org WHERE STRID_ORG_NAME=@STRID_ORG_NAME";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@STRID_ORG_NAME", name);
@@ -1700,7 +1705,7 @@ namespace DB.SQL
                 generatedId = generateId("fd_org", "ORG_ID");
                 if (generatedId == -1)
                     throw (new Exception("Can't generate ORG_ID"));
-                name = AddOrGetString(findName);
+                name = AddOrGetString(findName,userString);
                 sql = "INSERT INTO fd_org "
                     + "(ORG_ID, OBJECT_ID, ORG_TYPE_ID, COUNTRY_ID, REGION_ID, STRID_ORG_NAME)"
                     + "VALUES (@ORG_ID, @OBJECT_ID, @ORG_TYPE_ID, @COUNTRY_ID, @REGION_ID, @STRID_ORG_NAME)";
@@ -1713,8 +1718,8 @@ namespace DB.SQL
                 cmd.Parameters.AddWithValue("@STRID_ORG_NAME", name);
                 cmd.ExecuteNonQuery();
 
-                int grNameId = AddOrGetString("Общая группа");
-                int grCommentId = AddOrGetString("Группа по умолчанию");
+                int grNameId = AddOrGetString("Общая группа",systemString);
+                int grCommentId = AddOrGetString("Группа по умолчанию",systemString);
 
                 sql = "INSERT INTO fn_groups "
                     + " (STRID_GROUP_NAME, STRID_GROUP_COMMENT, ORG_ID, CARD_TYPE_ID) "
@@ -1769,11 +1774,11 @@ namespace DB.SQL
 
             if (stringId > 0)
             {
-                EditAnySTRIDValue(value, "STRID_ORG_INFO_VALUE", language, "fd_org_info_set", "ORG_ID", orgId, "ORG_INFO_ID", ORG_INFO_ID);
+                EditAnySTRIDValue(value, "STRID_ORG_INFO_VALUE", language, "fd_org_info_set", "ORG_ID", orgId, "ORG_INFO_ID", ORG_INFO_ID,userString);
             }
             else
             {
-                int newStringInfo = AddOrGetString(value, language);
+                int newStringInfo = AddOrGetString(value, language,userString);
 
                 sql = "INSERT INTO fd_org_info_set "
                     + "(ORG_ID, ORG_INFO_ID, STRID_ORG_INFO_VALUE)"
@@ -1882,7 +1887,7 @@ namespace DB.SQL
         }
         public int AddNewOrgInfo(string Name)
         {
-            int stringId = AddOrGetString(Name);
+            int stringId = AddOrGetString(Name,userString);
 
             MySqlCommand cmd = new MySqlCommand();
             int generatedId;
@@ -2056,7 +2061,7 @@ namespace DB.SQL
             if (generatedId == -1)
                 throw (new Exception("Can't generate VEHICLE_ID"));
 
-            markaStrId = AddOrGetString(Marka, Language);
+            markaStrId = AddOrGetString(Marka, Language,userString);
 
             MySqlCommand cmd = new MySqlCommand();
             string sql = "INSERT INTO fd_vehicle "
@@ -2083,7 +2088,7 @@ namespace DB.SQL
         {
             MySqlCommand cmd = new MySqlCommand();
             string sql;
-            int newMarkaId = EditAnySTRIDValue(Marka, "STRID_MARKA", Language, "fd_vehicle", "VEHICLE_ID", VehicleId);
+            int newMarkaId = EditAnySTRIDValue(Marka, "STRID_MARKA", Language, "fd_vehicle", "VEHICLE_ID", VehicleId,userString);
 
             cmd = new MySqlCommand();
             sql = "UPDATE fd_vehicle SET VEHICLE_TYPE_ID=@VEHICLE_TYPE_ID,"
@@ -2254,7 +2259,7 @@ namespace DB.SQL
         }
         public int AddNewFuelType(string Name)
         {
-            int stringId = AddOrGetString(Name);
+            int stringId = AddOrGetString(Name,userString);
 
             MySqlCommand cmd = new MySqlCommand();
             int generatedId;
@@ -2275,7 +2280,7 @@ namespace DB.SQL
         {
             MySqlCommand cmd = new MySqlCommand();
             int returnValue = -1;
-            int gettedStringVal = GetStringId(Name, Language);
+            int gettedStringVal = GetStringId(Name, Language,userString);
             if (gettedStringVal > 0)
             {
                 returnValue = Convert.ToInt32(GetOneParameter(gettedStringVal, "STRID_FUEL_TYPE_NAME", "fd_fuel_type", "FUEL_TYPE_ID"));
@@ -2284,7 +2289,7 @@ namespace DB.SQL
         }
         public int AddNewVehicleType(string Name, int FuelTypeId)
         {
-            int stringId = AddOrGetString(Name);
+            int stringId = AddOrGetString(Name,userString);
 
             MySqlCommand cmd = new MySqlCommand();
             int generatedId;
@@ -2312,13 +2317,13 @@ namespace DB.SQL
             cmd.ExecuteNonQuery();
 
             //   int stringId = GetVehTypeStrId(VehTypeId);
-            EditAnySTRIDValue(Name, "STRID_VEHICLE_TYPE_NAME", Language, "fd_vehicle_type", "VEHICLE_TYPE_ID", VehTypeId);
+            EditAnySTRIDValue(Name, "STRID_VEHICLE_TYPE_NAME", Language, "fd_vehicle_type", "VEHICLE_TYPE_ID", VehTypeId,userString);
         }
         public int GetVehicleTypeId_byName(string Name, string Language)
         {
             MySqlCommand cmd = new MySqlCommand();
             int returnValue = -1;
-            int gettedStringVal = GetStringId(Name, Language);
+            int gettedStringVal = GetStringId(Name, Language,userString);
             if (gettedStringVal > 0)
             {
                 returnValue = Convert.ToInt32(GetOneParameter(gettedStringVal, "STRID_VEHICLE_TYPE_NAME", "fd_vehicle_type", "VEHICLE_TYPE_ID"));
@@ -2358,8 +2363,8 @@ namespace DB.SQL
         //criteria
         public int AddNewCriteria(int MeasureId, string Name, string Note, int minValue, int maxValue)
         {
-            int NameId = AddOrGetString(Name);
-            int NoteId = AddOrGetString(Note);
+            int NameId = AddOrGetString(Name,userString);
+            int NoteId = AddOrGetString(Note,userString);
 
             MySqlCommand cmd = new MySqlCommand();
             int generatedId;
@@ -2382,7 +2387,7 @@ namespace DB.SQL
         }
         public int GetCriteriaId_byNameAndMeasureId(string Name, int MeasureId, string Language)
         {
-            int stringId = GetStringId(Name, Language);
+            int stringId = GetStringId(Name, Language,userString);
             int returnValue = -1;
             MySqlCommand cmd = new MySqlCommand();
 
@@ -2398,7 +2403,7 @@ namespace DB.SQL
         }
         public int GetCriteriaId_byName(string Name, string Language)// Возможно несколько вариантов(сделать позже, если будет ошибка возвращение массивом List<int>
         {
-            int stringId = GetStringId(Name, Language);
+            int stringId = GetStringId(Name, Language,userString);
             int returnValue = -1;
             MySqlCommand cmd = new MySqlCommand();
 
@@ -2422,8 +2427,8 @@ namespace DB.SQL
             cmd.Parameters.AddWithValue("@KEY_VALUE_MAX", maxValue);
             cmd.ExecuteNonQuery();
 
-            EditAnySTRIDValue(Name, "STRID_KEY_NAME", Language, "fd_key", "KEY_ID", keyId);
-            EditAnySTRIDValue(Note, "STRID_KEY_NOTE", Language, "fd_key", "KEY_ID", keyId);
+            EditAnySTRIDValue(Name, "STRID_KEY_NAME", Language, "fd_key", "KEY_ID", keyId,userString);
+            EditAnySTRIDValue(Note, "STRID_KEY_NOTE", Language, "fd_key", "KEY_ID", keyId,userString);
         }
         public int GetCriteriaNameId(int keyId)
         {
@@ -2520,7 +2525,7 @@ namespace DB.SQL
         }
         public int GetMeasureId_byFullName(string fullName, string Language)
         {
-            int stringId = GetStringId(fullName, Language);
+            int stringId = GetStringId(fullName, Language,userString);
             int returnValue = -1;
             MySqlCommand cmd = new MySqlCommand();
             if (stringId > 0)
@@ -2529,8 +2534,8 @@ namespace DB.SQL
         }
         public int AddNewMeasure(string shortName, string fullName)
         {
-            int shortNameId = AddOrGetString(shortName);
-            int fullNameId = AddOrGetString(fullName);
+            int shortNameId = AddOrGetString(shortName,userString);
+            int fullNameId = AddOrGetString(fullName,userString);
 
             MySqlCommand cmd = new MySqlCommand();
             int generatedId;
@@ -2570,8 +2575,8 @@ namespace DB.SQL
         }
         public void EditMeasure(int MeasureId, string shortName, string fullName, string Language)
         {
-            EditAnySTRIDValue(shortName, "STRID_MEASURE_NAME", Language, "fd_measure", "MEASURE_ID", MeasureId);
-            EditAnySTRIDValue(fullName, "STRID_MEASURE_FULL_NAME", Language, "fd_measure", "MEASURE_ID", MeasureId);
+            EditAnySTRIDValue(shortName, "STRID_MEASURE_NAME", Language, "fd_measure", "MEASURE_ID", MeasureId,userString);
+            EditAnySTRIDValue(fullName, "STRID_MEASURE_FULL_NAME", Language, "fd_measure", "MEASURE_ID", MeasureId,userString);
         }
         //FD_VEHICLE_KEY
         public List<int> GetAllVehicleKeyIDS(int vehicleId)
@@ -2618,7 +2623,7 @@ namespace DB.SQL
         }
         public int AddVehicleKey(int vehicleId, int KeyId, int minVal, int maxVal, DateTime BDate, DateTime EDate, string note, string Language)
         {
-            int NoteId = AddOrGetString(note, Language);
+            int NoteId = AddOrGetString(note, Language,userString);
 
             MySqlCommand cmd = new MySqlCommand();
             int generatedId;
@@ -2645,7 +2650,7 @@ namespace DB.SQL
         {
             if (note != "")
             {
-                EditAnySTRIDValue("note", "STRID_NOTE", Language, "fd_vehicle_key", "VEHICLE_KEY_ID", vehicleKeyId);
+                EditAnySTRIDValue("note", "STRID_NOTE", Language, "fd_vehicle_key", "VEHICLE_KEY_ID", vehicleKeyId,userString);
             }
 
             MySqlCommand cmd = new MySqlCommand();
@@ -2712,7 +2717,7 @@ namespace DB.SQL
         }
         public int AddVehicleInfoName(string InfoName, string Language)
         {
-            int stringId = AddOrGetString(InfoName);
+            int stringId = AddOrGetString(InfoName,userString);
             // TranslateString(InfoName, Language, stringId);
 
             MySqlCommand cmd = new MySqlCommand();
@@ -2732,7 +2737,7 @@ namespace DB.SQL
         }
         public void AddVehicleInfoValue(int vehicleId, int vehicleInfoId, string value, string Language)
         {
-            int stringId = AddOrGetString(value, Language);
+            int stringId = AddOrGetString(value, Language,userString);
             MySqlCommand cmd = new MySqlCommand();
             string sql = "INSERT INTO fd_vehicle_info_set "
                 + "(VEHICLE_ID, VEHICLE_INFO_ID, STRID_VEHICLE_INFO_VALUE)"
@@ -2745,7 +2750,7 @@ namespace DB.SQL
         }
         public void EditVehicleInfo(int vehicleId, int vehicleInfoId, string newValue, string Language)
         {
-            EditAnySTRIDValue(newValue, "STRID_VEHICLE_INFO_VALUE", Language, "fd_vehicle_info_set", "VEHICLE_INFO_ID", vehicleInfoId, "VEHICLE_ID", vehicleId);
+            EditAnySTRIDValue(newValue, "STRID_VEHICLE_INFO_VALUE", Language, "fd_vehicle_info_set", "VEHICLE_INFO_ID", vehicleInfoId, "VEHICLE_ID", vehicleId,userString);
         }
         #endregion
         //-------------------------------Device tables------------
@@ -2784,7 +2789,7 @@ namespace DB.SQL
         }
         public int AddNewDeviceType(string Name)
         {
-            int stringId = AddOrGetString(Name);
+            int stringId = AddOrGetString(Name,userString);
 
             MySqlCommand cmd = new MySqlCommand();
             int generatedId;
@@ -2855,7 +2860,7 @@ namespace DB.SQL
         }
         public int AddNewDevice(int deviceTypeId, string deviceName, string deviceNum, DateTime dateProduction, int firmwareId, int phoneNumSim)
         {
-            int deviceNameId = AddOrGetString(deviceName);
+            int deviceNameId = AddOrGetString(deviceName,userString);
 
             MySqlCommand cmd = new MySqlCommand();
             int generatedId;
@@ -3123,8 +3128,8 @@ namespace DB.SQL
         public void UpdateGroup(int groupId, String name, String comment, int cardType)
         {
 
-            int grNameId = AddOrGetString(name);
-            int grCommentId = AddOrGetString(comment);
+            int grNameId = AddOrGetString(name,userString);
+            int grCommentId = AddOrGetString(comment,userString);
 
             string sql = "UPDATE fn_groups SET STRID_GROUP_NAME=@GR_NAME, STRID_GROUP_COMMENT=@GR_COMM, CARD_TYPE_ID=@C_T_I WHERE GROUP_ID=@GROUP_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
@@ -3137,8 +3142,8 @@ namespace DB.SQL
         }
         public void CreateGroup(int orgID, String name, String comment, int cardType)
         {
-            int grNameId = AddOrGetString(name);
-            int grCommentId = AddOrGetString(comment);
+            int grNameId = AddOrGetString(name,userString);
+            int grCommentId = AddOrGetString(comment,userString);
 
             string sql = "INSERT INTO fn_groups (STRID_GROUP_NAME, STRID_GROUP_COMMENT, ORG_ID, CARD_TYPE_ID) VALUES (@GR_NAME, @GR_COMM, @ORG_ID, @C_T_I)";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
@@ -3577,7 +3582,7 @@ namespace DB.SQL
             if (generatedId == -1)
                 throw (new Exception("Can't generate TABLE_ID"));
 
-            int noteSTRID = AddOrGetString(TableNote, Language);
+            int noteSTRID = AddOrGetString(TableNote, Language,userString);
 
             string sql = "INSERT INTO fd_table "
                 + "(TABLE_ID, TABLE_NAME, TABLE_KEYFIELD_NAME, STRID_TABLE_NOTE) "
@@ -3635,7 +3640,7 @@ namespace DB.SQL
             if (generatedId == -1)
                 throw (new Exception("Can't generate ACTION_ID"));
 
-            int noteSTRID = AddOrGetString(actionString, Language);
+            int noteSTRID = AddOrGetString(actionString, Language,userString);
 
             string sql = "INSERT INTO fd_action "
                 + "(ACTION_ID, STRID_ACTION_NAME) "
@@ -3668,7 +3673,7 @@ namespace DB.SQL
             if (generatedId == -1)
                 throw (new Exception("Can't generate INVOICE_STATUS_ID"));
 
-            int noteSTRID = AddOrGetString(invoiceStatusName, Language);
+            int noteSTRID = AddOrGetString(invoiceStatusName, Language,userString);
 
             string sql = "INSERT INTO fd_invoice_status "
                 + "(INVOICE_STATUS_ID, STRID_INVOICE_STATUS_NAME) "
@@ -3698,7 +3703,7 @@ namespace DB.SQL
             if (generatedId == -1)
                 throw (new Exception("Can't generate INVOICE_TYPE_ID"));
 
-            int noteSTRID = AddOrGetString(invoiceTypeName, Language);
+            int noteSTRID = AddOrGetString(invoiceTypeName, Language,userString);
 
             string sql = "INSERT INTO fd_invoice_type "
                 + "(INVOICE_TYPE_ID, STRID_INVOICE_TYPE_NAME) "
@@ -3758,7 +3763,7 @@ namespace DB.SQL
             if (generatedId == -1)
                 throw (new Exception("Can't generate INVOICE_ID"));
 
-            int billNameSTRID = AddOrGetString(BillName, Language);
+            int billNameSTRID = AddOrGetString(BillName, Language,userString);
 
             string sql = "INSERT INTO fn_invoice "
                 + "(INVOICE_ID, INVOICE_TYPE_ID, INVOICE_STATUS_ID, ORG_ID, BILL_NAME_STRID, DATE_INVOICE, DATE_PAYMENT_TERM, DATE_PAYMENT) "
@@ -3827,10 +3832,10 @@ namespace DB.SQL
             if (generatedId == -1)
                 throw (new Exception("Can't generate REPORT_TYPE_ID"));
 
-            int nameSTRID = AddOrGetString(reportName, Language);
-            int shortNameSTRID = AddOrGetString(reportShortName, Language);
-            int fullNameSTRID = AddOrGetString(reportFullName, Language);
-            int printNameSTRID = AddOrGetString(reportPrintName, Language);
+            int nameSTRID = AddOrGetString(reportName, Language,userString);
+            int shortNameSTRID = AddOrGetString(reportShortName, Language,userString);
+            int fullNameSTRID = AddOrGetString(reportFullName, Language,userString);
+            int printNameSTRID = AddOrGetString(reportPrintName, Language,userString);
 
             string sql = "INSERT INTO fd_report_type "
                 + "(REPORT_TYPE_ID, STRID_REPORT_NAME, STRID_REPORT_SHORT_NAME, STRID_REPORT_FULL_NAME, STRID_REPORT_PRINT_NAME) "
@@ -3892,10 +3897,10 @@ namespace DB.SQL
         }
         public void EditReportType(int reportTypeId, string reportName, string reportShortName, string reportFullName, string reportPrintName, string Language)
         {
-            EditAnySTRIDValue(reportName, "STRID_REPORT_NAME", Language, "fd_report_type", "REPORT_TYPE_ID", reportTypeId);
-            EditAnySTRIDValue(reportShortName, "STRID_REPORT_SHORT_NAME", Language, "fd_report_type", "REPORT_TYPE_ID", reportTypeId);
-            EditAnySTRIDValue(reportFullName, "STRID_REPORT_FULL_NAME", Language, "fd_report_type", "REPORT_TYPE_ID", reportTypeId);
-            EditAnySTRIDValue(reportPrintName, "STRID_REPORT_PRINT_NAME", Language, "fd_report_type", "REPORT_TYPE_ID", reportTypeId);
+            EditAnySTRIDValue(reportName, "STRID_REPORT_NAME", Language, "fd_report_type", "REPORT_TYPE_ID", reportTypeId,userString);
+            EditAnySTRIDValue(reportShortName, "STRID_REPORT_SHORT_NAME", Language, "fd_report_type", "REPORT_TYPE_ID", reportTypeId,userString);
+            EditAnySTRIDValue(reportFullName, "STRID_REPORT_FULL_NAME", Language, "fd_report_type", "REPORT_TYPE_ID", reportTypeId,userString);
+            EditAnySTRIDValue(reportPrintName, "STRID_REPORT_PRINT_NAME", Language, "fd_report_type", "REPORT_TYPE_ID", reportTypeId,userString);
         }
         //FN_REPORT_USER
         public int AddUserReport(int ReportTypeId, string reportUserName, DateTime dateCreate, DateTime dateUpdate, int Price, string Note, string Language)
@@ -3906,8 +3911,8 @@ namespace DB.SQL
             if (generatedId == -1)
                 throw (new Exception("Can't generate REPORT_USER_ID"));
 
-            int userNameSTRID = AddOrGetString(reportUserName, Language);
-            int noteSTRID = AddOrGetString(Note, Language);
+            int userNameSTRID = AddOrGetString(reportUserName, Language,userString);
+            int noteSTRID = AddOrGetString(Note, Language,userString);
             string sql = "INSERT INTO fn_report_user "
                 + "(REPORT_USER_ID, REPORT_TYPE_ID, STRID_REPORT_USER_NAME, DATE_CREATE, DATE_UPDATE, PRICE, STRID_REPORT_NOTE) "
                 + "VALUES (@REPORT_USER_ID, @REPORT_TYPE_ID, @STRID_REPORT_USER_NAME, @DATE_CREATE, @DATE_UPDATE, @PRICE, @NOTE)";
@@ -4471,7 +4476,7 @@ namespace DB.SQL
             InitTable_ID_String("fd_data_record_state", "DATA_RECORD_STATE_ID", "STRID_DATA_RECORD_STATE_NAME", "Not parsed");
 
             //Card_TYPE
-            int stringId = AddOrGetString("Card Type: Driver");
+            int stringId = AddOrGetString("Card Type: Driver",userString);
             int generatedId = generateId("fd_card_type", "CARD_TYPE_ID");
             if (generatedId == -1)
                 throw (new Exception("Can't generate CARD_TYPE_ID"));
@@ -4486,7 +4491,7 @@ namespace DB.SQL
             cmd.Parameters.AddWithValue("@STRID_CARD_TYPE_PRINT_NAME", stringId);
             cmd.ExecuteNonQuery();
 
-            stringId = AddOrGetString("Card Type: Vehicle");
+            stringId = AddOrGetString("Card Type: Vehicle",userString);
             generatedId = generateId("fd_card_type", "CARD_TYPE_ID");
             if (generatedId == -1)
                 throw (new Exception("Can't generate CARD_TYPE_ID"));
@@ -4501,7 +4506,7 @@ namespace DB.SQL
             cmd.Parameters.AddWithValue("@STRID_CARD_TYPE_PRINT_NAME", stringId);
             cmd.ExecuteNonQuery();
 
-            stringId = AddOrGetString("Card Type: Organization Init Card");
+            stringId = AddOrGetString("Card Type: Organization Init Card",userString);
             generatedId = generateId("fd_card_type", "CARD_TYPE_ID");
             if (generatedId == -1)
                 throw (new Exception("Can't generate CARD_TYPE_ID"));
@@ -4603,7 +4608,7 @@ namespace DB.SQL
             AddNewCriteria(RPMId, "Hot stop", "критерий для горячего стопа", 1, 1);
 
             //fd_fuel_type
-            stringId = AddOrGetString("Unknown fuel type");
+            stringId = AddOrGetString("Unknown fuel type",userString);
 
             sql = "INSERT INTO fd_fuel_type "
                + "(FUEL_TYPE_ID, STRID_FUEL_TYPE_NAME)"
@@ -4613,7 +4618,7 @@ namespace DB.SQL
             cmd.Parameters.AddWithValue("@STRID_FUEL_TYPE_NAME", stringId);
             cmd.ExecuteNonQuery();
 
-            stringId = AddOrGetString("Undefined");
+            stringId = AddOrGetString("Undefined",userString);
 
             sql = "INSERT INTO fd_vehicle_type "
                + "(VEHICLE_TYPE_ID, STRID_VEHICLE_TYPE_NAME, FUEL_TYPE_ID)"
@@ -4632,7 +4637,7 @@ namespace DB.SQL
         private int InitTable_ID_String(string tableName, string primaryKeyName, string stringName, string stringValue)
         {
             MySqlCommand cmd = new MySqlCommand();
-            int stringId = AddOrGetString(stringValue);
+            int stringId = AddOrGetString(stringValue,userString);
             int generatedId = generateId(tableName, primaryKeyName);
             if (generatedId == -1)
                 throw (new Exception("Can't generate " + primaryKeyName));

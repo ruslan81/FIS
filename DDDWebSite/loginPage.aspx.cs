@@ -113,7 +113,7 @@ public partial class loginPage : System.Web.UI.Page
             //get user information
             SQLDB sqlDb = new SQLDB(connectionString);
             sqlDb.OpenConnection();
-            int stringId = sqlDb.GetStringId(mailTO);
+            int stringId = sqlDb.GetStringId(mailTO, SQLDB.userString);
             int userId = sqlDb.GetUserInfoUserId(stringId);
             string name=sqlDb.GetUserName(userId);
             

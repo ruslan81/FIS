@@ -49,15 +49,15 @@ namespace DB.Interface
         //-----------------------------------------------------------------
         //----------------------fd_string---
         string GetString(int stringId, string Language);//STRING_RU, STRING_RU
-        int GetStringId(string stringValue, string Language);
-        int GetStringId(string stringValue);
-        int AddOrGetString(string EN_STRING);
-        int AddOrGetString(string stringValue, string Language);
-        int AddString(string stringValue, string Language);
-        int AddString(string stringValue, int stringId, string Language);
+        int GetStringId(string stringValue, string Language, int owner);
+        int GetStringId(string stringValue, int owner);
+        int AddOrGetString(string EN_STRING, int owner);
+        int AddOrGetString(string stringValue, string Language, int owner);
+        int AddString(string stringValue, string Language, int owner);
+        int AddString(string stringValue, int stringId, string Language, int owner);
         void TranslateString(string stringValue, string Language, int stringId);
         void DeleteString(int stringId);
-        int EditAnySTRIDValue(string newValue, string STRID_NAME, string Language, string tableName, string primaryName, int primaryValue);
+        //int EditAnySTRIDValue(string newValue, string STRID_NAME, string Language, string tableName, string primaryName, int primaryValue);
         //----------------------------------
         int checkTableExistence(string tableName, string tablePrimaryKeyName, int tablePrimaryKeyId);
         DateTime SetCurrentTime(string tableName, string tablePrimaryKeyName, int tablePrimaryKeyId, string dateRowName);

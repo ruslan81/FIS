@@ -59,9 +59,9 @@ namespace BLL
         /// <param name="stringValue">Значение строки</param>
         /// <param name="Language">Язык</param>
         /// <returns>ID строки</returns>
-        public int GetStringId(string stringValue, string Language)
+        public int GetStringId(string stringValue, string Language, int owner)
         {
-            return sqlDB.GetStringId(stringValue, Language);
+            return sqlDB.GetStringId(stringValue, Language, owner);
         }
     }
 }
