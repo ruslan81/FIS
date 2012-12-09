@@ -250,7 +250,7 @@
         </tr>
         <tr>
         <td style="width: 300px;"><input id="orgName" value="{{html orgName}}"/></td>
-        <td style="width: 300px;"><input style="width:20px;float:left;margin-top: -3px;" id="boxOnOff" type="checkbox" checked="true" disabled="true" class="unused"/>
+        <td style="width: 300px;"><input style="width:20px;float:left;" id="boxOnOff" type="checkbox" checked="true" disabled="true" class="unused"/>
         <label class="unused">Включен</label></td>
         </tr>
         </br>
@@ -512,6 +512,9 @@
     </script>
 
     <script id="tmplUsersDetailedData1" type="text/x-jquery-tmpl">
+        <div style="float:right;">
+            
+        </div>
         <label>Организация</label></br><div style="width: 300px;"><input id="orgName" value="{{html orgName}}"/></div></br>
 
         <table style="" cellpadding="0" cellspacing="0">
@@ -520,7 +523,7 @@
         </tr>
         <tr>
         <td><div style="width: 300px;"><input id="orgLogin" value="{{html login}}"/></div></td>
-        <td><div  style="width: 300px;"><input style="width:20px;float:left;margin-top: -3px;" id="boxOnOff" type="checkbox" checked="true" disabled="true" class="unused"/>
+        <td><div  style="width: 300px;"><input style="width:20px;float:left;" id="boxOnOff" type="checkbox" checked="true" disabled="true" class="unused"/>
         <label class="unused">Включен</label></div></td>
         </tr>
         </tr>
