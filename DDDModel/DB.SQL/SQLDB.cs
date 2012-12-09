@@ -18,7 +18,7 @@ namespace DB.SQL
         private string connectionString;
         private MySqlConnection sqlConnection;
         private MySqlTransaction globTransaction;
-        public const int userString = 2;
+        public const int userString = 0;
         public const int systemString = 1;
 
         public MySqlConnection GETMYSQLCONNECTION()
@@ -3155,9 +3155,9 @@ namespace DB.SQL
             sdr.Close();
         }
         //FOR PRIVATE USE ONLY!
-        /*public void CreateDefaultGroup(int orgID)
+        public void CreateDefaultGroup(int orgID)
         {
-            string sql = "INSERT INTO fn_groups (GROUP_ID,GROUP_NAME, GROUP_COMMENT, ORG_ID, CARD_TYPE_ID) VALUES (@GR_ID,@GR_NAME, @GR_COMM, @ORG_ID, @C_T_I)";
+            /*string sql = "INSERT INTO fn_groups (GROUP_ID,GROUP_NAME, GROUP_COMMENT, ORG_ID, CARD_TYPE_ID) VALUES (@GR_ID,@GR_NAME, @GR_COMM, @ORG_ID, @C_T_I)";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@GR_ID", 0);
             cmd.Parameters.AddWithValue("@ORG_ID", orgID);
@@ -3165,8 +3165,20 @@ namespace DB.SQL
             cmd.Parameters.AddWithValue("@GR_COMM", "Группа по умолчанию");
             cmd.Parameters.AddWithValue("@C_T_I", 0);
             MySqlDataReader sdr = cmd.ExecuteReader();
-            sdr.Close();
-        }*/
+            sdr.Close();*/
+            int grNameId = AddOrGetString("Общая группа", systemString);
+            int grCommentId = AddOrGetString("Группа по умолчанию", systemString);
+
+            string sql = "INSERT INTO fn_groups "
+                + " (STRID_GROUP_NAME, STRID_GROUP_COMMENT, ORG_ID, CARD_TYPE_ID) "
+                + "VALUES (@GROUP_NAME, @GROUP_COMMENT, @ORG_ID, @CARD_TYPE_ID) ";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@GROUP_NAME", grNameId);
+            cmd.Parameters.AddWithValue("@GROUP_COMMENT", grCommentId);
+            cmd.Parameters.AddWithValue("@ORG_ID", orgID);
+            cmd.Parameters.AddWithValue("@CARD_TYPE_ID", 0);
+            cmd.ExecuteNonQuery();
+        }
         public String GetCardHolderNameByCardId(int cardId)
         {
             String name = "";

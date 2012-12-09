@@ -324,7 +324,7 @@ namespace BLL
             vehiclesTables = new VehiclesTable(connectionString, CurrentLanguage, sqlDb);
             criteriaTable = new CriteriaTable(connectionString, CurrentLanguage, sqlDb);
             deviceTable = new DeviceTable(connectionString, CurrentLanguage, sqlDb);
-           // historyTable = new HistoryTable(connectionString, CurrentLanguage, sqlDb);
+            // historyTable = new HistoryTable(connectionString, CurrentLanguage, sqlDb);
             reportsTable = new ReportsTable(connectionString, CurrentLanguage, sqlDb);
             invoiceTable = new InvoiceTable(connectionString, CurrentLanguage, sqlDb);
             emailScheduleTable = new EmailScheduleTable(connectionString, CurrentLanguage, sqlDb);
@@ -367,7 +367,7 @@ namespace BLL
             {
                 return "Имя недоступно";
             }
-           return dataBlockFilename;
+            return dataBlockFilename;
         }
         /// <summary>
         /// Получить количество байт загруженного файла
@@ -547,7 +547,7 @@ namespace BLL
             int blockStateId;//в таблице fn_data_block
             int STRIddataBlockState;//в таблице fd_data_block_state
             string blockStateMessage;
-            
+
             sqlDB.OpenConnection();
             blockStateId = sqlDB.GetDataBlockState(DATA_BLOCK_ID);
             STRIddataBlockState = sqlDB.GetSTRIdDataBlockStateName(blockStateId);
@@ -601,7 +601,7 @@ namespace BLL
                 throw noOrg;
 
             if (DATA_BLOCK_ID == -1)
-                throw(new Exception("Can't find this Data Block"));
+                throw (new Exception("Can't find this Data Block"));
             else
             {
                 //SQLDB sqlDB = new SQLDB(connectionString);
@@ -619,7 +619,7 @@ namespace BLL
                     byte[] blockDataBlob = sqlDb.GetDataBlock(DATA_BLOCK_ID);
                     blockDataBlob = UnZipBytes(blockDataBlob);//АнЗипим файл!
                     dddParser.ParseFile(blockDataBlob, fileName);
-                    
+
                     int cardType = dddParser.GetCardType();
                     currentCardType = cardType;
 
@@ -639,7 +639,7 @@ namespace BLL
                             cardId = cardsTable.GetCardId(drName, drNumber, cardsTable.driversCardTypeId);
                             if (cardId <= 0)
                             {
-                                cardId = cardsTable.CreateNewCard(drName, drNumber, cardsTable.driversCardTypeId, organizationID, "Init DataBlockId = " + DATA_BLOCK_ID, userId,1);
+                                cardId = cardsTable.CreateNewCard(drName, drNumber, cardsTable.driversCardTypeId, organizationID, "Init DataBlockId = " + DATA_BLOCK_ID, userId, 1);
                             }
                             sqlDb.SetDataBlock_CardId(DATA_BLOCK_ID, cardId);
                             //sqlDB.CloseConnection();
@@ -652,7 +652,7 @@ namespace BLL
                             throw new Exception("Поддерживаются только водительские карты и информация с бортового устройства.");
                         }
                         type = dddParser.cardUnitClass.GetType();
-                        myParseObject = dddParser.cardUnitClass;                       
+                        myParseObject = dddParser.cardUnitClass;
                     }
                     else if (cardType == 1)//vehicle
                     {
@@ -672,11 +672,11 @@ namespace BLL
                             {
                                 string marka = "";
                                 DateTime BLOCKED = dddParser.vehicleUnitClass.vehicleOverview.vuDownloadablePeriod.maxDownloadableTime.getTimeRealDate();
-                                cardId = cardsTable.CreateNewCard(vehRegNumber, vin, cardsTable.vehicleCardTypeId, organizationID, "Init DataBlockId = " + DATA_BLOCK_ID, userId,1);
+                                cardId = cardsTable.CreateNewCard(vehRegNumber, vin, cardsTable.vehicleCardTypeId, organizationID, "Init DataBlockId = " + DATA_BLOCK_ID, userId, 1);
                                 //vehiclesTables.OpenConnection();
                                 vehicleId = vehiclesTables.AddNewVehicle(vehRegNumber, marka, vin, 0, 1, cardId, BLOCKED, 1);
                                 //vehiclesTables.CloseConnection();
-                               // SetAllVehiclesIDS(vehicleId);
+                                // SetAllVehiclesIDS(vehicleId);
                             }
                             sqlDb.SetDataBlock_CardId(DATA_BLOCK_ID, cardId);
                         }
@@ -689,11 +689,11 @@ namespace BLL
                         //////////////////////устанавливаем PLF карту нужного водителя. Незнаю почему именно здесь, но так получилось.
                         int plfDriversCardType = sqlDB_rec.Get_DataBlockCardType(DATA_BLOCK_ID);
                         sqlDb.SetDataBlock_CardId(DATA_BLOCK_ID, plfDriversCardType);
-                       // sqlDB.OpenConnection();
+                        // sqlDB.OpenConnection();
                         int cardTypeParamId = sqlDb.AddParam("cardType", 0, 255);
                         //sqlDB.OpenConnection();
                         sqlDb.DeleteDataRecord(DATA_BLOCK_ID, cardTypeParamId);
-                       // sqlDB.CloseConnection();
+                        // sqlDB.CloseConnection();
                         //////////////////////
                         type = dddParser.plfUnitClass.GetType();
                         myParseObject = dddParser.plfUnitClass;
@@ -724,14 +724,14 @@ namespace BLL
                     {
                         dataRecord.AddDataArray(recordList.reflectedItemsList);
                     }
-                    
+
                     //sqlDB.OpenConnection();
                     SetParseEDate(sqlDb);
                     sqlDb.SetDataBlockState(DATA_BLOCK_ID, 2);
                     int dataBlockParseRecords = sqlDb.SetDataBlockParseRecords(DATA_BLOCK_ID);
-                    Console.WriteLine("\n\r" + dataBlockParseRecords.ToString()+" records added");
+                    Console.WriteLine("\n\r" + dataBlockParseRecords.ToString() + " records added");
                     //XML GENERATING
-                    if(generateXML)
+                    if (generateXML)
                         dddParser.GenerateXmlFile(output);
                     //
                     //Добавляем лог для каждого типа блока данных свой.
@@ -756,7 +756,7 @@ namespace BLL
                         string vehPlfIdent = dddParser.plfUnitClass.VEHICLE;
                         string plfDeviceId = dddParser.plfUnitClass.ID_DEVICE;
                         string period = dddParser.plfUnitClass.START_PERIOD.GetSystemTime().ToShortDateString() + " - " + dddParser.plfUnitClass.END_PERIOD.GetSystemTime().ToShortDateString();
-                        logNote = "PLF File: " + vehPlfIdent+"("+ plfDeviceId +")" + ", period: "+ period + ", records number: " + dataBlockParseRecords.ToString();
+                        logNote = "PLF File: " + vehPlfIdent + "(" + plfDeviceId + ")" + ", period: " + period + ", records number: " + dataBlockParseRecords.ToString();
                         historyTable.AddHistoryRecord("fn_data_block", "DATA_BLOCK_ID", DATA_BLOCK_ID, userId, historyTable.PLFDataBlockLoaded, logNote, sqlDb);
                     }
                     //
@@ -780,7 +780,7 @@ namespace BLL
         /// </summary>
         /// <param name="sqlDb">обьект подключения</param>
         private void SetParseBDate(SQLDB sqlDb)
-        {            
+        {
             DateTime dt = sqlDb.SetCurrentTime("fn_data_block", "DATA_BLOCK_ID", DATA_BLOCK_ID, "PARSE_BDATE");
             Console.WriteLine("\r\nParse Begin Time " + dt.ToString("dd-MM-yyyy HH:mm:ss"));
         }
@@ -789,10 +789,10 @@ namespace BLL
         /// </summary>
         /// <param name="sqlDb">обьект подключения</param>
         private void SetParseEDate(SQLDB sqlDb)
-        {            
+        {
             DateTime dt = sqlDb.SetCurrentTime("fn_data_block", "DATA_BLOCK_ID", DATA_BLOCK_ID, "PARSE_EDATE");
             Console.WriteLine("Parse End Time " + dt.ToString("dd-MM-yyyy HH:mm:ss"));
-        }      
+        }
         /// <summary>
         /// Получить  название типа БлокаДанных
         /// </summary>
@@ -803,7 +803,7 @@ namespace BLL
             int returnValue = -1;
             Exception unknownCardType = new Exception("Неизвестный тип карты");
             SQLDB_Records sqlDB_records = new SQLDB_Records(connectionString, sqlDb.GETMYSQLCONNECTION());
-                returnValue = sqlDB_records.Get_DataBlockCardType(dataBlockId);
+            returnValue = sqlDB_records.Get_DataBlockCardType(dataBlockId);
 
             switch (returnValue)
             {
@@ -816,8 +816,8 @@ namespace BLL
                 default:
                     return unknownCardType.Message;
             }
-        }       
-       
+        }
+
         //-------------------------------------------------------------Parser data-- 
 
         private struct Arrays
@@ -825,11 +825,11 @@ namespace BLL
             public string arrayName;
             public int maxCount;
         }
-        [Obsolete("раньше должно было приводить к общему виду все названия, сейчас это вроде не требуется",false)]
+        [Obsolete("раньше должно было приводить к общему виду все названия, сейчас это вроде не требуется", false)]
         private List<ReflectionClass> ParseRecord(List<ReflectionClass> reflectionClass)
         {
             List<ReflectionClass> returnReflectionClass = new List<ReflectionClass>();
-            string[] splitedString;           
+            string[] splitedString;
             List<Arrays> arrayNames = new List<Arrays>();
             Arrays oneList;
 
@@ -841,14 +841,14 @@ namespace BLL
                     if (splitedString[i].Contains('[') && splitedString[i].Contains(']'))
                     {
                         string arrayFullName = "";
-                        oneList = new Arrays(); 
-                        string[] splitNameNumber = splitedString[i].Split((new char[] {'[',']'}), StringSplitOptions.RemoveEmptyEntries);
+                        oneList = new Arrays();
+                        string[] splitNameNumber = splitedString[i].Split((new char[] { '[', ']' }), StringSplitOptions.RemoveEmptyEntries);
 
-                        for(int j = 0; j< r.paramStructure.Count; j++)
+                        for (int j = 0; j < r.paramStructure.Count; j++)
                         {
                             arrayFullName += r.paramStructure[j] + ".";
                         }
-                        arrayFullName+= splitNameNumber[0];
+                        arrayFullName += splitNameNumber[0];
 
                         oneList.arrayName = arrayFullName;
                         oneList.maxCount = Convert.ToInt32(splitNameNumber[1]);
@@ -877,7 +877,7 @@ namespace BLL
                             arrayNames.Add(oneList);
                         }
                     }
-                    r.paramStructure.Add(splitedString[i]);                    
+                    r.paramStructure.Add(splitedString[i]);
                 }
                 returnReflectionClass.Add(r);
             }
@@ -946,7 +946,7 @@ namespace BLL
                 idsForCashe = new List<int>();
             }
             int index = namesForCashe.IndexOf(thisItem.Key);
-            if (index >-1)
+            if (index > -1)
             {
                 return idsForCashe[index];
             }
@@ -997,7 +997,13 @@ namespace BLL
         public List<int> GetAllUnparsedDataBlockIDs(int orgId)
         {
             List<int> gettedIds = new List<int>();
-            int cardId = cardsTable.GetAllCardIds(orgId, cardsTable.orgInitCardTypeId)[0];
+            int cardId = 0;
+            List<int> cardIds = cardsTable.GetAllCardIds(orgId, cardsTable.orgInitCardTypeId);
+            if (cardIds.Count == 0) { return gettedIds; }
+            else
+            {
+                cardId = cardsTable.GetAllCardIds(orgId, cardsTable.orgInitCardTypeId)[0];
+            }
             gettedIds = cardsTable.GetAllDataBlockIds_byCardId(cardId);
             return gettedIds;
         }
@@ -1015,7 +1021,7 @@ namespace BLL
 
             SQLDB_Records sqldb_records = new SQLDB_Records(connectionString, sqlDb.GETMYSQLCONNECTION());
             int middle = 0;
-            foreach(int id in gettedIds)
+            foreach (int id in gettedIds)
             {
                 cardType = sqldb_records.Get_DataBlockCardType(id);
                 if (cardType == 0)
@@ -1026,8 +1032,8 @@ namespace BLL
                 else
                     if (cardType == 2)
                         dataBlockIdsSorted.Add(id);
-                    else 
-                        if(cardType ==1)
+                    else
+                        if (cardType == 1)
                             dataBlockIdsSorted.Insert(middle, id);
             }
 
@@ -1069,10 +1075,10 @@ namespace BLL
         [Obsolete("", false)]
         public string GetDriversIdentificationNumber(string driversName)
         {
-            SQLDB_Records sqldbRecords = new SQLDB_Records(connectionString);           
+            SQLDB_Records sqldbRecords = new SQLDB_Records(connectionString);
             int driversDataBlock;
             string driversIdentificationNumber;
-            
+
             driversDataBlock = GetDataBlockIdByDriversName(driversName);
             driversIdentificationNumber = sqldbRecords.Get_DriversNumber(driversDataBlock);
             return driversIdentificationNumber;
@@ -1091,7 +1097,7 @@ namespace BLL
             if (driversDataBlock != null && driversDataBlock.Count > 0)
                 driversDataBlockId = driversDataBlock[0];
             else
-                throw new Exception ("Данные не могут быть извлечены");
+                throw new Exception("Данные не могут быть извлечены");
             return driversDataBlockId;
         }
         public List<int> GetDataBlockIdByVehicleNumber(string number)
@@ -1102,7 +1108,7 @@ namespace BLL
             dataBlockIdList = sqldbRecords.Get_DataBlockIdByVehicleNumber(number);
 
             return dataBlockIdList;
-        }      
+        }
         public List<int> GetDataBlockId_byFilenameAndBytesCount(string filename, int bytesCount)
         {
             List<int> dataBlockIds = new List<int>();
@@ -1198,7 +1204,7 @@ namespace BLL
 
             return dataBlockIdList;
         }
-//_________________________________________
+        //_________________________________________
         [Obsolete("", false)]
         public List<DDDClass.ActivityChangeInfo> DriversActivityChangeInfo(int dataBlockId) // Траблы. Некоторые ActivityChangeInfo после расшифровки из String в Байт[] дает тока один элемент и идет эксепшн
         {
@@ -1213,7 +1219,7 @@ namespace BLL
             byte[] _bytes;
 
             sqldbRecords.OpenConnection();
-            DriversActivityChangeInfo_getted= sqldbRecords.Get_AllParamsArray(dataBlockId, paramName);
+            DriversActivityChangeInfo_getted = sqldbRecords.Get_AllParamsArray(dataBlockId, paramName);
             sqldbRecords.CloseConnection();
 
             foreach (string activity in DriversActivityChangeInfo_getted)
@@ -1254,23 +1260,23 @@ namespace BLL
         {
             if (password == "qqq")
             {
-                    DBI sqlDB = new SQLDB(connectionString);
-                    try
-                    {
-                        sqlDB.OpenConnection();
-                        sqlDB.OpenTransaction();
-                        sqlDB.DataBaseInit();
-                        sqlDB.CommitConnection();
-                    }
-                    catch (Exception ex)
-                    {
-                        sqlDB.RollbackConnection();
-                        Console.WriteLine(ex.Message);
-                    }
-                    finally
-                    {
-                        sqlDB.CloseConnection();
-                    }
+                DBI sqlDB = new SQLDB(connectionString);
+                try
+                {
+                    sqlDB.OpenConnection();
+                    sqlDB.OpenTransaction();
+                    sqlDB.DataBaseInit();
+                    sqlDB.CommitConnection();
+                }
+                catch (Exception ex)
+                {
+                    sqlDB.RollbackConnection();
+                    Console.WriteLine(ex.Message);
+                }
+                finally
+                {
+                    sqlDB.CloseConnection();
+                }
             }
         }
 

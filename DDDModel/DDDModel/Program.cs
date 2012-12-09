@@ -18,8 +18,8 @@ namespace DDDModel
        
         static void Main(string[] args)
         {
-            string connectionString1 = "server=localhost;port=3306;default command timeout=3000;Connection Timeout=6000;User Id=root;password = ;Persist Security Info=True;database=smartfis";
-            string connectionString = "server=mysql62.1gb.ru;default command timeout=600;Connection Timeout=600;database=gb_x_smartfis;User Id=gb_x_smartfis;password =5216a0af;";
+            string connectionString = "server=localhost;port=3306;default command timeout=3000;Connection Timeout=6000;User Id=root;password = ;Persist Security Info=True;database=smartfis";
+            string connectionString1 = "server=mysql62.1gb.ru;default command timeout=600;Connection Timeout=600;database=gb_x_smartfis;User Id=gb_x_smartfis;password=fb1db947kl;";
             string currentLanguage = "STRING_RU";
             DataBlock dataBlock = new DataBlock(connectionString, currentLanguage);
             
@@ -29,32 +29,8 @@ namespace DDDModel
             ConsoleKeyInfo ch;
 
             //MY CODE
-            List<int> ids = new List<int>();
-            ids.Add(136);
-            ids.Add(137);
-            ids.Add(138);
-            ids.Add(139);
-            DateTime from = new DateTime(2001,9,18);
-            DateTime to = new DateTime(2012, 9, 18);
-            //DateTime from = new DateTime(2005, 5, 4);
-            //DateTime to = new DateTime(2005, 5, 6);
-            
-            List<PLFRecord> list=dataBlock.plfUnitInfo.Get_Records(ids,from,to,108);
-            for (int i = 0; i < list.Count; i++) {
-                if (list[i].LATITUDE != null) {
-                    Console.WriteLine("YES");
-                }
-            }
-            
-                //dataBlock.organizationTable.DeleteOrganization(58);
-                //dataBlock.organizationTable.DeleteOrganization(56);
 
-                /*for (int i = 2001; i < 2020; i++)
-                {
-                    System.Console.WriteLine(dataBlock.plfUnitInfo.Statistics_GetYearStatistics(new DateTime(i, 1, 1), 110));
-                }
-                System.Console.ReadKey();*/
-
+            dataBlock.GetAllUnparsedDataBlockIDs(1);
 
                 //SCRIPT TO ADD COMMON GROUP
                 /*List<Int32> orgIds = dataBlock.organizationTable.Get_AllOrganizationsId();
@@ -63,7 +39,7 @@ namespace DDDModel
                 {
                     List<Int32> groupIds = dataBlock.cardsTable.GetAllGroupIds(id,0);
                     if (groupIds.Count == 0) {
-                        //k++;
+                        k++;
                         dataBlock.cardsTable.CreateDefaultGroup(id);
                     }
                 }
