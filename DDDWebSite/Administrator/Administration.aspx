@@ -513,7 +513,12 @@
 
     <script id="tmplUsersDetailedData1" type="text/x-jquery-tmpl">
         <div style="float:right;">
-            
+            <div class="user-foto">
+                <img src="../css/icons/user-icon.png" width="96" height="96">
+            </div>
+            <div class="upload-foto" style="display:none;">
+                <input type="file" class="input-upload-foto"/>
+            </div>
         </div>
         <label>Организация</label></br><div style="width: 300px;"><input id="orgName" value="{{html orgName}}"/></div></br>
 

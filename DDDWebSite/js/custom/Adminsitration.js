@@ -941,6 +941,8 @@ function loadUsersControls() {
         $("#orgName").addClass("inputField-readonly");
         $("#orgName").attr("readonly", "readonly");
 
+        $(".upload-foto").show();
+
         var name = $("#orgLogin").attr("value");
         if (name == $.cookie("CURRENT_USERNAME")) {
             $("#orgLogin").removeClass("inputField");
@@ -1098,6 +1100,8 @@ function enableCreatingControls() {
     $("#orgName").removeClass("inputField");
     $("#orgName").addClass("inputField-readonly");
     $("#orgName").attr("readonly", "readonly");
+
+    $(".upload-foto").show();
 
     $("#detailedData1 .input").attr("value", "");
     $("#detailedData2 .input").attr("value", "");
@@ -1409,6 +1413,8 @@ function loadGeneralDetailedData() {
             $("#boxOnOff").removeAttr("disabled");
         }
 
+        $(".upload-foto").show();
+
         $("#edit").button({ disabled: true });
         $("#create").button({ disabled: true });
         $("#delete").button({ disabled: true });
@@ -1460,6 +1466,8 @@ function loadGeneralDetailedData() {
         $("#detailedData2 .input").attr("value", "");
 
         $("#boxOnOff").removeAttr("disabled");
+
+        $(".upload-foto").show();
 
         $("#edit").button({ disabled: true });
         $("#create").button({ disabled: true });
