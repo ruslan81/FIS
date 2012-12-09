@@ -12036,3 +12036,20 @@ Cache Callback: 09.12.2012 21:57:40
 Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
 Имя параметра: startIndex
 Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 10.12.2012 22:32:00
+Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
+Имя параметра: startIndex
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: 18.12.2012 23:51:00
+Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
+Имя параметра: startIndex
+Cache Callback: 18.12.2012 23:56:20
+Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
+Имя параметра: startIndex
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: 22.12.2012 16:23:00
+Cache Callback: 22.12.2012 16:24:40
+Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
+Имя параметра: startIndex
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
