@@ -14,6 +14,12 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "- 16.12.2012" + Environment.NewLine;
+            ReportLabel.Text += @"- В закладке Управление в разделах 'Пользователи' и 'Аккаунт' добавлены фото у пользователя и организации." + Environment.NewLine;
+            ReportLabel.Text += @"- В закладке Настройки в разделах 'Общее', 'Водители' и 'ТС' добавлены соответсвующие изображения." + Environment.NewLine;
+            ReportLabel.Text += @"- Устранены проблемы, связанные с просмотром информации в закладке 'Восстановить у пользователя' при отсутствии данных." + Environment.NewLine;
+            ReportLabel.Text += @"- Работа над задачами 5, 18, 19 из списка задач" + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "- 09.12.2012" + Environment.NewLine;
             ReportLabel.Text += @"- Восстановлена работоспособность системы, решено подавляющее количество проблем, связанных с изменениями БД. Оставшиеся доработки никак не должны влиять на текущую работу системы." + Environment.NewLine;
             ReportLabel.Text += @"- Работа по плану: " + Environment.NewLine;

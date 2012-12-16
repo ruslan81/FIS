@@ -243,20 +243,30 @@
     </script>
 
     <script id="tmplGeneralOrgDetailedData1" type="text/x-jquery-tmpl">
-        
-        <table style="" cellpadding="0" cellspacing="0">
-        <tr>
-        <td><label>Организация</label></td><td></td>
-        </tr>
-        <tr>
-        <td style="width: 300px;"><input id="orgName" value="{{html orgName}}"/></td>
-        <td style="width: 300px;"><input style="width:20px;float:left;" id="boxOnOff" type="checkbox" checked="true" disabled="true" class="unused"/>
-        <label class="unused">Включен</label></td>
-        </tr>
-        </br>
+        <div style="float:right;">
+            <div class="foto">
+                <img src="../css/icons/company-middle.png" width="96" height="96">
+            </div>
+            <div class="upload-foto" style="display:none;">
+                <input type="file" class="input-upload-foto"/>
+            </div>
+        </div>
 
-        </tr>
-        </table>
+        <div style="min-height:120px;">
+            <table cellpadding="0" cellspacing="0">
+                <tr>
+                    <td><label>Организация</label></td><td></td>
+                </tr>
+                <tr>
+                    <td style="width: 300px;"><input id="orgName" value="{{html orgName}}"/></td>
+                    <td style="width: 300px;"><input style="width:20px;height:auto;float:left;" id="boxOnOff" type="checkbox" checked="true" disabled="true" class="unused"/>
+                    <label class="unused">Включен</label></td>
+                </tr>
+
+                </tr>
+            </table>
+        </div>
+
         <!--<div style="margin:10px 0 10px 0; border-top:1px dashed #ccc;"></div>-->
 
     </script>
@@ -513,7 +523,7 @@
 
     <script id="tmplUsersDetailedData1" type="text/x-jquery-tmpl">
         <div style="float:right;">
-            <div class="user-foto">
+            <div class="foto">
                 <img src="../css/icons/user-icon.png" width="96" height="96">
             </div>
             <div class="upload-foto" style="display:none;">
@@ -528,7 +538,7 @@
         </tr>
         <tr>
         <td><div style="width: 300px;"><input id="orgLogin" value="{{html login}}"/></div></td>
-        <td><div  style="width: 300px;"><input style="width:20px;float:left;" id="boxOnOff" type="checkbox" checked="true" disabled="true" class="unused"/>
+        <td><div  style="width: 300px;"><input style="width:20px;height:auto;float:left;" id="boxOnOff" type="checkbox" checked="true" disabled="true" class="unused"/>
         <label class="unused">Включен</label></div></td>
         </tr>
         </tr>
@@ -683,7 +693,7 @@
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
                     <center>
-                        <input type="checkbox" dealerId="{{html id}}" name="dealerCheckbox" onclick="radioIndex=$(this).attr('dealerId');"/>
+                        <input type="checkbox" style="height:auto;" dealerId="{{html id}}" name="dealerCheckbox" onclick="radioIndex=$(this).attr('dealerId');"/>
                     </center>
                 </div>
             </td>
@@ -909,7 +919,7 @@
             <td class="wijgridtd wijdata-type-string">
                 <div class="wijmo-wijgrid-innercell">
                     <center>
-                        <input type="checkbox" messageId="{{html id}}" name="messageCheckbox"/>
+                        <input type="checkbox" style="height:auto;" messageId="{{html id}}" name="messageCheckbox"/>
                     </center>
                 </div>
             </td>
