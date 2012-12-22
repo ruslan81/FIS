@@ -14,6 +14,26 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "- 16.12.2012" + Environment.NewLine;
+            ReportLabel.Text += @"- В закладке Управление в разделах 'Пользователи' и 'Аккаунт' добавлены фото у пользователя и организации." + Environment.NewLine;
+            ReportLabel.Text += @"- В закладке Настройки в разделах 'Общее', 'Водители' и 'ТС' добавлены соответсвующие изображения." + Environment.NewLine;
+            ReportLabel.Text += @"- Устранены проблемы, связанные с просмотром информации в закладке 'Восстановить у пользователя' при отсутствии данных." + Environment.NewLine;
+            ReportLabel.Text += @"- Работа над задачами 5, 18, 19 из списка задач" + Environment.NewLine;
+
+            ReportLabel.Text += Environment.NewLine + "- 09.12.2012" + Environment.NewLine;
+            ReportLabel.Text += @"- Восстановлена работоспособность системы, решено подавляющее количество проблем, связанных с изменениями БД. Оставшиеся доработки никак не должны влиять на текущую работу системы." + Environment.NewLine;
+            ReportLabel.Text += @"- Работа по плану: " + Environment.NewLine;
+            ReportLabel.Text += @"  - Работа над задачами 18, 20 из списка задач" + Environment.NewLine;
+
+            ReportLabel.Text += Environment.NewLine + "- 02.12.2012" + Environment.NewLine;
+            ReportLabel.Text += @"- Восстановлена часть функционала, сломанного при изменении структуры БД " + Environment.NewLine;
+            ReportLabel.Text += @"- Работа по плану: " + Environment.NewLine;
+            ReportLabel.Text += @"  - изменен внутренний механизм функционирования страницы логина на новый, который используется во всех остальных странрицах, что позволило добавить поддержку функции сохранения браузерами введенного логина/пароля и увеличило скорость работы" + Environment.NewLine;
+            ReportLabel.Text += @"  - исправлены проблемы с редактированием общих настроек в закладке Организация" + Environment.NewLine;
+            ReportLabel.Text += @"  - увеличены размеры полей в закладке Настройки/Организация, ранее значения некоторых полей не помещались" + Environment.NewLine;
+            ReportLabel.Text += @"  - для каждой страницы добавлены заголовки (теперь закладка браузера имеет название соответсвующее разделу)" + Environment.NewLine;
+            ReportLabel.Text += @"  - на страницы добавлен favicon" + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "- 02.12.2012" + Environment.NewLine;
             ReportLabel.Text += @"- Восстановлена часть функционала, сломанного при изменении структуры БД " + Environment.NewLine;
             ReportLabel.Text += @"- Работа по плану: " + Environment.NewLine;

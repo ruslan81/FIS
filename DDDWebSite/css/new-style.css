@@ -335,3 +335,29 @@ input
     border-radius: 5px;
     padding: 10px;
 }
+
+.foto
+{
+    float:right;
+    padding: 5px;
+    margin: 5px;
+    background: #fff;
+    border:1px dashed #ccc;
+    box-shadow: 0 0 5px #ccc;
+}
+
+.upload-foto
+{
+    float: left;
+    width: 180px;
+    padding: 0;
+    margin: 5px 0;
+}
+
+.input-upload-foto
+{
+    width:100% !important;
+    height: auto;
+    padding:0;
+    background: #DDD;
+}

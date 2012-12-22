@@ -120,43 +120,46 @@ function createTableHeader(tableHeader, template, columns) {
 function updateTable(tableBody, template, data) {
     //очищаем tbody от предыдущих данных
     $(tableBody).empty();
-    //вставляем данные в шаблон и добавляем его к tbody
-    $(template).tmpl(data).appendTo(tableBody);
 
-    //get table rows
-    var rows = $(".wijmo-wijgrid-datarow", tableBody);
-    //делаем таблицу "полосатой"
-    for (var i = 0; i < rows.length; i++) {
-        if (i % 2 != 0)
-            $(rows[i]).addClass("wijmo-wijgrid-alternatingrow");
-    }
+    if (data != null) {
+        //вставляем данные в шаблон и добавляем его к tbody
+        $(template).tmpl(data).appendTo(tableBody);
 
-    //отделяем ячейки границами
-    for (var i = 0; i < rows.length; i++) {
-        var cells=$(".wijgridtd",rows[i]);
-        for (var j = 0; j < cells.length; j++) {
-            if (j < cells.length - 1) {
-                $(cells[j]).addClass("wijmo-wijgrid-cell-border-right");
-            }
-            if (i < rows.length) {
-                $(cells[j]).addClass("wijmo-wijgrid-cell-border-bottom");
-            }
-            $(cells[j]).addClass("wijmo-wijgrid-cell");
+        //get table rows
+        var rows = $(".wijmo-wijgrid-datarow", tableBody);
+        //делаем таблицу "полосатой"
+        for (var i = 0; i < rows.length; i++) {
+            if (i % 2 != 0)
+                $(rows[i]).addClass("wijmo-wijgrid-alternatingrow");
         }
+
+        //отделяем ячейки границами
+        for (var i = 0; i < rows.length; i++) {
+            var cells = $(".wijgridtd", rows[i]);
+            for (var j = 0; j < cells.length; j++) {
+                if (j < cells.length - 1) {
+                    $(cells[j]).addClass("wijmo-wijgrid-cell-border-right");
+                }
+                if (i < rows.length) {
+                    $(cells[j]).addClass("wijmo-wijgrid-cell-border-bottom");
+                }
+                $(cells[j]).addClass("wijmo-wijgrid-cell");
+            }
+        }
+
+        //add hover effect
+        $(".wijmo-wijgrid-datarow", tableBody).hover(function () {
+            $(this).addClass("ui-state-hover");
+        }, function () {
+            $(this).removeClass("ui-state-hover");
+        });
+
+        //add ability to select rows
+        $(".wijmo-wijgrid-datarow", tableBody).click(function () {
+            $(".wijmo-wijgrid-datarow .ui-state-highlight", tableBody).removeClass("ui-state-highlight");
+            $(this).find("td").addClass("ui-state-highlight");
+        });
     }
-
-    //add hover effect
-    $(".wijmo-wijgrid-datarow", tableBody).hover(function () {
-        $(this).addClass("ui-state-hover");
-    }, function () {
-        $(this).removeClass("ui-state-hover");
-    });
-
-    //add ability to select rows
-    $(".wijmo-wijgrid-datarow", tableBody).click(function () {
-        $(".wijmo-wijgrid-datarow .ui-state-highlight", tableBody).removeClass("ui-state-highlight");
-        $(this).find("td").addClass("ui-state-highlight");
-    });
 }
 
 function destroyTree(tree) {

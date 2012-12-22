@@ -608,6 +608,7 @@ function createUserControlsGeneral() {
             $(inputs[i]).addClass("inputField");
             $(inputs[i]).removeAttr("readonly");
         }
+        $(".upload-foto").show();
 
         $("#edit").button({ disabled: true });
         $("#save").button({ disabled: false });
@@ -1278,6 +1279,8 @@ function createUserControlsSingleDriver() {
         $("#tabs .input").removeAttr("readonly");
         $("#tabs .input").attr("value", "");
 
+        $(".upload-foto").show();
+
         createGroupSelectorDriversSingle($("#groupSelectorSingle"));
         $("#groupSelectorSingle").wijcombobox(
                 {
@@ -1329,6 +1332,8 @@ function createUserControlsSingleDriver() {
         $("#tabs .input").removeClass("inputField-readonly");
         $("#tabs .input").addClass("inputField");
         $("#tabs .input").removeAttr("readonly");
+
+        $(".upload-foto").show();
 
         $("#groupSelectorSingle").wijcombobox(
                     {
@@ -1457,6 +1462,8 @@ function createUserControlsSingleTransport() {
         $("#tabs .input").removeAttr("readonly");
         $("#tabs .input").attr("value", "");
 
+        $(".upload-foto").show();
+
         var today = new Date();
         var todaystr = "" + convert(today);
         $("#tabs .datepicker").datepicker("setDate", todaystr);
@@ -1500,6 +1507,8 @@ function createUserControlsSingleTransport() {
         $("#tabs .input").addClass("inputField");
         $("#tabs .input").removeAttr("readonly");
         $("#tabs .datepicker").datepicker("enable");
+
+        $(".upload-foto").show();
 
         $("#groupSelectorSingle").wijcombobox(
                     {
