@@ -30,7 +30,11 @@ namespace DDDModel
 
             //MY CODE
 
-            dataBlock.GetAllUnparsedDataBlockIDs(1);
+            //dataBlock.GetAllUnparsedDataBlockIDs(1);
+            string data = dataBlock.organizationTable.GetOrgImage(3);
+            System.Console.WriteLine(data);
+            System.Console.ReadKey();
+            dataBlock.organizationTable.SaveOrgImage(3,data);
 
                 //SCRIPT TO ADD COMMON GROUP
                 /*List<Int32> orgIds = dataBlock.organizationTable.Get_AllOrganizationsId();

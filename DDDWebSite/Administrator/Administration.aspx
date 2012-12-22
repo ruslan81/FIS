@@ -245,10 +245,10 @@
     <script id="tmplGeneralOrgDetailedData1" type="text/x-jquery-tmpl">
         <div style="float:right;">
             <div class="foto">
-                <img src="../css/icons/company-middle.png" width="96" height="96">
+                <img id="orgImage" src="{{html image64}}" width="96" height="96">
             </div>
             <div class="upload-foto" style="display:none;">
-                <input type="file" class="input-upload-foto"/>
+                <input id="orgImageUpload" type="file" class="input-upload-foto" onchange="loadImage('orgImage','orgImageUpload');"/>
             </div>
         </div>
 
@@ -1115,6 +1115,26 @@
                             </div>
                             <div style="margin-top: 20px;">
                                 Введите название организации!
+                            </div>
+                        </div>
+                        <div id="wrongImageData" title="SmartFIS">
+                            <div style="margin-top: 10px;">
+                                <h4>
+                                    Ошибка загрузки изображения
+                                </h4>
+                            </div>
+                            <div style="margin-top: 20px;">
+                                Выбранный файл имеет неверный формат
+                            </div>
+                        </div>
+                        <div id="wrongImageSize" title="SmartFIS">
+                            <div style="margin-top: 10px;">
+                                <h4>
+                                    Ошибка загрузки изображения
+                                </h4>
+                            </div>
+                            <div style="margin-top: 20px;">
+                                Размер файла не должен превышать 15 мб!
                             </div>
                         </div>
                     </div>

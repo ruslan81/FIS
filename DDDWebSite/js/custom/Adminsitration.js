@@ -256,7 +256,7 @@ function loadGeneralData() {
                     hidingAnimation: { effect: "blind" },
                     disabled: true
                 });
-                
+
                 if (mode == "edit" || mode == "create") {
                     $("#timeZoneSelector").wijcombobox({
                         disabled: false
@@ -1193,8 +1193,8 @@ function buildJournalTable() {
     var event = $("#eventSelector").attr("event");
     var text = $("#textInput").attr("value");
     /*if (endDate == null || startDate == null) {
-        $("#dateErrorBlock").show();
-        return;
+    $("#dateErrorBlock").show();
+    return;
     }*/
     if (checkDate() != "OK") {
         return;
@@ -1468,6 +1468,7 @@ function loadGeneralDetailedData() {
         $("#boxOnOff").removeAttr("disabled");
 
         $(".upload-foto").show();
+        $("#orgImage").attr("src","../css/icons/company-middle.png");
 
         $("#edit").button({ disabled: true });
         $("#create").button({ disabled: true });
@@ -1547,6 +1548,7 @@ function loadGeneralDetailedData() {
                 $("#detailedData2 input").attr("readonly", "readonly");
                 loadCountryList();
                 loadTimeZoneList();
+                loadLangList();
                 //loadAllDealersList();
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -1616,6 +1618,23 @@ function loadUsersDetailedData() {
     });
 }
 
+function loadImage(image,loader) {
+    var oFReader = new FileReader();
+    var rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
+
+    oFReader.onload = function (oFREvent) {
+        document.getElementById(image).src = oFREvent.target.result;
+    };
+ 
+    var reader = document.getElementById(loader);
+    if (reader.files.length > 0) {
+        var oFile = reader.files[0];
+        if (oFile.size > 16 * 1024 * 1024) { showWrongDataMessage("wrongImageSize");return;}
+        if (!rFilter.test(oFile.type)) { showWrongDataMessage("wrongImageData");return;}
+        oFReader.readAsDataURL(oFile);
+    }
+}
+
 function saveGeneralDetailedData() {
     var orgName = $("#orgName").attr("value");
     var country = $("#country").attr("countryId");
@@ -1627,9 +1646,10 @@ function saveGeneralDetailedData() {
     var phone = $("#phone").attr("value");
     var fax = $("#fax").attr("value");
     var mail = $("#mail").attr("value");
-
+    var image = $("#orgImage").attr("src");
 
     var ud = "{'orgName':'" + orgName
+           + "', 'image64':'" + image
            + "', 'country':'" + country
            + "', 'city':'" + city
            + "', 'index':'" + index
@@ -1676,9 +1696,11 @@ function createNewOrganization() {
     var phone = $("#phone").attr("value");
     var fax = $("#fax").attr("value");
     var mail = $("#mail").attr("value");
+    var image = $("#orgImage").attr("src");
 
 
     var ud = "{'orgName':'" + orgName
+           + "', 'image64':'" + image
            + "', 'country':'" + country
            + "', 'city':'" + city
            + "', 'index':'" + index
@@ -2297,7 +2319,7 @@ function createPeriodControls() {
     $(".add-info-block").remove();
     $("#ContentContainer").prepend("<div class='add-info-block'></div>");
     $(".add-info-block").append($("#tmplPeriodSelection").text());
-    
+
     var today = new Date();
     var todaystr = "" + convert(today);
     today.setMonth(today.getMonth() - 1);
@@ -2306,11 +2328,11 @@ function createPeriodControls() {
     $("#startDatePicker").datepicker();
     $("#startDatePicker").datepicker("option", "dateFormat", "dd.mm.yy");
     $("#startDatePicker").datepicker("setDate", thenstr);
-    
+
     $("#endDatePicker").datepicker();
     $("#endDatePicker").datepicker("option", "dateFormat", "dd.mm.yy");
     $("#endDatePicker").datepicker("setDate", todaystr);
-    
+
     $("#startDatePicker").datepicker($.datepicker.regional['ru']);
     $("#endDatePicker").datepicker($.datepicker.regional['ru']);
 
@@ -2319,9 +2341,9 @@ function createPeriodControls() {
 
     /*$("#buildButton").button();
     $("#buildButton").click(function () {
-        checkDate();
-        //!TODO Here will be build function
-        return false;
+    checkDate();
+    //!TODO Here will be build function
+    return false;
     });*/
 
     $("#periodSelection").show();

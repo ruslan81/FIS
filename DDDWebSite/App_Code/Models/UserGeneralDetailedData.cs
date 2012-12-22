@@ -28,6 +28,7 @@ public class UserGeneralDetailedData
     public string surname = "";
     public string role = "";
     public int roleId = 0;
+    public string image64 = "";
 
 	public UserGeneralDetailedData()
 	{

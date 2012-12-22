@@ -729,6 +729,10 @@ public partial class Administrator_Administration : System.Web.UI.Page
             userInfoId = dataBlock.organizationTable.GetOrgInfoNameId(DataBaseReference.OrgInfo_TimeZone);
             ud.timeZone = dataBlock.organizationTable.GetAdditionalOrgInfo(orgId, userInfoId);
 
+            ud.image64 = dataBlock.organizationTable.GetOrgImage(orgId);
+            if (ud.image64 == null) { ud.image64 = "../css/icons/company-middle.png"; }
+            else { ud.image64 = "data:image/jpeg;base64," + ud.image64; }
+
             return ud;
         }
         catch (Exception ex)
@@ -829,6 +833,15 @@ public partial class Administrator_Administration : System.Web.UI.Page
             dataBlock.organizationTable.AddOrEditAdditionalOrgInfo(orgId, userInfoId, ud.mail);
             userInfoId = dataBlock.organizationTable.GetOrgInfoNameId(DataBaseReference.OrgInfo_TimeZone);
             dataBlock.organizationTable.AddOrEditAdditionalOrgInfo(orgId, userInfoId, ud.timeZone);
+            if (ud.image64.Equals("../css/icons/company-middle.png"))
+            {
+                dataBlock.organizationTable.SaveOrgImage(orgId, null);
+            }
+            else
+            {
+                ud.image64 = ud.image64.Substring(ud.image64.IndexOf(",") + 1);
+                dataBlock.organizationTable.SaveOrgImage(orgId, ud.image64);
+            }
         }
         catch (Exception ex)
         {

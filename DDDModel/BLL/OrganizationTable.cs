@@ -219,6 +219,25 @@ namespace BLL
             int orgTypeId = sqlDBR.GetOrgTypeId(orgId);
             return orgTypeId;
         }
+        /// <summary>
+        /// Получить картинку организации
+        /// </summary>
+        /// <param name="orgId">ID организации</param>
+        /// <returns>Картинка организации в Base64</returns>
+        public string GetOrgImage(int orgId)
+        {
+            return sqlDBR.GetOrgImage(orgId);
+        }
+        /// <summary>
+        /// Сохранить картинку организации
+        /// </summary>
+        /// <param name="orgId">ID организации</param>
+        /// <param name="data">Base64 картинки</param>
+        /// <returns>Картинка организации</returns>
+        public void SaveOrgImage(int orgId, string data)
+        {
+            sqlDBR.SaveOrgImage(orgId, data);
+        }
         //ЗЛО!
         /// <summary>
         /// Получить название страны организации
