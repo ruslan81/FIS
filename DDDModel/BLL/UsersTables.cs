@@ -176,6 +176,14 @@ namespace BLL
         {
             return sqlDb.GetUserTypes(CurrentLanguage);
         }
+        public string GetUserImage(int userId)
+        {
+            return sqlDb.GetUserImage(userId);
+        }
+        public void SaveUserImage(int userId, string data)
+        {
+            sqlDb.SaveUserImage(userId, data);
+        }
         public void EditUser(string oldPass, string oldName, UserFromTable newUser, int userTypeId, int userRoleId, int orgId, int curUserId)
         {
             Exception userNameAllreadyExists = new Exception("Пользователь с таким именем уже существует!");

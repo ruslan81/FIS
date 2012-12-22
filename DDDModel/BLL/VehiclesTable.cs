@@ -292,6 +292,14 @@ namespace BLL
             else
                 return AddVehicleInfoName(InfoName);
         }
+        public string GetVehicleImage(int vehicleId)
+        {
+            return sqlDB.GetVehicleImage(vehicleId);
+        }
+        public void SaveVehicleImage(int vehicleId, string data)
+        {
+            sqlDB.SaveVehicleImage(vehicleId, data);
+        }
         public List<KeyValuePair<string, int>> GetAllVehicleInfoNames()
         {
             return sqlDB.GetAllVehicleInfoNames(CurrentLanguage);

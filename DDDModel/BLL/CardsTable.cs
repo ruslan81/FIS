@@ -269,6 +269,14 @@ namespace BLL
         {
             sqlDb.CreateDefaultGroup(orgID);
         }
+        public string GetCardImage(int cardId)
+        {
+            return sqlDb.GetCardImage(cardId);
+        }
+        public void SaveCardImage(int cardId, string data)
+        {
+            sqlDb.SaveCardImage(cardId, data);
+        }
         /// <summary>
         /// получаем все имена карты
         /// </summary>

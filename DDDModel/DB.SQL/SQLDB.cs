@@ -962,6 +962,47 @@ namespace DB.SQL
             }
             return count;
         }
+        public string GetUserImage(int USER_ID)
+        {
+            string sql0 = "SELECT OCTET_LENGTH(user_image) from FD_USER where user_id=@USER_ID";
+            MySqlCommand cmd0 = new MySqlCommand(sql0, sqlConnection);
+            cmd0.Parameters.AddWithValue("@USER_ID", USER_ID);
+            MySqlDataReader sdr = cmd0.ExecuteReader();
+            int size = 0;
+            if (sdr.Read())
+            {
+                object val = sdr.GetValue(0);
+                if (val is DBNull) return null;
+                else size = Convert.ToInt32(val);
+                sdr.Close();
+            }
+            else { sdr.Close(); return null; }
+
+
+            string sql = "SELECT USER_IMAGE FROM fd_user WHERE USER_ID = @USER_ID";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@USER_ID", USER_ID);
+
+            sdr = cmd.ExecuteReader();
+            if (sdr.Read())
+            {
+                byte[] data = new byte[size];
+                if (size == 0) { sdr.Close(); return null; }
+                sdr.GetBytes(0, 0, data, 0, size);
+                sdr.Close();
+                return Convert.ToBase64String(data);
+            }
+            else { sdr.Close(); return null; }
+
+        }
+        public void SaveUserImage(int USER_ID, string data)
+        {
+            string sql0 = "UPDATE fd_user SET USER_IMAGE=@USER_IMG WHERE USER_ID=@USER_ID";
+            MySqlCommand cmd0 = new MySqlCommand(sql0, sqlConnection);
+            cmd0.Parameters.AddWithValue("@USER_ID", USER_ID);
+            cmd0.Parameters.AddWithValue("@USER_IMG", Convert.FromBase64String(data));
+            cmd0.ExecuteNonQuery();
+        }
         public string GetUserPassword(int userId)
         {
             MySqlCommand cmd = new MySqlCommand();
@@ -2094,6 +2135,47 @@ namespace DB.SQL
         }
         //---------------------------------FD_VEHICLE and other vehicle Tables--------
         #region "VEHICLES"
+        public string GetVehicleImage(int VEHICLE_ID)
+        {
+            string sql0 = "SELECT OCTET_LENGTH(vehicle_image) from FD_VEHICLE where vehicle_id=@VEHICLE_ID";
+            MySqlCommand cmd0 = new MySqlCommand(sql0, sqlConnection);
+            cmd0.Parameters.AddWithValue("@VEHICLE_ID", VEHICLE_ID);
+            MySqlDataReader sdr = cmd0.ExecuteReader();
+            int size = 0;
+            if (sdr.Read())
+            {
+                object val = sdr.GetValue(0);
+                if (val is DBNull) return null;
+                else size = Convert.ToInt32(val);
+                sdr.Close();
+            }
+            else { sdr.Close(); return null; }
+
+
+            string sql = "SELECT VEHICLE_IMAGE FROM fd_vehicle WHERE VEHICLE_ID = @VEHICLE_ID";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@VEHICLE_ID", VEHICLE_ID);
+
+            sdr = cmd.ExecuteReader();
+            if (sdr.Read())
+            {
+                byte[] data = new byte[size];
+                if (size == 0) { sdr.Close(); return null; }
+                sdr.GetBytes(0, 0, data, 0, size);
+                sdr.Close();
+                return Convert.ToBase64String(data);
+            }
+            else { sdr.Close(); return null; }
+
+        }
+        public void SaveVehicleImage(int vehicle_id, string data)
+        {
+            string sql0 = "UPDATE fd_vehicle SET VEHICLE_IMAGE=@VEHICLE_IMG WHERE VEHICLE_ID=@VEHICLE_ID";
+            MySqlCommand cmd0 = new MySqlCommand(sql0, sqlConnection);
+            cmd0.Parameters.AddWithValue("@VEHICLE_ID", vehicle_id);
+            cmd0.Parameters.AddWithValue("@VEHICLE_IMG", Convert.FromBase64String(data));
+            cmd0.ExecuteNonQuery();
+        }
         public int AddNewVehicle(string GosNomer, string Marka, string VIN, int vehicleTypeId, int deviceId, int cardId, DateTime BLOCKED, int priority, string Language)
         {
             int generatedId;
@@ -2962,6 +3044,47 @@ namespace DB.SQL
         #endregion
         //--------------------FD_CARD
         #region "fd_card"
+        public string GetCardImage(int CARD_ID)
+        {
+            string sql0 = "SELECT OCTET_LENGTH(card_image) from FN_CARD where card_id=@CARD_ID";
+            MySqlCommand cmd0 = new MySqlCommand(sql0, sqlConnection);
+            cmd0.Parameters.AddWithValue("@CARD_ID", CARD_ID);
+            MySqlDataReader sdr = cmd0.ExecuteReader();
+            int size = 0;
+            if (sdr.Read())
+            {
+                object val = sdr.GetValue(0);
+                if (val is DBNull) return null;
+                else size = Convert.ToInt32(val);
+                sdr.Close();
+            }
+            else { sdr.Close(); return null; }
+
+
+            string sql = "SELECT CARD_IMAGE FROM fn_card WHERE CARD_ID = @CARD_ID";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@CARD_ID", CARD_ID);
+
+            sdr = cmd.ExecuteReader();
+            if (sdr.Read())
+            {
+                byte[] data = new byte[size];
+                if (size == 0) { sdr.Close(); return null; }
+                sdr.GetBytes(0, 0, data, 0, size);
+                sdr.Close();
+                return Convert.ToBase64String(data);
+            }
+            else { sdr.Close(); return null; }
+
+        }
+        public void SaveCardImage(int card_id, string data)
+        {
+            string sql0 = "UPDATE fn_card SET CARD_IMAGE=@CARD_IMG WHERE CARD_ID=@CARD_ID";
+            MySqlCommand cmd0 = new MySqlCommand(sql0, sqlConnection);
+            cmd0.Parameters.AddWithValue("@CARD_ID", card_id);
+            cmd0.Parameters.AddWithValue("@CARD_IMG", Convert.FromBase64String(data));
+            cmd0.ExecuteNonQuery();
+        }
         public int GetCardId(string cardHolderName, string cardNumber, int cardTypeId)
         {
             int cardId = 0;

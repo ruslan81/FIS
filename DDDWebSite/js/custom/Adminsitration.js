@@ -1102,6 +1102,7 @@ function enableCreatingControls() {
     $("#orgName").attr("readonly", "readonly");
 
     $(".upload-foto").show();
+    $("#userImage").attr("src", "../css/icons/user-icon.png");
 
     $("#detailedData1 .input").attr("value", "");
     $("#detailedData2 .input").attr("value", "");
@@ -1803,9 +1804,11 @@ function saveUsersData() {
     var name = $("#name").attr("value");
     var patronimic = $("#patronimic").attr("value");
     var surname = $("#surname").attr("value");
+    var image = $("#userImage").attr("src");
 
     var ud =
            "{'login':'" + login
+           + "', 'image64':'" + image
            + "', 'country':'" + country
            + "', 'password':'" + pass1
            + "', 'city':'" + city
@@ -1874,9 +1877,11 @@ function createNewUser() {
     var name = $("#name").attr("value");
     var patronimic = $("#patronimic").attr("value");
     var surname = $("#surname").attr("value");
+    var image = $("#userImage").attr("src");
 
     var ud =
            "{'login':'" + login
+           + "', 'image64':'" + image
            + "', 'country':'" + country
            + "', 'password':'" + pass1
            + "', 'city':'" + city

@@ -495,6 +495,10 @@ public partial class Administrator_Administration : System.Web.UI.Page
             ud.login = dataBlock.usersTable.Get_UserName(userId);
             ud.orgName = dataBlock.organizationTable.GetOrganizationName(dataBlock.usersTable.Get_UserOrgId(userId));
 
+            ud.image64 = dataBlock.usersTable.GetUserImage(userId);
+            if (ud.image64 == null) { ud.image64 = "../css/icons/user-icon.png"; }
+            else { ud.image64 = "data:image/jpeg;base64," + ud.image64; }
+
             return ud;
         }
         catch (Exception ex)
@@ -889,6 +893,17 @@ public partial class Administrator_Administration : System.Web.UI.Page
             dataBlock.organizationTable.AddOrEditAdditionalOrgInfo(id, userInfoId, ud.mail);
             userInfoId = dataBlock.organizationTable.GetOrgInfoNameId(DataBaseReference.OrgInfo_TimeZone);
             dataBlock.organizationTable.AddOrEditAdditionalOrgInfo(id, userInfoId, ud.timeZone);
+
+            if (ud.image64.Equals("../css/icons/company-middle.png"))
+            {
+                dataBlock.organizationTable.SaveOrgImage(id, null);
+            }
+            else
+            {
+                ud.image64 = ud.image64.Substring(ud.image64.IndexOf(",") + 1);
+                dataBlock.organizationTable.SaveOrgImage(id, ud.image64);
+            }
+
             return id.ToString();
         }
         catch (Exception ex)
@@ -963,6 +978,16 @@ public partial class Administrator_Administration : System.Web.UI.Page
             dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.surname);
             userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Patronimic);
             dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.patronimic);
+
+            if (ud.image64.Equals("../css/icons/user-icon.png"))
+            {
+                dataBlock.usersTable.SaveUserImage(userId, null);
+            }
+            else
+            {
+                ud.image64 = ud.image64.Substring(ud.image64.IndexOf(",") + 1);
+                dataBlock.usersTable.SaveUserImage(userId, ud.image64);
+            }
         }
         catch (Exception ex)
         {
@@ -1020,6 +1045,17 @@ public partial class Administrator_Administration : System.Web.UI.Page
             dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.surname);
             userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Patronimic);
             dataBlock.usersTable.EditUserInfo(userId, userInfoId, ud.patronimic);
+
+            if (ud.image64.Equals("../css/icons/user-icon.png"))
+            {
+                dataBlock.usersTable.SaveUserImage(userId, null);
+            }
+            else
+            {
+                ud.image64 = ud.image64.Substring(ud.image64.IndexOf(",") + 1);
+                dataBlock.usersTable.SaveUserImage(userId, ud.image64);
+            }
+
             return userId.ToString();
         }
         catch (Exception ex)
