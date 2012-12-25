@@ -145,12 +145,14 @@ button
 {
     margin-left:10px;
     margin-right:10px;
+    width: 100px !important;
 }
 
 #endDatePicker
 {
     margin-left:10px;
     margin-right:10px;
+    width: 100px !important;
 }
 
 .uploadPanel input
@@ -342,7 +344,7 @@ input
     padding: 5px;
     margin: 5px;
     background: #fff;
-    border:1px dashed #ccc;
+    border:1px solid #ccc;
     box-shadow: 0 0 5px #ccc;
 }
 

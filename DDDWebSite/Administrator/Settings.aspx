@@ -443,52 +443,60 @@
       </table>
     </div>
     <div id="tabs-3">
-      <table id="contentTable3" style="border-collapse: separate; width:60%;"
+        <div style="float:right;">
+            <div class="foto">
+                <img src="../css/icons/user-card-icon.png" width="96" height="96">
+            </div>
+            <div class="upload-foto" style="display:none;">
+                <input type="file" class="input-upload-foto"/>
+            </div>
+        </div>
+        <table id="contentTable3" style="border-collapse: separate; width:60%;"
                        border="0" cellpadding="0" cellspacing="0">
-        <tbody id="" class="ui-widget-content wijmo-wijgrid-data">
-          <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Номер карты</td>
-            <td style="padding-top:10px;">
-              <input id="numberinputSingle" value="{{html Number}}" class="inputField-readonly input" readonly="readonly"/>
-            </td>
-          </tr>
-          <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Кто выдал</td>
-            <td style="padding-top:10px;">
-              <input id="cardGiverinputSingle" value="{{html CardGiver}}" class="inputField-readonly input" readonly="readonly"/>
-            </td>
-          </tr>
-          <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Страна</td>
-            <td style="padding-top:10px;">
-              <input id="countryinputSingle" value="{{html CardGiver}}" class="inputField-readonly input" readonly="readonly"/>
-            </td>
-          </tr>
-          <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Дата выдачи</td>
-            <td style="padding-top:10px;">
-              <input id="givenDateinputSingle" value="{{html GivenDate}}" style="width:100px;" class="datepicker"/>
-            </td>
-          </tr>
-          <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Действительна с/по</td>
-            <td style="padding-top:10px;">
-            </td>
-          </tr>
-          <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Начало</td>
-            <td style="padding-top:10px;">
-              <input id="fromDateinputSingle" value="{{html FromDate}}" style="width:100px;" class="datepicker"/>
-            </td>
-          </tr>
-          <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Окончание</td>
-            <td style="padding-top:10px;">
-              <input id="toDateinputSingle" value="{{html ToDate}}" style="width:100px;" class="datepicker"/>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            <tbody id="" class="ui-widget-content wijmo-wijgrid-data">
+              <tr style="background-color:#eee;">
+                <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Номер карты</td>
+                <td style="padding-top:10px;">
+                  <input id="numberinputSingle" value="{{html Number}}" class="inputField-readonly input" readonly="readonly"/>
+                </td>
+              </tr>
+              <tr style="background-color:#eee;">
+                <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Кто выдал</td>
+                <td style="padding-top:10px;">
+                  <input id="cardGiverinputSingle" value="{{html CardGiver}}" class="inputField-readonly input" readonly="readonly"/>
+                </td>
+              </tr>
+              <tr style="background-color:#eee;">
+                <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Страна</td>
+                <td style="padding-top:10px;">
+                  <input id="countryinputSingle" value="{{html CardGiver}}" class="inputField-readonly input" readonly="readonly"/>
+                </td>
+              </tr>
+              <tr style="background-color:#eee;">
+                <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Дата выдачи</td>
+                <td style="padding-top:10px;">
+                  <input id="givenDateinputSingle" value="{{html GivenDate}}" style="width:100px;" class="datepicker"/>
+                </td>
+              </tr>
+              <tr style="background-color:#eee;">
+                <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Действительна с/по</td>
+                <td style="padding-top:10px;">
+                </td>
+              </tr>
+              <tr style="background-color:#eee;">
+                <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Начало</td>
+                <td style="padding-top:10px;">
+                  <input id="fromDateinputSingle" value="{{html FromDate}}" style="width:100px;" class="datepicker"/>
+                </td>
+              </tr>
+              <tr style="background-color:#eee;">
+                <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Окончание</td>
+                <td style="padding-top:10px;">
+                  <input id="toDateinputSingle" value="{{html ToDate}}" style="width:100px;" class="datepicker"/>
+                </td>
+              </tr>
+            </tbody>
+        </table>
     </div>
   </div>
 </script>

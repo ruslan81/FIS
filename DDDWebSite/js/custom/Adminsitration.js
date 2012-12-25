@@ -933,6 +933,14 @@ function loadUsersControls() {
         $("#detailedData2 .input").removeAttr("readonly");
         $("#detailedData2 .input").addClass("inputField");
 
+        $("#startDatePicker").removeClass("inputField-readonly");
+        $("#startDatePicker").removeAttr("readonly");
+        $("#startDatePicker").addClass("inputField");
+
+        $("#endDatePicker").removeClass("inputField-readonly");
+        $("#endDatePicker").removeAttr("readonly");
+        $("#endDatePicker").addClass("inputField");
+
         $("#subdealerinput").removeClass("inputField-readonly");
         $("#subdealerinput").removeAttr("readonly");
         $("#subdealerinput").addClass("inputField");
@@ -941,6 +949,7 @@ function loadUsersControls() {
         $("#orgName").addClass("inputField-readonly");
         $("#orgName").attr("readonly", "readonly");
 
+        $(".input-upload-foto").removeClass("inputField");
         $(".upload-foto").show();
 
         var name = $("#orgLogin").attr("value");
@@ -1093,6 +1102,14 @@ function enableCreatingControls() {
     $("#detailedData2 .input").removeAttr("readonly");
     $("#detailedData2 .input").addClass("inputField");
 
+    $("#startDatePicker").removeClass("inputField-readonly");
+    $("#startDatePicker").removeAttr("readonly");
+    $("#startDatePicker").addClass("inputField");
+
+    $("#endDatePicker").removeClass("inputField-readonly");
+    $("#endDatePicker").removeAttr("readonly");
+    $("#endDatePicker").addClass("inputField");
+
     $("#subdealerinput").removeClass("inputField-readonly");
     $("#subdealerinput").removeAttr("readonly");
     $("#subdealerinput").addClass("inputField");
@@ -1101,6 +1118,7 @@ function enableCreatingControls() {
     $("#orgName").addClass("inputField-readonly");
     $("#orgName").attr("readonly", "readonly");
 
+    $(".input-upload-foto").removeClass("inputField");
     $(".upload-foto").show();
     $("#userImage").attr("src", "../css/icons/user-icon.png");
 
@@ -1371,6 +1389,14 @@ function loadGeneralDetailedData() {
         $("#create").button({ disabled: true });
     }
 
+    $("#startDatePicker").removeClass("inputField");
+    $("#startDatePicker").attr("readonly", "readonly");
+    $("#startDatePicker").addClass("inputField-readonly input");
+
+    $("#endDatePicker").removeClass("inputField");
+    $("#endDatePicker").attr("readonly", "readonly");
+    $("#endDatePicker").addClass("inputField-readonly input");
+
     $("#subdealerinput").removeClass("inputField");
     $("#subdealerinput").attr("readonly", "readonly");
     $("#subdealerinput").addClass("inputField-readonly input");
@@ -1402,6 +1428,14 @@ function loadGeneralDetailedData() {
         $("#detailedData2 .input").removeAttr("readonly");
         $("#detailedData2 .input").addClass("inputField");
 
+        $("#startDatePicker").removeClass("inputField-readonly");
+        $("#startDatePicker").removeAttr("readonly");
+        $("#startDatePicker").addClass("inputField");
+
+        $("#endDatePicker").removeClass("inputField-readonly");
+        $("#endDatePicker").removeAttr("readonly");
+        $("#endDatePicker").addClass("inputField");
+
         $("#subdealerinput").removeClass("inputField-readonly");
         $("#subdealerinput").removeAttr("readonly");
         $("#subdealerinput").addClass("inputField");
@@ -1414,6 +1448,7 @@ function loadGeneralDetailedData() {
             $("#boxOnOff").removeAttr("disabled");
         }
 
+        $(".input-upload-foto").removeClass("inputField");
         $(".upload-foto").show();
 
         $("#edit").button({ disabled: true });
@@ -1460,6 +1495,14 @@ function loadGeneralDetailedData() {
         $("#detailedData2 .input").removeAttr("readonly");
         $("#detailedData2 .input").addClass("inputField");
 
+        $("#startDatePicker").removeClass("inputField-readonly");
+        $("#startDatePicker").removeAttr("readonly");
+        $("#startDatePicker").addClass("inputField");
+
+        $("#endDatePicker").removeClass("inputField-readonly");
+        $("#endDatePicker").removeAttr("readonly");
+        $("#endDatePicker").addClass("inputField");
+
         $("#subdealerinput").removeClass("inputField-readonly");
         $("#subdealerinput").removeAttr("readonly");
         $("#subdealerinput").addClass("inputField");
@@ -1468,6 +1511,7 @@ function loadGeneralDetailedData() {
 
         $("#boxOnOff").removeAttr("disabled");
 
+        $(".input-upload-foto").removeClass("inputField");
         $(".upload-foto").show();
         $("#orgImage").attr("src","../css/icons/company-middle.png");
 

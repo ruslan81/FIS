@@ -14,6 +14,12 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "-25.12.2012" + Environment.NewLine;
+            ReportLabel.Text += @"- В закладке Управление в разделах 'Пользователи' и 'Аккаунт' добавлена поддержка загрузки, редактирования фото у пользователя и организации, т.о. добавлены операции добавление/изменение/удаление для недавно появившихся в БД колонок ORG_IMAGE и USER_IMAGE, в следующем релизе аналогичная поддержка появится для изображений в закладке 'Настройки'" + Environment.NewLine;
+            ReportLabel.Text += @"- В закладке Настройки в разделе 'Водители' в подзакладке 'Карта' добавлено изображение карты." + Environment.NewLine;
+            ReportLabel.Text += @"- Подключена статистика из Google Analytics." + Environment.NewLine;
+            ReportLabel.Text += @"- Исправлены небольшие шероховатости в дизайне." + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "- 16.12.2012" + Environment.NewLine;
             ReportLabel.Text += @"- В закладке Управление в разделах 'Пользователи' и 'Аккаунт' добавлены фото у пользователя и организации." + Environment.NewLine;
             ReportLabel.Text += @"- В закладке Настройки в разделах 'Общее', 'Водители' и 'ТС' добавлены соответсвующие изображения." + Environment.NewLine;
