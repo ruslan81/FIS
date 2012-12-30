@@ -113,6 +113,38 @@ public partial class Administrator_Settings : System.Web.UI.Page
     }
 
     /// <summary>
+    ///Получить Логотип для общих настроек
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static String GetGeneralLogo(String OrgID)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+
+        try
+        {
+            int orgId = Convert.ToInt32(OrgID);
+            dataBlock.organizationTable.OpenConnection();
+            String result = "";
+            result = dataBlock.organizationTable.GetOrgImage(orgId);
+            if (result == null) { result = "../css/icons/company-middle.png"; }
+            else { result = "data:image/jpeg;base64," + result; }
+            return result;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            //return null;
+        }
+        finally
+        {
+            dataBlock.organizationTable.CloseConnection();
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
     ///Сохранить Общие настройки
     /// </summary>
     /// <returns></returns>
@@ -135,6 +167,44 @@ public partial class Administrator_Settings : System.Web.UI.Page
         {
             throw ex;
             //return false;
+        }
+        finally
+        {
+            dataBlock.organizationTable.CloseConnection();
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Получить Логотип для общих настроек
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static void SaveGeneralLogo(String OrgID, String logo)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+
+        try
+        {
+            int orgId = Convert.ToInt32(OrgID);
+            dataBlock.organizationTable.OpenConnection();
+
+            if (logo.Equals("../css/icons/company-middle.png"))
+            {
+                dataBlock.organizationTable.SaveOrgImage(orgId, null);
+            }
+            else
+            {
+                logo = logo.Substring(logo.IndexOf(",") + 1);
+                dataBlock.organizationTable.SaveOrgImage(orgId, logo);
+            }
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            //return null;
         }
         finally
         {

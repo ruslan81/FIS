@@ -578,10 +578,66 @@ function loadGeneralSettings() {
             $("#headerSettings").empty();
             $("#headerSettings").text("Общие настройки");
 
+            loadGeneralImage();
+
             createUserControlsGeneral();
+
 
             resizeAllMaster();
             resizeSettings();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
+    });
+}
+
+function loadImage(image, loader) {
+    var oFReader = new FileReader();
+    var rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
+
+    oFReader.onload = function (oFREvent) {
+        document.getElementById(image).src = oFREvent.target.result;
+    };
+
+    var reader = document.getElementById(loader);
+    if (reader.files.length > 0) {
+        var oFile = reader.files[0];
+        if (oFile.size > 16 * 1024 * 1024) { showWrongDataMessage("wrongImageSize"); return; }
+        if (!rFilter.test(oFile.type)) { showWrongDataMessage("wrongImageData"); return; }
+        oFReader.readAsDataURL(oFile);
+    }
+}
+
+function loadGeneralImage() {
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Settings.aspx/GetGeneralLogo",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#contentSettings").prepend($("#tmplGeneralSettingsLogo").text());
+            $("#orgImage").attr("src",response.d);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
+    });
+}
+
+function saveGeneralImage() {
+    var image = $("#orgImage").attr("src");
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Settings.aspx/SaveGeneralLogo",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "','logo':'" +image+ "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            loadGeneralSettings();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -634,10 +690,11 @@ function createUserControlsGeneral() {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                if (response.d == true) {
+                saveGeneralImage();
+                /*if (response.d == true) {
                     loadGeneralSettings();
                     return false;
-                }
+                }*/
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
