@@ -964,7 +964,7 @@ namespace DB.SQL
         }
         public string GetUserImage(int USER_ID)
         {
-            string sql0 = "SELECT OCTET_LENGTH(user_image) from FD_USER where user_id=@USER_ID";
+            string sql0 = "SELECT OCTET_LENGTH(user_image) from fd_user where user_id=@USER_ID";
             MySqlCommand cmd0 = new MySqlCommand(sql0, sqlConnection);
             cmd0.Parameters.AddWithValue("@USER_ID", USER_ID);
             MySqlDataReader sdr = cmd0.ExecuteReader();
@@ -2137,7 +2137,7 @@ namespace DB.SQL
         #region "VEHICLES"
         public string GetVehicleImage(int VEHICLE_ID)
         {
-            string sql0 = "SELECT OCTET_LENGTH(vehicle_image) from FD_VEHICLE where vehicle_id=@VEHICLE_ID";
+            string sql0 = "SELECT OCTET_LENGTH(vehicle_image) from fd_vehicle where vehicle_id=@VEHICLE_ID";
             MySqlCommand cmd0 = new MySqlCommand(sql0, sqlConnection);
             cmd0.Parameters.AddWithValue("@VEHICLE_ID", VEHICLE_ID);
             MySqlDataReader sdr = cmd0.ExecuteReader();
@@ -3046,7 +3046,7 @@ namespace DB.SQL
         #region "fd_card"
         public string GetCardImage(int CARD_ID)
         {
-            string sql0 = "SELECT OCTET_LENGTH(card_image) from FN_CARD where card_id=@CARD_ID";
+            string sql0 = "SELECT OCTET_LENGTH(card_image) from fn_card where card_id=@CARD_ID";
             MySqlCommand cmd0 = new MySqlCommand(sql0, sqlConnection);
             cmd0.Parameters.AddWithValue("@CARD_ID", CARD_ID);
             MySqlDataReader sdr = cmd0.ExecuteReader();
