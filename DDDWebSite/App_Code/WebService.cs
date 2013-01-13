@@ -27,7 +27,7 @@ public class WebService : System.Web.Services.WebService {
         try
         {
             string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-            DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+            DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
 
             if (FileInBytes != null)
             { 

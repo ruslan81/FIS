@@ -14,6 +14,13 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "-13.01.2013" + Environment.NewLine;
+            ReportLabel.Text += @"- Настройка языка вынесена в конфигурационный файл в виде константы под именем 'language' (task #1)" + Environment.NewLine;
+            ReportLabel.Text += @"- Ввод паролей спрятан под '*' (task #5)" + Environment.NewLine;
+            ReportLabel.Text += @"- Исправлено отображение «Краткие сведения» в разделе «Управление- Пользователи» в соответствии с GUI (task #5), также была поправлена закладка «Детальные сведения», для обеих закладок улучшено поведение при малом разрешении экрана." + Environment.NewLine;
+            ReportLabel.Text += @"- Проблема именем файла при сохранении (task #8, она же #13) была решена в релизе от 18.11.2012, дополнительно проверю после решения проблемы с водителями." + Environment.NewLine;
+
+
             ReportLabel.Text += Environment.NewLine + "-03.01.2013" + Environment.NewLine;
             ReportLabel.Text += @"- В закладке Управление в разделе 'Пользователи' устранена ошибка при выборе пользователя ""Table 'gb_x_smartfis.FD_USER' doesn't exist""" + Environment.NewLine;
             ReportLabel.Text += @"- Добавлена загрузка фото в Настройки->Организаци, а также в Управление->Аккаунт" + Environment.NewLine;

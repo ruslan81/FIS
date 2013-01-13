@@ -44,7 +44,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
 
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         List<int> usersIds = new List<int>();
         List<UserFromTable> userFromTableList = new List<UserFromTable>();
 
@@ -64,7 +64,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
 
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         List<int> orgIds = new List<int>();
         List<OrganizationFromTable> orgFromTableList = new List<OrganizationFromTable>();
 
@@ -95,7 +95,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
     private void LoadOrgInfosList()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         List<KeyValuePair<string, int>> allOrgInfos = new List<KeyValuePair<string,int>>();
         dataBlock.organizationTable.OpenConnection();
         allOrgInfos = dataBlock.organizationTable.GetAllOrgInfos();
@@ -107,7 +107,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
     private void LoadVehAndFuelTypeList()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         //___________________Vehicle Type
         List<KeyValuePair<string, int>> allVehTypes = new List<KeyValuePair<string, int>>();
         dataBlock.vehiclesTables.OpenConnection();
@@ -153,7 +153,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
     private void LoadVehFuelTypeToDropDownList()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             dataBlock.vehiclesTables.OpenConnection();
@@ -180,7 +180,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
         try
         {
             string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-            DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+            DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
             dataBlock.organizationTable.DeleteOrgInfo(Convert.ToInt32(e.Item.Cells[0].Text));
         }
         catch (Exception ex)
@@ -199,7 +199,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
     protected void VehTypeDelLinkBtn_Click(object sender, DataGridCommandEventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             dataBlock.vehiclesTables.OpenConnection();
@@ -237,7 +237,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
     protected void FuelTypeDelLinkBtn_Click(object sender, DataGridCommandEventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             dataBlock.vehiclesTables.OpenConnection();
@@ -259,7 +259,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
     protected void AddOrgInfoBtnClick(object sender, EventArgs e)
     {
          string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-         DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+         DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             dataBlock.organizationTable.OpenConnection();
@@ -282,7 +282,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
     protected void AddNewVehicleTypeButtonClick(object sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             string newTypeName = NewVehicleTypeTextBox.Text.Trim();
@@ -312,7 +312,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
     protected void EditVehicleTypeButtonClick(object sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             dataBlock.vehiclesTables.OpenConnection();
@@ -343,7 +343,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
     protected void AddFuelTypeButtonClick(object sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             dataBlock.vehiclesTables.OpenConnection();
@@ -410,7 +410,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
         List<KeyValuePair<string, string>> pairList = new List<KeyValuePair<string, string>>();
         int cellNumber = 0;
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             foreach (object dc in FD_stringDataGrid.Columns)
@@ -481,7 +481,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
             if (e.CommandName == "Delete")
             {
                 string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-                DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+                DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
                 List<int> orgIds = new List<int>();
                 orgIds = (List<int>)Session["CreatingForms_OrgId"];
                 dataBlock.organizationTable.DeleteOrganization(orgIds[e.Item.ItemIndex]); //Удаление организации
@@ -510,7 +510,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
             if (e.CommandName == "Delete")
             {
                 string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-                DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+                DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
                 List<int> usersIds = new List<int>();
                 usersIds = (List<int>)Session["CreatingForms_UsersId"];
                 dataBlock.usersTable.DeleteUser(usersIds[e.Item.ItemIndex]);
@@ -540,7 +540,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
     ///////Devices
     private void LoadDeviceList()
     {
-        string CurrentLanguage = "STRING_RU";
+        string CurrentLanguage = ConfigurationManager.AppSettings["language"];
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, CurrentLanguage);
         List<KeyValuePair<string, int>> allDeviceTypes = new List<KeyValuePair<string, int>>();
@@ -572,7 +572,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
     protected void AddDeviceTypeButtonClick(object sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             string deviceTypeName = AddDeviceTypeTextBox.Text;
@@ -594,7 +594,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
     protected void DeviceTypeDelLinkBtn_Click(object s, DataGridCommandEventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             if (e.CommandName == "Delete")
@@ -616,7 +616,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
     ///////Criteria
     private void LoadCriteriaList()
     {
-        string CurrentLanguage = "STRING_RU";
+        string CurrentLanguage = ConfigurationManager.AppSettings["language"];
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, CurrentLanguage);
         List<KeyValuePair<string, int>> allKeys = new List<KeyValuePair<string, int>>();
@@ -652,7 +652,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
     private void LoadMeasuresToDropDownList()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         dataBlock.criteriaTable.OpenConnection();
         List<int> allMeasures = new List<int>();
         allMeasures = dataBlock.criteriaTable.GetAllMeasuresIds();
@@ -687,7 +687,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
     protected void AddCriteriaButtonClick(object sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             CriteriaTable key = new CriteriaTable();
@@ -715,7 +715,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
     protected void EditCriteriaButtonClick(object sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             dataBlock.criteriaTable.OpenConnection();
@@ -745,9 +745,9 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
     }
     protected void CriteriaListDelLinkBtn_Click(object s, DataGridCommandEventArgs e)
     {
-        string CurrentLanguage = "STRING_RU";
+        string CurrentLanguage = ConfigurationManager.AppSettings["language"];
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             dataBlock.criteriaTable.OpenConnection();
@@ -787,7 +787,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
     ///////Measure
     private void LoadMeasureList()
     {
-        string CurrentLanguage = "STRING_RU";
+        string CurrentLanguage = ConfigurationManager.AppSettings["language"];
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, CurrentLanguage);
         List<int> allKeys = new List<int>();
@@ -824,7 +824,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
     protected void AddMeasureButtonClick(object sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             string shortName = MeasureShortNameTextBox.Text;
@@ -847,7 +847,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
     protected void MeasureListDelLinkBtn_Click(object s, DataGridCommandEventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             dataBlock.criteriaTable.DeleteMeasure(Convert.ToInt32(e.Item.Cells[0].Text));
@@ -884,7 +884,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
         List<KeyValuePair<string, string>> pairList = new List<KeyValuePair<string, string>>();
         int cellNumber = 0;
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             foreach (object dc in MeasureListDataGrid.Columns)
@@ -923,7 +923,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
     private void LoadReportList()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
         List<int> reportsIds = new List<int>();
 
@@ -963,7 +963,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
     private void LoadAllReportsTypesToDropDowns()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         List<KeyValuePair<string, int>> allReportsTypes = new List<KeyValuePair<string, int>>();
         
         dataBlock.reportsTable.OpenConnection();
@@ -994,7 +994,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
     protected void AddReportButtonClick(object sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             int reportTypeId = Convert.ToInt32(ReportTypeDropDown.SelectedValue);
@@ -1026,7 +1026,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
     protected void ReportListDelLinkBtn_Click(object s, DataGridCommandEventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             dataBlock.criteriaTable.DeleteMeasure(Convert.ToInt32(e.Item.Cells[0].Text));
@@ -1063,7 +1063,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
         List<KeyValuePair<string, string>> pairList = new List<KeyValuePair<string, string>>();
         int cellNumber = 0;
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             foreach (object dc in MeasureListDataGrid.Columns)
@@ -1102,7 +1102,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
     private void LoadReportTypesList()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
         List<KeyValuePair<string, int>> reportTypesIds = new List<KeyValuePair<string,int>>();
 
@@ -1153,7 +1153,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
     protected void AddReportTypeButtonClick(object sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             string name = ReportTypeNameTextBox.Text;
@@ -1183,7 +1183,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
     protected void ReportTypeListDelLinkBtn_Click(object s, DataGridCommandEventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             dataBlock.criteriaTable.DeleteMeasure(Convert.ToInt32(e.Item.Cells[0].Text));
@@ -1214,7 +1214,7 @@ public partial class AdministratorS_CreatingForms : System.Web.UI.Page
     {
         int gridItemIndex = e.Item.ItemIndex;
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
 
         int reportTypeId = Convert.ToInt32(e.Item.Cells[0].Text);
         string name = ((TextBox)e.Item.Cells[1].Controls[0]).Text;

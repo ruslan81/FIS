@@ -9,7 +9,7 @@
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         HttpApplication app = (HttpApplication)sender;
         string rolе;
-        BLL.UsersTables userCheck = new BLL.UsersTables(connectionString, "STRING_RU", new DB.SQL.SQLDB(connectionString));
+        BLL.UsersTables userCheck = new BLL.UsersTables(connectionString, ConfigurationManager.AppSettings["language"], new DB.SQL.SQLDB(connectionString));
 
         if (app.Request.IsAuthenticated && app.User.Identity is FormsIdentity)
         {

@@ -49,7 +49,7 @@ public partial class loginPage : System.Web.UI.Page
     private void Login(string profile, string username, string password, bool persistent)
     {        
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             dataBlock.OpenConnection();
@@ -99,7 +99,7 @@ public partial class loginPage : System.Web.UI.Page
     public static String RecoverPassword(string email)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_RU");
+        BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
 
         try
         {

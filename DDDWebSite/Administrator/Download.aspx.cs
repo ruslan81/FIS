@@ -51,7 +51,7 @@ public partial class Administrator_download : System.Web.UI.Page
             {
                 int dataBlockId = Convert.ToInt32(Request.Form.Get("dataBlockId"));
                 string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-                DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+                DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
                 dataBlock.OpenConnection();
                 byte[] fileBytes = dataBlock.GetDataBlock_BytesArray(dataBlockId);
                 string fileName = dataBlock.GetDataBlock_FileName(dataBlockId);
@@ -85,7 +85,7 @@ public partial class Administrator_download : System.Web.UI.Page
             int cardID = int.Parse(CardID);
 
             string connectionString = System.Configuration.ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-            BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_RU");
+            BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
             dataBlock.OpenConnection();
 
             DateTime from = new DateTime();
@@ -154,7 +154,7 @@ public partial class Administrator_download : System.Web.UI.Page
             int cardID = int.Parse(CardID);
 
             string connectionString = System.Configuration.ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-            BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_RU");
+            BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
             dataBlock.OpenConnection();
 
             DateTime from = DateTime.Parse(StartDate);
@@ -219,7 +219,7 @@ public partial class Administrator_download : System.Web.UI.Page
             dataBlockIDS.Add(dataBlockId);
 
             string connectionString = System.Configuration.ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-            DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+            DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
             dataBlock.OpenConnection();
 
             DataSet dataset = new DataSet();
@@ -276,7 +276,7 @@ public partial class Administrator_download : System.Web.UI.Page
             }
 
             string connectionString = System.Configuration.ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-            DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+            DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
             dataBlock.OpenConnection();
 
             DataSet dataset = new DataSet();
