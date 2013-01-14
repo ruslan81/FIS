@@ -1000,7 +1000,13 @@ namespace DB.SQL
             string sql0 = "UPDATE fd_user SET USER_IMAGE=@USER_IMG WHERE USER_ID=@USER_ID";
             MySqlCommand cmd0 = new MySqlCommand(sql0, sqlConnection);
             cmd0.Parameters.AddWithValue("@USER_ID", USER_ID);
-            cmd0.Parameters.AddWithValue("@USER_IMG", Convert.FromBase64String(data));
+            if (data != null)
+            {
+                cmd0.Parameters.AddWithValue("@USER_IMG", Convert.FromBase64String(data));
+            }
+            else {
+                cmd0.Parameters.AddWithValue("@USER_IMG", null);
+            }
             cmd0.ExecuteNonQuery();
         }
         public string GetUserPassword(int userId)
@@ -1583,7 +1589,14 @@ namespace DB.SQL
             string sql0 = "UPDATE fd_org SET ORG_IMAGE=@ORG_IMG WHERE ORG_ID=@ORG_ID";
             MySqlCommand cmd0 = new MySqlCommand(sql0, sqlConnection);
             cmd0.Parameters.AddWithValue("@ORG_ID", ORG_ID);
-            cmd0.Parameters.AddWithValue("@ORG_IMG", Convert.FromBase64String(data));
+            if (data != null)
+            {
+                cmd0.Parameters.AddWithValue("@ORG_IMG", Convert.FromBase64String(data));
+            }
+            else
+            {
+                cmd0.Parameters.AddWithValue("@ORG_IMG", null);
+            }
             cmd0.ExecuteNonQuery();
         }
         public int GetOrgNameId(int ORG_ID)
@@ -2173,7 +2186,14 @@ namespace DB.SQL
             string sql0 = "UPDATE fd_vehicle SET VEHICLE_IMAGE=@VEHICLE_IMG WHERE VEHICLE_ID=@VEHICLE_ID";
             MySqlCommand cmd0 = new MySqlCommand(sql0, sqlConnection);
             cmd0.Parameters.AddWithValue("@VEHICLE_ID", vehicle_id);
-            cmd0.Parameters.AddWithValue("@VEHICLE_IMG", Convert.FromBase64String(data));
+            if (data != null)
+            {
+                cmd0.Parameters.AddWithValue("@VEHICLE_IMG", Convert.FromBase64String(data));
+            }
+            else
+            {
+                cmd0.Parameters.AddWithValue("@VEHICLE_IMG", null);
+            }
             cmd0.ExecuteNonQuery();
         }
         public int AddNewVehicle(string GosNomer, string Marka, string VIN, int vehicleTypeId, int deviceId, int cardId, DateTime BLOCKED, int priority, string Language)
