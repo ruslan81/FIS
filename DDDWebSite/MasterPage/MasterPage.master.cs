@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Security;
+using System.Configuration;
 
 public partial class MasterPage : System.Web.UI.MasterPage
 {
@@ -27,7 +28,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
                 MasterPageExceptionString.Text = "";
 
                 string connectionString = System.Configuration.ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-                BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_RU");
+                BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
                 dataBlock.OpenConnection();
                 int userId = dataBlock.usersTable.Get_UserID_byName(Page.User.Identity.Name);
                 string UserType = dataBlock.usersTable.Get_UserTypeStr(userId);

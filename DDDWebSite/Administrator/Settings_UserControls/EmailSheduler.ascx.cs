@@ -109,7 +109,7 @@ public partial class Administrator_Settings_UserControls_EmailSheduler : System.
     public void LoadShedulesDataGrid()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             Selected_SheduleDataGrid_Index.Value = "";
@@ -134,7 +134,7 @@ public partial class Administrator_Settings_UserControls_EmailSheduler : System.
     public void EditShedule()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             int shedId = 0;
@@ -187,7 +187,7 @@ public partial class Administrator_Settings_UserControls_EmailSheduler : System.
     public void DeleteShedule()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             dataBlock.OpenConnection();
@@ -203,7 +203,7 @@ public partial class Administrator_Settings_UserControls_EmailSheduler : System.
     public void CreateNewShedule()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             dataBlock.OpenConnection();
@@ -225,7 +225,7 @@ public partial class Administrator_Settings_UserControls_EmailSheduler : System.
     public void ReportTypeDropDown_SelectedIndexChanged(object sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
@@ -299,7 +299,7 @@ public partial class Administrator_Settings_UserControls_EmailSheduler : System.
         int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
         
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             dataBlock.OpenConnection();
@@ -332,7 +332,7 @@ public partial class Administrator_Settings_UserControls_EmailSheduler : System.
             throw new Exception("Выберите запись!");
 
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             dataBlock.OpenConnection();

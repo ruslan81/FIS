@@ -154,8 +154,8 @@
                                 <HeaderStyle BackColor="LightGray" />
                                 <Columns>
                                     <asp:BoundColumn DataField="STRING_ID" HeaderText="ID" ReadOnly="true" />
-                                    <asp:BoundColumn DataField="STRING_RU" HeaderText="English" />
-                                    <asp:BoundColumn DataField="STRING_RU" HeaderText="Русский" />
+                                    <asp:BoundColumn DataField=ConfigurationManager.AppSettings["language"] HeaderText="English" />
+                                    <asp:BoundColumn DataField=ConfigurationManager.AppSettings["language"] HeaderText="Русский" />
                                     <asp:EditCommandColumn EditText="Править" CancelText="Отмена" UpdateText="Применить" />
                                 </Columns>
                             </asp:DataGrid>

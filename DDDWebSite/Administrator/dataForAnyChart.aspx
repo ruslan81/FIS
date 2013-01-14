@@ -38,7 +38,7 @@
     }
 
     string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-    BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, "STRING_RU");
+    BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
     System.Collections.Generic.List<PLFUnit.PLFRecord> records = dataBlock.plfUnitInfo.Get_Records(dataBlockIds, from.Date, to.Date, cardId);
 
     System.Collections.Generic.List<int> items = new System.Collections.Generic.List<int>();

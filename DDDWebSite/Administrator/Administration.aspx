@@ -109,8 +109,10 @@
               if ($('#userControls:visible').length > 0) {
                   outHeight -= 34;
               }
-              document.getElementById('commonData').style.height = outHeight + "px";
-              document.getElementById('detailedData').style.height = outHeight + "px";
+              $(".inner-overflow-container").height(outHeight);
+              //document.getElementById('commonData').style.height = outHeight + "px";
+              //document.getElementById('detailedData').style.height = outHeight + "px";
+              
               /*document.getElementById('report').style.height = outHeight - 7 - 50 + "px";
               document.getElementById('chart').style.height = outHeight - 7 - 50 + "px";
               document.getElementById('chart').style.width = $('#outputId').width() - 35 + "px";
@@ -174,10 +176,10 @@
             <tr><td><label>Пароль </label></td><td><label>Пароль (Подтверждение) </label></td></tr>
             <tr>
                 <td>
-                    <div style="width: 300px;"><input id="pass1" value="{{html password}}"/></div>
+                    <div style="width: 300px;"><input id="pass1" type ="password" value="{{html password}}"/></div>
                 </td>
                 <td>
-                    <div style="width: 300px;"><input id="pass2" value="{{html password}}"/></div>
+                    <div style="width: 300px;"><input id="pass2" type ="password" value="{{html password}}"/></div>
                 </td>
             </tr>
         </table>
@@ -340,7 +342,7 @@
                 <li><a href="#tabs-3">Детальные сведения</a></li>
 	        </ul>
             <div id="tabs-1">
-                <div id="commonData" style="overflow: auto;">
+                <div id="commonData" style="overflow: auto;" class="inner-overflow-container">
                     <table style="width:100%;">
                         <tr>
                             <td id="firstGeneralRow">
@@ -385,10 +387,10 @@
                 </div>
             </div>
             <div id="tabs-2">
-                <div id="detailedData1">
+                <div id="detailedData1" class="inner-overflow-container">
                 </div>
             </div>
-            <div id="tabs-3">
+            <div id="tabs-3" class="inner-overflow-container">
                 <div id="detailedData2">
                 </div>
             </div>
@@ -424,11 +426,11 @@
                 </div>
             </div>-->
             <div id="tabs-2">
-                <div id="detailedData1" style="overflow: auto;">
+                <div id="detailedData1" style="overflow: auto;" class="inner-overflow-container">
                 </div>
             </div>
             <div id="tabs-3">
-                <div id="detailedData2" style="overflow: auto;">
+                <div id="detailedData2" style="overflow: auto;" class="inner-overflow-container">
                 </div>
             </div>
     </div>           
@@ -465,10 +467,10 @@
             <tr><td><label>Пароль </label></td><td><label>Пароль (Подтверждение) </label></td></tr>
             <tr>
                 <td>
-                    <div style="width: 300px;"><input id="pass1" value="{{html password}}"/></div>
+                    <div style="width: 300px;"><input id="pass1" type ="password" value="{{html password}}"/></div>
                 </td>
                 <td>
-                    <div style="width: 300px;"><input id="pass2" value="{{html password}}"/></div>
+                    <div style="width: 300px;"><input id="pass2" type ="password" value="{{html password}}"/></div>
                 </td>
             </tr>
         </table>
@@ -530,63 +532,116 @@
                 <input id="userImageUpload" type="file" class="input-upload-foto"  onchange="loadImage('userImage','userImageUpload');"/>
             </div>
         </div>
-        <label>Организация</label></br><div style="width: 300px;"><input id="orgName" value="{{html orgName}}"/></div></br>
 
         <table style="" cellpadding="0" cellspacing="0">
-        <tr>
-        <td><label>Пользователь</label></td><td></td>
-        </tr>
-        <tr>
-        <td><div style="width: 300px;"><input id="orgLogin" value="{{html login}}"/></div></td>
-        <td><div  style="width: 300px;"><input style="width:20px;height:auto;float:left;" id="boxOnOff" type="checkbox" checked="true" disabled="true" class="unused"/>
-        <label class="unused">Включен</label></div></td>
-        </tr>
-        </tr>
-        </table>
-
-        </br>
-        
-        <table style="" cellpadding="0" cellspacing="0">
-        <tr><td><label>Дилер </label></td><td><label>Роль </label></td></tr>
-        <tr>
-            <td>
-                <div style="width: 300px;"><select id="dealerSelector" style="width:100px;" dealerId="{{html dealerId}}" onchange="this.dealerId=this.value;"></select></div>
-            </td>
-            <td>
-                <div style="width: 300px;"><select id="role" style="width:100px;" roleId="{{html roleId}}" onchange="this.roleId=this.value;"></select></div>
-            </td>
-        </tr>
-        </table><br>
-        
-        <table style="" cellpadding="0" cellspacing="0">
-        <tr><td><label>Имя </label></td><td><label>Отчество </label></td><td><label>Фамилия </label></td></tr>
-        <tr>
-            <td>
-                <div style="width: 300px;"><input id="name" value="{{html name}}"/></div>
-            </td>
-            <td>
-                <div style="width: 300px;"><input id="patronimic" value="{{html patronimic}}"/></div>
-            </td>
-            <td>
-                <div style="width: 300px;"><input id="surname" value="{{html surname}}"/></div>
-            </td>
-        </tr>
+            <tr>
+                <td><label>Имя </label></td>
+                <td><label>Отчество </label></td>
+                <td><label>Фамилия </label></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="width: 140px;"><input id="name" value="{{html name}}"/></div>
+                </td>
+                <td>
+                    <div style="width: 140px;"><input id="patronimic" value="{{html patronimic}}"/></div>
+                </td>
+                <td>
+                    <div style="width: 140px;"><input id="surname" value="{{html surname}}"/></div>
+                </td>
+                <td>
+                    <div  style="width: 70px;">
+                        <input style="width:20px;height:auto;float:left;" id="boxOnOff" type="checkbox" checked="true" disabled="true" class="unused"/>
+                        <label class="unused">Включен</label>
+                    </div>
+                </td>
+            </tr>
         </table>
 
         <br/>
 
         <table style="" cellpadding="0" cellspacing="0">
-            <tr><td><label>Пароль </label></td><td><label>Пароль (Подтверждение) </label></td></tr>
             <tr>
                 <td>
-                    <div style="width: 300px;"><input id="pass1" value="{{html password}}"/></div>
+                    <label>Пользователь</label>
                 </td>
+            </tr>
+
+            <tr>
                 <td>
-                    <div style="width: 300px;"><input id="pass2" value="{{html password}}"/></div>
+                    <div style="width: 300px;"><input id="orgLogin" value="{{html login}}"/></div>
+                </td>
+            </tr>
+            
+        </table>
+
+        <br/>
+
+        <table style="" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                    <label>Пароль </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="width: 300px;"><input id="pass1" type ="password" value="{{html password}}"/></div>
                 </td>
             </tr>
         </table>
 
+        <br/>
+
+        <table style="" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                    <label>Пароль (Подтверждение) </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="width: 300px;"><input id="pass2" type ="password" value="{{html password}}"/></div>
+                </td>
+            </tr>
+        </table>
+
+        <br/>
+
+        <label>Организация</label>
+        <br/>
+        <div style="width: 300px;"><input id="orgName" value="{{html orgName}}"/></div>
+        
+        <br/>
+
+        <table style="" cellpadding="0" cellspacing="0">
+            <tr>
+                <td><label>Дилер </label></td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="width: 300px;"><select id="dealerSelector" style="width:270px;" dealerId="{{html dealerId}}" onchange="this.dealerId=this.value;"></select></div>
+                </td>
+            </tr>
+        </table>
+
+        <br/>
+
+        <table style="" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                    <label>Роль </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="width: 300px;"><select id="role" style="width:270px;" roleId="{{html roleId}}" onchange="this.roleId=this.value;"></select></div>
+                </td>
+            </tr>
+        </table>
+
+        <br/>
+        
         <!--<div style="margin:10px 0 10px 0; border-top:1px dashed #ccc;"></div>-->
 
     </script>
@@ -596,7 +651,7 @@
             <tr><td><label>Страна </label></td><td><label>Город </label></td><td><label>Почтовый индекс </label></td></tr>
             <tr>
                 <td>
-                    <div style="width: 300px;"><select id="country" style="width:170px;" countryId="{{html country}}" onchange="this.countryId=this.value;"></select>
+                    <div style="width: 300px;"><select id="country" style="width:270px;" countryId="{{html country}}" onchange="this.countryId=this.value;"></select>
                 </td>
                 <td>
                     <div style="width: 300px;"><input id="city" value="{{html city}}"/></div>
@@ -610,10 +665,10 @@
         <br>
 
         <label>Часовая зона</label></br>
-        <div style="width:100%;"><select id="timeZoneSelector" style="width:350px;" timeZoneId="{{html timeZone}}" onchange="this.timeZoneId=this.value;"></select></div><br>
+        <div style="width:100%;"><select id="timeZoneSelector" style="width:560px;" timeZoneId="{{html timeZone}}" onchange="this.timeZoneId=this.value;"></select></div><br>
 
-        <label>Адрес (Основной)</label><br><div style="width: 500px;"><input id="addr1" value="{{html address1}}"/></div><br>
-        <label>Адрес (Дополнительно)</label><br><div style="width: 500px;"><input id="addr2" value="{{html address2}}"/></div><br>
+        <label>Адрес (Основной)</label><br><div style="width: 632px;"><input id="addr1" value="{{html address1}}"/></div><br>
+        <label>Адрес (Дополнительно)</label><br><div style="width: 632px;"><input id="addr2" value="{{html address2}}"/></div><br>
 
         <table style="" cellpadding="0" cellspacing="0">
             <tr><td><label>Телефон </label></td><td><label>Факс </label></td><td><label>E-mail </label></td></tr>
@@ -640,13 +695,13 @@
             <tr><td><label>Язык (экран) </label></td><td><label>Язык (отчеты) </label></td></tr>
             <tr>
                 <td>
-                    <div style="width: 300px;"><select id="lang_screen" style="width:170px;" langId="0" onchange="this.langId=this.value;">
+                    <div style="width: 300px;"><select id="lang_screen" style="width:270px;" langId="0" onchange="this.langId=this.value;">
                         <option value="0">Русский</option>
                         <option value="1">English</option>
                     </select></div>
                 </td>
                 <td>
-                    <div style="width: 300px;"><select id="lang_report" style="width:170px;" langId="0" onchange="this.langId=this.value;">
+                    <div style="width: 300px;"><select id="lang_report" style="width:270px;" langId="0" onchange="this.langId=this.value;">
                         <option value="0">Русский</option>
                         <option value="1">English</option>
                     </select></div>

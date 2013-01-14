@@ -33,7 +33,7 @@ public partial class Administrator_Data_UserControls_LoadDataStatistics : System
     protected void ReloadStats_Click(object s, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
 
         try
         {
@@ -93,7 +93,7 @@ public partial class Administrator_Data_UserControls_LoadDataStatistics : System
     public void LoadAllDriversDateStatistics(List<int> dataBlockIds)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
 
         try
         {
@@ -162,7 +162,7 @@ public partial class Administrator_Data_UserControls_LoadDataStatistics : System
     public void LoadAllVehiclesDateStatistics(List<int> dataBlockIds)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
 
         try
         {

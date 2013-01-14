@@ -22,7 +22,7 @@ public partial class Administrator_Adminisration_UserControls_UsersTab_UserContr
             if (!IsPostBack)
             {
                 ClearUserAdditionalInfo();
-                Session["UsersTab_UserControl_UsersIds"] = null;               
+                Session["UsersTab_UserControl_UsersIds"] = null;
             }
         }
         catch (Exception ex)
@@ -34,7 +34,7 @@ public partial class Administrator_Adminisration_UserControls_UsersTab_UserContr
     public void LoadUsersTable()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
         List<int> usersIds = new List<int>();
         List<UserFromTable> userFromTableList = new List<UserFromTable>();
@@ -114,7 +114,7 @@ public partial class Administrator_Adminisration_UserControls_UsersTab_UserContr
     private void LoadUserAdditionalInfo(int userId)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
 
         int userInfoId = 0;
@@ -250,7 +250,7 @@ public partial class Administrator_Adminisration_UserControls_UsersTab_UserContr
     private void LoadAllDropDowns()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
 
         DetailedInfo_TimeZone_DropDown.Items.Clear();
@@ -289,8 +289,8 @@ public partial class Administrator_Adminisration_UserControls_UsersTab_UserContr
             UsersFilterTable_TypeDropDownList.Items.Add(new ListItem(type.Key, type.Value.ToString()));//фильтр
         }
 
-        string Russian = "STRING_RU";
-        string English = "STRING_RU";
+        string Russian = ConfigurationManager.AppSettings["language"];
+        string English = ConfigurationManager.AppSettings["language"];
         DetailedInfo_SiteLang_DropDown.Items.Add(new ListItem("Русский", Russian));
         DetailedInfo_SiteLang_DropDown.Items.Add(new ListItem("English", English));
         DetailedInfo_ReportsLang_DropDown.Items.Add(new ListItem("Русский", Russian));
@@ -385,7 +385,7 @@ public partial class Administrator_Adminisration_UserControls_UsersTab_UserContr
     protected void SaveUserButton_Click(object sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
 
         try
         {
@@ -443,7 +443,7 @@ public partial class Administrator_Adminisration_UserControls_UsersTab_UserContr
     protected void DeleteUserButton_Click(object sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
 
         try
         {
@@ -565,7 +565,7 @@ public partial class Administrator_Adminisration_UserControls_UsersTab_UserContr
 
 
             string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-            DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+            DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
             int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
             List<int> usersIds = new List<int>();
 

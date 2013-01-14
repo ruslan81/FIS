@@ -29,7 +29,7 @@ public partial class Administrator_Adminisration_UserControls_InvoicesTab_UserCo
     protected void InvoicesDataGrid_RadioButton_Checked(object sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
           /*  foreach (DataGridItem oldrow in InvoicesDataGrid.Items)
@@ -74,7 +74,7 @@ public partial class Administrator_Adminisration_UserControls_InvoicesTab_UserCo
     public void LoadInvoicesTable()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
         List<int> invoicesIds = new List<int>();
 
@@ -120,7 +120,7 @@ public partial class Administrator_Adminisration_UserControls_InvoicesTab_UserCo
 
     protected void InvoicesTab_PayInvoiceButton_Click(object sender, EventArgs e)
     {
-        string currentLanguage = "STRING_RU";
+        string currentLanguage = ConfigurationManager.AppSettings["language"];
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, currentLanguage);
         try
@@ -167,7 +167,7 @@ public partial class Administrator_Adminisration_UserControls_InvoicesTab_UserCo
     protected void InvoicesTab_UNPayInvoiceButton_Click(object sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             int invoiceId = Convert.ToInt32(Selected_InvoicesDataGrid_Index.Value);

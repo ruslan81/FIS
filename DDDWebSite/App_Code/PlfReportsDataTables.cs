@@ -588,7 +588,7 @@ public class PlfReportsDataTables
     public static DataTable Get_PlfHeader_1(DateTime from, DateTime to, int DriversCardId, int curUserId, string VehRegNumber, string VehDeviceName, string PhotoPath)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
 
         DataTable activityTable = new DataTable("PlfHeader_1");
         DataRow dr;
@@ -638,7 +638,7 @@ public class PlfReportsDataTables
     public static DataTable Get_PlfHeader_1(DateTime from, DateTime to, int curUserId)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
 
         DataTable activityTable = new DataTable("PlfHeader_1");
         DataRow dr;
@@ -670,7 +670,7 @@ public class PlfReportsDataTables
     public static DataTable Get_VehicleHeader_1(int VehicleId, DateTime from, DateTime to, int curUserId)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
 
         DataTable activityTable = new DataTable("VehicleHeader_1");
         DataRow dr;

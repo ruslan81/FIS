@@ -25,7 +25,7 @@ public class PublicServices : System.Web.Services.WebService {
     public int UploadFile(string Profile, string UserName, string Password, byte[] File, string FileName)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             dataBlock.OpenConnection();
@@ -68,7 +68,7 @@ public class PublicServices : System.Web.Services.WebService {
     public bool ParseFile(string Profile, string UserName, string Password, int DataBlockID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
             dataBlock.OpenConnection();

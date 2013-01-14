@@ -34,7 +34,7 @@ public partial class Administrator_Adminisration_UserControls_AccountsTab_UserCo
     public bool LoadAccountsTable()//Возвращает False, если организация субдилер, у которой не может быть субдилеров
     {
       string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
         List<int> accountsIds = new List<int>();
 
@@ -107,7 +107,7 @@ public partial class Administrator_Adminisration_UserControls_AccountsTab_UserCo
     {
         Selected_AccountsDataGrid_Index.Value = orgId.ToString();
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
 
         int userInfoId = 0;
         DateTime date = new DateTime();
@@ -209,7 +209,7 @@ public partial class Administrator_Adminisration_UserControls_AccountsTab_UserCo
     private void LoadAllDropDowns()
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
 
         DetailedInfo_TimeZone_DropDown.Items.Clear();
@@ -247,8 +247,8 @@ public partial class Administrator_Adminisration_UserControls_AccountsTab_UserCo
             DetailedInfo_Country_DropDown.Items.Add(new ListItem(country.Key, country.Value.ToString()));
         }
        
-        string Russian = "STRING_RU";
-        string English = "STRING_RU";
+        string Russian = ConfigurationManager.AppSettings["language"];
+        string English = ConfigurationManager.AppSettings["language"];
         DetailedInfo_SiteLang_DropDown.Items.Add(new ListItem("Русский", Russian));
         DetailedInfo_SiteLang_DropDown.Items.Add(new ListItem("English", English));
         DetailedInfo_ReportsLang_DropDown.Items.Add(new ListItem("Русский", Russian));
@@ -263,7 +263,7 @@ public partial class Administrator_Adminisration_UserControls_AccountsTab_UserCo
         try
         {
             string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-            DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+            DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
            /* foreach (DataGridItem oldrow in AccountsDataGrid.Items)
             {
                 ((RadioButton)oldrow.FindControl("AccountsDataGrid_RadioButton")).Checked = false;
@@ -341,7 +341,7 @@ public partial class Administrator_Adminisration_UserControls_AccountsTab_UserCo
     protected void SaveAccountButton_Click(object sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
 
         try
@@ -417,7 +417,7 @@ public partial class Administrator_Adminisration_UserControls_AccountsTab_UserCo
     protected void DeleteAccountButton_Click(object sender, EventArgs e)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         /*
                 try
                 {
@@ -495,7 +495,7 @@ public partial class Administrator_Adminisration_UserControls_AccountsTab_UserCo
     public void SelectItemInDataGrid(int orgId)
     {
         string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-        DataBlock dataBlock = new DataBlock(connectionString, "STRING_RU");
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         Selected_AccountsDataGrid_Index.Value = orgId.ToString();
         int userId = -1;
         dataBlock.OpenConnection();
