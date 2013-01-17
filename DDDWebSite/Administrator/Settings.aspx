@@ -1,22 +1,16 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage/MasterPage.Master" AutoEventWireup="true"
-    CodeFile="Settings.aspx.cs" Inherits="Administrator_Settings" Title="Настройки"%>
+    CodeFile="Settings.aspx.cs" Inherits="Administrator_Settings" Title="Настройки" %>
 
-<%@ Register src="../UserControlsForAll/BlueButton.ascx" tagname="BlueButton" tagprefix="uc2" %>
-
+<%@ Register Src="../UserControlsForAll/BlueButton.ascx" TagName="BlueButton" TagPrefix="uc2" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContentPlaceHolder" runat="server">
-
     <link type="text/css" href="../css/custom-theme/jquery.wijmo.wijcombobox.css" rel="stylesheet" />
-
     <script src="../js/custom/Settings.js" type="text/javascript"></script>
     <script src="../js/jquery.ui.datepicker-ru.js" type="text/javascript"></script>
     <script src="../js/jquery.wijmo.wijcombobox.js" type="text/javascript"></script>
-    
 </asp:Content>
-
-<asp:Content ID="AccordionContent" ContentPlaceHolderID="VerticalOutlookMenu_PlaceHolder" runat="server">
-
+<asp:Content ID="AccordionContent" ContentPlaceHolderID="VerticalOutlookMenu_PlaceHolder"
+    runat="server">
     <asp:HiddenField ID="AccordionSelectedPane" Visible="true" runat="server" Value="0" />
-
     <script type="text/javascript" language="javascript">
 
         var mode = "";
@@ -100,13 +94,12 @@
 
         function resizeSettings() {
             if ($('#decision:visible').length > 0) {
-                var h = $('#outputId').height() - $('#decision').height()-5;
+                var h = $('#outputId').height() - $('#decision').height() - 5;
                 $('#outputId').height(h);
                 $('#outputId-content').height(h);
             }
         }
-    </script>  
-    
+    </script>
     <script id="tmplGeneralSettingsLogo" type="text/x-jquery-tmpl">
        <div style="float:right;">
             <div class="foto">
@@ -117,7 +110,6 @@
             </div>
         </div>
     </script>
-
     <script id="tmplGeneralSettings" type="text/x-jquery-tmpl">
         <table style="width:60%;">
             <tbody>
@@ -133,8 +125,7 @@
                 {{/each}}
             </tbody>
         </table>
-    </script> 
-
+    </script>
     <script id="userControlsGeneral" type="text/x-jquery-tmpl">
         <button id="edit">Редактировать</button>
         <div style="float:right">
@@ -142,7 +133,6 @@
             <button id="cancel">Отмена</button>
         </div>
     </script>
-    
     <script id="userControlsGroups" type="text/x-jquery-tmpl">
         <button id="edit">Редактировать</button>
         <button id="delete">Удалить</button>
@@ -155,15 +145,13 @@
             <button id="cancel">Отмена</button>
         </div>
     </script>
-
-     <script id="userControlsDefault" type="text/x-jquery-tmpl">
+    <script id="userControlsDefault" type="text/x-jquery-tmpl">
         <button id="edit">Редактировать</button>
         <div style="float:right">
             <button id="save">Сохранить</button>
             <button id="cancel">Отмена</button>
         </div>
     </script>
-
     <script id="RemindMainLabels" type="text/x-jquery-tmpl">
         <table style="width:100%;">
         <tr>
@@ -172,7 +160,6 @@
         </tr>
         </table>
     </script>
-
     <script id="RemindContentControls" type="text/x-jquery-tmpl">
         <table id="RemindControlsTable">
         <tr>
@@ -203,8 +190,7 @@
         </tr>
         </table>
     </script>
-
-   <script id="tmplContentTable" type="text/x-jquery-tmpl">
+    <script id="tmplContentTable" type="text/x-jquery-tmpl">
         <div id="contentTableWrapper">
             <table id="contentTable" style="border-collapse: separate;" class="wijmo-wijgrid-root wijmo-wijgrid-table"
                 border="0" cellpadding="0" cellspacing="0">
@@ -215,7 +201,6 @@
             </table>
          </div>
     </script>
-
     <script id="tmplHeadColumn" type="text/x-jquery-tmpl">
         <th class="ui-widget wijmo-c1basefield ui-state-default wijmo-c1field" style="{{html style}}height:30px;">
             <div class="wijmo-wijgrid-innercell">
@@ -223,7 +208,6 @@
             </div>
         </th>
     </script>
-
     <script id="tmplGroupTableContent" type="text/x-jquery-tmpl">
         <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
             <td class="wijgridtd wijdata-type-string">
@@ -258,7 +242,6 @@
             </td>
         </tr>
     </script>
-
     <script id="NewGroup" type="text/x-jquery-tmpl">
         <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
             <td class="wijgridtd wijdata-type-string wijmo-wijgrid-cell-border-bottom wijmo-wijgrid-cell-border-right wijmo-wijgrid-cell">
@@ -289,11 +272,9 @@
             </td>
         </tr>
     </script>
-
     <script id="tmplOption" type="text/x-jquery-tmpl">
         <option value="{{html Key}}">{{html Value}}</option>
     </script>
-
     <script id="tmplTabsContent" type="text/x-jquery-tmpl">
         <div id="tabs" style="background: transparent;">                
             <ul style="height:30px;">
@@ -307,7 +288,6 @@
             </div>
         </div>
     </script>
-
     <script id="tmplCardTableContent" type="text/x-jquery-tmpl">
         <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
             <td class="wijgridtd wijdata-type-string">
@@ -340,7 +320,7 @@
             </td>
         </tr>
     </script>
-<script id="tmplSingleDriverData" type="text/x-jquery-tmpl">
+    <script id="tmplSingleDriverData" type="text/x-jquery-tmpl">
   <div id="tabs" style="background: transparent;">
     <ul style="height:30px;">
       <li>
@@ -368,19 +348,19 @@
                 <tr style="background-color:#eee;">
                 <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Фамилия</td>
                 <td style="padding-top:10px;">
-                    <input id="surnameinputSingle" value="{{html Surname}}" class="inputField-readonly input" readonly="readonly"/>
+                    <input id="surnameinputSingle" value="{{html user.surname}}" class="inputField-readonly input" readonly="readonly"/>
                 </td>
                 </tr>
                 <tr style="background-color:#eee;">
                 <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Имя</td>
                 <td style="padding-top:10px;">
-                    <input id="nameinputSingle" value="{{html Name}}" class="inputField-readonly input" readonly="readonly"/>
+                    <input id="nameinputSingle" value="{{html user.name}}" class="inputField-readonly input" readonly="readonly"/>
                 </td>
                 </tr>
                 <tr style="background-color:#eee;">
                 <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Отчество</td>
                 <td style="padding-top:10px;">
-                    <input id="patronymicinputSingle" value="{{html Patronymic}}" class="inputField-readonly input" readonly="readonly"/>
+                    <input id="patronymicinputSingle" value="{{html user.patronymic}}" class="inputField-readonly input" readonly="readonly"/>
                 </td>
                 </tr>
                 <tr style="background-color:#eee;">
@@ -501,9 +481,8 @@
         </table>
     </div>
   </div>
-</script>
-
-<script id="tmplSingleVehicleData" type="text/x-jquery-tmpl">
+    </script>
+    <script id="tmplSingleVehicleData" type="text/x-jquery-tmpl">
   <div id="tabs" style="background: transparent;">
     <ul style="height:30px;">
       <li>
@@ -719,9 +698,8 @@
       </table>
     </div>
   </div>
-</script>
-
-<script id="tmplSingleGroupData" type="text/x-jquery-tmpl">
+    </script>
+    <script id="tmplSingleGroupData" type="text/x-jquery-tmpl">
   <table id="contentTable" style="border-collapse: separate; width:60%;"
           border="0" cellpadding="0" cellspacing="0">
     <tbody id="" class="ui-widget-content wijmo-wijgrid-data">
@@ -746,8 +724,7 @@
       </tr>
     </tbody>
   </table>
-</script>
-
+    </script>
     <script id="newCard" type="text/x-jquery-tmpl">
         <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
             <td class="wijgridtd wijdata-type-string wijmo-wijgrid-cell-border-bottom wijmo-wijgrid-cell-border-right wijmo-wijgrid-cell">
@@ -779,7 +756,6 @@
             </td>
         </tr>
     </script>
-    
     <script id="tmplDefaultSettingsTable" type="text/x-jquery-tmpl">
         <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
             <td class="wijgridtd wijdata-type-string">
@@ -814,7 +790,6 @@
             </td>
         </tr>
     </script>
-
     <script id="tmplRemindTable" type="text/x-jquery-tmpl">
         <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
             <td class="wijgridtd wijdata-type-string">
@@ -865,7 +840,6 @@
             </td>
         </tr>
     </script>
-
     <script id="NewRemind" type="text/x-jquery-tmpl">
         <tr class="wijmo-wijgrid-row ui-widget-content wijmo-wijgrid-datarow" style="height:30px;">
             <td class="wijgridtd wijdata-type-string wijmo-wijgrid-cell-border-bottom wijmo-wijgrid-cell-border-right wijmo-wijgrid-cell">
@@ -909,7 +883,6 @@
             </td>
         </tr>
     </script>
-
     <script id="tmplDriverTree" type="text/x-jquery-tmpl">
         <li class="folder" id="OrgLI" name="${OrgName}" key=${OrgId} li_type="2"><a><span key=${OrgId} type="2">${OrgName}</span></a>
         <ul>
@@ -925,13 +898,10 @@
         </ul>
         </li>
     </script>
-
-    
-
     <div id="accordion" style="width: 5">
-        <h3><asp:LinkButton CausesValidation="false" runat="server" PostBackUrl="#" Text="Организация"/></h3>
+        <h3>
+            <asp:LinkButton CausesValidation="false" runat="server" PostBackUrl="#" Text="Организация" /></h3>
         <div>
-
             <div>
                 <ul id="tree">
                     <!--<li class="folder" id="general"><a><span key="General">Общие</span></a>
@@ -947,85 +917,83 @@
                 </ul>
             </div>
         </div>
-        
         <div>
-            <h3><asp:LinkButton ID="AccordionHeader5_Groups" CausesValidation="false" runat="server" PostBackUrl="#" Text="Группы" code="5"/></h3>
+            <h3>
+                <asp:LinkButton ID="AccordionHeader5_Groups" CausesValidation="false" runat="server"
+                    PostBackUrl="#" Text="Группы" code="5" /></h3>
             <div>
-
-            <div>
-                <ul id="GroupsTreeSingle">
-                </ul>
-            </div>
-
-            </div>
-
-        </div>
-        <div>
-            <h3><asp:LinkButton ID="AccordionHeader3_Drivers" CausesValidation="false" runat="server" PostBackUrl="#" Text="Водители" code="3"/></h3>
-            <div>
-
-            <div>
-                <ul id="DriversTreeSingle">
-                </ul>
-            </div>
-
-            </div>
-
-        </div>
-
-        <div>
-            <h3><asp:LinkButton ID="AccordionHeader4_Vehicles" CausesValidation="false" runat="server" PostBackUrl="#" Text="Транспортные средства" code="4"/></h3>
-            <div>
-
-            <div>
-                <ul id="VehiclesTreeSingle">
-                </ul>
-            </div>
-
-            </div>
-
-        </div>
-        <div id="reminders">
-            <h3><asp:LinkButton ID="AccordionHeader2_Reminders" CausesValidation="false" runat="server" PostBackUrl="#" Text="Напоминания"/></h3>
-            <div>
-
-            <div style="margin-top:10px;">
-                <center>
-                    Данный раздел позволяет создавать и редактировать напоминания различных типов и периодичности для контроля за группами водителей или конкретными водителями.
-                    <br/>
-                    <br/>
-                    Выбранные вами напоминания будут автоматически формироваться и отправляться на e-mail адресата с заданной периодичностью.
-                </center>
-            </div>
-
-            <div id="choosedialog" title="Выбор источника" style="display: none;">
-	            <p>Выберите водителя или группу водителей:</p>
                 <div>
-                    <ul id="DriversTree">
+                    <ul id="GroupsTreeSingle">
                     </ul>
                 </div>
             </div>
-            </div>
-
         </div>
-
         <div>
-            <h3><asp:LinkButton ID="AccordionHeader6_Default" CausesValidation="false" runat="server" PostBackUrl="#" Text="Настройки по умолчанию" code="6"/></h3>
+            <h3>
+                <asp:LinkButton ID="AccordionHeader3_Drivers" CausesValidation="false" runat="server"
+                    PostBackUrl="#" Text="Водители" code="3" /></h3>
             <div>
-            <div style="margin-top:10px;">
-                <center>
-                    Данный раздел позволяет вам редактировать настройки по умолчанию.
-                </center>
+                <div>
+                    <ul id="DriversTreeSingle">
+                    </ul>
+                </div>
             </div>
+        </div>
+        <div>
+            <h3>
+                <asp:LinkButton ID="AccordionHeader4_Vehicles" CausesValidation="false" runat="server"
+                    PostBackUrl="#" Text="Транспортные средства" code="4" /></h3>
+            <div>
+                <div>
+                    <ul id="VehiclesTreeSingle">
+                    </ul>
+                </div>
             </div>
-        </div>  
+        </div>
+        <div id="reminders">
+            <h3>
+                <asp:LinkButton ID="AccordionHeader2_Reminders" CausesValidation="false" runat="server"
+                    PostBackUrl="#" Text="Напоминания" /></h3>
+            <div>
+                <div style="margin-top: 10px;">
+                    <center>
+                        Данный раздел позволяет создавать и редактировать напоминания различных типов и
+                        периодичности для контроля за группами водителей или конкретными водителями.
+                        <br />
+                        <br />
+                        Выбранные вами напоминания будут автоматически формироваться и отправляться на e-mail
+                        адресата с заданной периодичностью.
+                    </center>
+                </div>
+                <div id="choosedialog" title="Выбор источника" style="display: none;">
+                    <p>
+                        Выберите водителя или группу водителей:</p>
+                    <div>
+                        <ul id="DriversTree">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h3>
+                <asp:LinkButton ID="AccordionHeader6_Default" CausesValidation="false" runat="server"
+                    PostBackUrl="#" Text="Настройки по умолчанию" code="6" /></h3>
+            <div>
+                <div style="margin-top: 10px;">
+                    <center>
+                        Данный раздел позволяет вам редактировать настройки по умолчанию.
+                    </center>
+                </div>
+            </div>
+        </div>
     </div>
 </asp:Content>
-<asp:Content ID="ChoisesContent" ContentPlaceHolderID="MainConditions_PlaceHolder" runat="server">
+<asp:Content ID="ChoisesContent" ContentPlaceHolderID="MainConditions_PlaceHolder"
+    runat="server">
     <div id="headerSettings">
         Общие настройки
     </div>
-
 </asp:Content>
 <asp:Content ID="DataContent" ContentPlaceHolderID="Reports_PlaceHolder" runat="server">
     <div>
@@ -1035,33 +1003,42 @@
         </table>-->
         <div id="contentSettings">
         </div>
+        <div style="display: none">
+            <div id="wrongUserSurname" title="SmartFIS">
+                <div style="margin-top: 10px;">
+                    <h4>
+                        Неверные данные
+                    </h4>
+                </div>
+                <div style="margin-top: 20px;">
+                    Введите хотя бы фамилию водителя!
+                </div>
+            </div>
+        </div>
     </div>
     <div id="contentSettingsPlace">
     </div>
     <asp:UpdatePanel ID="DataContentUpdatePanel" runat="server" UpdateMode="Always">
-    <ContentTemplate>
-
-    </ContentTemplate>
-</asp:UpdatePanel>
-
-        <script language="javascript">
-            function CheckOtherIsChecked(spanChk) {
-                var IsChecked = spanChk.checked;
-                var CurrentRdbID = spanChk.id;
-                var Chk = spanChk;
-                Parent = Chk.form.elements;
-                for (i = 0; i < Parent.length; i++) {
-                    if (Parent[i].id != CurrentRdbID && Parent[i].type == "radio") {
-                        if (Parent[i].checked) {
-                            Parent[i].checked = false;
-                        }
+        <ContentTemplate>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+    <script language="javascript">
+        function CheckOtherIsChecked(spanChk) {
+            var IsChecked = spanChk.checked;
+            var CurrentRdbID = spanChk.id;
+            var Chk = spanChk;
+            Parent = Chk.form.elements;
+            for (i = 0; i < Parent.length; i++) {
+                if (Parent[i].id != CurrentRdbID && Parent[i].type == "radio") {
+                    if (Parent[i].checked) {
+                        Parent[i].checked = false;
                     }
                 }
             }
-        </script>
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="DecisionContent1" ContentPlaceHolderID="Decision_PlaceHolder" runat="server">
     <div id="userControls">
     </div>
-
 </asp:Content>

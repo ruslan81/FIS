@@ -396,7 +396,7 @@ public partial class Administrator_Administration : System.Web.UI.Page
                     {
                         utod.admins.Add(new MapItem(userId.ToString(), name));
                     }
-                    else 
+                    if (dataBlock.usersTable.Get_UserTypeId(userId) == 2)
                     {
                         utod.managers.Add(new MapItem(userId.ToString(), name));
                     }

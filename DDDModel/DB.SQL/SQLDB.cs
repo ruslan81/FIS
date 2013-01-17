@@ -1031,6 +1031,8 @@ namespace DB.SQL
         }
         public int GetUserId_byUserName(string userName)
         {
+            if (userName == null || userName == "")
+                return -1;
             MySqlCommand cmd = new MySqlCommand();
             int returnValue;
             string sql = "SELECT USER_ID FROM fd_user WHERE USER_LOGIN=@USER_LOGIN";
@@ -1317,7 +1319,7 @@ namespace DB.SQL
             cmd.Parameters.AddWithValue("@USER_LOGIN", findName);
             cmd.Parameters.AddWithValue("@USER_PASSWORD", findPass);
             generatedId = Convert.ToInt32(cmd.ExecuteScalar());
-            if (generatedId == 0)
+            if (findName=="" || findName==null || generatedId == 0)
             {
                 generatedId = generateId("fd_user", "USER_ID");
                 if (generatedId == -1)
@@ -3130,8 +3132,8 @@ namespace DB.SQL
             MySqlCommand cmd = new MySqlCommand();
             string sql = "";
 
-            if (GetCardId(cardHolderName, cardNumber, cardTypeId) != 0)
-                throw new Exception("Эта карта уже существует");
+            /*if (GetCardId(cardHolderName, cardNumber, cardTypeId) != 0)
+                throw new Exception("Эта карта уже существует");*/
 
             generatedId = generateId("fn_card", "CARD_ID");
             if (generatedId == -1)
@@ -3401,8 +3403,8 @@ namespace DB.SQL
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@CARD_ID", cardId);
             name = Convert.ToString(cmd.ExecuteScalar());
-            if (name == "")
-                throw new Exception("Этого водителя не существует!");
+            /*if (name == "")
+                throw new Exception("Этого водителя не существует!");*/
             return name;
         }
         public string GetCardNumber(int cardId)
@@ -3412,8 +3414,8 @@ namespace DB.SQL
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@CARD_ID", cardId);
             name = Convert.ToString(cmd.ExecuteScalar());
-            if (name == "")
-                throw new Exception("Этого водителя не существует!");
+            /*if (name == "")
+                throw new Exception("Этого водителя не существует!");*/
             return name;
         }
         public int GetCardGroupID(int cardId)

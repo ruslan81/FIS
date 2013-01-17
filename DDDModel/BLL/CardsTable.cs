@@ -62,7 +62,7 @@ namespace BLL
         /// <param name="CardNote">Комментарий к карту</param>
         /// <param name="curUserId">Текущий пользователь, создающий карты(для лога)</param>
         /// <returns>Id новой карты</returns>
-        public int CreateNewCard(string cardHolderName, string cardNumber, int cardTypeId, int orgId, string CardNote, int curUserId, int groupID)
+        public int CreateNewCard(string cardHolderName, string cardNumber, int cardTypeId, int orgId, int userId, string CardNote, int curUserId, int groupID)
         {
             Exception userNameAllreadyExists = new Exception("Пользователь с таким именем уже существует!");
 
@@ -72,7 +72,7 @@ namespace BLL
             //sqlDB.OpenConnection();
             if (cardTypeId == driversCardTypeId)
             {
-                UsersTables userTables = new UsersTables(connectionString, CurrentLanguage, sqlDb);
+                /*UsersTables userTables = new UsersTables(connectionString, CurrentLanguage, sqlDb);
                 int userId = sqlDb.GetUserId_byUserName(cardHolderName);
                 if (userId > 0)
                     throw userNameAllreadyExists;
@@ -83,7 +83,7 @@ namespace BLL
                 userId = sqlDb.AddNewUser(Login, cardNumber, userTables.DriverUserTypeId, 1, orgId, cardHolderName, cardNumber);
                 //userTables.OpenConnection();
                 userTables.AddUserInfoValue(userId, DataBaseReference.UserInfo_Name, cardHolderName);
-                userTables.AddUserInfoValue(userId, DataBaseReference.UserInfo_RegDate, DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+                userTables.AddUserInfoValue(userId, DataBaseReference.UserInfo_RegDate, DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());*/
                 //userTables.CloseConnection();
                 returnValue = sqlDb.CreateNewCard(cardHolderName, cardNumber, cardTypeId, orgId, CardNote, userId, groupID);
 

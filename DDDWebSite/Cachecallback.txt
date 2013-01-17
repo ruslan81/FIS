@@ -12108,3 +12108,20 @@ Cache Callback: 14.01.2013 23:26:20
 Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
 Имя параметра: startIndex
 Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: Message: d:\BSUIR\Other\UnitedProject\DDDWebSite\Administrator\Settings.aspx.cs(444): error CS1501: Ни одна из перегрузок метода 'GetCardUserId' не принимает '0' аргумент(ов)
+Cache Callback: 15.01.2013 1:30:00
+Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
+Имя параметра: startIndex
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 15.01.2013 1:48:40
+Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
+Имя параметра: startIndex
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 17.01.2013 12:24:20
+Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
+Имя параметра: startIndex
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 17.01.2013 12:37:00
+Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
+Имя параметра: startIndex
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'

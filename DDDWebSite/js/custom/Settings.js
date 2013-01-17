@@ -801,7 +801,7 @@ function loadSingleDriverSettings() {
             if (selectedNodeType == "0") {
                 $("#tmplSingleDriverData").tmpl(response.d).appendTo("#contentSettings");
             } else {
-                var param = { Name: "", Number: "", Comment: "", groupID: selectedNodeType };
+                var param = { Name: "", Number: "", Comment: "", groupID: selectedNodeType, user: [] };
                 $("#tmplSingleDriverData").tmpl(param).appendTo("#contentSettings");
             }
             $("#tabs").tabs();
@@ -1264,18 +1264,27 @@ function createUserControlsDrivers() {
             });
         }
         if (mode == "create") {
-            name = $("#newCardName").attr("value");
-            comment = $("#newCardComment").attr("value");
-            number = $("#newCardNumber").attr("value");
-            card = $("#newCardGroupSelector").attr("group");
+            /*var name = $("#newCardName").attr("value");
+            var comment = $("#newCardComment").attr("value");
+            var number = $("#newCardNumber").attr("value");
+            var card = $("#newCardGroupSelector").attr("group");*/
 
-            var data = { Name: name, Comment: comment, Number: number, groupID: card };
+            var _surname = $("#surnameinputSingle").attr("value");
+            var _name = $("#nameinputSingle").attr("value");
+            if (_surname == "") {
+                showWrongDataMessage("wrongUserSurname");
+                return false;
+            }
+            //var data = { Name: name, Comment: comment, Number: number, groupID: card };
+            //var order = { OrgID: $.cookie("CURRENT_ORG_ID"), data: data, UserID: $.cookie("CURRENT_USERNAME") };
+
+            var data = { surname: _surname };
             var order = { OrgID: $.cookie("CURRENT_ORG_ID"), data: data, UserID: $.cookie("CURRENT_USERNAME") };
 
             $.ajax({
                 type: "POST",
                 //Page Name (in which the method should be called) and method name
-                url: "Settings.aspx/CreateCardDriver",
+                url: "Settings.aspx/CreateNewDriver",
                 data: JSON.stringify(order),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -1418,14 +1427,21 @@ function createUserControlsSingleDriver() {
 
     $("#save").click(function () {
         if (mode == "edit") {
-            var settings = [];
-            name = $("#nameinputSingle").attr("value");
+            /*name = $("#nameinputSingle").attr("value");
             comment = $("#commentinputSingle").attr("value");
-            number = $("#numberinputSingle").attr("value");
+            number = $("#numberinputSingle").attr("value");*/
+            var surname = $("#surnameinputSingle").attr("value");
+            var name = $("#nameinputSingle").attr("value");
+            if (surname == "") {
+                showWrongDataMessage("wrongUserSurname");
+                return false;
+            }
             group = $("#groupSelectorSingle").attr("group");
-            settings.push({ Name: name, Comment: comment, grID: currentCardId, Number: number, groupID: group });
 
-            var order = { OrgID: $.cookie("CURRENT_ORG_ID"), DriverSettings: settings };
+            var settings = { grID: currentCardId, groupID: group }
+            var user = { name: name, surname: surname }
+
+            var order = { OrgID: $.cookie("CURRENT_ORG_ID"), DriverSettings: settings, UserSettings: user };
 
             $.ajax({
                 type: "POST",
@@ -1444,7 +1460,7 @@ function createUserControlsSingleDriver() {
             });
         }
         if (mode == "create") {
-            name = $("#nameinputSingle").attr("value");
+            /*name = $("#nameinputSingle").attr("value");
             comment = $("#commentinputSingle").attr("value");
             number = $("#numberinputSingle").attr("value");
             group = $("#groupSelectorSingle").attr("group");
@@ -1456,6 +1472,40 @@ function createUserControlsSingleDriver() {
                 type: "POST",
                 //Page Name (in which the method should be called) and method name
                 url: "Settings.aspx/CreateCardDriver",
+                data: JSON.stringify(order),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    currentCardId = "-1";
+                    selectedNodeType = "-1";
+                    loadSingleDriverSettings();
+                    loadDriversTreeSingle("", "");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+                }
+            });*/
+            /*var name = $("#newCardName").attr("value");
+            var comment = $("#newCardComment").attr("value");
+            var number = $("#newCardNumber").attr("value");
+            var card = $("#newCardGroupSelector").attr("group");*/
+
+            var _surname = $("#surnameinputSingle").attr("value");
+            var _name = $("#nameinputSingle").attr("value");
+            if (_surname == "") {
+                showWrongDataMessage("wrongUserSurname");
+                return false;
+            }
+            var group = $("#groupSelectorSingle").attr("group");
+
+            var data = { surname: _surname, name: _name };
+            var cardData = { groupID: group };
+            var order = { OrgID: $.cookie("CURRENT_ORG_ID"), data: data, cardData: cardData, UserID: $.cookie("CURRENT_USERNAME") };
+
+            $.ajax({
+                type: "POST",
+                //Page Name (in which the method should be called) and method name
+                url: "Settings.aspx/CreateNewDriver",
                 data: JSON.stringify(order),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -2585,4 +2635,28 @@ function convert(date) {
     res = date.getDate() + ".";
     if (date.getMonth() < 9) res = res + "0";
     return res + (date.getMonth() + 1) + "." + date.getFullYear();
+}
+
+function showWrongDataMessage(name) {
+    $("#" + name).dialog({
+        autoOpen: true,
+        maxHeight: 500,
+        width: 420,
+        modal: true,
+        closeText: '',
+        resizable: false,
+        draggable: false,
+        buttons: {
+            Ok: function () {
+                $(this).dialog("close");
+            }
+        },
+        captionButtons: {
+            pin: { visible: false },
+            refresh: { visible: false },
+            toggle: { visible: false },
+            minimize: { visible: false },
+            maximize: { visible: false }
+        }
+    });
 }

@@ -440,6 +440,15 @@ public partial class Administrator_Settings : System.Web.UI.Page
 
             dataBlock.OpenConnection();
             CardData gd = new CardData(cardId);
+            UserData ud = new UserData();
+            ud.id = dataBlock.cardsTable.GetCardUserId(cardId);
+
+            int userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Name);
+            ud.name=dataBlock.usersTable.GetUserInfoValue(ud.id, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Surname);
+            ud.surname=dataBlock.usersTable.GetUserInfoValue(ud.id, userInfoId);
+
+            gd.user = ud;
             gd.Name = dataBlock.cardsTable.GetCardName(cardId);
             gd.Number = dataBlock.cardsTable.GetCardNumber(cardId);
             gd.Comment = dataBlock.cardsTable.GetCardNote(cardId);
@@ -463,7 +472,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     /// </summary>
     /// <returns></returns>
     [System.Web.Services.WebMethod]
-    public static bool SaveDriverSettings(String OrgID, List<CardData> DriverSettings)
+    public static bool SaveDriverSettings(String OrgID, CardData DriverSettings,UserData UserSettings)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
@@ -471,13 +480,18 @@ public partial class Administrator_Settings : System.Web.UI.Page
         {
             dataBlock.OpenConnection();
             int orgID = int.Parse(OrgID);
-            foreach (CardData item in DriverSettings)
-            {
-                dataBlock.cardsTable.ChangeCardName(item.Name, item.grID);
-                dataBlock.cardsTable.ChangeCardNumber(item.Number, item.grID, 0);
-                dataBlock.cardsTable.ChangeCardComment(item.Comment, item.grID);
-                dataBlock.cardsTable.ChangeCardGroup(item.groupID, item.grID);
-            }
+            /*dataBlock.cardsTable.ChangeCardName(DriverSettings.Name, DriverSettings.grID);
+            dataBlock.cardsTable.ChangeCardNumber(DriverSettings.Number, DriverSettings.grID, 0);
+            dataBlock.cardsTable.ChangeCardComment(DriverSettings.Comment, DriverSettings.grID);*/
+            
+            dataBlock.cardsTable.ChangeCardGroup(DriverSettings.groupID, DriverSettings.grID);
+
+            int userId = dataBlock.cardsTable.GetCardUserId(DriverSettings.grID);
+            int userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Name);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, UserSettings.name);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Surname);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, UserSettings.surname);            
+            
             return true;
         }
         catch (Exception ex)
@@ -792,7 +806,48 @@ public partial class Administrator_Settings : System.Web.UI.Page
             int orgID = int.Parse(OrgID);
             int userID = dataBlock.usersTable.Get_UserID_byName(UserID);
             //int userID = int.Parse(UserID);
-            dataBlock.cardsTable.CreateNewCard(data.Name, data.Number, dataBlock.cardsTable.driversCardTypeId, orgID, data.Comment, userID, data.groupID);
+            //dataBlock.cardsTable.CreateNewCard(data.Name, data.Number, dataBlock.cardsTable.driversCardTypeId, orgID, data.Comment, userID, data.groupID);
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            //return false;
+        }
+        finally
+        {
+            //dataBlock.organizationTable.CloseConnection();
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Создание водителя
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static bool CreateNewDriver(string OrgID, string UserID, UserData data, CardData cardData)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
+        try
+        {
+            dataBlock.OpenConnection();
+            int orgID = int.Parse(OrgID);
+            int userID = dataBlock.usersTable.Get_UserID_byName(UserID);
+            string orgName = dataBlock.organizationTable.GetOrganizationName(orgID);
+            UserFromTable user = new UserFromTable("","","1","1",new DateTime(),orgName);
+
+            int userId=dataBlock.usersTable.AddNewUser(user,1,1,orgID,userID);
+
+            int userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Name);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, data.name);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Surname);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, data.surname);            
+
+            //int userID = int.Parse(UserID);
+            dataBlock.cardsTable.CreateNewCard(data.surname+" "+data.name, cardData.Number, dataBlock.cardsTable.driversCardTypeId, orgID, userId, cardData.Comment, userID, cardData.groupID);
 
             return true;
         }
@@ -823,7 +878,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
             int orgID = int.Parse(OrgID);
             //int userID = int.Parse(UserID);
             int userID = dataBlock.usersTable.Get_UserID_byName(UserID);
-            dataBlock.cardsTable.CreateNewCard(data.Name, data.Number, dataBlock.cardsTable.vehicleCardTypeId, orgID, data.Comment, userID, data.groupID);
+            dataBlock.cardsTable.CreateNewCard(data.Name, data.Number, dataBlock.cardsTable.vehicleCardTypeId, orgID, 0, data.Comment, userID, data.groupID);
 
             return true;
         }

@@ -31,11 +31,7 @@ namespace DDDModel
             //MY CODE
 
             //dataBlock.GetAllUnparsedDataBlockIDs(1);
-            string data = dataBlock.vehiclesTables.GetVehicleImage(1);
-            System.Console.WriteLine(data);
-            System.Console.ReadKey();
-            dataBlock.vehiclesTables.SaveVehicleImage(1,data);
-
+            System.Console.WriteLine(dataBlock.cardsTable.GetCardNumber(4));
                 //SCRIPT TO ADD COMMON GROUP
                 /*List<Int32> orgIds = dataBlock.organizationTable.Get_AllOrganizationsId();
                 int k = 0;
