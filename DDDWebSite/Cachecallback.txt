@@ -12131,3 +12131,18 @@ Cache Callback: Message: Значение StartIndex не может быть м
 Имя параметра: startIndex
 Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
 Cache Callback: Message: Файл не существует.
+Cache Callback: 21.01.2013 0:17:20
+Cache Callback: 21.01.2013 0:17:26
+Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
+Имя параметра: startIndex
+Cache Callback: Message: Поток находился в процессе прерывания.
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 21.01.2013 0:18:40
+Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
+Имя параметра: startIndex
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
