@@ -971,7 +971,7 @@ public partial class Administrator_Data : System.Web.UI.Page
         {
             dataBlock.RollbackConnection();
             dataBlock.CloseConnection();
-            Status.Text = ex.Message;
+            throw ex;
         }
         finally
         {

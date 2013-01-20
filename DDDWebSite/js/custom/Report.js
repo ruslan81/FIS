@@ -74,7 +74,7 @@ function loadPLFFilesTree() {
     $("#report").empty();
     $("#chart").empty();
 
-    $.ajax({
+    /*$.ajax({
         type: "POST",
         //Page Name (in which the method should be called) and method name
         url: "Reports.aspx/GetPLFFilesTree",
@@ -97,7 +97,7 @@ function loadPLFFilesTree() {
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
-    });
+    });*/
 }
 
 function onPLFFilesNodeSelected(e, data) {
