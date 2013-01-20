@@ -31,7 +31,10 @@ namespace DDDModel
             //MY CODE
 
             //dataBlock.GetAllUnparsedDataBlockIDs(1);
-            System.Console.WriteLine(dataBlock.cardsTable.GetCardNumber(4));
+            //System.Console.WriteLine(dataBlock.cardsTable.GetCardNumber(4));
+            byte[] arr = new byte[100];
+
+            dataBlock.AddPlfTypeData(1, arr, "1.plf", 4);
                 //SCRIPT TO ADD COMMON GROUP
                 /*List<Int32> orgIds = dataBlock.organizationTable.Get_AllOrganizationsId();
                 int k = 0;

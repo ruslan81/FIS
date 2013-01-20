@@ -483,7 +483,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
             /*dataBlock.cardsTable.ChangeCardName(DriverSettings.Name, DriverSettings.grID);
             dataBlock.cardsTable.ChangeCardNumber(DriverSettings.Number, DriverSettings.grID, 0);
             dataBlock.cardsTable.ChangeCardComment(DriverSettings.Comment, DriverSettings.grID);*/
-            
+
+            dataBlock.cardsTable.ChangeCardName(UserSettings.surname + " " + UserSettings.name, DriverSettings.grID);
             dataBlock.cardsTable.ChangeCardGroup(DriverSettings.groupID, DriverSettings.grID);
 
             int userId = dataBlock.cardsTable.GetCardUserId(DriverSettings.grID);
