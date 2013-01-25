@@ -12,7 +12,15 @@ public partial class WhatsNew : System.Web.UI.Page
         if (!IsPostBack)
         {
 
+
             ReportLabel.Text = "";
+
+            ReportLabel.Text += Environment.NewLine + "-21.01.2013" + Environment.NewLine;
+            ReportLabel.Text += @"- Решена проблема с добавлением новых водителей (task #2)" + Environment.NewLine;
+            ReportLabel.Text += @"- Решена проблема с просмотром информации о водителе (task #3)" + Environment.NewLine;
+            ReportLabel.Text += @"- Решена проблема с добавлением/редактированием/просмотром менеджеров (task #6)" + Environment.NewLine;
+            ReportLabel.Text += @"- Решена проблема с ошибкой, возникающей при входе в систему (task #7)" + Environment.NewLine;
+            ReportLabel.Text += @"- Водители теперь не отображаются в списке Менеджеров в Управлении, под ними нельзя входить в систему" + Environment.NewLine;
 
             ReportLabel.Text += Environment.NewLine + "-13.01.2013" + Environment.NewLine;
             ReportLabel.Text += @"- Настройка языка вынесена в конфигурационный файл в виде константы под именем 'language' (task #1)" + Environment.NewLine;
