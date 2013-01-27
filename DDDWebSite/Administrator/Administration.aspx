@@ -310,7 +310,11 @@
 
         <label>јдрес (ƒополнительный)</label>
 
-        <br/><br/>
+        <br/>
+
+        <div style="width: 500px;"><input id="addr2" value="{{html address2}}"/></div>
+        
+        <br/>
 
         <table style="" cellpadding="0" cellspacing="0">
             <tr><td><label>язык (экран) </label></td><td><label>язык (отчеты) </label></td></tr>
