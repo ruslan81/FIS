@@ -208,7 +208,8 @@ public partial class Administrator_Data : System.Web.UI.Page
             {
                 dataBlock.SetDataBlockIdForParse(blockId);
                 dataBlock.SetOrgIdForParse(orgId);
-                if (dataBlock.GetDataBlockState(blockId) == "Not parsed")
+                string state = dataBlock.GetDataBlockState(blockId);
+                if (state.Equals("Not parsed"))
                 {
                     output = HttpContext.Current.Server.MapPath("~/XML_PLF") + "\\";
                     parsedObject = dataBlock.ParseRecords(true, output, userId);
