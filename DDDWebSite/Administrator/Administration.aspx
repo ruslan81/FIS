@@ -26,6 +26,7 @@
       var dealerOrgID = $.cookie("CURRENT_ORG_ID");
       var dealerLevel = 0;
       var crtype = 0;
+      var userType = 0;
 
       $(function () {
           mode = "";
@@ -36,6 +37,7 @@
           //buildUserTree(0);
           loadGeneralData();
           //createPeriodControls();
+          loadUserType();
 
           $("#accordion").accordion({
               change: function (event, ui) {
@@ -1120,7 +1122,7 @@
     {{each orgs}}
         <li class="folder"><a><span level="1" key="-1" crtype="0" orgId="${OrgID}">${OrgName}</span></a>
         <ul>
-            <li class="file"><a><span level="2" key="-1" crtype="1" orgId="${OrgID}">Администраторы</span></a>
+            <li class="file useradminli"><a><span level="2" key="-1" crtype="1" orgId="${OrgID}">Администраторы</span></a>
                 <ul>
                     {{each admins}}
                     <li class="file" likey="${Key}"><a><span key="${Key}" level="3" crtype="1" orgId="${OrgID}">${Value}</span></a>

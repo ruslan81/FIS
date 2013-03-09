@@ -1513,7 +1513,7 @@ function createUserControlsSingleDriver() {
                     currentCardId = "-1";
                     selectedNodeType = "-1";
                     loadSingleDriverSettings();
-                    loadDriversTreeSingle("", "");
+                    loadDriversTreeSingle(response.d, "0");
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -1678,7 +1678,7 @@ function createUserControlsSingleTransport() {
                     currentCardId = "-1";
                     selectedNodeType = "-1";
                     loadSingleVehicleSettings();
-                    loadVehiclesTreeSingle("", "");
+                    loadVehiclesTreeSingle(response.d, "0");
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);

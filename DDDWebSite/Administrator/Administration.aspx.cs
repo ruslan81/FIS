@@ -65,6 +65,32 @@ public partial class Administrator_Administration : System.Web.UI.Page
     //AJAX BEGIN
 
     /// <summary>
+    ///Получить тип пользователя
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static int GetUserType(String UserName)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
+        try
+        {
+            dataBlock.OpenConnection();
+            int userId = dataBlock.usersTable.Get_UserID_byName(UserName);
+            return dataBlock.usersTable.Get_UserTypeId(userId);
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            //return null;
+        }
+        finally
+        {
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
     ///Получить данные по статистике
     /// </summary>
     /// <returns></returns>

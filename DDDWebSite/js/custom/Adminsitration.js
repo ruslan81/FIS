@@ -161,6 +161,9 @@ function buildUserTree(param) {
         success: function (response) {
             $("#usersTree").wijtree("destroy");
             $("#tmplUsersTree").tmpl(response.d).appendTo($("#usersTree"));
+            if (userType != 3) {
+                $(".useradminli").hide();
+            }
             $("#usersTree").wijtree();
             $("#usersTree").wijtree({ selectedNodeChanged: function (e, data) {
                 onUsersTreeNodeSelected(e, data);
@@ -898,6 +901,12 @@ function loadUsersControls() {
     $("#save").button({ disabled: true });
     $("#cancel").button({ disabled: true });
 
+    if (userType != 3) {
+        $("#edit").button({ disabled: true });
+        $("#delete").button({ disabled: true });
+        $("#create").button({ disabled: true });
+    }
+
     $("#edit").click(function () {
 
         mode = "edit";
@@ -1513,7 +1522,7 @@ function loadGeneralDetailedData() {
 
         $(".input-upload-foto").removeClass("inputField");
         $(".upload-foto").show();
-        $("#orgImage").attr("src","../css/icons/company-middle.png");
+        $("#orgImage").attr("src", "../css/icons/company-middle.png");
 
         $("#edit").button({ disabled: true });
         $("#create").button({ disabled: true });
@@ -1663,19 +1672,19 @@ function loadUsersDetailedData() {
     });
 }
 
-function loadImage(image,loader) {
+function loadImage(image, loader) {
     var oFReader = new FileReader();
     var rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
 
     oFReader.onload = function (oFREvent) {
         document.getElementById(image).src = oFREvent.target.result;
     };
- 
+
     var reader = document.getElementById(loader);
     if (reader.files.length > 0) {
         var oFile = reader.files[0];
-        if (oFile.size > 16 * 1024 * 1024) { showWrongDataMessage("wrongImageSize");return;}
-        if (!rFilter.test(oFile.type)) { showWrongDataMessage("wrongImageData");return;}
+        if (oFile.size > 16 * 1024 * 1024) { showWrongDataMessage("wrongImageSize"); return; }
+        if (!rFilter.test(oFile.type)) { showWrongDataMessage("wrongImageData"); return; }
         oFReader.readAsDataURL(oFile);
     }
 }
@@ -2398,4 +2407,21 @@ function createPeriodControls() {
     $("#periodSelection").show();
     $("#dateErrorBlock").hide();
 
+}
+
+function loadUserType() {
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Administration.aspx/GetUserType",
+        data: "{'UserName': '" + $.cookie("CURRENT_USERNAME") + "' }",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            userType = response.d;
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
+    });
 }

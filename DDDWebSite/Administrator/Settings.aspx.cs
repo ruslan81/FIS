@@ -828,7 +828,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     /// </summary>
     /// <returns></returns>
     [System.Web.Services.WebMethod]
-    public static bool CreateNewDriver(string OrgID, string UserID, UserData data, CardData cardData)
+    public static int CreateNewDriver(string OrgID, string UserID, UserData data, CardData cardData)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
@@ -848,9 +848,9 @@ public partial class Administrator_Settings : System.Web.UI.Page
             dataBlock.usersTable.EditUserInfo(userId, userInfoId, data.surname);            
 
             //int userID = int.Parse(UserID);
-            dataBlock.cardsTable.CreateNewCard(data.surname+" "+data.name, cardData.Number, dataBlock.cardsTable.driversCardTypeId, orgID, userId, cardData.Comment, userID, cardData.groupID);
+            int newId=dataBlock.cardsTable.CreateNewCard(data.surname+" "+data.name, cardData.Number, dataBlock.cardsTable.driversCardTypeId, orgID, userId, cardData.Comment, userID, cardData.groupID);
 
-            return true;
+            return newId;
         }
         catch (Exception ex)
         {
@@ -869,7 +869,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     /// </summary>
     /// <returns></returns>
     [System.Web.Services.WebMethod]
-    public static bool CreateCardTransport(string OrgID, string UserID, CardData data)
+    public static int CreateCardTransport(string OrgID, string UserID, CardData data)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
@@ -879,9 +879,9 @@ public partial class Administrator_Settings : System.Web.UI.Page
             int orgID = int.Parse(OrgID);
             //int userID = int.Parse(UserID);
             int userID = dataBlock.usersTable.Get_UserID_byName(UserID);
-            dataBlock.cardsTable.CreateNewCard(data.Name, data.Number, dataBlock.cardsTable.vehicleCardTypeId, orgID, 0, data.Comment, userID, data.groupID);
+            int newId=dataBlock.cardsTable.CreateNewCard(data.Name, data.Number, dataBlock.cardsTable.vehicleCardTypeId, orgID, 0, data.Comment, userID, data.groupID);
 
-            return true;
+            return newId;
         }
         catch (Exception ex)
         {
