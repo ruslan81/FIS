@@ -15,6 +15,14 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "-10.03.2013" + Environment.NewLine;
+            ReportLabel.Text += @"- Редирект на страницу логина при ошибке авторизации (#1)" + Environment.NewLine;
+            ReportLabel.Text += @"- Корректная обработка ошмбок при загрузке данных на сервер (#3)" + Environment.NewLine;
+            ReportLabel.Text += @"- Ограничение прав доступа (#6)" + Environment.NewLine;
+            ReportLabel.Text += @"- При загрузке PLF-файла нужно убран пункт «Добавить». (#8)" + Environment.NewLine;
+            ReportLabel.Text += @"- При загрузке PLF-файла нужно убран пункт «Отмена». (#9)" + Environment.NewLine;
+            ReportLabel.Text += @"- Работа над пунктами #2,#4, #10" + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "-21.01.2013" + Environment.NewLine;
             ReportLabel.Text += @"- Решена проблема с добавлением новых водителей (task #2)" + Environment.NewLine;
             ReportLabel.Text += @"- Решена проблема с просмотром информации о водителе (task #3)" + Environment.NewLine;
