@@ -134,7 +134,7 @@
         <%=myVersion %>
         (<%=System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location).ToShortDateString()%>)
         </b>
-        <p>&copy 2009-2012 FIS Все права защищены.</p>
+        <p>&copy 2009-2013 FIS Все права защищены.</p>
         </form>
     </div>
 

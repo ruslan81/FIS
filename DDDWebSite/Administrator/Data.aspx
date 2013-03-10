@@ -309,48 +309,9 @@
                     <br />
                     <asp:DropDownList runat="server" ID="SelectPLFDriver" Width="100%" Visible="false"
                         OnSelectedIndexChanged="Upload_PLFFile" AutoPostBack="true" />
-                    <asp:Panel runat="server" ID="createDriverPanel" Visible="false">
-                        <table style="margin-bottom:10px;">
-                            <tbody>
-                                <tr>
-                                    <td style="width:125px;">
-                                        <asp:Label ID="Label8" runat="server" Text="Имя водителя: "/>
-                                    </td>
-                                    <td>
-                                        <asp:TextBox runat="server" ID="CreateDriversName"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <asp:Label ID="Label9" runat="server" Text="Фамилия водителя: "/>
-                                    </td>
-                                    <td>
-                                        <asp:TextBox runat="server" ID="CreateDriversSurname"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <asp:Label ID="Label10" runat="server" Text="Номер карты: "/>
-                                    </td>
-                                    <td>
-                                        <asp:TextBox runat="server" ID="CreateDriversNumber"/>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        
-                        <div style="float:left;">
-                            <uc2:BlueButton ID="CreateDriver" runat="server" Text="Создать" BtnWidth="60" OnButtOnClick="CreateDriverClick" />
-                        </div>
-                        <div style="float:left;margin-left:5px;">
-                            <uc2:BlueButton ID="CancelCreateDriver" runat="server" Text="Отмена" BtnWidth="60" OnButtOnClick="CancelCreateDriverClick" />
-                        </div>
-                    </asp:Panel>
                 </ContentTemplate>
                 <Triggers>
                     <asp:PostBackTrigger ControlID="SelectPLFDriver" />
-                    <asp:PostBackTrigger ControlID="CreateDriver" />
-                    <asp:PostBackTrigger ControlID="CancelCreateDriver"/>
                     <asp:PostBackTrigger ControlID="Upload_Button" />
                 </Triggers>
             </asp:UpdatePanel>
@@ -783,11 +744,11 @@
     <br />-->
 </asp:Content>
 <asp:Content ID="BottomContent1" ContentPlaceHolderID="Bottom_PlaceHolder" runat="server">
-    <asp:UpdatePanel ID="StatusUpdatePanel" runat="server" UpdateMode="Conditional">
+    <!--<asp:UpdatePanel ID="StatusUpdatePanel" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <h3><asp:Label ID="Status" runat="server" /></h3>
         </ContentTemplate>
     </asp:UpdatePanel>
     <div id="dialog2" title="Статистика загруженной информации">
-    </div>
+    </div>-->
 </asp:Content>

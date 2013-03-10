@@ -1,4 +1,10 @@
 ﻿function showErrorMessage(title, jqXHR, errorThrown) {
+    //if unauthorized
+    if (jqXHR.status == 401) {
+        window.location.href = "http://smartfis.ru";
+        return false;
+    }
+
     $("#error-dialog-message").attr("title", title);
     if (jqXHR.responseText != null) {
         if (jqXHR.responseText.search("<html>") == -1) {

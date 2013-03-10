@@ -12169,3 +12169,17 @@ Cache Callback: 09.03.2013 22:59:40
 Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
 Имя параметра: startIndex
 Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 10.03.2013 18:38:00
+Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
+Имя параметра: startIndex
+Cache Callback: Message: Содержимое литерала ('<!--') в 'System.Web.UI.UpdatePanelTriggerCollection' не разрешено.
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx(343): error CS1061: "ASP.administrator_data_aspx" не содержит определение для "CreateDriverClick". Не удалось найти метод  расширения "CreateDriverClick", принимающий первый аргумент типа "ASP.administrator_data_aspx"  (пропущено использование директивы или ссылка на сборку?)
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(950): error CS0103: Имя 'createDriverPanel' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1328): error CS0103: Имя 'createDriverPanel' отсутствует в текущем контексте
+Cache Callback: 10.03.2013 19:36:40
+Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
+Имя параметра: startIndex
+Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
+Cache Callback: 10.03.2013 21:02:20
+Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
+Имя параметра: startIndex

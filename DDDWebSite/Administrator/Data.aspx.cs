@@ -795,141 +795,99 @@ public partial class Administrator_Data : System.Web.UI.Page
     }
     protected void Upload_Click(object Sender, EventArgs e)
     {
-        int DataBlockId = -1;
         string fileName = MyFileUpload.PostedFile.FileName;
-        Status.Text = "";
-        int userID = 0;
 
         try
         {
             int bytesLenght = Convert.ToInt32(MyFileUpload.PostedFile.InputStream.Length);
-            byte[] _bytes = new byte[bytesLenght];
-            int bytesSize = 0;
-            if (MyFileUpload.PostedFile.ContentType != null)
+            //if file is empty
+            if (bytesLenght == 0)
             {
-                bytesSize = MyFileUpload.PostedFile.InputStream.Read(_bytes, 0, bytesLenght);
-                if (fileName.Substring(fileName.Length - 4, 4).ToLower() == ".zip")
+                ErrorMessage.Text = "Ошибка: Выберите файл для загрузки.";
+                //show error block
+                ErrorMessageBlock.Visible = true;
+            }
+            else
+            {
+                //hide error block
+                ErrorMessageBlock.Visible = false;
+
+                byte[] _bytes = new byte[bytesLenght];
+                int bytesSize = 0;
+                if (MyFileUpload.PostedFile.ContentType != null)
                 {
-                    ZipFile zip = new ZipFile(MyFileUpload.PostedFile.InputStream);
-                    UploadZipFile(zip);
-                    LoadAllLists();
-                    return;
-                }
-                else
-                    if (fileName.Substring(fileName.Length - 4, 4).ToLower() == ".plf")
+                    bytesSize = MyFileUpload.PostedFile.InputStream.Read(_bytes, 0, bytesLenght);
+                    if (fileName.Substring(fileName.Length - 4, 4).ToLower() == ".zip")
                     {
-                        if (SelectPLFDriver.Visible == false)
-                        {
-                            List<filenameAndBytesStruct> listOfPLFS = new List<filenameAndBytesStruct>();
-                            filenameAndBytesStruct onePlf = new filenameAndBytesStruct();
-                            onePlf.filename = fileName;
-                            onePlf._bytes = _bytes;
-                            listOfPLFS.Add(onePlf);
-                            Session["FileUpload"] = listOfPLFS;
-                            SelectDriverForPLF();
-                            return;
-                        }
+                        ZipFile zip = new ZipFile(MyFileUpload.PostedFile.InputStream);
+                        UploadZipFile(zip);
+                        return;
                     }
                     else
-                        if (BLL.DataBlock.checkDataBlock(_bytes))
+                    {
+                        if (fileName.Substring(fileName.Length - 4, 4).ToLower() == ".plf")
                         {
-                            UploadFileToBase(fileName, _bytes);
-                            LoadAllLists();
+                            if (SelectPLFDriver.Visible == false)
+                            {
+                                List<filenameAndBytesStruct> listOfPLFS = new List<filenameAndBytesStruct>();
+                                filenameAndBytesStruct onePlf = new filenameAndBytesStruct();
+                                onePlf.filename = fileName;
+                                onePlf._bytes = _bytes;
+                                listOfPLFS.Add(onePlf);
+                                Session["FileUpload"] = listOfPLFS;
+                                SelectDriverForPLF();
+                                return;
+                            }
                         }
                         else
-                            throw new Exception("Неправильный формат файла");
+                        {
+                            if (BLL.DataBlock.checkDataBlock(_bytes))
+                            {
+                                UploadFileToBase(fileName, _bytes);
+                            }
+                            else
+                            {
+                                throw new Exception("Неверный формат файла");
+                            }
+                        }
+                    }
+                }
             }
         }
         catch (Exception ex)
         {
-            LoadAllLists();
             ErrorMessage.Text = "Ошибка: " + ex.Message;
+            //show error block
             ErrorMessageBlock.Visible = true;
         }
     }
+
     private void SelectDriverForPLF()
     {
-        string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         List<string> cardNamesList = new List<string>();
         List<int> CardIdsList = new List<int>();
         int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
+
         dataBlock.OpenConnection();
         CardIdsList = dataBlock.cardsTable.GetAllCardIds(orgId, dataBlock.cardsTable.driversCardTypeId);
         cardNamesList = dataBlock.cardsTable.GetCardNames(CardIdsList);
         dataBlock.CloseConnection();
+
         cardNamesList.Insert(0, "Выберите водителя...");
-        cardNamesList.Add("Добавить...");
-        cardNamesList.Add("Отмена");
         CardIdsList.Insert(0, -1);
-        CardIdsList.Add(-1);
-        CardIdsList.Add(-1);
+
         Session.Add("CardIdsList", CardIdsList);
         SelectPLFDriver.DataSource = cardNamesList;
         SelectPLFDriver.DataBind();
         SelectPLFDriver.Visible = true;
     }
-    protected void CreateDriverClick(object Sender, EventArgs e)
-    {
-        Exception notAllFields = new Exception("Не все поля заполнены!");
-        try
-        {
-            string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
-            DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
-            string name = CreateDriversName.Text;
-            string surName = CreateDriversSurname.Text;
-            string number = CreateDriversNumber.Text;
-            int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
-            dataBlock.OpenConnection();
-            int curUserId = dataBlock.usersTable.Get_UserID_byName(Page.User.Identity.Name);
 
-            string message = "Введите значение!";
-
-            if (name.Equals("")||name.Equals(message))
-            {
-                CreateDriversName.Text = message;
-            }
-            if (surName.Equals("")||surName.Equals(message))
-            {
-                CreateDriversSurname.Text = message;
-            }
-            if (number.Equals("")||number.Equals(message))
-            {
-                CreateDriversNumber.Text = message;
-            }
-
-            if (name.Equals("") || name.Equals(message) || surName.Equals("") || surName.Equals(message) || number.Equals("") || number.Equals(message))
-            {
-                throw notAllFields;
-            }
-
-            int cardId = dataBlock.cardsTable.CreateNewCard(name + " " + surName, number, dataBlock.cardsTable.driversCardTypeId, orgId,0, "Init DataBlockId = NONE", curUserId, 1);
-
-            List<filenameAndBytesStruct> fileUpload = new List<filenameAndBytesStruct>();
-            fileUpload = (List<filenameAndBytesStruct>)Session["FileUpload"];
-
-            foreach (filenameAndBytesStruct curFile in fileUpload)
-            {
-                if (curFile.isPLF)
-                    dataBlock.AddPlfTypeData(orgId, curFile._bytes, curFile.filename, cardId);
-                else
-                    dataBlock.AddData(curFile._bytes, curFile.filename);
-            }
-            dataBlock.CloseConnection();
-            createDriverPanel.Visible = false;
-            LoadAllLists();
-        }
-        catch (Exception ex)
-        {
-            Status.Text = ex.Message;
-        }
-    }
     protected void Upload_PLFFile(object Sender, EventArgs e)
     {
-        Status.Text = "";
-        int userID = 0;
         SelectPLFDriver.Visible = false;
-        string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
         {
@@ -937,42 +895,37 @@ public partial class Administrator_Data : System.Web.UI.Page
             dataBlock.OpenConnection();
             dataBlock.OpenTransaction();
             if (SelectPLFDriver.SelectedIndex == 0)
-                return;
-            if (SelectPLFDriver.SelectedIndex == SelectPLFDriver.Items.Count - 1)
             {
-                throw new Exception("Отменено...");
+                return;
             }
             else
-                if (SelectPLFDriver.SelectedIndex == SelectPLFDriver.Items.Count - 2)//Создать
-                {
-                    createDriverPanel.Visible = true;
-                }
-                else
-                {
-                    List<filenameAndBytesStruct> fileUpload = new List<filenameAndBytesStruct>();
-                    fileUpload = (List<filenameAndBytesStruct>)Session["FileUpload"];
-                    List<int> CardIdsList = new List<int>();
-                    CardIdsList = (List<int>)Session["CardIdsList"];
+            {
+                List<filenameAndBytesStruct> fileUpload = new List<filenameAndBytesStruct>();
+                fileUpload = (List<filenameAndBytesStruct>)Session["FileUpload"];
+                List<int> CardIdsList = new List<int>();
+                CardIdsList = (List<int>)Session["CardIdsList"];
 
-                    foreach (filenameAndBytesStruct curFile in fileUpload)
-                    {
-                        if (curFile.isPLF)
-                            dataBlock.AddPlfTypeData(orgId, curFile._bytes, curFile.filename, CardIdsList[SelectPLFDriver.SelectedIndex]);
-                        else
-                            dataBlock.AddData(orgId, curFile._bytes, curFile.filename);
-                    }
-
-                    Session["FileUpload"] = "";
+                foreach (filenameAndBytesStruct curFile in fileUpload)
+                {
+                    if (curFile.isPLF)
+                        dataBlock.AddPlfTypeData(orgId, curFile._bytes, curFile.filename, CardIdsList[SelectPLFDriver.SelectedIndex]);
+                    else
+                        dataBlock.AddData(orgId, curFile._bytes, curFile.filename);
                 }
+
+                Session["FileUpload"] = "";
+            }
             dataBlock.CommitTransaction();
             dataBlock.CloseConnection();
-            LoadAllLists();
         }
         catch (Exception ex)
         {
             dataBlock.RollbackConnection();
             dataBlock.CloseConnection();
-            throw ex;
+
+            ErrorMessage.Text = "Ошибка: " + ex.Message;
+            //show error block
+            ErrorMessageBlock.Visible = true;
         }
         finally
         {
@@ -1075,7 +1028,6 @@ public partial class Administrator_Data : System.Web.UI.Page
             {
                 Parse_Button.Enabled = false;
                 Status.Text = "Нет записей для отображения";
-                //UpdatePanel2.Update();
             }
             else
             {
@@ -1327,10 +1279,6 @@ public partial class Administrator_Data : System.Web.UI.Page
             tableRowList.Add(tRC[i]);
         }
         return tableRowList;
-    }
-    protected void CancelCreateDriverClick(object Sender, EventArgs e)
-    {
-        createDriverPanel.Visible = false;
     }
     protected void AccordionHeader1_Click(object sender, EventArgs e)
     {
