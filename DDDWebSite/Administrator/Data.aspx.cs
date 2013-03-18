@@ -228,7 +228,7 @@ public partial class Administrator_Data : System.Web.UI.Page
             throw ex;
             //return false;
         }
-       
+
     }
 
 
@@ -488,10 +488,12 @@ public partial class Administrator_Data : System.Web.UI.Page
             TreeGroup gr = new TreeGroup();
             gr.GroupName = "Водители";
             List<int> groupIds = dataBlock.cardsTable.GetAllGroupIds(orgId, dataBlock.cardsTable.driversCardTypeId);
-            foreach (int grId in groupIds){
-                if (dataBlock.cardsTable.GetGroupCardTypeById(grId) != 0) {
+            foreach (int grId in groupIds)
+            {
+                if (dataBlock.cardsTable.GetGroupCardTypeById(grId) != 0)
+                {
                     String name1 = dataBlock.cardsTable.GetGroupNameById(grId);
-                    gr.addValue(grId.ToString(),name1);
+                    gr.addValue(grId.ToString(), name1);
                 }
             }
             gr.GroupId = 1;
@@ -510,7 +512,7 @@ public partial class Administrator_Data : System.Web.UI.Page
                 }
             }
             groupTree.addGroup(gr);
-            
+
             dataBlock.CloseConnection();
             return groupTree;
         }
@@ -589,7 +591,7 @@ public partial class Administrator_Data : System.Web.UI.Page
     private static List<int> getDaysList(int year, int month, DateTime start, DateTime end)
     {
         List<int> days = new List<int>();
-        int count=DateTime.DaysInMonth(year, month);
+        int count = DateTime.DaysInMonth(year, month);
         if (year == start.Year && start.Month == month && year == end.Year && end.Month == month)
         {
             for (int i = start.Day; i <= end.Day; i++)
@@ -598,7 +600,7 @@ public partial class Administrator_Data : System.Web.UI.Page
             }
             return days;
         }
-        if (year == start.Year && start.Month==month)
+        if (year == start.Year && start.Month == month)
         {
             for (int i = start.Day; i <= count; i++)
             {
@@ -645,12 +647,17 @@ public partial class Administrator_Data : System.Web.UI.Page
                 return null;
             }
 
-            List<int> years = getYearsList(startDate,endDate);
+            List<int> years = getYearsList(startDate, endDate);
+            List<int> blocks = dataBlock.cardsTable.GetAllDataBlockIds_byCardId(cardId);
 
             int count = 0;
             foreach (int year in years)
             {
-                double py = dataBlock.vehicleUnitInfo.Statistics_GetYearStatistics(new DateTime(year, 1, 1), cardId);
+                double py = 0;
+                foreach (int block in blocks)
+                {
+                    py += dataBlock.vehicleUnitInfo.Statistics_GetYearStatistics(new DateTime(year, 1, 1), block);
+                }
                 YearData datay = new YearData();
                 datay.YearName = year.ToString();
                 datay.Percent = py.ToString();
@@ -659,10 +666,14 @@ public partial class Administrator_Data : System.Web.UI.Page
                 count++;
                 if (py == 0)
                     continue;
-                List<int> months = getMonthsList(year,startDate,endDate);
+                List<int> months = getMonthsList(year, startDate, endDate);
                 foreach (int month in months)
                 {
-                    double pm = dataBlock.vehicleUnitInfo.Statistics_GetMonthStatistics(new DateTime(year, month, 1), cardId);
+                    double pm = 0;
+                    foreach (int block in blocks)
+                    {
+                        pm += dataBlock.vehicleUnitInfo.Statistics_GetMonthStatistics(new DateTime(year, month, 1), block);
+                    }
                     YearData datam = new YearData();
                     datam.MonthName = getMonthName(month);
                     datam.Percent = pm.ToString();
@@ -671,10 +682,14 @@ public partial class Administrator_Data : System.Web.UI.Page
                     count++;
                     if (pm == 0)
                         continue;
-                    List<int> days = getDaysList(year, month,startDate,endDate);
+                    List<int> days = getDaysList(year, month, startDate, endDate);
                     foreach (int day in days)
                     {
-                        double p = dataBlock.vehicleUnitInfo.Statistics_GetDayStatistics(new DateTime(year, month, day), cardId);
+                        double p = 0;
+                        foreach (int block in blocks)
+                        {
+                            p += dataBlock.vehicleUnitInfo.Statistics_GetDayStatistics(new DateTime(year, month, day), block);
+                        }
                         if (p == 0)
                             continue;
                         YearData data = new YearData();
@@ -688,7 +703,7 @@ public partial class Administrator_Data : System.Web.UI.Page
             }
 
             dataBlock.CloseConnection();
-            if (result.Count==0)
+            if (result.Count == 0)
                 return null;
         }
         catch (Exception ex)
@@ -721,16 +736,23 @@ public partial class Administrator_Data : System.Web.UI.Page
             DateTime startDate = DateTime.Parse(StartDate);
             DateTime endDate = DateTime.Parse(EndDate);
 
-            if (startDate.CompareTo(endDate) >= 0) {
+            if (startDate.CompareTo(endDate) >= 0)  
+            {
                 return null;
             }
 
-            List<int> years = getYearsList(startDate,endDate);
+            List<int> years = getYearsList(startDate, endDate);
+
+            List<int> blocks = dataBlock.cardsTable.GetAllDataBlockIds_byCardId(cardId);
 
             int count = 0;
             foreach (int year in years)
             {
-                double py = dataBlock.plfUnitInfo.Statistics_GetYearStatistics(new DateTime(year, 1, 1), cardId);
+                double py = 0;
+                foreach (int block in blocks)
+                {
+                    py += dataBlock.plfUnitInfo.Statistics_GetYearStatistics(new DateTime(year, 1, 1), block);
+                }
                 YearData datay = new YearData();
                 datay.YearName = year.ToString();
                 datay.Percent = py.ToString();
@@ -739,10 +761,14 @@ public partial class Administrator_Data : System.Web.UI.Page
                 count++;
                 if (py == 0)
                     continue;
-                List<int> months = getMonthsList(year,startDate,endDate);
+                List<int> months = getMonthsList(year, startDate, endDate);
                 foreach (int month in months)
                 {
-                    double pm = dataBlock.plfUnitInfo.Statistics_GetMonthStatistics(new DateTime(year, month, 1), cardId);
+                    double pm = 0;
+                    foreach (int block in blocks)
+                    {
+                        pm += dataBlock.plfUnitInfo.Statistics_GetMonthStatistics(new DateTime(year, month, 1), block);
+                    }
                     YearData datam = new YearData();
                     datam.MonthName = getMonthName(month);
                     datam.Percent = pm.ToString();
@@ -751,10 +777,14 @@ public partial class Administrator_Data : System.Web.UI.Page
                     count++;
                     if (pm == 0)
                         continue;
-                    List<int> days = getDaysList(year, month,startDate,endDate);
+                    List<int> days = getDaysList(year, month, startDate, endDate);
                     foreach (int day in days)
                     {
-                        double p = dataBlock.plfUnitInfo.Statistics_GetDayStatistics(new DateTime(year, month, day), cardId);
+                        double p = 0;
+                        foreach (int block in blocks)
+                        {
+                            p += dataBlock.plfUnitInfo.Statistics_GetDayStatistics(new DateTime(year, month, day), block);
+                        }
                         if (p == 0)
                             continue;
                         YearData data = new YearData();

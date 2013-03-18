@@ -18,8 +18,8 @@ namespace DDDModel
        
         static void Main(string[] args)
         {
-            string connectionString = "server=localhost;port=3306;default command timeout=3000;Connection Timeout=6000;User Id=root;password = ;Persist Security Info=True;database=smartfis";
-            string connectionString1 = "server=mysql62.1gb.ru;default command timeout=600;Connection Timeout=600;database=gb_x_smartfis;User Id=gb_x_smartfis;password=fb1db947kl;";
+            string connectionString1 = "server=localhost;port=3306;default command timeout=3000;Connection Timeout=6000;User Id=root;password = ;Persist Security Info=True;database=smartfis";
+            string connectionString = "server=mysql62.1gb.ru;default command timeout=600;Connection Timeout=600;database=gb_x_smartfis;User Id=gb_x_smartfis;password=fb1db947kl;";
             string currentLanguage = "STRING_RU";
             DataBlock dataBlock = new DataBlock(connectionString, currentLanguage);
             
@@ -31,12 +31,19 @@ namespace DDDModel
 
             //dataBlock.GetAllUnparsedDataBlockIDs(1);
             //System.Console.WriteLine(dataBlock.cardsTable.GetCardNumber(4));
-            /*dataBlock.SetDataBlockIdForParse(2);
+            dataBlock.SetDataBlockIdForParse(10);
             dataBlock.SetOrgIdForParse(1);
-            dataBlock.ParseRecords(true,"D:\\BSUIR\\Other\\UnitedProject\\DDDWebSite\\XML_PLF\\",1);*/
-            byte[] arr=new byte[100];
-            dataBlock.AddData(1,arr,"file.plf");
+            dataBlock.ParseRecords(true,"D:\\BSUIR\\Other\\UnitedProject\\DDDWebSite\\XML_PLF\\",1);
+            //byte[] arr=new byte[100];
+            //dataBlock.AddData(1,arr,"file.plf");
 
+            /*List<int> ids = dataBlock.cardsTable.GetAllDataBlockIds_byCardId(6);
+            foreach (int id in ids) {
+                double d = dataBlock.plfUnitInfo.Statistics_GetYearStatistics(new DateTime(2006, 1, 1), id);
+                System.Console.WriteLine(d);
+            }*/
+
+            System.Console.ReadKey();
                 //SCRIPT TO ADD COMMON GROUP
                 /*List<Int32> orgIds = dataBlock.organizationTable.Get_AllOrganizationsId();
                 int k = 0;
