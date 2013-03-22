@@ -74,7 +74,7 @@
             document.getElementById('outputId').style.height = (vertHeightSTR - 30) + "px";
             document.getElementById('outputId-content').style.height = (vertHeightSTR - 30) + "px";
             if ($('#main-conditions:visible').length > 0) {
-                var h = $('#outputId').height() - $('#main-conditions').height()-25;
+                var h = $('#outputId').height() - $('#main-conditions').height() - 25;
                 $('#outputId').height(h);
                 $('#outputId-content').height(h);
             }
@@ -501,7 +501,7 @@
         <ContentTemplate>
             <asp:Panel ID="DriverCardEditUpdatePanel_NameEdit" runat="server" Width="100%">
                 <h3>
-                    <asp:Label runat="server" Text="Изменение имени водителя" /></h3>
+                    <asp:Label ID="Label1" runat="server" Text="Изменение имени водителя" /></h3>
                 Имя водителя:
                 <asp:TextBox runat="server" ID="new_DriversName" Width="20%" />
                 Фамилия водителя:
@@ -513,7 +513,7 @@
             </asp:Panel>
             <asp:Panel ID="DriverCardEditUpdatePanel_NumberEdit" runat="server" Width="100%">
                 <h3>
-                    <asp:Label runat="server" Text="Изменение номера карты водителя" /></h3>
+                    <asp:Label ID="Label2" runat="server" Text="Изменение номера карты водителя" /></h3>
                 Номер карты водителя:
                 <asp:TextBox runat="server" ID="new_DriversCardNumber" Width="30%" />
                 <asp:ImageButton ID="ChangeDrNumber_OK" runat="server" OnClick="makeChangeDriversNumber"
@@ -744,11 +744,11 @@
     <br />-->
 </asp:Content>
 <asp:Content ID="BottomContent1" ContentPlaceHolderID="Bottom_PlaceHolder" runat="server">
-    <!--<asp:UpdatePanel ID="StatusUpdatePanel" runat="server" UpdateMode="Conditional">
+    <asp:UpdatePanel ID="StatusUpdatePanel" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <h3><asp:Label ID="Status" runat="server" /></h3>
         </ContentTemplate>
     </asp:UpdatePanel>
     <div id="dialog2" title="Статистика загруженной информации">
-    </div>-->
+    </div>
 </asp:Content>

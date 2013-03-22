@@ -293,8 +293,7 @@
         <div style="padding: 0px;margin-left:5px;margin-right:5px;">
             <div id="bottom">
                 <div style="margin: 0px 15px;">
-			        <!--<asp:ContentPlaceHolder ID="Bottom_PlaceHolder" runat="server">
-                    </asp:ContentPlaceHolder>-->
+                    <!--<asp:ContentPlaceHolder ID="Bottom_PlaceHolder" runat="server"></asp:ContentPlaceHolder>-->
                     <div title="Идет загрузка...Пожалуйста, подождите." class="ajax-loader" style="float: right;display:none;margin-top: 12px;">
                     </div>
                     <div style="float: left;margin-top: 12px;">

@@ -15,6 +15,10 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "-22.03.2013" + Environment.NewLine;
+            ReportLabel.Text += @"- Решены проблемы с отображением данных на круговой диаграмме" + Environment.NewLine;
+            ReportLabel.Text += @"- Работа над проблемой разбора ddd-файлов." + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "-18.03.2013" + Environment.NewLine;
             ReportLabel.Text += @"- Исправлены возникшие проблемы со скачиванием отчетов в различных форматах" + Environment.NewLine;
 
