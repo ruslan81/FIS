@@ -19,7 +19,6 @@ using System.Net.Mail;
 using BLL;
 using Stimulsoft.Report;
 using Stimulsoft.Report.Export;
-using System.Threading;
 
 namespace TestCacheTimeout
 {
