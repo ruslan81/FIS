@@ -794,7 +794,7 @@ namespace BLL
         public double Statistics_GetYearStatistics(DateTime date, int datablockId)//Проверить функции
         {
             SQLDB_Records sqldbRecords = new SQLDB_Records(connectionString, sqlDB.GETMYSQLCONNECTION());
-
+            
             double stat = 0;
             int minutesInDay = 1440;
             int dayInYear = GetDaysInAYear(date.Year);
