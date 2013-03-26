@@ -736,7 +736,7 @@ public partial class Administrator_Data : System.Web.UI.Page
             DateTime startDate = DateTime.Parse(StartDate);
             DateTime endDate = DateTime.Parse(EndDate);
 
-            if (startDate.CompareTo(endDate) >= 0)  
+            if (startDate.CompareTo(endDate) >= 0)
             {
                 return null;
             }
