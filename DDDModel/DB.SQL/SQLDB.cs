@@ -18,8 +18,8 @@ namespace DB.SQL
         private string connectionString;
         private MySqlConnection sqlConnection;
         private MySqlTransaction globTransaction;
-        public const int userString = 0;
-        public const int systemString = 1;
+        public const int userString = 1;
+        public const int systemString = 0;
 
         public MySqlConnection GETMYSQLCONNECTION()
         {
