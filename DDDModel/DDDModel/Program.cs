@@ -28,12 +28,19 @@ namespace DDDModel
             bool ex = false;
             ConsoleKeyInfo ch;
             //MY CODE
+            int id=dataBlock.usersTable.GetUserInfoNameId("Surname");
+
+            List<KeyValuePair<string, int>> list = dataBlock.usersTable.GetAllUserInfoNames();
+            foreach (KeyValuePair<string, int> pair in list) {
+                System.Console.WriteLine(pair.Key+"="+pair.Value);
+            }
+            
 
             //dataBlock.GetAllUnparsedDataBlockIDs(1);
             //System.Console.WriteLine(dataBlock.cardsTable.GetCardNumber(4));
-            dataBlock.SetDataBlockIdForParse(1);
+            /*dataBlock.SetDataBlockIdForParse(1);
             dataBlock.SetOrgIdForParse(1);
-            dataBlock.ParseRecords(true,"D:\\BSUIR\\Other\\UnitedProject\\DDDWebSite\\XML_PLF\\",1);
+            dataBlock.ParseRecords(true,"D:\\BSUIR\\Other\\UnitedProject\\DDDWebSite\\XML_PLF\\",1);*/
             //byte[] arr=new byte[100];
             //dataBlock.AddData(1,arr,"file.plf");
 

@@ -360,31 +360,31 @@
                 <tr style="background-color:#eee;">
                 <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Отчество</td>
                 <td style="padding-top:10px;">
-                    <input id="patronymicinputSingle" value="{{html user.patronymic}}" class="inputField-readonly input" readonly="readonly"/>
+                    <input id="patronimicinputSingle" value="{{html user.patronimic}}" class="inputField-readonly input" readonly="readonly"/>
                 </td>
                 </tr>
                 <tr style="background-color:#eee;">
                 <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Водительское удостоверение</td>
                 <td style="padding-top:10px;">
-                    <input id="licenseinputSingle" value="{{html License}}" class="inputField-readonly input" readonly="readonly"/>
+                    <input id="licenseinputSingle" value="{{html user.license}}" class="inputField-readonly input" readonly="readonly"/>
                 </td>
                 </tr>
                 <tr style="background-color:#eee;">
                 <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Кто выдал</td>
                 <td style="padding-top:10px;">
-                    <input id="licGiverinputSingle" value="{{html LicGiver}}" class="inputField-readonly input" readonly="readonly"/>
+                    <input id="licGiverinputSingle" value="{{html user.licGiver}}" class="inputField-readonly input" readonly="readonly"/>
                 </td>
                 </tr>
                 <tr style="background-color:#eee;">
                 <td class="key" style="font-size:12px;width:300px;padding-top:10px;">ТС</td>
                 <td style="padding-top:10px;">
-                    <input id="vehicleinputSingle" value="{{html Vehicle}}" class="inputField-readonly input" readonly="readonly"/>
+                    <input id="vehicleinputSingle" value="{{html user.vehicle}}" class="inputField-readonly input" readonly="readonly"/>
                 </td>
                 </tr>
                 <tr style="background-color:#eee;">
                 <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Комментарий</td>
                 <td style="padding-top:10px;">
-                    <input id="commentinputSingle" value="{{html Comment}}" class="inputField-readonly input" readonly="readonly"/>
+                    <input id="commentinputSingle" value="{{html user.comment}}" class="inputField-readonly input" readonly="readonly"/>
                 </td>
                 </tr>
                 <tr style="background-color:#eee;">
@@ -403,13 +403,13 @@
           <tr style="background-color:#eee;">
             <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Телефон моб.</td>
             <td style="padding-top:10px;">
-              <input id="phoneinputSingle" value="{{html Phone}}" class="inputField-readonly input" readonly="readonly"/>
+              <input id="phoneinputSingle" value="{{html user.phone}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
             <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Дата рождения</td>
             <td style="padding-top:10px;">
-              <input id="birthdateinputSingle" value="{{html BirthDate}}" class="inputField-readonly input" readonly="readonly"/>
+              <input id="birthdateinputSingle" value="{{html user.birthday}}" class="inputField-readonly input" readonly="readonly"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
@@ -451,7 +451,7 @@
               <tr style="background-color:#eee;">
                 <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Страна</td>
                 <td style="padding-top:10px;">
-                  <input id="countryinputSingle" value="{{html CardGiver}}" class="inputField-readonly input" readonly="readonly"/>
+                  <input id="countryinputSingle" value="{{html Country}}" class="inputField-readonly input" readonly="readonly"/>
                 </td>
               </tr>
               <tr style="background-color:#eee;">

@@ -29,6 +29,14 @@ namespace BLL
         public static string UserInfo_Name = "Name";
         public static string UserInfo_Surname = "Surname";
         public static string UserInfo_Patronimic = "Patronimic";
+        public static string UserInfo_License = "License";
+        public static string UserInfo_License_Giver = "License Giver";
+        public static string UserInfo_Vehicle= "Vehicle";
+        public static string UserInfo_Comment = "Comment";
+        public static string UserInfo_CardGiver = "Card Giver";
+        public static string UserInfo_CardGivenDate = "Card Given Date";
+        public static string UserInfo_CardFromDate = "Card From Date";
+        public static string UserInfo_CardToDate = "Card To Date";
         public static string UserInfo_DriversCertificate = "Drivers certificate";
         public static string UserInfo_PhoneNumber = "Phone number";
         public static string UserInfo_Fax = "Fax";

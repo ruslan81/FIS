@@ -1439,6 +1439,11 @@ namespace DB.SQL
         }
         public int GetUserInfoName(int InfoNameId)
         {
+            int returnValue = Convert.ToInt32(GetOneParameter(InfoNameId, "USER_INFO_ID", "fd_user_info", "STRID_USER_INFO_NAME"));
+            return returnValue;
+        }
+        public int GetUserInfoIdByStringId(int InfoNameId)
+        {
             int returnValue = Convert.ToInt32(GetOneParameter(InfoNameId, "STRID_USER_INFO_NAME", "fd_user_info", "USER_INFO_ID"));
             return returnValue;
         }

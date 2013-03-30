@@ -123,10 +123,10 @@ public partial class Administrator_Settings_UserControls_UserDriversTab : System
             userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Name);
             Edit_NameLabel.Text = "Name:";
             Edit_NameTextBox.Text = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
-            //Patronymic
+            //Patronimic
             userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Patronimic);
-            Edit_PatronymicLabel.Text = "Patronimic:";
-            Edit_PatronymicTextBox.Text = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
+            Edit_PatronimicLabel.Text = "Patronimic:";
+            Edit_PatronimicTextBox.Text = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
             //Drivers CErtificate
             userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_DriversCertificate);
             Edit_DriversCertificateLabel.Text = "Drivers certificate:";
@@ -186,9 +186,9 @@ public partial class Administrator_Settings_UserControls_UserDriversTab : System
             //NAME
             Edit_NameLabel.Text = "Name:";
             Edit_NameTextBox.Text = "";
-            //Patronymic
-            Edit_PatronymicLabel.Text = "Patronimic:";
-            Edit_PatronymicTextBox.Text = "";
+            //Patronimic
+            Edit_PatronimicLabel.Text = "Patronimic:";
+            Edit_PatronimicTextBox.Text = "";
             //Drivers CErtificate
             Edit_DriversCertificateLabel.Text = "Drivers certificate:";
             Edit_DriversCertificateTextBox.Text = "";
@@ -308,7 +308,7 @@ public partial class Administrator_Settings_UserControls_UserDriversTab : System
     {
         string surName = Edit_SurnameTextBox.Text;
         string name = Edit_NameTextBox.Text;
-        string patronimic = Edit_PatronymicTextBox.Text;
+        string patronimic = Edit_PatronimicTextBox.Text;
         string driversCertificate = Edit_DriversCertificateTextBox.Text;
         string driversCard = Edit_DriversCardTextBox.Text;
         string driversPhoneNumber = Edit_DriversPhoneNumberTextBox.Text;

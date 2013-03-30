@@ -86,7 +86,7 @@
                                             <asp:BoundColumn DataField="DEALER" HeaderText="Дилер" ReadOnly="true"  />
                                             <asp:BoundColumn DataField="SURNAME" HeaderText="Фамилия" ReadOnly="true"  />
                                             <asp:BoundColumn DataField="NAME" HeaderText="Имя" ReadOnly="true"  />
-                                            <asp:BoundColumn DataField="PATRONYMIC" HeaderText="Отчество"/>
+                                            <asp:BoundColumn DataField="PAtronimic" HeaderText="Отчество"/>
                                             <asp:BoundColumn DataField="LOGIN" HeaderText="Логин"/>
                                             <asp:BoundColumn DataField="REG_DATE" HeaderText="Дата регистрации"/>
                                             <asp:BoundColumn DataField="USER_TYPE" HeaderText="Тип пользователя"/>
@@ -123,11 +123,11 @@
                                                         HighlightCssClass="validatorCalloutHighlight"/>
                                                 </asp:TableCell>
                                                 <asp:TableCell Width="20%">
-                                                    <asp:Label runat="server" ID="DetailedInfo_Patronymic_Label" Text="Отчество"/> 
-                                                    <asp:TextBox runat="server" ID="DetailedInfo_Patronymic_TextBox" Width="100%" BackColor="LightGreen"/> 
-                                                    <asp:RequiredFieldValidator ID="DetailedInfo_Patronymic_TextBox_ReqFVal" runat="server" 
-                                                        ErrorMessage="<b>Поле пустое!</b><p>Введите отчество пользователя.</p>" ControlToValidate="DetailedInfo_Patronymic_TextBox" Display="None"/>
-                                                    <asp:ValidatorCalloutExtender ID="DetailedInfo_Patronymic_TextBox_ReqFValE" runat="server" TargetControlID="DetailedInfo_Patronymic_TextBox_ReqFVal"
+                                                    <asp:Label runat="server" ID="DetailedInfo_Patronimic_Label" Text="Отчество"/> 
+                                                    <asp:TextBox runat="server" ID="DetailedInfo_Patronimic_TextBox" Width="100%" BackColor="LightGreen"/> 
+                                                    <asp:RequiredFieldValidator ID="DetailedInfo_Patronimic_TextBox_ReqFVal" runat="server" 
+                                                        ErrorMessage="<b>Поле пустое!</b><p>Введите отчество пользователя.</p>" ControlToValidate="DetailedInfo_Patronimic_TextBox" Display="None"/>
+                                                    <asp:ValidatorCalloutExtender ID="DetailedInfo_Patronimic_TextBox_ReqFValE" runat="server" TargetControlID="DetailedInfo_Patronimic_TextBox_ReqFVal"
                                                         HighlightCssClass="validatorCalloutHighlight"/>
                                                 </asp:TableCell>
                                                 <asp:TableCell Width="10%">
