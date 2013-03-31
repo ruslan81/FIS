@@ -447,6 +447,31 @@ public partial class Administrator_Settings : System.Web.UI.Page
             ud.name=dataBlock.usersTable.GetUserInfoValue(ud.id, userInfoId);
             userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Surname);
             ud.surname=dataBlock.usersTable.GetUserInfoValue(ud.id, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Patronimic);
+            ud.patronimic = dataBlock.usersTable.GetUserInfoValue(ud.id, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_License);
+            ud.license = dataBlock.usersTable.GetUserInfoValue(ud.id, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_License_Giver);
+            ud.licGiver = dataBlock.usersTable.GetUserInfoValue(ud.id, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Vehicle);
+            ud.vehicle = dataBlock.usersTable.GetUserInfoValue(ud.id, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Comment);
+            ud.comment = dataBlock.usersTable.GetUserInfoValue(ud.id, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_PhoneNumber);
+            ud.phone = dataBlock.usersTable.GetUserInfoValue(ud.id, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Birthday);
+            ud.birthday = dataBlock.usersTable.GetUserInfoValue(ud.id, userInfoId);
+
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_CardGiver);
+            gd.CardGiver = dataBlock.usersTable.GetUserInfoValue(ud.id, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_CardGivenDate);
+            gd.GivenDate = dataBlock.usersTable.GetUserInfoValue(ud.id, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_CardFromDate);
+            gd.FromDate = dataBlock.usersTable.GetUserInfoValue(ud.id, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_CardToDate);
+            gd.ToDate = dataBlock.usersTable.GetUserInfoValue(ud.id, userInfoId);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Country);
+            gd.Country = dataBlock.usersTable.GetUserInfoValue(ud.id, userInfoId);
 
             gd.user = ud;
             gd.Name = dataBlock.cardsTable.GetCardName(cardId);
@@ -486,13 +511,37 @@ public partial class Administrator_Settings : System.Web.UI.Page
 
             dataBlock.cardsTable.ChangeCardName(UserSettings.surname + " " + UserSettings.name, DriverSettings.grID);
             dataBlock.cardsTable.ChangeCardGroup(DriverSettings.groupID, DriverSettings.grID);
+            dataBlock.cardsTable.ChangeCardNumber(DriverSettings.Number, DriverSettings.grID,0);
 
             int userId = dataBlock.cardsTable.GetCardUserId(DriverSettings.grID);
             int userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Name);
             dataBlock.usersTable.EditUserInfo(userId, userInfoId, UserSettings.name);
             userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Surname);
-            dataBlock.usersTable.EditUserInfo(userId, userInfoId, UserSettings.surname);            
-            
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, UserSettings.surname);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Patronimic);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, UserSettings.patronimic);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_License);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, UserSettings.license);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_License_Giver);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, UserSettings.licGiver);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Vehicle);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, UserSettings.vehicle);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Comment);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, UserSettings.comment);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_PhoneNumber);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, UserSettings.phone);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Birthday);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, UserSettings.birthday);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Country);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, DriverSettings.Country);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_CardGiver);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, DriverSettings.CardGiver);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_CardGivenDate);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, DriverSettings.GivenDate);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_CardFromDate);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, DriverSettings.FromDate);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_CardToDate);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, DriverSettings.ToDate);   
             return true;
         }
         catch (Exception ex)
@@ -845,7 +894,32 @@ public partial class Administrator_Settings : System.Web.UI.Page
             int userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Name);
             dataBlock.usersTable.EditUserInfo(userId, userInfoId, data.name);
             userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Surname);
-            dataBlock.usersTable.EditUserInfo(userId, userInfoId, data.surname);            
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, data.surname);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Patronimic);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, data.patronimic);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_License);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, data.license);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_License_Giver);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, data.licGiver);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Vehicle);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, data.vehicle);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Comment);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, data.comment);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_PhoneNumber);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, data.phone);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Birthday);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, data.birthday);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_CardGiver);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, cardData.CardGiver);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_CardGivenDate);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, cardData.GivenDate);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_CardFromDate);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, cardData.FromDate);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_CardToDate);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, cardData.ToDate);
+            userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Country);
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, cardData.Country);
+
 
             //int userID = int.Parse(UserID);
             int newId=dataBlock.cardsTable.CreateNewCard(data.surname+" "+data.name, cardData.Number, dataBlock.cardsTable.driversCardTypeId, orgID, userId, cardData.Comment, userID, cardData.groupID);

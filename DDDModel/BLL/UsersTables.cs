@@ -277,7 +277,7 @@ namespace BLL
         public int GetUserInfoNameId(string InfoName)
         {
             int stringId = sqlDb.GetStringId(InfoName, SQLDB.userString);
-            int UserInfoId = sqlDb.GetUserInfoName(stringId);
+            int UserInfoId = sqlDb.GetUserInfoIdByStringId(stringId);
 
             if (UserInfoId > 0)
                 return UserInfoId;

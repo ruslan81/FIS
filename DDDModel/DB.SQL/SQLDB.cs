@@ -18,8 +18,8 @@ namespace DB.SQL
         private string connectionString;
         private MySqlConnection sqlConnection;
         private MySqlTransaction globTransaction;
-        public const int userString = 0;
-        public const int systemString = 1;
+        public const int userString = 1;
+        public const int systemString = 0;
 
         public MySqlConnection GETMYSQLCONNECTION()
         {
@@ -1438,6 +1438,11 @@ namespace DB.SQL
             return returnValue;
         }
         public int GetUserInfoName(int InfoNameId)
+        {
+            int returnValue = Convert.ToInt32(GetOneParameter(InfoNameId, "USER_INFO_ID", "fd_user_info", "STRID_USER_INFO_NAME"));
+            return returnValue;
+        }
+        public int GetUserInfoIdByStringId(int InfoNameId)
         {
             int returnValue = Convert.ToInt32(GetOneParameter(InfoNameId, "STRID_USER_INFO_NAME", "fd_user_info", "USER_INFO_ID"));
             return returnValue;

@@ -55,7 +55,7 @@ public partial class Administrator_Adminisration_UserControls_UsersTab_UserContr
         dt.Columns.Add(new DataColumn("DEALER", typeof(string)));
         dt.Columns.Add(new DataColumn("SURNAME", typeof(string)));
         dt.Columns.Add(new DataColumn("NAME", typeof(string)));
-        dt.Columns.Add(new DataColumn("PATRONYMIC", typeof(string)));
+        dt.Columns.Add(new DataColumn("PAtronimic", typeof(string)));
         dt.Columns.Add(new DataColumn("LOGIN", typeof(string)));
         dt.Columns.Add(new DataColumn("REG_DATE", typeof(string)));
         dt.Columns.Add(new DataColumn("ROLE", typeof(string)));
@@ -86,9 +86,9 @@ public partial class Administrator_Adminisration_UserControls_UsersTab_UserContr
             //NAME
             userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Name);
             dr["NAME"] = dataBlock.usersTable.GetUserInfoValue(users.id, userInfoId);
-            //Patronymic
+            //Patronimic
             userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Patronimic);
-            dr["PATRONYMIC"] = dataBlock.usersTable.GetUserInfoValue(users.id, userInfoId);
+            dr["PAtronimic"] = dataBlock.usersTable.GetUserInfoValue(users.id, userInfoId);
             //LOGIN
             dr["LOGIN"] = users.name;
             //REG_DATE
@@ -126,9 +126,9 @@ public partial class Administrator_Adminisration_UserControls_UsersTab_UserContr
         //NAME
         userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Name);
         DetailedInfo_Name_TextBox.Text = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
-        //Patronymic
+        //Patronimic
         userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Patronimic);
-        DetailedInfo_Patronymic_TextBox.Text = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
+        DetailedInfo_Patronimic_TextBox.Text = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
         //ONOFF
         userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_ONOFF);
         string onOffStr = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
@@ -218,8 +218,8 @@ public partial class Administrator_Adminisration_UserControls_UsersTab_UserContr
         DetailedInfo_SurName_TextBox.Text = "";
         //NAME
         DetailedInfo_Name_TextBox.Text = "";
-        //Patronymic
-        DetailedInfo_Patronymic_TextBox.Text = "";
+        //Patronimic
+        DetailedInfo_Patronimic_TextBox.Text = "";
         //Login
         DetailedInfo_Login_TextBox.Text = "";
         //Password
@@ -462,7 +462,7 @@ public partial class Administrator_Adminisration_UserControls_UsersTab_UserContr
         int orgId = Convert.ToInt32(Session["CURRENT_ORG_ID"]);
         string surName = DetailedInfo_SurName_TextBox.Text;
         string name = DetailedInfo_Name_TextBox.Text;
-        string patronymic = DetailedInfo_Patronymic_TextBox.Text;
+        string patronimic = DetailedInfo_Patronimic_TextBox.Text;
         bool ONOFF = DetailedInfo_ONOFF_CheckBox.Checked;
         string dealerID = DetailedInfo_Dealer_DropDown.SelectedItem.Value;   
         int countryId = Convert.ToInt32(DetailedInfo_Country_DropDown.SelectedValue);
@@ -485,7 +485,7 @@ public partial class Administrator_Adminisration_UserControls_UsersTab_UserContr
         dataBlock.usersTable.EditUserInfo(userId, userInfoId, name);
         //PATRONIMIC
         userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Patronimic);
-        dataBlock.usersTable.EditUserInfo(userId, userInfoId, patronymic);
+        dataBlock.usersTable.EditUserInfo(userId, userInfoId, patronimic);
         //ONOFF
         userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_ONOFF);
         dataBlock.usersTable.EditUserInfo(userId, userInfoId, ONOFF.ToString());       
@@ -587,7 +587,7 @@ public partial class Administrator_Adminisration_UserControls_UsersTab_UserContr
             dt.Columns.Add(new DataColumn("DEALER", typeof(string)));
             dt.Columns.Add(new DataColumn("SURNAME", typeof(string)));
             dt.Columns.Add(new DataColumn("NAME", typeof(string)));
-            dt.Columns.Add(new DataColumn("PATRONYMIC", typeof(string)));
+            dt.Columns.Add(new DataColumn("PAtronimic", typeof(string)));
             dt.Columns.Add(new DataColumn("LOGIN", typeof(string)));
             dt.Columns.Add(new DataColumn("REG_DATE", typeof(string)));
             dt.Columns.Add(new DataColumn("ROLE", typeof(string)));
@@ -641,9 +641,9 @@ public partial class Administrator_Adminisration_UserControls_UsersTab_UserContr
                 //NAME
                 userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Name);
                 dr["NAME"] = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
-                //Patronymic
+                //Patronimic
                 userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Patronimic);
-                dr["PATRONYMIC"] = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
+                dr["PAtronimic"] = dataBlock.usersTable.GetUserInfoValue(userId, userInfoId);
                 //LOGIN
                 dr["LOGIN"] = dataBlock.usersTable.Get_UserName(userId);
                 //REG_DATE

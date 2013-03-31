@@ -58,13 +58,13 @@
             </asp:TableRow>
             <asp:TableRow>
                 <asp:TableCell HorizontalAlign="Right">
-                    <asp:Label ID="Edit_PatronymicLabel" runat="server" Text="Отчество"/>
+                    <asp:Label ID="Edit_PatronimicLabel" runat="server" Text="Отчество"/>
                 </asp:TableCell>
                 <asp:TableCell HorizontalAlign="Left">
-                    <asp:TextBox ID="Edit_PatronymicTextBox" runat="server" Width="100%"/>
-                    <asp:RequiredFieldValidator ID="PatronymicTextBoxReqFVal" runat="server" 
-                        ErrorMessage="Введите отчество водителя!" ControlToValidate="Edit_PatronymicTextBox" Display="None"/>
-                    <asp:ValidatorCalloutExtender ID="PatronymicTextBoxReqFValE" runat="server" TargetControlID="PatronymicTextBoxReqFVal"
+                    <asp:TextBox ID="Edit_PatronimicTextBox" runat="server" Width="100%"/>
+                    <asp:RequiredFieldValidator ID="PatronimicTextBoxReqFVal" runat="server" 
+                        ErrorMessage="Введите отчество водителя!" ControlToValidate="Edit_PatronimicTextBox" Display="None"/>
+                    <asp:ValidatorCalloutExtender ID="PatronimicTextBoxReqFValE" runat="server" TargetControlID="PatronimicTextBoxReqFVal"
                         HighlightCssClass="validatorCalloutHighlight"/>                    
                 </asp:TableCell>
             </asp:TableRow>

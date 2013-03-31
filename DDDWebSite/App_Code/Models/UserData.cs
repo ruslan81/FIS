@@ -18,6 +18,12 @@ public class UserData
     public int roleId;
     public int id;
     public string state;
+    public string license;
+    public string licGiver;
+    public string vehicle;
+    public string comment;
+    public string phone;
+    public string birthday;
 
 	public UserData()
 	{

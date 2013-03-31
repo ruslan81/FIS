@@ -1326,7 +1326,7 @@ function createUserControlsSingleDriver() {
 
     $("#tabs .datepicker").datepicker();
     $("#tabs .datepicker").datepicker("option", "dateFormat", "dd.mm.yy");
-    $("#tabs .datepicker").datepicker("setDate", todaystr);
+    //$("#tabs .datepicker").datepicker("setDate", todaystr);
     $("#tabs .datepicker").datepicker($.datepicker.regional['ru']);
     $("#tabs .datepicker").datepicker('disable');
 
@@ -1427,19 +1427,30 @@ function createUserControlsSingleDriver() {
 
     $("#save").click(function () {
         if (mode == "edit") {
-            /*name = $("#nameinputSingle").attr("value");
-            comment = $("#commentinputSingle").attr("value");
-            number = $("#numberinputSingle").attr("value");*/
             var surname = $("#surnameinputSingle").attr("value");
             var name = $("#nameinputSingle").attr("value");
+            var patronimic = $("#patronimicinputSingle").attr("value");
+            var license = $("#licenseinputSingle").attr("value");
+            var licGiver = $("#licGiverinputSingle").attr("value");
+            var vehicle = $("#vehicleinputSingle").attr("value");
+            var comment = $("#commentinputSingle").attr("value");
+            var phone = $("#phoneinputSingle").attr("value");
+            var birthday = $("#birthdateinputSingle").attr("value");
+            var cardGiver = $("#cardGiverinputSingle").attr("value");
+            var country = $("#countryinputSingle").attr("value");
+            var cardGivenDate = $("#givenDateinputSingle").attr("value");
+            var cardFromDate = $("#fromDateinputSingle").attr("value");
+            var cardToDate = $("#toDateinputSingle").attr("value");
+            var number = $("#numberinputSingle").attr("value");
+
             if (surname == "") {
                 showWrongDataMessage("wrongUserSurname");
                 return false;
             }
             group = $("#groupSelectorSingle").attr("group");
 
-            var settings = { grID: currentCardId, groupID: group }
-            var user = { name: name, surname: surname }
+            var settings = { grID: currentCardId, groupID: group, CardGiver: cardGiver, Country: country, GivenDate: cardGivenDate, ToDate: cardToDate, FromDate: cardFromDate, Number: number };
+            var user = { name: name, surname: surname, patronimic: patronimic, license: license, licGiver: licGiver, vehicle: vehicle, comment: comment, phone: phone, birthday: birthday };
 
             var order = { OrgID: $.cookie("CURRENT_ORG_ID"), DriverSettings: settings, UserSettings: user };
 
@@ -1451,7 +1462,7 @@ function createUserControlsSingleDriver() {
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
-                    loadSingleDriverSettings();
+                    //loadSingleDriverSettings();
                     loadDriversTreeSingle(currentCardId, "0");
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -1469,37 +1480,49 @@ function createUserControlsSingleDriver() {
             var order = { OrgID: $.cookie("CURRENT_ORG_ID"), data: data, UserID: $.cookie("CURRENT_USERNAME") };
 
             $.ajax({
-                type: "POST",
-                //Page Name (in which the method should be called) and method name
-                url: "Settings.aspx/CreateCardDriver",
-                data: JSON.stringify(order),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    currentCardId = "-1";
-                    selectedNodeType = "-1";
-                    loadSingleDriverSettings();
-                    loadDriversTreeSingle("", "");
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
-                }
+            type: "POST",
+            //Page Name (in which the method should be called) and method name
+            url: "Settings.aspx/CreateCardDriver",
+            data: JSON.stringify(order),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+            currentCardId = "-1";
+            selectedNodeType = "-1";
+            loadSingleDriverSettings();
+            loadDriversTreeSingle("", "");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+            }
             });*/
             /*var name = $("#newCardName").attr("value");
             var comment = $("#newCardComment").attr("value");
             var number = $("#newCardNumber").attr("value");
             var card = $("#newCardGroupSelector").attr("group");*/
 
-            var _surname = $("#surnameinputSingle").attr("value");
-            var _name = $("#nameinputSingle").attr("value");
+            var surname = $("#surnameinputSingle").attr("value");
+            var name = $("#nameinputSingle").attr("value");
+            var patronimic = $("#patronimicinputSingle").attr("value");
+            var license = $("#licenseinputSingle").attr("value");
+            var licGiver = $("#licGiverinputSingle").attr("value");
+            var vehicle = $("#vehicleinputSingle").attr("value");
+            var comment = $("#commentinputSingle").attr("value");
+            var phone = $("#phoneinputSingle").attr("value");
+            var birthday = $("#birthdateinputSingle").attr("value");
+            var cardGiver = $("#cardGiverinputSingle").attr("value");
+            var country = $("#countryinputSingle").attr("value");
+            var cardGivenDate = $("#givenDateinputSingle").attr("value");
+            var cardFromDate = $("#fromDateinputSingle").attr("value");
+            var cardToDate = $("#toDateinputSingle").attr("value");
             if (_surname == "") {
                 showWrongDataMessage("wrongUserSurname");
                 return false;
             }
             var group = $("#groupSelectorSingle").attr("group");
 
-            var data = { surname: _surname, name: _name };
-            var cardData = { groupID: group };
+            var data = { name: name, surname: surname, patronimic: patronimic, license: license, licGiver: licGiver, vehicle: vehicle, comment: comment, phone: phone, birthday: birthday };
+            var cardData = { groupID: group, CardGiver: cardGiver, Country: country, GivenDate: cardGivenDate, ToDate: cardToDate, FromDate: cardFromDate };
             var order = { OrgID: $.cookie("CURRENT_ORG_ID"), data: data, cardData: cardData, UserID: $.cookie("CURRENT_USERNAME") };
 
             $.ajax({
