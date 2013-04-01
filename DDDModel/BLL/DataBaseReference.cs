@@ -11,20 +11,30 @@ namespace BLL
     public static class DataBaseReference
     {
         //VehicleInfo
-        public static string FuelTank1 = "Fuel tank 1";
-        public static string FuelTank2 = "Fuel tank 2";
-        public static string LoadCarryingCapacity = "Load-carrying capacity";
-        public static string MRO1 = "MRO 1";
-        public static string MRO2 = "MRO 2";
-        public static string NominalTurns = "Nominal turns";
-        public static string MaxSpeed = "Maximum speed";
-        public static string Manoeuvring = "Manoeuvring";
-        public static string Highway = "Highway";
-        public static string City = "City";
-        public static string NomFuelConsumption = "Nominal fuel consumption";
-        public static string ColdStart = "Cold start";
-        public static string HotStop = "Hot stop";
-        public static string VehiclePhotoAddress = "Vehicle photo address";
+        public static string Vehicle_FuelTank1 = "Fuel tank 1";
+        public static string Vehicle_FuelTank2 = "Fuel tank 2";
+        public static string Vehicle_GarageNumber = "Garage number";
+        public static string Vehicle_MakeYear = "Production year";
+        public static string Vehicle_FuelType = "Fuel type";
+        public static string Vehicle_EquipmentType = "Equipment type";
+        public static string Vehicle_SerialNumber = "Serial";
+        public static string Vehicle_LastReadDate = "Last read date";
+        public static string Vehicle_CalibrReason = "Calibr reason";
+        public static string Vehicle_Calibrator = "Calibrator";
+        public static string Vehicle_CalibratorCard = "Calibrator card";
+        public static string Vehicle_NextCalibrDate = "Next calibr date";
+        public static string Vehicle_LoadCarryingCapacity = "Load-carrying capacity";
+        public static string Vehicle_MRO1 = "MRO 1";
+        public static string Vehicle_MRO2 = "MRO 2";
+        public static string Vehicle_NominalTurns = "Nominal turns";
+        public static string Vehicle_MaxSpeed = "Maximum speed";
+        public static string Vehicle_Manoeuvring = "Manoeuvring";
+        public static string Vehicle_Highway = "Highway";
+        public static string Vehicle_City = "City";
+        public static string Vehicle_NomFuelConsumption = "Nominal fuel consumption";
+        public static string Vehicle_ColdStart = "Cold start";
+        public static string Vehicle_HotStop = "Hot stop";
+        public static string Vehicle_VehiclePhotoAddress = "Vehicle photo address";
         //UserInfo
         public static string UserInfo_Name = "Name";
         public static string UserInfo_Surname = "Surname";

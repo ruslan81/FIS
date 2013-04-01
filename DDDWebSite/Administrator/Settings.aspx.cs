@@ -645,7 +645,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     /// </summary>
     /// <returns></returns>
     [System.Web.Services.WebMethod]
-    public static CardData GetTransportSettings(String CardID)
+    public static VehicleData GetTransportSettings(String CardID)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
@@ -661,7 +661,59 @@ public partial class Administrator_Settings : System.Web.UI.Page
             gd.Comment = dataBlock.cardsTable.GetCardNote(cardId);
             gd.groupID = dataBlock.cardsTable.GetCardGroupID(cardId);
             gd.groupName = dataBlock.cardsTable.GetGroupNameById(gd.groupID);
-            return gd;
+
+            VehicleData vd = new VehicleData();
+            vd.Card = gd;
+            vd.id = dataBlock.vehiclesTables.GetVehicle_byCardId(cardId);
+
+            int vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_GarageNumber);
+            vd.GarageNumber = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_MakeYear);
+            vd.MakeYear = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_FuelTank1);
+            vd.Tank1 = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_FuelTank2);
+            vd.Tank2 = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_LoadCarryingCapacity);
+            vd.Capacity = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_FuelType);
+            vd.FuelType = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_MRO1);
+            vd.TO1 = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_MRO2);
+            vd.TO2 = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_EquipmentType);
+            vd.EquipmentType = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_SerialNumber);
+            vd.Serial = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_LastReadDate);
+            vd.LastReadDate = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_CalibrReason);
+            vd.CalibrReason = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_Calibrator);
+            vd.Calibrator = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_CalibratorCard);
+            vd.CalibratorCard = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_NextCalibrDate);
+            vd.NextCalibrDate = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_NominalTurns);
+            vd.Turns = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_MaxSpeed);
+            vd.MaxVelocity = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_Manoeuvring);
+            vd.Manevring = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_City);
+            vd.City = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_Highway);
+            vd.Magistral = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_NomFuelConsumption);
+            vd.Consumption = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_ColdStart);
+            vd.ColdStart = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_HotStop);
+            vd.HotStop = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
+
+            return vd;
         }
         catch (Exception ex)
         {
@@ -680,7 +732,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     /// </summary>
     /// <returns></returns>
     [System.Web.Services.WebMethod]
-    public static bool SaveTransportSettings(String OrgID, List<CardData> TransportSettings)
+    public static bool SaveTransportSettings(String OrgID, List<VehicleData> TransportSettings)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
@@ -688,12 +740,61 @@ public partial class Administrator_Settings : System.Web.UI.Page
         {
             dataBlock.OpenConnection();
             int orgID = int.Parse(OrgID);
-            foreach (CardData item in TransportSettings)
+            foreach (VehicleData item in TransportSettings)
             {
-                dataBlock.cardsTable.ChangeCardName(item.Name, item.grID);
-                dataBlock.cardsTable.ChangeCardNumber(item.Number, item.grID, 0);
-                dataBlock.cardsTable.ChangeCardComment(item.Comment, item.grID);
-                dataBlock.cardsTable.ChangeCardGroup(item.groupID, item.grID);
+                dataBlock.cardsTable.ChangeCardName(item.Card.Name, item.Card.grID);
+                dataBlock.cardsTable.ChangeCardNumber(item.Card.Number, item.Card.grID, 0);
+                dataBlock.cardsTable.ChangeCardComment(item.Card.Comment, item.Card.grID);
+                dataBlock.cardsTable.ChangeCardGroup(item.Card.groupID, item.Card.grID);
+
+                int vehId = dataBlock.vehiclesTables.GetVehicle_byCardId(item.Card.grID);
+                int vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_GarageNumber);
+                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.GarageNumber);
+                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_MakeYear);
+                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.MakeYear);
+                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_FuelTank1);
+                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.Tank1);
+                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_FuelTank2);
+                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.Tank2);
+                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_LoadCarryingCapacity);
+                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.Capacity);
+                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_FuelType);
+                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.FuelType);
+                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_MRO1);
+                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.TO1);
+                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_MRO2);
+                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.TO2);
+                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_EquipmentType);
+                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.EquipmentType);
+                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_SerialNumber);
+                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.Serial);
+                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_LastReadDate);
+                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.LastReadDate);
+                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_CalibrReason);
+                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.CalibrReason);
+                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_Calibrator);
+                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.Calibrator);
+                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_CalibratorCard);
+                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.CalibratorCard);
+                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_NextCalibrDate);
+                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.NextCalibrDate);
+                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_NominalTurns);
+                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.Turns);
+                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_MaxSpeed);
+                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.MaxVelocity);
+                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_Manoeuvring);
+                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.Manevring);
+                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_City);
+                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.City);
+                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_Highway);
+                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.Magistral);
+                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_NomFuelConsumption);
+                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.Consumption);
+                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_ColdStart);
+                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.ColdStart);
+                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_HotStop);
+                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.HotStop);
+
             }
             return true;
         }
@@ -943,7 +1044,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     /// </summary>
     /// <returns></returns>
     [System.Web.Services.WebMethod]
-    public static int CreateCardTransport(string OrgID, string UserID, CardData data)
+    public static int CreateCardTransport(string OrgID, string UserID, VehicleData data)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
@@ -953,7 +1054,55 @@ public partial class Administrator_Settings : System.Web.UI.Page
             int orgID = int.Parse(OrgID);
             //int userID = int.Parse(UserID);
             int userID = dataBlock.usersTable.Get_UserID_byName(UserID);
-            int newId=dataBlock.cardsTable.CreateNewCard(data.Name, data.Number, dataBlock.cardsTable.vehicleCardTypeId, orgID, 0, data.Comment, userID, data.groupID);
+            int newId = dataBlock.cardsTable.CreateNewCard(data.Card.Name, data.Card.Number, dataBlock.cardsTable.vehicleCardTypeId, orgID, 0, data.Card.Comment, userID, data.Card.groupID);
+            int vehId = dataBlock.vehiclesTables.AddNewVehicle("", "", data.Card.Number,1,1,newId,new DateTime(),1);
+
+            int vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_GarageNumber);
+            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.GarageNumber);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_MakeYear);
+            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.MakeYear);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_FuelTank1);
+            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.Tank1);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_FuelTank2);
+            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.Tank2);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_LoadCarryingCapacity);
+            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.Capacity);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_FuelType);
+            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.FuelType);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_MRO1);
+            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.TO1);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_MRO2);
+            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.TO2);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_EquipmentType);
+            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.EquipmentType);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_SerialNumber);
+            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.Serial);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_LastReadDate);
+            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.LastReadDate);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_CalibrReason);
+            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.CalibrReason);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_Calibrator);
+            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.Calibrator);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_CalibratorCard);
+            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.CalibratorCard);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_NextCalibrDate);
+            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.NextCalibrDate);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_NominalTurns);
+            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.Turns);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_MaxSpeed);
+            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.MaxVelocity);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_Manoeuvring);
+            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.Manevring);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_City);
+            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.City);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_Highway);
+            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.Magistral);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_NomFuelConsumption);
+            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.Consumption);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_ColdStart);
+            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.ColdStart);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_HotStop);
+            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.HotStop);
 
             return newId;
         }

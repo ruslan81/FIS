@@ -12250,3 +12250,12 @@ Cache Callback: Message: Значение StartIndex не может быть м
 Имя параметра: startIndex
 Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
 Cache Callback: Message: d:\BSUIR\Other\UnitedProject\DDDWebSite\Administrator\Settings.aspx.cs(918): error CS0103: Имя 'DriverSettings' отсутствует в текущем контексте
+Cache Callback: 01.04.2013 22:48:00
+Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
+Имя параметра: startIndex
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 01.04.2013 23:16:00
+Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
+Имя параметра: startIndex
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: Message: d:\BSUIR\Other\UnitedProject\DDDWebSite\Administrator\Settings.aspx.cs(1059): error CS1526: Новое выражение требует подстановку символов (), [] или {} после типа
