@@ -1,9 +1,9 @@
-﻿(function( $ ){
+(function( $ ){
 
     var settings = {
         'height-ratio-percent' : '33',
         'diagram-diameter' : '0',
-        'http-request-timeout' : '100000',
+        'http-request-timeout' : '10000',
         'card-id' : '0',
         'org-id' : '0',
         'url' : 'http://smartfis.ru/Administrator/Data.aspx/GetOverlookDriverNodeData',
@@ -134,14 +134,14 @@ function ajax_PostData() {
         PageRequest.setRequestHeader("Content-type", "application/json; charset=UTF-8");
         PageRequest.send(params);
         var timeout = setTimeout( function(){ PageRequest.abort(); handleError("Time over") }, m_HttpRequestTimeout);
-        $(".loading-icon").show();
+        $("#loader").show();
     }
 
     PageRequest.onreadystatechange = function() {
         if (4 != PageRequest.readyState)
             return;
 
-        $(".loading-icon").hide();
+        $("#loader").hide();
         m_bProcessingRequest = false;
         clearTimeout(timeout);
 
@@ -365,10 +365,6 @@ function getBounds(element)
 {
     var left = element.offsetLeft;
     var top = element.offsetTop;
-    for (var parent = element.offsetParent; parent; parent = parent.offsetParent) {
-        left += parent.offsetLeft - parent.scrollLeft;
-        top += parent.offsetTop - parent.scrollTop
-    }
     return {left: left, top: top, width: element.offsetWidth, height: element.offsetHeight};
 }
 	
@@ -376,7 +372,8 @@ function onMouseMove(e)
 {
     var canvas = document.getElementById(m_CanvasId);
     var canvasBounds = getBounds(canvas);
-    if (m_CanvasBounds.left != canvasBounds.left) {
+    if (m_CanvasBounds.left != canvasBounds.left ||
+	m_CanvasBounds.top != canvasBounds.top) {
         var context = canvas.getContext('2d');
         m_CanvasBounds = canvasBounds;
         DrawCalendar(context);
