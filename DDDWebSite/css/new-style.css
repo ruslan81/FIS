@@ -246,7 +246,12 @@ button
 .ui-widget-content
 {
     border:none;
-    /*border:1px solid #e4e4e4;*/
+}
+
+.wijmo-wijcombobox-list
+{
+    border: 1px solid #CCC;
+    margin-bottom: 1px;
 }
 
 .ui-dialog

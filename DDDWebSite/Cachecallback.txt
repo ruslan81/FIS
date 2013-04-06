@@ -12183,79 +12183,117 @@ Cache Callback: Message: Выдано исключение типа "System.Web.
 Cache Callback: 10.03.2013 21:02:20
 Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
 Имя параметра: startIndex
+Cache Callback: 17.03.2013 23:47:20
+Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
+Имя параметра: startIndex
+Cache Callback: 18.03.2013 2:33:40
+Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
+Имя параметра: startIndex
+Cache Callback: 18.03.2013 2:39:40
+Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
+Имя параметра: startIndex
+Cache Callback: 18.03.2013 22:22:00
+Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
+Имя параметра: startIndex
+Cache Callback: 18.03.2013 22:32:00
+Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
+Имя параметра: startIndex
+Cache Callback: 22.03.2013 23:10:00
+Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
+Имя параметра: startIndex
 Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
-Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
-Cache Callback: 18.03.2013 22:36:40
-Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
-Cache Callback: 18.03.2013 22:38:20
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(18): error CS0103: Имя 'Parse_Button' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(19): error CS0103: Имя 'Aplication_Identification_btn' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(19): error CS0103: Имя 'ICC_btn' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(19): error CS0103: Имя 'IC_btn' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(19): error CS0103: Имя 'CardIdentification_btn' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(19): error CS0103: Имя 'CardDownload_btn' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(19): error CS0103: Имя 'DrivingLicenceInfo_btn' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(19): error CS0103: Имя 'Events_btn' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(19): error CS0103: Имя 'Faults_btn' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(19): error CS0103: Имя 'Places_btn' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(19): error CS0103: Имя 'Current_Usage_btn' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(19): error CS0103: Имя 'ControlActivityData_btn' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(19): error CS0103: Имя 'VehicleFileContent_btn' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(19): error CS0103: Имя 'ShowStatistics_btn' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(19): error CS0103: Имя 'TextBoxTest' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(19): error CS0103: Имя 'AddGridPanel' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1019): error CS0103: Имя 'Parse_Button' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1023): error CS0103: Имя 'Parse_Button' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1026): error CS0103: Имя 'AddGrid' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1070): error CS0103: Имя 'DriverPreviewButtonsPanel' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1070): error CS0103: Имя 'FilesPreviewDataGrid' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1082): error CS0103: Имя 'onlyForInternal' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1150): error CS0103: Имя 'FilesPreviewDataGrid' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1185): error CS0103: Имя 'AddGrid' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1260): error CS0103: Имя 'DriverFileContent_btn' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1261): error CS0103: Имя 'Aplication_Identification_btn' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1262): error CS0103: Имя 'ICC_btn' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1261): error CS0103: Имя 'DrivingLicenceInfo_btn' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1306): error CS0103: Имя 'AddGrid' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1327): error CS0103: Имя 'VehicleFileContent_btn' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1380): error CS0103: Имя 'AddGrid' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1366): error CS0103: Имя 'AddGrid' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1338): error CS0246: Не удалось найти имя типа или пространства имен 'DeleteStructure' (возможно, пропущена используемая директива или ссылка на сборку)
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1329): error CS0103: Имя 'FilesPreviewPanel' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1347): error CS0103: Имя 'AddGrid' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1026): error CS0103: Имя 'SetDelColVisible' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1346): error CS0103: Имя 'Parse_Button' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1026): error CS0103: Имя 'setParseButtonVisible' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx(271): error CS1061: "ASP.administrator_data_aspx" не содержит определение для "AccordionHeader1_Click". Не удалось найти метод  расширения "AccordionHeader1_Click", принимающий первый аргумент типа "ASP.administrator_data_aspx"  (пропущено использование директивы или ссылка на сборку?)
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1116): error CS0103: Имя 'ModalPopupExtender1' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx(312): error CS1061: "ASP.administrator_data_aspx" не содержит определение для "UserFileRecoverTree_SelectedNodeChanged". Не удалось найти метод  расширения "UserFileRecoverTree_SelectedNodeChanged", принимающий первый аргумент типа "ASP.administrator_data_aspx"  (пропущено использование директивы или ссылка на сборку?)
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1146): error CS0103: Имя 'UserFileRecover_TreeView' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1158): error CS0103: Имя 'UserFileRecover_TreeView' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1268): error CS0103: Имя 'UserFileRecover_TreeView' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1274): error CS0103: Имя 'UserFileRecover_TreeView' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(53): error CS0103: Имя 'LoadVehiclesEveryWhere' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(52): error CS0103: Имя 'LoadDriversEveryWhere' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(282): error CS0103: Имя 'LoadAllDriversLists' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx(333): error CS1061: "ASP.administrator_data_aspx" не содержит определение для "DriversSelectTree_NodeChanged". Не удалось найти метод  расширения "DriversSelectTree_NodeChanged", принимающий первый аргумент типа "ASP.administrator_data_aspx"  (пропущено использование директивы или ссылка на сборку?)
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1146): error CS0103: Имя 'DriversSelectTree' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(52): error CS0103: Имя 'LoadDriversEveryWhere' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx(345): error CS1061: "ASP.administrator_data_aspx" не содержит определение для "VehiclesSelectTree_NodeChanged". Не удалось найти метод  расширения "VehiclesSelectTree_NodeChanged", принимающий первый аргумент типа "ASP.administrator_data_aspx"  (пропущено использование директивы или ссылка на сборку?)
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx(353): error CS1061: "ASP.administrator_data_aspx" не содержит определение для "ManagmentLoadedInfo_SelectedNodeChanged". Не удалось найти метод  расширения "ManagmentLoadedInfo_SelectedNodeChanged", принимающий первый аргумент типа "ASP.administrator_data_aspx"  (пропущено использование директивы или ссылка на сборку?)
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx(367): error CS1061: "ASP.administrator_data_aspx" не содержит определение для "ChangeDriversNameClick". Не удалось найти метод  расширения "ChangeDriversNameClick", принимающий первый аргумент типа "ASP.administrator_data_aspx"  (пропущено использование директивы или ссылка на сборку?)
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1279): error CS0103: Имя 'DriversNameChangeButton' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1277): error CS0103: Имя 'DriversCardEditButtonsPanel' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(52): error CS0103: Имя 'driversCardEditPanelVisible' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx(373): error CS1061: "ASP.administrator_data_aspx" не содержит определение для "makeChangeDriversNameAndSurName". Не удалось найти метод  расширения "makeChangeDriversNameAndSurName", принимающий первый аргумент типа "ASP.administrator_data_aspx"  (пропущено использование директивы или ссылка на сборку?)
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(920): error CS0103: Имя 'StatusUpdatePanel' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1015): error CS0103: Имя 'Status' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1019): error CS0103: Имя 'Status' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1023): error CS0103: Имя 'StatusUpdatePanel' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1084): error CS0103: Имя 'Status' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1089): error CS0103: Имя 'Status' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1238): error CS0103: Имя 'LoadDataStatistics1' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(963): error CS0103: Имя 'StatusUpdatePanel' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1060): error CS0103: Имя 'Status' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1083): error CS0103: Имя 'StatusUpdatePanel' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1113): error CS0103: Имя 'Status' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1238): error CS0103: Имя 'Status' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1287): error CS0103: Имя 'Status' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1406): error CS0103: Имя 'Status' отсутствует в текущем контексте
+Cache Callback: Message: e:\workTransport\!SmartFIS.ru\Projects_new\UnitedProject\DDDWebSite\Administrator\Data.aspx.cs(1447): error CS0103: Имя 'Status' отсутствует в текущем контексте
+Cache Callback: 23.03.2013 0:42:20
 Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
 Имя параметра: startIndex
-Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
-Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
-Cache Callback: 26.03.2013 20:58:40
+Cache Callback: Message: Файл не существует.
+Cache Callback: 30.03.2013 1:17:40
 Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
 Имя параметра: startIndex
-Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
-Cache Callback: 26.03.2013 21:12:20
-Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 31.03.2013 14:23:20
 Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
 Имя параметра: startIndex
-Cache Callback: 26.03.2013 23:36:00
+Cache Callback: 06.04.2013 15:33:40
 Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
 Имя параметра: startIndex
-Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
-Cache Callback: 27.03.2013 0:04:40
-Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
-Имя параметра: startIndex
-Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
-Cache Callback: 27.03.2013 0:17:00
-Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
-Имя параметра: startIndex
-Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
-Cache Callback: 27.03.2013 0:19:20
-Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
-Имя параметра: startIndex
-Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
-Cache Callback: Message: Выдано исключение типа "System.Web.HttpUnhandledException".
-Cache Callback: 29.03.2013 11:27:28
-Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
-Имя параметра: startIndex
-Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
-Cache Callback: 29.03.2013 11:27:53
-Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
-Имя параметра: startIndex
-Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
-Cache Callback: 29.03.2013 11:29:20
-Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
-Имя параметра: startIndex
-Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
-Cache Callback: 30.03.2013 22:42:20
-Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
-Имя параметра: startIndex
-Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
-Cache Callback: 30.03.2013 23:15:40
-Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
-Имя параметра: startIndex
-Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
-Cache Callback: 31.03.2013 0:13:00
-Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
-Имя параметра: startIndex
-Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
-Cache Callback: 31.03.2013 0:33:20
-Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
-Имя параметра: startIndex
-Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
-Cache Callback: 31.03.2013 0:53:20
-Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
-Имя параметра: startIndex
-Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
-Cache Callback: Message: d:\BSUIR\Other\UnitedProject\DDDWebSite\Administrator\Settings.aspx.cs(918): error CS0103: Имя 'DriverSettings' отсутствует в текущем контексте
-Cache Callback: 01.04.2013 22:48:00
-Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
-Имя параметра: startIndex
-Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
-Cache Callback: 01.04.2013 23:16:00
-Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
-Имя параметра: startIndex
-Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
-Cache Callback: Message: d:\BSUIR\Other\UnitedProject\DDDWebSite\Administrator\Settings.aspx.cs(1059): error CS1526: Новое выражение требует подстановку символов (), [] или {} после типа
+Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.
+Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.
+Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.
+Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.
+Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.
+Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.
+Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.
+Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.
+Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.

@@ -457,7 +457,7 @@
               <tr style="background-color:#eee;">
                 <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Дата выдачи</td>
                 <td style="padding-top:10px;">
-                  <input id="givenDateinputSingle" value="{{html GivenDate}}" style="width:100px;" class="datepicker"/>
+                  <input id="givenDateinputSingle" value="{{html GivenDate}}" style="width:100px;" class="input inputField datepicker"/>
                 </td>
               </tr>
               <tr style="background-color:#eee;">
@@ -468,13 +468,13 @@
               <tr style="background-color:#eee;">
                 <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Начало</td>
                 <td style="padding-top:10px;">
-                  <input id="fromDateinputSingle" value="{{html FromDate}}" style="width:100px;" class="datepicker"/>
+                  <input id="fromDateinputSingle" value="{{html FromDate}}" style="width:100px;" class="input inputField datepicker"/>
                 </td>
               </tr>
               <tr style="background-color:#eee;">
                 <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Окончание</td>
                 <td style="padding-top:10px;">
-                  <input id="toDateinputSingle" value="{{html ToDate}}" style="width:100px;" class="datepicker"/>
+                  <input id="toDateinputSingle" value="{{html ToDate}}" style="width:100px;" class="input inputField datepicker"/>
                 </td>
               </tr>
             </tbody>
@@ -612,7 +612,7 @@
           <tr style="background-color:#eee;">
             <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Последнее считывание</td>
             <td style="padding-top:10px;">
-              <input id="lastReadDateinputSingle" value="{{html LastReadDate}}" style="width:100px;" class="datepicker"/>
+              <input id="lastReadDateinputSingle" value="{{html LastReadDate}}" style="width:100px;" class="input inputField datepicker"/>
             </td>
           </tr>
           <tr style="background-color:#eee;">
@@ -636,7 +636,7 @@
           <tr style="background-color:#eee;">
             <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Следующая калибровка</td>
             <td style="padding-top:10px;">
-              <input id="nextCalibrinputSingle" value="{{html NextCalibrDate}}" style="width:100px;" class="datepicker"/>
+              <input id="nextCalibrinputSingle" value="{{html NextCalibrDate}}" style="width:100px;" class="input inputField datepicker"/>
             </td>
           </tr>
         </tbody>

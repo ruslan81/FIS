@@ -277,11 +277,23 @@
 
     <script id="tmplGeneralOrgDetailedData2" type="text/x-jquery-tmpl">
 
-    <table style="" cellpadding="0" cellspacing="0">
-            <tr><td><label>Страна </label></td><td><label>Город </label></td><td><label>Почтовый индекс </label></td></tr>
+        <table style="" cellpadding="0" cellspacing="0">
             <tr>
                 <td>
-                    <div style="width: 300px;"><select id="country" style="width:170px;" countryId="{{html country}}" onchange="this.countryId=this.value;"></select></div>
+                    <label>Страна </label>
+                </td>
+                <td>
+                    <label>Город </label>
+                </td>
+                <td>
+                    <label>Почтовый индекс </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="width: 300px;">
+                        <select id="country" style="width:270px;" countryId="{{html country}}" onchange="this.countryId=this.value;"></select>
+                    </div>
                 </td>
                 <td>
                     <div style="width: 300px;"><input id="city" value="{{html city}}"/></div>
@@ -298,7 +310,9 @@
 
         <br/>
 
-        <div style="width:100%;"><select id="timeZoneSelector" timeZoneId="{{html timeZone}}" style="width:350px;" onchange="this.timeZoneId=this.value;"></select></div>
+        <div style="width:100%;">
+            <select id="timeZoneSelector" timeZoneId="{{html timeZone}}" style="width:560px;" onchange="this.timeZoneId=this.value;"></select>
+        </div>
 
         <br/>
 
@@ -306,7 +320,7 @@
 
         <br/>
 
-        <div style="width: 500px;"><input id="addr1" value="{{html address1}}"/></div>
+        <div style="width: 632px;"><input id="addr1" value="{{html address1}}"/></div>
 
         <br/>
 
@@ -314,7 +328,7 @@
 
         <br/>
 
-        <div style="width: 500px;"><input id="addr2" value="{{html address2}}"/></div>
+        <div style="width: 632px;"><input id="addr2" value="{{html address2}}"/></div>
         
         <br/>
 
@@ -322,16 +336,20 @@
             <tr><td><label>Язык (экран) </label></td><td><label>Язык (отчеты) </label></td></tr>
             <tr>
                 <td>
-                    <div style="width: 300px;"><select id="lang_screen" style="width:170px;" langId="0" onchange="this.langId=this.value;">
-                        <option value="0">Русский</option>
-                        <option value="1">English</option>
-                    </select></div>
+                    <div style="width: 300px;">
+                        <select id="lang_screen" style="width:270px;" langId="0" onchange="this.langId=this.value;">
+                            <option value="0">Русский</option>
+                            <option value="1">English</option>
+                        </select>
+                    </div>
                 </td>
                 <td>
-                    <div style="width: 300px;"><select id="lang_report" style="width:170px;" langId="0" onchange="this.langId=this.value;">
-                        <option value="0">Русский</option>
-                        <option value="1">English</option>
-                    </select></div>
+                    <div style="width: 300px;">
+                        <select id="lang_report" style="width:270px;" langId="0" onchange="this.langId=this.value;">
+                            <option value="0">Русский</option>
+                            <option value="1">English</option>
+                        </select>
+                    </div>
                 </td>
             </tr>
         </table>
