@@ -635,7 +635,7 @@
                     resized: function (e) {
                         var m = self.menu, ele = m.element;
                         o.dropdownWidth = ele.outerWidth();
-                        o.dropdownHeight = ele.outerHeight();
+                        o.dropdownHeight = ele.outerHeight()+3;
                         self._positionList();
                         self.menu.refreshSuperPanel();
                     }
@@ -1134,7 +1134,7 @@
             var self = this, menu, hidingAnimation, hidingStyle;
             menu = self.menu;
 
-            self._dropDownHeight = menu.element.outerHeight();
+            self._dropDownHeight = menu.element.outerHeight()+3;
             self._dropDownWidth = menu.element.outerWidth();
 
             window.clearTimeout(self.closing);
@@ -1247,13 +1247,13 @@
             dropDownHeight = 200;// o.dropdownHeight;
             if (self._select !== undefined) {
                 dropDownHeight = 20 * self._menuUL
-				.children(".wijmo-wijlist-item:first").outerHeight();
+				.children(".wijmo-wijlist-item:first").outerHeight()+3;
             }
             //For fixing bug 15778
             //h = Math.min(self._menuUL.outerHeight() + verticalBorder, dropDownHeight); 
             if (menuElement.children(".wijmo-wijsuperpanel-header")) {
                 headerHeight = menuElement
-					.children(".wijmo-wijsuperpanel-header").outerHeight();
+					.children(".wijmo-wijsuperpanel-header").outerHeight()+3;
             }
             //end for fixing bug 15778
             h = Math.min(self._menuUL.outerHeight() + verticalBorder + headerHeight,

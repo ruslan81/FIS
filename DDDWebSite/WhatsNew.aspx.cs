@@ -15,6 +15,11 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "-31.03.2013" + Environment.NewLine;
+            ReportLabel.Text += @"- Заработал разбор ddd-файлов, ранее для большинства из них выдавалась ошибка 'Cannot add or update a child row: a foreign key constraint fails...'" + Environment.NewLine;
+            ReportLabel.Text += @"- Для водителей добавлена поддержка сохранения/изменения оставшихся полей в разделах Основные, Личные, Крата (кроме изображений)." + Environment.NewLine;
+            ReportLabel.Text += @"- Обновлена версия диаграммы." + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "-22.03.2013" + Environment.NewLine;
             ReportLabel.Text += @"- Решены проблемы с отображением данных на круговой диаграмме" + Environment.NewLine;
             ReportLabel.Text += @"- Работа над проблемой разбора ddd-файлов." + Environment.NewLine;

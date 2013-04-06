@@ -12282,3 +12282,18 @@ Cache Callback: Message: Файл не существует.
 Cache Callback: 30.03.2013 1:17:40
 Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
 Имя параметра: startIndex
+Cache Callback: 31.03.2013 14:23:20
+Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
+Имя параметра: startIndex
+Cache Callback: 06.04.2013 15:33:40
+Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
+Имя параметра: startIndex
+Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.
+Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.
+Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.
+Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.
+Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.
+Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.
+Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.
+Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.
+Cache Callback: Message: Unable to connect to any of the specified MySQL hosts.
