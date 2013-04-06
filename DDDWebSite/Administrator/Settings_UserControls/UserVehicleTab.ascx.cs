@@ -138,7 +138,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
             GeneralVehInfo_Comment_Label.Text = "Commentary:";
             GeneralVehInfo_Comment_TextBox.Text = dataBlock.cardsTable.GetCardNote(cardId);
             //PHOTO
-            int vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.VehiclePhotoAddress);
+            int vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_VehiclePhotoAddress);
             string filePath = dataBlock.vehiclesTables.GetVehicleInfoValue(selectedVehID, vehInfoId);
             if (filePath == "")
                 filePath = "~/images/unknown_vehicle.jpg";
@@ -146,7 +146,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
             #endregion
             #region "AdditionalTab"
             //Fuel tank 1
-            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.FuelTank1, selectedVehID);
+            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_FuelTank1, selectedVehID);
             keyId = dataBlock.vehiclesTables.GetVehicleKey_KeyId(vehicleKeyId);
             measureId = dataBlock.criteriaTable.GetMeasure_byKeyID(keyId);
             AdditionalEdit_Bak_1_Label.Text = dataBlock.criteriaTable.GetCriteriaName(keyId);
@@ -154,7 +154,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
             AdditionalEdit_Bak_1_MaxValTextBox.Text = dataBlock.vehiclesTables.GetVehicleKey_MaxVal(vehicleKeyId).ToString();
             AdditionalEdit_Bak_1_MeasureLabel.Text = dataBlock.criteriaTable.GetMeasureFullName(measureId).ToString();
             //Fuel tank 2
-            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.FuelTank2, selectedVehID);
+            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_FuelTank2, selectedVehID);
             keyId = dataBlock.vehiclesTables.GetVehicleKey_KeyId(vehicleKeyId);
             measureId = dataBlock.criteriaTable.GetMeasure_byKeyID(keyId);
             AdditionalEdit_Bak_2_Label.Text = dataBlock.criteriaTable.GetCriteriaName(keyId);
@@ -162,7 +162,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
             AdditionalEdit_Bak_2_MaxValTextBox.Text = dataBlock.vehiclesTables.GetVehicleKey_MaxVal(vehicleKeyId).ToString();
             AdditionalEdit_Bak_2_MeasureLabel.Text = dataBlock.criteriaTable.GetMeasureFullName(measureId).ToString();
             //LoadCcarrying
-            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.LoadCarryingCapacity, selectedVehID);
+            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_LoadCarryingCapacity, selectedVehID);
             keyId = dataBlock.vehiclesTables.GetVehicleKey_KeyId(vehicleKeyId);
             measureId = dataBlock.criteriaTable.GetMeasure_byKeyID(keyId);
             AdditionalEdit_LoadCcarrying_Label.Text = dataBlock.criteriaTable.GetCriteriaName(keyId);
@@ -183,7 +183,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
             }
             AdditionalEdit_FuelType_DropDown.Text = dataBlock.vehiclesTables.GetVehTypeFuelName(keyId);
             //TO1
-            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.MRO1, selectedVehID);
+            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_MRO1, selectedVehID);
             keyId = dataBlock.vehiclesTables.GetVehicleKey_KeyId(vehicleKeyId);
             measureId = dataBlock.criteriaTable.GetMeasure_byKeyID(keyId);
             AdditionalEdit_TO1_Label.Text = dataBlock.criteriaTable.GetCriteriaName(keyId);
@@ -191,7 +191,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
             AdditionalEdit_TO1_MaxValTextBox.Text = dataBlock.vehiclesTables.GetVehicleKey_MaxVal(vehicleKeyId).ToString();
             AdditionalEdit_TO1_MeasureLabel.Text = dataBlock.criteriaTable.GetMeasureFullName(measureId).ToString();
             //TO2
-            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.MRO2, selectedVehID);
+            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_MRO2, selectedVehID);
             keyId = dataBlock.vehiclesTables.GetVehicleKey_KeyId(vehicleKeyId);
             measureId = dataBlock.criteriaTable.GetMeasure_byKeyID(keyId);
             AdditionalEdit_TO2_Label.Text = dataBlock.criteriaTable.GetCriteriaName(keyId);
@@ -239,7 +239,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
             #endregion
             #region "Koef"
             //	Nominal turns
-            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.NominalTurns, selectedVehID);
+            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_NominalTurns, selectedVehID);
             keyId = dataBlock.vehiclesTables.GetVehicleKey_KeyId(vehicleKeyId);
             measureId = dataBlock.criteriaTable.GetMeasure_byKeyID(keyId);
             KoefEditTable_NomRPM_Lable.Text = dataBlock.criteriaTable.GetCriteriaName(keyId);
@@ -247,7 +247,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
             KoefEditTable_NomRPM_MaxValTextBox.Text = dataBlock.vehiclesTables.GetVehicleKey_MaxVal(vehicleKeyId).ToString();
             KoefEditTable_NomRPM_MeasureLabel.Text = dataBlock.criteriaTable.GetMeasureFullName(measureId).ToString();
             //	Maximum speed
-            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.MaxSpeed, selectedVehID);
+            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_MaxSpeed, selectedVehID);
             keyId = dataBlock.vehiclesTables.GetVehicleKey_KeyId(vehicleKeyId);
             measureId = dataBlock.criteriaTable.GetMeasure_byKeyID(keyId);
             KoefEditTable_MaxSpeed_Label.Text = dataBlock.criteriaTable.GetCriteriaName(keyId);
@@ -255,7 +255,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
             KoefEditTable_MaxSpeed_MaxValTextBox.Text = dataBlock.vehiclesTables.GetVehicleKey_MaxVal(vehicleKeyId).ToString();
             KoefEditTable_MaxSpeed_MeasureLabel.Text = dataBlock.criteriaTable.GetMeasureFullName(measureId).ToString();
             //	Manoeuvring	
-            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Manoeuvring, selectedVehID);
+            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_Manoeuvring, selectedVehID);
             keyId = dataBlock.vehiclesTables.GetVehicleKey_KeyId(vehicleKeyId);
             measureId = dataBlock.criteriaTable.GetMeasure_byKeyID(keyId);
             KoefEditTable_Manevr_Label.Text = dataBlock.criteriaTable.GetCriteriaName(keyId);
@@ -263,7 +263,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
             KoefEditTable_Manevr_MaxValTextBox.Text = dataBlock.vehiclesTables.GetVehicleKey_MaxVal(vehicleKeyId).ToString();
             KoefEditTable_Manevr_MeasureLabel.Text = dataBlock.criteriaTable.GetMeasureFullName(measureId).ToString();
             //	City	
-            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.City, selectedVehID);
+            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_City, selectedVehID);
             keyId = dataBlock.vehiclesTables.GetVehicleKey_KeyId(vehicleKeyId);
             measureId = dataBlock.criteriaTable.GetMeasure_byKeyID(keyId);
             KoefEditTable_City_Label.Text = dataBlock.criteriaTable.GetCriteriaName(keyId);
@@ -271,7 +271,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
             KoefEditTable_City_MaxValTextBox.Text = dataBlock.vehiclesTables.GetVehicleKey_MaxVal(vehicleKeyId).ToString();
             KoefEditTable_City_MeasureLabel.Text = dataBlock.criteriaTable.GetMeasureFullName(measureId).ToString();
             //	HighWay
-            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Highway, selectedVehID);
+            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_Highway, selectedVehID);
             keyId = dataBlock.vehiclesTables.GetVehicleKey_KeyId(vehicleKeyId);
             measureId = dataBlock.criteriaTable.GetMeasure_byKeyID(keyId);
             KoefEditTable_Magistral_Label.Text = dataBlock.criteriaTable.GetCriteriaName(keyId);
@@ -279,7 +279,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
             KoefEditTable_Magistral_MaxValTextBox.Text = dataBlock.vehiclesTables.GetVehicleKey_MaxVal(vehicleKeyId).ToString();
             KoefEditTable_Magistral_MeasureLabel.Text = dataBlock.criteriaTable.GetMeasureFullName(measureId).ToString();
             //  Nominal fuel consumption
-            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.NomFuelConsumption, selectedVehID);
+            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_NomFuelConsumption, selectedVehID);
             keyId = dataBlock.vehiclesTables.GetVehicleKey_KeyId(vehicleKeyId);
             measureId = dataBlock.criteriaTable.GetMeasure_byKeyID(keyId);
             KoefEditTable_NomFuelConsumpion_Label.Text = dataBlock.criteriaTable.GetCriteriaName(keyId);
@@ -287,7 +287,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
             KoefEditTable_NomFuelConsumpion_MaxValTextBox.Text = dataBlock.vehiclesTables.GetVehicleKey_MaxVal(vehicleKeyId).ToString();
             KoefEditTable_NomFuelConsumpion_MeasureLabel.Text = dataBlock.criteriaTable.GetMeasureFullName(measureId).ToString();
             //  Cold start
-            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.ColdStart, selectedVehID);
+            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_ColdStart, selectedVehID);
             keyId = dataBlock.vehiclesTables.GetVehicleKey_KeyId(vehicleKeyId);
             measureId = dataBlock.criteriaTable.GetMeasure_byKeyID(keyId);
             KoefEditTable_ColdStart_Label.Text = dataBlock.criteriaTable.GetCriteriaName(keyId);
@@ -295,7 +295,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
             KoefEditTable_ColdStart_MaxValTextBox.Text = dataBlock.vehiclesTables.GetVehicleKey_MaxVal(vehicleKeyId).ToString();
             KoefEditTable_ColdStart_MeasureLabel.Text = dataBlock.criteriaTable.GetMeasureFullName(measureId).ToString();
             // 	Hot stop
-            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.HotStop, selectedVehID);
+            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_HotStop, selectedVehID);
             keyId = dataBlock.vehiclesTables.GetVehicleKey_KeyId(vehicleKeyId);
             measureId = dataBlock.criteriaTable.GetMeasure_byKeyID(keyId);
             KoefEditTable_HotStop_Label.Text = dataBlock.criteriaTable.GetCriteriaName(keyId);
@@ -353,7 +353,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
             #endregion
             #region "AdditionalTab"
             //Fuel tank 1
-            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.FuelTank1, selectedVehID);
+            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_FuelTank1, selectedVehID);
             keyId = dataBlock.vehiclesTables.GetVehicleKey_KeyId(vehicleKeyId);
             measureId = dataBlock.criteriaTable.GetMeasure_byKeyID(keyId);
             AdditionalEdit_Bak_1_Label.Text = dataBlock.criteriaTable.GetCriteriaName(keyId);
@@ -361,7 +361,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
             AdditionalEdit_Bak_1_MaxValTextBox.Text = "";
             AdditionalEdit_Bak_1_MeasureLabel.Text = dataBlock.criteriaTable.GetMeasureFullName(measureId).ToString();
             //Fuel tank 2
-            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.FuelTank2, selectedVehID);
+            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_FuelTank2, selectedVehID);
             keyId = dataBlock.vehiclesTables.GetVehicleKey_KeyId(vehicleKeyId);
             measureId = dataBlock.criteriaTable.GetMeasure_byKeyID(keyId);
             AdditionalEdit_Bak_2_Label.Text = dataBlock.criteriaTable.GetCriteriaName(keyId);
@@ -369,7 +369,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
             AdditionalEdit_Bak_2_MaxValTextBox.Text = "";
             AdditionalEdit_Bak_2_MeasureLabel.Text = dataBlock.criteriaTable.GetMeasureFullName(measureId).ToString();
             //LoadCcarrying
-            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.LoadCarryingCapacity, selectedVehID);
+            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_LoadCarryingCapacity, selectedVehID);
             keyId = dataBlock.vehiclesTables.GetVehicleKey_KeyId(vehicleKeyId);
             measureId = dataBlock.criteriaTable.GetMeasure_byKeyID(keyId);
             AdditionalEdit_LoadCcarrying_Label.Text = dataBlock.criteriaTable.GetCriteriaName(keyId);
@@ -390,7 +390,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
             if (vehTypesCounter > 0)
                 AdditionalEdit_FuelType_DropDown.Text = dataBlock.vehiclesTables.GetVehTypeFuelName(vehTypes[0].Value);
             //TO1
-            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.MRO1, selectedVehID);
+            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_MRO1, selectedVehID);
             keyId = dataBlock.vehiclesTables.GetVehicleKey_KeyId(vehicleKeyId);
             measureId = dataBlock.criteriaTable.GetMeasure_byKeyID(keyId);
             AdditionalEdit_TO1_Label.Text = dataBlock.criteriaTable.GetCriteriaName(keyId);
@@ -398,7 +398,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
             AdditionalEdit_TO1_MaxValTextBox.Text = "";
             AdditionalEdit_TO1_MeasureLabel.Text = dataBlock.criteriaTable.GetMeasureFullName(measureId).ToString();
             //TO2
-            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.MRO2, selectedVehID);
+            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_MRO2, selectedVehID);
             keyId = dataBlock.vehiclesTables.GetVehicleKey_KeyId(vehicleKeyId);
             measureId = dataBlock.criteriaTable.GetMeasure_byKeyID(keyId);
             AdditionalEdit_TO2_Label.Text = dataBlock.criteriaTable.GetCriteriaName(keyId);
@@ -431,7 +431,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
             #endregion
             #region "Koef"
             //	Nominal turns
-            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.NominalTurns, selectedVehID);
+            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_NominalTurns, selectedVehID);
             keyId = dataBlock.vehiclesTables.GetVehicleKey_KeyId(vehicleKeyId);
             measureId = dataBlock.criteriaTable.GetMeasure_byKeyID(keyId);
             KoefEditTable_NomRPM_Lable.Text = dataBlock.criteriaTable.GetCriteriaName(keyId);
@@ -439,7 +439,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
             KoefEditTable_NomRPM_MaxValTextBox.Text = "";
             KoefEditTable_NomRPM_MeasureLabel.Text = dataBlock.criteriaTable.GetMeasureFullName(measureId).ToString();
             //	Maximum speed
-            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.MaxSpeed, selectedVehID);
+            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_MaxSpeed, selectedVehID);
             keyId = dataBlock.vehiclesTables.GetVehicleKey_KeyId(vehicleKeyId);
             measureId = dataBlock.criteriaTable.GetMeasure_byKeyID(keyId);
             KoefEditTable_MaxSpeed_Label.Text = dataBlock.criteriaTable.GetCriteriaName(keyId);
@@ -447,7 +447,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
             KoefEditTable_MaxSpeed_MaxValTextBox.Text = "";
             KoefEditTable_MaxSpeed_MeasureLabel.Text = dataBlock.criteriaTable.GetMeasureFullName(measureId).ToString();
             //	Manoeuvring	
-            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Manoeuvring, selectedVehID);
+            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_Manoeuvring, selectedVehID);
             keyId = dataBlock.vehiclesTables.GetVehicleKey_KeyId(vehicleKeyId);
             measureId = dataBlock.criteriaTable.GetMeasure_byKeyID(keyId);
             KoefEditTable_Manevr_Label.Text = dataBlock.criteriaTable.GetCriteriaName(keyId);
@@ -455,7 +455,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
             KoefEditTable_Manevr_MaxValTextBox.Text = "";
             KoefEditTable_Manevr_MeasureLabel.Text = dataBlock.criteriaTable.GetMeasureFullName(measureId).ToString();
             //	City	
-            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.City, selectedVehID);
+            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_City, selectedVehID);
             keyId = dataBlock.vehiclesTables.GetVehicleKey_KeyId(vehicleKeyId);
             measureId = dataBlock.criteriaTable.GetMeasure_byKeyID(keyId);
             KoefEditTable_City_Label.Text = dataBlock.criteriaTable.GetCriteriaName(keyId);
@@ -463,7 +463,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
             KoefEditTable_City_MaxValTextBox.Text = "";
             KoefEditTable_City_MeasureLabel.Text = dataBlock.criteriaTable.GetMeasureFullName(measureId).ToString();
             //	HighWay
-            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Highway, selectedVehID);
+            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_Highway, selectedVehID);
             keyId = dataBlock.vehiclesTables.GetVehicleKey_KeyId(vehicleKeyId);
             measureId = dataBlock.criteriaTable.GetMeasure_byKeyID(keyId);
             KoefEditTable_Magistral_Label.Text = dataBlock.criteriaTable.GetCriteriaName(keyId);
@@ -471,7 +471,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
             KoefEditTable_Magistral_MaxValTextBox.Text = "";
             KoefEditTable_Magistral_MeasureLabel.Text = dataBlock.criteriaTable.GetMeasureFullName(measureId).ToString();
             //  Nominal fuel consumption
-            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.NomFuelConsumption, selectedVehID);
+            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_NomFuelConsumption, selectedVehID);
             keyId = dataBlock.vehiclesTables.GetVehicleKey_KeyId(vehicleKeyId);
             measureId = dataBlock.criteriaTable.GetMeasure_byKeyID(keyId);
             KoefEditTable_NomFuelConsumpion_Label.Text = dataBlock.criteriaTable.GetCriteriaName(keyId);
@@ -479,7 +479,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
             KoefEditTable_NomFuelConsumpion_MaxValTextBox.Text = "";
             KoefEditTable_NomFuelConsumpion_MeasureLabel.Text = dataBlock.criteriaTable.GetMeasureFullName(measureId).ToString();
             //  Cold start
-            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.ColdStart, selectedVehID);
+            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_ColdStart, selectedVehID);
             keyId = dataBlock.vehiclesTables.GetVehicleKey_KeyId(vehicleKeyId);
             measureId = dataBlock.criteriaTable.GetMeasure_byKeyID(keyId);
             KoefEditTable_ColdStart_Label.Text = dataBlock.criteriaTable.GetCriteriaName(keyId);
@@ -487,7 +487,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
             KoefEditTable_ColdStart_MaxValTextBox.Text = "";
             KoefEditTable_ColdStart_MeasureLabel.Text = dataBlock.criteriaTable.GetMeasureFullName(measureId).ToString();
             // 	Hot stop
-            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.HotStop, selectedVehID);
+            vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_HotStop, selectedVehID);
             keyId = dataBlock.vehiclesTables.GetVehicleKey_KeyId(vehicleKeyId);
             measureId = dataBlock.criteriaTable.GetMeasure_byKeyID(keyId);
             KoefEditTable_HotStop_Label.Text = dataBlock.criteriaTable.GetCriteriaName(keyId);
@@ -659,44 +659,44 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
         dataBlock.vehiclesTables.EditVehicle(selectedVehID, RegNumber, vehManufacturer, Vin, VehicleTypeId, deviceId, dateBlocked, priority, curUserId);
         //////////////Additional//////////////
         //fuel tank1
-        vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.FuelTank1, selectedVehID);
+        vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_FuelTank1, selectedVehID);
         dataBlock.vehiclesTables.SetVehicleKey(vehicleKeyId, FuelTank1Min, FuelTank1Max, new DateTime(), new DateTime(), "");
         //fuel tank2
-        vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.FuelTank2, selectedVehID);
+        vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_FuelTank2, selectedVehID);
         dataBlock.vehiclesTables.SetVehicleKey(vehicleKeyId, FuelTank2Min, FuelTank2Max, new DateTime(), new DateTime(), "");
         //LoadCerrying
-        vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.LoadCarryingCapacity, selectedVehID);
+        vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_LoadCarryingCapacity, selectedVehID);
         dataBlock.vehiclesTables.SetVehicleKey(vehicleKeyId, LoadCarryingMin, LoadCarryingMax, new DateTime(), new DateTime(), "");
         //MRO1
-        vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.MRO1, selectedVehID);
+        vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_MRO1, selectedVehID);
         dataBlock.vehiclesTables.SetVehicleKey(vehicleKeyId, 0, 0, MRO1Min, MRO1Max, "");
         //MRO2
-        vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.MRO2, selectedVehID);
+        vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_MRO2, selectedVehID);
         dataBlock.vehiclesTables.SetVehicleKey(vehicleKeyId, 0, 0, MRO2Min, MRO2Max, "");
         //////////////////////////KOEF/////////////////////////////////////
         //nominalTurns
-        vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.NominalTurns, selectedVehID);
+        vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_NominalTurns, selectedVehID);
         dataBlock.vehiclesTables.SetVehicleKey(vehicleKeyId, NominalTurnsMin, NominalTurnsMax, new DateTime(), new DateTime(), "");
         //maxSpeed
-        vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.MaxSpeed, selectedVehID);
+        vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_MaxSpeed, selectedVehID);
         dataBlock.vehiclesTables.SetVehicleKey(vehicleKeyId, MaximumSpeedMin, MaximumSpeedMax, new DateTime(), new DateTime(), "");
         //Manoeuvring
-        vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Manoeuvring, selectedVehID);
+        vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_Manoeuvring, selectedVehID);
         dataBlock.vehiclesTables.SetVehicleKey(vehicleKeyId, ManoeuvringMin, ManoeuvringMax, new DateTime(), new DateTime(), "");
         //City
-        vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.City, selectedVehID);
+        vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_City, selectedVehID);
         dataBlock.vehiclesTables.SetVehicleKey(vehicleKeyId, CityMin, CityMax, new DateTime(), new DateTime(), "");
         //Highway
-        vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Highway, selectedVehID);
+        vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_Highway, selectedVehID);
         dataBlock.vehiclesTables.SetVehicleKey(vehicleKeyId, HighwayMin, HighwayMax, new DateTime(), new DateTime(), "");
         //NominalFuelConsumption
-        vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.NomFuelConsumption, selectedVehID);
+        vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_NomFuelConsumption, selectedVehID);
         dataBlock.vehiclesTables.SetVehicleKey(vehicleKeyId, NominalFuelConsumptionMin, NominalFuelConsumptionMax, new DateTime(), new DateTime(), "");
         //ColdStart
-        vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.ColdStart, selectedVehID);
+        vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_ColdStart, selectedVehID);
         dataBlock.vehiclesTables.SetVehicleKey(vehicleKeyId, ColdStartMin, ColdStartMax, new DateTime(), new DateTime(), "");
         //HotStop
-        vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.HotStop, selectedVehID);
+        vehicleKeyId = dataBlock.vehiclesTables.GetVehicleKeyId_byKeyNameVehicleId(DataBaseReference.Vehicle_HotStop, selectedVehID);
         dataBlock.vehiclesTables.SetVehicleKey(vehicleKeyId, HotStopMin, HotStopMax, new DateTime(), new DateTime(), "");
     }
 
@@ -732,7 +732,7 @@ public partial class Administrator_Settings_UserControls_UserVehicleTab : System
 
                 dataBlock.OpenConnection();
                 dataBlock.OpenTransaction();
-                vehicleInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.VehiclePhotoAddress);
+                vehicleInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_VehiclePhotoAddress);
                 dataBlock.vehiclesTables.EditVehicleInfo(selectedVehicleID, vehicleInfoId, fileNameToDB);
                 dataBlock.CommitTransaction();
                 dataBlock.CloseConnection();

@@ -114,31 +114,31 @@ namespace BLL
         {
             int keyId = GetCardId(vehicleId);
             sqlDB.SetCardNote(keyId, "Commentary to a vehicle id " + vehicleId.ToString());
-            keyId = sqlDB.GetCriteriaId_byName(DataBaseReference.FuelTank1, CurrentLanguage);
+            keyId = sqlDB.GetCriteriaId_byName(DataBaseReference.Vehicle_FuelTank1, CurrentLanguage);
             AddVehicleKey(vehicleId, keyId, 0, 0, new DateTime(), new DateTime(), "Fuel tank 1");
-            keyId = sqlDB.GetCriteriaId_byName(DataBaseReference.FuelTank2, CurrentLanguage);
+            keyId = sqlDB.GetCriteriaId_byName(DataBaseReference.Vehicle_FuelTank2, CurrentLanguage);
             AddVehicleKey(vehicleId, keyId, 0, 0, new DateTime(), new DateTime(), "Fuel tank 2");
-            keyId = sqlDB.GetCriteriaId_byName(DataBaseReference.LoadCarryingCapacity, CurrentLanguage);
+            keyId = sqlDB.GetCriteriaId_byName(DataBaseReference.Vehicle_LoadCarryingCapacity, CurrentLanguage);
             AddVehicleKey(vehicleId, keyId, 0, 0, new DateTime(), new DateTime(), "load-carrying capacity");
-            keyId = sqlDB.GetCriteriaId_byName(DataBaseReference.MRO1, CurrentLanguage);
+            keyId = sqlDB.GetCriteriaId_byName(DataBaseReference.Vehicle_MRO1, CurrentLanguage);
             AddVehicleKey(vehicleId, keyId, 0, 0, new DateTime(), new DateTime(), "MRO 1");
-            keyId = sqlDB.GetCriteriaId_byName(DataBaseReference.MRO2, CurrentLanguage);
+            keyId = sqlDB.GetCriteriaId_byName(DataBaseReference.Vehicle_MRO2, CurrentLanguage);
             AddVehicleKey(vehicleId, keyId, 0, 0, new DateTime(), new DateTime(), "MRO 2");
-            keyId = sqlDB.GetCriteriaId_byName(DataBaseReference.NominalTurns, CurrentLanguage);
+            keyId = sqlDB.GetCriteriaId_byName(DataBaseReference.Vehicle_NominalTurns, CurrentLanguage);
             AddVehicleKey(vehicleId, keyId, 0, 0, new DateTime(), new DateTime(), "NominalTurns");
-            keyId = sqlDB.GetCriteriaId_byName(DataBaseReference.MaxSpeed, CurrentLanguage);
+            keyId = sqlDB.GetCriteriaId_byName(DataBaseReference.Vehicle_MaxSpeed, CurrentLanguage);
             AddVehicleKey(vehicleId, keyId, 0, 0, new DateTime(), new DateTime(), "MaxSpeed");
-            keyId = sqlDB.GetCriteriaId_byName(DataBaseReference.Manoeuvring, CurrentLanguage);
+            keyId = sqlDB.GetCriteriaId_byName(DataBaseReference.Vehicle_Manoeuvring, CurrentLanguage);
             AddVehicleKey(vehicleId, keyId, 0, 0, new DateTime(), new DateTime(), "Manoeuvring");
-            keyId = sqlDB.GetCriteriaId_byName(DataBaseReference.City, CurrentLanguage);
+            keyId = sqlDB.GetCriteriaId_byName(DataBaseReference.Vehicle_City, CurrentLanguage);
             AddVehicleKey(vehicleId, keyId, 0, 0, new DateTime(), new DateTime(), "City");
-            keyId = sqlDB.GetCriteriaId_byName(DataBaseReference.Highway, CurrentLanguage);
+            keyId = sqlDB.GetCriteriaId_byName(DataBaseReference.Vehicle_Highway, CurrentLanguage);
             AddVehicleKey(vehicleId, keyId, 0, 0, new DateTime(), new DateTime(), "Highway");
-            keyId = sqlDB.GetCriteriaId_byName(DataBaseReference.NomFuelConsumption, CurrentLanguage);
+            keyId = sqlDB.GetCriteriaId_byName(DataBaseReference.Vehicle_NomFuelConsumption, CurrentLanguage);
             AddVehicleKey(vehicleId, keyId, 0, 0, new DateTime(), new DateTime(), "NomFuelConsumption");
-            keyId = sqlDB.GetCriteriaId_byName(DataBaseReference.ColdStart, CurrentLanguage);
+            keyId = sqlDB.GetCriteriaId_byName(DataBaseReference.Vehicle_ColdStart, CurrentLanguage);
             AddVehicleKey(vehicleId, keyId, 0, 0, new DateTime(), new DateTime(), "ColdStart");
-            keyId = sqlDB.GetCriteriaId_byName(DataBaseReference.HotStop, CurrentLanguage);
+            keyId = sqlDB.GetCriteriaId_byName(DataBaseReference.Vehicle_HotStop, CurrentLanguage);
             AddVehicleKey(vehicleId, keyId, 0, 0, new DateTime(), new DateTime(), "HotStop");
         }
         //FD_VEHICLE_TYPE, FD_FUEL_TYPE

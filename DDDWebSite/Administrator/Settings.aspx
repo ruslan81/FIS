@@ -514,13 +514,13 @@
                 <tr style="background-color:#eee;">
                 <td class="key" style="font-size:12px;width:300px;padding-top:10px;">VIN</td>
                 <td style="padding-top:10px;">
-                    <input id="numberinputSingle" value="{{html Number}}" class="inputField-readonly input" readonly="readonly"/>
+                    <input id="numberinputSingle" value="{{html Card.Number}}" class="inputField-readonly input" readonly="readonly"/>
                 </td>
                 </tr>
                 <tr style="background-color:#eee;">
                 <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Гос. Номер</td>
                 <td style="padding-top:10px;">
-                    <input id="nameinputSingle" value="{{html Name}}" class="inputField-readonly input" readonly="readonly"/>
+                    <input id="nameinputSingle" value="{{html Card.Name}}" class="inputField-readonly input" readonly="readonly"/>
                 </td>
                 </tr>
                 <tr style="background-color:#eee;">
@@ -538,13 +538,13 @@
                 <tr style="background-color:#eee;">
                 <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Комментарий</td>
                 <td style="padding-top:10px;">
-                    <input id="commentinputSingle" value="{{html Comment}}" class="inputField-readonly input" readonly="readonly"/>
+                    <input id="commentinputSingle" value="{{html Card.Comment}}" class="inputField-readonly input" readonly="readonly"/>
                 </td>
                 </tr>
                 <tr style="background-color:#eee;">
                 <td class="key" style="font-size:12px;padding-top:10px;">Группа</td>
                 <td style="padding-top:10px;">
-                    <select id="groupSelectorSingle" name="groupSelector" group="{{html groupID}}" onchange="this.group=this.value;"></select>
+                    <select id="groupSelectorSingle" name="groupSelector" group="{{html Card.groupID}}" onchange="this.group=this.value;"></select>
                 </td>
                 </tr>
             </tbody>

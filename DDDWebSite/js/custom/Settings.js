@@ -862,7 +862,8 @@ function loadSingleVehicleSettings() {
             if (selectedNodeType == "0") {
                 $("#tmplSingleVehicleData").tmpl(response.d).appendTo("#contentSettings");
             } else {
-                var param = { Name: "", Number: "", Comment: "", groupID: selectedNodeType };
+                var card = { Name: "", Number: "", Comment: "", groupID: selectedNodeType };
+                var param = { Card: card};
                 $("#tmplSingleVehicleData").tmpl(param).appendTo("#contentSettings");
             }
             $("#tabs").tabs();
@@ -963,7 +964,7 @@ function createUserControlsGroups() {
     $("#save").button({ disabled: true });
     $("#cancel").button({ disabled: true });
 
-    if (mode = "cancel") { mode = ""; return; }
+    if (mode == "cancel") { mode = ""; return; }
 
     $("#create").click(function () {
         mode = "create";
@@ -1573,7 +1574,7 @@ function createUserControlsSingleTransport() {
 
     $("#tabs .datepicker").datepicker();
     $("#tabs .datepicker").datepicker("option", "dateFormat", "dd.mm.yy");
-    $("#tabs .datepicker").datepicker("setDate", todaystr);
+    //$("#tabs .datepicker").datepicker("setDate", todaystr);
     $("#tabs .datepicker").datepicker($.datepicker.regional['ru']);
     $("#tabs .datepicker").datepicker('disable');
 
@@ -1656,12 +1657,40 @@ function createUserControlsSingleTransport() {
 
     $("#save").click(function () {
         if (mode == "edit") {
+            var card;
             var settings = [];
             name = $("#nameinputSingle").attr("value");
             comment = $("#commentinputSingle").attr("value");
             number = $("#numberinputSingle").attr("value");
             group = $("#groupSelectorSingle").attr("group");
-            settings.push({ Name: name, Comment: comment, grID: currentCardId, Number: number, groupID: group });
+            
+            GarageNumber = $("#garageinputSingle").attr("value");
+            MakeYear = $("#makeYearinputSingle").attr("value");
+            Tank1 = $("#tank1inputSingle").attr("value");
+            Tank2 = $("#tank2inputSingle").attr("value");
+            Capacity = $("#capacityinputSingle").attr("value");
+            FuelType = $("#fuelTypeinputSingle").attr("value");
+            TO1 = $("#to1inputSingle").attr("value");
+            TO2 = $("#to2inputSingle").attr("value");
+            EquipmentType = $("#eqtypeinputSingle").attr("value");
+            Serial = $("#serialinputSingle").attr("value");
+            LastReadDate = $("#lastReadDateinputSingle").attr("value");
+            CalibrReason = $("#calibrReasoninputSingle").attr("value");
+            Calibrator = $("#calibratorinputSingle").attr("value");
+            CalibratorCard = $("#calibratorCardinputSingle").attr("value");
+            NextCalibrDate = $("#nextCalibrinputSingle").attr("value");
+            Turns = $("#turninputSingle").attr("value");
+            MaxVelocity = $("#maxVelocityinputSingle").attr("value");
+            Manevring = $("#manevringinputSingle").attr("value");
+            City = $("#cityinputSingle").attr("value");
+            Magistral = $("#magistralinputSingle").attr("value");
+            Consumption = $("#consumptioninputSingle").attr("value");
+            ColdStart = $("#coldstartinputSingle").attr("value");
+            HotStop = $("#hotstopinputSingle").attr("value");
+            
+            card = { Name: name, Comment: comment, grID: currentCardId, Number: number, groupID: group };
+
+            settings.push({ Card: card, GarageNumber: GarageNumber, MakeYear: MakeYear, Tank1: Tank1, Tank2: Tank2, Capacity: Capacity, FuelType: FuelType, TO1: TO1, TO2: TO2, EquipmentType: EquipmentType, Serial: Serial, LastReadDate: LastReadDate, CalibrReason: CalibrReason, Calibrator: Calibrator, CalibratorCard: CalibratorCard, NextCalibrDate: NextCalibrDate, Turns: Turns, MaxVelocity: MaxVelocity, Manevring: Manevring, City: City, Magistral: Magistral, Consumption: Consumption, ColdStart: ColdStart, HotStop: HotStop });
 
             var order = { OrgID: $.cookie("CURRENT_ORG_ID"), TransportSettings: settings };
 
@@ -1673,7 +1702,7 @@ function createUserControlsSingleTransport() {
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
-                    loadSingleVehicleSettings();
+                    //loadSingleVehicleSettings();
                     loadVehiclesTreeSingle(currentCardId, "0");
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -1687,8 +1716,35 @@ function createUserControlsSingleTransport() {
             number = $("#numberinputSingle").attr("value");
             group = $("#groupSelectorSingle").attr("group");
 
-            var data = { Name: name, Comment: comment, Number: number, groupID: group };
-            var order = { OrgID: $.cookie("CURRENT_ORG_ID"), data: data, UserID: $.cookie("CURRENT_USERNAME") };
+            GarageNumber = $("#garageinputSingle").attr("value");
+            MakeYear = $("#makeYearinputSingle").attr("value");
+            Tank1 = $("#tank1inputSingle").attr("value");
+            Tank2 = $("#tank2inputSingle").attr("value");
+            Capacity = $("#capacityinputSingle").attr("value");
+            FuelType = $("#fuelTypeinputSingle").attr("value");
+            TO1 = $("#to1inputSingle").attr("value");
+            TO2 = $("#to2inputSingle").attr("value");
+            EquipmentType = $("#eqtypeinputSingle").attr("value");
+            Serial = $("#serialinputSingle").attr("value");
+            LastReadDate = $("#lastReadDateinputSingle").attr("value");
+            CalibrReason = $("#calibrReasoninputSingle").attr("value");
+            Calibrator = $("#calibratorinputSingle").attr("value");
+            CalibratorCard = $("#calibratorCardinputSingle").attr("value");
+            NextCalibrDate = $("#nextCalibrinputSingle").attr("value");
+            Turns = $("#turninputSingle").attr("value");
+            MaxVelocity = $("#maxVelocityinputSingle").attr("value");
+            Manevring = $("#manevringinputSingle").attr("value");
+            City = $("#cityinputSingle").attr("value");
+            Magistral = $("#magistralinputSingle").attr("value");
+            Consumption = $("#consumptioninputSingle").attr("value");
+            ColdStart = $("#coldstartinputSingle").attr("value");
+            HotStop = $("#hotstopinputSingle").attr("value");
+
+            var card = { Name: name, Comment: comment, Number: number, groupID: group };
+
+            var settings = { Card: card, GarageNumber: GarageNumber, MakeYear: MakeYear, Tank1: Tank1, Tank2: Tank2, Capacity: Capacity, FuelType: FuelType, TO1: TO1, TO2: TO2, EquipmentType: EquipmentType, Serial: Serial, LastReadDate: LastReadDate, CalibrReason: CalibrReason, Calibrator: Calibrator, CalibratorCard: CalibratorCard, NextCalibrDate: NextCalibrDate, Turns: Turns, MaxVelocity: MaxVelocity, Manevring: Manevring, City: City, Magistral: Magistral, Consumption: Consumption, ColdStart: ColdStart, HotStop: HotStop };
+
+            var order = { OrgID: $.cookie("CURRENT_ORG_ID"), data: settings, UserID: $.cookie("CURRENT_USERNAME") };
 
             $.ajax({
                 type: "POST",
@@ -1700,7 +1756,7 @@ function createUserControlsSingleTransport() {
                 success: function (response) {
                     currentCardId = "-1";
                     selectedNodeType = "-1";
-                    loadSingleVehicleSettings();
+                    //loadSingleVehicleSettings();
                     loadVehiclesTreeSingle(response.d, "0");
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
