@@ -540,6 +540,12 @@
                 <td style="padding-top:10px;">
                     <input id="commentinputSingle" value="{{html Card.Comment}}" class="inputField-readonly input" readonly="readonly"/>
                 </td>
+                <tr style="background-color:#eee;">
+                <td class="key" style="font-size:12px;padding-top:10px;">Тип</td>
+                <td style="padding-top:10px;">
+                    <select id="vehTypeSelectorSingle" name="vehTypeSelector" vehType="{{html vehType}}" onchange="this.vehType=this.value;"></select>
+                </td>
+                </tr>
                 </tr>
                 <tr style="background-color:#eee;">
                 <td class="key" style="font-size:12px;padding-top:10px;">Группа</td>

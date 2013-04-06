@@ -34,7 +34,6 @@ namespace DDDModel
             foreach (KeyValuePair<string, int> pair in list) {
                 System.Console.WriteLine(pair.Key+"="+pair.Value);
             }
-            
 
             //dataBlock.GetAllUnparsedDataBlockIDs(1);
             //System.Console.WriteLine(dataBlock.cardsTable.GetCardNumber(4));

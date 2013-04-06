@@ -15,6 +15,7 @@ namespace BLL
         public static string Vehicle_FuelTank2 = "Fuel tank 2";
         public static string Vehicle_GarageNumber = "Garage number";
         public static string Vehicle_MakeYear = "Production year";
+        public static string Vehicle_Type = "Vehicle type";
         public static string Vehicle_FuelType = "Fuel type";
         public static string Vehicle_EquipmentType = "Equipment type";
         public static string Vehicle_SerialNumber = "Serial";

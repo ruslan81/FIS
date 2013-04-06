@@ -712,6 +712,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
             vd.ColdStart = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
             vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_HotStop);
             vd.HotStop = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_Type);
+            vd.vehType = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
 
             return vd;
         }
@@ -794,6 +796,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
                 dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.ColdStart);
                 vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_HotStop);
                 dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.HotStop);
+                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_Type);
+                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.vehType);
 
             }
             return true;
@@ -896,6 +900,40 @@ public partial class Administrator_Settings : System.Web.UI.Page
             {
                 string name = dataBlock.cardsTable.GetGroupNameById(index);
                 result.Add(new MapItem(Convert.ToString(index), name));
+            }
+            return result;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            //return null;
+        }
+        finally
+        {
+            //dataBlock.organizationTable.CloseConnection();
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Получение списка типов
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static List<MapItem> GetTypeListTransports()
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
+
+        try
+        {
+            dataBlock.OpenConnection();
+            List<MapItem> result = new List<MapItem>();
+            List<KeyValuePair<string, int>> types=dataBlock.vehiclesTables.GetAllVehTypes();
+
+            foreach (KeyValuePair<string, int> pair in types)
+            {
+                result.Add(new MapItem(Convert.ToString(pair.Value), pair.Key));
             }
             return result;
         }
@@ -1103,6 +1141,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
             dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.ColdStart);
             vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_HotStop);
             dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.HotStop);
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_Type);
+            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.vehType);
 
             return newId;
         }

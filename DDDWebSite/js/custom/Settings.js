@@ -619,7 +619,7 @@ function loadGeneralImage() {
         dataType: "json",
         success: function (response) {
             $("#contentSettings").prepend($("#tmplGeneralSettingsLogo").text());
-            $("#orgImage").attr("src",response.d);
+            $("#orgImage").attr("src", response.d);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -633,7 +633,7 @@ function saveGeneralImage() {
         type: "POST",
         //Page Name (in which the method should be called) and method name
         url: "Settings.aspx/SaveGeneralLogo",
-        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "','logo':'" +image+ "'}",
+        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "','logo':'" + image + "'}",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
@@ -692,8 +692,8 @@ function createUserControlsGeneral() {
             success: function (response) {
                 saveGeneralImage();
                 /*if (response.d == true) {
-                    loadGeneralSettings();
-                    return false;
+                loadGeneralSettings();
+                return false;
                 }*/
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -863,12 +863,13 @@ function loadSingleVehicleSettings() {
                 $("#tmplSingleVehicleData").tmpl(response.d).appendTo("#contentSettings");
             } else {
                 var card = { Name: "", Number: "", Comment: "", groupID: selectedNodeType };
-                var param = { Card: card};
+                var param = { Card: card };
                 $("#tmplSingleVehicleData").tmpl(param).appendTo("#contentSettings");
             }
             $("#tabs").tabs();
             $("#tabs").tabs('select', 0);
             createGroupSelectorTransports();
+            createTypeSelectorTransports();
             $("#contentTable").show();
             createUserControlsSingleTransport();
         },
@@ -1605,6 +1606,11 @@ function createUserControlsSingleTransport() {
                 {
                     disabled: false
                 });
+        createGroupSelectorDriversSingle($("#vehTypeSelectorSingle"));
+        $("#vehTypeSelectorSingle").wijcombobox(
+                {
+                    disabled: false
+                });
         return false;
     });
 
@@ -1645,6 +1651,10 @@ function createUserControlsSingleTransport() {
                     {
                         disabled: false
                     });
+        $("#vehTypeSelectorSingle").wijcombobox(
+                {
+                    disabled: false
+                });
 
         $("#edit").button({ disabled: true });
         $("#delete").button({ disabled: true });
@@ -1663,7 +1673,8 @@ function createUserControlsSingleTransport() {
             comment = $("#commentinputSingle").attr("value");
             number = $("#numberinputSingle").attr("value");
             group = $("#groupSelectorSingle").attr("group");
-            
+            vehType = $("#vehTypeSelectorSingle").attr("vehType");
+
             GarageNumber = $("#garageinputSingle").attr("value");
             MakeYear = $("#makeYearinputSingle").attr("value");
             Tank1 = $("#tank1inputSingle").attr("value");
@@ -1687,10 +1698,10 @@ function createUserControlsSingleTransport() {
             Consumption = $("#consumptioninputSingle").attr("value");
             ColdStart = $("#coldstartinputSingle").attr("value");
             HotStop = $("#hotstopinputSingle").attr("value");
-            
+
             card = { Name: name, Comment: comment, grID: currentCardId, Number: number, groupID: group };
 
-            settings.push({ Card: card, GarageNumber: GarageNumber, MakeYear: MakeYear, Tank1: Tank1, Tank2: Tank2, Capacity: Capacity, FuelType: FuelType, TO1: TO1, TO2: TO2, EquipmentType: EquipmentType, Serial: Serial, LastReadDate: LastReadDate, CalibrReason: CalibrReason, Calibrator: Calibrator, CalibratorCard: CalibratorCard, NextCalibrDate: NextCalibrDate, Turns: Turns, MaxVelocity: MaxVelocity, Manevring: Manevring, City: City, Magistral: Magistral, Consumption: Consumption, ColdStart: ColdStart, HotStop: HotStop });
+            settings.push({ Card: card, vehType: vehType, GarageNumber: GarageNumber, MakeYear: MakeYear, Tank1: Tank1, Tank2: Tank2, Capacity: Capacity, FuelType: FuelType, TO1: TO1, TO2: TO2, EquipmentType: EquipmentType, Serial: Serial, LastReadDate: LastReadDate, CalibrReason: CalibrReason, Calibrator: Calibrator, CalibratorCard: CalibratorCard, NextCalibrDate: NextCalibrDate, Turns: Turns, MaxVelocity: MaxVelocity, Manevring: Manevring, City: City, Magistral: Magistral, Consumption: Consumption, ColdStart: ColdStart, HotStop: HotStop });
 
             var order = { OrgID: $.cookie("CURRENT_ORG_ID"), TransportSettings: settings };
 
@@ -1715,6 +1726,7 @@ function createUserControlsSingleTransport() {
             comment = $("#commentinputSingle").attr("value");
             number = $("#numberinputSingle").attr("value");
             group = $("#groupSelectorSingle").attr("group");
+            vehType = $("#vehTypeSelectorSingle").attr("vehType");
 
             GarageNumber = $("#garageinputSingle").attr("value");
             MakeYear = $("#makeYearinputSingle").attr("value");
@@ -1742,7 +1754,7 @@ function createUserControlsSingleTransport() {
 
             var card = { Name: name, Comment: comment, Number: number, groupID: group };
 
-            var settings = { Card: card, GarageNumber: GarageNumber, MakeYear: MakeYear, Tank1: Tank1, Tank2: Tank2, Capacity: Capacity, FuelType: FuelType, TO1: TO1, TO2: TO2, EquipmentType: EquipmentType, Serial: Serial, LastReadDate: LastReadDate, CalibrReason: CalibrReason, Calibrator: Calibrator, CalibratorCard: CalibratorCard, NextCalibrDate: NextCalibrDate, Turns: Turns, MaxVelocity: MaxVelocity, Manevring: Manevring, City: City, Magistral: Magistral, Consumption: Consumption, ColdStart: ColdStart, HotStop: HotStop };
+            var settings = { Card: card, vehType: vehType, GarageNumber: GarageNumber, MakeYear: MakeYear, Tank1: Tank1, Tank2: Tank2, Capacity: Capacity, FuelType: FuelType, TO1: TO1, TO2: TO2, EquipmentType: EquipmentType, Serial: Serial, LastReadDate: LastReadDate, CalibrReason: CalibrReason, Calibrator: Calibrator, CalibratorCard: CalibratorCard, NextCalibrDate: NextCalibrDate, Turns: Turns, MaxVelocity: MaxVelocity, Manevring: Manevring, City: City, Magistral: Magistral, Consumption: Consumption, ColdStart: ColdStart, HotStop: HotStop };
 
             var order = { OrgID: $.cookie("CURRENT_ORG_ID"), data: settings, UserID: $.cookie("CURRENT_USERNAME") };
 
@@ -2454,6 +2466,23 @@ function createGroupSelectorTransports() {
     });
 }
 
+function createTypeSelectorTransports() {
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Settings.aspx/GetTypeListTransports",
+        data: "{}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            createSelectors(response, "vehTypeSelector", "vehType");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
+    });
+}
+
 function createGroupSelectorGroups() {
     $.ajax({
         type: "POST",
@@ -2506,6 +2535,24 @@ function createGroupSelectorTransportsSingle(selector) {
         }
     });
 }
+
+function createTypeSelectorTransportsSingle(selector) {
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Settings.aspx/GetTypeListTransports",
+        data: "{}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            createSelector(selector, response, "vehType");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
+    });
+}
+
 
 function createGroupCardTypeSelectors() {
     $("[cardType='0']").remove();

@@ -9,6 +9,7 @@ using System.Web;
 public class VehicleData
 {
     public int id;
+    public string vehType;
     public CardData Card;
     public string GarageNumber;
     public string MakeYear;
