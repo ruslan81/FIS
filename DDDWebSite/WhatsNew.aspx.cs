@@ -15,6 +15,14 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "-07.04.2013" + Environment.NewLine;
+            ReportLabel.Text += @"- Добавлен выбор типа ТС (корректные типы следует установить в БД)." + Environment.NewLine;
+            ReportLabel.Text += @"- Устранены ошибка при создании карты ТС (сейчас группа устанавливается корректно)." + Environment.NewLine;
+            ReportLabel.Text += @"- Добавлена поддержка (сохранение/изменение) дополнительных полей в ТС (Настройки)." + Environment.NewLine;
+            ReportLabel.Text += @"- Интерфейс Управление->Аккаунт->Детально приведен в соответствие с GUI." + Environment.NewLine;
+            ReportLabel.Text += @"- Убран scroll в combobox'ах, где в его наличии отсутствовала необходимость." + Environment.NewLine;
+            ReportLabel.Text += @"- Работа над получением содержания баннера из БД." + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "-31.03.2013" + Environment.NewLine;
             ReportLabel.Text += @"- Заработал разбор ddd-файлов, ранее для большинства из них выдавалась ошибка 'Cannot add or update a child row: a foreign key constraint fails...'" + Environment.NewLine;
             ReportLabel.Text += @"- Для водителей добавлена поддержка сохранения/изменения оставшихся полей в разделах Основные, Личные, Крата (кроме изображений)." + Environment.NewLine;
