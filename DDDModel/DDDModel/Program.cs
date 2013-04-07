@@ -28,13 +28,18 @@ namespace DDDModel
             bool ex = false;
             ConsoleKeyInfo ch;
             //MY CODE
-            int id=dataBlock.usersTable.GetUserInfoNameId("Surname");
+            /*int id=dataBlock.usersTable.GetUserInfoNameId("Surname");
 
             List<KeyValuePair<string, int>> list = dataBlock.usersTable.GetAllUserInfoNames();
             foreach (KeyValuePair<string, int> pair in list) {
                 System.Console.WriteLine(pair.Key+"="+pair.Value);
-            }
+            }*/
 
+            List<KeyValuePair<string, string>> list = dataBlock.bannersTable.GetAllBanners();
+            foreach (KeyValuePair<string, string> pair in list)
+            {
+                System.Console.WriteLine(pair.Key + "->" + pair.Value);
+            }
             //dataBlock.GetAllUnparsedDataBlockIDs(1);
             //System.Console.WriteLine(dataBlock.cardsTable.GetCardNumber(4));
             /*dataBlock.SetDataBlockIdForParse(1);

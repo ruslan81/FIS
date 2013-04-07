@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BannersTable.cs" />
     <Compile Include="CardsTable.cs" />
     <Compile Include="CardUnitInfo.cs" />
     <Compile Include="CriteriaTable.cs" />

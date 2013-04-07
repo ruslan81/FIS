@@ -4353,6 +4353,30 @@ namespace DB.SQL
             }
         }
         #endregion
+        //-------------------------------REPORTS TABLES---------------------
+        #region "BannersTable"
+        public List<KeyValuePair<string, string>> GetAllBanners()
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            List<KeyValuePair<string,string>> result=new List<KeyValuePair<string,string>>();
+            List<KeyValuePair<int, int>> ids = new List<KeyValuePair<int, int>>();
+
+            string sql = "SELECT * from fn_banner ORDER BY BANNER_INDEX";
+            cmd = new MySqlCommand(sql, sqlConnection);
+            MySqlDataReader sdr = cmd.ExecuteReader();
+            while (sdr.Read())
+            {
+                ids.Add(new KeyValuePair<int, int>(sdr.GetInt32(2), sdr.GetInt32(3)));
+            }
+            sdr.Close();
+
+            foreach (KeyValuePair<int, int> pair in ids) {
+                result.Add(new KeyValuePair<string, string>(GetString(pair.Key, "STRING_RU"), GetString(pair.Value, "STRING_RU")));
+            }
+            
+            return result;
+        }
+        #endregion
         //------------------------------Email Schedule------------------------------------
         public int AddEmailSchedule(int orgId, int userId, int reportId, int cardId, int periodType, int formatType, int period, string emailAddress)
         {
