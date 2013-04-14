@@ -176,18 +176,20 @@
             <div id="client-banner-sinfo">
                 <div id="banner">
                     <ul class="bjqs">
-                    <li>
-                        <div class="check slider-title">Реальность</div>
-                        Внедрение цифровых тахографов привело к необходимости нового подхода к анализу накопленных данных как на картах водителя и памяти самого цифрового тахографа.
-                    </li>
-                    <li>
-                        <div class="check slider-title">Возможности</div>
-                        Имея у себя возможность считывать данные с цифровых тахографов менеджеры автопредприятий нуждаются в расшифровке данных карт тахографа и самого устройства.
-                    </li>
-                    <li>
-                        <div class="check slider-title">Предложение</div>
-                        Программный комплекс <b>SmartFIS</b> в полной мере способен помочь в анализе данных цифрового тахографа.
-                    </li>
+                    <%
+                        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+                        BLL.DataBlock dataBlock = new BLL.DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
+                        dataBlock.OpenConnection();
+                        System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<String, String>> sliders=dataBlock.bannersTable.GetAllBanners();
+
+                        for (int i = 0; i < sliders.Count; i++)
+                        {
+                    %>
+                         <li>
+                            <div class="check slider-title"><%=sliders[i].Key%></div>
+                            <%=sliders[i].Value%>
+                        </li>
+                    <%} %>
                     </ul>
                 </div>
                 <div>
