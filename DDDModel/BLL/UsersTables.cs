@@ -268,11 +268,22 @@ namespace BLL
             int stringId = sqlDb.GetUserInfoValueStrId(userId, UserInfoId);
             return sqlDb.GetString(stringId, CurrentLanguage);
         }
+        //EXT
+        public string GetUserInfoValueExt(int userId, int UserInfoId)
+        {
+            return sqlDb.GetUserInfoValueExt(userId,UserInfoId);
+        }
         public string GetUserInfoValue(int userId, string UserInfoName)
         {
             int infoNameId = GetUserInfoNameId(UserInfoName);
             int stringId = sqlDb.GetUserInfoValueStrId(userId, infoNameId);
             return sqlDb.GetString(stringId, CurrentLanguage);
+        }
+        //EXT
+        public string GetUserInfoValueExt(int userId, string UserInfoName)
+        {
+            int infoNameId = GetUserInfoNameIdExt(UserInfoName);
+            return sqlDb.GetUserInfoValueExt(userId, infoNameId);
         }
         public int GetUserInfoNameId(string InfoName)
         {
@@ -284,17 +295,43 @@ namespace BLL
             else
                 return AddUserInfoName(InfoName);
         }
+        //EXT
+        public int GetUserInfoNameIdExt(string InfoName)
+        {
+            int stringId = sqlDb.GetStringId(InfoName, SQLDB.userString);
+            int UserInfoId = sqlDb.GetUserInfoIdByStringIdExt(stringId);
+
+            if (UserInfoId > 0)
+                return UserInfoId;
+            else
+                return AddUserInfoNameExt(InfoName);
+        }
         public List<KeyValuePair<string, int>> GetAllUserInfoNames()
         {
             return sqlDb.GetAllUserInfoNames(CurrentLanguage);
+        }
+        //EXT
+        public List<KeyValuePair<string, int>> GetAllUserInfoNamesExt()
+        {
+            return sqlDb.GetAllUserInfoNamesExt(CurrentLanguage);
         }
         public int AddUserInfoName(string InfoName)
         {
             return sqlDb.AddUserInfoName(InfoName, CurrentLanguage);
         }
+        //EXT
+        public int AddUserInfoNameExt(string InfoName)
+        {
+            return sqlDb.AddUserInfoNameExt(InfoName, CurrentLanguage);
+        }
         public void AddUserInfoValue(int userId, int UserInfoId, string value)
         {
             sqlDb.AddUserInfoValue(userId, UserInfoId, value, CurrentLanguage);
+        }
+        //EXT
+        public void AddUserInfoValueExt(int userId, int UserInfoId, string value)
+        {
+            sqlDb.AddUserInfoValueExt(userId, UserInfoId, value);
         }
         public void AddUserInfoValue(int userId, string UserInfoName, string value)
         {
@@ -303,12 +340,28 @@ namespace BLL
                 infoNameId = AddUserInfoName(UserInfoName);
             sqlDb.AddUserInfoValue(userId, infoNameId, value, CurrentLanguage);
         }
+        //EXT
+        public void AddUserInfoValueExt(int userId, string UserInfoName, string value)
+        {
+            int infoNameId = GetUserInfoNameIdExt(UserInfoName);
+            if (infoNameId <= 0)
+                infoNameId = AddUserInfoNameExt(UserInfoName);
+            sqlDb.AddUserInfoValueExt(userId, infoNameId, value);
+        }
         public void EditUserInfo(int userId, int UserInfoId, string newValue)
         {
             if(sqlDb.GetUserInfoValueStrId(userId, UserInfoId) > 0)
                 sqlDb.EditUserInfo(userId, UserInfoId, newValue, CurrentLanguage);
             else
                 sqlDb.AddUserInfoValue(userId, UserInfoId, newValue, CurrentLanguage);
+        }
+        //EXT
+        public void EditUserInfoExt(int userId, int UserInfoId, string newValue)
+        {
+            if (sqlDb.GetUserInfoValueExt(userId, UserInfoId) != null )
+                sqlDb.EditUserInfoExt(userId, UserInfoId, newValue);
+            else
+                sqlDb.AddUserInfoValueExt(userId, UserInfoId, newValue);
         }
         public List<int> GetAllCountries()
         {

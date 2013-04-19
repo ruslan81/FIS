@@ -1437,14 +1437,61 @@ namespace DB.SQL
             returnValue = Convert.ToInt32(cmd.ExecuteScalar());
             return returnValue;
         }
+        //EXT
+        public string GetUserInfoValueExt(int userId, int UserInfoId)
+        {
+            string sql0 = "SELECT OCTET_LENGTH(USER_INFO_EXT_VALUE) FROM fd_user_info_set_ext WHERE USER_ID=@USER_ID AND USER_INFO_EXT_ID=@USER_INFO_ID";
+            MySqlCommand cmd0 = new MySqlCommand(sql0, sqlConnection);
+            cmd0.Parameters.AddWithValue("@USER_ID", userId);
+            cmd0.Parameters.AddWithValue("@USER_INFO_ID", UserInfoId);
+            MySqlDataReader sdr = cmd0.ExecuteReader();
+            int size = 0;
+            if (sdr.Read())
+            {
+                object val = sdr.GetValue(0);
+                if (val is DBNull) return null;
+                else size = Convert.ToInt32(val);
+                sdr.Close();
+            }
+            else { sdr.Close(); return null; }
+
+            MySqlCommand cmd = new MySqlCommand();
+            string sql = "SELECT USER_INFO_EXT_VALUE FROM fd_user_info_set_ext WHERE USER_ID=@USER_ID AND USER_INFO_EXT_ID=@USER_INFO_ID";
+            cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@USER_ID", userId);
+            cmd.Parameters.AddWithValue("@USER_INFO_ID", UserInfoId);
+
+            sdr = cmd.ExecuteReader();
+            if (sdr.Read())
+            {
+                byte[] data = new byte[size];
+                if (size == 0) { sdr.Close(); return null; }
+                sdr.GetBytes(0, 0, data, 0, size);
+                sdr.Close();
+                return Convert.ToBase64String(data);
+            }
+            else { sdr.Close(); return null; }
+        }
         public int GetUserInfoName(int InfoNameId)
         {
             int returnValue = Convert.ToInt32(GetOneParameter(InfoNameId, "USER_INFO_ID", "fd_user_info", "STRID_USER_INFO_NAME"));
             return returnValue;
         }
+        //EXT
+        public int GetUserInfoNameExt(int InfoNameId)
+        {
+            int returnValue = Convert.ToInt32(GetOneParameter(InfoNameId, "USER_INFO_EXT_ID", "fd_user_info_ext", "STRID_USER_INFO_EXT_NAME"));
+            return returnValue;
+        }
         public int GetUserInfoIdByStringId(int InfoNameId)
         {
             int returnValue = Convert.ToInt32(GetOneParameter(InfoNameId, "STRID_USER_INFO_NAME", "fd_user_info", "USER_INFO_ID"));
+            return returnValue;
+        }
+        //EXT
+        public int GetUserInfoIdByStringIdExt(int InfoNameId)
+        {
+            int returnValue = Convert.ToInt32(GetOneParameter(InfoNameId, "STRID_USER_INFO_EXT_NAME", "fd_user_info_ext", "USER_INFO_EXT_ID"));
             return returnValue;
         }
         public List<KeyValuePair<string, int>> GetAllUserInfoNames(string Language)
@@ -1454,6 +1501,32 @@ namespace DB.SQL
             List<int> AllUserInfoNames = new List<int>();
 
             string sql = "SELECT USER_INFO_ID FROM fd_user_info ORDER BY USER_INFO_ID";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            MySqlDataReader sdr = cmd.ExecuteReader();
+            while (sdr.Read())
+            {
+                AllUserInfoNames.Add(sdr.GetInt32(0));
+            }
+            sdr.Close();
+
+            KeyValuePair<string, int> hash;
+            int userInfoNameId;
+            foreach (int id in AllUserInfoNames)
+            {
+                userInfoNameId = GetUserInfoName(id);
+                hash = new KeyValuePair<string, int>(GetString(userInfoNameId, Language), id);
+                returnArray.Add(hash);
+            }
+            return returnArray;
+        }
+        //EXT
+        public List<KeyValuePair<string, int>> GetAllUserInfoNamesExt(string Language)
+        {
+            List<KeyValuePair<string, int>> returnArray = new List<KeyValuePair<string, int>>();
+
+            List<int> AllUserInfoNames = new List<int>();
+
+            string sql = "SELECT USER_INFO_EXT_ID FROM fd_user_info_ext ORDER BY USER_INFO_EXT_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             MySqlDataReader sdr = cmd.ExecuteReader();
             while (sdr.Read())
@@ -1492,6 +1565,27 @@ namespace DB.SQL
             cmd.ExecuteNonQuery();
             return generatedId;
         }
+        //EXT
+        public int AddUserInfoNameExt(string InfoName, string Language)
+        {
+            int stringId = AddOrGetString(InfoName, userString);
+            // TranslateString(InfoName, Language, stringId);
+
+            MySqlCommand cmd = new MySqlCommand();
+            int generatedId;
+            generatedId = generateId("fd_user_info_ext", "USER_INFO_EXT_ID");
+            if (generatedId == -1)
+                throw (new Exception("Can't generate USER_INFO_EXT_ID"));
+
+            string sql = "INSERT INTO fd_user_info_ext "
+                + "(USER_INFO_EXT_ID, STRID_USER_INFO_EXT_NAME)"
+                + "VALUES (@USER_INFO_ID, @STRID_USER_INFO_NAME)";
+            cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@USER_INFO_ID", generatedId);
+            cmd.Parameters.AddWithValue("@STRID_USER_INFO_NAME", stringId);
+            cmd.ExecuteNonQuery();
+            return generatedId;
+        }
         public void AddUserInfoValue(int userId, int UserInfoId, string value, string Language)
         {
             int stringId = AddOrGetString(value, Language, userString);
@@ -1505,9 +1599,45 @@ namespace DB.SQL
             cmd.Parameters.AddWithValue("@STRID_USER_INFO_VALUE", stringId);
             cmd.ExecuteNonQuery();
         }
+        //EXT
+        public void AddUserInfoValueExt(int userId, int UserInfoId, string value)
+        {
+            string sql0 = "INSERT INTO fd_user_info_set_ext "
+                + "(USER_ID, USER_INFO_EXT_ID, USER_INFO_EXT_VALUE)"
+                + "VALUES (@USER_ID, @USER_INFO_ID, @USER_INFO_EXT_VALUE)";
+            MySqlCommand cmd0 = new MySqlCommand(sql0, sqlConnection);
+            cmd0.Parameters.AddWithValue("@USER_ID", userId);
+            cmd0.Parameters.AddWithValue("@USER_INFO_ID", UserInfoId);
+            if (value != null)
+            {
+                cmd0.Parameters.AddWithValue("@USER_INFO_EXT_VALUE", Convert.FromBase64String(value));
+            }
+            else
+            {
+                cmd0.Parameters.AddWithValue("@USER_INFO_EXT_VALUE", null);
+            }
+            cmd0.ExecuteNonQuery();
+        }
         public void EditUserInfo(int userId, int UserInfoId, string newValue, string Language)
         {
             EditAnySTRIDValue(newValue, "STRID_USER_INFO_VALUE", Language, "fd_user_info_set", "USER_INFO_ID", UserInfoId, "USER_ID", userId, userString);
+        }
+        //EXT
+        public void EditUserInfoExt(int userId, int UserInfoId, string newValue)
+        {
+            string sql0 = "UPDATE fd_user_info_set_ext SET USER_INFO_EXT_VALUE=@USER_INFO_EXT_VALUE WHERE USER_ID=@USER_ID AND USER_INFO_EXT_ID=@USER_INFO_EXT_ID";
+            MySqlCommand cmd0 = new MySqlCommand(sql0, sqlConnection);
+            cmd0.Parameters.AddWithValue("@USER_ID", userId);
+            cmd0.Parameters.AddWithValue("@USER_INFO_EXT_ID", UserInfoId);
+            if (newValue != null)
+            {
+                cmd0.Parameters.AddWithValue("@USER_INFO_EXT_VALUE", Convert.FromBase64String(newValue));
+            }
+            else
+            {
+                cmd0.Parameters.AddWithValue("@USER_INFO_EXT_VALUE", null);
+            }
+            cmd0.ExecuteNonQuery();
         }
         public int GetUserInfoUserId(int valueStrId)
         {

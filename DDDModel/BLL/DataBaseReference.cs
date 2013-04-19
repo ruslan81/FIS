@@ -37,6 +37,7 @@ namespace BLL
         public static string Vehicle_HotStop = "Hot stop";
         public static string Vehicle_VehiclePhotoAddress = "Vehicle photo address";
         //UserInfo
+        public static string UserInfo_Image = "User Image";
         public static string UserInfo_Name = "Name";
         public static string UserInfo_Surname = "Surname";
         public static string UserInfo_Patronimic = "Patronimic";
