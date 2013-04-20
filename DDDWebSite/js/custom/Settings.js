@@ -1368,6 +1368,11 @@ function createUserControlsSingleDriver() {
                 selectedIndex: 0
             });
         }
+
+        $(".input-upload-foto").removeClass("inputField");
+        $(".upload-foto").show();
+        $("#driverImage").attr("src", "../css/icons/driver-icon.png");
+
         return false;
     });
 
@@ -1424,6 +1429,9 @@ function createUserControlsSingleDriver() {
             });
         }
 
+        $(".input-upload-foto").removeClass("inputField");
+        $(".upload-foto").show();
+
         return false;
     });
 
@@ -1444,6 +1452,7 @@ function createUserControlsSingleDriver() {
             var cardFromDate = $("#fromDateinputSingle").attr("value");
             var cardToDate = $("#toDateinputSingle").attr("value");
             var number = $("#numberinputSingle").attr("value");
+            var image = $("#driverImage").attr("src");
 
             if (surname == "") {
                 showWrongDataMessage("wrongUserSurname");
@@ -1452,7 +1461,7 @@ function createUserControlsSingleDriver() {
             group = $("#groupSelectorSingle").attr("group");
 
             var settings = { grID: currentCardId, groupID: group, CardGiver: cardGiver, Country: country, GivenDate: cardGivenDate, ToDate: cardToDate, FromDate: cardFromDate, Number: number };
-            var user = { name: name, surname: surname, patronimic: patronimic, license: license, licGiver: licGiver, vehicle: vehicle, comment: comment, phone: phone, birthday: birthday };
+            var user = { name: name, surname: surname, patronimic: patronimic, license: license, licGiver: licGiver, vehicle: vehicle, comment: comment, phone: phone, birthday: birthday, image64: image };
 
             var order = { OrgID: $.cookie("CURRENT_ORG_ID"), DriverSettings: settings, UserSettings: user };
 
@@ -1517,13 +1526,14 @@ function createUserControlsSingleDriver() {
             var cardGivenDate = $("#givenDateinputSingle").attr("value");
             var cardFromDate = $("#fromDateinputSingle").attr("value");
             var cardToDate = $("#toDateinputSingle").attr("value");
-            if (_surname == "") {
+            var image = $("#driverImage").attr("src");
+            if (surname == "") {
                 showWrongDataMessage("wrongUserSurname");
                 return false;
             }
             var group = $("#groupSelectorSingle").attr("group");
 
-            var data = { name: name, surname: surname, patronimic: patronimic, license: license, licGiver: licGiver, vehicle: vehicle, comment: comment, phone: phone, birthday: birthday };
+            var data = { name: name, surname: surname, patronimic: patronimic, license: license, licGiver: licGiver, vehicle: vehicle, comment: comment, phone: phone, birthday: birthday, image64 : image };
             var cardData = { groupID: group, CardGiver: cardGiver, Country: country, GivenDate: cardGivenDate, ToDate: cardToDate, FromDate: cardFromDate };
             var order = { OrgID: $.cookie("CURRENT_ORG_ID"), data: data, cardData: cardData, UserID: $.cookie("CURRENT_USERNAME") };
 
@@ -2785,4 +2795,21 @@ function showWrongDataMessage(name) {
             maximize: { visible: false }
         }
     });
+}
+
+function loadImage(image, loader) {
+    var oFReader = new FileReader();
+    var rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
+
+    oFReader.onload = function (oFREvent) {
+        document.getElementById(image).src = oFREvent.target.result;
+    };
+
+    var reader = document.getElementById(loader);
+    if (reader.files.length > 0) {
+        var oFile = reader.files[0];
+        if (oFile.size > 16 * 1024 * 1024) { showWrongDataMessage("wrongImageSize"); return; }
+        if (!rFilter.test(oFile.type)) { showWrongDataMessage("wrongImageData"); return; }
+        oFReader.readAsDataURL(oFile);
+    }
 }

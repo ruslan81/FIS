@@ -24,6 +24,7 @@ public class UserData
     public string comment;
     public string phone;
     public string birthday;
+    public string image64 = "";
 
 	public UserData()
 	{

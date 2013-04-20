@@ -336,10 +336,10 @@
     <div id="tabs-1">
        <div style="float:right;">
             <div class="foto">
-                <img src="../css/icons/driver-icon.png" width="96" height="96">
+                <img id="driverImage" src="{{html user.image64}}" width="96" height="96">
             </div>
             <div class="upload-foto" style="display:none;">
-                <input type="file" class="input-upload-foto"/>
+                <input id="driverImageInput" type="file" class="input-upload-foto" onchange="loadImage('driverImage','driverImageInput');"/>
             </div>
         </div>
         <table id="contentTable1" style="border-collapse: separate; width:60%;"

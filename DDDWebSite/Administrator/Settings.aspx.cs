@@ -473,6 +473,11 @@ public partial class Administrator_Settings : System.Web.UI.Page
             userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Country);
             gd.Country = dataBlock.usersTable.GetUserInfoValue(ud.id, userInfoId);
 
+            userInfoId = dataBlock.usersTable.GetUserInfoNameIdExt(DataBaseReference.UserInfo_Image);
+            ud.image64 = dataBlock.usersTable.GetUserInfoValueExt(ud.id, userInfoId);
+            if (ud.image64 == null) { ud.image64 = "../css/icons/driver-icon.png"; }
+            else { ud.image64 = "data:image/jpeg;base64," + ud.image64; }
+
             gd.user = ud;
             gd.Name = dataBlock.cardsTable.GetCardName(cardId);
             gd.Number = dataBlock.cardsTable.GetCardNumber(cardId);
@@ -541,7 +546,20 @@ public partial class Administrator_Settings : System.Web.UI.Page
             userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_CardFromDate);
             dataBlock.usersTable.EditUserInfo(userId, userInfoId, DriverSettings.FromDate);
             userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_CardToDate);
-            dataBlock.usersTable.EditUserInfo(userId, userInfoId, DriverSettings.ToDate);   
+            dataBlock.usersTable.EditUserInfo(userId, userInfoId, DriverSettings.ToDate);
+
+            userInfoId = dataBlock.usersTable.GetUserInfoNameIdExt(DataBaseReference.UserInfo_Image);
+
+            if (UserSettings.image64.Equals("../css/icons/driver-icon.png"))
+            {
+                dataBlock.usersTable.EditUserInfoExt(userId, userInfoId, null);
+            }
+            else
+            {
+                UserSettings.image64 = UserSettings.image64.Substring(UserSettings.image64.IndexOf(",") + 1);
+                dataBlock.usersTable.EditUserInfoExt(userId, userInfoId, UserSettings.image64);
+            }
+
             return true;
         }
         catch (Exception ex)
@@ -1059,6 +1077,17 @@ public partial class Administrator_Settings : System.Web.UI.Page
             userInfoId = dataBlock.usersTable.GetUserInfoNameId(DataBaseReference.UserInfo_Country);
             dataBlock.usersTable.EditUserInfo(userId, userInfoId, cardData.Country);
 
+            userInfoId = dataBlock.usersTable.GetUserInfoNameIdExt(DataBaseReference.UserInfo_Image);
+
+            if (data.image64.Equals("../css/icons/driver-icon.png"))
+            {
+                dataBlock.usersTable.EditUserInfoExt(userId, userInfoId, null);
+            }
+            else
+            {
+                data.image64 = data.image64.Substring(data.image64.IndexOf(",") + 1);
+                dataBlock.usersTable.EditUserInfoExt(userId, userInfoId, data.image64);
+            }
 
             //int userID = int.Parse(UserID);
             int newId=dataBlock.cardsTable.CreateNewCard(data.surname+" "+data.name, cardData.Number, dataBlock.cardsTable.driversCardTypeId, orgID, userId, cardData.Comment, userID, cardData.groupID);
