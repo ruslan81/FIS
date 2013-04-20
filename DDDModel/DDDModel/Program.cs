@@ -35,11 +35,11 @@ namespace DDDModel
                 System.Console.WriteLine(pair.Key+"="+pair.Value);
             }*/
 
-            List<KeyValuePair<string, string>> list = dataBlock.bannersTable.GetAllBanners();
+            /*List<KeyValuePair<string, string>> list = dataBlock.bannersTable.GetAllBanners();
             foreach (KeyValuePair<string, string> pair in list)
             {
                 System.Console.WriteLine(pair.Key + "->" + pair.Value);
-            }
+            }*/
             //dataBlock.GetAllUnparsedDataBlockIDs(1);
             //System.Console.WriteLine(dataBlock.cardsTable.GetCardNumber(4));
             /*dataBlock.SetDataBlockIdForParse(1);
@@ -53,7 +53,9 @@ namespace DDDModel
                 double d = dataBlock.plfUnitInfo.Statistics_GetYearStatistics(new DateTime(2006, 1, 1), id);
                 System.Console.WriteLine(d);
             }*/
-
+            int id=dataBlock.deviceTable.AddNewDevice(1,"Name",1);
+            dataBlock.deviceTable.EditDeviceInfo(id, dataBlock.deviceTable.Device_Num,"NUMBER");
+            dataBlock.deviceTable.EditDeviceInfo(id, dataBlock.deviceTable.Device_Calibration_Cause, "NEED");
             System.Console.ReadKey();
                 //SCRIPT TO ADD COMMON GROUP
                 /*List<Int32> orgIds = dataBlock.organizationTable.Get_AllOrganizationsId();

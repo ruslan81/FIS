@@ -484,6 +484,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
             gd.Comment = dataBlock.cardsTable.GetCardNote(cardId);
             gd.groupID = dataBlock.cardsTable.GetCardGroupID(cardId);
             gd.groupName = dataBlock.cardsTable.GetGroupNameById(gd.groupID);
+
             return gd;
         }
         catch (Exception ex)
@@ -700,20 +701,6 @@ public partial class Administrator_Settings : System.Web.UI.Page
             vd.TO1 = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
             vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_MRO2);
             vd.TO2 = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
-            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_EquipmentType);
-            vd.EquipmentType = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
-            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_SerialNumber);
-            vd.Serial = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
-            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_LastReadDate);
-            vd.LastReadDate = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
-            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_CalibrReason);
-            vd.CalibrReason = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
-            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_Calibrator);
-            vd.Calibrator = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
-            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_CalibratorCard);
-            vd.CalibratorCard = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
-            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_NextCalibrDate);
-            vd.NextCalibrDate = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
             vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_NominalTurns);
             vd.Turns = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
             vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_MaxSpeed);
@@ -733,6 +720,15 @@ public partial class Administrator_Settings : System.Web.UI.Page
             vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_Type);
             vd.vehType = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
 
+            int deviceId = dataBlock.vehiclesTables.GetVehicleDeviceId(vd.id);
+            vd.CalibratorCard=dataBlock.deviceTable.GetDeviceInfo(deviceId, dataBlock.deviceTable.Device_Calibration_Card);
+            vd.Calibrator = dataBlock.deviceTable.GetDeviceInfo(deviceId, dataBlock.deviceTable.Device_Calibration_User);
+            vd.CalibrReason = dataBlock.deviceTable.GetDeviceInfo(deviceId, dataBlock.deviceTable.Device_Calibration_Cause);
+            vd.NextCalibrDate = dataBlock.deviceTable.GetDeviceInfo(deviceId, dataBlock.deviceTable.Device_Calibration_Next);
+            vd.EquipmentType = dataBlock.deviceTable.GetDeviceInfo(deviceId, dataBlock.deviceTable.Device_Type);
+            vd.Serial = dataBlock.deviceTable.GetDeviceInfo(deviceId, dataBlock.deviceTable.Device_Num);
+            vd.LastReadDate = dataBlock.deviceTable.GetDeviceInfo(deviceId, dataBlock.deviceTable.Device_Date_Read_Last);
+            
             return vd;
         }
         catch (Exception ex)
@@ -768,6 +764,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
                 dataBlock.cardsTable.ChangeCardGroup(item.Card.groupID, item.Card.grID);
 
                 int vehId = dataBlock.vehiclesTables.GetVehicle_byCardId(item.Card.grID);
+                int deviceId=dataBlock.vehiclesTables.GetVehicleDeviceId(vehId);
                 int vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_GarageNumber);
                 dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.GarageNumber);
                 vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_MakeYear);
@@ -784,20 +781,6 @@ public partial class Administrator_Settings : System.Web.UI.Page
                 dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.TO1);
                 vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_MRO2);
                 dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.TO2);
-                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_EquipmentType);
-                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.EquipmentType);
-                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_SerialNumber);
-                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.Serial);
-                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_LastReadDate);
-                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.LastReadDate);
-                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_CalibrReason);
-                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.CalibrReason);
-                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_Calibrator);
-                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.Calibrator);
-                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_CalibratorCard);
-                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.CalibratorCard);
-                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_NextCalibrDate);
-                dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.NextCalibrDate);
                 vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_NominalTurns);
                 dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.Turns);
                 vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_MaxSpeed);
@@ -816,6 +799,14 @@ public partial class Administrator_Settings : System.Web.UI.Page
                 dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.HotStop);
                 vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_Type);
                 dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.vehType);
+
+                dataBlock.deviceTable.EditDeviceInfo(deviceId,dataBlock.deviceTable.Device_Calibration_Card,item.CalibratorCard);
+                dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Calibration_User, item.Calibrator);
+                dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Calibration_Cause, item.CalibrReason);
+                dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Calibration_Next, DateTime.Parse(item.NextCalibrDate));
+                dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Type, item.EquipmentType);
+                dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Num, item.Serial);
+                dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Date_Read_Last, DateTime.Parse(item.LastReadDate));
 
             }
             return true;
@@ -1124,6 +1115,9 @@ public partial class Administrator_Settings : System.Web.UI.Page
             int newId = dataBlock.cardsTable.CreateNewCard(data.Card.Name, data.Card.Number, dataBlock.cardsTable.vehicleCardTypeId, orgID, 0, data.Card.Comment, userID, data.Card.groupID);
             int vehId = dataBlock.vehiclesTables.AddNewVehicle("", "", data.Card.Number,1,1,newId,new DateTime(),1);
 
+            int deviceId = dataBlock.deviceTable.AddNewDevice(Convert.ToInt32(data.EquipmentType),"DEVICENAME",1);
+            dataBlock.vehiclesTables.EditVehicleDeviceId(vehId,deviceId);
+
             int vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_GarageNumber);
             dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.GarageNumber);
             vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_MakeYear);
@@ -1140,20 +1134,6 @@ public partial class Administrator_Settings : System.Web.UI.Page
             dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.TO1);
             vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_MRO2);
             dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.TO2);
-            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_EquipmentType);
-            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.EquipmentType);
-            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_SerialNumber);
-            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.Serial);
-            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_LastReadDate);
-            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.LastReadDate);
-            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_CalibrReason);
-            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.CalibrReason);
-            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_Calibrator);
-            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.Calibrator);
-            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_CalibratorCard);
-            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.CalibratorCard);
-            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_NextCalibrDate);
-            dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.NextCalibrDate);
             vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_NominalTurns);
             dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.Turns);
             vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_MaxSpeed);
@@ -1172,6 +1152,14 @@ public partial class Administrator_Settings : System.Web.UI.Page
             dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.HotStop);
             vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_Type);
             dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.vehType);
+
+            dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Calibration_Card, data.CalibratorCard);
+            dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Calibration_User, data.Calibrator);
+            dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Calibration_Cause, data.CalibrReason);
+            dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Calibration_Next, DateTime.Parse(data.NextCalibrDate));
+            dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Type, data.EquipmentType);
+            dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Num, data.Serial);
+            dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Date_Read_Last, DateTime.Parse(data.LastReadDate));
 
             return newId;
         }

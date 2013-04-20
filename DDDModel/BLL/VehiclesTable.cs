@@ -74,6 +74,10 @@ namespace BLL
         {
             return sqlDB.GetVehicleDeviceId(vehId);
         }
+        public void EditVehicleDeviceId(int vehId, int deviceId)
+        {
+            sqlDB.EditVehicleDeviceId(vehId, deviceId);
+        }
         public int GetVehicleTypeId(int vehId)
         {
             return sqlDB.GetVehicleTypeId(vehId);

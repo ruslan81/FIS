@@ -12,6 +12,18 @@ namespace BLL
     /// </summary>
     public class DeviceTable
     {
+        public string Device_Name = "STRID_DEVICE_NAME";
+        public string Device_Type = "DEVICE_TYPE_ID";
+        public string Device_Firmware = "DEVICE_FIRMWARE_ID";
+        public string Device_Num = "DEVICE_NUM";
+        public string Device_Date_Production = "DATE_PRODUCTION";
+        public string Device_Date_Read_Last = "DATE_READ_LAST";
+        public string Device_Calibration_Cause = "CALIBRATION_CAUSE_LAST";
+        public string Device_Calibration_User = "CALIBRATION_USER";
+        public string Device_Calibration_Card = "CALIBRATION_CARD";
+        public string Device_Calibration_Next = "CALIBRATION_NEXT";
+        public string Device_Phone_Num_Sim = "PHONE_NUM_SIM";
+
         /// <summary>
         /// Текущия язык
         /// </summary>
@@ -161,7 +173,14 @@ namespace BLL
             int deviceId = sqlDB.AddNewDevice(deviceTypeId, deviceName, deviceNum, dateProduction, firmwareId, phoneNumSim);
             return deviceId;
         }
-
+        /// <summary>
+        /// Добавить новое устройство
+        /// </summary>
+        public int AddNewDevice(int deviceTypeId, string deviceName, int firmwareId)
+        {
+            int deviceId = sqlDB.AddNewDevice(deviceTypeId, deviceName, firmwareId);
+            return deviceId;
+        }
         //Firmware
         /// <summary>
         /// Добавить новую версию ПО(прошивки) для устройства
@@ -203,6 +222,29 @@ namespace BLL
         public string GetDeviceFirmware_version(int firmwareId)
         {
            return sqlDB.GetDeviceFirmware_version(firmwareId);
+        }
+
+        /// <summary>
+        /// Редактирование параметров устройства
+        /// </summary>
+        public void EditDeviceInfo(int deviceId, string infoName, object infoValue)
+        {
+            sqlDB.EditDeviceInfo(deviceId, infoName, infoValue);
+        }
+        /// <summary>
+        /// Чтение параметров устройства
+        /// </summary>
+        public string GetDeviceInfo(int deviceId, string infoName)
+        {
+            return sqlDB.GetDeviceInfo(deviceId, infoName);
+        }
+        /// <summary>
+        /// Изменение имени устройства
+        /// </summary>
+        public void EditDeviceName(int deviceId, string newName)
+        {
+            int strId = sqlDB.AddOrGetString(newName, SQLDB.userString);
+            sqlDB.EditDeviceInfo(deviceId, Device_Name, strId);
         }
     }
 }

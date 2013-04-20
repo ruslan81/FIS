@@ -2438,6 +2438,15 @@ namespace DB.SQL
             int returnValue = Convert.ToInt32(GetOneParameter(vehId, "VEHICLE_ID", "fd_vehicle", "DEVICE_ID"));
             return returnValue;
         }
+        public void EditVehicleDeviceId(int vehId, int deviceId)
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            string sql = "UPDATE fd_vehicle SET DEVICE_ID=@DEVICE_ID WHERE VEHICLE_ID=@VEHICLE_ID";
+            cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@DEVICE_ID", deviceId);
+            cmd.Parameters.AddWithValue("@VEHICLE_ID", vehId);
+            cmd.ExecuteNonQuery();
+        }
         public void SetVehicleTypeId(int vehId, int vehTypeId)
         {
             MySqlCommand cmd = new MySqlCommand();
@@ -3113,6 +3122,21 @@ namespace DB.SQL
             int returnValue = Convert.ToInt32(GetOneParameter(deviceId, "DEVICE_ID", "fd_device", "DEVICE_TYPE_ID"));
             return returnValue;
         }
+        public void EditDeviceInfo(int deviceId, string infoName, object infoValue)
+        {
+            //int returnValue = Convert.ToInt32(GetOneParameter(deviceId, "DEVICE_ID", "fd_device", "DEVICE_TYPE_ID"));
+            MySqlCommand cmd = new MySqlCommand();
+            string sql = "UPDATE fd_device SET "+infoName+"=@"+infoName+" WHERE DEVICE_ID=@DEVICE_ID";
+            cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@" + infoName, infoValue);
+            cmd.Parameters.AddWithValue("@DEVICE_ID", deviceId);
+            cmd.ExecuteNonQuery();
+        }
+        public string GetDeviceInfo(int deviceId, string infoName)
+        {
+            string returnValue = Convert.ToString(GetOneParameter(deviceId, "DEVICE_ID", "fd_device", infoName));
+            return returnValue;
+        }
         public int GetDeviceNameId(int deviceId)
         {
             int returnValue = Convert.ToInt32(GetOneParameter(deviceId, "DEVICE_ID", "fd_device", "STRID_DEVICE_NAME"));
@@ -3159,6 +3183,27 @@ namespace DB.SQL
             cmd.Parameters.AddWithValue("@DATE_PRODUCTION", dateProduction.ToString("yyyy-MM-dd HH:mm:ss"));
             cmd.Parameters.AddWithValue("@DEVICE_FIRMWARE_ID", firmwareId);
             cmd.Parameters.AddWithValue("@PHONE_NUM_SIM", phoneNumSim);
+            cmd.ExecuteNonQuery();
+            return generatedId;
+        }
+        public int AddNewDevice(int deviceTypeId, string deviceName, int firmwareId)
+        {
+            int deviceNameId = AddOrGetString(deviceName, userString);
+
+            MySqlCommand cmd = new MySqlCommand();
+            int generatedId;
+            generatedId = generateId("fd_device", "DEVICE_ID");
+            if (generatedId == -1)
+                throw (new Exception("Can't generate DEVICE_ID"));
+
+            string sql = "INSERT INTO fd_device "
+                + "(DEVICE_ID, DEVICE_TYPE_ID, STRID_DEVICE_NAME, DEVICE_FIRMWARE_ID)"
+                + "VALUES (@DEVICE_ID, @DEVICE_TYPE_ID, @STRID_DEVICE_NAME, @DEVICE_FIRMWARE_ID)";
+            cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@DEVICE_ID", generatedId);
+            cmd.Parameters.AddWithValue("@DEVICE_TYPE_ID", deviceTypeId);
+            cmd.Parameters.AddWithValue("@STRID_DEVICE_NAME", deviceNameId);
+            cmd.Parameters.AddWithValue("@DEVICE_FIRMWARE_ID", firmwareId);
             cmd.ExecuteNonQuery();
             return generatedId;
         }

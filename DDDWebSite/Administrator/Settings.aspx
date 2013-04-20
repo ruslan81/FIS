@@ -1021,6 +1021,18 @@
                 </div>
             </div>
         </div>
+        <div style="display: none">
+            <div id="wrongVehicleNumber" title="SmartFIS">
+                <div style="margin-top: 10px;">
+                    <h4>
+                        Неверные данные
+                    </h4>
+                </div>
+                <div style="margin-top: 20px;">
+                    Введите хотя бы гос. номер ТС!
+                </div>
+            </div>
+        </div>
     </div>
     <div id="contentSettingsPlace">
     </div>

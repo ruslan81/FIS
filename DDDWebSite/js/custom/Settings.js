@@ -1709,6 +1709,11 @@ function createUserControlsSingleTransport() {
             ColdStart = $("#coldstartinputSingle").attr("value");
             HotStop = $("#hotstopinputSingle").attr("value");
 
+            if (name == "") {
+                showWrongDataMessage("wrongVehicleNumber");
+                return false;
+            }
+
             card = { Name: name, Comment: comment, grID: currentCardId, Number: number, groupID: group };
 
             settings.push({ Card: card, vehType: vehType, GarageNumber: GarageNumber, MakeYear: MakeYear, Tank1: Tank1, Tank2: Tank2, Capacity: Capacity, FuelType: FuelType, TO1: TO1, TO2: TO2, EquipmentType: EquipmentType, Serial: Serial, LastReadDate: LastReadDate, CalibrReason: CalibrReason, Calibrator: Calibrator, CalibratorCard: CalibratorCard, NextCalibrDate: NextCalibrDate, Turns: Turns, MaxVelocity: MaxVelocity, Manevring: Manevring, City: City, Magistral: Magistral, Consumption: Consumption, ColdStart: ColdStart, HotStop: HotStop });
@@ -1761,6 +1766,11 @@ function createUserControlsSingleTransport() {
             Consumption = $("#consumptioninputSingle").attr("value");
             ColdStart = $("#coldstartinputSingle").attr("value");
             HotStop = $("#hotstopinputSingle").attr("value");
+
+            if (name == "") {
+                showWrongDataMessage("wrongVehicleNumber");
+                return false;
+            }
 
             var card = { Name: name, Comment: comment, Number: number, groupID: group };
 
