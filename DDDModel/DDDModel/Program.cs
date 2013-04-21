@@ -53,9 +53,9 @@ namespace DDDModel
                 double d = dataBlock.plfUnitInfo.Statistics_GetYearStatistics(new DateTime(2006, 1, 1), id);
                 System.Console.WriteLine(d);
             }*/
-            int id=dataBlock.deviceTable.AddNewDevice(1,"Name",1);
-            dataBlock.deviceTable.EditDeviceInfo(id, dataBlock.deviceTable.Device_Num,"NUMBER");
-            dataBlock.deviceTable.EditDeviceInfo(id, dataBlock.deviceTable.Device_Calibration_Cause, "NEED");
+            dataBlock.cardsTable.GetCardUserId(30);
+            dataBlock.cardsTable.GetCardImage(30);
+            System.Console.WriteLine("OK");
             System.Console.ReadKey();
                 //SCRIPT TO ADD COMMON GROUP
                 /*List<Int32> orgIds = dataBlock.organizationTable.Get_AllOrganizationsId();

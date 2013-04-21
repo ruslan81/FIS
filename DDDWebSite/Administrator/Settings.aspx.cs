@@ -478,6 +478,10 @@ public partial class Administrator_Settings : System.Web.UI.Page
             if (ud.image64 == null) { ud.image64 = "../css/icons/driver-icon.png"; }
             else { ud.image64 = "data:image/jpeg;base64," + ud.image64; }
 
+            gd.cardImage = dataBlock.cardsTable.GetCardImage(cardId);
+            if (gd.cardImage == null) { gd.cardImage = "../css/icons/user-card-icon.png"; }
+            else { gd.cardImage = "data:image/jpeg;base64," + gd.cardImage; }
+
             gd.user = ud;
             gd.Name = dataBlock.cardsTable.GetCardName(cardId);
             gd.Number = dataBlock.cardsTable.GetCardNumber(cardId);
@@ -559,6 +563,16 @@ public partial class Administrator_Settings : System.Web.UI.Page
             {
                 UserSettings.image64 = UserSettings.image64.Substring(UserSettings.image64.IndexOf(",") + 1);
                 dataBlock.usersTable.EditUserInfoExt(userId, userInfoId, UserSettings.image64);
+            }
+
+            if (DriverSettings.cardImage.Equals("../css/icons/user-card-icon.png"))
+            {
+                dataBlock.cardsTable.SaveCardImage(DriverSettings.grID, null);
+            }
+            else
+            {
+                DriverSettings.cardImage = DriverSettings.cardImage.Substring(DriverSettings.cardImage.IndexOf(",") + 1);
+                dataBlock.cardsTable.SaveCardImage(DriverSettings.grID, DriverSettings.cardImage);
             }
 
             return true;
@@ -720,6 +734,11 @@ public partial class Administrator_Settings : System.Web.UI.Page
             vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_Type);
             vd.vehType = dataBlock.vehiclesTables.GetVehicleInfoValue(vd.id, vehInfoId);
 
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameIdExt(DataBaseReference.Vehicle_VehiclePhotoAddress);
+            vd.vehicleImage = dataBlock.vehiclesTables.GetVehicleInfoValueExt(vd.id, vehInfoId);
+            if (vd.vehicleImage == null) { vd.vehicleImage = "../css/icons/transport-icon.png"; }
+            else { vd.vehicleImage = "data:image/jpeg;base64," + vd.vehicleImage; }
+
             int deviceId = dataBlock.vehiclesTables.GetVehicleDeviceId(vd.id);
             vd.CalibratorCard=dataBlock.deviceTable.GetDeviceInfo(deviceId, dataBlock.deviceTable.Device_Calibration_Card);
             vd.Calibrator = dataBlock.deviceTable.GetDeviceInfo(deviceId, dataBlock.deviceTable.Device_Calibration_User);
@@ -728,7 +747,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
             vd.EquipmentType = dataBlock.deviceTable.GetDeviceInfo(deviceId, dataBlock.deviceTable.Device_Type);
             vd.Serial = dataBlock.deviceTable.GetDeviceInfo(deviceId, dataBlock.deviceTable.Device_Num);
             vd.LastReadDate = dataBlock.deviceTable.GetDeviceInfo(deviceId, dataBlock.deviceTable.Device_Date_Read_Last);
-            
+
             return vd;
         }
         catch (Exception ex)
@@ -799,6 +818,18 @@ public partial class Administrator_Settings : System.Web.UI.Page
                 dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.HotStop);
                 vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_Type);
                 dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, item.vehType);
+
+                vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameIdExt(DataBaseReference.Vehicle_VehiclePhotoAddress);
+
+                if (item.vehicleImage.Equals("../css/icons/transport-icon.png"))
+                {
+                    dataBlock.vehiclesTables.EditVehicleInfoExt(vehId, vehInfoId, null);
+                }
+                else
+                {
+                    item.vehicleImage = item.vehicleImage.Substring(item.vehicleImage.IndexOf(",") + 1);
+                    dataBlock.vehiclesTables.EditVehicleInfoExt(vehId, vehInfoId, item.vehicleImage);
+                }
 
                 dataBlock.deviceTable.EditDeviceInfo(deviceId,dataBlock.deviceTable.Device_Calibration_Card,item.CalibratorCard);
                 dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Calibration_User, item.Calibrator);
@@ -1081,9 +1112,19 @@ public partial class Administrator_Settings : System.Web.UI.Page
             }
 
             //int userID = int.Parse(UserID);
-            int newId=dataBlock.cardsTable.CreateNewCard(data.surname+" "+data.name, cardData.Number, dataBlock.cardsTable.driversCardTypeId, orgID, userId, cardData.Comment, userID, cardData.groupID);
+            int cardId=dataBlock.cardsTable.CreateNewCard(data.surname+" "+data.name, cardData.Number, dataBlock.cardsTable.driversCardTypeId, orgID, userId, cardData.Comment, userID, cardData.groupID);
 
-            return newId;
+            if (cardData.cardImage.Equals("../css/icons/user-card-icon.png"))
+            {
+                dataBlock.cardsTable.SaveCardImage(cardId, null);
+            }
+            else
+            {
+                cardData.cardImage = cardData.cardImage.Substring(cardData.cardImage.IndexOf(",") + 1);
+                dataBlock.cardsTable.SaveCardImage(cardId, cardData.cardImage);
+            }
+
+            return cardId;
         }
         catch (Exception ex)
         {
@@ -1115,6 +1156,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
             int newId = dataBlock.cardsTable.CreateNewCard(data.Card.Name, data.Card.Number, dataBlock.cardsTable.vehicleCardTypeId, orgID, 0, data.Card.Comment, userID, data.Card.groupID);
             int vehId = dataBlock.vehiclesTables.AddNewVehicle("", "", data.Card.Number,1,1,newId,new DateTime(),1);
 
+            //TODO delete
+            if (data.EquipmentType == "") { data.EquipmentType = "1"; }
             int deviceId = dataBlock.deviceTable.AddNewDevice(Convert.ToInt32(data.EquipmentType),"DEVICENAME",1);
             dataBlock.vehiclesTables.EditVehicleDeviceId(vehId,deviceId);
 
@@ -1152,6 +1195,18 @@ public partial class Administrator_Settings : System.Web.UI.Page
             dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.HotStop);
             vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_Type);
             dataBlock.vehiclesTables.EditVehicleInfo(vehId, vehInfoId, data.vehType);
+
+            vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameIdExt(DataBaseReference.Vehicle_VehiclePhotoAddress);
+
+            if (data.vehicleImage.Equals("../css/icons/transport-icon.png"))
+            {
+                dataBlock.vehiclesTables.EditVehicleInfoExt(vehId, vehInfoId, null);
+            }
+            else
+            {
+                data.vehicleImage = data.vehicleImage.Substring(data.vehicleImage.IndexOf(",") + 1);
+                dataBlock.vehiclesTables.EditVehicleInfoExt(vehId, vehInfoId, data.vehicleImage);
+            }
 
             dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Calibration_Card, data.CalibratorCard);
             dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Calibration_User, data.Calibrator);

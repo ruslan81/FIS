@@ -1449,7 +1449,7 @@ namespace DB.SQL
             if (sdr.Read())
             {
                 object val = sdr.GetValue(0);
-                if (val is DBNull) return null;
+                if (val is DBNull) { sdr.Close(); return null; }
                 else size = Convert.ToInt32(val);
                 sdr.Close();
             }
@@ -2987,7 +2987,7 @@ namespace DB.SQL
             if (sdr.Read())
             {
                 object val = sdr.GetValue(0);
-                if (val is DBNull) return null;
+                if (val is DBNull) { sdr.Close(); return null; }
                 else size = Convert.ToInt32(val);
                 sdr.Close();
             }
@@ -3379,7 +3379,7 @@ namespace DB.SQL
             if (sdr.Read())
             {
                 object val = sdr.GetValue(0);
-                if (val is DBNull) return null;
+                if (val is DBNull) { sdr.Close(); return null; }
                 else size = Convert.ToInt32(val);
                 sdr.Close();
             }
@@ -3406,7 +3406,14 @@ namespace DB.SQL
             string sql0 = "UPDATE fn_card SET CARD_IMAGE=@CARD_IMG WHERE CARD_ID=@CARD_ID";
             MySqlCommand cmd0 = new MySqlCommand(sql0, sqlConnection);
             cmd0.Parameters.AddWithValue("@CARD_ID", card_id);
-            cmd0.Parameters.AddWithValue("@CARD_IMG", Convert.FromBase64String(data));
+            if (data != null)
+            {
+                cmd0.Parameters.AddWithValue("@CARD_IMG", Convert.FromBase64String(data));
+            }
+            else
+            {
+                cmd0.Parameters.AddWithValue("@CARD_IMG", null);
+            }
             cmd0.ExecuteNonQuery();
         }
         public int GetCardId(string cardHolderName, string cardNumber, int cardTypeId)

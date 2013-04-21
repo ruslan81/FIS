@@ -427,10 +427,10 @@
     <div id="tabs-3">
         <div style="float:right;">
             <div class="foto">
-                <img src="../css/icons/user-card-icon.png" width="96" height="96">
+                <img id="cardImage" src="{{html cardImage}}" width="96" height="96">
             </div>
             <div class="upload-foto" style="display:none;">
-                <input type="file" class="input-upload-foto"/>
+                <input id="cardImageUpload" type="file" class="input-upload-foto" onchange="loadImage('cardImage','cardImageUpload');"/>
             </div>
         </div>
         <table id="contentTable3" style="border-collapse: separate; width:60%;"
@@ -501,10 +501,10 @@
     <div id="tabs-1">
         <div style="float:right;">
             <div class="foto">
-                <img src="../css/icons/transport-icon.png" width="96" height="96">
+                <img id="vehicleImage" src="{{html vehicleImage}}" width="96" height="96">
             </div>
             <div class="upload-foto" style="display:none;">
-                <input type="file" class="input-upload-foto"/>
+                <input id="vehicleImageUpload" type="file" class="input-upload-foto" onchange="loadImage('vehicleImage','vehicleImageUpload');"/>
             </div>
         </div>
 

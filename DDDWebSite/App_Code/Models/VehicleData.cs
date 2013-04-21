@@ -34,6 +34,7 @@ public class VehicleData
     public string Consumption;
     public string ColdStart;
     public string HotStop;
+    public string vehicleImage;
 
 	public VehicleData()
 	{

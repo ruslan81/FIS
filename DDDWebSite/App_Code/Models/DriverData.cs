@@ -19,6 +19,7 @@ public class CardData
     public string ToDate { get; set; }
     public int groupID { get; set; }
     public string groupName { get; set; }
+    public string cardImage { get; set; }
     public UserData user { get; set; }
     //public List<MapItem> groups { get; set; }
 
