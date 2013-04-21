@@ -15,6 +15,12 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "-21.04.2013" + Environment.NewLine;
+            ReportLabel.Text += @"- Добавлена поддержка создания обрудования и новых полей в разделе Настройки/ТС/Оборудование." + Environment.NewLine;
+            ReportLabel.Text += @"- Добавлено сохранение изображения водителя." + Environment.NewLine;
+            ReportLabel.Text += @"- В разделе Архив Восстановить у пользователя ТС и водители ранее не совпадали с ТС и водителями в разделе Настройки" + Environment.NewLine;
+            ReportLabel.Text += @"- Доработан веб-сервис http://localhost:48966/DDDWebSite/PublicServices.asmx" + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "-14.04.2013" + Environment.NewLine;
             ReportLabel.Text += @"- Встроена поддержка установки значений баннера (слева вверху) из БД." + Environment.NewLine;
             ReportLabel.Text += @"- Работа на операциями чтения/записи новых полей ТС и Оборудования." + Environment.NewLine;

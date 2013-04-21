@@ -22,7 +22,7 @@ public class PublicServices : System.Web.Services.WebService {
     }
 
     [WebMethod]
-    public int UploadFile(string Profile, string UserName, string Password, byte[] File, string FileName)
+    public int UploadFile(string Profile, string UserName, string Password, string FileContentBase64, string FileName)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
@@ -31,12 +31,13 @@ public class PublicServices : System.Web.Services.WebService {
             dataBlock.OpenConnection();
             if (CheckUser(Profile, UserName, Password, dataBlock))
             {
-                if (File != null)
+                if (FileContentBase64 != null)
                 {
-                    if (BLL.DataBlock.checkDataBlock(File) || FileName.Substring(FileName.Length - 4, 4).ToLower() == ".plf")
+                    byte[] file = Convert.FromBase64String(FileContentBase64);
+                    if (BLL.DataBlock.checkDataBlock(file) || FileName.Substring(FileName.Length - 4, 4).ToLower() == ".plf")
                     {
                         int orgId = dataBlock.organizationTable.GetOrgId_byOrgName(Profile);
-                        dataBlock.AddData(orgId, File, FileName);
+                        dataBlock.AddData(orgId, file, FileName);
                         int dataBlockID = dataBlock.GET_DATA_BLOCK_ID();
                         dataBlock.CloseConnection();
 
@@ -89,6 +90,76 @@ public class PublicServices : System.Web.Services.WebService {
                 else
                 {
                     throw new Exception("Ivalid DataBlock state.");
+                }
+            }
+            else
+            {
+                throw new Exception("Invalid authorization parameters.");
+            }
+        }
+        catch (Exception ex)
+        {
+            dataBlock.RollbackConnection();
+            dataBlock.CloseConnection();
+            throw ex;
+        }
+    }
+
+    [WebMethod]
+    public string GetFile(string Profile, string UserName, string Password, int DataBlockID)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
+        try
+        {
+            dataBlock.OpenConnection();
+            dataBlock.OpenTransaction();
+            if (CheckUser(Profile, UserName, Password, dataBlock))
+            {
+                dataBlock.OpenConnection();
+
+                bool hasDataBlockID = false;
+
+                int orgId = dataBlock.organizationTable.GetOrgId_byOrgName(Profile);
+
+                List<int> cardIds;
+                cardIds = dataBlock.cardsTable.GetAllCardIds(orgId, dataBlock.cardsTable.driversCardTypeId);
+
+                if (cardIds != null)
+                {
+                    for (int i = 0; i < cardIds.Count; i++)
+                    {
+                        List<int> dataBlockIds;
+                        dataBlockIds = dataBlock.cardsTable.GetAllDataBlockIds_byCardId(cardIds[i]);
+                        if (dataBlockIds != null)
+                        {
+                            for (int j = 0; j < dataBlockIds.Count; j++)
+                            {
+                                if (dataBlockIds[j] == DataBlockID)
+                                {
+                                    hasDataBlockID = true;
+                                    break;
+                                }
+                            }
+                            if (hasDataBlockID)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (hasDataBlockID)
+                {
+                    byte[] fileBytes = dataBlock.GetDataBlock_BytesArray(DataBlockID);
+                    string fileName = dataBlock.GetDataBlock_FileName(DataBlockID);
+                    dataBlock.CloseConnection();
+
+                    return Convert.ToBase64String(fileBytes);
+                }
+                else
+                {
+                    throw new Exception("Not found this DataBlockID.");
                 }
             }
             else
