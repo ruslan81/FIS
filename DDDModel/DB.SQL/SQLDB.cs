@@ -2975,9 +2975,50 @@ namespace DB.SQL
             returnValue = Convert.ToInt32(cmd.ExecuteScalar());
             return returnValue;
         }
+        //EXT
+        public string GetVehicleInfoValueExt(int vehicleId, int vehicleInfoId)
+        {
+            string sql0 = "SELECT OCTET_LENGTH(VEHICLE_INFO_EXT_VALUE) FROM fd_vehicle_info_set_ext WHERE VEHICLE_ID=@VEHICLE_ID AND VEHICLE_INFO_EXT_ID=@VEHICLE_INFO_ID";
+            MySqlCommand cmd0 = new MySqlCommand(sql0, sqlConnection);
+            cmd0.Parameters.AddWithValue("@VEHICLE_ID", vehicleId);
+            cmd0.Parameters.AddWithValue("@VEHICLE_INFO_ID", vehicleInfoId);
+            MySqlDataReader sdr = cmd0.ExecuteReader();
+            int size = 0;
+            if (sdr.Read())
+            {
+                object val = sdr.GetValue(0);
+                if (val is DBNull) return null;
+                else size = Convert.ToInt32(val);
+                sdr.Close();
+            }
+            else { sdr.Close(); return null; }
+
+            MySqlCommand cmd = new MySqlCommand();
+            string sql = "SELECT VEHICLE_INFO_EXT_VALUE FROM fd_vehicle_info_set_ext WHERE VEHICLE_ID=@VEHICLE_ID AND VEHICLE_INFO_EXT_ID=@VEHICLE_INFO_ID";
+            cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@VEHICLE_ID", vehicleId);
+            cmd.Parameters.AddWithValue("@VEHICLE_INFO_ID", vehicleInfoId);
+
+            sdr = cmd.ExecuteReader();
+            if (sdr.Read())
+            {
+                byte[] data = new byte[size];
+                if (size == 0) { sdr.Close(); return null; }
+                sdr.GetBytes(0, 0, data, 0, size);
+                sdr.Close();
+                return Convert.ToBase64String(data);
+            }
+            else { sdr.Close(); return null; }
+        }
         public int GetVehicleInfoName(int InfoNameId)
         {
             int returnValue = Convert.ToInt32(GetOneParameter(InfoNameId, "STRID_VEHICLE_INFO_NAME", "fd_vehicle_info", "VEHICLE_INFO_ID"));
+            return returnValue;
+        }
+        //EXT
+        public int GetVehicleInfoNameExt(int InfoNameId)
+        {
+            int returnValue = Convert.ToInt32(GetOneParameter(InfoNameId, "STRID_VEHICLE_INFO_EXT_NAME", "fd_vehicle_info_ext", "VEHICLE_INFO_EXT_ID"));
             return returnValue;
         }
         public List<KeyValuePair<string, int>> GetAllVehicleInfoNames(string Language)
@@ -2986,6 +3027,31 @@ namespace DB.SQL
             List<int> AllVehicleInfoNames = new List<int>();
 
             string sql = "SELECT VEHICLE_INFO_ID FROM fd_vehicle_info ORDER BY VEHICLE_INFO_ID";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            MySqlDataReader sdr = cmd.ExecuteReader();
+            while (sdr.Read())
+            {
+                AllVehicleInfoNames.Add(sdr.GetInt32(0));
+            }
+            sdr.Close();
+
+            KeyValuePair<string, int> hash;
+            int vehicleInfoNameId;
+            foreach (int id in AllVehicleInfoNames)
+            {
+                vehicleInfoNameId = GetUserInfoName(id);
+                hash = new KeyValuePair<string, int>(GetString(vehicleInfoNameId, Language), id);
+                returnArray.Add(hash);
+            }
+            return returnArray;
+        }
+        //EXT
+        public List<KeyValuePair<string, int>> GetAllVehicleInfoNamesExt(string Language)
+        {
+            List<KeyValuePair<string, int>> returnArray = new List<KeyValuePair<string, int>>();
+            List<int> AllVehicleInfoNames = new List<int>();
+
+            string sql = "SELECT VEHICLE_INFO_EXT_ID FROM fd_vehicle_info_ext ORDER BY VEHICLE_INFO_EXT_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             MySqlDataReader sdr = cmd.ExecuteReader();
             while (sdr.Read())
@@ -3024,6 +3090,27 @@ namespace DB.SQL
             cmd.ExecuteNonQuery();
             return generatedId;
         }
+        //EXT
+        public int AddVehicleInfoNameExt(string InfoName, string Language)
+        {
+            int stringId = AddOrGetString(InfoName, userString);
+            // TranslateString(InfoName, Language, stringId);
+
+            MySqlCommand cmd = new MySqlCommand();
+            int generatedId;
+            generatedId = generateId("fd_vehicle_info_ext", "VEHICLE_INFO_EXT_ID");
+            if (generatedId == -1)
+                throw (new Exception("Can't generate VEHICLE_INFO_EXT_ID"));
+
+            string sql = "INSERT INTO fd_vehicle_info_ext "
+                + "(VEHICLE_INFO_EXT_ID, STRID_VEHICLE_INFO_EXT_NAME)"
+                + "VALUES (@VEHICLE_INFO_EXT_ID, @STRID_VEHICLE_INFO_EXT_NAME)";
+            cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@VEHICLE_INFO_EXT_ID", generatedId);
+            cmd.Parameters.AddWithValue("@STRID_VEHICLE_INFO_EXT_NAME", stringId);
+            cmd.ExecuteNonQuery();
+            return generatedId;
+        }
         public void AddVehicleInfoValue(int vehicleId, int vehicleInfoId, string value, string Language)
         {
             int stringId = AddOrGetString(value, Language, userString);
@@ -3037,9 +3124,45 @@ namespace DB.SQL
             cmd.Parameters.AddWithValue("@STRID_VEHICLE_INFO_VALUE", stringId);
             cmd.ExecuteNonQuery();
         }
+        //EXT
+        public void AddVehicleInfoValueExt(int vehicleId, int vehicleInfoId, string value)
+        {
+            string sql0 = "INSERT INTO fd_vehicle_info_set_ext "
+                + "(VEHICLE_ID, VEHICLE_INFO_EXT_ID, VEHICLE_INFO_EXT_VALUE)"
+                + "VALUES (@VEHICLE_ID, @VEHICLE_INFO_EXT_ID, @VEHICLE_INFO_EXT_VALUE)";
+            MySqlCommand cmd0 = new MySqlCommand(sql0, sqlConnection);
+            cmd0.Parameters.AddWithValue("@VEHICLE_ID", vehicleId);
+            cmd0.Parameters.AddWithValue("@VEHICLE_INFO_EXT_ID", vehicleInfoId);
+            if (value != null)
+            {
+                cmd0.Parameters.AddWithValue("@VEHICLE_INFO_EXT_VALUE", Convert.FromBase64String(value));
+            }
+            else
+            {
+                cmd0.Parameters.AddWithValue("@VEHICLE_INFO_EXT_VALUE", null);
+            }
+            cmd0.ExecuteNonQuery();
+        }
         public void EditVehicleInfo(int vehicleId, int vehicleInfoId, string newValue, string Language)
         {
             EditAnySTRIDValue(newValue, "STRID_VEHICLE_INFO_VALUE", Language, "fd_vehicle_info_set", "VEHICLE_INFO_ID", vehicleInfoId, "VEHICLE_ID", vehicleId, userString);
+        }
+        //EXT
+        public void EditVehicleInfoExt(int vehicleId, int vehicleInfoId, string newValue)
+        {
+            string sql0 = "UPDATE fd_vehicle_info_set_ext SET VEHICLE_INFO_EXT_VALUE=@VEHICLE_INFO_EXT_VALUE WHERE VEHICLE_ID=@VEHICLE_ID AND VEHICLE_INFO_EXT_ID=@VEHICLE_INFO_EXT_ID";
+            MySqlCommand cmd0 = new MySqlCommand(sql0, sqlConnection);
+            cmd0.Parameters.AddWithValue("@VEHICLE_ID", vehicleId);
+            cmd0.Parameters.AddWithValue("@VEHICLE_INFO_EXT_ID", vehicleInfoId);
+            if (newValue != null)
+            {
+                cmd0.Parameters.AddWithValue("@VEHICLE_INFO_EXT_VALUE", Convert.FromBase64String(newValue));
+            }
+            else
+            {
+                cmd0.Parameters.AddWithValue("@VEHICLE_INFO_EXT_VALUE", null);
+            }
+            cmd0.ExecuteNonQuery();
         }
         #endregion
         //-------------------------------Device tables------------
@@ -3261,7 +3384,6 @@ namespace DB.SQL
                 sdr.Close();
             }
             else { sdr.Close(); return null; }
-
 
             string sql = "SELECT CARD_IMAGE FROM fn_card WHERE CARD_ID = @CARD_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);

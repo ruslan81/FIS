@@ -280,11 +280,22 @@ namespace BLL
             int stringId = sqlDB.GetVehicleInfoValueStrId(VehicleId, VehicleInfoId);
             return sqlDB.GetString(stringId, CurrentLanguage);
         }
+        //EXT
+        public string GetVehicleInfoValueExt(int VehicleId, int VehicleInfoId)
+        {
+            return sqlDB.GetVehicleInfoValueExt(VehicleId, VehicleInfoId);
+        }
         public string GetVehicleInfoValue(int VehicleId, string VehicleInfoName)
         {
             int infoNameId = GetVehicleInfoNameId(VehicleInfoName);
             int stringId = sqlDB.GetVehicleInfoValueStrId(VehicleId, infoNameId);
             return sqlDB.GetString(stringId, CurrentLanguage);
+        }
+        //EXT
+        public string GetVehicleInfoValueExt(int VehicleId, string VehicleInfoName)
+        {
+            int infoNameId = GetVehicleInfoNameIdExt(VehicleInfoName);
+            return sqlDB.GetVehicleInfoValueExt(VehicleId, infoNameId);
         }
         public int GetVehicleInfoNameId(string InfoName)
         {
@@ -296,25 +307,51 @@ namespace BLL
             else
                 return AddVehicleInfoName(InfoName);
         }
-        public string GetVehicleImage(int vehicleId)
+        //EXT
+        public int GetVehicleInfoNameIdExt(string InfoName)
+        {
+            int stringId = sqlDB.GetStringId(InfoName, SQLDB.userString);
+            int VehicleInfoId = sqlDB.GetVehicleInfoNameExt(stringId);
+
+            if (VehicleInfoId > 0)
+                return VehicleInfoId;
+            else
+                return AddVehicleInfoNameExt(InfoName);
+        }
+        /*public string GetVehicleImage(int vehicleId)
         {
             return sqlDB.GetVehicleImage(vehicleId);
         }
         public void SaveVehicleImage(int vehicleId, string data)
         {
             sqlDB.SaveVehicleImage(vehicleId, data);
-        }
+        }*/
         public List<KeyValuePair<string, int>> GetAllVehicleInfoNames()
         {
             return sqlDB.GetAllVehicleInfoNames(CurrentLanguage);
+        }
+        //EXT
+        public List<KeyValuePair<string, int>> GetAllVehicleInfoNamesExt()
+        {
+            return sqlDB.GetAllVehicleInfoNamesExt(CurrentLanguage);
         }
         public int AddVehicleInfoName(string InfoName)
         {
             return sqlDB.AddVehicleInfoName(InfoName, CurrentLanguage);
         }
+        //EXT
+        public int AddVehicleInfoNameExt(string InfoName)
+        {
+            return sqlDB.AddVehicleInfoNameExt(InfoName, CurrentLanguage);
+        }
         public void AddVehicleInfoValue(int VehicleId, int VehicleInfoId, string value)
         {
             sqlDB.AddVehicleInfoValue(VehicleId, VehicleInfoId, value, CurrentLanguage);
+        }
+        //EXT
+        public void AddVehicleInfoValueExt(int VehicleId, int VehicleInfoId, string value)
+        {
+            sqlDB.AddVehicleInfoValueExt(VehicleId, VehicleInfoId, value);
         }
         public void AddVehicleInfoValue(int VehicleId, string VehicleInfoName, string value)
         {
@@ -323,12 +360,28 @@ namespace BLL
                 infoNameId = AddVehicleInfoName(VehicleInfoName);
             sqlDB.AddVehicleInfoValue(VehicleId, infoNameId, value, CurrentLanguage);
         }
+        //EXT
+        public void AddVehicleInfoValueExt(int VehicleId, string VehicleInfoName, string value)
+        {
+            int infoNameId = GetVehicleInfoNameIdExt(VehicleInfoName);
+            if (infoNameId <= 0)
+                infoNameId = AddVehicleInfoNameExt(VehicleInfoName);
+            sqlDB.AddVehicleInfoValueExt(VehicleId, infoNameId, value);
+        }
         public void EditVehicleInfo(int VehicleId, int VehicleInfoId, string newValue)
         {
             if (sqlDB.GetVehicleInfoValueStrId(VehicleId, VehicleInfoId) > 0)
                 sqlDB.EditVehicleInfo(VehicleId, VehicleInfoId, newValue, CurrentLanguage);
             else
                 sqlDB.AddVehicleInfoValue(VehicleId, VehicleInfoId, newValue, CurrentLanguage);
+        }
+        //EXT
+        public void EditVehicleInfoExt(int VehicleId, int VehicleInfoId, string newValue)
+        {
+            if (sqlDB.GetVehicleInfoValueExt(VehicleId, VehicleInfoId) != null )
+                sqlDB.EditVehicleInfoExt(VehicleId, VehicleInfoId, newValue);
+            else
+                sqlDB.AddVehicleInfoValueExt(VehicleId, VehicleInfoId, newValue);
         }
     }
 }
