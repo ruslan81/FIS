@@ -747,6 +747,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
             vd.EquipmentType = dataBlock.deviceTable.GetDeviceInfo(deviceId, dataBlock.deviceTable.Device_Type);
             vd.Serial = dataBlock.deviceTable.GetDeviceInfo(deviceId, dataBlock.deviceTable.Device_Num);
             vd.LastReadDate = dataBlock.deviceTable.GetDeviceInfo(deviceId, dataBlock.deviceTable.Device_Date_Read_Last);
+            vd.EquipmentName = dataBlock.deviceTable.GetDeviceName(deviceId);
+            vd.SIMNum = dataBlock.deviceTable.GetDeviceInfo(deviceId, dataBlock.deviceTable.Device_Phone_Num_Sim);    
 
             return vd;
         }
@@ -837,6 +839,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
                 dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Calibration_Next, DateTime.Parse(item.NextCalibrDate));
                 dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Type, item.EquipmentType);
                 dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Num, item.Serial);
+                dataBlock.deviceTable.EditDeviceName(deviceId, item.EquipmentName);
+                dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Phone_Num_Sim, item.SIMNum);
                 dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Date_Read_Last, DateTime.Parse(item.LastReadDate));
 
             }
@@ -1158,7 +1162,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
 
             //TODO delete
             if (data.EquipmentType == "") { data.EquipmentType = "1"; }
-            int deviceId = dataBlock.deviceTable.AddNewDevice(Convert.ToInt32(data.EquipmentType),"DEVICENAME",1);
+            int deviceId = dataBlock.deviceTable.AddNewDevice(Convert.ToInt32(data.EquipmentType),data.EquipmentName,1);
             dataBlock.vehiclesTables.EditVehicleDeviceId(vehId,deviceId);
 
             int vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_GarageNumber);
@@ -1214,6 +1218,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
             dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Calibration_Next, DateTime.Parse(data.NextCalibrDate));
             dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Type, data.EquipmentType);
             dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Num, data.Serial);
+            dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Phone_Num_Sim, data.SIMNum);
             dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Date_Read_Last, DateTime.Parse(data.LastReadDate));
 
             return newId;

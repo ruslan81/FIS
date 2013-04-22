@@ -358,7 +358,7 @@ namespace BLL
         //EXT
         public void EditUserInfoExt(int userId, int UserInfoId, string newValue)
         {
-            if (sqlDb.GetUserInfoValueExt(userId, UserInfoId) != null )
+            if (sqlDb.CheckUserInfoValueExt(userId, UserInfoId) != -1 )
                 sqlDb.EditUserInfoExt(userId, UserInfoId, newValue);
             else
                 sqlDb.AddUserInfoValueExt(userId, UserInfoId, newValue);

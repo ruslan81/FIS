@@ -35,6 +35,8 @@ public class VehicleData
     public string ColdStart;
     public string HotStop;
     public string vehicleImage;
+    public string SIMNum;
+    public string EquipmentName;
 
 	public VehicleData()
 	{

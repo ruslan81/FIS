@@ -53,8 +53,8 @@ namespace DDDModel
                 double d = dataBlock.plfUnitInfo.Statistics_GetYearStatistics(new DateTime(2006, 1, 1), id);
                 System.Console.WriteLine(d);
             }*/
-            dataBlock.cardsTable.GetCardUserId(30);
-            dataBlock.cardsTable.GetCardImage(30);
+            int vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameIdExt(DataBaseReference.Vehicle_VehiclePhotoAddress);
+            dataBlock.vehiclesTables.EditVehicleInfoExt(18,vehInfoId,"");
             System.Console.WriteLine("OK");
             System.Console.ReadKey();
                 //SCRIPT TO ADD COMMON GROUP

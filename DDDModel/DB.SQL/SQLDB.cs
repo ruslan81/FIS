@@ -1472,6 +1472,25 @@ namespace DB.SQL
             }
             else { sdr.Close(); return null; }
         }
+        //EXT
+        public int CheckUserInfoValueExt(int userId, int UserInfoId)
+        {
+            string sql0 = "SELECT OCTET_LENGTH(USER_INFO_EXT_VALUE) FROM fd_user_info_set_ext WHERE USER_ID=@USER_ID AND USER_INFO_EXT_ID=@USER_INFO_ID";
+            MySqlCommand cmd0 = new MySqlCommand(sql0, sqlConnection);
+            cmd0.Parameters.AddWithValue("@USER_ID", userId);
+            cmd0.Parameters.AddWithValue("@USER_INFO_ID", UserInfoId);
+            MySqlDataReader sdr = cmd0.ExecuteReader();
+            int size = 0;
+            if (sdr.Read())
+            {
+                object val = sdr.GetValue(0);
+                if (val is DBNull) { sdr.Close(); return 0; }
+                else size = Convert.ToInt32(val);
+                sdr.Close();
+            }
+            else { sdr.Close(); return -1; }
+            return size;
+        }
         public int GetUserInfoName(int InfoNameId)
         {
             int returnValue = Convert.ToInt32(GetOneParameter(InfoNameId, "USER_INFO_ID", "fd_user_info", "STRID_USER_INFO_NAME"));
@@ -3009,6 +3028,25 @@ namespace DB.SQL
                 return Convert.ToBase64String(data);
             }
             else { sdr.Close(); return null; }
+        }
+        //EXT
+        public int CheckVehicleInfoValueExt(int vehicleId, int vehicleInfoId)
+        {
+            string sql0 = "SELECT OCTET_LENGTH(VEHICLE_INFO_EXT_VALUE) FROM fd_vehicle_info_set_ext WHERE VEHICLE_ID=@VEHICLE_ID AND VEHICLE_INFO_EXT_ID=@VEHICLE_INFO_ID";
+            MySqlCommand cmd0 = new MySqlCommand(sql0, sqlConnection);
+            cmd0.Parameters.AddWithValue("@VEHICLE_ID", vehicleId);
+            cmd0.Parameters.AddWithValue("@VEHICLE_INFO_ID", vehicleInfoId);
+            MySqlDataReader sdr = cmd0.ExecuteReader();
+            int size = 0;
+            if (sdr.Read())
+            {
+                object val = sdr.GetValue(0);
+                if (val is DBNull) { sdr.Close(); return 0; }
+                else size = Convert.ToInt32(val);
+                sdr.Close();
+            }
+            else { sdr.Close(); return -1; }
+            return size;
         }
         public int GetVehicleInfoName(int InfoNameId)
         {

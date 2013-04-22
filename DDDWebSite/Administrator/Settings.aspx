@@ -610,6 +610,18 @@
             </td>
           </tr>
           <tr style="background-color:#eee;">
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Название устройства</td>
+            <td style="padding-top:10px;">
+              <input id="eqNameinputSingle" value="{{html EquipmentName}}" class="inputField-readonly input" readonly="readonly"/>
+            </td>
+          </tr>
+          <tr style="background-color:#eee;">
+            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Телефонный номер SIM-карты</td>
+            <td style="padding-top:10px;">
+              <input id="eqSIMNuminputSingle" value="{{html SIMNum}}" class="inputField-readonly input" readonly="readonly"/>
+            </td>
+          </tr>
+          <tr style="background-color:#eee;">
             <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Серийный номер</td>
             <td style="padding-top:10px;">
               <input id="serialinputSingle" value="{{html Serial}}" class="inputField-readonly input" readonly="readonly"/>

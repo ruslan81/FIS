@@ -378,7 +378,7 @@ namespace BLL
         //EXT
         public void EditVehicleInfoExt(int VehicleId, int VehicleInfoId, string newValue)
         {
-            if (sqlDB.GetVehicleInfoValueExt(VehicleId, VehicleInfoId) != null )
+            if (sqlDB.CheckVehicleInfoValueExt(VehicleId, VehicleInfoId) != -1 )
                 sqlDB.EditVehicleInfoExt(VehicleId, VehicleInfoId, newValue);
             else
                 sqlDB.AddVehicleInfoValueExt(VehicleId, VehicleInfoId, newValue);

@@ -1724,6 +1724,8 @@ function createUserControlsSingleTransport() {
             var ColdStart = $("#coldstartinputSingle").attr("value");
             var HotStop = $("#hotstopinputSingle").attr("value");
             var image = $("#vehicleImage").attr("src");
+            var SIMNum = $("#eqSIMNuminputSingle").attr("value");
+            var EquipmentName = $("#eqNameinputSingle").attr("value");
 
             if (name == "") {
                 showWrongDataMessage("wrongVehicleNumber");
@@ -1732,7 +1734,7 @@ function createUserControlsSingleTransport() {
 
             card = { Name: name, Comment: comment, grID: currentCardId, Number: number, groupID: group };
 
-            settings.push({ Card: card, vehType: vehType, GarageNumber: GarageNumber, MakeYear: MakeYear, Tank1: Tank1, Tank2: Tank2, Capacity: Capacity, FuelType: FuelType, TO1: TO1, TO2: TO2, EquipmentType: EquipmentType, Serial: Serial, LastReadDate: LastReadDate, CalibrReason: CalibrReason, Calibrator: Calibrator, CalibratorCard: CalibratorCard, NextCalibrDate: NextCalibrDate, Turns: Turns, MaxVelocity: MaxVelocity, Manevring: Manevring, City: City, Magistral: Magistral, Consumption: Consumption, ColdStart: ColdStart, HotStop: HotStop, vehicleImage: image });
+            settings.push({ Card: card, vehType: vehType, GarageNumber: GarageNumber, MakeYear: MakeYear, Tank1: Tank1, Tank2: Tank2, Capacity: Capacity, FuelType: FuelType, TO1: TO1, TO2: TO2, EquipmentType: EquipmentType, Serial: Serial, LastReadDate: LastReadDate, CalibrReason: CalibrReason, Calibrator: Calibrator, CalibratorCard: CalibratorCard, NextCalibrDate: NextCalibrDate, Turns: Turns, MaxVelocity: MaxVelocity, Manevring: Manevring, City: City, Magistral: Magistral, Consumption: Consumption, ColdStart: ColdStart, HotStop: HotStop, vehicleImage: image, SIMNum: SIMNum, EquipmentName: EquipmentName });
 
             var order = { OrgID: $.cookie("CURRENT_ORG_ID"), TransportSettings: settings };
 
@@ -1783,6 +1785,8 @@ function createUserControlsSingleTransport() {
             var ColdStart = $("#coldstartinputSingle").attr("value");
             var HotStop = $("#hotstopinputSingle").attr("value");
             var image = $("#vehicleImage").attr("src");
+            var SIMNum = $("#eqSIMNuminputSingle").attr("value");
+            var EquipmentName = $("#eqNameinputSingle").attr("value");
 
             if (name == "") {
                 showWrongDataMessage("wrongVehicleNumber");
@@ -1791,7 +1795,7 @@ function createUserControlsSingleTransport() {
 
             var card = { Name: name, Comment: comment, Number: number, groupID: group };
 
-            var settings = { Card: card, vehType: vehType, GarageNumber: GarageNumber, MakeYear: MakeYear, Tank1: Tank1, Tank2: Tank2, Capacity: Capacity, FuelType: FuelType, TO1: TO1, TO2: TO2, EquipmentType: EquipmentType, Serial: Serial, LastReadDate: LastReadDate, CalibrReason: CalibrReason, Calibrator: Calibrator, CalibratorCard: CalibratorCard, NextCalibrDate: NextCalibrDate, Turns: Turns, MaxVelocity: MaxVelocity, Manevring: Manevring, City: City, Magistral: Magistral, Consumption: Consumption, ColdStart: ColdStart, HotStop: HotStop, vehicleImage: image };
+            var settings = { Card: card, vehType: vehType, GarageNumber: GarageNumber, MakeYear: MakeYear, Tank1: Tank1, Tank2: Tank2, Capacity: Capacity, FuelType: FuelType, TO1: TO1, TO2: TO2, EquipmentType: EquipmentType, Serial: Serial, LastReadDate: LastReadDate, CalibrReason: CalibrReason, Calibrator: Calibrator, CalibratorCard: CalibratorCard, NextCalibrDate: NextCalibrDate, Turns: Turns, MaxVelocity: MaxVelocity, Manevring: Manevring, City: City, Magistral: Magistral, Consumption: Consumption, ColdStart: ColdStart, HotStop: HotStop, vehicleImage: image, SIMNum: SIMNum, EquipmentName: EquipmentName };
 
             var order = { OrgID: $.cookie("CURRENT_ORG_ID"), data: settings, UserID: $.cookie("CURRENT_USERNAME") };
 
