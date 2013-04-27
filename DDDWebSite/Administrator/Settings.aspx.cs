@@ -765,6 +765,39 @@ public partial class Administrator_Settings : System.Web.UI.Page
     }
 
     /// <summary>
+    ///Получить список типов напоминаний
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static List<MapItem> GetDeviceTypeList()
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
+        try
+        {
+            dataBlock.OpenConnection();
+            List<MapItem> result = new List<MapItem>();
+
+            List<KeyValuePair<string, int>> list=dataBlock.deviceTable.GetAllDeviceTypes();
+            foreach (KeyValuePair<string, int> item in list) {
+                result.Add(new MapItem(Convert.ToString(item.Value),item.Key));
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            //return null;
+        }
+        finally
+        {
+            //dataBlock.organizationTable.CloseConnection();
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
     ///Сохранить Настройки ТС
     /// </summary>
     /// <returns></returns>

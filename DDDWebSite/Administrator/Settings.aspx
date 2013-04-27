@@ -546,7 +546,6 @@
                     <select id="vehTypeSelectorSingle" name="vehTypeSelector" vehType="{{html vehType}}" onchange="this.vehType=this.value;"></select>
                 </td>
                 </tr>
-                </tr>
                 <tr style="background-color:#eee;">
                 <td class="key" style="font-size:12px;padding-top:10px;">Группа</td>
                 <td style="padding-top:10px;">
@@ -603,10 +602,10 @@
       <table id="contentTable3" style="border-collapse: separate; width:60%;"
           border="0" cellpadding="0" cellspacing="0">
         <tbody id="" class="ui-widget-content wijmo-wijgrid-data">
-          <tr style="background-color:#eee;">
-            <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Тип оборудования</td>
+         <tr style="background-color:#eee;">
+            <td class="key" style="font-size:12px;padding-top:10px;">Тип</td>
             <td style="padding-top:10px;">
-              <input id="eqtypeinputSingle" value="{{html EquipmentType}}" class="inputField-readonly input" readonly="readonly"/>
+                <select id="eqTypeSelectorSingle" name="eqTypeSelector" eqType="{{html EquipmentType}}" onchange="this.eqType=this.value;"></select>
             </td>
           </tr>
           <tr style="background-color:#eee;">

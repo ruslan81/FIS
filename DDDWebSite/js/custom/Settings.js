@@ -456,6 +456,7 @@ function onSingleDriverNodeSelected(e, data) {
     isSelected = $("div", data.element).attr("aria-selected");
     type = $("a span", data.element).attr("type");
     $("#userControls").empty();
+    mode = "";
     if (isSelected == "true") {
         if (type == "0") {
             currentCardId = $("a span", data.element).attr("key");
@@ -480,6 +481,7 @@ function onSingleVehicleNodeSelected(e, data) {
     isSelected = $("div", data.element).attr("aria-selected");
     type = $("a span", data.element).attr("type");
     $("#userControls").empty();
+    mode = "";
     if (isSelected == "true") {
         if (type == "0") {
             currentCardId = $("a span", data.element).attr("key");
@@ -505,6 +507,7 @@ function onSingleGroupNodeSelected(e, data) {
     isSelected = $("div", data.element).attr("aria-selected");
     type = $("a span", data.element).attr("type");
     $("#userControls").empty();
+    mode = "";
     if (isSelected == "true") {
         if (type == "0") {
             currentCardId = $("a span", data.element).attr("key");
@@ -868,8 +871,50 @@ function loadSingleVehicleSettings() {
             }
             $("#tabs").tabs();
             $("#tabs").tabs('select', 0);
+            $("#tabs").tabs({ show: function (e, ui) {
+                if (ui.index == 0) {
+                    $("#vehTypeSelectorSingle").wijcombobox("destroy");
+                    $("#vehTypeSelectorSingle").wijcombobox({
+                        showingAnimation: { effect: "blind" },
+                        hidingAnimation: { effect: "blind" },
+                        disabled: true
+                    });
+                    if (mode == "edit" || mode == "create") {
+                        $("#vehTypeSelectorSingle").wijcombobox({
+                            disabled: false
+                        });
+                    }
+                    $("#groupSelectorSingle").wijcombobox("destroy");
+                    $("#groupSelectorSingle").wijcombobox({
+                        showingAnimation: { effect: "blind" },
+                        hidingAnimation: { effect: "blind" },
+                        disabled: true
+                    });
+                    if (mode == "edit" || mode == "create") {
+                        $("#groupSelectorSingle").wijcombobox({
+                            disabled: false
+                        });
+                    }
+                }
+                if (ui.index == 2) {
+                    $("#eqTypeSelectorSingle").wijcombobox("destroy");
+                    $("#eqTypeSelectorSingle").wijcombobox({
+                        showingAnimation: { effect: "blind" },
+                        hidingAnimation: { effect: "blind" },
+                        disabled: true
+                    });
+                    if (mode == "edit" || mode == "create") {
+                        $("#eqTypeSelectorSingle").wijcombobox({
+                            disabled: false
+                        });
+                    }
+                }
+                return false;
+            }
+            });
             createGroupSelectorTransports();
             createTypeSelectorTransports();
+            createDeviceTypeSelector();
             $("#contentTable").show();
             createUserControlsSingleTransport();
         },
@@ -1618,13 +1663,18 @@ function createUserControlsSingleTransport() {
         $("#tabs .datepicker").datepicker("setDate", todaystr);
         $("#tabs .datepicker").datepicker('enable');
 
-        createGroupSelectorDriversSingle($("#groupSelectorSingle"));
+        createGroupSelectorTransportsSingle($("#groupSelectorSingle"));
         $("#groupSelectorSingle").wijcombobox(
                 {
                     disabled: false
                 });
-        createGroupSelectorDriversSingle($("#vehTypeSelectorSingle"));
+        createTypeSelectorTransportsSingle($("#vehTypeSelectorSingle"));
         $("#vehTypeSelectorSingle").wijcombobox(
+                {
+                    disabled: false
+                });
+        createDeviceTypeSelectorSingle($("#eqTypeSelectorSingle"));
+        $("#eqTypeSelectorSingle").wijcombobox(
                 {
                     disabled: false
                 });
@@ -1670,14 +1720,17 @@ function createUserControlsSingleTransport() {
         $(".upload-foto").show();
 
         $("#groupSelectorSingle").wijcombobox(
-                    {
-                        disabled: false
-                    });
+                {
+                    disabled: false
+                });
         $("#vehTypeSelectorSingle").wijcombobox(
                 {
                     disabled: false
                 });
-
+        $("#eqTypeSelectorSingle").wijcombobox(
+                {
+                    disabled: false
+                });
         $(".input-upload-foto").removeClass("inputField");
         $(".upload-foto").show();
 
@@ -1708,7 +1761,7 @@ function createUserControlsSingleTransport() {
             var FuelType = $("#fuelTypeinputSingle").attr("value");
             var TO1 = $("#to1inputSingle").attr("value");
             var TO2 = $("#to2inputSingle").attr("value");
-            var EquipmentType = $("#eqtypeinputSingle").attr("value");
+            var EquipmentType = $("#eqTypeSelectorSingle").attr("eqType");
             var Serial = $("#serialinputSingle").attr("value");
             var LastReadDate = $("#lastReadDateinputSingle").attr("value");
             var CalibrReason = $("#calibrReasoninputSingle").attr("value");
@@ -1769,7 +1822,7 @@ function createUserControlsSingleTransport() {
             var FuelType = $("#fuelTypeinputSingle").attr("value");
             var TO1 = $("#to1inputSingle").attr("value");
             var TO2 = $("#to2inputSingle").attr("value");
-            var EquipmentType = $("#eqtypeinputSingle").attr("value");
+            var EquipmentType = $("#eqTypeSelectorSingle").attr("eqType");
             var Serial = $("#serialinputSingle").attr("value");
             var LastReadDate = $("#lastReadDateinputSingle").attr("value");
             var CalibrReason = $("#calibrReasoninputSingle").attr("value");
@@ -2524,6 +2577,23 @@ function createTypeSelectorTransports() {
     });
 }
 
+function createDeviceTypeSelector() {
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Settings.aspx/GetDeviceTypeList",
+        data: "{}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            createSelectors(response, "eqTypeSelector", "eqType");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
+    });
+}
+
 function createGroupSelectorGroups() {
     $.ajax({
         type: "POST",
@@ -2540,8 +2610,6 @@ function createGroupSelectorGroups() {
         }
     });
 }
-
-
 
 function createGroupSelectorDriversSingle(selector) {
     $.ajax({
@@ -2594,6 +2662,22 @@ function createTypeSelectorTransportsSingle(selector) {
     });
 }
 
+function createDeviceTypeSelectorSingle(selector) {
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Settings.aspx/GetDeviceTypeList",
+        data: "{}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            createSelector(selector, response, "eqType");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
+    });
+}
 
 function createGroupCardTypeSelectors() {
     $("[cardType='0']").remove();
@@ -2648,6 +2732,7 @@ function createSelectors(response, name, attr) {
 }
 
 function createSelector(selector, response, attr) {
+    $(selector).empty();
     $("#tmplOption").tmpl(response.d).appendTo(selector);
     var group = $(selector).attr(attr);
     var options = $("#" + selector.id + " option");
