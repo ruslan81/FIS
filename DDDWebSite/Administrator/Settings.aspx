@@ -609,6 +609,12 @@
             </td>
           </tr>
           <tr style="background-color:#eee;">
+            <td class="key" style="font-size:12px;padding-top:10px;">Тип ПО</td>
+            <td style="padding-top:10px;">
+                <select id="eqFirmwareSelectorSingle" name="eqFirmwareSelector" eqFirmware="{{html EquipmentFirmware}}" onchange="this.eqFirmware=this.value;"></select>
+            </td>
+          </tr>
+          <tr style="background-color:#eee;">
             <td class="key" style="font-size:12px;width:300px;padding-top:10px;">Название устройства</td>
             <td style="padding-top:10px;">
               <input id="eqNameinputSingle" value="{{html EquipmentName}}" class="inputField-readonly input" readonly="readonly"/>

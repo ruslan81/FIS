@@ -1004,7 +1004,8 @@ namespace DB.SQL
             {
                 cmd0.Parameters.AddWithValue("@USER_IMG", Convert.FromBase64String(data));
             }
-            else {
+            else
+            {
                 cmd0.Parameters.AddWithValue("@USER_IMG", null);
             }
             cmd0.ExecuteNonQuery();
@@ -1319,7 +1320,7 @@ namespace DB.SQL
             cmd.Parameters.AddWithValue("@USER_LOGIN", findName);
             cmd.Parameters.AddWithValue("@USER_PASSWORD", findPass);
             generatedId = Convert.ToInt32(cmd.ExecuteScalar());
-            if (findName=="" || findName==null || generatedId == 0)
+            if (findName == "" || findName == null || generatedId == 0)
             {
                 generatedId = generateId("fd_user", "USER_ID");
                 if (generatedId == -1)
@@ -3287,7 +3288,7 @@ namespace DB.SQL
         {
             //int returnValue = Convert.ToInt32(GetOneParameter(deviceId, "DEVICE_ID", "fd_device", "DEVICE_TYPE_ID"));
             MySqlCommand cmd = new MySqlCommand();
-            string sql = "UPDATE fd_device SET "+infoName+"=@"+infoName+" WHERE DEVICE_ID=@DEVICE_ID";
+            string sql = "UPDATE fd_device SET " + infoName + "=@" + infoName + " WHERE DEVICE_ID=@DEVICE_ID";
             cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@" + infoName, infoValue);
             cmd.Parameters.AddWithValue("@DEVICE_ID", deviceId);
@@ -3403,6 +3404,21 @@ namespace DB.SQL
         {
             string returnValue = Convert.ToString(GetOneParameter(firmwareId, "DEVICE_FIRMWARE_ID", "fd_device_firmware", "VERSION"));
             return returnValue;
+        }
+        public List<int> GetAllDeviceFirmwareIds()
+        {
+            List<int> result=new List<int>();
+            MySqlCommand cmd = new MySqlCommand();
+            string sql = "SELECT * FROM fd_device_firmware ORDER BY DEVICE_FIRMWARE_ID";
+            cmd = new MySqlCommand(sql, sqlConnection);
+            MySqlDataReader sdr=cmd.ExecuteReader();
+            while(sdr.Read())
+            {
+                int value=sdr.GetInt32(0);
+                result.Add(value);
+            }
+            sdr.Close();
+            return result;
         }
         #endregion
         //--------------------FD_CARD
@@ -4700,7 +4716,7 @@ namespace DB.SQL
         public List<KeyValuePair<string, string>> GetAllBanners()
         {
             MySqlCommand cmd = new MySqlCommand();
-            List<KeyValuePair<string,string>> result=new List<KeyValuePair<string,string>>();
+            List<KeyValuePair<string, string>> result = new List<KeyValuePair<string, string>>();
             List<KeyValuePair<int, int>> ids = new List<KeyValuePair<int, int>>();
 
             string sql = "SELECT * from fn_banner ORDER BY BANNER_INDEX";
@@ -4712,10 +4728,11 @@ namespace DB.SQL
             }
             sdr.Close();
 
-            foreach (KeyValuePair<int, int> pair in ids) {
+            foreach (KeyValuePair<int, int> pair in ids)
+            {
                 result.Add(new KeyValuePair<string, string>(GetString(pair.Key, "STRING_RU"), GetString(pair.Value, "STRING_RU")));
             }
-            
+
             return result;
         }
         #endregion

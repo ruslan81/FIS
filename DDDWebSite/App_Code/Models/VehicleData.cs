@@ -37,6 +37,7 @@ public class VehicleData
     public string vehicleImage;
     public string SIMNum;
     public string EquipmentName;
+    public string EquipmentFirmware;
 
 	public VehicleData()
 	{

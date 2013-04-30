@@ -748,7 +748,8 @@ public partial class Administrator_Settings : System.Web.UI.Page
             vd.Serial = dataBlock.deviceTable.GetDeviceInfo(deviceId, dataBlock.deviceTable.Device_Num);
             vd.LastReadDate = dataBlock.deviceTable.GetDeviceInfo(deviceId, dataBlock.deviceTable.Device_Date_Read_Last);
             vd.EquipmentName = dataBlock.deviceTable.GetDeviceName(deviceId);
-            vd.SIMNum = dataBlock.deviceTable.GetDeviceInfo(deviceId, dataBlock.deviceTable.Device_Phone_Num_Sim);    
+            vd.SIMNum = dataBlock.deviceTable.GetDeviceInfo(deviceId, dataBlock.deviceTable.Device_Phone_Num_Sim);
+            vd.EquipmentFirmware = dataBlock.deviceTable.GetDeviceInfo(deviceId, dataBlock.deviceTable.Device_Firmware);    
 
             return vd;
         }
@@ -781,6 +782,43 @@ public partial class Administrator_Settings : System.Web.UI.Page
             List<KeyValuePair<string, int>> list=dataBlock.deviceTable.GetAllDeviceTypes();
             foreach (KeyValuePair<string, int> item in list) {
                 result.Add(new MapItem(Convert.ToString(item.Value),item.Key));
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            //return null;
+        }
+        finally
+        {
+            //dataBlock.organizationTable.CloseConnection();
+            dataBlock.CloseConnection();
+        }
+    }
+
+    /// <summary>
+    ///Получить список типов напоминаний
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static List<MapItem> GetDeviceFirmwareList()
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
+        try
+        {
+            dataBlock.OpenConnection();
+            List<MapItem> result = new List<MapItem>();
+            
+            List<int> list = dataBlock.deviceTable.GetAllDeviceFirmwareIds();
+            foreach (int id in list)
+            {
+                string model = dataBlock.deviceTable.GetDeviceFirmware_deviceModel(id);
+                string date = Convert.ToString(dataBlock.deviceTable.GetDeviceFirmware_dateProduction(id));
+                string version = dataBlock.deviceTable.GetDeviceFirmware_version(id);
+                result.Add(new MapItem(Convert.ToString(id), model+" "+date+" "+version));
             }
 
             return result;
@@ -874,6 +912,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
                 dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Num, item.Serial);
                 dataBlock.deviceTable.EditDeviceName(deviceId, item.EquipmentName);
                 dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Phone_Num_Sim, item.SIMNum);
+                dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Firmware, item.EquipmentFirmware);
                 dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Date_Read_Last, DateTime.Parse(item.LastReadDate));
 
             }
@@ -1193,9 +1232,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
             int newId = dataBlock.cardsTable.CreateNewCard(data.Card.Name, data.Card.Number, dataBlock.cardsTable.vehicleCardTypeId, orgID, 0, data.Card.Comment, userID, data.Card.groupID);
             int vehId = dataBlock.vehiclesTables.AddNewVehicle("", "", data.Card.Number,1,1,newId,new DateTime(),1);
 
-            //TODO delete
-            if (data.EquipmentType == "") { data.EquipmentType = "1"; }
-            int deviceId = dataBlock.deviceTable.AddNewDevice(Convert.ToInt32(data.EquipmentType),data.EquipmentName,1);
+            int deviceId = dataBlock.deviceTable.AddNewDevice(Convert.ToInt32(data.EquipmentType), data.EquipmentName, Convert.ToInt32(data.EquipmentFirmware));
             dataBlock.vehiclesTables.EditVehicleDeviceId(vehId,deviceId);
 
             int vehInfoId = dataBlock.vehiclesTables.GetVehicleInfoNameId(DataBaseReference.Vehicle_GarageNumber);
@@ -1249,7 +1286,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
             dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Calibration_User, data.Calibrator);
             dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Calibration_Cause, data.CalibrReason);
             dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Calibration_Next, DateTime.Parse(data.NextCalibrDate));
-            dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Type, data.EquipmentType);
+            //dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Type, data.EquipmentType);
             dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Num, data.Serial);
             dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Phone_Num_Sim, data.SIMNum);
             dataBlock.deviceTable.EditDeviceInfo(deviceId, dataBlock.deviceTable.Device_Date_Read_Last, DateTime.Parse(data.LastReadDate));

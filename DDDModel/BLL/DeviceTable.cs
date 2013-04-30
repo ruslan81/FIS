@@ -223,6 +223,14 @@ namespace BLL
         {
            return sqlDB.GetDeviceFirmware_version(firmwareId);
         }
+        /// <summary>
+        /// Получение всех типов ПО
+        /// </summary>
+        /// <returns>Все типы ПО</returns>
+        public List<int> GetAllDeviceFirmwareIds()
+        {
+            return sqlDB.GetAllDeviceFirmwareIds();
+        }
 
         /// <summary>
         /// Редактирование параметров устройства
