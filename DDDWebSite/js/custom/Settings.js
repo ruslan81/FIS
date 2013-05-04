@@ -804,7 +804,10 @@ function loadSingleDriverSettings() {
             if (selectedNodeType == "0") {
                 $("#tmplSingleDriverData").tmpl(response.d).appendTo("#contentSettings");
             } else {
-                var param = { Name: "", Number: "", Comment: "", groupID: selectedNodeType, user: [] };
+                var param = { Name: "", Number: "", Comment: "",
+                    groupID: selectedNodeType, user: {image64:"../css/icons/driver-icon.png"}, 
+                    cardImage: "../css/icons/user-card-icon.png"
+                };
                 $("#tmplSingleDriverData").tmpl(param).appendTo("#contentSettings");
             }
             $("#tabs").tabs();
@@ -866,7 +869,7 @@ function loadSingleVehicleSettings() {
                 $("#tmplSingleVehicleData").tmpl(response.d).appendTo("#contentSettings");
             } else {
                 var card = { Name: "", Number: "", Comment: "", groupID: selectedNodeType };
-                var param = { Card: card };
+                var param = { Card: card, vehicleImage: "../css/icons/transport-icon.png" };
                 $("#tmplSingleVehicleData").tmpl(param).appendTo("#contentSettings");
             }
             $("#tabs").tabs();
