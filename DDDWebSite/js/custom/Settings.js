@@ -1690,7 +1690,7 @@ function createUserControlsSingleTransport() {
                 {
                     disabled: false
                 });
-        createDeviceTypeSelectorSingle($("#eqFirmwareSelectorSingle"));
+        createDeviceFirmwareSelectorSingle($("#eqFirmwareSelectorSingle"));
         $("#eqFirmwareSelectorSingle").wijcombobox(
                 {
                     disabled: false
