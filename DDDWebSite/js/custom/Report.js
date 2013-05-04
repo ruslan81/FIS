@@ -952,6 +952,24 @@ function loadReportTypesTree(placeId) {
                     }
                     });
                     //$("#ReportTree").searchTree();
+
+                    //HIDING OF UNUSED LEAFS
+                    var leafs = $('#ReportInsideTree .file');
+                    for (var i = 0; i < leafs.length; i++) {
+                        if (cardType == "Driver") {
+                            if ($('#ReportInsideTree li:eq(' + i + ') span [repform="DDD"]').length > 0) {
+                                $(leafs[i]).hide();
+                            }
+                            continue;
+                        }
+                        if (cardType == "Vehicle") {
+                            if ($('#ReportInsideTree li:eq(' + i + ') span [repform="PLF"]').length > 0) {
+                                $(leafs[i]).hide();
+                            }
+                            continue;
+                        }
+                    }
+
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
