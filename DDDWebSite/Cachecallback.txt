@@ -12427,3 +12427,7 @@ Cache Callback: 05.05.2013 0:14:20
 Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
 Имя параметра: startIndex
 Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: 06.05.2013 0:37:40
+Cache Callback: 06.05.2013 0:49:00
+Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
+Имя параметра: startIndex
