@@ -15,6 +15,10 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "-06.05.2013" + Environment.NewLine;
+            ReportLabel.Text += @"- Доделаны поля Настройки/ТС - добавлены поддержка Типа, полей Оборудования (в том числе тип ПО), изображения и всех остальных полей, правильно связали данные в интерфейсе и таблицы БД" + Environment.NewLine;
+            ReportLabel.Text += @"- Скрываются лишние типы отчетов (задача о том, можно ли в списке доступных отчетов, при выборе конкретного объекта, показывать только доступные для него отчеты)." + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "-21.04.2013" + Environment.NewLine;
             ReportLabel.Text += @"- Добавлена поддержка создания обрудования и новых полей в разделе Настройки/ТС/Оборудование." + Environment.NewLine;
             ReportLabel.Text += @"- Добавлено сохранение изображения водителя." + Environment.NewLine;
