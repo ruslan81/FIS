@@ -805,7 +805,7 @@ function loadSingleDriverSettings() {
                 $("#tmplSingleDriverData").tmpl(response.d).appendTo("#contentSettings");
             } else {
                 var param = { Name: "", Number: "", Comment: "",
-                    groupID: selectedNodeType, user: {image64:"../css/icons/driver-icon.png"}, 
+                    groupID: selectedNodeType, user: { image64: "../css/icons/driver-icon.png" },
                     cardImage: "../css/icons/user-card-icon.png"
                 };
                 $("#tmplSingleDriverData").tmpl(param).appendTo("#contentSettings");
@@ -1775,7 +1775,7 @@ function createUserControlsSingleTransport() {
             var comment = $("#commentinputSingle").attr("value");
             var number = $("#numberinputSingle").attr("value");
             var group = $("#groupSelectorSingle").attr("group");
-            var vehType = $("#vehTypeSelectorSingle").attr("vehType");
+            var vehType = $("#vehTypeSelectorSingle").attr("vehtype");
 
             var GarageNumber = $("#garageinputSingle").attr("value");
             var MakeYear = $("#makeYearinputSingle").attr("value");
@@ -1785,7 +1785,7 @@ function createUserControlsSingleTransport() {
             var FuelType = $("#fuelTypeinputSingle").attr("value");
             var TO1 = $("#to1inputSingle").attr("value");
             var TO2 = $("#to2inputSingle").attr("value");
-            var EquipmentType = $("#eqTypeSelectorSingle").attr("eqType");
+            var EquipmentType = $("#eqTypeSelectorSingle").attr("eqtype");
             var EquipmentFirmware = $("#eqFirmwareSelectorSingle").attr("eqFirmware");
             var Serial = $("#serialinputSingle").attr("value");
             var LastReadDate = $("#lastReadDateinputSingle").attr("value");
@@ -1812,7 +1812,7 @@ function createUserControlsSingleTransport() {
 
             card = { Name: name, Comment: comment, grID: currentCardId, Number: number, groupID: group };
 
-            settings.push({ Card: card, vehType: vehType, GarageNumber: GarageNumber, MakeYear: MakeYear, Tank1: Tank1, Tank2: Tank2, Capacity: Capacity, FuelType: FuelType, TO1: TO1, TO2: TO2, EquipmentType: EquipmentType, Serial: Serial, LastReadDate: LastReadDate, CalibrReason: CalibrReason, Calibrator: Calibrator, CalibratorCard: CalibratorCard, NextCalibrDate: NextCalibrDate, Turns: Turns, MaxVelocity: MaxVelocity, Manevring: Manevring, City: City, Magistral: Magistral, Consumption: Consumption, ColdStart: ColdStart, HotStop: HotStop, vehicleImage: image, SIMNum: SIMNum, EquipmentName: EquipmentName, EquipmentFirmware : EquipmentFirmware });
+            settings.push({ Card: card, vehType: vehType, GarageNumber: GarageNumber, MakeYear: MakeYear, Tank1: Tank1, Tank2: Tank2, Capacity: Capacity, FuelType: FuelType, TO1: TO1, TO2: TO2, EquipmentType: EquipmentType, Serial: Serial, LastReadDate: LastReadDate, CalibrReason: CalibrReason, Calibrator: Calibrator, CalibratorCard: CalibratorCard, NextCalibrDate: NextCalibrDate, Turns: Turns, MaxVelocity: MaxVelocity, Manevring: Manevring, City: City, Magistral: Magistral, Consumption: Consumption, ColdStart: ColdStart, HotStop: HotStop, vehicleImage: image, SIMNum: SIMNum, EquipmentName: EquipmentName, EquipmentFirmware: EquipmentFirmware });
 
             var order = { OrgID: $.cookie("CURRENT_ORG_ID"), TransportSettings: settings };
 
@@ -1837,7 +1837,7 @@ function createUserControlsSingleTransport() {
             var comment = $("#commentinputSingle").attr("value");
             var number = $("#numberinputSingle").attr("value");
             var group = $("#groupSelectorSingle").attr("group");
-            var vehType = $("#vehTypeSelectorSingle").attr("vehType");
+            var vehType = $("#vehTypeSelectorSingle").attr("vehtype");
 
             var GarageNumber = $("#garageinputSingle").attr("value");
             var MakeYear = $("#makeYearinputSingle").attr("value");
@@ -1847,7 +1847,7 @@ function createUserControlsSingleTransport() {
             var FuelType = $("#fuelTypeinputSingle").attr("value");
             var TO1 = $("#to1inputSingle").attr("value");
             var TO2 = $("#to2inputSingle").attr("value");
-            var EquipmentType = $("#eqTypeSelectorSingle").attr("eqType");
+            var EquipmentType = $("#eqTypeSelectorSingle").attr("eqtype");
             var EquipmentFirmware = $("#eqFirmwareSelectorSingle").attr("eqFirmware");
             var Serial = $("#serialinputSingle").attr("value");
             var LastReadDate = $("#lastReadDateinputSingle").attr("value");
@@ -1874,7 +1874,7 @@ function createUserControlsSingleTransport() {
 
             var card = { Name: name, Comment: comment, Number: number, groupID: group };
 
-            var settings = { Card: card, vehType: vehType, GarageNumber: GarageNumber, MakeYear: MakeYear, Tank1: Tank1, Tank2: Tank2, Capacity: Capacity, FuelType: FuelType, TO1: TO1, TO2: TO2, EquipmentType: EquipmentType, Serial: Serial, LastReadDate: LastReadDate, CalibrReason: CalibrReason, Calibrator: Calibrator, CalibratorCard: CalibratorCard, NextCalibrDate: NextCalibrDate, Turns: Turns, MaxVelocity: MaxVelocity, Manevring: Manevring, City: City, Magistral: Magistral, Consumption: Consumption, ColdStart: ColdStart, HotStop: HotStop, vehicleImage: image, SIMNum: SIMNum, EquipmentName: EquipmentName, EquipmentFirmware : EquipmentFirmware };
+            var settings = { Card: card, vehType: vehType, GarageNumber: GarageNumber, MakeYear: MakeYear, Tank1: Tank1, Tank2: Tank2, Capacity: Capacity, FuelType: FuelType, TO1: TO1, TO2: TO2, EquipmentType: EquipmentType, Serial: Serial, LastReadDate: LastReadDate, CalibrReason: CalibrReason, Calibrator: Calibrator, CalibratorCard: CalibratorCard, NextCalibrDate: NextCalibrDate, Turns: Turns, MaxVelocity: MaxVelocity, Manevring: Manevring, City: City, Magistral: Magistral, Consumption: Consumption, ColdStart: ColdStart, HotStop: HotStop, vehicleImage: image, SIMNum: SIMNum, EquipmentName: EquipmentName, EquipmentFirmware: EquipmentFirmware };
 
             var order = { OrgID: $.cookie("CURRENT_ORG_ID"), data: settings, UserID: $.cookie("CURRENT_USERNAME") };
 
@@ -2595,7 +2595,7 @@ function createTypeSelectorTransports() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            createSelectors(response, "vehTypeSelector", "vehType");
+            createSelectors(response, "vehTypeSelector", "vehtype");
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -2612,7 +2612,7 @@ function createDeviceTypeSelector() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            createSelectors(response, "eqTypeSelector", "eqType");
+            createSelectors(response, "eqTypeSelector", "eqtype");
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -2697,7 +2697,7 @@ function createTypeSelectorTransportsSingle(selector) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            createSelector(selector, response, "vehType");
+            createSelector(selector, response, "vehtype");
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -2714,7 +2714,7 @@ function createDeviceTypeSelectorSingle(selector) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            createSelector(selector, response, "eqType");
+            createSelector(selector, response, "eqtype");
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -2776,6 +2776,10 @@ function createSelectors(response, name, attr) {
         var options = $("#" + selectors[i].id + " option");
         for (var j = 0; j < options.length; j++) {
             var option = $(options[j]).attr("value")
+            if (group == "") {
+                group = option;
+                $(selectors[i]).attr(attr,group);
+            }
             if (option == group) {
                 $(options[j]).attr("selected", true);
                 break;
@@ -2798,11 +2802,17 @@ function createSelector(selector, response, attr) {
     var options = $("#" + selector.id + " option");
     for (var j = 0; j < options.length; j++) {
         var option = $(options[j]).attr("value")
+        if (group == "") {
+            group = option;
+            $(selector).attr(attr,group);
+        }
         if (option == group) {
             $(options[j]).attr("selected", true);
             break;
         }
     }
+
+
     $(selector).wijcombobox(
                 {
                     showingAnimation: { effect: "blind" },

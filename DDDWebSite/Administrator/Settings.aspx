@@ -543,7 +543,7 @@
                 <tr style="background-color:#eee;">
                 <td class="key" style="font-size:12px;padding-top:10px;">Тип</td>
                 <td style="padding-top:10px;">
-                    <select id="vehTypeSelectorSingle" name="vehTypeSelector" vehType="{{html vehType}}" onchange="this.vehType=this.value;"></select>
+                    <select id="vehTypeSelectorSingle" name="vehTypeSelector" vehtype="{{html vehType}}" onchange="this.vehtype=this.value;"></select>
                 </td>
                 </tr>
                 <tr style="background-color:#eee;">
@@ -605,7 +605,7 @@
          <tr style="background-color:#eee;">
             <td class="key" style="font-size:12px;padding-top:10px;">Тип</td>
             <td style="padding-top:10px;">
-                <select id="eqTypeSelectorSingle" name="eqTypeSelector" eqType="{{html EquipmentType}}" onchange="this.eqType=this.value;"></select>
+                <select id="eqTypeSelectorSingle" name="eqTypeSelector" eqtype="{{html EquipmentType}}" onchange="this.eqtype=this.value;"></select>
             </td>
           </tr>
           <tr style="background-color:#eee;">
