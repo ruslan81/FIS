@@ -101,6 +101,16 @@ namespace BLL
             sqlDB.DeleteDeviceType(deviceTypeId);
             sqlDB.CloseConnection();
         }
+        /// <summary>
+        /// Пометить устройство как удаленное
+        /// </summary>
+        /// <param name="deviceId">ID устройств</param>
+        public void DeleteDeviceSoft(int deviceId)
+        {
+            sqlDB.OpenConnection();
+            sqlDB.DeleteDeviceSoft(deviceId);
+            sqlDB.CloseConnection();
+        }
 
         //Devices
         /// <summary>

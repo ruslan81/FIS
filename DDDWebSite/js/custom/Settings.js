@@ -2414,10 +2414,10 @@ function deleteDriversSingle(list) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            currentCardId = "-1";
-            selectedNodeType = "-1";
-            loadSingleDriverSettings();
-            loadDriversTreeSingle("", "");
+            currentCardId = response.d;
+            selectedNodeType = "1";
+            //loadSingleDriverSettings();
+            loadDriversTreeSingle(currentCardId, selectedNodeType);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -2453,10 +2453,10 @@ function deleteTransportsSingle(list) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            currentCardId = "-1";
-            selectedNodeType = "-1";
-            loadSingleVehicleSettings();
-            loadVehiclesTreeSingle("", "");
+            currentCardId = response.d;
+            selectedNodeType = "1";
+            loadVehiclesTreeSingle(currentCardId, selectedNodeType);
+            //loadSingleVehicleSettings();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);

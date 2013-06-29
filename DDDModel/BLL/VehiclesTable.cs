@@ -98,6 +98,14 @@ namespace BLL
 
             //Тут лог не нужен, потому что при создании ТС, создается карта. вот там лог и пишется на ТС
         }
+        /// <summary>
+        /// Помечает ТС как удаленное
+        /// </summary>
+        /// <param name="CardId">ID карты</param>
+        public void DeleteVehicleSoft(int vehId)
+        {
+            sqlDB.DeleteVehicleSoft(vehId);
+        }
         public void EditVehicle(int VehicleId, string GosNomer, string Marka, string VIN, int vehicleTypeId, int deviceId, DateTime BLOCKED, int priority, int userId)
         {
             sqlDB.EditVehicle(VehicleId, GosNomer, Marka, VIN, vehicleTypeId, deviceId, BLOCKED, priority, CurrentLanguage);

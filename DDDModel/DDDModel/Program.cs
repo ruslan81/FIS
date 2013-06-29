@@ -47,11 +47,12 @@ namespace DDDModel
             dataBlock.ParseRecords(true,"D:\\BSUIR\\Other\\UnitedProject\\DDDWebSite\\XML_PLF\\",1);*/
             //byte[] arr=new byte[100];
             //dataBlock.AddData(1,arr,"file.plf");
-            
-            dataBlock.SetDataBlockIdForParse(1);
-            dataBlock.SetOrgIdForParse(1);
-            dataBlock.ParseRecords(true, "D:\\BSUIR\\Other\\UnitedProject\\DDDWebSite\\XML_PLF\\", 1);
 
+            List<int> values = dataBlock.cardsTable.GetAllCardIdsByGroupId(1, dataBlock.cardsTable.vehicleCardTypeId, 69);
+            foreach(int i in values){
+                System.Console.WriteLine("ID = "+i);
+            }
+            System.Console.WriteLine("END");
             System.Console.ReadKey();
                 //SCRIPT TO ADD COMMON GROUP
                 /*List<Int32> orgIds = dataBlock.organizationTable.Get_AllOrganizationsId();
