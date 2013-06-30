@@ -332,6 +332,18 @@ namespace DB.SQL
             sdr.Close();
             return gettedId;
         }
+        public void RemoveDataBlockId(int dataBlockId)
+        {
+            string sql = "DELETE FROM fn_data_block WHERE DATA_BLOCK_ID = @DATA_BLOCK_ID";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@DATA_BLOCK_ID", dataBlockId);
+            cmd.ExecuteNonQuery();
+
+            sql = "DELETE FROM fn_data_records WHERE DATA_BLOCK_ID = @DATA_BLOCK_ID";
+            cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@DATA_BLOCK_ID", dataBlockId);
+            cmd.ExecuteNonQuery();
+        }
         //-----------------------------------------------------------------
         //----------------------fn_data_record and fd_data_record_state ---
         public int AddDataRecord(string paramName, string value, int dataBlockId)

@@ -384,7 +384,11 @@ public partial class Administrator_Data : System.Web.UI.Page
     [System.Web.Services.WebMethod]
     public static Boolean RemoveDataBlockID(int DataBlockID)
     {
-        //TODO: your code must be here
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
+        dataBlock.OpenConnection();
+        dataBlock.RemoveDataBlockId(DataBlockID);
+        dataBlock.CloseConnection();
         return true;
     }
 
