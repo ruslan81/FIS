@@ -188,12 +188,20 @@
 
         <div style="margin:10px 0 10px 0; border-top:1px dashed #ccc;"></div>
 
+        <label>Страна </label>
+
+        <br/>
+
+        <div style="width: 300px;"><select id="country" style="width:170px;" countryId="{{html country}}" onchange="this.countryId=this.value;"></select></div>
+
+        <br/>
+
         <table style="" cellpadding="0" cellspacing="0">
-            <tr><td><label>Страна </label></td><td><label>Город </label></td><td><label>Почтовый индекс </label></td></tr>
             <tr>
-                <td>
-                    <div style="width: 300px;"><select id="country" style="width:170px;" countryId="{{html country}}" onchange="this.countryId=this.value;"></select></div>
-                </td>
+                <td><label>Город </label></td>
+                <td><label>Почтовый индекс </label></td>
+            </tr>
+            <tr>
                 <td>
                     <div style="width: 300px;"><input id="city" value="{{html city}}"/></div>
                 </td>
@@ -252,7 +260,7 @@
                 <img id="orgImage" src="{{html image64}}" width="96" height="96">
             </div>
             <div class="upload-foto" style="display:none;">
-                <input id="orgImageUpload" type="file" class="input-upload-foto" onchange="loadImage('orgImage','orgImageUpload');"/>
+                <input id="orgImageUpload" type="file" accept="image/*" class="input-upload-foto" onchange="loadImage('orgImage','orgImageUpload');"/>
             </div>
         </div>
 
@@ -276,25 +284,20 @@
     </script>
 
     <script id="tmplGeneralOrgDetailedData2" type="text/x-jquery-tmpl">
+        <label>Страна </label>
+
+        <br/>
+
+        <div style="width: 300px;"><select id="country" style="width:170px;" countryId="{{html country}}" onchange="this.countryId=this.value;"></select></div>
+
+        <br/>
 
         <table style="" cellpadding="0" cellspacing="0">
             <tr>
-                <td>
-                    <label>Страна </label>
-                </td>
-                <td>
-                    <label>Город </label>
-                </td>
-                <td>
-                    <label>Почтовый индекс </label>
-                </td>
+                <td><label>Город </label></td>
+                <td><label>Почтовый индекс </label></td>
             </tr>
             <tr>
-                <td>
-                    <div style="width: 300px;">
-                        <select id="country" style="width:270px;" countryId="{{html country}}" onchange="this.countryId=this.value;"></select>
-                    </div>
-                </td>
                 <td>
                     <div style="width: 300px;"><input id="city" value="{{html city}}"/></div>
                 </td>
@@ -303,6 +306,8 @@
                 </td>
             </tr>
         </table>
+
+        <br/>
 
         <br/>
 
@@ -553,7 +558,7 @@
                 <img id="userImage" src="{{html image64}}"" width="96" height="96">
             </div>
             <div class="upload-foto" style="display:none;">
-                <input id="userImageUpload" type="file" class="input-upload-foto"  onchange="loadImage('userImage','userImageUpload');"/>
+                <input id="userImageUpload" type="file" accept="image/*" class="input-upload-foto"  onchange="loadImage('userImage','userImageUpload');"/>
             </div>
         </div>
 

@@ -233,7 +233,7 @@ public partial class Administrator_Data : System.Web.UI.Page
 
 
     /// <summary>
-    ///Получить элементы дерева Водителей в разделе "Восстановить у пользователя"
+    ///Получить элементы дерева Водителей в разделе "Загруженные файлы"
     /// </summary>
     /// <returns></returns>
     [System.Web.Services.WebMethod]
@@ -267,7 +267,7 @@ public partial class Administrator_Data : System.Web.UI.Page
     }
 
     /// <summary>
-    ///Получить элементы дерева Транспортные средства в разделе "Восстановить у пользователя"
+    ///Получить элементы дерева Транспортные средства в разделе "Загруженные файлы"
     /// </summary>
     /// <param name="CardID"></param>
     /// <returns></returns>
@@ -301,7 +301,7 @@ public partial class Administrator_Data : System.Web.UI.Page
     }
 
     /// <summary>
-    /// Получить данные для выбранного элемента дерева в разделе "Восстановить у пользователя"
+    /// Получить данные для выбранного элемента дерева в разделе "Загруженные файлы"
     /// </summary>
     /// <param name="CardID"></param>
     /// <returns></returns>
@@ -374,6 +374,18 @@ public partial class Administrator_Data : System.Web.UI.Page
                 i++;
             }
         }
+    }
+
+    /// <summary>
+    /// Удалить загруженный и разобранный файл из раздела "Загруженные файлы"
+    /// </summary>
+    /// <param name="DataBlockID"></param>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static Boolean RemoveDataBlockID(int DataBlockID)
+    {
+        //TODO: your code must be here
+        return true;
     }
 
     /// <summary>
@@ -826,6 +838,12 @@ public partial class Administrator_Data : System.Web.UI.Page
     protected void Upload_Click(object Sender, EventArgs e)
     {
         string fileName = MyFileUpload.PostedFile.FileName;
+
+        //hide message block
+        ErrorMessageBlock.Visible = false;
+
+        //hide combobox for drivers
+        SelectPLFDriver.Visible = false;
 
         try
         {
