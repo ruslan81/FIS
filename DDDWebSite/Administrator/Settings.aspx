@@ -106,7 +106,7 @@
                 <img id="orgImage" src="" width="96" height="96">
             </div>
             <div class="upload-foto" style="display:none;">
-                <input id="orgImageUpload" type="file" class="input-upload-foto" onchange="loadImage('orgImage','orgImageUpload');"/>
+                <input id="orgImageUpload" type="file" accept="image/*" class="input-upload-foto" onchange="loadImage('orgImage','orgImageUpload');"/>
             </div>
         </div>
     </script>
@@ -339,7 +339,7 @@
                 <img id="driverImage" src="{{html user.image64}}" width="96" height="96">
             </div>
             <div class="upload-foto" style="display:none;">
-                <input id="driverImageInput" type="file" class="input-upload-foto" onchange="loadImage('driverImage','driverImageInput');"/>
+                <input id="driverImageInput" type="file" accept="image/*" class="input-upload-foto" onchange="loadImage('driverImage','driverImageInput');"/>
             </div>
         </div>
         <table id="contentTable1" style="border-collapse: separate; width:60%;"
@@ -430,7 +430,7 @@
                 <img id="cardImage" src="{{html cardImage}}" width="96" height="96">
             </div>
             <div class="upload-foto" style="display:none;">
-                <input id="cardImageUpload" type="file" class="input-upload-foto" onchange="loadImage('cardImage','cardImageUpload');"/>
+                <input id="cardImageUpload" type="file" accept="image/*" class="input-upload-foto" onchange="loadImage('cardImage','cardImageUpload');"/>
             </div>
         </div>
         <table id="contentTable3" style="border-collapse: separate; width:60%;"
@@ -504,7 +504,7 @@
                 <img id="vehicleImage" src="{{html vehicleImage}}" width="96" height="96">
             </div>
             <div class="upload-foto" style="display:none;">
-                <input id="vehicleImageUpload" type="file" class="input-upload-foto" onchange="loadImage('vehicleImage','vehicleImageUpload');"/>
+                <input id="vehicleImageUpload" type="file" accept="image/*" class="input-upload-foto" onchange="loadImage('vehicleImage','vehicleImageUpload');"/>
             </div>
         </div>
 

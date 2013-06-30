@@ -31,8 +31,8 @@
                         destroyPeriodControls();
                         loadUnparsedDataBlocks();
                     };
-                    //закладка "Восстановить у пользователя"
-                    if ($("a", ui.newHeader).text() == "Восстановить у пользователя") {
+                    //закладка "Загруженные файлы"
+                    if ($("a", ui.newHeader).text() == "Загруженные файлы") {
                         destroyPeriodControls();
                         destroyParseControls();
                         loadRecoverUserData();
@@ -166,6 +166,13 @@
                     </center>
                 </div>
             </td>
+            <td class="wijgridtd wijdata-type-string">
+                <div class="wijmo-wijgrid-innercell">
+                    <center>
+                        <div datablockid='{{html DataBlockId}}' class="remove-icon" title="Удалить"></div>
+                    </center>
+                </div>
+            </td>
         </tr>
     </script>
 
@@ -265,6 +272,13 @@
         </center>
     </div>
 
+    <!--Диалоговое окно с сообщением об успешном разборе файлов-->
+    <div id="success-parsing-dialog" title="Разбор файлов" style="display:none;">
+        <center>
+	        <p>Разбор файлов был успешно завершен.</p>
+        </center>
+    </div>
+
     <!--<asp:UpdatePanel ID="InvisibleUpdatePanel" runat="server" UpdateMode="Always">
         <ContentTemplate>
             <div style="display: none;">
@@ -324,7 +338,7 @@
 
         <!--Раздел Восстановить у пользователя-->
         <h3>
-            <asp:LinkButton ID="AccordionHeader2_UserBackUp" runat="server" PostBackUrl="#" Text="Восстановить у пользователя" />
+            <asp:LinkButton ID="AccordionHeader2_UserBackUp" runat="server" PostBackUrl="#" Text="Загруженные файлы" />
         </h3>
         <div>
             <!--<asp:UpdatePanel ID="UserFileRecover_UpdatePanel" runat="server" UpdateMode="Always"

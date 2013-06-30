@@ -8,7 +8,7 @@
     loadRecoverUserDriversTree();
 }
 
-//Загрузить элементы дерева Водителей в разделе "Восстановить у пользователя"
+//Загрузить элементы дерева Водителей в разделе "Загруженные файлы"
 function loadRecoverUserDriversTree() {
     $.ajax({
         type: "POST",
@@ -30,7 +30,7 @@ function loadRecoverUserDriversTree() {
     });
 }
 
-//Загрузить элементы дерева Транспортные средства в разделе "Восстановить у пользователя"
+//Загрузить элементы дерева Транспортные средства в разделе "Загруженные файлы"
 function loadRecoverUserTransportTree() {
     $.ajax({
         type: "POST",
@@ -74,7 +74,7 @@ function onRecoverUserNodeSelected(e, data) {
     }
 }
 
-//Загрузить данные для выбранного элемента дерева в разделе "Восстановить у пользователя"
+//Загрузить данные для выбранного элемента дерева в разделе "Загруженные файлы"
 function loadRecoverUserNodeData() {
     $("#contentTable").show();
     //create table header
@@ -86,6 +86,7 @@ function loadRecoverUserNodeData() {
     '{"text": "Конечная дата", "style": "width: 100px;"},' +
     '{"text": "Количество", "style": "width: 100px;"},' +
     '{"text": "Дата разбора файла", "style": "width: 150px;"},' +
+    '{"text": "", "style": "width: 50px;"},'+
     '{"text": "", "style": "width: 50px;"}]');
 
     $.ajax({
@@ -97,13 +98,32 @@ function loadRecoverUserNodeData() {
         dataType: "json",
         success: function (result) {
             updateTable($("#contentTableBody"), $("#tmplDriversTable"), result.d);
+            $("#contentTable .remove-icon").click(function () {
+                removeDataBlockID($(this).attr("datablockid"));
+            });
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
         }
     });
+}
 
-
+//Удалить загруженный и разобранный файл из раздела "Загруженные файлы"
+function removeDataBlockID(dataBlockID) {
+    $.ajax({
+        type: "POST",
+        //Page Name (in which the method should be called) and method name
+        url: "Data.aspx/RemoveDataBlockID",
+        data: "{'DataBlockID':'" + dataBlockID + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            loadRecoverUserNodeData();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+        }
+    });
 }
 
 //create table header
@@ -500,6 +520,7 @@ function createParseControls() {
             }, buttons: []
         });
         $("#parsing-dialog").dialog();
+        
         $.ajax({
             type: "POST",
             //Page Name (in which the method should be called) and method name
@@ -509,14 +530,37 @@ function createParseControls() {
             dataType: "json",
             success: function (result) {
                 $("#parsing-dialog").dialog("close");
+
+                //show success message
+                $("#success-parsing-dialog").dialog({
+                    autoOpen: true,
+                    modal: true,
+                    height: 120,
+                    closeText: '',
+                    resizable: false,
+                    draggable: false,
+                    buttons: {
+                        Ok: function () {
+                            $(this).dialog("close");
+                        }
+                    },
+                    captionButtons: {
+                        pin: { visible: false },
+                        refresh: { visible: false },
+                        toggle: { visible: false },
+                        minimize: { visible: false },
+                        maximize: { visible: false }
+                    }
+                });
+
                 loadUnparsedDataBlocks();
                 return false;
             },
-        error: function (jqXHR, textStatus, errorThrown) {
-            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
-            $("#parsing-dialog").dialog("close");
+            error: function (jqXHR, textStatus, errorThrown) {
+                showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+                $("#parsing-dialog").dialog("close");
                 return false;
-        }
+            }
         });
         return false;
     });
