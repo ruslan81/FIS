@@ -403,6 +403,14 @@ namespace BLL
             sqlDb.DeleteCard(CardId);
         }
         /// <summary>
+        /// Помечает карту как удаленную
+        /// </summary>
+        /// <param name="CardId">ID карты</param>
+        public void DeleteCardSoft(int CardId)
+        {
+            sqlDb.DeleteCardSoft(CardId);
+        }
+        /// <summary>
         /// Получает все блоки данных, связанные с картой
         /// </summary>
         /// <param name="cardId">ID карты</param>

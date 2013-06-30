@@ -593,7 +593,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     /// </summary>
     /// <returns></returns>
     [System.Web.Services.WebMethod]
-    public static bool DeleteDrivers(String OrgID, List<MapItem> DriverIDs)
+    public static int DeleteDrivers(String OrgID, List<MapItem> DriverIDs)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
@@ -602,22 +602,16 @@ public partial class Administrator_Settings : System.Web.UI.Page
             dataBlock.OpenConnection();
 
             int orgID = int.Parse(OrgID);
+            int groupId = 0;
             for (int i = 0; i < DriverIDs.Count; i++)
             {
                 int driverID = int.Parse(DriverIDs[i].Value);
-
-                String cardHolderName = dataBlock.cardsTable.GetCardHolderNameByCardId(driverID);
-                String login;
-                if (cardHolderName.Length > 10)
-                    login = cardHolderName.Substring(0, 10);
-                else
-                    login = cardHolderName;
-
-                int userId = dataBlock.usersTable.Get_UserID_byName(login);
-                dataBlock.cardsTable.DeleteCardAndAllFiles(driverID);
+                int userId = dataBlock.cardsTable.GetCardUserId(driverID);
+                groupId = dataBlock.cardsTable.GetCardGroupID(driverID);
+                dataBlock.cardsTable.DeleteCardSoft(driverID);
                 dataBlock.usersTable.DeleteUserSoft(userId);
             }
-            return true;
+            return groupId;
         }
         catch (Exception ex)
         {
@@ -934,7 +928,7 @@ public partial class Administrator_Settings : System.Web.UI.Page
     /// </summary>
     /// <returns></returns>
     [System.Web.Services.WebMethod]
-    public static bool DeleteTransports(String OrgID, List<MapItem> TransportIDs)
+    public static int DeleteTransports(String OrgID, List<MapItem> TransportIDs)
     {
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
@@ -942,12 +936,18 @@ public partial class Administrator_Settings : System.Web.UI.Page
         {
             dataBlock.organizationTable.OpenConnection();
             int orgID = int.Parse(OrgID);
+            int groupId = 0;
             for (int i = 0; i < TransportIDs.Count; i++)
             {
-                int transportID = int.Parse(TransportIDs[i].Value);
-                dataBlock.cardsTable.DeleteCardAndAllFiles(transportID);
+                int cardId = int.Parse(TransportIDs[i].Value);
+                int vehId = dataBlock.vehiclesTables.GetVehicle_byCardId(cardId);
+                int devId = dataBlock.vehiclesTables.GetVehicleDeviceId(vehId);
+                groupId = dataBlock.cardsTable.GetCardGroupID(cardId);
+                dataBlock.cardsTable.DeleteCardSoft(cardId);
+                dataBlock.vehiclesTables.DeleteVehicleSoft(vehId);
+                dataBlock.deviceTable.DeleteDeviceSoft(devId);
             }
-            return true;
+            return groupId;
         }
         catch (Exception ex)
         {

@@ -2405,6 +2405,14 @@ namespace DB.SQL
             cmd.Parameters.AddWithValue("@DATE_BLOCKED", BLOCKED.ToString("yyyy-MM-dd HH:mm:ss"));
             cmd.ExecuteNonQuery();
         }
+        public void DeleteVehicleSoft(int vehId)
+        {
+            string sql = "UPDATE fd_vehicle SET DATE_BLOCKED=@DATE_BLOCKED WHERE VEHICLE_ID = @VEHICLE_ID";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@VEHICLE_ID", vehId);
+            cmd.Parameters.AddWithValue("@DATE_BLOCKED", DateTime.Now);
+            cmd.ExecuteNonQuery();
+        }
         public int GetVehicle_byCardId(int CardId)
         {
             int returnValue = Convert.ToInt32(GetOneParameter(CardId, "CARD_ID", "fd_vehicle", "VEHICLE_ID"));
@@ -3294,6 +3302,14 @@ namespace DB.SQL
             cmd.Parameters.AddWithValue("@DEVICE_ID", deviceId);
             cmd.ExecuteNonQuery();
         }
+        public void DeleteDeviceSoft(int deviceId)
+        {
+            string sql = "UPDATE fd_device SET DATE_DELETE=@DATE_DELETE WHERE DEVICE_ID = @DEVICE_ID";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@DEVICE_ID", deviceId);
+            cmd.Parameters.AddWithValue("@DATE_DELETE", DateTime.Now);
+            cmd.ExecuteNonQuery();
+        }
         public string GetDeviceInfo(int deviceId, string infoName)
         {
             string returnValue = Convert.ToString(GetOneParameter(deviceId, "DEVICE_ID", "fd_device", infoName));
@@ -3745,7 +3761,7 @@ namespace DB.SQL
         public List<int> GetAllCardIdsByGroupId(int orgId, int cardTypeId, int groupId)
         {
             List<int> gettedIds = new List<int>();
-            string sql = "SELECT CARD_ID FROM fn_card WHERE CARD_TYPE_ID=@CARD_TYPE_ID AND ORG_ID=@ORG_ID AND GROUP_ID=@GR_ID ORDER BY CARD_HOLDER_NAME";
+            string sql = "SELECT CARD_ID FROM fn_card WHERE CARD_TYPE_ID=@CARD_TYPE_ID AND ORG_ID=@ORG_ID AND GROUP_ID=@GR_ID AND DATE_DELETE IS NULL ORDER BY CARD_HOLDER_NAME";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@CARD_TYPE_ID", cardTypeId);
             cmd.Parameters.AddWithValue("@ORG_ID", orgId);
@@ -3831,6 +3847,14 @@ namespace DB.SQL
             string sql = "DELETE FROM fn_card WHERE CARD_ID = @CARD_ID";
             MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
             cmd.Parameters.AddWithValue("@CARD_ID", cardId);
+            cmd.ExecuteNonQuery();
+        }
+        public void DeleteCardSoft(int cardId)
+        {
+            string sql = "UPDATE fn_card SET DATE_DELETE=@DATE_DELETE WHERE CARD_ID = @CARD_ID";
+            MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@CARD_ID", cardId);
+            cmd.Parameters.AddWithValue("@DATE_DELETE", DateTime.Now);
             cmd.ExecuteNonQuery();
         }
         public string GetCardNote(int cardId)

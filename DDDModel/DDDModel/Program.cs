@@ -48,11 +48,11 @@ namespace DDDModel
             //byte[] arr=new byte[100];
             //dataBlock.AddData(1,arr,"file.plf");
 
-            List<int> ids = dataBlock.deviceTable.GetAllDeviceFirmwareIds();
-            foreach (int id in ids) {
-                System.Console.WriteLine(id);
+            List<int> values = dataBlock.cardsTable.GetAllCardIdsByGroupId(1, dataBlock.cardsTable.vehicleCardTypeId, 69);
+            foreach(int i in values){
+                System.Console.WriteLine("ID = "+i);
             }
-            System.Console.WriteLine("OK");
+            System.Console.WriteLine("END");
             System.Console.ReadKey();
                 //SCRIPT TO ADD COMMON GROUP
                 /*List<Int32> orgIds = dataBlock.organizationTable.Get_AllOrganizationsId();
