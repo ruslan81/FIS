@@ -564,6 +564,13 @@ namespace BLL
             return blockStateMessage;
         }
         /// <summary>
+        /// Удаляет блок данных
+        /// </summary>
+        /// <param name="dataBlockId">ID блока данных</param>
+        public void RemoveDataBlockId(int dataBlockId) {
+            sqlDb.RemoveDataBlockId(dataBlockId);
+        }
+        /// <summary>
         /// Получает состояние Блока данных
         /// </summary>
         /// <param name="dataBlockId">ID блока данных</param>
