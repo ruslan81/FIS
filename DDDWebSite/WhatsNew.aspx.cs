@@ -15,6 +15,16 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "-30.06.2013" + Environment.NewLine;
+            ReportLabel.Text += @"- Решена проблема с добавлением транспортного средства (задача 12)" + Environment.NewLine;
+            ReportLabel.Text += @"- После удаления водителя или транспортного средство позиционируемся на группе, в которой находился удалённый водитель и ТС (задача 13)" + Environment.NewLine;
+            ReportLabel.Text += @"- Добавлена прорисовка углов (задача 5)" + Environment.NewLine;
+            ReportLabel.Text += @"- Выдается сообщение о результате разбора (задача 7)" + Environment.NewLine;
+            ReportLabel.Text += @"- Во всех диалогах выбора изображений для загрузки на сервер добавлен фильтр (задача 14)" + Environment.NewLine;
+            ReportLabel.Text += @"- В разделе «Управление – Аккаунт» при изменении размер окна ранее не помещалось поле «Почтовый индекс» (задача 11)" + Environment.NewLine;
+            ReportLabel.Text += @"- Решена задача 9" + Environment.NewLine;
+            ReportLabel.Text += @"-Для каждого загруженного файла добавлена колонка для возможности удаления файла (задача 10)" + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "-06.05.2013" + Environment.NewLine;
             ReportLabel.Text += @"- Доделаны поля Настройки/ТС - добавлены поддержка Типа, полей Оборудования (в том числе тип ПО), изображения и всех остальных полей, правильно связали данные в интерфейсе и таблицы БД" + Environment.NewLine;
             ReportLabel.Text += @"- Скрываются лишние типы отчетов (задача о том, можно ли в списке доступных отчетов, при выборе конкретного объекта, показывать только доступные для него отчеты)." + Environment.NewLine;
