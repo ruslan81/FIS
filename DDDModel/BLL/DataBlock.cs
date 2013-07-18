@@ -654,7 +654,14 @@ namespace BLL
                             if (cardId <= 0)
                             {
                                 int grId = cardsTable.GetAllGroupIds(organizationID, 0)[0];
-                                cardId = cardsTable.CreateNewCard(drName, drNumber, cardsTable.driversCardTypeId, organizationID, userId, "Init DataBlockId = " + DATA_BLOCK_ID, userId, grId);
+                                UserFromTable userData = new UserFromTable();
+                                userData.name = "";
+                                userData.pass = "";
+                                int newUserId = usersTable.AddNewUser(userData, usersTable.DriverUserTypeId, 1, organizationID, userId);
+                                string[] arr=drName.Split(' ');
+                                usersTable.AddUserInfoValue(newUserId, DataBaseReference.UserInfo_Name, arr[0]);
+                                usersTable.AddUserInfoValue(newUserId, DataBaseReference.UserInfo_Surname, arr[1]);
+                                cardId = cardsTable.CreateNewCard(drName, drNumber, cardsTable.driversCardTypeId, organizationID, newUserId, "Init DataBlockId = " + DATA_BLOCK_ID, userId, grId);
                             }
                             sqlDb.SetDataBlock_CardId(DATA_BLOCK_ID, cardId);
                             //sqlDB.CloseConnection();
