@@ -1121,23 +1121,23 @@ function buildReport() {
     var startDate = $("#startDatePicker").datepicker("getDate");
     var endDate = $("#endDatePicker").datepicker("getDate");
 
+    //remove report chooser and '#getReport' button
+    $("#LoadReportControls").remove();
+
     if (checkDate() != "OK")
         return;
 
     if ((cardType == "Driver" && reportFormat=="DDD") || (cardType == "Vehicle" && reportFormat == "PLF")) {
-        $("#LoadReportControls").remove();
         $("#dateErrorLabel").append(" Ошибка: Тип отчета не доступен для объекта!");
         $("#dateErrorBlock").show();
         return;
     }
     if (selectedCardID == "None") {
-        $("#LoadReportControls").remove();
         $("#dateErrorLabel").append(" Ошибка: Выберите объект для отчета!");
         $("#dateErrorBlock").show();
         return;
     }
     if (reportFormat == "None" || selectedReportType == "None") {
-        $("#LoadReportControls").remove();
         $("#dateErrorLabel").append(" Ошибка: Выберите тип отчета!");
         $("#dateErrorBlock").show();
         return;
@@ -1146,12 +1146,6 @@ function buildReport() {
     if (reportFormat == "PLF") {
         $("#report").empty();
         $("#tmplLoading").tmpl({}).appendTo("#report");
-
-        $("#LoadReportControls").remove();
-        $("#tmplLoadReportControls").tmpl({ 'CardID': selectedCardID, 'StartDate': convert(startDate), 'EndDate': convert(endDate),
-            'type': 'GetPLFReportForPeriod', 'UserName': $.cookie("CURRENT_USERNAME"), 'ReportType': selectedReportType
-        }).appendTo("#main-conditions");
-        createFormatSelector();
 
         if (chart != null) {
             chart.destroy();
@@ -1197,6 +1191,11 @@ function buildReport() {
                 if (currentTab == 2) {
                     createMap(plfData);
                 }
+
+                $("#tmplLoadReportControls").tmpl({ 'CardID': selectedCardID, 'StartDate': convert(startDate), 'EndDate': convert(endDate),
+                    'type': 'GetPLFReportForPeriod', 'UserName': $.cookie("CURRENT_USERNAME"), 'ReportType': selectedReportType
+                }).appendTo("#main-conditions");
+                createFormatSelector();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 $("#report").empty();
@@ -1212,12 +1211,6 @@ function buildReport() {
         $("#report-tabs").empty();
         $("#tmplLoading").tmpl({}).appendTo("#report-tabs");
 
-        $("#LoadReportControls").remove();
-        $("#tmplLoadReportControls").tmpl({ 'CardID': selectedCardID, 'StartDate': convert(startDate), 'EndDate': convert(endDate),
-            'type': 'GetDDDReportForPeriod', 'UserName': $.cookie("CURRENT_USERNAME"), 'ReportType': selectedReportType
-        }).appendTo("#main-conditions");
-        createFormatSelector();
-
         $.ajax({
             type: "POST",
             //Page Name (in which the method should be called) and method name
@@ -1227,9 +1220,15 @@ function buildReport() {
             dataType: "json",
             success: function (result) {
                 $("#report-tabs").empty();
-                $('#report-tabs').html("<center><div style='background:#fff;padding:20px 0 20px 0;'>" +
-                        result.d +
+                $('#report-tabs').html(
+                        "<center><div style='background:#fff;padding:20px 0 20px 0;'>" +
+                            result.d +
                         "</div></center>");
+
+                $("#tmplLoadReportControls").tmpl({ 'CardID': selectedCardID, 'StartDate': convert(startDate), 'EndDate': convert(endDate),
+                    'type': 'GetDDDReportForPeriod', 'UserName': $.cookie("CURRENT_USERNAME"), 'ReportType': selectedReportType
+                }).appendTo("#main-conditions");
+                createFormatSelector();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 $("#report-tabs").empty();

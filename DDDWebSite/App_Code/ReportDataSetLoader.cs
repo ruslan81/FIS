@@ -250,6 +250,11 @@ public class ReportDataSetLoader
 
         dataBlock.CloseConnection();
 
+        if (dataset.Tables[1].Rows.Count == 0 && dataset.Tables[2].Rows.Count == 0)
+        {
+            throw new Exception("За указанный период нет данных");
+        }
+
         return dataset;
     }
     public static DataSet Get_PLF_ALLData(List<int> dataBlockIds, DateTime from, DateTime to, int DriversCardId, int curUserId, ref List<PLFUnit.PLFRecord> records)

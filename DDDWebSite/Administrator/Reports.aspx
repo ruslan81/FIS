@@ -472,11 +472,13 @@
     </div>
     <script id="tmplPeriodSelection" type="text/x-jquery-tmpl">
     <div id="periodSelection">
+    <div>
         <label>Начальная дата </label><input id="startDatePicker" type="text"/>
         <label>Конечная дата </label><input id="endDatePicker" type="text"/>
         <button id="buildButton">Построить</button>
-        <div id="dateErrorBlock" class="error-block">
+        <div id="dateErrorBlock" class="error-block-def" style="float:right;margin-left:10px">
             <label class="error" id="dateErrorLabel"> Ошибка: Укажите начальную и конечную дату!</label>
+        </div>
         </div>
         <br/><br/>
     </div>

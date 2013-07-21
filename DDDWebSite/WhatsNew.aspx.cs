@@ -15,6 +15,14 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "-21.07.2013" + Environment.NewLine;
+            ReportLabel.Text += @"- Устранена ошибка при разборе любых DDD-файлов (задача 6). Теперь при парсинге создается водитель, которого видно в списке в Настройках, и ему добавляется имя и фамилия." + Environment.NewLine;
+            ReportLabel.Text += @"- Не помещаются сообщения об ошибках (задача 4)." + Environment.NewLine;
+            ReportLabel.Text += @"- Вместо пустого отчёта или графика выдается сообщение о том, что данных за указанный период нет (задача 15)." + Environment.NewLine;
+            ReportLabel.Text += @"- Решена задача с удалением всей доп. информации Пользователя и ТС при их удалении. Все записи в таблицах помечаются, как удаленные." + Environment.NewLine;
+            ReportLabel.Text += @"- Доделаны поля раздела Настройки-ТС." + Environment.NewLine;
+            ReportLabel.Text += @"- Доделать поля раздела Настройки-Водители." + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "-30.06.2013" + Environment.NewLine;
             ReportLabel.Text += @"- Решена проблема с добавлением транспортного средства (задача 12)" + Environment.NewLine;
             ReportLabel.Text += @"- После удаления водителя или транспортного средство позиционируемся на группе, в которой находился удалённый водитель и ТС (задача 13)" + Environment.NewLine;
