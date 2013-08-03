@@ -48,10 +48,8 @@ namespace DDDModel
             //byte[] arr=new byte[100];
             //dataBlock.AddData(1,arr,"file.plf");
 
-            List<int> values = dataBlock.cardsTable.GetAllCardIdsByGroupId(1, dataBlock.cardsTable.vehicleCardTypeId, 69);
-            foreach(int i in values){
-                System.Console.WriteLine("ID = "+i);
-            }
+            System.Console.WriteLine(dataBlock.cardsTable.GetMinimumDataForCard(33));
+            System.Console.WriteLine(dataBlock.cardsTable.GetMaximumDataForCard(33));
             System.Console.WriteLine("END");
             System.Console.ReadKey();
                 //SCRIPT TO ADD COMMON GROUP

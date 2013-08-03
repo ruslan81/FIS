@@ -124,6 +124,37 @@ public partial class Administrator_Report : System.Web.UI.Page
 
     //AJAX BEGIN
 
+    /// <summary>
+    ///Получить минимальную дату для карты
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static string GetCardStartDate(String CardID)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
+        dataBlock.OpenConnection();
+        int cardId = Convert.ToInt32(CardID);
+        string result = dataBlock.cardsTable.GetMinimumDataForCard(cardId);
+        dataBlock.CloseConnection();
+        return result;
+    }
+
+    /// <summary>
+    ///Получить максимальную дату для карты
+    /// </summary>
+    /// <returns></returns>
+    [System.Web.Services.WebMethod]
+    public static string GetCardEndDate(String CardID)
+    {
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
+        DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
+        dataBlock.OpenConnection();
+        int cardId = Convert.ToInt32(CardID);
+        string result = dataBlock.cardsTable.GetMaximumDataForCard(cardId);
+        dataBlock.CloseConnection();
+        return result;
+    }
 
     /// <summary>
     ///Получить элементы дерева в разделе "PLF Файлы"

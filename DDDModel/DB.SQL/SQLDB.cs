@@ -332,6 +332,64 @@ namespace DB.SQL
             sdr.Close();
             return gettedId;
         }
+        public string GetMaximumDataForCard(int cardID)
+        {
+            List<int> ids = GetDataBlockIdsByCardId(cardID);
+            DateTime start = new DateTime(1000, 1, 1);
+            DateTime max = start;
+            foreach (int id in ids){
+                string sql = "SELECT MAX(DATE_RECORD) FROM fn_data_records WHERE DATA_BLOCK_ID=@BLOCK_ID";
+                MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+                cmd.Parameters.AddWithValue("@BLOCK_ID", id);
+                MySqlDataReader sdr = cmd.ExecuteReader();
+                while (sdr.Read())
+                {
+                    DateTime curr=sdr.GetDateTime(0);
+                    if (DateTime.Compare(max, curr) < 0)
+                    {
+                        max = curr;
+                    }
+                }
+                sdr.Close();  
+            }
+            if (max.Equals(start))
+            {
+                return DateTime.Now.ToShortDateString();
+            }
+            else {
+                return max.ToShortDateString();
+            }
+        }
+        public string GetMinimumDataForCard(int cardID)
+        {
+            List<int> ids = GetDataBlockIdsByCardId(cardID);
+            DateTime start = new DateTime(4000, 1, 1);
+            DateTime min = start;
+            foreach (int id in ids)
+            {
+                string sql = "SELECT MAX(DATE_RECORD) FROM fn_data_records WHERE DATA_BLOCK_ID=@BLOCK_ID";
+                MySqlCommand cmd = new MySqlCommand(sql, sqlConnection);
+                cmd.Parameters.AddWithValue("@BLOCK_ID", id);
+                MySqlDataReader sdr = cmd.ExecuteReader();
+                while (sdr.Read())
+                {
+                    DateTime curr = sdr.GetDateTime(0);
+                    if (DateTime.Compare(min, curr) > 0)
+                    {
+                        min = curr;
+                    }
+                }
+                sdr.Close();
+            }
+            if (min.Equals(start))
+            {
+                return DateTime.Now.ToShortDateString();
+            }
+            else
+            {
+                return min.ToShortDateString();
+            }
+        }
         public void RemoveDataBlockId(int dataBlockId)
         {
             string sql = "DELETE FROM fn_data_block WHERE DATA_BLOCK_ID = @DATA_BLOCK_ID";
@@ -3435,14 +3493,14 @@ namespace DB.SQL
         }
         public List<int> GetAllDeviceFirmwareIds()
         {
-            List<int> result=new List<int>();
+            List<int> result = new List<int>();
             MySqlCommand cmd = new MySqlCommand();
             string sql = "SELECT * FROM fd_device_firmware ORDER BY DEVICE_FIRMWARE_ID";
             cmd = new MySqlCommand(sql, sqlConnection);
-            MySqlDataReader sdr=cmd.ExecuteReader();
-            while(sdr.Read())
+            MySqlDataReader sdr = cmd.ExecuteReader();
+            while (sdr.Read())
             {
-                int value=sdr.GetInt32(0);
+                int value = sdr.GetInt32(0);
                 result.Add(value);
             }
             sdr.Close();

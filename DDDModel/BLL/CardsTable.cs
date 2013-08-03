@@ -421,5 +421,23 @@ namespace BLL
             ids = sqlDb.GetDataBlockIdsByCardId(cardId);
             return ids;
         }
+        /// <summary>
+        /// Получает минимальную дату для карты
+        /// </summary>
+        /// <param name="cardId">ID карты</param>
+        /// <returns></returns>
+        public string GetMinimumDataForCard(int cardId)
+        {
+            return sqlDb.GetMinimumDataForCard(cardId);
+        }
+        /// <summary>
+        /// Получает максимальную дату для карты
+        /// </summary>
+        /// <param name="cardId">ID карты</param>
+        /// <returns></returns>
+        public string GetMaximumDataForCard(int cardId)
+        {
+            return sqlDb.GetMaximumDataForCard(cardId);
+        }
     }
 }
