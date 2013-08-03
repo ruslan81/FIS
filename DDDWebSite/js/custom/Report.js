@@ -75,28 +75,28 @@ function loadPLFFilesTree() {
     $("#chart").empty();
 
     /*$.ajax({
-        type: "POST",
-        //Page Name (in which the method should be called) and method name
-        url: "Reports.aspx/GetPLFFilesTree",
-        data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (response) {
-            $("#tmplPLFFilesTree").tmpl(response.d).appendTo("#PLFFilesTree");
+    type: "POST",
+    //Page Name (in which the method should be called) and method name
+    url: "Reports.aspx/GetPLFFilesTree",
+    data: "{'OrgID':'" + $.cookie("CURRENT_ORG_ID") + "'}",
+    contentType: "application/json; charset=utf-8",
+    dataType: "json",
+    success: function (response) {
+    $("#tmplPLFFilesTree").tmpl(response.d).appendTo("#PLFFilesTree");
 
-            //builds a tree
-            $("#PLFFilesTree").wijtree();
+    //builds a tree
+    $("#PLFFilesTree").wijtree();
 
-            //sets a listener to node selection
-            $("#PLFFilesTree").wijtree({ selectedNodeChanged: function (e, data) {
-                onPLFFilesNodeSelected(e, data);
-            }
-            });
-            $("#PLFFilesTree").searchTree();
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
-        }
+    //sets a listener to node selection
+    $("#PLFFilesTree").wijtree({ selectedNodeChanged: function (e, data) {
+    onPLFFilesNodeSelected(e, data);
+    }
+    });
+    $("#PLFFilesTree").searchTree();
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+    showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+    }
     });*/
 }
 
@@ -450,7 +450,7 @@ function createCharts(result) {
             console.log(xNext - x);
             if (xNext - x > 60000) {
                 data.push({
-                    x: x+60000,
+                    x: x + 60000,
                     y: null
                 });
             }
@@ -914,10 +914,10 @@ function loadReportTypesTree(placeId) {
     $("#" + placeId).append($("#tmplReportTree").text());
 
     /*if (cardType == "Driver") {
-        $("#DDDSubtree").remove();
+    $("#DDDSubtree").remove();
     }
     if (cardType == "Vehicle") {
-        $("#PLFSubtree").remove();
+    $("#PLFSubtree").remove();
     }*/
 
     $.ajax({
@@ -995,7 +995,7 @@ function createPeriodControls() {
     $("#startDatePicker").datepicker();
     $("#startDatePicker").datepicker("option", "dateFormat", "dd.mm.yy");
     $("#startDatePicker").datepicker("setDate", thenstr);
-    $("#startDatePicker").change(function () { 
+    $("#startDatePicker").change(function () {
         $("#LoadReportControls").remove();
     });
 
@@ -1090,6 +1090,51 @@ function onCardTypeNodeSelected(e, data) {
     if (isSelected != "true") {
         selectedCardID = "None";
     }
+
+    if (!(selectedCardID == "None")) {
+        $.ajax({
+            type: "POST",
+            //Page Name (in which the method should be called) and method name
+            url: "Reports.aspx/GetCardStartDate",
+            data: "{'CardID':'" + selectedCardID + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+
+                $("#startDatePicker").datepicker("setDate", result.d);
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $("#report").empty();
+                $("#chart").empty();
+                $("#map").empty();
+
+                showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+            }
+        });
+
+        $.ajax({
+            type: "POST",
+            //Page Name (in which the method should be called) and method name
+            url: "Reports.aspx/GetCardEndDate",
+            data: "{'CardID':'" + selectedCardID + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+
+                $("#endDatePicker").datepicker("setDate", result.d);
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $("#report").empty();
+                $("#chart").empty();
+                $("#map").empty();
+
+                showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
+            }
+        });
+    }
+
     $("#LoadReportControls").remove();
 }
 
@@ -1127,7 +1172,7 @@ function buildReport() {
     if (checkDate() != "OK")
         return;
 
-    if ((cardType == "Driver" && reportFormat=="DDD") || (cardType == "Vehicle" && reportFormat == "PLF")) {
+    if ((cardType == "Driver" && reportFormat == "DDD") || (cardType == "Vehicle" && reportFormat == "PLF")) {
         $("#dateErrorLabel").append(" Ошибка: Тип отчета не доступен для объекта!");
         $("#dateErrorBlock").show();
         return;

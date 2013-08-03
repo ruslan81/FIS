@@ -12487,3 +12487,16 @@ Cache Callback: Message: Выдано исключение типа "System.Web.
 Cache Callback: 21.07.2013 19:53:40
 Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
 Имя параметра: startIndex
+Cache Callback: 04.08.2013 0:36:00
+Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
+Имя параметра: startIndex
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
+Cache Callback: Message: d:\BSUIR\Other\UnitedProject\DDDWebSite\Administrator\Reports.aspx.cs(139): error CS0103: Имя 'PLFFilesTreeItems' отсутствует в текущем контексте
+Cache Callback: Message: d:\BSUIR\Other\UnitedProject\DDDWebSite\Administrator\Reports.aspx.cs(139): error CS0103: Имя 'PLFFilesTreeItems' отсутствует в текущем контексте
+Cache Callback: Message: d:\BSUIR\Other\UnitedProject\DDDWebSite\Administrator\Reports.aspx.cs(139): error CS0103: Имя 'PLFFilesTreeItems' отсутствует в текущем контексте
+Cache Callback: Message: d:\BSUIR\Other\UnitedProject\DDDWebSite\Administrator\Reports.aspx.cs(139): error CS0103: Имя 'PLFFilesTreeItems' отсутствует в текущем контексте
+Cache Callback: Message: d:\BSUIR\Other\UnitedProject\DDDWebSite\Administrator\Reports.aspx.cs(139): error CS0103: Имя 'PLFFilesTreeItems' отсутствует в текущем контексте
+Cache Callback: 04.08.2013 1:15:20
+Cache Callback: Message: Значение StartIndex не может быть меньше нуля.
+Имя параметра: startIndex
+Cache Callback: Message: Невозможно определить имя прокси: 'proxy1.bsuir.by'
