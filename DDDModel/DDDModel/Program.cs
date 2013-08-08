@@ -48,8 +48,11 @@ namespace DDDModel
             //byte[] arr=new byte[100];
             //dataBlock.AddData(1,arr,"file.plf");
 
-            System.Console.WriteLine(dataBlock.cardsTable.GetMinimumDataForCard(33));
-            System.Console.WriteLine(dataBlock.cardsTable.GetMaximumDataForCard(33));
+            List<int> dataBlockIds = new List<int>();
+            dataBlockIds.Add(2);
+            DateTime date = new DateTime(2013,7,19);
+            dataBlock.plfUnitInfo.Get_Records(dataBlockIds,date,date,38);
+
             System.Console.WriteLine("END");
             System.Console.ReadKey();
                 //SCRIPT TO ADD COMMON GROUP

@@ -36,6 +36,9 @@ namespace PLFUnit
         /// <returns>тип DateTime</returns>
         public DateTime GetSystemTime (string value)
         {
+            if (value.Equals(" ")) {
+                return new DateTime();
+            }
             string[] splitString = value.Split(new string[] { ":", " "}, StringSplitOptions.RemoveEmptyEntries);
             if (splitString.Length != 6)
                 throw new Exception("Ошибка в формате PLF SYstem Date");
