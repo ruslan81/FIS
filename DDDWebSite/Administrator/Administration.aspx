@@ -260,7 +260,7 @@
                 <img id="orgImage" src="{{html image64}}" width="96" height="96">
             </div>
             <div class="upload-foto" style="display:none;">
-                <input id="orgImageUpload" type="file" accept="image/*" class="input-upload-foto" onchange="loadImage('orgImage','orgImageUpload');"/>
+                <input id="orgImageUpload" type="file" accept="image/jpeg,image/png,image/gif" class="input-upload-foto" onchange="loadImage('orgImage','orgImageUpload');"/>
             </div>
         </div>
 
@@ -558,7 +558,7 @@
                 <img id="userImage" src="{{html image64}}"" width="96" height="96">
             </div>
             <div class="upload-foto" style="display:none;">
-                <input id="userImageUpload" type="file" accept="image/*" class="input-upload-foto"  onchange="loadImage('userImage','userImageUpload');"/>
+                <input id="userImageUpload" type="file" accept="image/jpeg,image/png,image/gif" class="input-upload-foto"  onchange="loadImage('userImage','userImageUpload');"/>
             </div>
         </div>
 

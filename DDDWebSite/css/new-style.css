@@ -372,3 +372,25 @@ input
     padding:0;
     background: #DDD;
 }
+
+.input-upload-foto
+{
+    width:100% !important;
+    height: auto;
+    padding:0;
+    background: #DDD;
+}
+
+.ui-icon-triangle-1-se
+{
+    background-image: url("icons/arrow_sans_down-16.png") !important;
+    background-position: 0 0 !important;
+    cursor:pointer;
+}
+
+.ui-icon-triangle-1-e
+{
+    background-image: url("icons/arrow_sans_right-16.png") !important;
+    background-position: 0 0 !important;
+    cursor:pointer;
+}
