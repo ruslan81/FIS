@@ -312,6 +312,19 @@ function buildRemindTree() {
     //loadDriversTree();
 }
 
+function expandTreeNodes(name, key, type) {
+    //if (!(key == "" || type == "")) {
+    $('#' + name + ' [key="' + key + '"][li_type="' + type + '"]').wijtreenode({ selected: true });
+    var parent=$('#' + name + ' [key="' + key + '"][li_type="' + type + '"]');
+    while(parent.attr)
+    $('#' + name + ' [key="' + key + '"][li_type="' + type + '"]').parent().$('span .ui-icon').addClass("ui-icon-triangle-1-se");
+    //alert($('#' + name + ' [key="' + key + '"][li_type="' + type + '"]').html());
+    /*$('span .ui-icon').addClass("ui-icon-triangle-1-se");
+    $('span .ui-icon').removeClass("ui-icon-triangle-1-e");
+    $('.wijmo-wijtree-child').css("display", "block");*/
+    //}
+}
+
 function loadDriversTree(key, type) {
     $.ajax({
         type: "POST",
@@ -328,12 +341,7 @@ function loadDriversTree(key, type) {
                 onRemindDriverNodeSelected(e, data);
             }
             });
-            //if (!(key == "" || type == "")) {
-            $('#DriversTree [key="' + key + '"][li_type="' + type + '"]').wijtreenode({ selected: true });
-            $('span .ui-icon').addClass("ui-icon-triangle-1-se");
-            $('span .ui-icon').removeClass("ui-icon-triangle-1-e");
-            $('.wijmo-wijtree-child').css("display", "block");
-            //}
+            expandTreeNodes("DriversTree", key, type);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -358,10 +366,11 @@ function loadDriversTreeSingle(key, type) {
             }
             });
             if (!(key == "" || type == "")) {
-                $('#DriversTreeSingle [key="' + key + '"][li_type="' + type + '"]').wijtreenode({ selected: true });
+                /*$('#DriversTreeSingle [key="' + key + '"][li_type="' + type + '"]').wijtreenode({ selected: true });
                 $('span .ui-icon').addClass("ui-icon-triangle-1-se");
                 $('span .ui-icon').removeClass("ui-icon-triangle-1-e");
-                $('.wijmo-wijtree-child').css("display", "block");
+                $('.wijmo-wijtree-child').css("display", "block");*/
+                expandTreeNodes("DriversTreeSingle", key, type);
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -387,10 +396,11 @@ function loadVehiclesTreeSingle(key, type) {
             }
             });
             if (!(key == "" || type == "")) {
-                $('#VehiclesTreeSingle [key="' + key + '"][li_type="' + type + '"]').wijtreenode({ selected: true });
+                /*$('#VehiclesTreeSingle [key="' + key + '"][li_type="' + type + '"]').wijtreenode({ selected: true });
                 $('span .ui-icon').addClass("ui-icon-triangle-1-se");
                 $('span .ui-icon').removeClass("ui-icon-triangle-1-e");
-                $('.wijmo-wijtree-child').css("display", "block");
+                $('.wijmo-wijtree-child').css("display", "block");*/
+                expandTreeNodes("VehiclesTreeSingle", key, type);
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -416,10 +426,11 @@ function loadGroupsTreeSingle(key, type) {
             }
             });
             if (!(key == "" || type == "")) {
-                $('#GroupsTreeSingle [key="' + key + '"][li_type="' + type + '"]').wijtreenode({ selected: true });
+                /*$('#GroupsTreeSingle [key="' + key + '"][li_type="' + type + '"]').wijtreenode({ selected: true });
                 $('span .ui-icon').addClass("ui-icon-triangle-1-se");
                 $('span .ui-icon').removeClass("ui-icon-triangle-1-e");
-                $('.wijmo-wijtree-child').css("display", "block");
+                $('.wijmo-wijtree-child').css("display", "block");*/
+                expandTreeNodes("GroupsTreeSingle",key,type);
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {

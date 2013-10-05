@@ -199,6 +199,7 @@ function loadGeneralData() {
         dataType: "json",
         success: function (response) {
             $($("#tmplGeneralData")).tmpl(response.d).appendTo($("#firstGeneralRow"));
+            createUserControlsGeneral();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -222,7 +223,8 @@ function loadGeneralData() {
             /*$("#dealerSelector").wijcombobox({
             disabled: true
             });*/
-            $("#userControls").hide();
+            //$("#userControls").hide();
+            $("#userControls").show();
             resizeAdmin();
         }
         if (ui.index == 1 || ui.index == 2) {
@@ -301,7 +303,7 @@ function loadGeneralData() {
     });
     $("#tabs").tabs({ selected: 0 });
     //loadGeneralDetailedData();
-    $("#userControls").hide();
+    $("#userControls").show();
 
     resizeAdmin();
 }
@@ -1349,6 +1351,26 @@ function loadInvoiceStatusList() {
     });
 }
 
+function createUserControlsGeneral() {
+    if (mode != "cancel") {
+        $("#userControls").empty();
+        $("#userControls").append($("#сontrolsGeneralDetailed").text());
+        $("#userControls button").button();
+    } else {
+        mode = "";
+    }
+    $("#userControls button").button({ disabled: false });
+
+    $("#save").button({ disabled: true });
+    $("#cancel").button({ disabled: true });
+    if (dealerOrgID == $.cookie("CURRENT_ORG_ID")) {
+        $("#delete").button({ disabled: true });
+    }
+    if (dealerLevel == 3) {
+        $("#create").button({ disabled: true });
+    }
+}
+
 function loadGeneralDetailedData() {
     $.ajax({
         type: "POST",
@@ -1380,23 +1402,7 @@ function loadGeneralDetailedData() {
         }
     });
 
-    if (mode != "cancel") {
-        $("#userControls").empty();
-        $("#userControls").append($("#сontrolsGeneralDetailed").text());
-        $("#userControls button").button();
-    } else {
-        mode = "";
-    }
-    $("#userControls button").button({ disabled: false });
-
-    $("#save").button({ disabled: true });
-    $("#cancel").button({ disabled: true });
-    if (dealerOrgID == $.cookie("CURRENT_ORG_ID")) {
-        $("#delete").button({ disabled: true });
-    }
-    if (dealerLevel == 3) {
-        $("#create").button({ disabled: true });
-    }
+    createUserControlsGeneral();
 
     $("#startDatePicker").removeClass("inputField");
     $("#startDatePicker").attr("readonly", "readonly");
