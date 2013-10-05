@@ -313,16 +313,14 @@ function buildRemindTree() {
 }
 
 function expandTreeNodes(name, key, type) {
-    //if (!(key == "" || type == "")) {
-    $('#' + name + ' [key="' + key + '"][li_type="' + type + '"]').wijtreenode({ selected: true });
-    var parent=$('#' + name + ' [key="' + key + '"][li_type="' + type + '"]');
-    while(parent.attr)
-    $('#' + name + ' [key="' + key + '"][li_type="' + type + '"]').parent().$('span .ui-icon').addClass("ui-icon-triangle-1-se");
-    //alert($('#' + name + ' [key="' + key + '"][li_type="' + type + '"]').html());
-    /*$('span .ui-icon').addClass("ui-icon-triangle-1-se");
-    $('span .ui-icon').removeClass("ui-icon-triangle-1-e");
-    $('.wijmo-wijtree-child').css("display", "block");*/
-    //}
+    var parent = $('#' + name + ' [key="' + key + '"][li_type="' + type + '"]');
+    $(parent).wijtreenode({ selected: true });
+    while (parent.attr("li_type") != 2) {
+        $($(parent).parent()).prev().find("span .ui-icon").addClass("ui-icon-triangle-1-se");
+        $($(parent).parent()).prev().find("span .ui-icon").removeClass("ui-icon-triangle-1-e");
+        $($(parent).parent()).css("display", "block");
+        parent = $(parent).parent().parent();
+    }
 }
 
 function loadDriversTree(key, type) {

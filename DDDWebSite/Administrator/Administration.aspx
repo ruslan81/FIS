@@ -1119,7 +1119,7 @@
         </tr>
     </script>
     <script id="tmplDealersTree" type="text/x-jquery-tmpl">
-        <li class="folder" likey="${Key}"><a><span key="${Key}" level="0">${DealerName}</span></a>
+        <li class="folder" likey="${Key}" level="0"><a><span key="${Key}" level="0">${DealerName}</span></a>
         <ul>
             {{each dealers}}
             <li class="file" likey="${Key}"><a><span key="${Key}" level="1">${DealerName}</span></a>
@@ -1143,7 +1143,7 @@
 
     <script id="tmplUsersTree" type="text/x-jquery-tmpl">
     {{each orgs}}
-        <li class="folder"><a><span level="1" key="-1" crtype="0" orgId="${OrgID}">${OrgName}</span></a>
+        <li class="folder" level="0"><a><span level="1" key="-1" crtype="0" orgId="${OrgID}">${OrgName}</span></a>
         <ul>
             <li class="file useradminli"><a><span level="2" key="-1" crtype="1" orgId="${OrgID}">Администраторы</span></a>
                 <ul>

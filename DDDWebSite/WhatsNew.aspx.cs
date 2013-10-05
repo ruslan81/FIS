@@ -15,6 +15,10 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "-05.10.2013" + Environment.NewLine;
+            ReportLabel.Text += @"- 1. Исправлено замечание 6. Кнопки управлени организациями доступны теперь из любой вкладки." + Environment.NewLine;
+            ReportLabel.Text += @"- 2. Исправлено замечание 7. В деревьях теперь разворачиваются только необходимые ветки, ведущие к созданному объекту." + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "-11.08.2013" + Environment.NewLine;
             ReportLabel.Text += @"- 1. В диалогах выбора изображений добавленный в последних изменениях фильтр переименован – вместо «Изображения» – (*.jpg, *.png, *.gif). Следует иметь в виду, что в Firefox 22 по умолчанию стоит выбор всех файлов, а не заданный фильтр." + Environment.NewLine;
             ReportLabel.Text += @"- 2. Данное поведение является стандартным для полей с выбором файла, разработчик не может получить разрешение файла сразу после выбора этого файла пользователем, эта информация становится доступной только после того, как файл будет загружен на сервер." + Environment.NewLine;

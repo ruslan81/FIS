@@ -50,6 +50,17 @@ function createTableHeader(tableHeader, template, columns) {
     $(template).tmpl(jQuery.parseJSON(columns)).appendTo($(".wijmo-wijgrid-headerrow", tableHeader));
 }
 
+function expandTreeNodes(name, param) {
+    var parent = $('#' + name + ' li [likey=' + param + ']');
+    $(parent).wijtreenode({ selected: true });
+    while (parent.attr("level") != 0) {
+        $($(parent).parent()).prev().find("span .ui-icon").addClass("ui-icon-triangle-1-se");
+        $($(parent).parent()).prev().find("span .ui-icon").removeClass("ui-icon-triangle-1-e");
+        $($(parent).parent()).css("display", "block");
+        parent = $(parent).parent().parent();
+    }
+}
+
 function buildOrgTree(param) {
     $("#dealersTree").empty();
     $.ajax({
@@ -70,11 +81,7 @@ function buildOrgTree(param) {
             });
 
             if (param != "") {
-                $("#dealersTree li [likey=" + param + "]").wijtreenode({ selected: true });
-                $('span .ui-icon').addClass("ui-icon-triangle-1-se");
-                $('span .ui-icon').removeClass("ui-icon-triangle-1-e");
-                $('.wijmo-wijtree-child').css("display", "block");
-                //$("#tabs").wijtabs('select', 2);
+                expandTreeNodes("dealersTree", param);
             }
 
             //!TODO remove
@@ -104,11 +111,7 @@ function buildOrgTreeInvoices(param) {
             }
             });
             if (param != "") {
-                $("#dealersTree2 li [likey=" + param + "]").wijtreenode({ selected: true });
-                $('span .ui-icon').addClass("ui-icon-triangle-1-se");
-                $('span .ui-icon').removeClass("ui-icon-triangle-1-e");
-                $('.wijmo-wijtree-child').css("display", "block");
-                //$("#tabs").wijtabs('select', 2);
+                expandTreeNodes("dealersTree2", param);
             }
             $("#dealersTree2").searchTree();
         },
@@ -135,11 +138,7 @@ function buildOrgTreeJournal(param) {
             }
             });
             if (param != "") {
-                $("#dealersTree3 li [likey=" + param + "]").wijtreenode({ selected: true });
-                $('span .ui-icon').addClass("ui-icon-triangle-1-se");
-                $('span .ui-icon').removeClass("ui-icon-triangle-1-e");
-                $('.wijmo-wijtree-child').css("display", "block");
-                //$("#tabs").wijtabs('select', 2);
+                expandTreeNodes("dealersTree3", param);
             }
             $("#dealersTree3").searchTree();
         },
@@ -170,11 +169,7 @@ function buildUserTree(param) {
             }
             });
             if (param != "") {
-                $("#usersTree li [likey=" + param + "]").wijtreenode({ selected: true });
-                $('span .ui-icon').addClass("ui-icon-triangle-1-se");
-                $('span .ui-icon').removeClass("ui-icon-triangle-1-e");
-                $('.wijmo-wijtree-child').css("display", "block");
-                //$("#tabs").wijtabs('select', 2);
+                expandTreeNodes("usersTree", param);
             }
             $("#usersTree").searchTree();
         },
@@ -200,6 +195,7 @@ function loadGeneralData() {
         success: function (response) {
             $($("#tmplGeneralData")).tmpl(response.d).appendTo($("#firstGeneralRow"));
             createUserControlsGeneral();
+            loadGeneralDetailedData();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             showErrorMessage("SmartFIS - Внимание!", jqXHR, errorThrown);
@@ -213,90 +209,80 @@ function loadGeneralData() {
 
     $("#tabs").tabs({ show: function (e, ui) {
         if (ui.index == 0) {
-            tabIndex = 0; mode = "";
+            tabIndex = 0;
+            /*mode = "";
             $("#timeZoneSelector").wijcombobox({
+            disabled: true
+            });
+            $("#country").wijcombobox({
+            disabled: true
+            });
+            //$("#userControls").hide();
+            $("#userControls").show();*/
+            //resizeAdmin();
+        }
+        //if (ui.index == 1 || ui.index == 2) {
+        if (ui.index == 2) {
+            $("#timeZoneSelector").wijcombobox("destroy");
+            $("#country").wijcombobox("destroy");
+            $("#lang_screen").wijcombobox("destroy");
+            $("#lang_report").wijcombobox("destroy");
+            $("#timeZoneSelector").wijcombobox({
+                showingAnimation: { effect: "blind" },
+                hidingAnimation: { effect: "blind" },
                 disabled: true
             });
             $("#country").wijcombobox({
+                showingAnimation: { effect: "blind" },
+                hidingAnimation: { effect: "blind" },
                 disabled: true
             });
-            /*$("#dealerSelector").wijcombobox({
-            disabled: true
-            });*/
-            //$("#userControls").hide();
-            $("#userControls").show();
-            resizeAdmin();
-        }
-        if (ui.index == 1 || ui.index == 2) {
-            if (tabIndex == 0) {
-                tabIndex = 1;
-                loadGeneralDetailedData();
-                $("#userControls").show();
-                resizeAdmin();
-            } else {
-                //resizeAdmin();
-            }
-            if (ui.index == 2) {
-                $("#timeZoneSelector").wijcombobox("destroy");
-                $("#country").wijcombobox("destroy");
-                $("#lang_screen").wijcombobox("destroy");
-                $("#lang_report").wijcombobox("destroy");
+            $("#lang_screen").wijcombobox({
+                showingAnimation: { effect: "blind" },
+                hidingAnimation: { effect: "blind" },
+                disabled: true
+            });
+            $("#lang_report").wijcombobox({
+                showingAnimation: { effect: "blind" },
+                hidingAnimation: { effect: "blind" },
+                disabled: true
+            });
+
+            if (mode == "edit" || mode == "create") {
                 $("#timeZoneSelector").wijcombobox({
-                    showingAnimation: { effect: "blind" },
-                    hidingAnimation: { effect: "blind" },
-                    disabled: true
+                    disabled: false
                 });
                 $("#country").wijcombobox({
-                    showingAnimation: { effect: "blind" },
-                    hidingAnimation: { effect: "blind" },
-                    disabled: true
+                    disabled: false
                 });
                 $("#lang_screen").wijcombobox({
-                    showingAnimation: { effect: "blind" },
-                    hidingAnimation: { effect: "blind" },
-                    disabled: true
+                    disabled: false
                 });
                 $("#lang_report").wijcombobox({
-                    showingAnimation: { effect: "blind" },
-                    hidingAnimation: { effect: "blind" },
-                    disabled: true
+                    disabled: false
                 });
-
-                if (mode == "edit" || mode == "create") {
-                    $("#timeZoneSelector").wijcombobox({
-                        disabled: false
-                    });
+                if ($("#country").attr("countryId") == 0) {
                     $("#country").wijcombobox({
-                        disabled: false
+                        selectedIndex: 0
                     });
+                }
+                if ($("#timeZoneSelector").attr("timeZoneId") == 0) {
+                    $("#timeZoneSelector").wijcombobox({
+                        selectedIndex: 0
+                    });
+                }
+                if ($("#lang_screen").attr("langId") == 0) {
                     $("#lang_screen").wijcombobox({
-                        disabled: false
+                        selectedIndex: 0
                     });
+                }
+                if ($("#lang_report").attr("langId") == 0) {
                     $("#lang_report").wijcombobox({
-                        disabled: false
+                        selectedIndex: 0
                     });
-                    if ($("#country").attr("countryId") == 0) {
-                        $("#country").wijcombobox({
-                            selectedIndex: 0
-                        });
-                    }
-                    if ($("#timeZoneSelector").attr("timeZoneId") == 0) {
-                        $("#timeZoneSelector").wijcombobox({
-                            selectedIndex: 0
-                        });
-                    }
-                    if ($("#lang_screen").attr("langId") == 0) {
-                        $("#lang_screen").wijcombobox({
-                            selectedIndex: 0
-                        });
-                    }
-                    if ($("#lang_report").attr("langId") == 0) {
-                        $("#lang_report").wijcombobox({
-                            selectedIndex: 0
-                        });
-                    }
                 }
             }
+            //}
         }
         return false;
     }
@@ -910,8 +896,8 @@ function loadUsersControls() {
     }
 
     $("#edit").click(function () {
-
         mode = "edit";
+        //$("#tabs").tabs({ selected: 1 });
         //loadUsersDetailedData();
         $("#userControls").show();
         resizeAdmin();
@@ -991,6 +977,7 @@ function loadUsersControls() {
 
     $("#create").click(function () {
         mode = "create";
+        $("#tabs").tabs({ selected: 1 });
         $("#startDatePicker").datepicker('enable');
         $("#endDatePicker").datepicker('enable');
 
@@ -1418,7 +1405,7 @@ function loadGeneralDetailedData() {
 
     $("#edit").click(function () {
         mode = "edit";
-
+        //$("#tabs").tabs({ selected: 1 });
         $("#timeZoneSelector").wijcombobox({
             disabled: false
         });
@@ -1476,7 +1463,7 @@ function loadGeneralDetailedData() {
 
     $("#create").click(function () {
         mode = "create";
-
+        //$("#tabs").tabs({ selected: 1 });
         $("#timeZoneSelector").wijcombobox({
             disabled: false,
             selectedIndex: 0
