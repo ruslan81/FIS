@@ -259,7 +259,7 @@ public class ReportDataSetLoader
     }
     public static DataSet Get_PLF_ALLData(List<int> dataBlockIds, DateTime from, DateTime to, int DriversCardId, int curUserId, ref List<PLFUnit.PLFRecord> records)
     {
-        string connectionString = ConfigurationSettings.AppSettings["fleetnetbaseConnectionString"];
+        string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
 
         PLFUnit.PLFUnitClass plf = new PLFUnit.PLFUnitClass();
@@ -274,7 +274,10 @@ public class ReportDataSetLoader
             PLFUnit.PLFUnitClass.FFT_Fuel(ref recordsToAproximate);
             plf.Records = recordsToAproximate;
         }
-        
+        else
+        {
+            throw new Exception("За указанный период нет данных");
+        }
 
         if (dataBlockIds.Count > 0)
             plf.installedSensors = dataBlock.plfUnitInfo.Get_InstalledSensors(dataBlockIds[0]);
@@ -287,7 +290,6 @@ public class ReportDataSetLoader
         else
         {
             throw new Exception("За указанный период нет данных");
-            //return null;
         }
 
         string vehRegNumber = dataBlock.plfUnitInfo.Get_VEHICLE(dataBlockIds[0]);

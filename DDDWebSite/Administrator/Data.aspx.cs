@@ -848,6 +848,9 @@ public partial class Administrator_Data : System.Web.UI.Page
 
         //hide combobox for drivers
         SelectPLFDriver.Visible = false;
+        FileList.Visible = false;
+
+        UploadPanel.Visible = true;
 
         try
         {
@@ -934,11 +937,26 @@ public partial class Administrator_Data : System.Web.UI.Page
         SelectPLFDriver.DataSource = cardNamesList;
         SelectPLFDriver.DataBind();
         SelectPLFDriver.Visible = true;
+
+        List<filenameAndBytesStruct> fileUpload = (List<filenameAndBytesStruct>)Session["FileUpload"];
+        string fileList = "";
+        foreach (filenameAndBytesStruct curFile in fileUpload)
+        {
+            fileList += curFile.filename;
+        }
+        FileList.Text = fileList;
+        FileList.Visible = true;
+
+        UploadPanel.Visible = false;
     }
 
     protected void Upload_PLFFile(object Sender, EventArgs e)
     {
         SelectPLFDriver.Visible = false;
+        FileList.Visible = false;
+
+        UploadPanel.Visible = true;
+
         string connectionString = ConfigurationManager.AppSettings["fleetnetbaseConnectionString"];
         DataBlock dataBlock = new DataBlock(connectionString, ConfigurationManager.AppSettings["language"]);
         try
@@ -982,6 +1000,10 @@ public partial class Administrator_Data : System.Web.UI.Page
         finally
         {
             SelectPLFDriver.Visible = false;
+            FileList.Visible = false;
+
+            UploadPanel.Visible = true;
+
             StatusUpdatePanel.Update();
         }
     }

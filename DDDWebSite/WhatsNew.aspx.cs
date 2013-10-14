@@ -15,6 +15,10 @@ public partial class WhatsNew : System.Web.UI.Page
 
             ReportLabel.Text = "";
 
+            ReportLabel.Text += Environment.NewLine + "-14.10.2013" + Environment.NewLine;
+            ReportLabel.Text += @"- 1. Исправлено замечание 1. Отображается имя файла, контролы показываются и скрываются там, где это необходимо." + Environment.NewLine;
+            ReportLabel.Text += @"- 2. Исправлено замечание 2. Пустой отчет и график не отображаются, показывается сообщение о том, что нет данных." + Environment.NewLine;
+
             ReportLabel.Text += Environment.NewLine + "-05.10.2013" + Environment.NewLine;
             ReportLabel.Text += @"- 1. Исправлено замечание 6. Кнопки управлени организациями доступны теперь из любой вкладки." + Environment.NewLine;
             ReportLabel.Text += @"- 2. Исправлено замечание 7. В деревьях теперь разворачиваются только необходимые ветки, ведущие к созданному объекту." + Environment.NewLine;

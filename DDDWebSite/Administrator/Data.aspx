@@ -311,16 +311,23 @@
         <div class="uploadPanel">
             <asp:UpdatePanel ID="UploadTestUpdatePanel" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
+                    <asp:Panel ID="UploadPanel" runat="server">
+                        <p>
+                            <b>
+                                <asp:Label ID="FileIploadLabel" runat="server" Text="Укажите файл для загрузки на сервер:" />
+                            </b>
+                        </p>
+                        <asp:FileUpload ID="MyFileUpload" runat="server" />
+                        <br />
+                        <br />
+                        <uc2:BlueButton ID="Upload_Button" Text="Отправить" runat="server" BtnWidth="150" />
+                        <br />
+                    </asp:Panel>
                     <p>
                         <b>
-                            <asp:Label ID="FileIploadLabel" runat="server" Text="Укажите файл для загрузки на сервер:" />
+                            <asp:Label ID="FileList" runat="server" Text="" Visible="false"/>
                         </b>
                     </p>
-                    <asp:FileUpload ID="MyFileUpload" runat="server" />
-                    <br />
-                    <br />
-                    <uc2:BlueButton ID="Upload_Button" Text="Отправить" runat="server" BtnWidth="150" />
-                    <br />
                     <asp:DropDownList runat="server" ID="SelectPLFDriver" Width="100%" Visible="false"
                         OnSelectedIndexChanged="Upload_PLFFile" AutoPostBack="true" />
                 </ContentTemplate>

@@ -353,7 +353,7 @@ public partial class Administrator_Report : System.Web.UI.Page
         dataBlock.OpenConnection();
 
         DateTime from = DateTime.Parse(StartDate);
-        DateTime to = DateTime.Parse(EndDate);        
+        DateTime to = DateTime.Parse(EndDate);
 
         DataSet dataset = new DataSet();
         List<int> dataBlockIDS = dataBlock.cardsTable.GetAllDataBlockIds_byCardId(cardID);
